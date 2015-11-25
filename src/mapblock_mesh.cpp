@@ -43,14 +43,7 @@ void MeshMakeData::fill(u32 daynight_ratio, MapBlock *block)
 	if (m_env)
 		m_vmanip.m_env = m_env;
 
-	v3s16 blockpos_nodes = m_blockpos*MAP_BLOCKSIZE;
-
-	/*
-		There is no harm not copying the TempMods of the neighbors
-		because they are already copied to this block
-	*/
-	m_temp_mods.clear();
-	block->copyTempMods(m_temp_mods);
+	m_blockpos_nodes = m_blockpos*MAP_BLOCKSIZE;
 
 	/*
 		Copy data
@@ -58,8 +51,8 @@ void MeshMakeData::fill(u32 daynight_ratio, MapBlock *block)
 
 	// Allocate this block + neighbors
 	m_vmanip.clear();
-	m_vmanip.addArea(VoxelArea(blockpos_nodes-v3s16(1,1,1)*MAP_BLOCKSIZE,
-			blockpos_nodes+v3s16(1,1,1)*MAP_BLOCKSIZE*2-v3s16(1,1,1)));
+	m_vmanip.addArea(VoxelArea(m_blockpos_nodes-v3s16(1,1,1)*MAP_BLOCKSIZE,
+			m_blockpos_nodes+v3s16(1,1,1)*MAP_BLOCKSIZE*2-v3s16(1,1,1)));
 
 	{
 		//TimeTaker timer("copy central block data");
@@ -91,7 +84,7 @@ void MeshMakeData::fill(u32 daynight_ratio, MapBlock *block)
 	}
 }
 
-static video::SColor blend_light(u32 data, u32 daylight_factor)
+video::SColor blend_light(u32 data, u32 daylight_factor)
 {
 	u8 type = (data>>24)&0xFF;
 	u8 a = 255;
@@ -131,7 +124,7 @@ static video::SColor blend_light(u32 data, u32 daylight_factor)
 	Gets node tile from any place relative to block.
 	Returns TILE_NODE if doesn't exist or should not be drawn.
 */
-TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, NodeModMap &temp_mods, NodeMetadata *meta)
+TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select, NodeMetadata *meta)
 {
 	TileSpec spec;
 	spec = mn.getTile(face_dir,false);
@@ -181,24 +174,26 @@ TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, NodeModMap &temp_mods,
 	}
 
 	if (f->draw_type == CDT_PLANTLIKE && f->plantgrowth_on_trellis) {
-		// Get original texture name
-		u32 orig_id = spec.texture.id;
-		std::string orig_name = g_texturesource->getTextureName(orig_id);
-		std::string texture_name("trellis.png");
+		if (!select.is_coloured && !select.has_crack) {
+			// Get original texture name
+			u32 orig_id = spec.texture.id;
+			std::string orig_name = g_texturesource->getTextureName(orig_id);
+			std::string texture_name("trellis.png");
 
-		if (f->param2_type != CPT_PLANTGROWTH || !mn.param2) {
-			texture_name += "^"+orig_name;
-		}else{
-			std::string bs("^[blit:0,");
-			bs += ftos(1.0-(0.0625*(float)mn.param2));
-			bs += ",1,1,";
-			// new name
-			texture_name += bs+orig_name;
+			if (f->param2_type != CPT_PLANTGROWTH || !mn.param2) {
+				texture_name += "^"+orig_name;
+			}else{
+				std::string bs("^[blit:0,");
+				bs += ftos(1.0-(0.0625*(float)mn.param2));
+				bs += ",1,1,";
+				// new name
+				texture_name += bs+orig_name;
+			}
+
+			// Get new texture
+			u32 new_id = g_texturesource->getTextureId(texture_name);
+			spec.texture = g_texturesource->getTexture(new_id);
 		}
-
-		// Get new texture
-		u32 new_id = g_texturesource->getTextureId(texture_name);
-		spec.texture = g_texturesource->getTexture(new_id);
 	}else if (f->draw_type == CDT_CUBELIKE && f->param2_type == CPT_PLANTGROWTH && face_dir.Y == 1) {
 		TileSpec bspec = spec;
 		spec = mn.getTile(v3s16(0,-1,0),false);
@@ -271,29 +266,26 @@ TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, NodeModMap &temp_mods,
 	}
 
 	/*
-		Check temporary modifications on this node
+		apply crack to this node
 	*/
-	NodeMod mod;
-	if (temp_mods.get(p, &mod)) {
-		if (mod == NODEMOD_CRACK) {
-			/*
-				Get texture id, translate it to name, append stuff to
-				name, get texture id
-			*/
+	if (select.has_crack) {
+		/*
+			Get texture id, translate it to name, append stuff to
+			name, get texture id
+		*/
 
-			// Get original texture name
-			u32 orig_id = spec.texture.id;
-			std::string orig_name = g_texturesource->getTextureName(orig_id);
+		// Get original texture name
+		u32 orig_id = spec.texture.id;
+		std::string orig_name = g_texturesource->getTextureName(orig_id);
 
-			// Create new texture name
-			std::ostringstream os;
-			os<<orig_name<<"^[crack"<<mod.param;
+		// Create new texture name
+		std::ostringstream os;
+		os<<orig_name<<"^[crack"<<select.crack;
 
-			// Get new texture
-			u32 new_id = g_texturesource->getTextureId(os.str());
+		// Get new texture
+		u32 new_id = g_texturesource->getTextureId(os.str());
 
-			spec.texture = g_texturesource->getTexture(new_id);
-		}
+		spec.texture = g_texturesource->getTexture(new_id);
 	}
 
 	return spec;
@@ -303,37 +295,10 @@ TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, NodeModMap &temp_mods,
 	Gets node meta tile from any place relative to block.
 	Returns TILE_NODE if doesn't exist or should not be drawn.
 */
-TileSpec getMetaTile(MapNode mn, v3s16 p, v3s16 face_dir,
-		NodeModMap &temp_mods)
+TileSpec getMetaTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select)
 {
 	TileSpec spec;
 	spec = mn.getMetaTile(face_dir);
-
-	/*
-		Check temporary modifications on this node
-	*/
-	NodeMod mod;
-	if (temp_mods.get(p, &mod)) {
-		if (mod == NODEMOD_CRACK) {
-			/*
-				Get texture id, translate it to name, append stuff to
-				name, get texture id
-			*/
-
-			// Get original texture name
-			u32 orig_id = spec.texture.id;
-			std::string orig_name = g_texturesource->getTextureName(orig_id);
-
-			// Create new texture name
-			std::ostringstream os;
-			os<<orig_name<<"^[crack"<<mod.param;
-
-			// Get new texture
-			u32 new_id = g_texturesource->getTextureId(os.str());
-
-			spec.texture = g_texturesource->getTexture(new_id);
-		}
-	}
 
 	return spec;
 }
@@ -428,10 +393,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 	BEGIN_DEBUG_EXCEPTION_HANDLER
 
-	data->m_blockpos_nodes = data->m_blockpos*MAP_BLOCKSIZE;
 	data->m_smooth_lighting = g_settings->getBool("smooth_lighting");
-	bool selected = false;
 	m_pos = data->m_blockpos;
+	SelectedNode selected;
 
 	for(s16 z=0; z<MAP_BLOCKSIZE; z++)
 	for(s16 y=0; y<MAP_BLOCKSIZE; y++)
@@ -440,9 +404,6 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 		v3s16 p(x,y,z);
 
 		MapNode n = data->m_vmanip.getNodeNoEx(data->m_blockpos_nodes+p);
-		NodeMod mod;
-		data->m_temp_mods.get(p,&mod);
-		selected = (mod == NODEMOD_SELECTION);
 
 		if (g_sound) {
 			std::string snd = content_features(n).sound_ambient;
@@ -492,7 +453,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 				data->m_sounds->erase(i);
 			}
 		}
-		if (data->m_smooth_lighting && !selected)
+		if (data->m_smooth_lighting && !selected.is_coloured)
 			meshgen_preset_smooth_lights(data,p);
 		switch (content_features(n).draw_type) {
 		case CDT_AIRLIKE:

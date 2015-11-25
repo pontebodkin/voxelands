@@ -1322,8 +1322,10 @@ void ServerEnvironment::step(float dtime)
 							}else if (content_features(testnode).draw_type == CDT_MELONLIKE) {
 								if (content_features(testnode).param2_type == CPT_PLANTGROWTH)
 									plantgrowth_plant(this,test_p);
+							}else if (testnode.getContent() == CONTENT_CACTUS) {
+								plantgrowth_cactus(this,test_p);
 							}else if (testnode.getContent() == CONTENT_FERTILIZER) {
-									plantgrowth_fertilizer(this,test_p);
+								plantgrowth_fertilizer(this,test_p);
 							}else if (testnode.getContent() == CONTENT_AIR) {
 								int chance = 5;
 								if (water_found == 1)
@@ -1439,17 +1441,6 @@ void ServerEnvironment::step(float dtime)
 									n.setContent(CONTENT_MUDSNOW);
 									m_map->addNodeWithEvent(p, n);
 								}
-							}else if (
-								(
-									season == ENV_SEASON_WINTER
-									|| season == ENV_SEASON_AUTUMN
-								) && (
-									m_time%60 > 10
-									|| myrand_range(0,10) == 0
-								)
-							) {
-								n.setContent(CONTENT_GRASS_AUTUMN);
-								m_map->addNodeWithEvent(p, n);
 							}else if (
 								(
 									season == ENV_SEASON_WINTER

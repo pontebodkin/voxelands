@@ -54,6 +54,7 @@
 #endif
 #include "hud.h"
 #include "sky.h"
+#include "selection_mesh.h"
 
 /*
 	TODO: Move content-aware stuff to separate file by adding properties
@@ -862,7 +863,6 @@ void the_game(
 
 	float nodig_delay_counter = 0.0;
 	float dig_time = 0.0;
-	u16 dig_index = 0;
 	v3s16 nodepos_old(-32768,-32768,-32768);
 
 	float use_delay_counter = 0.5;
@@ -899,6 +899,7 @@ void the_game(
 
 	bool has_selected_node = false;
 	v3s16 selected_node_pos = v3s16(0,0,0);
+	u32 selected_node_crack = 0;
 
 	/*
 		Main loop
@@ -1577,11 +1578,6 @@ void the_game(
 				client.setPointedContent(selected_active_object->getContent());
 				/* Clear possible cracking animation */
 				if (nodepos_old != v3s16(-32768,-32768,-32768)) {
-					client.clearTempMod(nodepos_old);
-					MapNode nn = client.getNode(nodepos_old);
-					v3s16 aa = content_features(nn).onact_also_affects;
-					if (aa != v3s16(0,0,0))
-						client.clearTempMod(nodepos_old+nn.getEffectedRotation());
 					dig_time = 0.0;
 					nodepos_old = v3s16(-32768,-32768,-32768);
 				}
@@ -1644,30 +1640,20 @@ void the_game(
 
 				if (!nodefound) {
 					if (nodepos_old != v3s16(-32768,-32768,-32768)) {
-						client.clearTempMod(nodepos_old);
-						MapNode nn = client.getNode(nodepos_old);
-						v3s16 aa = content_features(nn).onact_also_affects;
-						if (aa != v3s16(0,0,0))
-							client.clearTempMod(nodepos_old+nn.getEffectedRotation());
 						dig_time = 0.0;
 						nodepos_old = v3s16(-32768,-32768,-32768);
 					}
 					has_selected_node = false;
 				}else{
 					has_selected_node = true;
+					if (nodepos != selected_node_pos)
+						selected_node_crack = 0;
 					selected_node_pos = nodepos;
 
 					/*
 						Check information text of node
 					*/
 
-					if (nodepos != nodepos_old && nodepos_old != v3s16(-32768,-32768,-32768)) {
-						client.clearTempMod(nodepos_old);
-						MapNode nn = client.getNode(nodepos_old);
-						v3s16 aa = content_features(nn).onact_also_affects;
-						if (aa != v3s16(0,0,0))
-							client.clearTempMod(nodepos_old+nn.getEffectedRotation());
-					}
 					NodeMetadata *meta = client.getNodeMetadata(nodepos);
 					if (meta)
 						infotext = meta->infoText();
@@ -1676,27 +1662,14 @@ void the_game(
 						Handle digging
 					*/
 
-					if (input->getLeftReleased()) {
-						client.clearTempMod(nodepos);
-						MapNode nn = client.getNode(nodepos);
-						v3s16 aa = content_features(nn).onact_also_affects;
-						if (aa != v3s16(0,0,0))
-							client.clearTempMod(nodepos+nn.getEffectedRotation());
+					if (input->getLeftReleased())
 						dig_time = 0.0;
-					}
 					/*
 						Visualize selection
 					*/
 
-					if (highlight_selected_node) {
-						client.setTempMod(nodepos, NodeMod(NODEMOD_SELECTION));
-						MapNode nn = client.getNode(nodepos);
-						v3s16 aa = content_features(nn).onact_also_affects;
-						if (aa != v3s16(0,0,0))
-							client.setTempMod(nodepos+nn.getEffectedRotation(),NodeMod(NODEMOD_SELECTION));
-					}else{
+					if (!highlight_selected_node)
 						hilightboxes.push_back(nodehilightbox);
-					}
 
 					if (nodig_delay_counter > 0.0) {
 						nodig_delay_counter -= dtime;
@@ -1706,11 +1679,6 @@ void the_game(
 									<<nodepos.Y<<","<<nodepos.Z<<")"<<std::endl;
 
 							if (nodepos_old != v3s16(-32768,-32768,-32768)) {
-								client.clearTempMod(nodepos_old);
-								MapNode nn = client.getNode(nodepos_old);
-								v3s16 aa = content_features(nn).onact_also_affects;
-								if (aa != v3s16(0,0,0))
-									client.clearTempMod(nodepos_old+nn.getEffectedRotation());
 								dig_time = 0.0;
 								nodepos_old = v3s16(-32768,-32768,-32768);
 							}
@@ -1721,7 +1689,7 @@ void the_game(
 							client.groundAction(0, nodepos, neighbourpos, g_selected_item);
 						}
 						if (input->getLeftClicked())
-							client.setTempMod(nodepos, NodeMod(NODEMOD_CRACK, 0));
+							selected_node_crack = 0;
 						if (input->getLeftState()) {
 							MapNode n = client.getNode(nodepos);
 
@@ -1747,42 +1715,29 @@ void the_game(
 
 							if (prop.diggable == false) {
 								dig_time_complete = 10000000.0;
-								client.clearTempMod(nodepos);
-								MapNode nn = client.getNode(nodepos);
-								v3s16 aa = content_features(nn).onact_also_affects;
-								if (aa != v3s16(0,0,0))
-									client.clearTempMod(nodepos+nn.getEffectedRotation());
 							}else{
 								dig_time_complete = prop.time;
 								if (enable_particles)
 									addPunchingParticles(smgr, player, nodepos, content_features(n).tiles);
 
 								if (dig_time_complete >= 0.001) {
-									dig_index = (u16)((float)CRACK_ANIMATION_LENGTH
+									selected_node_crack = (u16)((float)CRACK_ANIMATION_LENGTH
 											* dig_time/dig_time_complete);
 								}else {
 									// This is for torches
-									dig_index = CRACK_ANIMATION_LENGTH;
+									selected_node_crack = CRACK_ANIMATION_LENGTH;
 								}
 
-								if (dig_index < CRACK_ANIMATION_LENGTH) {
-									client.setTempMod(nodepos, NodeMod(NODEMOD_CRACK, dig_index));
-								}else{
+								if (selected_node_crack >= CRACK_ANIMATION_LENGTH) {
 									infostream<<"Digging completed"<<std::endl;
 									client.groundAction(3, nodepos, neighbourpos, g_selected_item);
-									client.clearTempMod(nodepos);
+									selected_node_crack = 0;
 									client.removeNode(nodepos);
-									{
-										MapNode nn = client.getNode(nodepos);
-										v3s16 aa = content_features(nn).onact_also_affects;
-										if (aa != v3s16(0,0,0))
-											client.clearTempMod(nodepos+nn.getEffectedRotation());
-									}
 
 									if (enable_particles)
 										addDiggingParticles(smgr, player, nodepos, content_features(n).tiles);
 
-									dig_time = 0;
+									dig_time = 0.0;
 
 									nodig_delay_counter = dig_time_complete
 											/ (float)CRACK_ANIMATION_LENGTH;
@@ -1867,15 +1822,15 @@ void the_game(
 			} // selected_object == NULL
 		}
 
+		use_delay_counter -= dtime;
+
 		// this lets us hold down use to eat, and limits to 2 items per second
 		if (input->wasKeyDown(getKeySetting(VLKC_USE))) {
-			use_delay_counter += dtime;
-			if (use_delay_counter > 0.5) {
+			if (use_delay_counter <= 0.0) {
 				client.useItem();
-				use_delay_counter -= 0.5;
+				/* TODO: this should come from content*_features */
+				use_delay_counter = 1.0;
 			}
-		}else{
-			use_delay_counter = 0.5;
 		}
 
 		if (left_punch || (input->getLeftClicked() && !left_punch_muted))
@@ -2206,24 +2161,44 @@ void the_game(
 
 		{
 
-		video::SMaterial m;
-		//m.Thickness = 10;
-		m.Thickness = 3;
-		m.Lighting = false;
-		driver->setMaterial(m);
-
 		driver->setTransform(video::ETS_WORLD, core::IdentityMatrix);
 
 		if (show_hud) {
-			for (core::list<aabb3f>::Iterator i=hilightboxes.begin(); i != hilightboxes.end(); i++) {
-				driver->draw3DBox(*i, video::SColor(255,0,0,0));
+			/* TODO: this should get nodes from the client, for other players' cracks */
+			std::vector<SelectedNode> selected_nodes;
+			if (has_selected_node) {
+				MapNode snode = client.getEnv().getMap().getNodeNoEx(selected_node_pos,NULL);
+				selected_nodes.push_back(
+					SelectedNode(selected_node_pos,selected_node_crack,highlight_selected_node,snode.getContent())
+				);
+				MapNode nn = client.getNode(selected_node_pos);
+				v3s16 aa = content_features(nn).onact_also_affects;
+				if (aa != v3s16(0,0,0)) {
+					v3s16 spos = selected_node_pos+nn.getEffectedRotation();
+					snode = client.getEnv().getMap().getNodeNoEx(spos,NULL);
+					selected_nodes.push_back(
+						SelectedNode(spos,selected_node_crack,highlight_selected_node,snode.getContent())
+					);
+				}
 			}
-		}
 
-		/*
-			Wielded tool
-		*/
-		if (show_hud) {
+			if (selected_nodes.size() > 0)
+				selection_draw(driver,client,camera.getOffset(),selected_nodes);
+
+			/* draw old-style selection boxes */
+			if (hilightboxes.size()) {
+				video::SMaterial m;
+				m.Thickness = 3;
+				m.Lighting = false;
+				driver->setMaterial(m);
+				for (core::list<aabb3f>::Iterator i=hilightboxes.begin(); i != hilightboxes.end(); i++) {
+					driver->draw3DBox(*i, video::SColor(255,0,0,0));
+				}
+			}
+
+			/*
+				Wielded tool
+			*/
 			// Warning: This clears the Z buffer.
 			camera.drawWieldedTool();
 		}
