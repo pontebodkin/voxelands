@@ -752,6 +752,10 @@ video::ITexture* RemotePlayer::getTexture()
 LocalPlayer::LocalPlayer():
 	energy_effectf(0.0),
 	cold_effectf(0.0),
+	last_position(v3f(0,0,0)),
+	last_speed(v3f(0,0,0)),
+	last_pitch(0),
+	last_yaw(0),
 	m_sneak_node(32767,32767,32767),
 	m_sneak_node_exists(false),
 	m_can_use_energy(true),

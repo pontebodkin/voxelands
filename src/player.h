@@ -547,6 +547,11 @@ public:
 
 	float energy_effectf;
 	float cold_effectf;
+	// Used to check if anything changed and prevent sending packets if not
+	v3f last_position;
+	v3f last_speed;
+	float last_pitch;
+	float last_yaw;
 
 private:
 	// This is used for determining the sneaking range

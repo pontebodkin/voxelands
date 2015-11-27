@@ -2262,12 +2262,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		}
 	}
 	break;
-	case TOSERVER_CLICK_OBJECT:
-	{
-		infostream<<"Server: CLICK_OBJECT not supported anymore"<<std::endl;
-		return;
-	}
-	break;
 	case TOSERVER_CLICK_ACTIVEOBJECT:
 	{
 		if (datasize < 7)
@@ -4192,13 +4186,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		return;
 	}
 	break;
-	case TOSERVER_SIGNNODETEXT:
-	{
-		infostream<<"Server: TOSERVER_SIGNNODETEXT not supported anymore"
-				<<std::endl;
-		return;
-	}
-	break;
 	case TOSERVER_INVENTORY_ACTION:
 	{
 		// Strip command and create a stream
@@ -4492,24 +4479,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				SendChatMessage(client->peer_id, line);
 			}
-		}
-	}
-	break;
-	case TOSERVER_DAMAGE:
-	{
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-		u8 damage = readU8(is);
-		infostream<<"TOSERVER_DAMAGE: using deprecated command"<<std::endl;
-
-		if (g_settings->getBool("enable_damage")) {
-			actionstream<<player->getName()<<" damaged by "
-					<<(int)damage<<" hp at "<<PP(player->getPosition()/BS)
-					<<std::endl;
-
-			HandlePlayerHP(player, damage, 0, 0);
-		}else{
-			SendPlayerHP(player);
 		}
 	}
 	break;
