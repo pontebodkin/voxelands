@@ -768,105 +768,6 @@ queue_full_break:
 		infostream<<"GetNextBlocks duration: "<<timer_result<<" (!=0)"<<std::endl;*/
 }
 
-void RemoteClient::SendObjectData(
-		Server *server,
-		float dtime,
-		core::map<v3s16, bool> &stepped_blocks
-	)
-{
-	DSTACK(__FUNCTION_NAME);
-
-	// Can't send anything without knowing version
-	if(serialization_version == SER_FMT_VER_INVALID)
-	{
-		infostream<<"RemoteClient::SendObjectData(): Not sending, no version."
-				<<std::endl;
-		return;
-	}
-
-	/*
-		Send a TOCLIENT_OBJECTDATA packet.
-		Sent as unreliable.
-
-		u16 command
-		u16 number of player positions
-		for each player:
-			u16 peer_id
-			v3s32 position*100
-			v3s32 speed*100
-			s32 pitch*100
-			s32 yaw*100
-		u16 count of blocks
-		for each block:
-			block objects
-	*/
-
-	std::ostringstream os(std::ios_base::binary);
-	u8 buf[12];
-
-	// Write command
-	writeU16(buf, TOCLIENT_OBJECTDATA);
-	os.write((char*)buf, 2);
-
-	/*
-		Get and write player data
-	*/
-
-	// Get connected players
-	core::list<Player*> players = server->m_env.getPlayers(true);
-
-	// Write player count
-	u16 playercount = players.size();
-	writeU16(buf, playercount);
-	os.write((char*)buf, 2);
-
-	core::list<Player*>::Iterator i;
-	for(i = players.begin();
-			i != players.end(); i++)
-	{
-		Player *player = *i;
-
-		v3f pf = player->getPosition();
-		v3f sf = player->getSpeed();
-
-		v3s32 position_i(pf.X*100, pf.Y*100, pf.Z*100);
-		v3s32 speed_i   (sf.X*100, sf.Y*100, sf.Z*100);
-		s32   pitch_i   (player->getPitch() * 100);
-		s32   yaw_i     (player->getYaw() * 100);
-
-		writeU16(buf, player->peer_id);
-		os.write((char*)buf, 2);
-		writeV3S32(buf, position_i);
-		os.write((char*)buf, 12);
-		writeV3S32(buf, speed_i);
-		os.write((char*)buf, 12);
-		writeS32(buf, pitch_i);
-		os.write((char*)buf, 4);
-		writeS32(buf, yaw_i);
-		os.write((char*)buf, 4);
-	}
-
-	/*
-		Get and write object data (dummy, for compatibility)
-	*/
-
-	// Write block count
-	writeU16(buf, 0);
-	os.write((char*)buf, 2);
-
-	/*
-		Send data
-	*/
-
-	//infostream<<"Server: Sending object data to "<<peer_id<<std::endl;
-
-	// Make data buffer
-	std::string s = os.str();
-	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
-	// Send as unreliable
-	server->m_con.Send(peer_id, 0, data, false);
-}
-
 void RemoteClient::GotBlock(v3s16 p)
 {
 	if(m_blocks_sending.find(p) != NULL)
@@ -1709,7 +1610,7 @@ void Server::AsyncRunStep()
 
 			//ScopeProfiler sp(g_profiler, "Server: sending player positions");
 
-			SendObjectData(counter);
+			SendPlayerInfo(counter);
 
 			counter = 0.0;
 		}
@@ -4963,32 +4864,49 @@ void Server::SendDeathscreen(con::Connection &con, u16 peer_id,
 	Non-static send methods
 */
 
-void Server::SendObjectData(float dtime)
+void Server::SendPlayerInfo(float dtime)
 {
 	DSTACK(__FUNCTION_NAME);
 
-	core::map<v3s16, bool> stepped_blocks;
+	std::ostringstream os(std::ios_base::binary);
+	u8 buf[12];
 
-	for(core::map<u16, RemoteClient*>::Iterator
-		i = m_clients.getIterator();
-		i.atEnd() == false; i++)
-	{
-		u16 peer_id = i.getNode()->getKey();
-		RemoteClient *client = i.getNode()->getValue();
-		assert(client->peer_id == peer_id);
+	// Write command
+	writeU16(buf, TOCLIENT_PLAYERINFO);
+	os.write((char*)buf, 2);
 
-		if(client->serialization_version == SER_FMT_VER_INVALID)
-			continue;
+	// Get connected players
+	core::list<Player*> players = m_env.getPlayers(true);
 
-		client->SendObjectData(this, dtime, stepped_blocks);
+	// players ignore their own data, so don't bother sending for one player
+	if (players.size() < 2)
+		return;
+
+	// Write player count
+	u16 playercount = players.size();
+	writeU16(buf, playercount);
+	os.write((char*)buf, 2);
+
+	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
+		Player *player = *i;
+
+		writeU16(os, player->peer_id);
+		writeV3F1000(os, player->getPosition());
+		writeV3F1000(os, player->getSpeed());
+		writeF1000(os, player->getPitch());
+		writeF1000(os, player->getYaw());
 	}
+
+	// Make data buffer
+	std::string s = os.str();
+	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
+	// Send as unreliable
+	m_con.SendToAll(0, data, false);
 }
 
 void Server::SendPlayerInfos()
 {
 	DSTACK(__FUNCTION_NAME);
-
-	//JMutexAutoLock envlock(m_env_mutex);
 
 	// Get connected players
 	core::list<Player*> players = m_env.getPlayers(true);
