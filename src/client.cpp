@@ -1329,17 +1329,6 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		}
 	}
 	break;
-	case TOCLIENT_HP:
-	{
-		infostream<<"Client received DEPRECATED TOCLIENT_HP"<<std::endl;
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-		Player *player = m_env.getLocalPlayer();
-		assert(player != NULL);
-		u8 hp = readU8(is);
-		player->hp = hp;
-	}
-	break;
 	case TOCLIENT_MOVE_PLAYER:
 	{
 		std::string datastring((char*)&data[2], datasize-2);
@@ -1863,20 +1852,28 @@ void Client::sendRespawn()
 
 void Client::sendPlayerPos()
 {
-	//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
-
-	Player *myplayer = m_env.getLocalPlayer();
-	if(myplayer == NULL)
+	LocalPlayer *myplayer = m_env.getLocalPlayer();
+	if (myplayer == NULL)
 		return;
 
-	u16 our_peer_id;
-	{
-		//JMutexAutoLock lock(m_con_mutex); //bulk comment-out
-		our_peer_id = m_con.GetPeerID();
-	}
+	// Save bandwidth by only updating position when something changed
+	if (
+		myplayer->last_position == myplayer->getPosition()
+		&& myplayer->last_speed == myplayer->getSpeed()
+		&& myplayer->last_pitch == myplayer->getPitch()
+		&& myplayer->last_yaw == myplayer->getYaw()
+	)
+		return;
+
+	myplayer->last_position = myplayer->getPosition();
+	myplayer->last_speed = myplayer->getSpeed();
+	myplayer->last_pitch = myplayer->getPitch();
+	myplayer->last_yaw = myplayer->getYaw();
+
+	u16 our_peer_id = m_con.GetPeerID();
 
 	// Set peer id if not set already
-	if(myplayer->peer_id == PEER_ID_INEXISTENT)
+	if (myplayer->peer_id == PEER_ID_INEXISTENT)
 		myplayer->peer_id = our_peer_id;
 	// Check that an existing peer_id is the same as the connection's
 	assert(myplayer->peer_id == our_peer_id);
