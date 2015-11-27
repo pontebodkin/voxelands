@@ -1834,6 +1834,12 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			return;
 		}
 
+		/* these people piss me off, so let's piss them off */
+		if (!strncmp(playername,"player",6) && strlen(playername) > 6) {
+			SendAccessDenied(m_con, peer_id, L"Your client is too old. Please upgrade.");
+			return;
+		}
+
 		// Get password
 		char password[PASSWORD_SIZE];
 		if (datasize < 2+1+PLAYERNAME_SIZE+PASSWORD_SIZE) {
