@@ -68,12 +68,18 @@ enum ToClientCommand
 		u8 enable_hunger
 	*/
 
-	TOCLIENT_PLAYERINFO = 0x24, // deprecated, see TOCLIENT_PLAYERDATA
+	TOCLIENT_PLAYERINFO = 0x24,
 	/*
-		[0] u16 command
+		Sent as unreliable.
+
+		u16 command
+		u16 number of player positions
 		for each player:
 			u16 peer_id
-			char[20] name
+			v3F1000 position
+			v3F1000 speed
+			F1000 pitch
+			F1000 yaw
 	*/
 
 	TOCLIENT_PLAYER_ANIMATION = 0x25,
@@ -97,7 +103,7 @@ enum ToClientCommand
 		[2] serialized inventory
 	*/
 
-	TOCLIENT_OBJECTDATA = 0x28,
+	TOCLIENT_OBJECTDATA = 0x28, // deprecated, see TOCLIENT_PLAYERINFO
 	/*
 		Sent as unreliable.
 
@@ -178,15 +184,6 @@ enum ToClientCommand
 	*/
 
 	TOCLIENT_PLAYERITEM = 0x36, // Obsolete, see TOCLIENT_PLAYERITEMS
-	/*
-		u16 command
-		u16 count of player items
-		for all player items {
-			u16 peer id
-			u16 length of serialized item
-			string serialized item
-		}
-	*/
 
 	TOCLIENT_DEATHSCREEN = 0x37,
 	/*

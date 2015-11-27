@@ -273,17 +273,6 @@ public:
 	void GetNextBlocks(Server *server, float dtime,
 			core::array<PrioritySortedBlockTransfer> &dest);
 
-	/*
-		Connection and environment should be locked when this is called.
-		steps() objects of blocks not found in active_blocks, then
-		adds those blocks to active_blocks
-	*/
-	void SendObjectData(
-			Server *server,
-			float dtime,
-			core::map<v3s16, bool> &stepped_blocks
-		);
-
 	void GotBlock(v3s16 p);
 
 	void SentBlock(v3s16 p);
@@ -509,7 +498,7 @@ private:
 	*/
 
 	// Envlock and conlock should be locked when calling these
-	void SendObjectData(float dtime);
+	void SendPlayerInfo(float dtime);
 	void SendPlayerInfos();
 	void SendInventory(u16 peer_id, bool full=false);
 	// send animation info about player to all
