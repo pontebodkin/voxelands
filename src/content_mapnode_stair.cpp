@@ -217,7 +217,7 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_STAIRLIKE;
 	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_stairud(f);
 	f->setInventoryTextureNodeBox(i,"cobble.png", "cobble.png", "cobble.png");
 	f->type = CMT_STONE;
