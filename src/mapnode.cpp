@@ -139,6 +139,7 @@ void ContentFeatures::setInventoryTexture(std::string imgname)
 	imgname += "^[forcesingle";
 
 	inventory_texture = g_texturesource->getTextureRaw(imgname);
+	inventory_texture_name = imgname;
 }
 
 void ContentFeatures::setInventoryTextureCube(std::string top,
@@ -159,6 +160,7 @@ void ContentFeatures::setInventoryTextureCube(std::string top,
 	imgname_full += "{";
 	imgname_full += right;
 	inventory_texture = g_texturesource->getTextureRaw(imgname_full);
+	inventory_texture_name = imgname_full;
 }
 
 void ContentFeatures::setInventoryTextureNodeBox(content_t c, std::string top,
@@ -184,6 +186,7 @@ void ContentFeatures::setInventoryTextureNodeBox(content_t c, std::string top,
 	imgname_full += "{";
 	imgname_full += right;
 	inventory_texture = g_texturesource->getTextureRaw(imgname_full);
+	inventory_texture_name = imgname_full;
 }
 #endif
 
