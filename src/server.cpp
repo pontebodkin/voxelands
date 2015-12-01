@@ -3306,7 +3306,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						u16 data = 0;
 						if (selected_node_features.param_type == CPT_MINERAL)
 							data = selected_node.param1;
-						item = InventoryItem::create(selected_content,1,data);
+						item = InventoryItem::create(selected_content,1,0,data);
 					}else if (
 						wielded_tool_features.type != TT_NONE
 						&& enchantment_have(wielditem->getData(),ENCHANTMENT_FLAME)
