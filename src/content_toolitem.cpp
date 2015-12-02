@@ -140,8 +140,15 @@ DiggingProperties getDiggingProperties(content_t content, u8 mineral, content_t 
 				}
 				break;
 			case ENCHANTMENT_LONGLASTING:
-				wear -= wp*(info.level+1);
+			{
+				f32 w = wp*(info.level+1);
+				if (w >= wear+1) {
+					wear = 1;
+				}else{
+					wear -= w;
+				}
 				break;
+			}
 			case ENCHANTMENT_FLAME:
 				wear *= 2.5;
 				break;
