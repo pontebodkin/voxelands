@@ -152,8 +152,8 @@ DiggingProperties getDiggingProperties(content_t content, u8 mineral, content_t 
 		}
 		if (time < 0.01)
 			time = 0.01;
-		if (wear < 0.1)
-			wear = 0.1;
+		if (wear < 1.0)
+			wear = 1.0;
 	}
 
 	return DiggingProperties(diggable,time,wear);
