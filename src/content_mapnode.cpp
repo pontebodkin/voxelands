@@ -260,7 +260,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->flammable = 2; // can be set on fire
-	f->fuel_time = 100;
+	f->fuel_time = 400;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -277,7 +277,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->flammable = 2; // can be set on fire
-	f->fuel_time = 100;
+	f->fuel_time = 400;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
