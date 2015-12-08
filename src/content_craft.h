@@ -29,11 +29,13 @@
 #include "inventory.h"
 
 class Player;
+class Server;
 
 struct CraftDef {
 	content_t recipe[9];
 	content_t result;
 	u16 result_count;
+	uint64_t privs;
 
 	bool operator==(InventoryItem * const *items)
 	{
@@ -125,6 +127,7 @@ struct CraftDefShapeless {
 	content_t recipe[9];
 	content_t result;
 	u16 result_count;
+	uint64_t privs;
 
 	bool operator==(InventoryItem * const *items)
 	{
@@ -170,8 +173,8 @@ namespace crafting {
 	void initCrafting();
 
 	// add recipes
-	void setRecipe(u16 recipe[9], u16 result, u16 count);
-	void setShapelessRecipe(u16 recipe[9], u16 result, u16 count);
+	void setRecipe(u16 recipe[9], u16 result, u16 count, uint64_t privs = 0);
+	void setShapelessRecipe(u16 recipe[9], u16 result, u16 count, uint64_t privs = 0);
 
 	// shortcuts
 	// one input yields one result
@@ -277,7 +280,7 @@ namespace crafting {
 	// pants recipe 5 input in an upside-down V yields one result
 	void setShortsRecipe(u16 input, u16 result);
 
-	InventoryItem *getResult(InventoryItem **items);
+	InventoryItem *getResult(InventoryItem **items, Player *player, Server *server);
 	content_t *getRecipe(InventoryItem *item);
 	content_t *getRecipe(InventoryItem *item, int i);
 	int getResultCount(InventoryItem *item);
