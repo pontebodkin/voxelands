@@ -3345,7 +3345,8 @@ bool ForgeNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 				return false;
 
 			// Get result of crafting grid
-			InventoryItem *result = crafting::getResult(items);
+			/* TODO: player/server args */
+			InventoryItem *result = crafting::getResult(items,NULL,NULL);
 			if (!result)
 				return false;
 			if (rlist->itemFits(0,result))
@@ -3390,7 +3391,8 @@ bool ForgeNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 				return false;
 
 			// Get result of crafting grid
-			InventoryItem *result = crafting::getResult(items);
+			/* TODO: player/server args */
+			InventoryItem *result = crafting::getResult(items,NULL,NULL);
 			if (!result)
 				return false;
 

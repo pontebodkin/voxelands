@@ -2497,9 +2497,18 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (!wielded_tool_features.has_punch_effect)
 				return;
 			// KEY
-			if (wielded_tool_features.has_unlock_effect && selected_node_features.alternate_lockstate_node != CONTENT_IGNORE) {
+			if (
+				wielded_tool_features.has_unlock_effect
+				&& (
+					selected_node_features.alternate_lockstate_node != CONTENT_IGNORE
+					|| (
+						wielded_tool_features.has_super_unlock_effect
+						&& selected_content == CONTENT_BORDERSTONE
+					)
+				)
+			) {
 				NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
-				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0) {
+				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0 && !wielded_tool_features.has_super_unlock_effect) {
 					// non-admins can't unlock other players things
 					if (meta && meta->getOwner() != player->getName()) {
 						if (meta->getOwner() != "")
@@ -2508,29 +2517,42 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					if (borderstone_locked)
 						return;
 				}
-				content_t c = selected_node_features.alternate_lockstate_node;
 				NodeMetadata *ometa = NULL;
-				if (meta) {
-					if (meta->getEnergy())
-						return;
-					ometa = meta->clone();
-				}
-				selected_node.setContent(c);
-				// send the node
 				core::list<u16> far_players;
 				core::map<v3s16, MapBlock*> modified_blocks;
-				sendAddNode(p_under, selected_node, 0, &far_players, 30);
-				// wear out the key - admin's key doesn't wear
-				ToolItem *titem = (ToolItem*)wielditem;
-				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0 && g_settings->getBool("tool_wear")) {
-					bool weared_out = titem->addWear(10000);
-					InventoryList *mlist = player->inventory.getList("main");
-					if (weared_out) {
-						mlist->deleteItem(item_i);
-					}else{
-						mlist->addDiff(item_i,titem);
+				if (selected_content == CONTENT_BORDERSTONE) {
+					if (!wielded_tool_features.has_super_unlock_effect)
+						return;
+					selected_node.setContent(CONTENT_STONE);
+					m_env.getMap().removeNodeMetadata(p_under);
+					// send the node
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+				}else{
+					content_t c = selected_node_features.alternate_lockstate_node;
+					if (meta) {
+						if (meta->getEnergy())
+							return;
+						ometa = meta->clone();
 					}
-					SendInventory(player->peer_id);
+					selected_node.setContent(c);
+					// send the node
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+					// wear out the key - admin's key doesn't wear
+					ToolItem *titem = (ToolItem*)wielditem;
+					if (
+						!wielded_tool_features.has_super_unlock_effect
+						&& (getPlayerPrivs(player) & PRIV_SERVER) == 0
+						&& g_settings->getBool("tool_wear")
+					) {
+						bool weared_out = titem->addWear(10000);
+						InventoryList *mlist = player->inventory.getList("main");
+						if (weared_out) {
+							mlist->deleteItem(item_i);
+						}else{
+							mlist->addDiff(item_i,titem);
+						}
+						SendInventory(player->peer_id);
+					}
 				}
 				// the slow add to map
 				{
@@ -5643,7 +5665,7 @@ void Server::UpdateCrafting(u16 peer_id)
 			}
 
 			// Get result of crafting grid
-			InventoryItem *result = crafting::getResult(items);
+			InventoryItem *result = crafting::getResult(items,player,this);
 			if (result)
 				rlist->addItem(result);
 		}

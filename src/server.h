@@ -445,6 +445,8 @@ public:
 	core::list<Player*> getPlayers() {return m_env.getPlayers();}
 	core::list<Player*> getPlayers(bool ign_disconnected) {return m_env.getPlayers(ign_disconnected);}
 
+	uint64_t getPlayerPrivs(Player *player);
+
 	// Saves g_settings to configpath given at initialization
 	void saveConfig();
 
@@ -569,8 +571,6 @@ private:
 	struct PeerChange;
 	void handlePeerChange(PeerChange &c);
 	void handlePeerChanges();
-
-	uint64_t getPlayerPrivs(Player *player);
 
 	/*
 		Variables
