@@ -5243,31 +5243,58 @@ void meshgen_flaglike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	}
 
 	video::S3DVertex vertices[4] = {
-		video::S3DVertex( 0.125*data->m_BS,       0.,0. , 0,0,0, video::SColor(255,255,255,255), tuv[0], tuv[1]),
-		video::S3DVertex( 0.875*data->m_BS,       0.,0. , 0,0,0, video::SColor(255,255,255,255), tuv[2], tuv[3]),
-		video::S3DVertex( 0.875*data->m_BS,0.4375*data->m_BS,0.5, 0,0,0, video::SColor(255,255,255,255), tuv[4], tuv[5]),
-		video::S3DVertex( 0.125*data->m_BS,0.4375*data->m_BS,0.2, 0,0,0, video::SColor(255,255,255,255), tuv[6], tuv[7])
+		video::S3DVertex( 0.125*BS,       0.,0. , 0,0,0, video::SColor(255,255,255,255), tuv[0], tuv[1]),
+		video::S3DVertex( 0.875*BS,       0.,0. , 0,0,0, video::SColor(255,255,255,255), tuv[2], tuv[3]),
+		video::S3DVertex( 0.875*BS,0.4375*BS,0.5, 0,0,0, video::SColor(255,255,255,255), tuv[4], tuv[5]),
+		video::S3DVertex( 0.125*BS,0.4375*BS,0.2, 0,0,0, video::SColor(255,255,255,255), tuv[6], tuv[7])
 	};
 
 	s16 angle = 5+n.getRotationAngle();
-	for (u16 i=0; i<4; i++) {
-		vertices[i].Pos.rotateXZBy(angle);
-	}
 
-	u16 indices[] = {0,1,2,2,3,0};
-	std::vector<u32> colours;
-	if (selected.is_coloured) {
-		meshgen_selected_lights(colours,255,4);
+	if (selected.is_coloured || selected.has_crack) {
+		float os[2] = {0.01,-0.01};
+		for (u16 k=0; k<2; k++) {
+			video::S3DVertex v[4] = vertices;
+			for (u16 i=0; i<4; i++) {
+				v[i].Pos.Z += os[k];
+				v[i].Pos.rotateXZBy(angle);
+			}
+
+			u16 indices[] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			if (selected.is_coloured) {
+				meshgen_selected_lights(colours,255,4);
+			}else{
+				meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,v);
+			}
+
+			v3f pos = intToFloat(p,BS);
+			for (u16 i=0; i<4; i++) {
+				v[i].Pos += pos;
+			}
+
+			data->append(flag.getMaterial(), v, 4, indices, 6, colours);
+		}
 	}else{
-		meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
-	}
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos.rotateXZBy(angle);
+		}
 
-	v3f pos = intToFloat(p,BS);
-	for (u16 i=0; i<4; i++) {
-		vertices[i].Pos += pos;
-	}
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
+		}
 
-	data->append(flag.getMaterial(), vertices, 4, indices, 6, colours);
+		v3f pos = intToFloat(p,BS);
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+		}
+
+		data->append(flag.getMaterial(), vertices, 4, indices, 6, colours);
+	}
 	delete meta;
 }
 
