@@ -250,6 +250,7 @@ set(voxelands_SRCS
 	clientobject.cpp
 	guiMainMenu.cpp
 	guiSettingsMenu.cpp
+	guiMultiplayerMenu.cpp
 	guiMessageMenu.cpp
 	guiTextInputMenu.cpp
 	guiFormSpecMenu.cpp

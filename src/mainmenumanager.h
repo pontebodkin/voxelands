@@ -89,6 +89,7 @@ public:
 	MainGameCallback(IrrlichtDevice *a_device):
 		disconnect_requested(false),
 		changepassword_requested(false),
+		startgame_requested(false),
 		device(a_device)
 	{
 	}
@@ -108,8 +109,14 @@ public:
 		changepassword_requested = true;
 	}
 
+	virtual void startGame()
+	{
+		startgame_requested = true;
+	}
+
 	bool disconnect_requested;
 	bool changepassword_requested;
+	bool startgame_requested;
 	IrrlichtDevice *device;
 };
 
