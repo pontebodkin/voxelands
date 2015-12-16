@@ -120,6 +120,10 @@ public:
 		//std::cout<<"palautus=\""<<palautus<<"\""<<std::endl;
 		return palautus;
 	}
+	std::wstring end()
+	{
+		return tek.substr(p,tek.size()-p);
+	}
 	bool atend(){
 		if(p>=tek.size()) return true;
 		return false;

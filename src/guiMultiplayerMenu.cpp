@@ -29,6 +29,7 @@
 #include <IGUIEditBox.h>
 #include <IGUIButton.h>
 #include <IGUIStaticText.h>
+#include <IGUIListBox.h>
 #include <IGUIFont.h>
 #include <IGUIScrollBar.h>
 #include "settings.h"
@@ -48,6 +49,80 @@ GUIMultiplayerMenu::GUIMultiplayerMenu(
 	m_gamecallback(gamecallback)
 {
 	m_data.mmdata = data;
+
+	{
+		ServerInfo i;
+		i.name = L"Voxelands Survival Server";
+		i.addr = L"servers.voxelands.com:30000";
+		i.mode = L"survival";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"Voxelands Adventure Server";
+		i.addr = L"servers.voxelands.com:30001";
+		i.mode = L"adventure";
+		i.is_favourite = true;
+
+		m_data.servers.push_back(i);
+		m_data.favourites.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"Voxelands Creative Server";
+		i.addr = L"servers.voxelands.com:30002";
+		i.mode = L"creative";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"old public";
+		i.addr = L"106.187.103.195:30003";
+		i.mode = L"adventure";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"UK Voxelands Survival Server";
+		i.addr = L"uk.servers.voxelands.com:30000";
+		i.mode = L"survival";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"UK Voxelands Adventure Server";
+		i.addr = L"uk.servers.voxelands.com:30001";
+		i.mode = L"adventure";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"UK Voxelands Creative Server";
+		i.addr = L"uk.servers.voxelands.com:30002";
+		i.mode = L"creative";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
+	{
+		ServerInfo i;
+		i.name = L"DE Holarse Linux-Gaming Voxelands-Server";
+		i.addr = L"holarse-linuxgaming.de:30000";
+		i.mode = L"survival";
+		i.is_favourite = false;
+
+		m_data.servers.push_back(i);
+	}
 }
 
 GUIMultiplayerMenu::~GUIMultiplayerMenu()
@@ -151,14 +226,52 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 	}
 
 	v2s32 topleft_content(250, 0);
+	{
+		core::rect<s32> rect(0, 0, 550, 20);
+		rect += topleft_content + v2s32(0, 10);
+		gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Multi Player"), rect, false, true, this, -1);
+		t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
+	}
+
 	if (m_data.selected_tab == TAB_MP_CUSTOM) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Multi Player"), rect, false, true, this, -1);
+			rect += topleft_content + v2s32(0, 30);
+			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Custom Connection"), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
-
+		// Address + port
+		{
+			core::rect<s32> rect(0, 0, 110, 20);
+			rect += topleft_content + v2s32(120, 60);
+			Environment->addStaticText(wgettext("Address/Port"), rect, false, true, this, -1);
+		}
+		{
+			if (text_address == L"")
+				text_address = L"servers.voxelands.com";
+			core::rect<s32> rect(0, 0, 230, 30);
+			rect += topleft_content + v2s32(135, 90);
+#if USE_FREETYPE
+			new gui::intlGUIEditBox(text_address.c_str(), true, Environment, this, GUI_ID_ADDRESS_INPUT, rect);
+#else
+			Environment->addEditBox(text_address.c_str(), rect, false, this, GUI_ID_ADDRESS_INPUT);
+#endif
+		}
+		{
+			core::rect<s32> rect(0, 0, 120, 30);
+			rect += topleft_content + v2s32(245, 125);
+#if USE_FREETYPE
+			new gui::intlGUIEditBox(text_port.c_str(), true, Environment, this, GUI_ID_PORT_INPUT, rect);
+#else
+			Environment->addEditBox(text_port.c_str(), rect, false, this, GUI_ID_PORT_INPUT);
+#endif
+		}
+		{
+			core::rect<s32> rect(0, 0, 180, 30);
+			rect += topleft_content + v2s32(160, 160);
+			Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
+		}
+	}else if (m_data.selected_tab == TAB_MP_CONNECT) {
 		// Nickname + password
 		{
 			core::rect<s32> rect(0, 0, 110, 20);
@@ -186,41 +299,94 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 			e->setPasswordBox(true);
 			Environment->setFocus(e);
 
-		}
-		// Address + port
-		{
-			core::rect<s32> rect(0, 0, 110, 20);
-			rect += topleft_content + v2s32(120, 170);
-			Environment->addStaticText(wgettext("Address/Port"), rect, false, true, this, -1);
-		}
-		{
-			if (text_address == L"")
-				text_address = L"servers.voxelands.com";
-			core::rect<s32> rect(0, 0, 230, 30);
-			rect += topleft_content + v2s32(135, 200);
-#if USE_FREETYPE
-			new gui::intlGUIEditBox(text_address.c_str(), true, Environment, this, GUI_ID_ADDRESS_INPUT, rect);
-#else
-			Environment->addEditBox(text_address.c_str(), rect, false, this, GUI_ID_ADDRESS_INPUT);
-#endif
-		}
-		{
-			core::rect<s32> rect(0, 0, 120, 30);
-			rect += topleft_content + v2s32(245, 240);
-#if USE_FREETYPE
-			new gui::intlGUIEditBox(text_port.c_str(), true, Environment, this, GUI_ID_PORT_INPUT, rect);
-#else
-			Environment->addEditBox(text_port.c_str(), rect, false, this, GUI_ID_PORT_INPUT);
-#endif
-		}
 		// Start game button
 		{
 			core::rect<s32> rect(0, 0, 180, 30);
-			rect += topleft_content + v2s32(160, 290);
-			Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
+			rect += topleft_content + v2s32(160, 160);
+			Environment->addButton(rect, this, GUI_ID_START_BUTTON, wgettext("Join Server"));
 		}
-	}else if (m_data.selected_tab == TAB_MP_FAVOURITES) {
+		}
 	}else{
+		gui::IGUIListBox *box = NULL;
+		gui::IGUIStaticText *header = NULL;
+		std::vector<ServerInfo> *list = NULL;
+
+		{
+			core::rect<s32> rect(0, 0, 550, 20);
+			rect += topleft_content + v2s32(0, 30);
+			header = Environment->addStaticText(L"", rect, false, true, this, -1);
+			header->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
+		}
+		{
+			core::rect<s32> rect(0, 0, 350, 200);
+			rect += topleft_content + v2s32(100, 60);
+			box = Environment->addListBox(rect, this, GUI_ID_SERVER_LIST, true);
+			box->setItemHeight(25);
+		}
+
+		if (m_data.selected_tab == TAB_MP_FAVOURITES) {
+			header->setText(wgettext("My Favourites"));
+			list = &m_data.favourites;
+		}else{
+			header->setText(wgettext("Server List"));
+			list = &m_data.servers;
+			{
+				core::rect<s32> rect(0, 0, 180, 25);
+				rect += topleft_content + v2s32(270, 260);
+				Environment->addButton(rect, this, GUI_ID_REFRESH_BUTTON, wgettext("Get New List"));
+			}
+		}
+
+		for (std::vector<ServerInfo>::iterator i = list->begin(); i != list->end(); i++) {
+			box->addItem(i->name.c_str());
+		}
+
+		if (m_data.selected_row > -1) {
+			ServerInfo info = list->at(m_data.selected_row);
+			if (info.name == L"") {
+				m_data.selected_row = -1;
+			}else{
+				box->setSelected(m_data.selected_row);
+				{
+					core::rect<s32> rect(0, 0, 550, 20);
+					rect += topleft_content + v2s32(0, 300);
+					gui::IGUIStaticText *t = Environment->addStaticText(info.name.c_str(), rect, false, true, this, -1);
+					t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
+				}
+				{
+					core::rect<s32> rect(0, 0, 350, 20);
+					rect += topleft_content + v2s32(100, 330);
+					gui::IGUIStaticText *t = Environment->addStaticText(info.addr.c_str(), rect, false, true, this, -1);
+					t->setTextAlignment(gui::EGUIA_UPPERLEFT, gui::EGUIA_UPPERLEFT);
+				}
+				{
+					core::rect<s32> rect(0, 0, 350, 20);
+					rect += topleft_content + v2s32(100, 350);
+					gui::IGUIStaticText *t = Environment->addStaticText(info.mode.c_str(), rect, false, true, this, -1);
+					t->setTextAlignment(gui::EGUIA_UPPERLEFT, gui::EGUIA_UPPERLEFT);
+				}
+
+				if (info.is_favourite) {
+					{
+						core::rect<s32> rect(0, 0, 180, 30);
+						rect += topleft_content + v2s32(80, 390);
+						Environment->addButton(rect, this, GUI_ID_REMFAV_BUTTON, wgettext("Remove from Favourites"));
+					}
+				}else{
+					{
+						core::rect<s32> rect(0, 0, 180, 30);
+						rect += topleft_content + v2s32(80, 390);
+						Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, wgettext("Add to Favourites"));
+					}
+				}
+
+				{
+					core::rect<s32> rect(0, 0, 180, 30);
+					rect += topleft_content + v2s32(270, 390);
+					Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
+				}
+			}
+		}
 	}
 }
 
@@ -285,6 +451,30 @@ bool GUIMultiplayerMenu::acceptInput()
 		if (e != NULL)
 			m_data.mmdata->port = e->getText();
 	}
+	{
+		gui::IGUIListBox *e = (gui::IGUIListBox*)getElementFromId(GUI_ID_SERVER_LIST);
+		if (e != NULL)
+			m_data.selected_row = e->getSelected();
+		if (m_data.selected_row > -1) {
+			if (m_data.selected_tab == TAB_MP_LIST) {
+				ServerInfo info = m_data.servers.at(m_data.selected_row);
+				if (info.name == L"")
+					m_data.selected_row = -1;
+				WStrfnd sf(info.addr);
+				m_data.mmdata->address = sf.next(L":");
+				m_data.mmdata->port = sf.end();
+			}else if (m_data.selected_tab == TAB_MP_FAVOURITES) {
+				ServerInfo info = m_data.favourites.at(m_data.selected_row);
+				if (info.name == L"")
+					m_data.selected_row = -1;
+				WStrfnd sf(info.addr);
+				m_data.mmdata->address = sf.next(L":");
+				m_data.mmdata->port = sf.end();
+			}else if (m_data.selected_tab != TAB_MP_CONNECT) {
+				m_data.selected_row = -1;
+			}
+		}
+	}
 	return true;
 }
 bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
@@ -318,21 +508,90 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 		}
 		if (event.GUIEvent.EventType == gui::EGET_BUTTON_CLICKED) {
 			switch (event.GUIEvent.Caller->getID()) {
-			case GUI_ID_CONNECT_BUTTON: // Start game
+			case GUI_ID_START_BUTTON: // Start game
 				acceptInput();
+				m_accepted = false;
 				m_gamecallback->startGame();
 				quitMenu();
+				return true;
+			case GUI_ID_CONNECT_BUTTON:
+				acceptInput();
+				m_data.selected_tab = TAB_MP_CONNECT;
+				regenerateGui(m_screensize);
+				return true;
+			case GUI_ID_REMFAV_BUTTON:
+				acceptInput();
+				if (m_data.selected_row > -1) {
+					if (m_data.selected_tab == TAB_MP_LIST) {
+						ServerInfo &info = m_data.servers.at(m_data.selected_row);
+						if (info.is_favourite) {
+							info.is_favourite = false;
+							for (
+								std::vector<ServerInfo>::iterator i = m_data.favourites.begin();
+								i != m_data.favourites.end();
+								i++
+							) {
+								if (
+									i->name == info.name
+									&& i->addr == info.addr
+									&& i->mode == info.mode
+								) {
+									m_data.favourites.erase(i);
+									break;
+								}
+							}
+						}
+					}else if (m_data.selected_tab == TAB_MP_FAVOURITES) {
+						ServerInfo &info = m_data.favourites.at(m_data.selected_row);
+						if (info.is_favourite) {
+							m_data.favourites.erase(m_data.favourites.begin()+m_data.selected_row);
+							for (
+								std::vector<ServerInfo>::iterator i = m_data.servers.begin();
+								i != m_data.servers.end();
+								i++
+							) {
+								if (
+									i->name == info.name
+									&& i->addr == info.addr
+									&& i->mode == info.mode
+								) {
+									i->is_favourite = false;
+									break;
+								}
+							}
+							m_data.selected_row = -1;
+						}
+					}
+				}
+				regenerateGui(m_screensize);
+				return true;
+			case GUI_ID_ADDFAV_BUTTON:
+				acceptInput();
+				if (m_data.selected_tab == TAB_MP_LIST && m_data.selected_row > -1) {
+					ServerInfo &info = m_data.servers.at(m_data.selected_row);
+					if (info.name != L"" && !info.is_favourite) {
+						info.is_favourite = true;
+						m_data.favourites.push_back(info);
+					}
+				}
+				regenerateGui(m_screensize);
 				return true;
 			case GUI_ID_TAB_MP_LIST:
 				acceptInput();
 				m_accepted = false;
-				m_data.selected_tab = TAB_MP_LIST;
+				if (m_data.selected_tab != TAB_MP_LIST) {
+					m_data.selected_tab = TAB_MP_LIST;
+					m_data.selected_row = -1;
+				}
 				regenerateGui(m_screensize);
 				return true;
 			case GUI_ID_TAB_MP_FAVOURITES:
 				acceptInput();
 				m_accepted = false;
-				m_data.selected_tab = TAB_MP_FAVOURITES;
+				if (m_data.selected_tab != TAB_MP_FAVOURITES) {
+					m_data.selected_tab = TAB_MP_FAVOURITES;
+					m_data.selected_row = -1;
+				}
 				regenerateGui(m_screensize);
 				return true;
 			case GUI_ID_TAB_MP_CUSTOM:
@@ -347,10 +606,6 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 				return true;
 			}
 		}
-		if (event.GUIEvent.EventType == gui::EGET_SCROLL_BAR_CHANGED) {
-			//switch (event.GUIEvent.Caller->getID()) {
-			//}
-		}
 		if (event.GUIEvent.EventType == gui::EGET_EDITBOX_ENTER) {
 			switch (event.GUIEvent.Caller->getID()) {
 			case GUI_ID_ADDRESS_INPUT:
@@ -360,6 +615,16 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 				m_gamecallback->startGame();
 				acceptInput();
 				quitMenu();
+				return true;
+			}
+		}
+		if (
+			event.GUIEvent.EventType == gui::EGET_LISTBOX_CHANGED
+			|| event.GUIEvent.EventType == gui::EGET_LISTBOX_SELECTED_AGAIN
+		) {
+			if (event.GUIEvent.Caller->getID() == GUI_ID_SERVER_LIST) {
+				acceptInput();
+				regenerateGui(m_screensize);
 				return true;
 			}
 		}

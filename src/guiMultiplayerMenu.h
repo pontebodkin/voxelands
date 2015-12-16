@@ -36,9 +36,13 @@
 
 enum
 {
-	GUI_ID_CONNECT_BUTTON = 101,
-	// full list
-	// favourites
+	GUI_ID_START_BUTTON = 101,
+	GUI_ID_CONNECT_BUTTON,
+	// full list/favourites
+	GUI_ID_SERVER_LIST,
+	GUI_ID_ADDFAV_BUTTON,
+	GUI_ID_REMFAV_BUTTON,
+	GUI_ID_REFRESH_BUTTON,
 	// custom connect
 	GUI_ID_NAME_INPUT,
 	GUI_ID_PW_INPUT,
@@ -54,7 +58,15 @@ enum
 enum {
 	TAB_MP_LIST=0,
 	TAB_MP_FAVOURITES,
-	TAB_MP_CUSTOM
+	TAB_MP_CUSTOM,
+	TAB_MP_CONNECT
+};
+
+struct ServerInfo {
+	std::wstring name;
+	std::wstring addr;
+	std::wstring mode;
+	bool is_favourite;
 };
 
 struct MultiplayerMenuData
@@ -62,14 +74,16 @@ struct MultiplayerMenuData
 	MultiplayerMenuData():
 		// Generic
 		selected_tab(TAB_MP_LIST),
+		selected_row(-1),
 		mmdata(NULL)
 	{}
 
-	// These are in the native format of the gui elements
-
 	// Generic
 	int selected_tab;
+	int selected_row;
 	// Options
+	std::vector<ServerInfo> servers;
+	std::vector<ServerInfo> favourites;
 	// server address/port/etc is stored in here
 	MainMenuData *mmdata;
 };
