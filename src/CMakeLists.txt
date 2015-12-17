@@ -386,12 +386,12 @@ else()
 		set(OPT_FLAGS "-O2 -fomit-frame-pointer")
 	endif()
 
-	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe")
+    set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe" CACHE STRING "Let the system override CMAKE_CXX_FLAGS_RELEASE variable")
 	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g2 -ggdb")
 	set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
-	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Wl,-O1,--as-needed,--discard-all,--no-undefined,-s,--sort-common,-z,relro,-z,now")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Wl,-O1,--as-needed,--discard-all,--no-undefined,-s,--sort-common,-z,relro,-z,now" CACHE STRING "Let the system override CMAKE_EXE_LINKER_FLAGS_RELEASE variable")
 	set(CMAKE_MODULE_LINKER_FLAGS_RELEASE ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
 	set(CMAKE_SHARED_LINKER_FLAGS_RELEASE ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
 
