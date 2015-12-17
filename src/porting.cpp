@@ -33,6 +33,7 @@
 #include "config.h"
 #include "debug.h"
 #include "filesys.h"
+#include "player.h"
 
 #ifdef __APPLE__
 	#include "CoreFoundation/CoreFoundation.h"
@@ -374,19 +375,20 @@ void initializePaths(char* argv0)
 
 std::string getUser()
 {
+	std::string user("someone");
 #ifdef _WIN32
 
 	char buff[1024];
 	int size = 1024;
 
 	if (GetUserName(buff,LPDWORD(&size)))
-		return std::string(buff);
+		user = std::string(buff);
 #else
 	char* u = getenv("USER");
 	if (u)
-		return std::string(u);
+		user = std::string(u);
 #endif
-	return std::string("someone");
+	return string_allowify(user,PLAYERNAME_ALLOWED_CHARS);
 }
 
 } //namespace porting
