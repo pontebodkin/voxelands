@@ -197,7 +197,12 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 		}
 		{
 			core::rect<s32> rect(0, 0, 180, 30);
-			rect += topleft_content + v2s32(160, 160);
+			rect += topleft_content + v2s32(80, 160);
+			Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, wgettext("Add to Favourites"));
+		}
+		{
+			core::rect<s32> rect(0, 0, 180, 30);
+			rect += topleft_content + v2s32(270, 160);
 			Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
 		}
 	}else if (m_data.selected_tab == TAB_MP_CONNECT) {
@@ -505,6 +510,16 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 						m_data.favourites.push_back(info);
 						saveFavourites();
 					}
+				}else if (m_data.selected_tab == TAB_MP_CUSTOM) {
+					ServerInfo info;
+					info.name = m_data.mmdata->address+L":"+m_data.mmdata->port;
+					info.addr = m_data.mmdata->address+L":"+m_data.mmdata->port;
+					info.mode = L"custom";
+					info.is_favourite = true;
+					m_data.servers.push_back(info);
+					m_data.favourites.push_back(info);
+					m_data.selected_tab = TAB_MP_FAVOURITES;
+					m_data.selected_row = m_data.favourites.size()-1;
 				}
 				regenerateGui(m_screensize);
 				return true;
