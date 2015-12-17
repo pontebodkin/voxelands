@@ -119,7 +119,10 @@ private:
 	IGameCallback *m_gamecallback;
 	v2u32 m_screensize;
 
-	bool resetMenu();
+	bool fetchServers();
+	bool loadServers();
+	bool saveFavourites();
+	bool parseFile(std::string data, std::vector<ServerInfo> &list);
 };
 
 #endif

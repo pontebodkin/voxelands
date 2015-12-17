@@ -34,6 +34,7 @@
 #include <IGUIScrollBar.h>
 #include "settings.h"
 #include "gui_colours.h"
+#include "http.h"
 
 GUIMultiplayerMenu::GUIMultiplayerMenu(
 	gui::IGUIEnvironment* env,
@@ -50,79 +51,7 @@ GUIMultiplayerMenu::GUIMultiplayerMenu(
 {
 	m_data.mmdata = data;
 
-	{
-		ServerInfo i;
-		i.name = L"Voxelands Survival Server";
-		i.addr = L"servers.voxelands.com:30000";
-		i.mode = L"survival";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"Voxelands Adventure Server";
-		i.addr = L"servers.voxelands.com:30001";
-		i.mode = L"adventure";
-		i.is_favourite = true;
-
-		m_data.servers.push_back(i);
-		m_data.favourites.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"Voxelands Creative Server";
-		i.addr = L"servers.voxelands.com:30002";
-		i.mode = L"creative";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"old public";
-		i.addr = L"106.187.103.195:30003";
-		i.mode = L"adventure";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"UK Voxelands Survival Server";
-		i.addr = L"uk.servers.voxelands.com:30000";
-		i.mode = L"survival";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"UK Voxelands Adventure Server";
-		i.addr = L"uk.servers.voxelands.com:30001";
-		i.mode = L"adventure";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"UK Voxelands Creative Server";
-		i.addr = L"uk.servers.voxelands.com:30002";
-		i.mode = L"creative";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
-	{
-		ServerInfo i;
-		i.name = L"DE Holarse Linux-Gaming Voxelands-Server";
-		i.addr = L"holarse-linuxgaming.de:30000";
-		i.mode = L"survival";
-		i.is_favourite = false;
-
-		m_data.servers.push_back(i);
-	}
+	loadServers();
 }
 
 GUIMultiplayerMenu::~GUIMultiplayerMenu()
@@ -540,6 +469,7 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 									break;
 								}
 							}
+							saveFavourites();
 						}
 					}else if (m_data.selected_tab == TAB_MP_FAVOURITES) {
 						ServerInfo &info = m_data.favourites.at(m_data.selected_row);
@@ -559,6 +489,7 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 									break;
 								}
 							}
+							saveFavourites();
 							m_data.selected_row = -1;
 						}
 					}
@@ -572,7 +503,24 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 					if (info.name != L"" && !info.is_favourite) {
 						info.is_favourite = true;
 						m_data.favourites.push_back(info);
+						saveFavourites();
 					}
+				}
+				regenerateGui(m_screensize);
+				return true;
+			case GUI_ID_REFRESH_BUTTON:
+				acceptInput();
+				fetchServers();
+				if (
+					(
+						m_data.selected_tab == TAB_MP_LIST
+						&& m_data.selected_row >= (int)m_data.servers.size()
+					) || (
+						m_data.selected_tab == TAB_MP_FAVOURITES
+						&& m_data.selected_row >= (int)m_data.favourites.size()
+					)
+				) {
+					m_data.selected_row = -1;
 				}
 				regenerateGui(m_screensize);
 				return true;
@@ -632,3 +580,122 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 	return Parent ? Parent->OnEvent(event) : false;
 }
 
+bool GUIMultiplayerMenu::fetchServers()
+{
+	char* u = const_cast<char*>("/list");
+	std::string data = http_request(NULL,u);
+	std::string path = getPath("","servers.txt",false);
+
+	std::ofstream f;
+	f.open(path.c_str());
+	if (!f.is_open())
+		return false;
+
+	f << data;
+	f.close();
+
+	return loadServers();
+}
+bool GUIMultiplayerMenu::loadServers()
+{
+	std::string path = getPath("","servers.txt",true);
+	if (path != "")
+		parseFile(path,m_data.servers);
+
+	path = getPath("","favourites.txt",true);
+	if (path != "")
+		parseFile(path,m_data.favourites);
+
+	if (m_data.favourites.size()) {
+		for (
+			std::vector<ServerInfo>::iterator k = m_data.favourites.begin();
+			k != m_data.favourites.end();
+			k++
+		) {
+			bool add = true;
+			k->is_favourite = true;
+			for (
+				std::vector<ServerInfo>::iterator i = m_data.servers.begin();
+				i != m_data.servers.end();
+				i++
+			) {
+				if (
+					i->name == k->name
+					&& i->addr == k->addr
+					&& i->mode == k->mode
+				) {
+					i->is_favourite = true;
+					add = false;
+					break;
+				}
+			}
+			if (add)
+				m_data.servers.push_back(*k);
+		}
+	}
+
+	return true;
+}
+bool GUIMultiplayerMenu::saveFavourites()
+{
+	std::string path = getPath("","favourites.txt",false);
+	std::ofstream f;
+	f.open(path.c_str());
+	if (!f.is_open())
+		return false;
+
+	f << "servers: ";
+	f << m_data.favourites.size();
+	f << "\n\n";
+
+	for (
+		std::vector<ServerInfo>::iterator k = m_data.favourites.begin();
+		k != m_data.favourites.end();
+		k++
+	) {
+		f << wide_to_narrow(k->name) << '\n';
+		f << wide_to_narrow(k->mode) << '\n';
+		f << wide_to_narrow(k->addr) << '\n';
+		f << '\n';
+	}
+
+	f.close();
+	return false;
+}
+bool GUIMultiplayerMenu::parseFile(std::string path, std::vector<ServerInfo> &list)
+{
+	list.clear();
+	std::ifstream f(path.c_str());
+	if (!f.is_open())
+		return false;
+
+	std::string line;
+	std::getline(f,line);
+	if (line.substr(0,9) != "servers: ") {
+		f.close();
+		return false;
+	}
+	std::getline(f,line);
+
+	while (true) {
+		ServerInfo i;
+		i.is_favourite = false;
+		std::getline(f,line);
+		if (line == "")
+			break;
+		i.name = narrow_to_wide(line);
+		std::getline(f,line);
+		if (line == "")
+			break;
+		i.mode = narrow_to_wide(line);
+		std::getline(f,line);
+		if (line == "")
+			break;
+		i.addr = narrow_to_wide(line);
+		std::getline(f,line);
+		list.push_back(i);
+	}
+
+	f.close();
+	return true;
+}
