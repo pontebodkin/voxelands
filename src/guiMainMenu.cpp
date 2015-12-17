@@ -375,7 +375,11 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 		m_data->selected_tab = TAB_SINGLEPLAYER;
 	}
 
-	if (m_data->selected_tab == TAB_SINGLEPLAYER) {
+	if (m_data->selected_tab == TAB_SINGLEPLAYER || m_data->selected_tab == TAB_MULTIPLAYER) {
+		if (m_data->selected_tab == TAB_MULTIPLAYER) {
+			GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+			mmenu->drop();
+		}
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
@@ -1081,6 +1085,8 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 					acceptInput();
 				GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
 				mmenu->drop();
+				m_data->selected_tab = TAB_MULTIPLAYER;
+				g_settings->set("mainmenu_tab","multiplayer");
 				return true;
 			}
 			case GUI_ID_TAB_SETTINGS:
