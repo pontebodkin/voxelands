@@ -1413,21 +1413,32 @@ private:
 */
 inline bool string_allowed(const std::string &s, const std::string &allowed_chars)
 {
-	for(u32 i=0; i<s.size(); i++)
-	{
+	for (u32 i=0; i<s.size(); i++) {
 		bool confirmed = false;
-		for(u32 j=0; j<allowed_chars.size(); j++)
-		{
-			if(s[i] == allowed_chars[j])
-			{
+		for (u32 j=0; j<allowed_chars.size(); j++) {
+			if (s[i] == allowed_chars[j]) {
 				confirmed = true;
 				break;
 			}
 		}
-		if(confirmed == false)
+		if (confirmed == false)
 			return false;
 	}
 	return true;
+}
+
+inline std::string string_allowify(const std::string &s, const std::string &allowed_chars)
+{
+	std::string result;
+	for (u32 i=0; i<s.size(); i++) {
+		for (u32 j=0; j<allowed_chars.size(); j++) {
+			if (s[i] == allowed_chars[j]) {
+				result += s[i];
+				break;
+			}
+		}
+	}
+	return result;
 }
 
 /*
