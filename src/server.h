@@ -273,17 +273,6 @@ public:
 	void GetNextBlocks(Server *server, float dtime,
 			core::array<PrioritySortedBlockTransfer> &dest);
 
-	/*
-		Connection and environment should be locked when this is called.
-		steps() objects of blocks not found in active_blocks, then
-		adds those blocks to active_blocks
-	*/
-	void SendObjectData(
-			Server *server,
-			float dtime,
-			core::map<v3s16, bool> &stepped_blocks
-		);
-
 	void GotBlock(v3s16 p);
 
 	void SentBlock(v3s16 p);
@@ -456,6 +445,8 @@ public:
 	core::list<Player*> getPlayers() {return m_env.getPlayers();}
 	core::list<Player*> getPlayers(bool ign_disconnected) {return m_env.getPlayers(ign_disconnected);}
 
+	uint64_t getPlayerPrivs(Player *player);
+
 	// Saves g_settings to configpath given at initialization
 	void saveConfig();
 
@@ -509,7 +500,7 @@ private:
 	*/
 
 	// Envlock and conlock should be locked when calling these
-	void SendObjectData(float dtime);
+	void SendPlayerInfo(float dtime);
 	void SendPlayerInfos();
 	void SendInventory(u16 peer_id, bool full=false);
 	// send animation info about player to all
@@ -580,8 +571,6 @@ private:
 	struct PeerChange;
 	void handlePeerChange(PeerChange &c);
 	void handlePeerChanges();
-
-	uint64_t getPlayerPrivs(Player *player);
 
 	/*
 		Variables

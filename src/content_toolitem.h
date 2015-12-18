@@ -41,6 +41,7 @@ struct ToolItemFeatures {
 	bool has_punch_effect;
 	// whether this tool can lock/unlock nodes
 	bool has_unlock_effect;
+	bool has_super_unlock_effect;
 	// whether this tool can rotate nodes
 	bool has_rotate_effect;
 	// whether this tool can start fires
@@ -75,6 +76,7 @@ struct ToolItemFeatures {
 		damaging_nodes_diggable(true),
 		has_punch_effect(true),
 		has_unlock_effect(false),
+		has_super_unlock_effect(false),
 		has_rotate_effect(false),
 		has_fire_effect(false),
 		type(TT_NONE),
@@ -163,5 +165,6 @@ ToolItemFeatures & content_toolitem_features(std::string subname);
 #define CONTENT_TOOLITEM_MITHRIL_SWORD (CONTENT_TOOLITEM_MASK | 0x2E)
 #define CONTENT_TOOLITEM_MITHRIL_SPEAR (CONTENT_TOOLITEM_MASK | 0x2F)
 #define CONTENT_TOOLITEM_MOB_SPAWNER (CONTENT_TOOLITEM_MASK | 0x30)
+#define CONTENT_TOOLITEM_MITHRIL_KEY (CONTENT_TOOLITEM_MASK | 0x31)
 
 #endif

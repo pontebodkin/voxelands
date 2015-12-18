@@ -45,6 +45,7 @@
 #define MINERAL_SUNSTONE 13
 
 struct MineralFeatures {
+	std::wstring description;
 	std::string texture;
 	// the dug item
 	content_t dug_item;
@@ -55,6 +56,7 @@ struct MineralFeatures {
 	u8 min_level;
 
 	MineralFeatures():
+		description(L""),
 		texture(""),
 		dug_item(CONTENT_IGNORE),
 		dug_count_min(1),

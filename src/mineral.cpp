@@ -25,6 +25,7 @@
 
 #include "mineral.h"
 #include "enchantment.h"
+#include "intl.h"
 
 struct MineralFeatures g_mineral_features[MINERAL_MAX+1];
 
@@ -89,23 +90,27 @@ void init_mineral()
 
 	i = MINERAL_COAL;
 	f = &mineral_features(i);
+	f->description = wgettext("Coal");
 	f->texture = "mineral_coal.png";
 	f->dug_item = CONTENT_CRAFTITEM_COAL;
 
 	i = MINERAL_IRON;
 	f = &mineral_features(i);
+	f->description = wgettext("Iron");
 	f->texture = "mineral_iron.png";
 	f->dug_item = CONTENT_CRAFTITEM_IRON;
 	f->min_level = 2;
 
 	i = MINERAL_TIN;
 	f = &mineral_features(i);
+	f->description = wgettext("Tin");
 	f->texture = "mineral_tin.png";
 	f->dug_item = CONTENT_CRAFTITEM_TIN;
 	f->min_level = 2;
 
 	i = MINERAL_COPPER;
 	f = &mineral_features(i);
+	f->description = wgettext("Copper");
 	f->texture = "mineral_copper.png";
 	f->dug_item = CONTENT_CRAFTITEM_COPPER;
 	f->dug_count_max = 4;
@@ -113,30 +118,35 @@ void init_mineral()
 
 	i = MINERAL_SILVER;
 	f = &mineral_features(i);
+	f->description = wgettext("Silver");
 	f->texture = "mineral_silver.png";
 	f->dug_item = CONTENT_CRAFTITEM_SILVER;
 	f->min_level = 3;
 
 	i = MINERAL_GOLD;
 	f = &mineral_features(i);
+	f->description = wgettext("Gold");
 	f->texture = "mineral_gold.png";
 	f->dug_item = CONTENT_CRAFTITEM_GOLD;
 	f->min_level = 3;
 
 	i = MINERAL_QUARTZ;
 	f = &mineral_features(i);
+	f->description = wgettext("Quartz");
 	f->texture = "mineral_quartz.png";
 	f->dug_item = CONTENT_CRAFTITEM_QUARTZ;
 	f->min_level = 3;
 
 	i = MINERAL_MITHRIL;
 	f = &mineral_features(i);
+	f->description = wgettext("Mithril");
 	f->texture = "mineral_mithril.png";
 	f->dug_item = CONTENT_CRAFTITEM_MITHRIL_RAW;
 	f->min_level = 3;
 
 	i = MINERAL_RUBY;
 	f = &mineral_features(i);
+	f->description = wgettext("Ruby");
 	f->texture = "mineral_ruby.png";
 	f->dug_item = CONTENT_CRAFTITEM_RUBY;
 	f->min_level = 3;
@@ -144,6 +154,7 @@ void init_mineral()
 
 	i = MINERAL_TURQUOISE;
 	f = &mineral_features(i);
+	f->description = wgettext("Turquoise");
 	f->texture = "mineral_turquoise.png";
 	f->dug_item = CONTENT_CRAFTITEM_TURQUOISE;
 	f->min_level = 3;
@@ -151,6 +162,7 @@ void init_mineral()
 
 	i = MINERAL_AMETHYST;
 	f = &mineral_features(i);
+	f->description = wgettext("Amethyst");
 	f->texture = "mineral_amethyst.png";
 	f->dug_item = CONTENT_CRAFTITEM_AMETHYST;
 	f->min_level = 3;
@@ -158,6 +170,7 @@ void init_mineral()
 
 	i = MINERAL_SAPPHIRE;
 	f = &mineral_features(i);
+	f->description = wgettext("Sapphire");
 	f->texture = "mineral_sapphire.png";
 	f->dug_item = CONTENT_CRAFTITEM_SAPPHIRE;
 	f->min_level = 3;
@@ -165,6 +178,7 @@ void init_mineral()
 
 	i = MINERAL_SUNSTONE;
 	f = &mineral_features(i);
+	f->description = wgettext("Sunstone");
 	f->texture = "mineral_sunstone.png";
 	f->dug_item = CONTENT_CRAFTITEM_SUNSTONE;
 	f->min_level = 3;

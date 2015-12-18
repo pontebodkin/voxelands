@@ -28,6 +28,7 @@
 #include "main.h"
 #include "defaultsettings.h"
 #include "guiSettingsMenu.h"
+#include "guiMultiplayerMenu.h"
 #include "debug.h"
 #include "serialization.h"
 #include <string>
@@ -86,9 +87,6 @@ void GUIMainMenu::removeChildren()
 
 void GUIMainMenu::regenerateGui(v2u32 screensize)
 {
-	std::wstring text_name;
-	std::wstring text_address;
-	std::wstring text_port;
 	std::wstring game_mode;
 
 	std::wstring max_mob_level;
@@ -109,32 +107,6 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 	std::string map_type;
 
 	m_screensize = screensize;
-
-	// Client options
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_NAME_INPUT);
-		if (e != NULL) {
-			text_name = e->getText();
-		}else{
-			text_name = m_data->name;
-		}
-		if (text_name == L"")
-			text_name = narrow_to_wide(porting::getUser());
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_ADDRESS_INPUT);
-		if(e != NULL)
-			text_address = e->getText();
-		else
-			text_address = m_data->address;
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_PORT_INPUT);
-		if(e != NULL)
-			text_port = e->getText();
-		else
-			text_port = m_data->port;
-	}
 
 	// Server options
 	{
@@ -403,75 +375,11 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 		m_data->selected_tab = TAB_SINGLEPLAYER;
 	}
 
-	if (m_data->selected_tab == TAB_MULTIPLAYER) {
-		{
-			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Multi Player"), rect, false, true, this, -1);
-			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
+	if (m_data->selected_tab == TAB_SINGLEPLAYER || m_data->selected_tab == TAB_MULTIPLAYER) {
+		if (m_data->selected_tab == TAB_MULTIPLAYER) {
+			GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+			mmenu->drop();
 		}
-
-		// Nickname + password
-		{
-			core::rect<s32> rect(0, 0, 110, 20);
-			rect += topleft_content + v2s32(120, 60);
-			Environment->addStaticText(wgettext("Name/Password"), rect, false, true, this, -1);
-		}
-		{
-			core::rect<s32> rect(0, 0, 230, 30);
-			rect += topleft_content + v2s32(135, 90);
-#if USE_FREETYPE
-			new gui::intlGUIEditBox(text_name.c_str(), true, Environment, this, GUI_ID_NAME_INPUT, rect);
-#else
-			Environment->addEditBox(text_name.c_str(), rect, false, this, GUI_ID_NAME_INPUT);
-#endif
-		}
-		{
-			core::rect<s32> rect(0, 0, 230, 30);
-			rect += topleft_content + v2s32(135, 125);
-			gui::IGUIEditBox *e;
-#if USE_FREETYPE
-			e = (gui::IGUIEditBox *) new gui::intlGUIEditBox(L"", true, Environment, this, GUI_ID_PW_INPUT, rect);
-#else
-			e = Environment->addEditBox(L"", rect, false, this, GUI_ID_PW_INPUT);
-#endif
-			e->setPasswordBox(true);
-			Environment->setFocus(e);
-
-		}
-		// Address + port
-		{
-			core::rect<s32> rect(0, 0, 110, 20);
-			rect += topleft_content + v2s32(120, 170);
-			Environment->addStaticText(wgettext("Address/Port"), rect, false, true, this, -1);
-		}
-		{
-			if (text_address == L"")
-				text_address = L"servers.voxelands.com";
-			core::rect<s32> rect(0, 0, 230, 30);
-			rect += topleft_content + v2s32(135, 200);
-#if USE_FREETYPE
-			new gui::intlGUIEditBox(text_address.c_str(), true, Environment, this, GUI_ID_ADDRESS_INPUT, rect);
-#else
-			Environment->addEditBox(text_address.c_str(), rect, false, this, GUI_ID_ADDRESS_INPUT);
-#endif
-		}
-		{
-			core::rect<s32> rect(0, 0, 120, 30);
-			rect += topleft_content + v2s32(245, 240);
-#if USE_FREETYPE
-			new gui::intlGUIEditBox(text_port.c_str(), true, Environment, this, GUI_ID_PORT_INPUT, rect);
-#else
-			Environment->addEditBox(text_port.c_str(), rect, false, this, GUI_ID_PORT_INPUT);
-#endif
-		}
-		// Start game button
-		{
-			core::rect<s32> rect(0, 0, 180, 30);
-			rect += topleft_content + v2s32(160, 290);
-			Environment->addButton(rect, this, GUI_ID_JOIN_GAME_BUTTON, wgettext("Connect"));
-		}
-	}else if (m_data->selected_tab == TAB_SINGLEPLAYER) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
@@ -839,29 +747,10 @@ void GUIMainMenu::drawMenu()
 
 void GUIMainMenu::acceptInput()
 {
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_NAME_INPUT);
-		if (e != NULL) {
-			m_data->name = e->getText();
-		}else if (m_data->name == L"") {
-			m_data->name = std::wstring(L"singleplayer");
-		}
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_PW_INPUT);
-		if(e != NULL)
-			m_data->password = e->getText();
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_ADDRESS_INPUT);
-		if (e != NULL)
-			m_data->address = e->getText();
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_PORT_INPUT);
-		if (e != NULL)
-			m_data->port = e->getText();
-	}
+	if (m_data->name == L"")
+		m_data->name = std::wstring(L"singleplayer");
+	m_data->password = L"";
+	m_data->address = L"";
 	std::wstring o_mode = m_data->game_mode;
 	{
 		gui::IGUIElement *e = getElementFromId(GUI_ID_GAME_MODE_COMBO);
@@ -1156,13 +1045,7 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 			switch (event.GUIEvent.Caller->getID()) {
 			case GUI_ID_JOIN_GAME_BUTTON: // Start game
 				acceptInput();
-				if (
-					m_data->selected_tab == TAB_SINGLEPLAYER
-					|| m_data->selected_tab == TAB_SINGLEPLAYER_ADVANCED
-					|| m_data->selected_tab == TAB_SINGLEPLAYER_MAP
-				)
-					m_data->address = std::wstring(L"");
-				quitMenu();
+				m_gamecallback->startGame();
 				return true;
 			case GUI_ID_CHARACTER_CREATOR:
 			{
@@ -1197,13 +1080,15 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 				regenerateGui(m_screensize);
 				return true;
 			case GUI_ID_TAB_MULTIPLAYER:
+			{
 				if (m_data->selected_tab == TAB_SETTINGS)
 					acceptInput();
-				m_accepted = false;
+				GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+				mmenu->drop();
 				m_data->selected_tab = TAB_MULTIPLAYER;
 				g_settings->set("mainmenu_tab","multiplayer");
-				regenerateGui(m_screensize);
 				return true;
+			}
 			case GUI_ID_TAB_SETTINGS:
 			{
 				GUISettingsMenu *smenu = new GUISettingsMenu(env, parent, -1,menumgr, false);

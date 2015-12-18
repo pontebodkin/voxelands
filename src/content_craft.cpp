@@ -31,6 +31,7 @@
 #include "content_toolitem.h"
 #include "content_list.h"
 #include "player.h"
+#include "server.h"
 #include "mapnode.h" // For content_t
 #include "settings.h" // for g_settings
 
@@ -68,7 +69,7 @@ static bool checkShapelessRecipe(content_t recipe[9], content_t result)
 	return false;
 }
 
-void setRecipe(content_t recipe[9], content_t result, u16 count)
+void setRecipe(content_t recipe[9], content_t result, u16 count, uint64_t privs)
 {
 	if (checkRecipe(recipe,result))
 		return;
@@ -78,10 +79,11 @@ void setRecipe(content_t recipe[9], content_t result, u16 count)
 	}
 	d.result = result;
 	d.result_count = count;
+	d.privs = privs;
 	shaped_recipes.push_back(d);
 }
 
-void setShapelessRecipe(content_t recipe[9], content_t result, u16 count)
+void setShapelessRecipe(content_t recipe[9], content_t result, u16 count, uint64_t privs)
 {
 	if (checkShapelessRecipe(recipe,result))
 		return;
@@ -91,6 +93,7 @@ void setShapelessRecipe(content_t recipe[9], content_t result, u16 count)
 	}
 	d.result = result;
 	d.result_count = count;
+	d.privs = privs;
 	shapeless_recipes.push_back(d);
 }
 
@@ -677,15 +680,19 @@ void setShortsRecipe(u16 input, u16 result)
 	setRecipe(r,result,1);
 }
 
-InventoryItem *getResult(InventoryItem **items)
+InventoryItem *getResult(InventoryItem **items, Player *player, Server *server)
 {
 	for (std::vector<CraftDef>::iterator i=shaped_recipes.begin(); i!=shaped_recipes.end(); i++) {
 		CraftDef d = *i;
+		if (d.privs != 0 && (server->getPlayerPrivs(player)&d.privs) != d.privs)
+			continue;
 		if (d == items)
 			return InventoryItem::create(d.result,d.result_count);
 	}
 	for (std::vector<CraftDefShapeless>::iterator i=shapeless_recipes.begin(); i!=shapeless_recipes.end(); i++) {
 		CraftDefShapeless d = *i;
+		if (d.privs != 0 && (server->getPlayerPrivs(player)&d.privs) != d.privs)
+			continue;
 		if (d == items)
 			return InventoryItem::create(d.result,d.result_count);
 	}

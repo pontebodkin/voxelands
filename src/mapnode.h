@@ -299,6 +299,7 @@ struct ContentFeatures
 	TileSpec meta_tiles[6];
 
 	video::ITexture *inventory_texture;
+	std::string inventory_texture_name;
 
 	// Used currently for flowing liquids
 	u8 vertex_alpha;

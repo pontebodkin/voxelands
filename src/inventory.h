@@ -191,10 +191,7 @@ public:
 #ifndef SERVER
 	video::ITexture * getImage() const;
 #endif
-	std::wstring getGuiName()
-	{
-		return content_features(m_content).description;
-	}
+	std::wstring getGuiName();
 
 	std::wstring getGuiText();
 

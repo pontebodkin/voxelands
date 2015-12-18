@@ -36,6 +36,7 @@
 #include "settings.h"
 #include "path.h"
 #include "constants.h"
+#include "content_mapblock.h"
 
 #define CAMERA_OFFSET_STEP 200
 
@@ -417,7 +418,27 @@ void Camera::wield(const InventoryItem* item)
 			MaterialItem* mat_item = (MaterialItem*) item;
 			content_t content = mat_item->getMaterial();
 			if (content_features(content).solidness || content_features(content).visual_solidness) {
-				m_wieldnode->setCube(content_features(content).tiles);
+				if (content_features(content).param_type == CPT_MINERAL && mat_item->getData() != 0) {
+					static const v3s16 tile_dirs[6] = {
+						v3s16(0, 1, 0),
+						v3s16(0, -1, 0),
+						v3s16(1, 0, 0),
+						v3s16(-1, 0, 0),
+						v3s16(0, 0, 1),
+						v3s16(0, 0, -1)
+					};
+
+					MapNode n(content,mat_item->getData());
+					TileSpec tiles[6];
+					SelectedNode selected;
+					for (int i = 0; i < 6; i++) {
+						// Handles facedir rotation for textures
+						tiles[i] = getNodeTile(n,v3s16(0,0,0),tile_dirs[i],selected,NULL);
+					}
+					m_wieldnode->setCube(tiles);
+				}else{
+					m_wieldnode->setCube(content_features(content).tiles);
+				}
 				m_wieldnode->setScale(v3f(30));
 				haveWield = true;
 			}else if (

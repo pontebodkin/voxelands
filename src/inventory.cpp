@@ -38,6 +38,7 @@
 #include "log.h"
 #include "intl.h"
 #include "enchantment.h"
+#include "mineral.h"
 
 /*
 	InventoryItem
@@ -193,36 +194,58 @@ ServerActiveObject* InventoryItem::createSAO(ServerEnvironment *env, u16 id, v3f
 #ifndef SERVER
 video::ITexture * MaterialItem::getImage() const
 {
-	//if (m_data == 0 || content_features(m_content).param_type != CPT_MINERAL)
+	if (m_data == 0 || content_features(m_content).param_type != CPT_MINERAL)
 		return content_features(m_content).inventory_texture;
 
 
-	//std::string name = content_features(m_content).inventory_texture;
+	u8 mineral = m_data;
+	std::string mineral_texture_name = mineral_features(mineral).texture;
+	if (mineral_texture_name == "")
+		return content_features(m_content).inventory_texture;
 
-	//std::ostringstream os;
-	//os<<name;
+	// pull apart inventory cube/nodebox images, and add the mineral overlay
 
-	//u8 mineral = m_data;
-	//std::string mineral_texture_name = mineral_features(mineral).texture;
-	//if (mineral_texture_name != "") {
-		//u32 orig_id = spec.texture.id;
-		//std::string texture_name = g_texturesource->getTextureName(orig_id);
-		////texture_name += "^blit:";
-		//texture_name += "^";
-		//texture_name += mineral_texture_name;
-		//u32 new_id = g_texturesource->getTextureId(texture_name);
-		//spec.texture = g_texturesource->getTexture(new_id);
-	//}
+	std::string name = content_features(m_content).inventory_texture_name;
+	Strfnd f(name);
+	std::ostringstream os;
 
-	//// Get such a texture
-	//return g_texturesource->getTextureRaw(os.str());
+	{
+		std::string p = f.next("{");
+		os<<p;
+	}
+	{
+		std::string p = f.next("{");
+		os<<"{"<<p<<"&"<<mineral_texture_name;
+	}
+	{
+		std::string p = f.next("{");
+		os<<"{"<<p<<"&"<<mineral_texture_name;
+	}
+	{
+		std::string p = f.end();
+		os<<"{"<<p<<"&"<<mineral_texture_name;
+	}
+
+	// Get such a texture
+	return g_texturesource->getTextureRaw(os.str());
 }
 #endif
+std::wstring MaterialItem::getGuiName()
+{
+	if (m_data == 0 || content_features(m_content).param_type != CPT_MINERAL)
+		return content_features(m_content).description;
+	return content_features(m_content).description+L" - "+mineral_features(m_data).description;
+}
 std::wstring MaterialItem::getGuiText()
 {
 	std::wstring txt(L"  ");
 	ContentFeatures *f = &content_features(m_content);
 	txt += f->description;
+	if (m_data != 0 && content_features(m_content).param_type == CPT_MINERAL) {
+		txt += L"\n";
+		txt += wgettext("Contains: ");
+		txt += mineral_features(m_data).description;
+	}
 	if (f->cook_result != "" || f->fuel_time != 0.0)
 		txt += L"\n";
 	if (f->cook_result != "") {

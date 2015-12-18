@@ -768,105 +768,6 @@ queue_full_break:
 		infostream<<"GetNextBlocks duration: "<<timer_result<<" (!=0)"<<std::endl;*/
 }
 
-void RemoteClient::SendObjectData(
-		Server *server,
-		float dtime,
-		core::map<v3s16, bool> &stepped_blocks
-	)
-{
-	DSTACK(__FUNCTION_NAME);
-
-	// Can't send anything without knowing version
-	if(serialization_version == SER_FMT_VER_INVALID)
-	{
-		infostream<<"RemoteClient::SendObjectData(): Not sending, no version."
-				<<std::endl;
-		return;
-	}
-
-	/*
-		Send a TOCLIENT_OBJECTDATA packet.
-		Sent as unreliable.
-
-		u16 command
-		u16 number of player positions
-		for each player:
-			u16 peer_id
-			v3s32 position*100
-			v3s32 speed*100
-			s32 pitch*100
-			s32 yaw*100
-		u16 count of blocks
-		for each block:
-			block objects
-	*/
-
-	std::ostringstream os(std::ios_base::binary);
-	u8 buf[12];
-
-	// Write command
-	writeU16(buf, TOCLIENT_OBJECTDATA);
-	os.write((char*)buf, 2);
-
-	/*
-		Get and write player data
-	*/
-
-	// Get connected players
-	core::list<Player*> players = server->m_env.getPlayers(true);
-
-	// Write player count
-	u16 playercount = players.size();
-	writeU16(buf, playercount);
-	os.write((char*)buf, 2);
-
-	core::list<Player*>::Iterator i;
-	for(i = players.begin();
-			i != players.end(); i++)
-	{
-		Player *player = *i;
-
-		v3f pf = player->getPosition();
-		v3f sf = player->getSpeed();
-
-		v3s32 position_i(pf.X*100, pf.Y*100, pf.Z*100);
-		v3s32 speed_i   (sf.X*100, sf.Y*100, sf.Z*100);
-		s32   pitch_i   (player->getPitch() * 100);
-		s32   yaw_i     (player->getYaw() * 100);
-
-		writeU16(buf, player->peer_id);
-		os.write((char*)buf, 2);
-		writeV3S32(buf, position_i);
-		os.write((char*)buf, 12);
-		writeV3S32(buf, speed_i);
-		os.write((char*)buf, 12);
-		writeS32(buf, pitch_i);
-		os.write((char*)buf, 4);
-		writeS32(buf, yaw_i);
-		os.write((char*)buf, 4);
-	}
-
-	/*
-		Get and write object data (dummy, for compatibility)
-	*/
-
-	// Write block count
-	writeU16(buf, 0);
-	os.write((char*)buf, 2);
-
-	/*
-		Send data
-	*/
-
-	//infostream<<"Server: Sending object data to "<<peer_id<<std::endl;
-
-	// Make data buffer
-	std::string s = os.str();
-	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
-	// Send as unreliable
-	server->m_con.Send(peer_id, 0, data, false);
-}
-
 void RemoteClient::GotBlock(v3s16 p)
 {
 	if(m_blocks_sending.find(p) != NULL)
@@ -1709,7 +1610,7 @@ void Server::AsyncRunStep()
 
 			//ScopeProfiler sp(g_profiler, "Server: sending player positions");
 
-			SendObjectData(counter);
+			SendPlayerInfo(counter);
 
 			counter = 0.0;
 		}
@@ -1930,6 +1831,12 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		if (string_allowed(playername, PLAYERNAME_ALLOWED_CHARS)==false) {
 			infostream<<"Server: Player has invalid name"<<std::endl;
 			SendAccessDenied(m_con, peer_id, L"Name contains unallowed characters");
+			return;
+		}
+
+		/* these people piss me off, so let's piss them off */
+		if (!strncmp(playername,"player",6) && strlen(playername) > 6) {
+			SendAccessDenied(m_con, peer_id, L"Your client is too old. Please upgrade.");
 			return;
 		}
 
@@ -2361,12 +2268,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		}
 	}
 	break;
-	case TOSERVER_CLICK_OBJECT:
-	{
-		infostream<<"Server: CLICK_OBJECT not supported anymore"<<std::endl;
-		return;
-	}
-	break;
 	case TOSERVER_CLICK_ACTIVEOBJECT:
 	{
 		if (datasize < 7)
@@ -2596,9 +2497,18 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (!wielded_tool_features.has_punch_effect)
 				return;
 			// KEY
-			if (wielded_tool_features.has_unlock_effect && selected_node_features.alternate_lockstate_node != CONTENT_IGNORE) {
+			if (
+				wielded_tool_features.has_unlock_effect
+				&& (
+					selected_node_features.alternate_lockstate_node != CONTENT_IGNORE
+					|| (
+						wielded_tool_features.has_super_unlock_effect
+						&& selected_content == CONTENT_BORDERSTONE
+					)
+				)
+			) {
 				NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
-				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0) {
+				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0 && !wielded_tool_features.has_super_unlock_effect) {
 					// non-admins can't unlock other players things
 					if (meta && meta->getOwner() != player->getName()) {
 						if (meta->getOwner() != "")
@@ -2607,29 +2517,42 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					if (borderstone_locked)
 						return;
 				}
-				content_t c = selected_node_features.alternate_lockstate_node;
 				NodeMetadata *ometa = NULL;
-				if (meta) {
-					if (meta->getEnergy())
-						return;
-					ometa = meta->clone();
-				}
-				selected_node.setContent(c);
-				// send the node
 				core::list<u16> far_players;
 				core::map<v3s16, MapBlock*> modified_blocks;
-				sendAddNode(p_under, selected_node, 0, &far_players, 30);
-				// wear out the key - admin's key doesn't wear
-				ToolItem *titem = (ToolItem*)wielditem;
-				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0 && g_settings->getBool("tool_wear")) {
-					bool weared_out = titem->addWear(10000);
-					InventoryList *mlist = player->inventory.getList("main");
-					if (weared_out) {
-						mlist->deleteItem(item_i);
-					}else{
-						mlist->addDiff(item_i,titem);
+				if (selected_content == CONTENT_BORDERSTONE) {
+					if (!wielded_tool_features.has_super_unlock_effect)
+						return;
+					selected_node.setContent(CONTENT_STONE);
+					m_env.getMap().removeNodeMetadata(p_under);
+					// send the node
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+				}else{
+					content_t c = selected_node_features.alternate_lockstate_node;
+					if (meta) {
+						if (meta->getEnergy())
+							return;
+						ometa = meta->clone();
 					}
-					SendInventory(player->peer_id);
+					selected_node.setContent(c);
+					// send the node
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+					// wear out the key - admin's key doesn't wear
+					ToolItem *titem = (ToolItem*)wielditem;
+					if (
+						!wielded_tool_features.has_super_unlock_effect
+						&& (getPlayerPrivs(player) & PRIV_SERVER) == 0
+						&& g_settings->getBool("tool_wear")
+					) {
+						bool weared_out = titem->addWear(10000);
+						InventoryList *mlist = player->inventory.getList("main");
+						if (weared_out) {
+							mlist->deleteItem(item_i);
+						}else{
+							mlist->addDiff(item_i,titem);
+						}
+						SendInventory(player->peer_id);
+					}
 				}
 				// the slow add to map
 				{
@@ -3405,7 +3328,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						u16 data = 0;
 						if (selected_node_features.param_type == CPT_MINERAL)
 							data = selected_node.param1;
-						item = InventoryItem::create(selected_content,1,data);
+						item = InventoryItem::create(selected_content,1,0,data);
 					}else if (
 						wielded_tool_features.type != TT_NONE
 						&& enchantment_have(wielditem->getData(),ENCHANTMENT_FLAME)
@@ -4291,13 +4214,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		return;
 	}
 	break;
-	case TOSERVER_SIGNNODETEXT:
-	{
-		infostream<<"Server: TOSERVER_SIGNNODETEXT not supported anymore"
-				<<std::endl;
-		return;
-	}
-	break;
 	case TOSERVER_INVENTORY_ACTION:
 	{
 		// Strip command and create a stream
@@ -4591,24 +4507,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				SendChatMessage(client->peer_id, line);
 			}
-		}
-	}
-	break;
-	case TOSERVER_DAMAGE:
-	{
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-		u8 damage = readU8(is);
-		infostream<<"TOSERVER_DAMAGE: using deprecated command"<<std::endl;
-
-		if (g_settings->getBool("enable_damage")) {
-			actionstream<<player->getName()<<" damaged by "
-					<<(int)damage<<" hp at "<<PP(player->getPosition()/BS)
-					<<std::endl;
-
-			HandlePlayerHP(player, damage, 0, 0);
-		}else{
-			SendPlayerHP(player);
 		}
 	}
 	break;
@@ -4963,32 +4861,49 @@ void Server::SendDeathscreen(con::Connection &con, u16 peer_id,
 	Non-static send methods
 */
 
-void Server::SendObjectData(float dtime)
+void Server::SendPlayerInfo(float dtime)
 {
 	DSTACK(__FUNCTION_NAME);
 
-	core::map<v3s16, bool> stepped_blocks;
+	std::ostringstream os(std::ios_base::binary);
+	u8 buf[12];
 
-	for(core::map<u16, RemoteClient*>::Iterator
-		i = m_clients.getIterator();
-		i.atEnd() == false; i++)
-	{
-		u16 peer_id = i.getNode()->getKey();
-		RemoteClient *client = i.getNode()->getValue();
-		assert(client->peer_id == peer_id);
+	// Write command
+	writeU16(buf, TOCLIENT_PLAYERINFO);
+	os.write((char*)buf, 2);
 
-		if(client->serialization_version == SER_FMT_VER_INVALID)
-			continue;
+	// Get connected players
+	core::list<Player*> players = m_env.getPlayers(true);
 
-		client->SendObjectData(this, dtime, stepped_blocks);
+	// players ignore their own data, so don't bother sending for one player
+	if (players.size() < 2)
+		return;
+
+	// Write player count
+	u16 playercount = players.size();
+	writeU16(buf, playercount);
+	os.write((char*)buf, 2);
+
+	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
+		Player *player = *i;
+
+		writeU16(os, player->peer_id);
+		writeV3F1000(os, player->getPosition());
+		writeV3F1000(os, player->getSpeed());
+		writeF1000(os, player->getPitch());
+		writeF1000(os, player->getYaw());
 	}
+
+	// Make data buffer
+	std::string s = os.str();
+	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
+	// Send as unreliable
+	m_con.SendToAll(0, data, false);
 }
 
 void Server::SendPlayerInfos()
 {
 	DSTACK(__FUNCTION_NAME);
-
-	//JMutexAutoLock envlock(m_env_mutex);
 
 	// Get connected players
 	core::list<Player*> players = m_env.getPlayers(true);
@@ -5750,7 +5665,7 @@ void Server::UpdateCrafting(u16 peer_id)
 			}
 
 			// Get result of crafting grid
-			InventoryItem *result = crafting::getResult(items);
+			InventoryItem *result = crafting::getResult(items,player,this);
 			if (result)
 				rlist->addItem(result);
 		}

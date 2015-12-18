@@ -894,74 +894,6 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			m_env.getLocalPlayer()->setIgnoreEnergy(true);
 	}
 	break;
-	case TOCLIENT_PLAYERINFO:
-	{
-		u16 our_peer_id = m_con.GetPeerID();
-		// Cancel if we don't have a peer id
-		if (our_peer_id == PEER_ID_INEXISTENT) {
-			infostream<<"TOCLIENT_PLAYERINFO cancelled: we have no peer id"<<std::endl;
-			return;
-		}
-		{
-			u32 item_size = 2+PLAYERNAME_SIZE;
-			u32 player_count = (datasize-2) / item_size;
-			u32 start = 2;
-			// peer_ids
-			core::list<u16> players_alive;
-			for (u32 i=0; i<player_count; i++) {
-				// Make sure the name ends in '\0'
-				data[start+2+20-1] = 0;
-				u16 peer_id = readU16(&data[start]);
-				players_alive.push_back(peer_id);
-				// Don't update the info of the local player
-				if (peer_id == our_peer_id) {
-					start += item_size;
-					continue;
-				}
-				Player *player = m_env.getPlayer(peer_id);
-				// Create a player if it doesn't exist
-				if (player == NULL) {
-					player = new RemotePlayer(
-						m_device->getSceneManager()->getRootSceneNode(),
-						m_device,
-						-1
-					);
-					player->peer_id = peer_id;
-					m_env.addPlayer(player);
-					infostream<<"Client: Adding new player "<<peer_id<<std::endl;
-				}
-				player->updateName((char*)&data[start+2]);
-				start += item_size;
-			}
-			/*
-			Remove those players from the environment that
-			weren't listed by the server.
-			*/
-			core::list<Player*> players = m_env.getPlayers();
-			core::list<Player*>::Iterator ip;
-			for (ip=players.begin(); ip!=players.end(); ip++) {
-				// Ignore local player
-				if ((*ip)->isLocal())
-					continue;
-				// Warn about a special case
-				if ((*ip)->peer_id == 0)
-					infostream<<"Client: Removing dead player with id=0"<<std::endl;
-				bool is_alive = false;
-				core::list<u16>::Iterator i;
-				for (i=players_alive.begin(); i!=players_alive.end(); i++) {
-					if ((*ip)->peer_id == *i) {
-						is_alive = true;
-						break;
-					}
-				}
-				if (is_alive)
-					continue;
-				infostream<<"Removing dead player "<<(*ip)->peer_id<<std::endl;
-				m_env.removePlayer((*ip)->peer_id);
-			}
-		} //envlock
-	}
-	break;
 	case TOCLIENT_PLAYERDATA:
 	{
 		u16 our_peer_id = m_con.GetPeerID();
@@ -1143,10 +1075,46 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			m_inventory_updated = true;
 		}
 	}
-	//DEBUG
+	break;
+	case TOCLIENT_PLAYERINFO:
+	{
+		// Strip command word and create a stringstream
+		std::string datastring((char*)&data[2], datasize-2);
+		std::istringstream is(datastring, std::ios_base::binary);
+
+		/*
+			Read players
+		*/
+
+		u16 playercount = readU16(is);
+
+		for (u16 i=0; i<playercount; i++) {
+			u16 peer_id = readU16(is);
+			v3f position = readV3F1000(is);
+			v3f speed = readV3F1000(is);
+			f32 pitch = readF1000(is);
+			f32 yaw = readF1000(is);
+
+			Player *player = m_env.getPlayer(peer_id);
+
+			// Skip if player doesn't exist
+			if (player == NULL)
+				continue;
+
+			// Skip if player is local player
+			if (player->isLocal())
+				continue;
+
+			player->setPosition(position);
+			player->setSpeed(speed);
+			player->setPitch(pitch);
+			player->setYaw(yaw);
+		}
+	}
 	break;
 	case TOCLIENT_OBJECTDATA:
 	{
+		infostream<<"Client received DEPRECATED TOCLIENT_OBJECTDATA"<<std::endl;
 		// Strip command word and create a stringstream
 		std::string datastring((char*)&data[2], datasize-2);
 		std::istringstream is(datastring, std::ios_base::binary);
@@ -1361,17 +1329,6 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		}
 	}
 	break;
-	case TOCLIENT_HP:
-	{
-		infostream<<"Client received DEPRECATED TOCLIENT_HP"<<std::endl;
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-		Player *player = m_env.getLocalPlayer();
-		assert(player != NULL);
-		u8 hp = readU8(is);
-		player->hp = hp;
-	}
-	break;
 	case TOCLIENT_MOVE_PLAYER:
 	{
 		std::string datastring((char*)&data[2], datasize-2);
@@ -1406,48 +1363,6 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		// Ignore damage for a few seconds, so that the player doesn't
 		// get damage from falling on ground
 		m_ignore_damage_timer = 3.0;
-	}
-	break;
-	case TOCLIENT_PLAYERITEM:
-	{
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-
-		u16 count = readU16(is);
-
-		for (u16 i = 0; i < count; ++i) {
-			u16 peer_id = readU16(is);
-			Player *player = m_env.getPlayer(peer_id);
-
-			if (player == NULL) {
-				infostream<<"Client: ignoring player item "
-					<< deSerializeString(is)
-					<< " for non-existing peer id " << peer_id
-					<< std::endl;
-				continue;
-			}else if (player->isLocal()) {
-				infostream<<"Client: ignoring player item "
-					<< deSerializeString(is)
-					<< " for local player" << std::endl;
-				continue;
-			}else{
-				InventoryList *inv = player->inventory.getList("main");
-				std::string itemstring(deSerializeString(is));
-				if (itemstring.empty()) {
-					inv->deleteItem(0);
-					infostream
-						<<"Client: empty player item for peer "
-						<< peer_id << std::endl;
-				}else{
-					std::istringstream iss(itemstring);
-					delete inv->changeItem(0, InventoryItem::deSerialize(iss));
-					infostream<<"Client: player item for peer " << peer_id << ": ";
-					player->getWieldItem()->serialize(infostream);
-					infostream<<std::endl;
-				}
-				player->wieldItem(0);
-			}
-		}
 	}
 	break;
 	case TOCLIENT_PLAYERITEMS:
@@ -1937,20 +1852,28 @@ void Client::sendRespawn()
 
 void Client::sendPlayerPos()
 {
-	//JMutexAutoLock envlock(m_env_mutex); //bulk comment-out
-
-	Player *myplayer = m_env.getLocalPlayer();
-	if(myplayer == NULL)
+	LocalPlayer *myplayer = m_env.getLocalPlayer();
+	if (myplayer == NULL)
 		return;
 
-	u16 our_peer_id;
-	{
-		//JMutexAutoLock lock(m_con_mutex); //bulk comment-out
-		our_peer_id = m_con.GetPeerID();
-	}
+	// Save bandwidth by only updating position when something changed
+	if (
+		myplayer->last_position == myplayer->getPosition()
+		&& myplayer->last_speed == myplayer->getSpeed()
+		&& myplayer->last_pitch == myplayer->getPitch()
+		&& myplayer->last_yaw == myplayer->getYaw()
+	)
+		return;
+
+	myplayer->last_position = myplayer->getPosition();
+	myplayer->last_speed = myplayer->getSpeed();
+	myplayer->last_pitch = myplayer->getPitch();
+	myplayer->last_yaw = myplayer->getYaw();
+
+	u16 our_peer_id = m_con.GetPeerID();
 
 	// Set peer id if not set already
-	if(myplayer->peer_id == PEER_ID_INEXISTENT)
+	if (myplayer->peer_id == PEER_ID_INEXISTENT)
 		myplayer->peer_id = our_peer_id;
 	// Check that an existing peer_id is the same as the connection's
 	assert(myplayer->peer_id == our_peer_id);

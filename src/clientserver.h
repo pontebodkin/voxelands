@@ -68,12 +68,18 @@ enum ToClientCommand
 		u8 enable_hunger
 	*/
 
-	TOCLIENT_PLAYERINFO = 0x24, // deprecated, see TOCLIENT_PLAYERDATA
+	TOCLIENT_PLAYERINFO = 0x24,
 	/*
-		[0] u16 command
+		Sent as unreliable.
+
+		u16 command
+		u16 number of player positions
 		for each player:
 			u16 peer_id
-			char[20] name
+			v3F1000 position
+			v3F1000 speed
+			F1000 pitch
+			F1000 yaw
 	*/
 
 	TOCLIENT_PLAYER_ANIMATION = 0x25,
@@ -97,7 +103,7 @@ enum ToClientCommand
 		[2] serialized inventory
 	*/
 
-	TOCLIENT_OBJECTDATA = 0x28,
+	TOCLIENT_OBJECTDATA = 0x28, // deprecated, see TOCLIENT_PLAYERINFO
 	/*
 		Sent as unreliable.
 
@@ -156,12 +162,6 @@ enum ToClientCommand
 		}
 	*/
 
-	TOCLIENT_HP = 0x33,
-	/*
-		u16 command
-		u8 hp
-	*/
-
 	TOCLIENT_MOVE_PLAYER = 0x34,
 	/*
 		u16 command
@@ -175,17 +175,6 @@ enum ToClientCommand
 		u16 command
 		u16 reason_length
 		wstring reason
-	*/
-
-	TOCLIENT_PLAYERITEM = 0x36, // Obsolete, see TOCLIENT_PLAYERITEMS
-	/*
-		u16 command
-		u16 count of player items
-		for all player items {
-			u16 peer id
-			u16 length of serialized item
-			string serialized item
-		}
 	*/
 
 	TOCLIENT_DEATHSCREEN = 0x37,
@@ -244,6 +233,7 @@ enum ToClientCommand
 				u16 slot index
 				u16 content type
 				u16 count/wear
+				u16 data
 			}
 		}
 	*/
@@ -258,8 +248,8 @@ enum ToServerCommand
 		[0] u16 TOSERVER_INIT
 		[2] u8 SER_FMT_VER_HIGHEST
 		[3] u8[20] player_name
-		[23] u8[28] password (new in some version)
-		[51] u16 client network protocol version (new in some version)
+		[23] u8[28] password
+		[51] u16 client network protocol version
 	*/
 
 	TOSERVER_INIT2 = 0x11,
@@ -314,23 +304,6 @@ enum ToServerCommand
 		...
 	*/
 
-	TOSERVER_ADDNODE_FROM_INVENTORY = 0x26, // Obsolete
-	/*
-		[0] u16 command
-		[2] v3s16 pos
-		[8] u16 i
-	*/
-
-	TOSERVER_CLICK_OBJECT = 0x27,
-	/*
-		length: 13
-		[0] u16 command
-		[2] u8 button (0=left, 1=right)
-		[3] v3s16 blockpos
-		[9] s16 id
-		[11] u16 item
-	*/
-
 	TOSERVER_GROUND_ACTION = 0x28,
 	/*
 		length: 17
@@ -372,14 +345,6 @@ enum ToServerCommand
 		wstring message
 	*/
 
-	TOSERVER_SIGNNODETEXT = 0x33, // obsolete
-	/*
-		u16 command
-		v3s16 p
-		u16 textlen
-		textdata
-	*/
-
 	TOSERVER_CLICK_ACTIVEOBJECT = 0x34,
 	/*
 		length: 7
@@ -387,12 +352,6 @@ enum ToServerCommand
 		[2] u8 button (0=left, 1=right)
 		[3] u16 id
 		[5] u16 item
-	*/
-
-	TOSERVER_DAMAGE = 0x35, // obsolete, see TOSERVER_PLAYERDAMAGE
-	/*
-		u16 command
-		u8 amount
 	*/
 
 	TOSERVER_PASSWORD=0x36,

@@ -1240,9 +1240,15 @@ int main(int argc, char *argv[])
 				if (g_settings->exists("mapgen_type"))
 					menudata.map_type = g_settings->get("mapgen_type");
 
-				GUIMainMenu *menu =
-						new GUIMainMenu(guienv, guiroot, -1,
-							&g_menumgr, &menudata, g_gamecallback, sound);
+				GUIMainMenu *menu = new GUIMainMenu(
+					guienv,
+					guiroot,
+					-1,
+					&g_menumgr,
+					&menudata,
+					g_gamecallback,
+					sound
+				);
 				menu->allowFocusRemoval(true);
 
 				if (error_message != L"") {
@@ -1267,8 +1273,12 @@ int main(int argc, char *argv[])
 				while (device->run() && kill == false) {
 					if (menu->getStatus() == true)
 						break;
+					if (g_gamecallback->startgame_requested) {
+						g_gamecallback->startgame_requested = false;
+						menu->quitMenu();
+						break;
+					}
 
-					//driver->beginScene(true, true, video::SColor(255,0,0,0));
 					driver->beginScene(true, true, video::SColor(255,170,230,255));
 
 					drawMenuBackground(driver);

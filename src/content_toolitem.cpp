@@ -27,6 +27,7 @@
 #include <map>
 #include "intl.h"
 #include "enchantment.h"
+#include "auth.h"
 
 std::map<content_t,struct ToolItemFeatures> g_content_toolitem_features;
 
@@ -140,18 +141,20 @@ DiggingProperties getDiggingProperties(content_t content, u8 mineral, content_t 
 				}
 				break;
 			case ENCHANTMENT_LONGLASTING:
+			{
 				wear -= wp*(info.level+1);
 				break;
+			}
 			case ENCHANTMENT_FLAME:
 				wear *= 2.5;
 				break;
 			default:;
 			}
 		}
-		if (time < 0.0)
+		if (time < 0.01)
 			time = 0.01;
-		if (wear < 0.0)
-			wear = 0.01;
+		if (wear < 1.0)
+			wear = 1.0;
 	}
 
 	return DiggingProperties(diggable,time,wear);
@@ -597,7 +600,7 @@ void content_toolitem_init()
 	i = CONTENT_TOOLITEM_KEY;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "key.png";
+	f->texture = "tool_key.png";
 	f->name = "key";
 	f->description = wgettext("Key");
 	f->type = TT_SPECIAL;
@@ -897,4 +900,24 @@ void content_toolitem_init()
 		crafting::setRecipe(r,i,1);
 	}
 	lists::add("craftguide",i);
+
+	i = CONTENT_TOOLITEM_MITHRIL_KEY;
+	f = &g_content_toolitem_features[i];
+	f->content = i;
+	f->texture = "tool_mithril_key.png";
+	f->name = "mithrilkey";
+	f->description = wgettext("Mithril Key");
+	f->type = TT_SPECIAL;
+	f->level = 5;
+	f->has_unlock_effect = true;
+	f->has_super_unlock_effect = true;
+	/* this can only be crafted by server admin */
+	{
+		content_t r[9] = {
+			CONTENT_CRAFTITEM_MITHRIL_UNBOUND,	CONTENT_IGNORE,				CONTENT_IGNORE,
+			CONTENT_IGNORE,				CONTENT_IGNORE,				CONTENT_IGNORE,
+			CONTENT_IGNORE,				CONTENT_IGNORE,				CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,i,1,PRIV_SERVER);
+	}
 }
