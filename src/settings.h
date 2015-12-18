@@ -80,7 +80,7 @@ public:
 		}
 	}
 
-	bool parseConfigLine(const std::string &line)
+	virtual bool parseConfigLine(const std::string &line)
 	{
 		JMutexAutoLock lock(m_mutex);
 
@@ -673,6 +673,34 @@ public:
 
 	// you'll find this in defaultsettings.cpp
 	void setGameDefaults(std::string mode);
+
+	virtual bool parseConfigLine(const std::string &line)
+	{
+		JMutexAutoLock lock(m_mutex);
+
+		std::string trimmedline = trim(line);
+
+		// Ignore comments
+		if (trimmedline[0] == '#')
+			return true;
+
+		Strfnd sf(trim(line));
+
+		std::string name = sf.next("=");
+		name = trim(name);
+
+		if (name == "")
+			return true;
+
+		std::string value = sf.next("\n");
+		value = trim(value);
+
+		m_settings[name] = value;
+		if (name == "game_mode")
+			setGameDefaults(value);
+
+		return true;
+	}
 
 	virtual void set(std::string name, std::string value)
 	{
