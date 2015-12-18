@@ -676,26 +676,30 @@ public:
 
 	virtual bool parseConfigLine(const std::string &line)
 	{
-		JMutexAutoLock lock(m_mutex);
+		std::string name;
+		std::string value;
+		{
+			JMutexAutoLock lock(m_mutex);
 
-		std::string trimmedline = trim(line);
+			std::string trimmedline = trim(line);
 
-		// Ignore comments
-		if (trimmedline[0] == '#')
-			return true;
+			// Ignore comments
+			if (trimmedline[0] == '#')
+				return true;
 
-		Strfnd sf(trim(line));
+			Strfnd sf(trimmedline);
 
-		std::string name = sf.next("=");
-		name = trim(name);
+			name = sf.next("=");
+			name = trim(name);
 
-		if (name == "")
-			return true;
+			if (name == "")
+				return true;
 
-		std::string value = sf.next("\n");
-		value = trim(value);
+			value = sf.next("\n");
+			value = trim(value);
 
-		m_settings[name] = value;
+			m_settings[name] = value;
+		}
 		if (name == "game_mode")
 			setGameDefaults(value);
 
