@@ -213,7 +213,7 @@ void content_mapnode_init(bool repeat)
 	if (invisible_stone)
 		f->solidness = 0; // For debugging, hides regular stone
 	lists::add("creative",i);
-	lists::add("cooking",idd);
+	lists::add("cooking",i);
 	lists::add("decrafting",i);
 
 	i = CONTENT_MARBLE;
