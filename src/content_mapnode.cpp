@@ -206,13 +206,26 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->often_contains_mineral = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 0.6;
 	if (invisible_stone)
 		f->solidness = 0; // For debugging, hides regular stone
 	lists::add("creative",i);
+	lists::add("cooking",idd);
 	lists::add("decrafting",i);
+
+	i = CONTENT_MARBLE;
+	f = &content_features(i);
+	f->description = wgettext("Marble");
+	f->setAllTextures("marble.png");
+	f->setInventoryTextureCube("marble.png", "marble.png", "marble.png");
+	f->draw_type = CDT_CUBELIKE;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->type = CMT_STONE;
+	f->hardness = 1.0;
+	lists::add("creative",i);
 
 	i = CONTENT_ROCK;
 	f = &content_features(i);
