@@ -160,6 +160,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	f->suffocation_per_second = 0;
@@ -179,6 +180,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	f->suffocation_per_second = 0;
@@ -198,6 +200,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	f->suffocation_per_second = 0;
@@ -217,6 +220,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	f->suffocation_per_second = 0;
@@ -236,6 +240,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	f->suffocation_per_second = 0;
@@ -255,6 +260,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
 	crafting::setVRecipe(CONTENT_COTTON,CONTENT_COUCH_CHAIR,2);
@@ -284,6 +290,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	f->suffocation_per_second = 0;
@@ -303,6 +310,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	f->suffocation_per_second = 0;
@@ -322,6 +330,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	f->suffocation_per_second = 0;
@@ -341,6 +350,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	f->suffocation_per_second = 0;
@@ -360,6 +370,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	f->suffocation_per_second = 0;
@@ -379,6 +390,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLUE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	crafting::setVRecipe(CONTENT_COTTON_BLUE,CONTENT_COUCH_CHAIR_BLUE,2);
@@ -402,6 +414,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	f->suffocation_per_second = 0;
@@ -421,6 +434,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	f->suffocation_per_second = 0;
@@ -440,6 +454,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	f->suffocation_per_second = 0;
@@ -459,6 +474,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	f->suffocation_per_second = 0;
@@ -478,6 +494,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	f->suffocation_per_second = 0;
@@ -497,6 +514,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_GREEN;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	crafting::setVRecipe(CONTENT_COTTON_GREEN,CONTENT_COUCH_CHAIR_GREEN,2);
@@ -520,6 +538,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	f->suffocation_per_second = 0;
@@ -539,6 +558,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	f->suffocation_per_second = 0;
@@ -558,6 +578,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	f->suffocation_per_second = 0;
@@ -577,6 +598,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	f->suffocation_per_second = 0;
@@ -596,6 +618,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	f->suffocation_per_second = 0;
@@ -615,6 +638,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_ORANGE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	crafting::setVRecipe(CONTENT_COTTON_ORANGE,CONTENT_COUCH_CHAIR_ORANGE,2);
@@ -638,6 +662,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	f->suffocation_per_second = 0;
@@ -657,6 +682,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	f->suffocation_per_second = 0;
@@ -676,6 +702,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	f->suffocation_per_second = 0;
@@ -695,6 +722,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	f->suffocation_per_second = 0;
@@ -714,6 +742,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	f->suffocation_per_second = 0;
@@ -733,6 +762,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_PURPLE;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	crafting::setVRecipe(CONTENT_COTTON_PURPLE,CONTENT_COUCH_CHAIR_PURPLE,2);
@@ -756,6 +786,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	f->suffocation_per_second = 0;
@@ -775,6 +806,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	f->suffocation_per_second = 0;
@@ -794,6 +826,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	f->suffocation_per_second = 0;
@@ -813,6 +846,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	f->suffocation_per_second = 0;
@@ -832,6 +866,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	f->suffocation_per_second = 0;
@@ -851,6 +886,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_RED;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	crafting::setVRecipe(CONTENT_COTTON_RED,CONTENT_COUCH_CHAIR_RED,2);
@@ -874,6 +910,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	f->suffocation_per_second = 0;
@@ -893,6 +930,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	f->suffocation_per_second = 0;
@@ -912,6 +950,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	f->suffocation_per_second = 0;
@@ -931,6 +970,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	f->suffocation_per_second = 0;
@@ -950,6 +990,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	f->suffocation_per_second = 0;
@@ -969,6 +1010,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_YELLOW;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	crafting::setVRecipe(CONTENT_COTTON_YELLOW,CONTENT_COUCH_CHAIR_YELLOW,2);
@@ -992,6 +1034,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	f->suffocation_per_second = 0;
@@ -1011,6 +1054,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	f->suffocation_per_second = 0;
@@ -1030,6 +1074,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	f->suffocation_per_second = 0;
@@ -1049,6 +1094,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	f->suffocation_per_second = 0;
@@ -1068,6 +1114,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	f->suffocation_per_second = 0;
@@ -1087,6 +1134,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLACK;
+	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	crafting::setVRecipe(CONTENT_COTTON_BLACK,CONTENT_COUCH_CHAIR_BLACK,2);
@@ -1110,24 +1158,9 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
-	f->setNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),-0.3*BS, -0.5*BS, 0.20*BS, -0.2*BS, 0.5*BS, 0.30*BS
-	));
-	f->addNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),0.2*BS, -0.5*BS, 0.20*BS, 0.3*BS, 0.5*BS, 0.30*BS
-	));
-	f->addNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),-0.3*BS, -0.5*BS, -0.30*BS, -0.2*BS, -0.1*BS, -0.20*BS
-	));
-	f->addNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),0.2*BS, -0.5*BS, -0.30*BS, 0.3*BS, -0.1*BS, -0.20*BS
-	));
-	f->addNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),-0.3*BS, -0.1*BS, -0.30*BS, 0.3*BS, 0.0*BS, 0.20*BS
-	));
-	f->addNodeBox(NodeBox(
-		v3s16(0,1,0),v3f(0,0,0),-0.2*BS, 0.1*BS, 0.25*BS, 0.2*BS, 0.4*BS, 0.26*BS
-	));
+	content_nodebox_chair(f);
+	f->onpunch_replace_node = CONTENT_CHAIR_CENTRE;
+	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
 	f->hardness = 0.25;
@@ -1142,6 +1175,126 @@ void content_mapnode_furniture(bool repeat)
 	}
 	lists::add("craftguide",i);
 	lists::add("creative",i);
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_CHAIR_CENTRE;
+	f = &content_features(i);
+	f->description = wgettext("Chair");
+	f->setAllTextures("pine.png");
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->sunlight_propagates = true;
+	f->rotate_tile_with_nodebox = true;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	content_nodebox_chair_centre(f);
+	f->onpunch_replace_node = CONTENT_CHAIR_ENDL;
+	f->onpunch_replace_respects_borderstone = true;
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
+	f->type = CMT_WOOD;
+	f->hardness = 0.25;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_CHAIR_ENDL;
+	f = &content_features(i);
+	f->description = wgettext("Chair");
+	f->setAllTextures("pine.png");
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->sunlight_propagates = true;
+	f->rotate_tile_with_nodebox = true;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	content_nodebox_chair_endl(f);
+	f->onpunch_replace_node = CONTENT_CHAIR_ENDR;
+	f->onpunch_replace_respects_borderstone = true;
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
+	f->type = CMT_WOOD;
+	f->hardness = 0.25;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_CHAIR_ENDR;
+	f = &content_features(i);
+	f->description = wgettext("Chair");
+	f->setAllTextures("pine.png");
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->sunlight_propagates = true;
+	f->rotate_tile_with_nodebox = true;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	content_nodebox_chair_endr(f);
+	f->onpunch_replace_node = CONTENT_CHAIR_INNER;
+	f->onpunch_replace_respects_borderstone = true;
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
+	f->type = CMT_WOOD;
+	f->hardness = 0.25;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_CHAIR_INNER;
+	f = &content_features(i);
+	f->description = wgettext("Chair");
+	f->setAllTextures("pine.png");
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->sunlight_propagates = true;
+	f->rotate_tile_with_nodebox = true;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	content_nodebox_chair_inner(f);
+	f->onpunch_replace_node = CONTENT_CHAIR_OUTER;
+	f->onpunch_replace_respects_borderstone = true;
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
+	f->type = CMT_WOOD;
+	f->hardness = 0.25;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_CHAIR_OUTER;
+	f = &content_features(i);
+	f->description = wgettext("Chair");
+	f->setAllTextures("pine.png");
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->sunlight_propagates = true;
+	f->rotate_tile_with_nodebox = true;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	content_nodebox_chair_outer(f);
+	f->onpunch_replace_node = CONTENT_CHAIR;
+	f->onpunch_replace_respects_borderstone = true;
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
+	f->type = CMT_WOOD;
+	f->hardness = 0.25;
+	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_TABLE;

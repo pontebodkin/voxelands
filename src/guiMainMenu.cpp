@@ -1046,6 +1046,7 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 			case GUI_ID_JOIN_GAME_BUTTON: // Start game
 				acceptInput();
 				m_gamecallback->startGame();
+				quitMenu();
 				return true;
 			case GUI_ID_CHARACTER_CREATOR:
 			{

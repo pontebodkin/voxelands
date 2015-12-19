@@ -1312,6 +1312,7 @@ int main(int argc, char *argv[])
 
 				if (character_creator)
 					break;
+				g_gamecallback->startgame_requested = false;
 
 				// Delete map if requested
 				if (menudata.delete_map) {

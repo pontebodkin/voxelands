@@ -95,7 +95,12 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_LIMESTONE_WALL 0x02C
 // FREE 0x02D-0x07C
 // 0x7D-0x7F reserved values, air, ignore, etc
-// FREE 0x80-0x7F6
+#define CONTENT_CHAIR_CENTRE 0x080
+#define CONTENT_CHAIR_ENDL 0x081
+#define CONTENT_CHAIR_ENDR 0x082
+#define CONTENT_CHAIR_INNER 0x083
+#define CONTENT_CHAIR_OUTER 0x084
+// FREE 0x085-0x7F6
 #define CONTENT_LEAVES_SNOWY 0x7F7
 #define CONTENT_TRIMMED_LEAVES_AUTUMN 0x7F8
 #define CONTENT_TRIMMED_LEAVES_WINTER 0x7F9
