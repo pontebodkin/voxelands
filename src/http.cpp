@@ -534,10 +534,11 @@ std::string http_request(char* host, char* url, char* post, int port)
 	HTTPResponseHeaders headers;
 	int s;
 	char buff[2048];
+	std::string h;
 
 	addr.setPort(port);
 	if (!host || !host[0]) {
-		std::string h = g_settings->get("api_server");
+		h = g_settings->get("api_server");
 		if (h == "")
 			return "";
 		host = (char*)h.c_str();
