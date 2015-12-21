@@ -175,12 +175,17 @@ void ItemSAO::step(float dtime, bool send_recommended)
 				|| m_content == CONTENT_JUNGLELEAVES
 				|| m_content == CONTENT_APPLE_LEAVES
 				|| m_content == CONTENT_CONIFER_LEAVES
+				|| m_content == CONTENT_LEAVES_AUTUMN
+				|| m_content == CONTENT_LEAVES_WINTER
 			)
 		) { 	// leaves falling on grass become either saplings or wild grass
 			if (
 				un.getContent() == CONTENT_MUD
 				|| un.getContent() == CONTENT_GRASS
 				|| un.getContent() == CONTENT_GRASS_FOOTSTEPS
+				|| un.getContent() == CONTENT_GRASS_AUTUMN
+				|| un.getContent() == CONTENT_GRASS_FOOTSTEPS_AUTUMN
+				|| un.getContent() == CONTENT_MUDSNOW
 			) {
 				content_t c = CONTENT_SAPLING;
 				std::vector<content_t> search;
