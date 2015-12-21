@@ -177,6 +177,7 @@ void ItemSAO::step(float dtime, bool send_recommended)
 				|| m_content == CONTENT_CONIFER_LEAVES
 				|| m_content == CONTENT_LEAVES_AUTUMN
 				|| m_content == CONTENT_LEAVES_WINTER
+				|| m_content == CONTENT_LEAVES_SNOWY
 			)
 		) { 	// leaves falling on grass become either saplings or wild grass
 			if (
