@@ -395,6 +395,8 @@ struct ContentFeatures
 	std::string ondig_special_tool_append;
 	// when punched, this node will replace the punched node
 	content_t onpunch_replace_node;
+	// whether onpunch replace node works within borderstone
+	bool onpunch_replace_respects_borderstone;
 
 	// when placed against a wall, this node should be placed instead
 	content_t wallmount_alternate_node;
@@ -554,6 +556,7 @@ struct ContentFeatures
 		ondig_special_tool = 0;
 		ondig_special_tool_append = "";
 		onpunch_replace_node = CONTENT_IGNORE;
+		onpunch_replace_respects_borderstone = false;
 		wallmount_alternate_node = CONTENT_IGNORE;
 		floormount_alternate_node = CONTENT_IGNORE;
 		roofmount_alternate_node = CONTENT_IGNORE;

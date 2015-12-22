@@ -72,5 +72,12 @@ void content_nodebox_furnace(ContentFeatures *f);
 void content_nodebox_lockedfurnace(ContentFeatures *f);
 void content_nodebox_incinerator(ContentFeatures *f);
 void content_nodebox_rock(ContentFeatures *f);
+void content_nodebox_chair(ContentFeatures *f);
+void content_nodebox_chair_centre(ContentFeatures *f);
+void content_nodebox_chair_endl(ContentFeatures *f);
+void content_nodebox_chair_endr(ContentFeatures *f);
+void content_nodebox_chair_inner(ContentFeatures *f);
+void content_nodebox_chair_outer(ContentFeatures *f);
+void content_nodebox_table(ContentFeatures *f);
 
 #endif

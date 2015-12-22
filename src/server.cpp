@@ -2587,6 +2587,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				selected_node_features.onpunch_replace_node != CONTENT_IGNORE
 				&& !wielded_tool_features.has_rotate_effect
 			) {
+				if (selected_node_features.onpunch_replace_respects_borderstone && borderstone_locked)
+					return;
 				core::list<u16> far_players;
 				core::map<v3s16, MapBlock*> modified_blocks;
 
