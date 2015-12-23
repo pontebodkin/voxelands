@@ -5254,7 +5254,7 @@ void meshgen_flaglike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	if (selected.is_coloured || selected.has_crack) {
 		float os[2] = {0.01,-0.01};
 		for (u16 k=0; k<2; k++) {
-			video::S3DVertex v[4] = vertices;
+			video::S3DVertex *v = vertices;
 			for (u16 i=0; i<4; i++) {
 				v[i].Pos.Z += os[k];
 				v[i].Pos.rotateXZBy(angle);
