@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jay <joeyxtreme@hotmail.nl>, 2014
 # NOH <neinmeinleben@outlook.com>, 2015
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-21 11:27+1000\n"
-"PO-Revision-Date: 2015-10-18 16:24+0000\n"
+"PO-Revision-Date: 2015-12-22 20:36+0000\n"
 "Last-Translator: NOH <neinmeinleben@outlook.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/voxelands/"
-"voxelands/language/nl_NL/)\n"
-"Language: nl_NL\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/voxelands/voxelands/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
@@ -230,17 +229,9 @@ msgstr "Canvas Schoenen"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Hier kun je jouw personage aanmaken, zo zien de andere spelers jouw "
-"personage in het spel. Als je naar een nieuwe server gaat dan start je met "
-"de kleding die je daar hebt selecteerd. Aanvullende kleding, zowel "
-"beschermend als decoratief, kun je in het spel maken. Je kunt hier altijd "
-"terugkeren via het hoofdmenu om jouw personage te veranderen."
+msgstr "Hier kun je jouw personage aanmaken, zo zien de andere spelers jouw personage in het spel. Als je naar een nieuwe server gaat dan start je met de kleding die je daar hebt selecteerd. Aanvullende kleding, zowel beschermend als decoratief, kun je in het spel maken. Je kunt hier altijd terugkeren via het hoofdmenu om jouw personage te veranderen."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1588,7 +1579,7 @@ msgstr "Kalksteen"
 
 #: src/content_mapnode.cpp:221
 msgid "Marble"
-msgstr ""
+msgstr "Marmer"
 
 #: src/content_mapnode.cpp:232
 msgid "Rock"
@@ -3047,8 +3038,7 @@ msgstr "De verbrandingsoven is inactief"
 
 #: src/content_nodemeta.cpp:1634
 msgid "Add fuel, then punch to incinerate wielded item"
-msgstr ""
-"Brandstof toevoegen en dan het voorwerp stoten om het te laten verbranden"
+msgstr "Brandstof toevoegen en dan het voorwerp stoten om het te laten verbranden"
 
 #: src/content_nodemeta.cpp:1875 src/content_nodemeta.cpp:2163
 msgid "Add item here to see recipe"
@@ -3113,9 +3103,7 @@ msgstr "De Ketel heeft geen brondstof meer"
 
 #: src/content_nodemeta.cpp:3219
 msgid "Add fuel, then punch to add or remove water"
-msgstr ""
-"Brandstof toevoegen en dan het voorwerp stoten om water toe te voegen of te "
-"verwijderen"
+msgstr "Brandstof toevoegen en dan het voorwerp stoten om water toe te voegen of te verwijderen"
 
 #: src/content_nodemeta.cpp:3487
 msgid "Show Enchanting"
@@ -3318,9 +3306,8 @@ msgid "Mob Spawner"
 msgstr "Mob Spawner"
 
 #: src/content_toolitem.cpp:909
-#, fuzzy
 msgid "Mithril Key"
-msgstr "Mithril Bijl"
+msgstr "Mithril Sleutel"
 
 #: src/game.cpp:210
 msgid "Clothes"
@@ -3507,8 +3494,7 @@ msgstr "Respawn"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"Linker knop: Alle items verplaatsen, Rechter knop: Enkele item verplaatsen"
+msgstr "Linker knop: Alle items verplaatsen, Rechter knop: Enkele item verplaatsen"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3692,10 +3678,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Gemaakt door Lisa 'darkrose' Milne <lisa@ltmnet.com> en door bijdragers."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nGemaakt door Lisa 'darkrose' Milne <lisa@ltmnet.com> en door bijdragers."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3728,15 +3711,8 @@ msgstr "Andere Bijdragers en Speciale Dank aan"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Gebaseerd op Minetest-C55 door Perttu Ahola <celeron55@gmail.com>\n"
-" en de volgende bijdragers: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), "
-"darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, "
-"Jonathan Neuschafer, thexyz, VanessaE, sfan5... en nog tientalle andere "
-"personen."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Gebaseerd op Minetest-C55 door Perttu Ahola <celeron55@gmail.com>\n en de volgende bijdragers: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... en nog tientalle andere personen."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3748,20 +3724,19 @@ msgstr "Hoofd Menu"
 
 #: src/guiMultiplayerMenu.cpp:142
 msgid "All Servers"
-msgstr ""
+msgstr "Alle servers"
 
 #: src/guiMultiplayerMenu.cpp:148
 msgid "Favourite Servers"
-msgstr ""
+msgstr "Favoriete Servers"
 
 #: src/guiMultiplayerMenu.cpp:154
-#, fuzzy
 msgid "Custom Connect"
-msgstr "Verbinden"
+msgstr "Verbinden met Aangepaste Verbinding"
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
-msgstr ""
+msgstr "Aangepaste Verbinding"
 
 #: src/guiMultiplayerMenu.cpp:176
 msgid "Address/Port"
@@ -3769,7 +3744,7 @@ msgstr "Adres?Port"
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
-msgstr ""
+msgstr "Toevoegen aan Favorieten"
 
 #: src/guiMultiplayerMenu.cpp:206 src/guiMultiplayerMenu.cpp:320
 msgid "Connect"
@@ -3781,23 +3756,23 @@ msgstr "Naam/Wachtwoord"
 
 #: src/guiMultiplayerMenu.cpp:240
 msgid "Join Server"
-msgstr ""
+msgstr "Join Server "
 
 #: src/guiMultiplayerMenu.cpp:262
 msgid "My Favourites"
-msgstr ""
+msgstr "Mijn Favorieten"
 
 #: src/guiMultiplayerMenu.cpp:265
 msgid "Server List"
-msgstr ""
+msgstr "Server Lijst"
 
 #: src/guiMultiplayerMenu.cpp:270
 msgid "Get New List"
-msgstr ""
+msgstr "Haal Nieuwe Lijst"
 
 #: src/guiMultiplayerMenu.cpp:307
 msgid "Remove from Favourites"
-msgstr ""
+msgstr "Verwijderen van Favorieten"
 
 #: src/guiPasswordChange.cpp:105
 msgid "Old Password"
@@ -4100,7 +4075,7 @@ msgstr "Effect Boost:"
 
 #: src/keycode.cpp:232
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/keycode.cpp:234
 msgid "Left Button"
@@ -4244,148 +4219,147 @@ msgstr "Help"
 
 #: src/keycode.cpp:274
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/keycode.cpp:275
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/keycode.cpp:276
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/keycode.cpp:277
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: src/keycode.cpp:278
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: src/keycode.cpp:279
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/keycode.cpp:280
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: src/keycode.cpp:281
 msgid "7"
-msgstr ""
+msgstr "7"
 
 #: src/keycode.cpp:282
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: src/keycode.cpp:283
 msgid "9"
-msgstr ""
+msgstr "9"
 
 #: src/keycode.cpp:284
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: src/keycode.cpp:285
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #: src/keycode.cpp:286
 msgid "C"
-msgstr ""
+msgstr "C"
 
 #: src/keycode.cpp:287
 msgid "D"
-msgstr ""
+msgstr "D"
 
 #: src/keycode.cpp:288
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #: src/keycode.cpp:289
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/keycode.cpp:290
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #: src/keycode.cpp:291
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/keycode.cpp:292
 msgid "I"
-msgstr ""
+msgstr "I"
 
 #: src/keycode.cpp:293
 msgid "J"
-msgstr ""
+msgstr "J"
 
 #: src/keycode.cpp:294
 msgid "K"
-msgstr ""
+msgstr "K"
 
 #: src/keycode.cpp:295
 msgid "L"
-msgstr ""
+msgstr "L"
 
 #: src/keycode.cpp:296
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/keycode.cpp:297
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: src/keycode.cpp:298
 msgid "O"
-msgstr ""
+msgstr "O"
 
 #: src/keycode.cpp:299
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #: src/keycode.cpp:300
 msgid "Q"
-msgstr ""
+msgstr "Q"
 
 #: src/keycode.cpp:301
 msgid "R"
-msgstr ""
+msgstr "R"
 
 #: src/keycode.cpp:302
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/keycode.cpp:303
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: src/keycode.cpp:304
-#, fuzzy
 msgid "U"
-msgstr "Omhoog"
+msgstr "U"
 
 #: src/keycode.cpp:305
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: src/keycode.cpp:306
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/keycode.cpp:307
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: src/keycode.cpp:308
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: src/keycode.cpp:309
 msgid "Z"
-msgstr ""
+msgstr "Z"
 
 #: src/keycode.cpp:310
 msgid "Left Windows"
@@ -4460,69 +4434,68 @@ msgid "Numpad -"
 msgstr "Numpad -"
 
 #: src/keycode.cpp:328
-#, fuzzy
 msgid "Numpad ."
-msgstr "Numpad 0"
+msgstr "Numpad ."
 
 #: src/keycode.cpp:330
 msgid "F10"
-msgstr ""
+msgstr "F10"
 
 #: src/keycode.cpp:331
 msgid "F11"
-msgstr ""
+msgstr "F11"
 
 #: src/keycode.cpp:332
 msgid "F12"
-msgstr ""
+msgstr "F12"
 
 #: src/keycode.cpp:333
 msgid "F13"
-msgstr ""
+msgstr "F13"
 
 #: src/keycode.cpp:334
 msgid "F14"
-msgstr ""
+msgstr "F14"
 
 #: src/keycode.cpp:335
 msgid "F15"
-msgstr ""
+msgstr "F15"
 
 #: src/keycode.cpp:336
 msgid "F16"
-msgstr ""
+msgstr "F16"
 
 #: src/keycode.cpp:337
 msgid "F17"
-msgstr ""
+msgstr "F17"
 
 #: src/keycode.cpp:338
 msgid "F18"
-msgstr ""
+msgstr "F18"
 
 #: src/keycode.cpp:339
 msgid "F19"
-msgstr ""
+msgstr "F19"
 
 #: src/keycode.cpp:340
 msgid "F20"
-msgstr ""
+msgstr "F20"
 
 #: src/keycode.cpp:341
 msgid "F21"
-msgstr ""
+msgstr "F21"
 
 #: src/keycode.cpp:342
 msgid "F22"
-msgstr ""
+msgstr "F22"
 
 #: src/keycode.cpp:343
 msgid "F23"
-msgstr ""
+msgstr "F23"
 
 #: src/keycode.cpp:344
 msgid "F24"
-msgstr ""
+msgstr "F24"
 
 #: src/keycode.cpp:345
 msgid "Num Lock"
@@ -4649,41 +4622,33 @@ msgid "Loading Special MapNodes"
 msgstr "Speciale MapNodes Laden"
 
 #: src/mineral.cpp:93
-#, fuzzy
 msgid "Coal"
-msgstr "Steenkool Klomp"
+msgstr "Kool"
 
 #: src/mineral.cpp:99
-#, fuzzy
 msgid "Iron"
-msgstr "Ijzer Klomp"
+msgstr "IJzer"
 
 #: src/mineral.cpp:106
-#, fuzzy
 msgid "Tin"
-msgstr "Dunner"
+msgstr "Tin"
 
 #: src/mineral.cpp:113
-#, fuzzy
 msgid "Copper"
-msgstr "Koper Klomp"
+msgstr "Koper"
 
 #: src/mineral.cpp:121
-#, fuzzy
 msgid "Silver"
-msgstr "Zilver Klomp"
+msgstr "Zilver"
 
 #: src/mineral.cpp:128
-#, fuzzy
 msgid "Gold"
-msgstr "Goud Klomp"
+msgstr "Goud"
 
 #: src/mineral.cpp:135
-#, fuzzy
 msgid "Quartz"
-msgstr "Kwarts Stof"
+msgstr "Kwarts"
 
 #: src/mineral.cpp:157
-#, fuzzy
 msgid "Turquoise"
 msgstr "Turkoois"
