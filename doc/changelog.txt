@@ -3,6 +3,30 @@ Voxelands changelog
 This should contain all the major changes.
 For minor stuff, refer to the commit log of the repository.
 
+1512.00: (release 2015-12-27)
+ - preload crack.png to reduce some HUD flicker
+ - make leaf falling work in autumn/winter
+ - fix possible bug in http_request
+ - add marble
+ - new table nodebox
+ - new chairs/benches
+ - this should have the game_mode setting working correctly on the server
+ - ensure getUser() returns a valid player name
+ - make CXX and LINKER flags use system
+ - new multiplayer menu
+ - add support for privileged crafting, add mithril key
+ - make coal block burn time equivelant to 10 coal lumps
+ - add check to ensure no tool is unwearable
+ - allow indomitus picks to dig stone + mineral
+ - allow forms to be closed with examine (q) key
+ - cobble stairs should not dig as roughstone stairs
+ - strip some unused/unneeded stuff out of networking
+ - replace TOCLIENT_OBJECTDATA with TOCLIENT_PLAYERINFO, with less data and less nested iterations
+ - generated selected/cracked nodes seperately to the rest of the mapblock
+ - remove nodemod/tempmod
+ - generate selected node data separate from mapblocks
+ - Make the electric lamp status more visible during the day
+
 1510.01: (release 2015-11-14)
  - re-enable cactus farming
  - vine on trellis should be plant type when digging
