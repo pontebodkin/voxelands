@@ -1155,6 +1155,8 @@ int main(int argc, char *argv[])
 	init_mapnode(device); // Second call with g_texturesource set
 	drawLoadingScreen(device,wgettext("Loading Creatures"));
 	content_mob_init();
+	// preloading this reduces some hud flicker
+	g_texturesource->getTextureId("crack.png");
 
 	drawLoadingScreen(device,wgettext("Setting Up Sound"));
 
