@@ -2185,7 +2185,7 @@ void meshgen_liquid_source(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode
 				continue;
 			if (n2.getContent() == f->liquid_alternative_source)
 				continue;
-		}else if (f2->draw_type == CDT_CUBELIKE) {
+		}else if (!meshgen_hardface(data,p,n,g_6dirs[j])) {
 			if (g_6dirs[j].Y != 1)
 				continue;
 			if (!drop[0] && !drop[1] && !drop[2] && !drop[3])
