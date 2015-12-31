@@ -409,7 +409,7 @@ static bool meshgen_hardface(MeshMakeData *data, v3s16 p, MapNode &n, v3s16 pos)
 {
 	MapNode nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+pos);
 	ContentFeatures *ff = &content_features(nn.getContent());
-	if (ff->draw_type == CDT_CUBELIKE)
+	if (ff->draw_type == CDT_CUBELIKE || ff->draw_type == CDT_DIRTLIKE)
 		return false;
 	v3s16 ipos(0,0,0);
 	if (pos.X)
@@ -1035,6 +1035,285 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		}
 
 		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+	}
+}
+
+void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+{
+	/*
+	 * param1:
+	 * 	top nibble:
+	 * 		0 - no effect
+	 * 		1 - footsteps
+	 * 	bottom nibble:
+	 *		0 - no overlay
+	 * 		1 - spring grass
+	 * 		2 - autumn grass
+	 * 		4 - snow
+	 *
+	 * param2:
+	 *  plantgrowth, only valid if param1 bottom nibble is 1 or 2
+	 *  0 - fully grown
+	 *  1-15 - growth stages
+	 */
+
+	if (n.param1 == 0) {
+		meshgen_cubelike(data,p,n,selected);
+		return;
+	}
+
+	u8 effect = (n.param1&0xF0)>>4;
+	u8 overlay = (n.param1&0x0F);
+
+	/*
+	 * 0: top
+	 * 1: bottom
+	 * 2: right
+	 * 3: left
+	 * 4: back
+	 * 5: front
+	*/
+	bool faces[6] = {
+		meshgen_hardface(data,p,n,v3s16(0,1,0)),
+		meshgen_hardface(data,p,n,v3s16(0,-1,0)),
+		meshgen_hardface(data,p,n,v3s16(1,0,0)),
+		meshgen_hardface(data,p,n,v3s16(-1,0,0)),
+		meshgen_hardface(data,p,n,v3s16(0,0,1)),
+		meshgen_hardface(data,p,n,v3s16(0,0,-1))
+	};
+	bool o_faces[6] = {
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	};
+
+	float heights[4] = {
+		0.0, // x+,y+
+		0.0, // x+,y-
+		0.0, // x-,y-
+		0.0  // x-,y+
+	};
+
+	TileSpec basetile = content_features(n.getContent()).tiles[0];
+	TileSpec toptile;
+	TileSpec sidetile;
+
+	if (!effect && !overlay) {
+		toptile = basetile;
+	}else{
+		std::string tex = "mud.png";
+		switch (overlay) {
+		case 4:
+			tex = "snow.png";
+			for (int i=0; i<6; i++) {
+				o_faces[i] = faces[i];
+			}
+			sidetile.texture = g_texturesource->getTexture("snow_side.png");
+			break;
+		case 2:
+			if (n.param2 == 0) {
+				tex = "grass_autumn.png";
+				for (int i=0; i<6; i++) {
+					o_faces[i] = faces[i];
+				}
+			}else{
+				tex = getGrassTile(n.param2,"mud.png","grass_growing_autumn.png");
+				u8 pg = n.param2&0xF0;
+				if ((pg&(1<<7)) != 0) { // -Z
+					o_faces[5] = faces[5];
+				}
+				if ((pg&(1<<6)) != 0) { // +Z
+					o_faces[4] = faces[4];
+				}
+				if ((pg&(1<<5)) != 0) { // -X
+					o_faces[3] = faces[3];
+				}
+				if ((pg&(1<<4)) != 0) { // +X
+					o_faces[2] = faces[2];
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side_autumn.png");
+			break;
+		case 1:
+			if (n.param2 == 0) {
+				tex = "grass.png";
+				for (int i=0; i<6; i++) {
+					o_faces[i] = faces[i];
+				}
+			}else{
+				tex = getGrassTile(n.param2,"mud.png","grass_growing.png");
+				u8 pg = n.param2&0xF0;
+				if ((pg&(1<<7)) != 0) { // -Z
+					o_faces[5] = faces[5];
+				}
+				if ((pg&(1<<6)) != 0) { // +Z
+					o_faces[4] = faces[4];
+				}
+				if ((pg&(1<<5)) != 0) { // -X
+					o_faces[3] = faces[3];
+				}
+				if ((pg&(1<<4)) != 0) { // +X
+					o_faces[2] = faces[2];
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side.png");
+			break;
+		case 0:
+		default:;
+		}
+		if (effect == 1)
+			tex += "^footsteps.png";
+		toptile.texture = g_texturesource->getTexture(tex);
+	}
+
+	v3f pos = intToFloat(p, BS);
+
+	if (faces[0]) {
+		video::S3DVertex v[4] = {
+			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y0()),
+			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y0())
+		};
+
+		if (overlay) {
+			if (o_faces[2]) {
+				v[0].Pos.X += 0.03125*data->m_BS;
+				v[3].Pos.X += 0.03125*data->m_BS;
+			}
+			if (o_faces[3]) {
+				v[1].Pos.X -= 0.03125*data->m_BS;
+				v[2].Pos.X -= 0.03125*data->m_BS;
+			}
+			if (o_faces[4]) {
+				v[2].Pos.Z += 0.03125*data->m_BS;
+				v[3].Pos.Z += 0.03125*data->m_BS;
+			}
+			if (o_faces[5]) {
+				v[0].Pos.Z -= 0.03125*data->m_BS;
+				v[1].Pos.Z -= 0.03125*data->m_BS;
+			}
+		}
+
+		u16 indices[6] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,v);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(toptile.getMaterial(), v, 4, indices, 6, colours);
+	}
+	if (faces[1]) {
+		TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected,NULL);
+		video::S3DVertex v[4] = {
+			video::S3DVertex( 0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y0()),
+			video::S3DVertex(-0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y0()),
+			video::S3DVertex(-0.5*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y1()),
+			video::S3DVertex( 0.5*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y1())
+		};
+
+		u16 indices[6] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,-1,0),4,v);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(basetile.getMaterial(), v, 4, indices, 6, colours);
+	}
+
+	video::S3DVertex vertices[4] = {
+		video::S3DVertex(0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y1()),
+		video::S3DVertex(0.5*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y1()),
+		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y0()),
+		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y0())
+	};
+	video::S3DVertex o_vertices[4] = {
+		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y1()),
+		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y1()),
+		video::S3DVertex(0.53125*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y0()),
+		video::S3DVertex(0.53125*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y0())
+	};
+	u16 angle[6] = {0,0,0,180,90,270};
+	u16 o_alts[6][2] = {
+		{0,0},
+		{0,0},
+		{4,5},
+		{5,4},
+		{3,2},
+		{2,3}
+	};
+	v3s16 sdirs[6] = {
+		v3s16(0,1,0),
+		v3s16(0,-1,0),
+		v3s16(1,0,0),
+		v3s16(-1,0,0),
+		v3s16(0,0,1),
+		v3s16(0,0,-1)
+	};
+	for (int face=2; face<6; face++) {
+		if (!faces[face])
+			continue;
+		video::S3DVertex v[4];
+
+		for (u16 i=0; i<4; i++) {
+			v[i] = vertices[i];
+			v[i].Pos.rotateXZBy(angle[face]);
+		}
+
+		u16 indices[6] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,sdirs[face],4,v);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(basetile.getMaterial(), v, 4, indices, 6, colours);
+		if (!o_faces[face])
+			continue;
+
+		for (u16 i=0; i<4; i++) {
+			v[i] = o_vertices[i];
+			if ((i == 0 || i == 3) && o_faces[o_alts[face][0]]) {
+				v[i].Pos.Z += 0.03125*data->m_BS;
+			}
+			if ((i == 1 || i == 2) && o_faces[o_alts[face][1]]) {
+				v[i].Pos.Z -= 0.03125*data->m_BS;
+			}
+			v[i].Pos.rotateXZBy(angle[face]);
+		}
+
+		colours.clear();
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,sdirs[face],4,v);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(sidetile.getMaterial(), v, 4, indices, 6, colours);
 	}
 }
 

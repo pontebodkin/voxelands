@@ -199,9 +199,19 @@ public:
 		return (m_time%240)/60;
 	}
 
+	u32 getSeasonDay()
+	{
+		return (m_time%240)%60;
+	}
+
 	u32 getYear()
 	{
 		return m_time/240;
+	}
+
+	u32 getYearDay()
+	{
+		return m_time%240;
 	}
 
 protected:

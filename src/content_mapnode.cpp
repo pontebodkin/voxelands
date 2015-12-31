@@ -56,6 +56,41 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version)
 {
 	MapNode result = n_from;
 	switch (n_from.getContent()) {
+	case CONTENT_GRASS:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x01;
+		result.param2 = 0;
+		break;
+	case CONTENT_GRASS_FOOTSTEPS:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x11;
+		result.param2 = 0;
+		break;
+	case CONTENT_GRASS_AUTUMN:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x02;
+		result.param2 = 0;
+		break;
+	case CONTENT_GRASS_FOOTSTEPS_AUTUMN:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x12;
+		result.param2 = 0;
+		break;
+	case CONTENT_GROWING_GRASS:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x01;
+		result.param2 = n_from.param2;
+		break;
+	case CONTENT_GROWING_GRASS_AUTUMN:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x02;
+		result.param2 = n_from.param2;
+		break;
+	case CONTENT_MUDSNOW:
+		result.setContent(CONTENT_MUD);
+		result.param1 = 0x04;
+		result.param2 = 0;
+		break;
 	case CONTENT_FARM_WHEAT_1:
 		result.setContent(CONTENT_FARM_WHEAT);
 		result.param2 = 4;
@@ -475,7 +510,9 @@ void content_mapnode_init(bool repeat)
 	f->description = wgettext("Mud");
 	f->setAllTextures("mud.png");
 	f->setInventoryTextureCube("mud.png", "mud.png", "mud.png");
-	f->draw_type = CDT_CUBELIKE;
+	f->draw_type = CDT_DIRTLIKE;
+	f->param_type = CPT_BLOCKDATA;
+	f->param2_type = CPT_PLANTGROWTH;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROCK)+" 1";

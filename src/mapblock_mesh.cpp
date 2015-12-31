@@ -120,6 +120,59 @@ video::SColor blend_light(u32 data, u32 daylight_factor)
 	return video::SColor(a,r,g,b);
 }
 
+std::string getGrassTile(u8 p2, std::string base, std::string overlay)
+{
+	std::string tex = base+"^"+overlay;
+	if (p2) {
+		u8 p = p2&0xF0;
+		u8 g = p2&0x0F;
+		if (g < 15) {
+			std::string texture_name = base;
+			if (p == 0) {
+				float v = (float)(g+1)*0.03125;
+				texture_name += "^[blit:";
+				texture_name += ftos(0.5-v);
+				texture_name += ",";
+				texture_name += ftos(0.5-v);
+				texture_name += ",";
+				texture_name += ftos(0.5+v);
+				texture_name += ",";
+				texture_name += ftos(0.5+v);
+				texture_name += ",";
+				texture_name += overlay;
+			}else{
+				float v = (float)g*0.0625;
+				if ((p&(1<<7)) != 0) { // -Z
+					texture_name += "^[blit:0,";
+					texture_name += ftos(1.0-v);
+					texture_name += ",1,1,";
+					texture_name += overlay;
+				}
+				if ((p&(1<<6)) != 0) { // +Z
+					texture_name += "^[blit:0,0,1,";
+					texture_name += ftos(v);
+					texture_name += ",";
+					texture_name += overlay;
+				}
+				if ((p&(1<<5)) != 0) { // -X
+					texture_name += "^[blit:0,0,";
+					texture_name += ftos(v);
+					texture_name += ",1,";
+					texture_name += overlay;
+				}
+				if ((p&(1<<4)) != 0) { // +X
+					texture_name += "^[blit:";
+					texture_name += ftos(1.0-v);
+					texture_name += ",0,1,1,";
+					texture_name += overlay;
+				}
+			}
+			tex = texture_name;
+		}
+	}
+	return tex;
+}
+
 /*
 	Gets node tile from any place relative to block.
 	Returns TILE_NODE if doesn't exist or should not be drawn.
@@ -460,6 +513,10 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			break;
 		case CDT_CUBELIKE:
 			meshgen_cubelike(data,p,n,selected);
+			meshgen_farnode(data,p,n);
+			break;
+		case CDT_DIRTLIKE:
+			meshgen_dirtlike(data,p,n,selected);
 			meshgen_farnode(data,p,n);
 			break;
 		case CDT_RAILLIKE:

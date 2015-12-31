@@ -184,6 +184,9 @@ void SelectionMesh::generate(MeshMakeData *data)
 		case CDT_CUBELIKE:
 			meshgen_cubelike(data,p,n,selected);
 			break;
+		case CDT_DIRTLIKE:
+			meshgen_dirtlike(data,p,n,selected);
+			break;
 		case CDT_RAILLIKE:
 			meshgen_raillike(data,p,n,selected);
 			break;
