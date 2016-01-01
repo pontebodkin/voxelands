@@ -1057,11 +1057,6 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	 *  1-15 - growth stages
 	 */
 
-	if (n.param1 == 0) {
-		meshgen_cubelike(data,p,n,selected);
-		return;
-	}
-
 	u8 effect = (n.param1&0xF0)>>4;
 	u8 overlay = (n.param1&0x0F);
 
@@ -1130,35 +1125,70 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 		for (int i=0; i<4; i++) {
 			v3s16 cp = np+corners_p[i];
+			bool candown = true;
+			bool canup = true;
 			bool change = true;
 			for (int k=0; change && k<4; k++) {
-				if (content_features(nearby[corners[i][k]][0]).draw_type != CDT_DIRTLIKE)
-					change = false;
-				if (nearby[corners[i][k]][1] != CONTENT_AIR)
-					change = false;
+				if (content_features(nearby[corners[i][k]][0]).draw_type != CDT_DIRTLIKE) {
+					if (nearby[corners[i][k]][0] != CONTENT_AIR)
+						change = false;
+					canup = false;
+				}
+				if (nearby[corners[i][k]][1] != CONTENT_AIR) {
+					if (content_features(nearby[corners[i][k]][1]).draw_type != CDT_DIRTLIKE)
+						change = false;
+					candown = false;
+				}
 			}
-			if (!change)
+			if (!change || (!canup && !candown))
 				continue;
 
-			if (cp.X%2) {
-				heights[i] += 0.0625;
-			}else{
-				heights[i] -= 0.0625;
-			}
-			if (cp.Z%2) {
-				heights[i] += 0.0625;
-			}else{
-				heights[i] -= 0.0625;
-			}
-			if (cp.Y%2) {
-				heights[i] = 0.0625;
-			}else{
-				heights[i] -= 0.0625;
+			u8 v = (cp.X%7)+(cp.Y%6)+(cp.Z%9);
+			switch (v) {
+			case 1:
+			case 10:
+				if (canup)
+					heights[i] = 0.0625;
+				break;
+			case 2:
+			case 15:
+				if (candown)
+					heights[i] = -0.03125;
+				break;
+			case 17:
+				if (candown)
+					heights[i] = -0.125;
+				break;
+			case 4:
+			case 11:
+				if (canup)
+					heights[i] = 0.09375;
+				break;
+			case 12:
+			case 20:
+				if (candown)
+					heights[i] = -0.0625;
+				break;
+			case 6:
+			case 13:
+				if (canup)
+					heights[i] = 0.03125;
+				break;
+			case 9:
+				if (canup)
+					heights[i] = 0.125;
+				break;
+			case 8:
+			case 14:
+				if (candown)
+					heights[i] = -0.09375;
+				break;
+			default:;
 			}
 		}
 	}
 
-	TileSpec basetile = content_features(n.getContent()).tiles[0];
+	TileSpec basetile = content_features(n.getContent()).tiles[1];
 	TileSpec toptile;
 	TileSpec sidetile;
 
@@ -1240,23 +1270,21 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			video::S3DVertex( 0.5*data->m_BS, (0.5+heights[0])*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y0())
 		};
 
-		if (overlay) {
-			if (o_faces[2]) {
-				v[0].Pos.X += 0.03125*data->m_BS;
-				v[3].Pos.X += 0.03125*data->m_BS;
-			}
-			if (o_faces[3]) {
-				v[1].Pos.X -= 0.03125*data->m_BS;
-				v[2].Pos.X -= 0.03125*data->m_BS;
-			}
-			if (o_faces[4]) {
-				v[2].Pos.Z += 0.03125*data->m_BS;
-				v[3].Pos.Z += 0.03125*data->m_BS;
-			}
-			if (o_faces[5]) {
-				v[0].Pos.Z -= 0.03125*data->m_BS;
-				v[1].Pos.Z -= 0.03125*data->m_BS;
-			}
+		if (o_faces[2]) {
+			v[0].Pos.X += 0.03125*data->m_BS;
+			v[3].Pos.X += 0.03125*data->m_BS;
+		}
+		if (o_faces[3]) {
+			v[1].Pos.X -= 0.03125*data->m_BS;
+			v[2].Pos.X -= 0.03125*data->m_BS;
+		}
+		if (o_faces[4]) {
+			v[2].Pos.Z += 0.03125*data->m_BS;
+			v[3].Pos.Z += 0.03125*data->m_BS;
+		}
+		if (o_faces[5]) {
+			v[0].Pos.Z -= 0.03125*data->m_BS;
+			v[1].Pos.Z -= 0.03125*data->m_BS;
 		}
 
 		u16 indices[6] = {0,1,2,2,3,0};
@@ -1300,8 +1328,8 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	video::S3DVertex vertices[4] = {
 		video::S3DVertex(0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y1()),
 		video::S3DVertex(0.5*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y1()),
-		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y0()),
-		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y0())
+		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0., 0.),
+		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1., 0.)
 	};
 	video::S3DVertex o_vertices[4] = {
 		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y1()),
@@ -1310,6 +1338,14 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		video::S3DVertex(0.53125*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y0())
 	};
 	u16 angle[6] = {0,0,0,180,90,270};
+	u16 fh[6][2] = {
+		{0,0},
+		{0,0},
+		{1,0},
+		{3,2},
+		{0,3},
+		{2,1}
+	};
 	u16 o_alts[6][2] = {
 		{0,0},
 		{0,0},
@@ -1335,6 +1371,18 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			v[i] = vertices[i];
 			v[i].Pos.rotateXZBy(angle[face]);
 		}
+		v[2].Pos.Y += heights[fh[face][0]]*data->m_BS;
+		v[3].Pos.Y += heights[fh[face][1]]*data->m_BS;
+		if (o_faces[face]) {
+			v[2].Pos.Y -= 0.02;
+			v[3].Pos.Y -= 0.02;
+		}
+		v[2].TCoords.Y -= heights[fh[face][0]];
+		v[2].TCoords *= basetile.texture.size;
+		v[2].TCoords += basetile.texture.pos;
+		v[3].TCoords.Y -= heights[fh[face][1]];
+		v[3].TCoords *= basetile.texture.size;
+		v[3].TCoords += basetile.texture.pos;
 
 		u16 indices[6] = {0,1,2,2,3,0};
 		std::vector<u32> colours;
@@ -1362,6 +1410,8 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			}
 			v[i].Pos.rotateXZBy(angle[face]);
 		}
+		v[2].Pos.Y += heights[fh[face][0]]*data->m_BS;
+		v[3].Pos.Y += heights[fh[face][1]]*data->m_BS;
 
 		colours.clear();
 		if (selected.is_coloured) {

@@ -509,6 +509,7 @@ void content_mapnode_init(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Mud");
 	f->setAllTextures("mud.png");
+	f->setTexture(0, "grass.png");
 	f->setInventoryTextureCube("mud.png", "mud.png", "mud.png");
 	f->draw_type = CDT_DIRTLIKE;
 	f->param_type = CPT_BLOCKDATA;
