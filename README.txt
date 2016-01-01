@@ -67,7 +67,7 @@ Action controls:
 LICENSE:
 Code:
 Voxelands is licensed under the GPLv3 or later.
-Copyright (c) 2013-2015 Lisa 'darkrose' Milne <lisa@ltmnet.com>
+Copyright (c) 2013-2016 Lisa 'darkrose' Milne <lisa@ltmnet.com>
 Forked from Minetest 0.3.x
 Copyright (c) 2010-2011 Perttu Ahola <celeron55@gmail.com>
 
@@ -77,6 +77,13 @@ This does not apply to texture packs made by others.
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 http://creativecommons.org/licenses/by-sa/3.0/
+
+To satisfy the attribution clause, any project using Voxelands' assets
+ must provide a prominent notice as part of each of said project's
+ credits notices (such as in documentation, on a website, and/or any
+ other credits screen associated with the project) showing both the
+ CC-BY-SA licensing, the ownership by Voxelands of the asset, and a link
+ to the Voxelands' project at http://www.voxelands.com/.
 
 Artists include:
 sdzen
