@@ -1091,11 +1091,72 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	};
 
 	float heights[4] = {
-		0.0, // x+,y+
-		0.0, // x+,y-
-		0.0, // x-,y-
-		0.0  // x-,y+
+		0.0, // x+,z+
+		0.0, // x+,z-
+		0.0, // x-,z-
+		0.0  // x-,z+
 	};
+
+	{
+		v3s16 np = data->m_blockpos_nodes + p;
+		v3s16 nearby_p[9] = {
+			v3s16(-1,0,1),  // 0 x-,z+
+			v3s16(0,0,1),   // 1 x ,z+
+			v3s16(1,0,1),   // 2 x+,z+
+			v3s16(-1,0,0),  // 3 x-,z
+			v3s16(0,0,0),   // 4 x ,z
+			v3s16(1,0,0),   // 5 x+,z
+			v3s16(-1,0,-1), // 6 x-,z-
+			v3s16(0,0,-1),  // 7 x ,z-
+			v3s16(1,0,-1)   // 8 x+,z-
+		};
+		u16 corners[4][4] = {
+			{4,5,2,1},
+			{4,5,8,7},
+			{4,3,6,7},
+			{4,3,0,1}
+		};
+		v3s16 corners_p[4] = {
+			v3s16(1,0,1),   // 0 x+,z+
+			v3s16(1,0,0),   // 1 x+,z
+			v3s16(0,0,0),   // 2 x ,z
+			v3s16(0,0,1),   // 3 x ,z+
+		};
+		content_t nearby[9][2];
+		for (int i=0; i<9; i++) {
+			nearby[i][0] = data->m_vmanip.getNodeRO(np+nearby_p[i]).getContent();
+			nearby[i][1] = data->m_vmanip.getNodeRO(np+nearby_p[i]+v3s16(0,1,0)).getContent();
+		}
+
+		for (int i=0; i<4; i++) {
+			v3s16 cp = np+corners_p[i];
+			bool change = true;
+			for (int k=0; change && k<4; k++) {
+				if (content_features(nearby[corners[i][k]][0]).draw_type != CDT_DIRTLIKE)
+					change = false;
+				if (nearby[corners[i][k]][1] != CONTENT_AIR)
+					change = false;
+			}
+			if (!change)
+				continue;
+
+			if (cp.X%2) {
+				heights[i] += 0.0625;
+			}else{
+				heights[i] -= 0.0625;
+			}
+			if (cp.Z%2) {
+				heights[i] += 0.0625;
+			}else{
+				heights[i] -= 0.0625;
+			}
+			if (cp.Y%2) {
+				heights[i] = 0.0625;
+			}else{
+				heights[i] -= 0.0625;
+			}
+		}
+	}
 
 	TileSpec basetile = content_features(n.getContent()).tiles[0];
 	TileSpec toptile;
@@ -1173,10 +1234,10 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 	if (faces[0]) {
 		video::S3DVertex v[4] = {
-			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y1()),
-			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y1()),
-			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y0()),
-			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y0())
+			video::S3DVertex( 0.5*data->m_BS, (0.5+heights[1])*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, (0.5+heights[2])*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, (0.5+heights[3])*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x0(), toptile.texture.y0()),
+			video::S3DVertex( 0.5*data->m_BS, (0.5+heights[0])*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), toptile.texture.x1(), toptile.texture.y0())
 		};
 
 		if (overlay) {
