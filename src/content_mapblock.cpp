@@ -1087,6 +1087,12 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		false,
 		false
 	};
+	bool ups[6] = {
+		false,
+		false,
+		false,
+		false
+	};
 
 	float heights[4] = {
 		0.0, // x+,z+
@@ -1114,6 +1120,17 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			{4,3,6,7},
 			{4,3,0,1}
 		};
+		u16 upsi[9] = {
+			0,
+			2,
+			0,
+			1,
+			0,
+			0,
+			0,
+			3,
+			0
+		};
 		v3s16 corners_p[4] = {
 			v3s16(1,0,1),   // 0 x+,z+
 			v3s16(1,0,0),   // 1 x+,z
@@ -1124,6 +1141,16 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		for (int i=0; i<9; i++) {
 			nearby[i][0] = data->m_vmanip.getNodeRO(np+nearby_p[i]).getContent();
 			nearby[i][1] = data->m_vmanip.getNodeRO(np+nearby_p[i]+v3s16(0,1,0)).getContent();
+			if (i%2 && content_features(nearby[i][0]).draw_type == CDT_DIRTLIKE) {
+				ContentFeatures *f = &content_features(nearby[i][1]);
+				if (
+					f->draw_type == CDT_CUBELIKE
+					|| f->draw_type == CDT_DIRTLIKE
+					|| f->draw_type == CDT_TRUNKLIKE
+					|| f->draw_type == CDT_GLASSLIKE
+				)
+					ups[upsi[i]] = true;
+			}
 		}
 
 		for (int i=0; i<4; i++) {
@@ -1194,6 +1221,9 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	TileSpec basetile = content_features(n.getContent()).tiles[1];
 	TileSpec toptile;
 	TileSpec sidetile;
+	TileSpec upstile;
+	upstile.material_flags = 0;
+	upstile.texture = g_texturesource->getTexture("grass_corner.png");
 
 	if (!effect && !overlay) {
 		toptile = basetile;
@@ -1254,6 +1284,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				}
 			}
 			sidetile.texture = g_texturesource->getTexture("grass_side.png");
+			upstile.texture = g_texturesource->getTexture("grass_corner_spring.png");
 			break;
 		case 0:
 		default:;
@@ -1441,6 +1472,12 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0., 0.),
 		video::S3DVertex(0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1., 0.)
 	};
+	video::S3DVertex u_vertices[4] = {
+		video::S3DVertex(0.5*data->m_BS,0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), upstile.texture.x1(), upstile.texture.y1()),
+		video::S3DVertex(0.5*data->m_BS,0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), upstile.texture.x0(), upstile.texture.y1()),
+		video::S3DVertex(0.375*data->m_BS,1.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), upstile.texture.x0(), upstile.texture.y0()),
+		video::S3DVertex(0.375*data->m_BS,1.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), upstile.texture.x1(), upstile.texture.y0())
+	};
 	video::S3DVertex o_vertices[4] = {
 		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS, 0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y1()),
 		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS,-0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y1()),
@@ -1473,9 +1510,29 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		v3s16(0,0,-1)
 	};
 	for (int face=2; face<6; face++) {
+		video::S3DVertex v[4];
+		u16 indices[6] = {0,1,2,2,3,0};
+
+		if (overlay && faces[0] && ups[face-2]) {
+			for (u16 i=0; i<4; i++) {
+				v[i] = u_vertices[i];
+				v[i].Pos.rotateXZBy(angle[face]);
+			}
+			std::vector<u32> colours;
+			if (selected.is_coloured) {
+				meshgen_selected_lights(colours,255,4);
+			}else{
+				meshgen_lights(data,n,p,colours,255,sdirs[face],4,v);
+			}
+
+			for (u16 i=0; i<4; i++) {
+				v[i].Pos += pos;
+			}
+
+			data->append(upstile.getMaterial(), v, 4, indices, 6, colours);
+		}
 		if (!faces[face])
 			continue;
-		video::S3DVertex v[4];
 
 		for (u16 i=0; i<4; i++) {
 			v[i] = vertices[i];
@@ -1490,7 +1547,6 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		v[3].TCoords *= basetile.texture.size;
 		v[3].TCoords += basetile.texture.pos;
 
-		u16 indices[6] = {0,1,2,2,3,0};
 		std::vector<u32> colours;
 		if (selected.is_coloured) {
 			meshgen_selected_lights(colours,255,4);
