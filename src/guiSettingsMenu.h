@@ -41,10 +41,18 @@ enum
 	GUI_ID_BACK_BUTTON = 101,
 	GUI_ID_ABORT_BUTTON,
 	// graphics
-	//GUI_ID_FANCYTREE_CB,
-	//GUI_ID_SMOOTH_LIGHTING_CB,
-	//GUI_ID_3D_CLOUDS_CB,
-	//GUI_ID_OPAQUE_WATER_CB,
+	GUI_ID_MESH_DETAIL_COMBO,
+	GUI_ID_MESH_DETAIL_LOW,
+	GUI_ID_MESH_DETAIL_MEDIUM,
+	GUI_ID_MESH_DETAIL_HIGH,
+	GUI_ID_TEXTURE_DETAIL_COMBO,
+	GUI_ID_TEXTURE_DETAIL_LOW,
+	GUI_ID_TEXTURE_DETAIL_MEDIUM,
+	GUI_ID_TEXTURE_DETAIL_HIGH,
+	GUI_ID_LIGHT_DETAIL_COMBO,
+	GUI_ID_LIGHT_DETAIL_LOW,
+	GUI_ID_LIGHT_DETAIL_MEDIUM,
+	GUI_ID_LIGHT_DETAIL_HIGH,
 	GUI_ID_HOTBAR_CB,
 	GUI_ID_WIELDINDEX_CB,
 	// video
@@ -94,9 +102,9 @@ struct SettingsMenuData
 	// Generic
 	int selected_tab;
 	// Client options
-	bool mesh_detail;
-	bool texture_detail;
-	bool light_detail;
+	int mesh_detail;
+	int texture_detail;
+	int light_detail;
 	bool mip_map;
 	bool anisotropic_filter;
 	bool bilinear_filter;
