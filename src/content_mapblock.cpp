@@ -380,7 +380,7 @@ static void meshgen_lights_face(
 
 /*
  * what this should do:
- * MeshMakeData has a m_smooth_lighting value in it, don't check config for every vertex!
+ * MeshMakeData has a light_detail value in it, don't check config for every vertex!
  * for each vertex:
  *	call meshgen_lights_vertex
  */
@@ -395,7 +395,7 @@ static void meshgen_lights(
 	video::S3DVertex *vertexes
 )
 {
-	if (data->m_smooth_lighting) {
+	if (data->light_detail > 1) {
 		for (u16 i=0; i<count; i++) {
 			meshgen_lights_vertex(data,n,p,colours,alpha,face,vertexes[i]);
 		}
@@ -1063,6 +1063,13 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	u8 effect = (n.param1&0xF0)>>4;
 	u8 overlay = (n.param1&0x0F);
 
+	TileSpec basetile = content_features(n.getContent()).tiles[1];
+	TileSpec toptile;
+	TileSpec sidetile;
+	TileSpec upstile;
+	upstile.material_flags = 0;
+	upstile.texture = g_texturesource->getTexture("grass_corner.png");
+
 	/*
 	 * 0: top
 	 * 1: bottom
@@ -1072,12 +1079,12 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	 * 5: front
 	*/
 	bool faces[6] = {
-		meshgen_hardface(data,p,n,v3s16(0,1,0)),
-		meshgen_hardface(data,p,n,v3s16(0,-1,0)),
-		meshgen_hardface(data,p,n,v3s16(1,0,0)),
-		meshgen_hardface(data,p,n,v3s16(-1,0,0)),
-		meshgen_hardface(data,p,n,v3s16(0,0,1)),
-		meshgen_hardface(data,p,n,v3s16(0,0,-1))
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
 	};
 	bool o_faces[6] = {
 		false,
@@ -1087,6 +1094,113 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		false,
 		false
 	};
+	if (data->mesh_detail > 1) {
+		faces[0] = meshgen_hardface(data,p,n,v3s16(0,1,0));
+		faces[1] = meshgen_hardface(data,p,n,v3s16(0,-1,0));
+		faces[2] = meshgen_hardface(data,p,n,v3s16(1,0,0));
+		faces[3] = meshgen_hardface(data,p,n,v3s16(-1,0,0));
+		faces[4] = meshgen_hardface(data,p,n,v3s16(0,0,1));
+		faces[5] = meshgen_hardface(data,p,n,v3s16(0,0,-1));
+	}
+
+	if (!effect && !overlay) {
+		toptile = basetile;
+	}else{
+		std::string btex = g_texturesource->getTextureName(basetile.texture.id);
+		std::string tex = btex;
+		switch (overlay) {
+		case 4:
+			tex = "snow.png";
+			if (data->mesh_detail > 1) {
+				for (int i=0; i<6; i++) {
+					o_faces[i] = faces[i];
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("snow_side.png");
+			break;
+		case 2:
+			if (n.param2 == 0) {
+				tex = "grass_autumn.png";
+				if (data->mesh_detail > 1) {
+					for (int i=0; i<6; i++) {
+						o_faces[i] = faces[i];
+					}
+				}
+			}else{
+				tex = getGrassTile(n.param2,btex,"grass_growing_autumn.png");
+				if (data->mesh_detail > 1) {
+					u8 pg = n.param2&0xF0;
+					if ((pg&(1<<7)) != 0) { // -Z
+						o_faces[5] = faces[5];
+					}
+					if ((pg&(1<<6)) != 0) { // +Z
+						o_faces[4] = faces[4];
+					}
+					if ((pg&(1<<5)) != 0) { // -X
+						o_faces[3] = faces[3];
+					}
+					if ((pg&(1<<4)) != 0) { // +X
+						o_faces[2] = faces[2];
+					}
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side_autumn.png");
+			break;
+		case 1:
+			if (n.param2 == 0) {
+				tex = "grass.png";
+				if (data->mesh_detail > 1) {
+					for (int i=0; i<6; i++) {
+						o_faces[i] = faces[i];
+					}
+				}
+			}else{
+				tex = getGrassTile(n.param2,btex,"grass_growing.png");
+				if (data->mesh_detail > 1) {
+					u8 pg = n.param2&0xF0;
+					if ((pg&(1<<7)) != 0) { // -Z
+						o_faces[5] = faces[5];
+					}
+					if ((pg&(1<<6)) != 0) { // +Z
+						o_faces[4] = faces[4];
+					}
+					if ((pg&(1<<5)) != 0) { // -X
+						o_faces[3] = faces[3];
+					}
+					if ((pg&(1<<4)) != 0) { // +X
+						o_faces[2] = faces[2];
+					}
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side.png");
+			upstile.texture = g_texturesource->getTexture("grass_corner_spring.png");
+			break;
+		case 0:
+		default:;
+		}
+		if (effect == 1)
+			tex += "^footsteps.png";
+		toptile.texture = g_texturesource->getTexture(tex);
+	}
+
+	if (data->mesh_detail == 1) {
+		v3f pos = intToFloat(p, BS);
+		TileSpec tiles[6];
+		tiles[0] = toptile;
+		tiles[1] = content_features(n.getContent()).tiles[1];
+		{
+			std::string tex1 = g_texturesource->getTextureName(basetile.texture.id);
+			std::string tex2 = g_texturesource->getTextureName(sidetile.texture.id);
+			tiles[2].texture = g_texturesource->getTexture(tex1+"^"+tex2);
+			for (u16 i=3; i<6; i++) {
+				tiles[i] = tiles[2];
+			}
+		}
+		aabb3f box(-0.5*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS,0.5*data->m_BS,0.5*data->m_BS,0.5*data->m_BS);
+		meshgen_cuboid(data,n,p,pos,box,tiles,6,selected,NULL,v3s16(0,0,0),v3f(0,0,0),NULL);
+		return;
+	}
+
 	bool ups[6] = {
 		false,
 		false,
@@ -1101,7 +1215,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		0.0  // x-,z+
 	};
 
-	{
+	if (data->mesh_detail > 2) {
 		v3s16 np = data->m_blockpos_nodes + p;
 		v3s16 nearby_p[9] = {
 			v3s16(-1,0,1),  // 0 x-,z+
@@ -1216,82 +1330,6 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			default:;
 			}
 		}
-	}
-
-	TileSpec basetile = content_features(n.getContent()).tiles[1];
-	TileSpec toptile;
-	TileSpec sidetile;
-	TileSpec upstile;
-	upstile.material_flags = 0;
-	upstile.texture = g_texturesource->getTexture("grass_corner.png");
-
-	if (!effect && !overlay) {
-		toptile = basetile;
-	}else{
-		std::string tex = "mud.png";
-		switch (overlay) {
-		case 4:
-			tex = "snow.png";
-			for (int i=0; i<6; i++) {
-				o_faces[i] = faces[i];
-			}
-			sidetile.texture = g_texturesource->getTexture("snow_side.png");
-			break;
-		case 2:
-			if (n.param2 == 0) {
-				tex = "grass_autumn.png";
-				for (int i=0; i<6; i++) {
-					o_faces[i] = faces[i];
-				}
-			}else{
-				tex = getGrassTile(n.param2,"mud.png","grass_growing_autumn.png");
-				u8 pg = n.param2&0xF0;
-				if ((pg&(1<<7)) != 0) { // -Z
-					o_faces[5] = faces[5];
-				}
-				if ((pg&(1<<6)) != 0) { // +Z
-					o_faces[4] = faces[4];
-				}
-				if ((pg&(1<<5)) != 0) { // -X
-					o_faces[3] = faces[3];
-				}
-				if ((pg&(1<<4)) != 0) { // +X
-					o_faces[2] = faces[2];
-				}
-			}
-			sidetile.texture = g_texturesource->getTexture("grass_side_autumn.png");
-			break;
-		case 1:
-			if (n.param2 == 0) {
-				tex = "grass.png";
-				for (int i=0; i<6; i++) {
-					o_faces[i] = faces[i];
-				}
-			}else{
-				tex = getGrassTile(n.param2,"mud.png","grass_growing.png");
-				u8 pg = n.param2&0xF0;
-				if ((pg&(1<<7)) != 0) { // -Z
-					o_faces[5] = faces[5];
-				}
-				if ((pg&(1<<6)) != 0) { // +Z
-					o_faces[4] = faces[4];
-				}
-				if ((pg&(1<<5)) != 0) { // -X
-					o_faces[3] = faces[3];
-				}
-				if ((pg&(1<<4)) != 0) { // +X
-					o_faces[2] = faces[2];
-				}
-			}
-			sidetile.texture = g_texturesource->getTexture("grass_side.png");
-			upstile.texture = g_texturesource->getTexture("grass_corner_spring.png");
-			break;
-		case 0:
-		default:;
-		}
-		if (effect == 1)
-			tex += "^footsteps.png";
-		toptile.texture = g_texturesource->getTexture(tex);
 	}
 
 	v3f pos = intToFloat(p, BS);
@@ -1513,7 +1551,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		video::S3DVertex v[4];
 		u16 indices[6] = {0,1,2,2,3,0};
 
-		if (overlay && faces[0] && ups[face-2]) {
+		if (data->mesh_detail > 2 && overlay && faces[0] && ups[face-2]) {
 			for (u16 i=0; i<4; i++) {
 				v[i] = u_vertices[i];
 				v[i].Pos.rotateXZBy(angle[face]);
@@ -4088,6 +4126,11 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 	content_t thiscontent = n.getContent();
 
+	if (data->mesh_detail == 1) {
+		meshgen_glasslike(data,p,n,selected);
+		return;
+	}
+
 	content_t n_xp = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 1,0, 0)).getContent();
 	content_t n_xm = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(-1,0, 0)).getContent();
 	content_t n_zp = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 0,0, 1)).getContent();
@@ -5094,6 +5137,11 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	bool mud_under = false;
 
 	content_t thiscontent = n.getContent();
+
+	if (data->mesh_detail == 1) {
+		meshgen_cubelike(data,p,n,selected);
+		return;
+	}
 
 	n2 = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(1,0,0)).getContent();
 	if (n2 == thiscontent) {

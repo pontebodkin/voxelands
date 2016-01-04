@@ -167,7 +167,9 @@ void SelectionMesh::generate(MeshMakeData *data)
 
 	data->m_BSd = 0.01;
 	data->m_BS = (float)BS+data->m_BSd;
-	data->m_smooth_lighting = g_settings->getBool("smooth_lighting");
+	data->mesh_detail = g_settings->getU16("mesh_detail");
+	data->texture_detail = g_settings->getU16("texture_detail");
+	data->light_detail = g_settings->getU16("light_detail");
 	m_pos = data->m_blockpos;
 
 	for (std::map<v3s16,SelectedNode>::iterator i = data->m_selected.begin(); i != data->m_selected.end(); i++) {
@@ -176,7 +178,7 @@ void SelectionMesh::generate(MeshMakeData *data)
 
 		MapNode n = data->m_vmanip.getNodeNoEx(selected.pos);
 
-		if (data->m_smooth_lighting && !selected.is_coloured)
+		if (data->light_detail > 1 && !selected.is_coloured)
 			meshgen_preset_smooth_lights(data,p);
 		switch (content_features(n).draw_type) {
 		case CDT_AIRLIKE:

@@ -446,7 +446,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 	BEGIN_DEBUG_EXCEPTION_HANDLER
 
-	data->m_smooth_lighting = g_settings->getBool("smooth_lighting");
+	data->mesh_detail = g_settings->getU16("mesh_detail");
+	data->texture_detail = g_settings->getU16("texture_detail");
+	data->light_detail = g_settings->getU16("light_detail");
 	m_pos = data->m_blockpos;
 	SelectedNode selected;
 
@@ -506,7 +508,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 				data->m_sounds->erase(i);
 			}
 		}
-		if (data->m_smooth_lighting && !selected.is_coloured)
+		if (data->light_detail > 1 && !selected.is_coloured)
 			meshgen_preset_smooth_lights(data,p);
 		switch (content_features(n).draw_type) {
 		case CDT_AIRLIKE:

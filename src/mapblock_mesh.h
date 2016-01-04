@@ -70,7 +70,9 @@ struct MeshMakeData
 	VoxelManipulator m_vmanip;
 	v3s16 m_blockpos;
 	v3s16 m_blockpos_nodes;
-	bool m_smooth_lighting;
+	int mesh_detail;
+	int texture_detail;
+	int light_detail;
 	Environment *m_env;
 	std::vector<MeshData> m_meshdata;
 	std::vector<MeshData> m_fardata;
