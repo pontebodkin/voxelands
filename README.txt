@@ -13,15 +13,22 @@ Voxelands is a sandbox construction game based on Minetest, which was
 
 DEPENDENCIES:
 Voxelands requires the standard C++ library, irrlicht 1.8 or later,
- freetype, openAL, vorbisfile, ogg, and zlib. CMake, make, and g++ (or other
- C++ compiler) are required to build from source.
+ freetype, openAL, vorbisfile, ogg, zlib. CMake, make, and g++ (or other
+ C++ compiler) and bzip2 and jpeg are required to build from source.
 
 INSTALL:
 If you're reading this then you've already unpacked the tarball, so
  just:
 1) cd /path/to/voxelands
 2) cmake -DRUN_IN_PLACE=1 .
-2) make -j3
+3) make -j3
+
+Other optional cmake parameters:
+1) -DBUILD_SERVER=0 (default 1) builds the dedicated server
+2) -DBUILD_CLIENT=0 (default 1) builds the rich client
+3) -DENABLE_AUDIO=0 (default 1) enables audio support
+
+The option -DRUN_IN_PLACE expects the user to run voxelands from the extracted source directory.
 
 WINDOWS:
 Voxelands can be cross compiled with mingw, or built natively with MSVC,
