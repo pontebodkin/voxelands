@@ -1519,8 +1519,8 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	video::S3DVertex o_vertices[4] = {
 		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS, 0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y1()),
 		video::S3DVertex(0.53125*data->m_BS,-0.5*data->m_BS,-0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y1()),
-		video::S3DVertex(0.53125*data->m_BS, 0.5*data->m_BS,-0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y0()),
-		video::S3DVertex(0.53125*data->m_BS, 0.5*data->m_BS, 0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y0())
+		video::S3DVertex(0.53125*data->m_BS, 0.5002*data->m_BS,-0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x0(), sidetile.texture.y0()),
+		video::S3DVertex(0.53125*data->m_BS, 0.5002*data->m_BS, 0.5002*data->m_BS, 0,0,0, video::SColor(255,255,255,255), sidetile.texture.x1(), sidetile.texture.y0())
 	};
 	u16 angle[6] = {0,0,0,180,90,270};
 	u16 fh[6][2] = {
