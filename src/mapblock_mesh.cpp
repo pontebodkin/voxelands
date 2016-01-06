@@ -525,9 +525,10 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			meshgen_raillike(data,p,n,selected);
 			break;
 		case CDT_PLANTLIKE:
-		case CDT_PLANTLIKE_SML:
-		case CDT_PLANTLIKE_LGE:
 			meshgen_plantlike(data,p,n,selected);
+			break;
+		case CDT_PLANTLIKE_CUSTOM:
+			meshgen_plantlike_custom(data,p,n,selected);
 			break;
 		case CDT_LIQUID:
 			meshgen_liquid(data,p,n,selected);

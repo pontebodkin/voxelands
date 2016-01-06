@@ -209,11 +209,11 @@ void content_mapnode_plants(bool repeat)
 	f->description = wgettext("Jungle Grass");
 	f->setInventoryTexture("junglegrass.png");
 	f->setAllTextures("junglegrass.png");
+	f->setTexture(1,"junglegrass_leaf.png");
 	f->setAllTextureFlags(0);
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
-	f->draw_type = CDT_PLANTLIKE_LGE;
-	//f->is_ground_content = true;
+	f->draw_type = CDT_PLANTLIKE_CUSTOM;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->solidness = 0; // drawn separately, makes no faces
@@ -983,7 +983,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextures("apple.png");
 	f->setAllTextureFlags(0);
 	f->param_type = CPT_LIGHT;
-	f->draw_type = CDT_PLANTLIKE_SML;
+	f->draw_type = CDT_PLANTLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->solidness = 0; // drawn separately, makes no faces

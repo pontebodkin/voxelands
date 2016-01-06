@@ -2007,7 +2007,7 @@ void meshgen_raillike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
 {
 	ContentFeatures *f = &content_features(n);
-	TileSpec tile = getNodeTile(n,p,v3s16(0,0,0),selected);
+	TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected);
 	v3f offset(0,0,0);
 	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT)
 		offset = v3f(0,-0.25*data->m_BS,0);
@@ -2046,45 +2046,11 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 	f32 v = tile.texture.y0();
 	f32 h = 0.5;
-	bool is_scaled = false;
-	v3f scale(1.0,1.0,1.0);
 	if (f->param2_type == CPT_PLANTGROWTH) {
 		if (n.param2 != 0 && !f->plantgrowth_on_trellis) {
 			h = (0.0625*(float)n.param2);
 			v = ((1.0-h)*tile.texture.size.Y)+tile.texture.y0();
 			h -= 0.5;
-		}
-	}else{
-		switch (f->draw_type) {
-		case CDT_PLANTLIKE_SML:
-			is_scaled = true;
-			scale = v3f(0.8,0.8,0.8);
-			break;
-		case CDT_PLANTLIKE_LGE:
-		{
-			is_scaled = true;
-			scale = v3f(1.3,1.0,1.0);
-			MapNode n2 = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,1,0));
-			h = 1.0;
-			if (
-				content_features(n2).draw_type == CDT_PLANTLIKE_LGE
-				|| content_features(n2).draw_type == CDT_PLANTLIKE
-				|| content_features(n2).draw_type == CDT_PLANTLIKE_SML
-			) {
-				v = (0.333*tile.texture.size.Y)+tile.texture.y0();
-				h = 0.5;
-			}
-			n2 = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0));
-			if (n2.getContent() == CONTENT_FLOWER_POT) {
-				offset = v3f(0,-0.25*data->m_BS,0);
-				if (h == 0.5) {
-					v = (0.25*tile.texture.size.Y)+tile.texture.y0();
-					h = 0.75;
-				}
-			}
-		}
-			break;
-		default:;
 		}
 	}
 
@@ -2105,8 +2071,6 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.rotateXZBy(angle);
-				if (is_scaled)
-					vertices[i].Pos *= scale;
 			}
 
 			u16 indices[] = {0,1,2,2,3,0};
@@ -2145,8 +2109,6 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.rotateXZBy(angle);
-				if (is_scaled)
-					vertices[i].Pos *= scale;
 			}
 
 			u16 indices[] = {0,1,2,2,3,0};
@@ -2163,6 +2125,206 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
 		}
+	}
+}
+
+void meshgen_plantlike_custom(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+{
+	if (data->mesh_detail < 3) {
+		meshgen_plantlike(data,p,n,selected);
+		return;
+	}
+	ContentFeatures *f = &content_features(n);
+	TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected);
+	v3f offset(0,0,0);
+	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT)
+		offset = v3f(0,-0.25*data->m_BS,0);
+
+	v3f pos_inner(0,0,0);
+	{
+		ContentFeatures *unf = f;
+		content_t unc = n.getContent();
+		v3s16 up = p;
+		while (unf->draw_type == f->draw_type) {
+			up.Y--;
+			unc = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + up).getContent();
+			unf = &content_features(unc);
+		}
+
+		if (unf->draw_type == CDT_CUBELIKE && unc != CONTENT_FARM_DIRT) {
+			if (up.X%2) {
+				pos_inner.Z = -0.1*data->m_BS;
+			}else{
+				pos_inner.Z = 0.1*data->m_BS;
+			}
+			if (up.Z%2) {
+				pos_inner.X = -0.1*data->m_BS;
+			}else{
+				pos_inner.X = 0.1*data->m_BS;
+			}
+			if (up.Y%2) {
+				pos_inner.X += 0.05*data->m_BS;
+				pos_inner.Z -= 0.05*data->m_BS;
+			}else{
+				pos_inner.X -= 0.05*data->m_BS;
+				pos_inner.Z += 0.05*data->m_BS;
+			}
+		}
+	}
+
+	v3f pos = offset+intToFloat(p,BS)+pos_inner;
+	std::vector<video::S3DVertex> vertices;
+
+
+	switch (n.getContent()) {
+	case CONTENT_JUNGLEGRASS:
+	{
+		video::S3DVertex vb[4] = {
+			video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+			video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+			video::S3DVertex( 0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
+			video::S3DVertex(-0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
+		};
+		video::S3DVertex vl[8] = {
+			// stalk
+			video::S3DVertex( 0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+			video::S3DVertex(-0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+			video::S3DVertex(-0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
+			video::S3DVertex( 0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
+			// end
+			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
+			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
+			video::S3DVertex(-0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
+			video::S3DVertex( 0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
+		};
+		s16 angle[4] = {
+			  45,
+			 -45,
+			 135,
+			-135
+		};
+		float xo = 0;
+		if (selected.is_coloured || selected.has_crack)
+			xo = 0.005;
+		for (u32 j=0; j<2; j++) {
+			video::S3DVertex v1[4];
+
+			for (u16 i=0; i<4; i++) {
+				v1[i] = vb[i];
+				v1[i].Pos.rotateXZBy(angle[j]);
+				v1[i].Pos.X += xo;
+				vertices.push_back(v1[i]);
+			}
+
+			if (!selected.is_coloured && !selected.has_crack)
+				continue;
+			for (u16 i=0; i<4; i++) {
+				v1[i].Pos.X -= 0.01;
+				vertices.push_back(v1[i]);
+			}
+		}
+		for (u32 j=0; j<4; j++) {
+			video::S3DVertex v1[8];
+
+			for (u16 i=0; i<8; i++) {
+				v1[i] = vl[i];
+				v1[i].Pos.rotateXZBy(angle[j]);
+				v1[i].Pos.Y += xo;
+				v1[i].TCoords *= tile.texture.size;
+				v1[i].TCoords += tile.texture.pos;
+				vertices.push_back(v1[i]);
+			}
+
+			if (!selected.is_coloured && !selected.has_crack)
+				continue;
+			for (u16 i=0; i<8; i++) {
+				v1[i].Pos.Y -= 0.01;
+				vertices.push_back(v1[i]);
+			}
+		}
+		for (u32 j=0; j<4; j++) {
+			video::S3DVertex v1[8];
+
+			for (u16 i=0; i<8; i++) {
+				v1[i] = vl[i];
+				v1[i].Pos.rotateXZBy(angle[j]+45);
+				v1[i].Pos.Y += xo-(0.25*BS);
+				v1[i].TCoords *= tile.texture.size;
+				v1[i].TCoords += tile.texture.pos;
+				vertices.push_back(v1[i]);
+			}
+
+			if (!selected.is_coloured && !selected.has_crack)
+				continue;
+			for (u16 i=0; i<8; i++) {
+				v1[i].Pos.Y -= 0.01;
+				vertices.push_back(v1[i]);
+			}
+		}
+	}
+		break;
+	default:
+		if (selected.is_coloured || selected.has_crack) {
+			for (u32 j=0; j<2; j++) {
+				video::S3DVertex v[4] = {
+					video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+					video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+					video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
+					video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
+				};
+
+				s16 angle = 45;
+				if (j == 1)
+					angle = -45;
+
+				for (u16 i=0; i<4; i++) {
+					v[i].Pos.rotateXZBy(angle);
+					v[i].Pos.X += 0.005;
+					vertices.push_back(v[i]);
+					v[i].Pos.X -= 0.01;
+					vertices.push_back(v[i]);
+				}
+			}
+		}else{
+			for (u32 j=0; j<2; j++) {
+				video::S3DVertex v[4] = {
+					video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+					video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+					video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
+					video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
+				};
+
+				s16 angle = 45;
+				if (j == 1)
+					angle = -45;
+
+				for (u16 i=0; i<4; i++) {
+					v[i].Pos.rotateXZBy(angle);
+					vertices.push_back(v[i]);
+				}
+			}
+		}
+	}
+
+	for (std::vector<video::S3DVertex>::iterator i=vertices.begin(); i != vertices.end(); i += 4) {
+		video::S3DVertex v[4];
+		for (int k=0; k<4; k++) {
+			v[k] = *(i+k);
+		}
+
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,v);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
 	}
 }
 
