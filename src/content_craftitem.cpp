@@ -1556,4 +1556,12 @@ void content_craftitem_init()
 	f->name = "lump_of_sunstone";
 	f->description = wgettext("Sunstone");
 	lists::add("creative",i);
+
+	i = CONTENT_CRAFTITEM_SALT;
+	f = &g_content_craftitem_features[i];
+	f->content = i;
+	f->texture = "salt.png";
+	f->name = "salt_dust";
+	f->description = wgettext("Salt");
+	lists::add("creative",i);
 }

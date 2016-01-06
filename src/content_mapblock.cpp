@@ -1178,8 +1178,10 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		case 0:
 		default:;
 		}
-		if (effect == 1)
+		if ((effect&0x01) == 0x01)
 			tex += "^footsteps.png";
+		if ((effect&0x02) == 0x02)
+			tex += "^mineral_salt.png";
 		toptile.texture = g_texturesource->getTexture(tex);
 	}
 
