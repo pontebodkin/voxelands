@@ -624,8 +624,11 @@ void content_mapnode_init(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Clay");
 	f->setAllTextures("clay.png");
+	f->setTexture(0,"grass.png");
 	f->setInventoryTextureCube("clay.png", "clay.png", "clay.png");
-	f->draw_type = CDT_CUBELIKE;
+	f->draw_type = CDT_DIRTLIKE;
+	f->param_type = CPT_BLOCKDATA;
+	f->param2_type = CPT_PLANTGROWTH;
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem lump_of_clay 4");
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_TERRACOTTA)+" 1";

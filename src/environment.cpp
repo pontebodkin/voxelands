@@ -1149,6 +1149,7 @@ void ServerEnvironment::step(float dtime)
 					Convert mud under proper lighting to grass
 				*/
 				case CONTENT_MUD:
+				case CONTENT_CLAY:
 				{
 					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
 					if (content_features(n_top).air_equivalent) {
@@ -1159,7 +1160,7 @@ void ServerEnvironment::step(float dtime)
 							search.push_back(CONTENT_SNOW);
 							search.push_back(CONTENT_AIR);
 							if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,32,0),search,NULL)) {
-								n.setContent(CONTENT_MUDSNOW);
+								n.param1 = 0x04;
 								m_map->addNodeWithEvent(p, n);
 							}
 						// footsteps fade out
