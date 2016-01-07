@@ -897,6 +897,7 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_PLANTGROWTH;
 	f->draw_type = CDT_PLANTLIKE;
+	f->plantlike_tiled = true;
 	f->plantgrowth_large_dug_node = CONTENT_PAPYRUS;
 	f->plantgrowth_large_count = 1;
 	f->plantgrowth_max_height = 5;

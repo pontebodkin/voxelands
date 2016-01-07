@@ -2049,13 +2049,25 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 		}
 	}
 
-	f32 v = tile.texture.y0();
+	f32 v0 = 0.;
+	f32 v1 = 1.;
 	f32 h = 0.5;
 	if (f->param2_type == CPT_PLANTGROWTH) {
 		if (n.param2 != 0 && !f->plantgrowth_on_trellis) {
 			h = (0.0625*(float)n.param2);
-			v = ((1.0-h)*tile.texture.size.Y)+tile.texture.y0();
+			v0 = (1.0-h);
 			h -= 0.5;
+		}
+	}
+
+	if (f->plantlike_tiled) {
+		if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() != n.getContent()) {
+			v0 = (1.0-(h/2.));
+		}else if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,1,0)).getContent() != n.getContent()) {
+			v1 = 0.5;
+		}else{
+			v0 = (0.75-(h/2.));
+			v1 = 0.75;
 		}
 	}
 
@@ -2064,10 +2076,10 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	if (selected.is_coloured || selected.has_crack) {
 		for (u32 j=0; j<2; j++) {
 			video::S3DVertex vertices[4] = {
-				video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-				video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-				video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), v),
-				video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), v)
+				video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v1),
+				video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v1),
+				video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v0),
+				video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v0)
 			};
 
 			s16 angle = 45;
@@ -2076,6 +2088,8 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.rotateXZBy(angle);
+				vertices[i].TCoords *= tile.texture.size;
+				vertices[i].TCoords += tile.texture.pos;
 			}
 
 			u16 indices[] = {0,1,2,2,3,0};
@@ -2102,10 +2116,10 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	}else{
 		for (u32 j=0; j<2; j++) {
 			video::S3DVertex vertices[4] = {
-				video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-				video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-				video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), v),
-				video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), v)
+				video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v1),
+				video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v1),
+				video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v0),
+				video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v0)
 			};
 
 			s16 angle = 45;
@@ -2114,6 +2128,8 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.rotateXZBy(angle);
+				vertices[i].TCoords *= tile.texture.size;
+				vertices[i].TCoords += tile.texture.pos;
 			}
 
 			u16 indices[] = {0,1,2,2,3,0};

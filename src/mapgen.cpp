@@ -1802,6 +1802,13 @@ void make_block(BlockMakeData *data)
 	*/
 
 	if (minimum_ground_depth < 5 && maximum_ground_depth > -5) {
+
+		/*
+			Calculate some stuff
+		*/
+
+		float surface_humidity = surface_humidity_2d(data->seed, p2d_center);
+		bool is_jungle = surface_humidity > 0.75;
 		/*
 			Add grass and mud
 		*/
@@ -1838,7 +1845,7 @@ void make_block(BlockMakeData *data)
 							air_detected || water_detected
 						)
 					) {
-						if (current_depth == 0 && y <= WATER_LEVEL+2 && possibly_have_sand)
+						if (current_depth == 0 && y <= WATER_LEVEL+2 && possibly_have_sand && !is_jungle)
 							have_sand = true;
 
 						if (current_depth < 4) {
@@ -1872,13 +1879,6 @@ void make_block(BlockMakeData *data)
 				}
 			}
 		}
-
-		/*
-			Calculate some stuff
-		*/
-
-		float surface_humidity = surface_humidity_2d(data->seed, p2d_center);
-		bool is_jungle = surface_humidity > 0.75;
 		// Amount of trees
 		u32 tree_count = block_area_nodes * tree_amount_2d(data->seed, p2d_center);
 		if (is_jungle)
@@ -1921,57 +1921,48 @@ void make_block(BlockMakeData *data)
 				u32 i = data->vmanip->m_area.index(p);
 				MapNode *n = &data->vmanip->m_data[i];
 
-				if (
-					n->getContent() != CONTENT_MUD
-					&& n->getContent() != CONTENT_SAND
-				)
-						continue;
-
-				// Papyrus grows only on mud and in water
-				if (n->getContent() == CONTENT_MUD && y <= WATER_LEVEL) {
-					p.Y++;
-					make_papyrus(vmanip, p);
-				}
-				// Trees grow only on mud and grass, on land
-				else if (n->getContent() == CONTENT_MUD && y > WATER_LEVEL + 2) {
-					p.Y++;
-					if (is_jungle == false || y > 30) {
-						// connifers
-						if (y > 45) {
-							make_conifertree(vmanip, p);
-						// regular trees
-						}else{
-							if (myrand_range(0,10) != 0) {
-								if (
-									noise2d_perlin(
-										0.5+(float)p.X/100,
-										0.5+(float)p.Z/100,
-										data->seed+342902,
-										3,
-										0.45
-									) > 0.2
-								) {
-									make_appletree(vmanip, p);
-								}else{
-									make_tree(vmanip, p);
-								}
+				if (n->getContent() == CONTENT_MUD) {
+					// Papyrus grows only on mud and in water
+					if (y <= WATER_LEVEL) {
+						p.Y++;
+						make_papyrus(vmanip, p);
+					// Trees grow only on mud and grass, on land
+					}else if (y > (WATER_LEVEL+2)) {
+						p.Y++;
+						if (is_jungle == false || y > 30) {
+							// connifers
+							if (y > 45) {
+								make_conifertree(vmanip, p);
+							// regular trees
 							}else{
-								make_largetree(vmanip, p);
+								if (myrand_range(0,10) != 0) {
+									if (
+										noise2d_perlin(
+											0.5+(float)p.X/100,
+											0.5+(float)p.Z/100,
+											data->seed+342902,
+											3,
+											0.45
+										) > 0.2
+									) {
+										make_appletree(vmanip, p);
+									}else{
+										make_tree(vmanip, p);
+									}
+								}else{
+									make_largetree(vmanip, p);
+								}
 							}
+						}else{
+							make_jungletree(vmanip, p);
 						}
-					}else{
-						make_jungletree(vmanip, p);
 					}
-				}
-				// connifers
-				else if (n->getContent() == CONTENT_MUDSNOW) {
-					p.Y++;
-					make_conifertree(vmanip, p);
-				}
 				// Cactii grow only on sand, on land
-				else if (n->getContent() == CONTENT_SAND && y > WATER_LEVEL + 2) {
-					p.Y++;
-					make_cactus(vmanip, p);
+				}else if (n->getContent() == CONTENT_SAND) {
+					if (y > (WATER_LEVEL+2)) {
+						p.Y++;
+						make_cactus(vmanip, p);
+					}
 				}
 			}
 		}

@@ -309,6 +309,7 @@ struct ContentFeatures
 #endif
 
 	bool rotate_tile_with_nodebox;
+	bool plantlike_tiled;
 	bool wield_nodebox;
 	std::wstring description;
 	std::vector<NodeBox> nodeboxes;
@@ -507,6 +508,7 @@ struct ContentFeatures
 		post_effect_color = video::SColor(0, 0, 0, 0);
 #endif
 		rotate_tile_with_nodebox = false;
+		plantlike_tiled = false;
 		wield_nodebox = true;
 		description = std::wstring(L"");
 		nodeboxes.clear();
