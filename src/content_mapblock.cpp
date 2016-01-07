@@ -433,7 +433,7 @@ static bool meshgen_hardface(MeshMakeData *data, v3s16 p, MapNode &n, v3s16 pos)
 	}
 	if (ff->draw_type == CDT_SLABLIKE && f->draw_type == CDT_SLABLIKE) {
 		bool urot = (nn.getContent() >= CONTENT_SLAB_STAIR_UD_MIN && nn.getContent() <= CONTENT_SLAB_STAIR_UD_MAX);
-		if ((urot && pos.Y == -1) || (!urot && pos.Y == 1))
+		if ((urot && pos.Y == 1) || (!urot && pos.Y == -1))
 			return false;
 		if (!pos.Y && n.getContent() == nn.getContent())
 			return false;
