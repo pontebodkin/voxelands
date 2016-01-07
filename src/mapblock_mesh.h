@@ -37,6 +37,7 @@
 
 // Helper functions
 std::string getGrassTile(u8 p2, std::string base, std::string overlay);
+TileSpec getCrackTile(TileSpec spec, SelectedNode &select);
 TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select, NodeMetadata *meta = NULL);
 TileSpec getMetaTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select);
 u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip);

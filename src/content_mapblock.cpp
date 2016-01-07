@@ -1185,6 +1185,11 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		toptile.texture = g_texturesource->getTexture(tex);
 	}
 
+	if (selected.has_crack) {
+		toptile = getCrackTile(toptile,selected);
+		basetile = getCrackTile(basetile,selected);
+	}
+
 	if (data->mesh_detail == 1) {
 		v3f pos = intToFloat(p, BS);
 		TileSpec tiles[6];

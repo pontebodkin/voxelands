@@ -173,6 +173,35 @@ std::string getGrassTile(u8 p2, std::string base, std::string overlay)
 	return tex;
 }
 
+TileSpec getCrackTile(TileSpec spec, SelectedNode &select)
+{
+
+	/*
+		apply crack to this node
+	*/
+	if (select.has_crack) {
+		/*
+			Get texture id, translate it to name, append stuff to
+			name, get texture id
+		*/
+
+		// Get original texture name
+		u32 orig_id = spec.texture.id;
+		std::string orig_name = g_texturesource->getTextureName(orig_id);
+
+		// Create new texture name
+		std::ostringstream os;
+		os<<orig_name<<"^[crack"<<select.crack;
+
+		// Get new texture
+		u32 new_id = g_texturesource->getTextureId(os.str());
+
+		spec.texture = g_texturesource->getTexture(new_id);
+	}
+
+	return spec;
+}
+
 /*
 	Gets node tile from any place relative to block.
 	Returns TILE_NODE if doesn't exist or should not be drawn.
