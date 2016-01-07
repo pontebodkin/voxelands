@@ -2142,8 +2142,11 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 	ContentFeatures *f = &content_features(n);
 	TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected);
 	v3f offset(0,0,0);
-	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT)
+	bool is_dropped = false;
+	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT) {
 		offset = v3f(0,-0.25*data->m_BS,0);
+		is_dropped = true;
+	}
 
 	v3f pos_inner(0,0,0);
 	{
@@ -2178,13 +2181,12 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 	}
 
 	v3f pos = offset+intToFloat(p,BS)+pos_inner;
-	std::vector<video::S3DVertex> vertices;
 
 	video::S3DVertex vb[4] = {
-		video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-		video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-		video::S3DVertex( 0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
-		video::S3DVertex(-0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
+		video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+		video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+		video::S3DVertex( 0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,0.),
+		video::S3DVertex(-0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,0.)
 	};
 	video::S3DVertex vl[8] = {
 		// stalk
@@ -2195,78 +2197,64 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 		// end
 		video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
 		video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
-		video::S3DVertex(-0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
-		video::S3DVertex( 0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
+		video::S3DVertex(-0.5*data->m_BS, 0.28125*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
+		video::S3DVertex( 0.5*data->m_BS, 0.28125*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
 	};
-	s16 angle[4] = {
+	s16 angle[8] = {
 		  45,
 		 -45,
 		 135,
-		-135
+		-135,
+		  90,
+		   0,
+		 180,
+		 -90
 	};
-	float xo = 0;
-	if (selected.is_coloured || selected.has_crack)
-		xo = 0.005;
+	float vo[8] = {
+		 0.0,
+		 0.0,
+		 0.0,
+		 0.0,
+		-0.25*BS,
+		-0.25*BS,
+		-0.25*BS,
+		-0.25*BS
+	};
+
+	{
+			MapNode n2 = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,1,0));
+			if (
+				content_features(n2).draw_type == CDT_PLANTLIKE
+				|| content_features(n2).draw_type == CDT_PLANTLIKE_FERN
+			) {
+				if (is_dropped) {
+					vb[2].Pos.Y = 0.75*BS;
+					vb[2].TCoords.Y = 0.25;
+					vb[3].Pos.Y = 0.75*BS;
+					vb[3].TCoords.Y = 0.25;
+				}else{
+					vb[2].Pos.Y = 0.5*BS;
+					vb[2].TCoords.Y = 0.375;
+					vb[3].Pos.Y = 0.5*BS;
+					vb[3].TCoords.Y = 0.375;
+				}
+			}
+	}
+
+	if (selected.is_coloured || selected.has_crack) {
+		for (int i=0; i<8; i++) {
+			vo[i] += 0.005;
+		}
+	}
 	for (u32 j=0; j<2; j++) {
-		video::S3DVertex v1[4];
-
-		for (u16 i=0; i<4; i++) {
-			v1[i] = vb[i];
-			v1[i].Pos.rotateXZBy(angle[j]);
-			v1[i].Pos.X += xo;
-			vertices.push_back(v1[i]);
-		}
-
-		if (!selected.is_coloured && !selected.has_crack)
-			continue;
-		for (u16 i=0; i<4; i++) {
-			v1[i].Pos.X -= 0.01;
-			vertices.push_back(v1[i]);
-		}
-	}
-	for (u32 j=0; j<4; j++) {
-		video::S3DVertex v1[8];
-
-		for (u16 i=0; i<8; i++) {
-			v1[i] = vl[i];
-			v1[i].Pos.rotateXZBy(angle[j]);
-			v1[i].Pos.Y += xo;
-			v1[i].TCoords *= tile.texture.size;
-			v1[i].TCoords += tile.texture.pos;
-			vertices.push_back(v1[i]);
-		}
-
-		if (!selected.is_coloured && !selected.has_crack)
-			continue;
-		for (u16 i=0; i<8; i++) {
-			v1[i].Pos.Y -= 0.01;
-			vertices.push_back(v1[i]);
-		}
-	}
-	for (u32 j=0; j<4; j++) {
-		video::S3DVertex v1[8];
-
-		for (u16 i=0; i<8; i++) {
-			v1[i] = vl[i];
-			v1[i].Pos.rotateXZBy(angle[j]+45);
-			v1[i].Pos.Y += xo-(0.25*BS);
-			v1[i].TCoords *= tile.texture.size;
-			v1[i].TCoords += tile.texture.pos;
-			vertices.push_back(v1[i]);
-		}
-
-		if (!selected.is_coloured && !selected.has_crack)
-			continue;
-		for (u16 i=0; i<8; i++) {
-			v1[i].Pos.Y -= 0.01;
-			vertices.push_back(v1[i]);
-		}
-	}
-
-	for (std::vector<video::S3DVertex>::iterator i=vertices.begin(); i != vertices.end(); i += 4) {
 		video::S3DVertex v[4];
-		for (int k=0; k<4; k++) {
-			v[k] = *(i+k);
+
+		for (u16 i=0; i<4; i++) {
+			v[i] = vb[i];
+			v[i].Pos.rotateXZBy(angle[j]);
+			v[i].Pos.X += vo[j];
+			v[i].TCoords *= tile.texture.size;
+			v[i].TCoords += tile.texture.pos;
 		}
 
 		u16 indices[] = {0,1,2,2,3,0};
@@ -2282,6 +2270,49 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 		}
 
 		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
+
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+
+		for (u16 i=0; i<4; i++) {
+			v[i].Pos.X -= 0.01;
+		}
+
+		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
+	}
+	for (u32 j=0; j<8; j++) {
+		video::S3DVertex v[8];
+
+		for (u16 i=0; i<8; i++) {
+			v[i] = vl[i];
+			v[i].Pos.rotateXZBy(angle[j]);
+			v[i].Pos.Y += vo[j];
+			v[i].TCoords *= tile.texture.size;
+			v[i].TCoords += tile.texture.pos;
+		}
+
+		u16 indices[] = {0,1,2,2,3,0,4,5,6,6,7,4};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,8);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),8,v);
+		}
+
+		for (u16 i=0; i<8; i++) {
+			v[i].Pos += pos;
+		}
+
+		data->append(tile.getMaterial(), v, 8, indices, 12, colours);
+
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+
+		for (u16 i=0; i<8; i++) {
+			v[i].Pos.Y -= 0.01;
+		}
+
+		data->append(tile.getMaterial(), v, 8, indices, 12, colours);
 	}
 }
 
