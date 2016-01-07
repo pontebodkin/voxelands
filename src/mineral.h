@@ -43,6 +43,7 @@
 #define MINERAL_AMETHYST 11
 #define MINERAL_SAPPHIRE 12
 #define MINERAL_SUNSTONE 13
+#define MINERAL_SALT 14
 
 struct MineralFeatures {
 	std::wstring description;

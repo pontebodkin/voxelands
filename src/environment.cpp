@@ -798,11 +798,9 @@ void ServerEnvironment::step(float dtime)
 				// Get node that is at BS/4 under player
 				v3s16 bottompos = floatToInt(playerpos + v3f(0,-BS/4,0), BS);
 				MapNode n = m_map->getNodeNoEx(bottompos);
-				if (n.getContent() == CONTENT_GRASS) {
-					n.setContent(CONTENT_GRASS_FOOTSTEPS);
-					m_map->setNode(bottompos, n);
-				}else if (n.getContent() == CONTENT_GRASS_AUTUMN) {
-					n.setContent(CONTENT_GRASS_FOOTSTEPS_AUTUMN);
+				if (n.getContent() == CONTENT_MUD && (n.param1&0xF0) != 0x10) {
+					n.param1 |= 0x10;
+					n.envticks = 0;
 					m_map->setNode(bottompos, n);
 				}else{
 					bottompos.Y += 1;
@@ -1079,15 +1077,12 @@ void ServerEnvironment::step(float dtime)
 								if (n.getContent() == CONTENT_SAND)
 									mob_spawn_passive(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
 							}else if (
-								(
-									n.getContent() == CONTENT_GRASS
-									|| n.getContent() == CONTENT_GRASS_AUTUMN
-									|| n.getContent() == CONTENT_GRASS_FOOTSTEPS
-									|| n.getContent() == CONTENT_GRASS_FOOTSTEPS_AUTUMN
-									|| n.getContent() == CONTENT_MUDSNOW
-								) && (
-									light >= LIGHT_SPAWN_BRIGHT
-								)
+								n.getContent() == CONTENT_MUD
+								&& (
+									n.param1 == 1
+									|| n.param1 == 2
+								) && n.param2 == 0
+								&& light >= LIGHT_SPAWN_BRIGHT
 							) {
 								mob_spawn_passive(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
 							}else if (n.getContent() == CONTENT_STONE && light <= LIGHT_SPAWN_DARK && block->getPosRelative().Y < -16) {
@@ -1150,65 +1145,120 @@ void ServerEnvironment::step(float dtime)
 				}
 
 				switch(n.getContent()) {
-				case CONTENT_GRASS_FOOTSTEPS:
-				{
-					if (n.envticks > 3) {
-						n.setContent(CONTENT_GRASS);
-						m_map->addNodeWithEvent(p, n);
-					}
-					break;
-				}
-				case CONTENT_GRASS_FOOTSTEPS_AUTUMN:
-				{
-					if (n.envticks > 3) {
-						n.setContent(CONTENT_GRASS_AUTUMN);
-						m_map->addNodeWithEvent(p, n);
-					}
-					break;
-				}
 				/*
 					Convert mud under proper lighting to grass
 				*/
 				case CONTENT_MUD:
+				case CONTENT_CLAY:
 				{
 					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
 					if (content_features(n_top).air_equivalent) {
-						if (p.Y > (coldzone+10) && p.Y < 1024) {
+						// coldzone, change to snow
+						if (p.Y > (coldzone+10) && p.Y < 1024 && (n.param1&0x0F) != 0x04) {
 							// should only change to snow if there's nothing above it
 							std::vector<content_t> search;
 							search.push_back(CONTENT_SNOW);
 							search.push_back(CONTENT_AIR);
 							if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,32,0),search,NULL)) {
-								n.setContent(CONTENT_MUDSNOW);
+								n.param1 = 0x04;
 								m_map->addNodeWithEvent(p, n);
 							}
-						}else if (n_top.getLightBlend(getDayNightRatio()) >= 13) {
-							if (season == ENV_SEASON_AUTUMN || season == ENV_SEASON_WINTER) {
-								n.setContent(CONTENT_GROWING_GRASS_AUTUMN);
+						// footsteps fade out
+						}else if ((n.param1&0xF0) == 0x10 && n.envticks > 3) {
+							n.param1 &= ~0x10;
+							m_map->addNodeWithEvent(p,n);
+						// autumn grass in autumn/winter
+						}else if (
+							(
+								(n.param1&0x0F) == 0x01
+							) && (
+								season == ENV_SEASON_WINTER
+								|| (
+									season == ENV_SEASON_AUTUMN
+									&& (
+										getSeasonDay() > 20
+										|| myrand_range(0,5) == 0
+									)
+								)
+							)
+						) {
+							n.param1 &= ~0x0F;
+							n.param1 |= 0x02;
+							m_map->addNodeWithEvent(p,n);
+						// green grass in spring/summer
+						}else if (
+							(
+								(n.param1&0x0F) == 0x02
+							) && (
+								season == ENV_SEASON_SUMMER
+								|| (
+									season == ENV_SEASON_SPRING
+									&& (
+										getSeasonDay() > 20
+										|| myrand_range(0,5) == 0
+									)
+								)
+							)
+						) {
+							n.param1 &= ~0x0F;
+							n.param1 |= 0x01;
+							m_map->addNodeWithEvent(p,n);
+						// melt snow out of the coldzone
+						}else if (
+							(n.param1&0x0F) == 0x04
+							&& p.Y < coldzone
+						) {
+							n.param1 &= ~0x0F;
+							if (season == ENV_SEASON_SUMMER) {
+								n.param1 |= 0x01;
 							}else{
-								n.setContent(CONTENT_GROWING_GRASS);
+								n.param1 |= 0x02;
 							}
 							n.param2 = 0;
-							m_map->addNodeWithEvent(p, n);
+							m_map->addNodeWithEvent(p,n);
+						// grow
+						}else if (
+							(n.param1&0x0F) != 0x04
+							&& n_top.getLightBlend(getDayNightRatio()) >= 13
+						) {
+							if ((n.param1&0x0F) != 0x00 && (n.param2&0x0F) == 0x0) {
+								int f = (700-(p.Y*2))+10;
+								if (p.Y > 1 && myrand()%f == 0) {
+									if (
+										n_top.getContent() == CONTENT_AIR
+										&& n_top.getLightBlend(getDayNightRatio()) >= 13
+									) {
+										v3f pp = intToFloat(p,BS);
+										Player *nearest = getNearestConnectedPlayer(pp);
+										if (nearest == NULL || nearest->getPosition().getDistanceFrom(pp)/BS > 20.0) {
+											std::vector<content_t> search;
+											search.push_back(CONTENT_WILDGRASS_SHORT);
+											if (season != ENV_SEASON_SPRING)
+												search.push_back(CONTENT_WILDGRASS_LONG);
+											search.push_back(CONTENT_FLOWER_STEM);
+											search.push_back(CONTENT_FLOWER_ROSE);
+											search.push_back(CONTENT_FLOWER_TULIP);
+											search.push_back(CONTENT_FLOWER_DAFFODIL);
+											if (!searchNear(p,v3s16(1,1,1),search,NULL)) {
+												n_top.setContent(CONTENT_WILDGRASS_SHORT);
+												m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top);
+											}
+										}
+									}
+								}
+							}else{
+								plantgrowth_grass(this,p);
+							}
 						}
-					}
-					break;
-				}
-
-				case CONTENT_GROWING_GRASS:
-					if (season == ENV_SEASON_WINTER || season == ENV_SEASON_AUTUMN) {
-						n.setContent(CONTENT_GROWING_GRASS_AUTUMN);
-						m_map->addNodeWithEvent(p,n);
-					}
-				case CONTENT_GROWING_GRASS_AUTUMN:
-				{
-					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
-					if (content_features(n_top).air_equivalent) {
-						if (season != ENV_SEASON_WINTER)
-							plantgrowth_grass(this,p);
 					}else{
-						n.setContent(CONTENT_MUD);
-						m_map->addNodeWithEvent(p,n);
+						if (n.param1 == 0x01) {
+							n.param1 = 0x02;
+							m_map->addNodeWithEvent(p,n);
+						}else if (n.param1 != 0) {
+							n.param1 = 0;
+							n.param2 = 0;
+							m_map->addNodeWithEvent(p,n);
+						}
 					}
 					break;
 				}
@@ -1378,155 +1428,6 @@ void ServerEnvironment::step(float dtime)
 							n.setContent(CONTENT_TRELLIS_DEAD_VINE);
 							m_map->addNodeWithEvent(p, n);
 						}
-					}
-					break;
-				}
-
-				/*
-					Convert grass and snow into mud if under something else than air
-				*/
-
-				case CONTENT_MUDSNOW:
-				{
-					{
-						MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
-						u32 ch = m_time%60;
-						if (n_top.getContent() == CONTENT_SNOW) {
-							break;
-						}else if (
-							p.Y < (coldzone-10)
-							&& (
-								ch > 10
-								|| (
-									n_top.getLightBlend(getDayNightRatio()) >= 13
-									&& myrand_range(0,5) == 0
-								) || myrand_range(0,10) == 0
-							)
-						) {
-							n.setContent(CONTENT_GRASS_AUTUMN);
-							m_map->addNodeWithEvent(p, n);
-						}else if (
-							content_features(n_top).air_equivalent == false
-							&& n_top.getContent() != CONTENT_IGNORE
-							&& content_features(n_top).draw_type != CDT_PLANTLIKE
-							&& content_features(n_top).draw_type != CDT_PLANTLIKE_SML
-							&& content_features(n_top).draw_type != CDT_PLANTLIKE_LGE
-							&& n_top.getContent() != CONTENT_SIGN
-							&& n_top.getContent() != CONTENT_SNOW
-						) {
-							n.setContent(CONTENT_MUD);
-							m_map->addNodeWithEvent(p, n);
-						}
-					}
-				}
-				case CONTENT_GRASS:
-				{
-					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
-					ContentFeatures &f = content_features(n_top);
-					if (f.air_equivalent) {
-						if (n.envticks > 2) {
-							if (
-								p.Y > (coldzone-10)
-								&& p.Y < 1024
-								&& (
-									m_time%60 > 10
-									|| myrand_range(0,10) == 0
-								)
-							) {
-								// should only change to snow if there's nothing above it
-								std::vector<content_t> search;
-								search.push_back(CONTENT_SNOW);
-								search.push_back(CONTENT_AIR);
-								if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,32,0),search,NULL)) {
-									n.setContent(CONTENT_MUDSNOW);
-									m_map->addNodeWithEvent(p, n);
-								}
-							}else if (
-								(
-									season == ENV_SEASON_WINTER
-									|| season == ENV_SEASON_AUTUMN
-								) && (
-									m_time%60 > 10
-									|| myrand_range(0,10) == 0
-								)
-							) {
-								n.setContent(CONTENT_GRASS_AUTUMN);
-								m_map->addNodeWithEvent(p, n);
-							}
-						}
-						int f = (700-(p.Y*2))+10;
-						if (p.Y > 1 && myrand()%f == 0) {
-							if (n_top.getContent() == CONTENT_AIR && n_top.getLightBlend(getDayNightRatio()) >= 13) {
-								v3f pp = intToFloat(p,BS);
-								Player *nearest = getNearestConnectedPlayer(pp);
-								if (nearest == NULL || nearest->getPosition().getDistanceFrom(pp)/BS > 20.0) {
-									std::vector<content_t> search;
-									search.push_back(CONTENT_WILDGRASS_SHORT);
-									if (season != ENV_SEASON_SPRING)
-										search.push_back(CONTENT_WILDGRASS_LONG);
-									search.push_back(CONTENT_FLOWER_STEM);
-									search.push_back(CONTENT_FLOWER_ROSE);
-									search.push_back(CONTENT_FLOWER_TULIP);
-									search.push_back(CONTENT_FLOWER_DAFFODIL);
-									if (!searchNear(p,v3s16(1,1,1),search,NULL)) {
-										n_top.setContent(CONTENT_WILDGRASS_SHORT);
-										m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top);
-									}
-								}
-							}
-						}
-					}else if (n_top.getContent() != CONTENT_IGNORE) {
-						n.setContent(CONTENT_GRASS_AUTUMN);
-						m_map->addNodeWithEvent(p,n);
-					}
-					break;
-				}
-				case CONTENT_GRASS_AUTUMN:
-				{
-					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
-					ContentFeatures &f = content_features(n_top);
-					u32 ch = m_time%60;
-					if (n_top.getContent() == CONTENT_SNOW) {
-						n.setContent(CONTENT_MUDSNOW);
-						m_map->addNodeWithEvent(p,n);
-					}else if (f.air_equivalent) {
-						if ((season == ENV_SEASON_SPRING && myrand_range(0,10) == 0) || season == ENV_SEASON_SUMMER) {
-							n.setContent(CONTENT_GRASS);
-							m_map->addNodeWithEvent(p,n);
-						}else if (season == ENV_SEASON_WINTER && p.Y > (coldzone-5) && (ch > 10 || myrand_range(0,5) == 0)) {
-							// should only change to snow if there's nothing above it
-							std::vector<content_t> search;
-							search.push_back(CONTENT_SNOW);
-							search.push_back(CONTENT_AIR);
-							if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,32,0),search,NULL)) {
-								n.setContent(CONTENT_MUDSNOW);
-								m_map->addNodeWithEvent(p, n);
-							}
-						}else{
-							int f = (700-(p.Y*2))+10;
-							if (p.Y > 1 && myrand()%f == 0) {
-								if (n_top.getContent() == CONTENT_AIR && n_top.getLightBlend(getDayNightRatio()) >= 13) {
-									v3f pp = intToFloat(p,BS);
-									Player *nearest = getNearestConnectedPlayer(pp);
-									if (nearest == NULL || nearest->getPosition().getDistanceFrom(pp)/BS > 20.0) {
-										std::vector<content_t> search;
-										search.push_back(CONTENT_WILDGRASS_SHORT);
-										search.push_back(CONTENT_WILDGRASS_LONG);
-										search.push_back(CONTENT_FLOWER_STEM);
-										search.push_back(CONTENT_FLOWER_ROSE);
-										search.push_back(CONTENT_FLOWER_TULIP);
-										search.push_back(CONTENT_FLOWER_DAFFODIL);
-										if (!searchNear(p,v3s16(1,1,1),search,NULL)) {
-											n_top.setContent(CONTENT_WILDGRASS_SHORT);
-											m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top);
-										}
-									}
-								}
-							}
-						}
-					}else{
-						n.setContent(CONTENT_MUD);
-						m_map->addNodeWithEvent(p,n);
 					}
 					break;
 				}
@@ -2136,10 +2037,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							v3s16 h;
 							if (!searchNearInv(p,v3s16(-2,2,-2),v3s16(2,7,2),search,&h)) {
@@ -2159,10 +2056,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							content_t above = m_map->getNodeNoEx(p+v3s16(0,1,0)).getContent();
 							std::vector<content_t> search;
@@ -2257,10 +2150,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							v3s16 h;
 							if (!searchNearInv(p,v3s16(-2,2,-2),v3s16(2,7,2),search,&h)) {
@@ -2280,10 +2169,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							content_t above = m_map->getNodeNoEx(p+v3s16(0,1,0)).getContent();
 							std::vector<content_t> search;
@@ -2373,10 +2258,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							v3s16 h;
 							if (!searchNearInv(p,v3s16(-2,2,-2),v3s16(2,10,2),search,&h)) {
@@ -2396,10 +2277,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							content_t above = m_map->getNodeNoEx(p+v3s16(0,1,0)).getContent();
 							std::vector<content_t> search;
@@ -2491,10 +2368,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							v3s16 h;
 							if (!searchNearInv(p,v3s16(-2,2,-2),v3s16(2,12,2),search,&h)) {
@@ -2514,10 +2387,6 @@ void ServerEnvironment::step(float dtime)
 						content_t below = m_map->getNodeNoEx(p+v3s16(0,-1,0)).getContent();
 						if (
 							below == CONTENT_MUD
-							|| below == CONTENT_GRASS
-							|| below == CONTENT_GRASS_FOOTSTEPS
-							|| below == CONTENT_GRASS_AUTUMN
-							|| below == CONTENT_GRASS_FOOTSTEPS_AUTUMN
 						) {
 							content_t above = m_map->getNodeNoEx(p+v3s16(0,1,0)).getContent();
 							std::vector<content_t> search;
@@ -2816,12 +2685,18 @@ void ServerEnvironment::step(float dtime)
 				}
 
 				if (
-					n.getContent() != CONTENT_GRASS
-					&& n.getContent() != CONTENT_MUD
-					&& p.Y >(coldzone+5) && p.Y < 1024
+					p.Y >(coldzone+5) && p.Y < 1024
 					&& (
 						content_features(n).draw_type == CDT_CUBELIKE
 						|| content_features(n).draw_type == CDT_GLASSLIKE
+						|| (
+							content_features(n).draw_type == CDT_DIRTLIKE
+							&& (n.param1&0x20) != 0x20
+							&& (
+								(n.param1&0x0F) == 0x00
+								|| (n.param1&0x0F) == 0x04
+							)
+						)
 					)
 				) {
 					if (myrand()%20 == 0) {
@@ -2833,8 +2708,10 @@ void ServerEnvironment::step(float dtime)
 							!searchNearInv(p,v3s16(0,1,0),v3s16(0,16,0),search,NULL)
 							&& !searchNear(p,v3s16(3,3,3),CONTENT_FIRE,NULL)
 						) {
-							MapNode n_top(CONTENT_SNOW);
-							m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top);
+							n.param1 &= ~0x0F;
+							n.param1 |= 0x04;
+							n.envticks = 0;
+							m_map->addNodeWithEvent(p,n);
 						}
 					}
 				}
@@ -4019,18 +3896,9 @@ void ClientEnvironment::step(float dtime)
 			// Get node that is at BS/4 under player
 			v3s16 bottompos = floatToInt(playerpos + v3f(0,-BS/4,0), BS);
 			MapNode n = m_map->getNodeNoEx(bottompos);
-			if (n.getContent() == CONTENT_GRASS) {
-				n.setContent(CONTENT_GRASS_FOOTSTEPS);
-				m_map->setNode(bottompos, n);
-				// Update mesh on client
-				if (m_map->mapType() == MAPTYPE_CLIENT) {
-					v3s16 p_blocks = getNodeBlockPos(bottompos);
-					MapBlock *b = m_map->getBlockNoCreate(p_blocks);
-					//b->updateMesh(getDayNightRatio());
-					b->setMeshExpired(true);
-				}
-			}else if (n.getContent() == CONTENT_GRASS_AUTUMN) {
-				n.setContent(CONTENT_GRASS_FOOTSTEPS_AUTUMN);
+			if (n.getContent() == CONTENT_MUD && (n.param1&0xF0) == 0) {
+				n.param1 |= 0x10;
+				n.envticks = 0;
 				m_map->setNode(bottompos, n);
 				// Update mesh on client
 				if (m_map->mapType() == MAPTYPE_CLIENT) {

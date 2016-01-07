@@ -3328,7 +3328,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					std::string &dug_s = selected_node_features.dug_item;
 					if (wielded_tool_features.type != TT_NONE && enchantment_have(wielditem->getData(),ENCHANTMENT_DONTBREAK)) {
 						u16 data = 0;
-						if (selected_node_features.param_type == CPT_MINERAL)
+						if (selected_node_features.param_type == CPT_MINERAL || selected_node_features.param_type == CPT_BLOCKDATA)
 							data = selected_node.param1;
 						item = InventoryItem::create(selected_content,1,0,data);
 					}else if (
@@ -3341,6 +3341,26 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					}else if (dug_s != "") {
 						std::istringstream is(dug_s, std::ios::binary);
 						item = InventoryItem::deSerialize(is);
+						if (selected_node_features.draw_type == CDT_DIRTLIKE) {
+							content_t extra = CONTENT_IGNORE;
+							switch (selected_node.param1&0x0F) {
+							case 0x01:
+							case 0x02:
+								extra = CONTENT_WILDGRASS_SHORT;
+								break;
+							case 0x04:
+								extra = CONTENT_CRAFTITEM_SNOW_BALL;
+								break;
+							default:;
+							}
+							if (extra == CONTENT_IGNORE) {
+								if ((selected_node.param1&0x20) == 0x20)
+									mineral = MINERAL_SALT;
+							}else if (myrand_range(0,5) == 0) {
+								InventoryItem *eitem = InventoryItem::create(extra,1,0);
+								player->inventory.addItem("main", eitem);
+							}
+						}
 					}else if (selected_node_features.param2_type == CPT_PLANTGROWTH) {
 						if (selected_node_features.draw_type == CDT_PLANTLIKE) {
 							if (p2 && p2 < 8) {

@@ -36,6 +36,7 @@
 #include <IGUIStaticText.h>
 #include <IGUIFont.h>
 #include <IGUIScrollBar.h>
+#include <IGUIComboBox.h>
 #include "settings.h"
 #include "gui_colours.h"
 
@@ -53,10 +54,9 @@ GUISettingsMenu::GUISettingsMenu(
 {
 	activeKey = -1;
 	init_keys();
-	m_data.fancy_trees = g_settings->getBool("new_style_leaves");
-	m_data.smooth_lighting = g_settings->getBool("smooth_lighting");
-	m_data.clouds_3d = g_settings->getBool("enable_3d_clouds");
-	m_data.opaque_water = g_settings->getBool("opaque_water");
+	m_data.mesh_detail = g_settings->getU16("mesh_detail");
+	m_data.texture_detail = g_settings->getU16("texture_detail");
+	m_data.light_detail = g_settings->getU16("light_detail");
 	m_data.fullscreen = g_settings->getBool("fullscreen");
 	m_data.particles = g_settings->getBool("enable_particles");
 	m_data.mip_map = g_settings->getBool("mip_map");
@@ -122,10 +122,9 @@ void GUISettingsMenu::save()
 		saveKeySetting(keys[i],(KeyCode)i);
 	}
 	// graphics
-	g_settings->set("new_style_leaves", itos(m_data.fancy_trees));
-	g_settings->set("smooth_lighting", itos(m_data.smooth_lighting));
-	g_settings->set("enable_3d_clouds", itos(m_data.clouds_3d));
-	g_settings->set("opaque_water", itos(m_data.opaque_water));
+	g_settings->set("mesh_detail", itos(m_data.mesh_detail));
+	g_settings->set("texture_detail", itos(m_data.texture_detail));
+	g_settings->set("light_detail", itos(m_data.light_detail));
 	g_settings->set("old_hotbar", itos(m_data.hotbar));
 	g_settings->set("enable_wieldindex", itos(m_data.wield_index));
 	// video
@@ -142,10 +141,9 @@ void GUISettingsMenu::save()
 
 void GUISettingsMenu::regenerateGui(v2u32 screensize)
 {
-	bool fancy_trees;
-	bool smooth_lighting;
-	bool clouds_3d;
-	bool opaque_water;
+	u16 mesh_detail;
+	u16 texture_detail;
+	u16 light_detail;
 	bool fullscreen;
 	bool particles;
 	bool mipmap;
@@ -159,32 +157,67 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	m_screensize = screensize;
 
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_FANCYTREE_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			fancy_trees = ((gui::IGUICheckBox*)e)->isChecked();
-		else
-			fancy_trees = m_data.fancy_trees;
+		gui::IGUIElement *e = getElementFromId(GUI_ID_MESH_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_MESH_DETAIL_LOW:
+				mesh_detail = 1;
+				break;
+			case GUI_ID_MESH_DETAIL_MEDIUM:
+				mesh_detail = 2;
+				break;
+			case GUI_ID_MESH_DETAIL_HIGH:
+				mesh_detail = 3;
+				break;
+			default:
+				mesh_detail = 3;
+			}
+		}else{
+			mesh_detail = m_data.mesh_detail;
+		}
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_SMOOTH_LIGHTING_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			smooth_lighting = ((gui::IGUICheckBox*)e)->isChecked();
-		else
-			smooth_lighting = m_data.smooth_lighting;
+		gui::IGUIElement *e = getElementFromId(GUI_ID_TEXTURE_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_TEXTURE_DETAIL_LOW:
+				texture_detail = 1;
+				break;
+			case GUI_ID_TEXTURE_DETAIL_MEDIUM:
+				texture_detail = 2;
+				break;
+			case GUI_ID_TEXTURE_DETAIL_HIGH:
+				texture_detail = 3;
+				break;
+			default:
+				texture_detail = 3;
+			}
+		}else{
+			texture_detail = m_data.texture_detail;
+		}
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_3D_CLOUDS_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			clouds_3d = ((gui::IGUICheckBox*)e)->isChecked();
-		else
-			clouds_3d = m_data.clouds_3d;
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_OPAQUE_WATER_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			opaque_water = ((gui::IGUICheckBox*)e)->isChecked();
-		else
-			opaque_water = m_data.opaque_water;
+		gui::IGUIElement *e = getElementFromId(GUI_ID_LIGHT_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_LIGHT_DETAIL_LOW:
+				light_detail = 1;
+				break;
+			case GUI_ID_LIGHT_DETAIL_MEDIUM:
+				light_detail = 2;
+				break;
+			case GUI_ID_LIGHT_DETAIL_HIGH:
+				light_detail = 3;
+				break;
+			default:
+				light_detail = 3;
+			}
+		}else{
+			light_detail = m_data.light_detail;
+		}
 	}
 	{
 		gui::IGUIElement *e = getElementFromId(GUI_ID_FULLSCREEN_CB);
@@ -343,39 +376,94 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 		{
-			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(80, 60);
-			Environment->addCheckBox(fancy_trees, rect, this, GUI_ID_FANCYTREE_CB, wgettext("Fancy trees"));
+			core::rect<s32> rect(0, 0, 125, 20);
+			rect += topleft_content + v2s32(40, 60);
+			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Terrain Mesh Detail"), rect, false, true, this, -1);
+			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
+		}
+		{
+			core::rect<s32> rect(0, 0, 240, 25);
+			rect += topleft_content + v2s32(175, 55);
+			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_MESH_DETAIL_COMBO);
+			u32 ld = c->addItem(wgettext("Low"),GUI_ID_MESH_DETAIL_LOW);
+			u32 md = c->addItem(wgettext("Medium"),GUI_ID_MESH_DETAIL_MEDIUM);
+			u32 hd = c->addItem(wgettext("High"),GUI_ID_MESH_DETAIL_HIGH);
+			switch (mesh_detail) {
+			case 1:
+				c->setSelected(ld);
+				break;
+			case 2:
+				c->setSelected(md);
+				break;
+			default:
+				c->setSelected(hd);
+				break;
+			}
+		}
+		{
+			core::rect<s32> rect(0, 0, 125, 20);
+			rect += topleft_content + v2s32(40, 90);
+			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Texture Detail"), rect, false, true, this, -1);
+			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
+		}
+		{
+			core::rect<s32> rect(0, 0, 240, 25);
+			rect += topleft_content + v2s32(175, 85);
+			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_TEXTURE_DETAIL_COMBO);
+			u32 ld = c->addItem(wgettext("Low"),GUI_ID_TEXTURE_DETAIL_LOW);
+			u32 md = c->addItem(wgettext("Medium"),GUI_ID_TEXTURE_DETAIL_MEDIUM);
+			u32 hd = c->addItem(wgettext("High"),GUI_ID_TEXTURE_DETAIL_HIGH);
+			switch (texture_detail) {
+			case 1:
+				c->setSelected(ld);
+				break;
+			case 2:
+				c->setSelected(md);
+				break;
+			default:
+				c->setSelected(hd);
+				break;
+			}
+		}
+		{
+			core::rect<s32> rect(0, 0, 125, 20);
+			rect += topleft_content + v2s32(40, 120);
+			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Light Detail"), rect, false, true, this, -1);
+			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
+		}
+		{
+			core::rect<s32> rect(0, 0, 240, 25);
+			rect += topleft_content + v2s32(175, 115);
+			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_LIGHT_DETAIL_COMBO);
+			u32 ld = c->addItem(wgettext("Low"),GUI_ID_LIGHT_DETAIL_LOW);
+			u32 md = c->addItem(wgettext("Medium"),GUI_ID_LIGHT_DETAIL_MEDIUM);
+			u32 hd = c->addItem(wgettext("High"),GUI_ID_LIGHT_DETAIL_HIGH);
+			switch (light_detail) {
+			case 1:
+				c->setSelected(ld);
+				break;
+			case 2:
+				c->setSelected(md);
+				break;
+			default:
+				c->setSelected(hd);
+				break;
+			}
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(80, 90);
-			Environment->addCheckBox(smooth_lighting, rect, this, GUI_ID_SMOOTH_LIGHTING_CB, wgettext("Smooth Lighting"));
-		}
-		{
-			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(80, 120);
-			Environment->addCheckBox(clouds_3d, rect, this, GUI_ID_3D_CLOUDS_CB, wgettext("3D Clouds"));
-		}
-		{
-			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(80, 150);
-			Environment->addCheckBox(opaque_water, rect, this, GUI_ID_OPAQUE_WATER_CB, wgettext("Opaque water"));
-		}
-		{
-			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(290, 60);
+			rect += topleft_content + v2s32(80, 160);
 			Environment->addCheckBox(hotbar, rect, this, GUI_ID_HOTBAR_CB, wgettext("Classic HUD"));
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
-			rect += topleft_content + v2s32(290, 90);
+			rect += topleft_content + v2s32(290, 160);
 			gui::IGUICheckBox *c = Environment->addCheckBox(wield_index, rect, this, GUI_ID_WIELDINDEX_CB, wgettext("Wieldring Index"));
 			c->setEnabled(!hotbar);
 		}
 		if (m_is_ingame) {
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 200);
+			rect += topleft_content + v2s32(0, 220);
 			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Some settings cannot be changed in-game."), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -485,24 +573,61 @@ void GUISettingsMenu::drawMenu()
 bool GUISettingsMenu::acceptInput()
 {
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_FANCYTREE_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			m_data.fancy_trees = ((gui::IGUICheckBox*)e)->isChecked();
+		gui::IGUIElement *e = getElementFromId(GUI_ID_MESH_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_MESH_DETAIL_LOW:
+				m_data.mesh_detail = 1;
+				break;
+			case GUI_ID_MESH_DETAIL_MEDIUM:
+				m_data.mesh_detail = 2;
+				break;
+			case GUI_ID_MESH_DETAIL_HIGH:
+				m_data.mesh_detail = 3;
+				break;
+			default:
+				m_data.mesh_detail = 3;
+			}
+		}
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_SMOOTH_LIGHTING_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			m_data.smooth_lighting = ((gui::IGUICheckBox*)e)->isChecked();
+		gui::IGUIElement *e = getElementFromId(GUI_ID_TEXTURE_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_TEXTURE_DETAIL_LOW:
+				m_data.texture_detail = 1;
+				break;
+			case GUI_ID_TEXTURE_DETAIL_MEDIUM:
+				m_data.texture_detail = 2;
+				break;
+			case GUI_ID_TEXTURE_DETAIL_HIGH:
+				m_data.texture_detail = 3;
+				break;
+			default:
+				m_data.texture_detail = 3;
+			}
+		}
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_3D_CLOUDS_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			m_data.clouds_3d = ((gui::IGUICheckBox*)e)->isChecked();
-	}
-	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_OPAQUE_WATER_CB);
-		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
-			m_data.opaque_water = ((gui::IGUICheckBox*)e)->isChecked();
+		gui::IGUIElement *e = getElementFromId(GUI_ID_LIGHT_DETAIL_COMBO);
+		if (e != NULL && e->getType() == gui::EGUIET_COMBO_BOX) {
+			gui::IGUIComboBox *c = (gui::IGUIComboBox*)e;
+			switch (c->getItemData(c->getSelected())) {
+			case GUI_ID_LIGHT_DETAIL_LOW:
+				m_data.light_detail = 1;
+				break;
+			case GUI_ID_LIGHT_DETAIL_MEDIUM:
+				m_data.light_detail = 2;
+				break;
+			case GUI_ID_LIGHT_DETAIL_HIGH:
+				m_data.light_detail = 3;
+				break;
+			default:
+				m_data.light_detail = 3;
+			}
+		}
 	}
 	{
 		gui::IGUIElement *e = getElementFromId(GUI_ID_FULLSCREEN_CB);
@@ -653,6 +778,17 @@ bool GUISettingsMenu::OnEvent(const SEvent& event)
 					if (g_sound)
 						g_sound->setListenerGain(m_data.volume/100.0);
 				}
+				return true;
+			}
+		}
+		if (event.GUIEvent.EventType == gui::EGET_COMBO_BOX_CHANGED) {
+			switch (event.GUIEvent.Caller->getID()) {
+			case GUI_ID_MESH_DETAIL_COMBO:
+			case GUI_ID_TEXTURE_DETAIL_COMBO:
+			case GUI_ID_LIGHT_DETAIL_COMBO:
+				acceptInput();
+				m_accepted = false;
+				regenerateGui(m_screensize);
 				return true;
 			}
 		}

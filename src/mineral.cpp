@@ -183,4 +183,12 @@ void init_mineral()
 	f->dug_item = CONTENT_CRAFTITEM_SUNSTONE;
 	f->min_level = 3;
 	f->dug_count_max = 2;
+
+	i = MINERAL_SALT;
+	f = &mineral_features(i);
+	f->description = wgettext("Salt");
+	f->texture = "mineral_salt.png";
+	f->dug_item = CONTENT_CRAFTITEM_SALT;
+	f->min_level = 1;
+	f->dug_count_max = 2;
 }

@@ -1831,7 +1831,6 @@ void make_block(BlockMakeData *data)
 					if (
 						(
 							vmanip.m_data[i].getContent() == base_content
-							|| vmanip.m_data[i].getContent() == CONTENT_GRASS
 							|| vmanip.m_data[i].getContent() == CONTENT_MUD
 							|| vmanip.m_data[i].getContent() == CONTENT_SAND
 							|| vmanip.m_data[i].getContent() == CONTENT_GRAVEL
@@ -1844,34 +1843,20 @@ void make_block(BlockMakeData *data)
 
 						if (current_depth < 4) {
 							if (have_sand) {
-								// Determine whether to have clay in the sand here
-								double claynoise = noise2d_perlin(
-										0.5+(float)p2d.X/500, 0.5+(float)p2d.Y/500,
-										data->seed+4321, 6, 0.95) + 0.5;
-
-								have_clay = (y <= WATER_LEVEL) && (y >= WATER_LEVEL-2) && (
-									((claynoise > 0) && (claynoise < 0.04) && (current_depth == 0)) ||
-									((claynoise > 0) && (claynoise < 0.12) && (current_depth == 1))
-									);
-								if (have_clay) {
-									vmanip.m_data[i] = MapNode(CONTENT_CLAY);
-								}else{
-									vmanip.m_data[i] = MapNode(CONTENT_SAND);
-								}
+								vmanip.m_data[i] = MapNode(CONTENT_SAND);
 							}else if (current_depth==0 && !water_detected && y >= WATER_LEVEL && air_detected) {
-								if (y > 50) {
-									vmanip.m_data[i] = MapNode(CONTENT_MUDSNOW);
-								}else if (y > 45 && myrand()%5 == 0) {
-									vmanip.m_data[i] = MapNode(CONTENT_MUDSNOW);
+								if (y > 50 || (y > 45 && myrand()%5 == 0)) {
+									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x04);
+								}else if (noisebuf_ground_wetness.get(x,y,z) > 1.0) {
+									vmanip.m_data[i] = MapNode(CONTENT_CLAY,0x01);
 								}else{
-									vmanip.m_data[i] = MapNode(CONTENT_GRASS);
+									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x01);
 								}
 							}else{
 								vmanip.m_data[i] = MapNode(CONTENT_MUD);
 							}
 						}else{
-							if(vmanip.m_data[i].getContent() == CONTENT_MUD
-								|| vmanip.m_data[i].getContent() == CONTENT_GRASS)
+							if (vmanip.m_data[i].getContent() == CONTENT_MUD)
 								vmanip.m_data[i] = MapNode(base_content);
 						}
 
@@ -1938,9 +1923,7 @@ void make_block(BlockMakeData *data)
 
 				if (
 					n->getContent() != CONTENT_MUD
-					&& n->getContent() != CONTENT_GRASS
 					&& n->getContent() != CONTENT_SAND
-					&& n->getContent() != CONTENT_MUDSNOW
 				)
 						continue;
 
@@ -1950,7 +1933,7 @@ void make_block(BlockMakeData *data)
 					make_papyrus(vmanip, p);
 				}
 				// Trees grow only on mud and grass, on land
-				else if ((n->getContent() == CONTENT_MUD || n->getContent() == CONTENT_GRASS) && y > WATER_LEVEL + 2) {
+				else if (n->getContent() == CONTENT_MUD && y > WATER_LEVEL + 2) {
 					p.Y++;
 					if (is_jungle == false || y > 30) {
 						// connifers
@@ -2028,16 +2011,14 @@ void make_block(BlockMakeData *data)
 				if (vmanip.m_data[vmanip.m_area.index(p)].getContent() != CONTENT_AIR)
 					continue;
 				if (vmanip.m_area.contains(p)) {
-					if (y > 20 || y < 10) {
-						if (myrand_range(0,20) == 0) {
-							if (y > 20) {
-								vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
-							}else{
-								vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
-							}
+					if ((y > 20 || y < 10) && myrand_range(0,20) == 0) {
+						if (y > 20) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
 						}else{
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
 						}
+					}else if (myrand_range(0,3) == 0) {
+						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
 					}else{
 						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
 					}

@@ -120,6 +120,88 @@ video::SColor blend_light(u32 data, u32 daylight_factor)
 	return video::SColor(a,r,g,b);
 }
 
+std::string getGrassTile(u8 p2, std::string base, std::string overlay)
+{
+	std::string tex = base+"^"+overlay;
+	if (p2) {
+		u8 p = p2&0xF0;
+		u8 g = p2&0x0F;
+		if (g < 15) {
+			std::string texture_name = base;
+			if (p == 0) {
+				float v = (float)(g+1)*0.03125;
+				texture_name += "^[blit:";
+				texture_name += ftos(0.5-v);
+				texture_name += ",";
+				texture_name += ftos(0.5-v);
+				texture_name += ",";
+				texture_name += ftos(0.5+v);
+				texture_name += ",";
+				texture_name += ftos(0.5+v);
+				texture_name += ",";
+				texture_name += overlay;
+			}else{
+				float v = (float)g*0.0625;
+				if ((p&(1<<7)) != 0) { // -Z
+					texture_name += "^[blit:0,";
+					texture_name += ftos(1.0-v);
+					texture_name += ",1,1,";
+					texture_name += overlay;
+				}
+				if ((p&(1<<6)) != 0) { // +Z
+					texture_name += "^[blit:0,0,1,";
+					texture_name += ftos(v);
+					texture_name += ",";
+					texture_name += overlay;
+				}
+				if ((p&(1<<5)) != 0) { // -X
+					texture_name += "^[blit:0,0,";
+					texture_name += ftos(v);
+					texture_name += ",1,";
+					texture_name += overlay;
+				}
+				if ((p&(1<<4)) != 0) { // +X
+					texture_name += "^[blit:";
+					texture_name += ftos(1.0-v);
+					texture_name += ",0,1,1,";
+					texture_name += overlay;
+				}
+			}
+			tex = texture_name;
+		}
+	}
+	return tex;
+}
+
+TileSpec getCrackTile(TileSpec spec, SelectedNode &select)
+{
+
+	/*
+		apply crack to this node
+	*/
+	if (select.has_crack) {
+		/*
+			Get texture id, translate it to name, append stuff to
+			name, get texture id
+		*/
+
+		// Get original texture name
+		u32 orig_id = spec.texture.id;
+		std::string orig_name = g_texturesource->getTextureName(orig_id);
+
+		// Create new texture name
+		std::ostringstream os;
+		os<<orig_name<<"^[crack"<<select.crack;
+
+		// Get new texture
+		u32 new_id = g_texturesource->getTextureId(os.str());
+
+		spec.texture = g_texturesource->getTexture(new_id);
+	}
+
+	return spec;
+}
+
 /*
 	Gets node tile from any place relative to block.
 	Returns TILE_NODE if doesn't exist or should not be drawn.
@@ -393,7 +475,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 	BEGIN_DEBUG_EXCEPTION_HANDLER
 
-	data->m_smooth_lighting = g_settings->getBool("smooth_lighting");
+	data->mesh_detail = g_settings->getU16("mesh_detail");
+	data->texture_detail = g_settings->getU16("texture_detail");
+	data->light_detail = g_settings->getU16("light_detail");
 	m_pos = data->m_blockpos;
 	SelectedNode selected;
 
@@ -453,7 +537,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 				data->m_sounds->erase(i);
 			}
 		}
-		if (data->m_smooth_lighting && !selected.is_coloured)
+		if (data->light_detail > 1 && !selected.is_coloured)
 			meshgen_preset_smooth_lights(data,p);
 		switch (content_features(n).draw_type) {
 		case CDT_AIRLIKE:
@@ -462,13 +546,18 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			meshgen_cubelike(data,p,n,selected);
 			meshgen_farnode(data,p,n);
 			break;
+		case CDT_DIRTLIKE:
+			meshgen_dirtlike(data,p,n,selected);
+			meshgen_farnode(data,p,n);
+			break;
 		case CDT_RAILLIKE:
 			meshgen_raillike(data,p,n,selected);
 			break;
 		case CDT_PLANTLIKE:
-		case CDT_PLANTLIKE_SML:
-		case CDT_PLANTLIKE_LGE:
 			meshgen_plantlike(data,p,n,selected);
+			break;
+		case CDT_PLANTLIKE_FERN:
+			meshgen_plantlike_fern(data,p,n,selected);
 			break;
 		case CDT_LIQUID:
 			meshgen_liquid(data,p,n,selected);

@@ -56,7 +56,7 @@ Clouds::Clouds(
 	m_box = core::aabbox3d<f32>(-BS*1000000,m_cloud_y-BS,-BS*1000000, BS*1000000,m_cloud_y+BS,BS*1000000);
 
 	m_face_count = 1;
-	if (g_settings->getBool("enable_3d_clouds"))
+	if (g_settings->getU16("mesh_detail") > 1)
 		m_face_count = 6;
 }
 

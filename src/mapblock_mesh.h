@@ -36,6 +36,8 @@
 */
 
 // Helper functions
+std::string getGrassTile(u8 p2, std::string base, std::string overlay);
+TileSpec getCrackTile(TileSpec spec, SelectedNode &select);
 TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select, NodeMetadata *meta = NULL);
 TileSpec getMetaTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select);
 u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip);
@@ -69,7 +71,9 @@ struct MeshMakeData
 	VoxelManipulator m_vmanip;
 	v3s16 m_blockpos;
 	v3s16 m_blockpos_nodes;
-	bool m_smooth_lighting;
+	int mesh_detail;
+	int texture_detail;
+	int light_detail;
 	Environment *m_env;
 	std::vector<MeshData> m_meshdata;
 	std::vector<MeshData> m_fardata;

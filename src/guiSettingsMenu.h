@@ -40,12 +40,19 @@ enum
 {
 	GUI_ID_BACK_BUTTON = 101,
 	GUI_ID_ABORT_BUTTON,
-	GUI_ID_SCROLL_BAR, // wtf?
 	// graphics
-	GUI_ID_FANCYTREE_CB,
-	GUI_ID_SMOOTH_LIGHTING_CB,
-	GUI_ID_3D_CLOUDS_CB,
-	GUI_ID_OPAQUE_WATER_CB,
+	GUI_ID_MESH_DETAIL_COMBO,
+	GUI_ID_MESH_DETAIL_LOW,
+	GUI_ID_MESH_DETAIL_MEDIUM,
+	GUI_ID_MESH_DETAIL_HIGH,
+	GUI_ID_TEXTURE_DETAIL_COMBO,
+	GUI_ID_TEXTURE_DETAIL_LOW,
+	GUI_ID_TEXTURE_DETAIL_MEDIUM,
+	GUI_ID_TEXTURE_DETAIL_HIGH,
+	GUI_ID_LIGHT_DETAIL_COMBO,
+	GUI_ID_LIGHT_DETAIL_LOW,
+	GUI_ID_LIGHT_DETAIL_MEDIUM,
+	GUI_ID_LIGHT_DETAIL_HIGH,
 	GUI_ID_HOTBAR_CB,
 	GUI_ID_WIELDINDEX_CB,
 	// video
@@ -80,8 +87,9 @@ struct SettingsMenuData
 		// Generic
 		selected_tab(TAB_SETTINGS_CONTROLS),
 		// Client opts
-		fancy_trees(false),
-		smooth_lighting(false),
+		mesh_detail(3),
+		texture_detail(3),
+		light_detail(3),
 		hotbar(false),
 		wield_index(false),
 		volume(0.0f),
@@ -94,10 +102,9 @@ struct SettingsMenuData
 	// Generic
 	int selected_tab;
 	// Client options
-	bool fancy_trees;
-	bool smooth_lighting;
-	bool clouds_3d;
-	bool opaque_water;
+	int mesh_detail;
+	int texture_detail;
+	int light_detail;
 	bool mip_map;
 	bool anisotropic_filter;
 	bool bilinear_filter;
