@@ -1266,13 +1266,24 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_WATER:
 				case CONTENT_WATERSOURCE:
 				{
-					if (p.Y > coldzone && p.Y < 1024) {
-						s16 range = (p.Y > coldzone) ? 2 : 4;
-						std::vector<content_t> search;
-						search.push_back(CONTENT_LAVASOURCE);
-						search.push_back(CONTENT_LAVA);
-						search.push_back(CONTENT_FIRE);
-						if (searchNear(p,v3s16(range,1,range),search,NULL)) {
+					if (p.Y < 1024) {
+						bool chill = false;
+						if (p.Y > coldzone) {
+							s16 range = (p.Y > coldzone) ? 2 : 4;
+							std::vector<content_t> search;
+							search.push_back(CONTENT_LAVASOURCE);
+							search.push_back(CONTENT_LAVA);
+							search.push_back(CONTENT_FIRE);
+							if (searchNear(p,v3s16(range,1,range),search,NULL))
+								chill = true;
+						}else if (season == ENV_SEASON_WINTER) {
+							MapNode nu = m_map->getNodeNoEx(p+v3s16(0,-1,0));
+							MapNode no = m_map->getNodeNoEx(p+v3s16(0,1,0));
+							if (nu.getContent() == CONTENT_MUD && no.getContent() == CONTENT_AIR && myrand_range(0,3) == 0)
+								chill = true;
+						}
+
+						if (chill) {
 							n.setContent(CONTENT_ICE);
 							m_map->addNodeWithEvent(p, n);
 						}
@@ -1283,7 +1294,7 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_ICE:
 				{
 					bool found = false;
-					if (p.Y > 0) {
+					if (p.Y > (coldzone-8)) {
 						s16 range = (p.Y > coldzone) ? 2 : 4;
 						std::vector<content_t> search;
 						search.push_back(CONTENT_LAVASOURCE);
