@@ -2011,16 +2011,14 @@ void make_block(BlockMakeData *data)
 				if (vmanip.m_data[vmanip.m_area.index(p)].getContent() != CONTENT_AIR)
 					continue;
 				if (vmanip.m_area.contains(p)) {
-					if (y > 20 || y < 10) {
-						if (myrand_range(0,20) == 0) {
-							if (y > 20) {
-								vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
-							}else{
-								vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
-							}
+					if ((y > 20 || y < 10) && myrand_range(0,20) == 0) {
+						if (y > 20) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
 						}else{
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
 						}
+					}else if (myrand_range(0,3) == 0) {
+						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
 					}else{
 						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
 					}

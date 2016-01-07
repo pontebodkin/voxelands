@@ -195,8 +195,8 @@ void SelectionMesh::generate(MeshMakeData *data)
 		case CDT_PLANTLIKE:
 			meshgen_plantlike(data,p,n,selected);
 			break;
-		case CDT_PLANTLIKE_CUSTOM:
-			meshgen_plantlike_custom(data,p,n,selected);
+		case CDT_PLANTLIKE_FERN:
+			meshgen_plantlike_fern(data,p,n,selected);
 			break;
 		case CDT_LIQUID:
 			meshgen_liquid(data,p,n,selected);

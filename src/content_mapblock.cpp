@@ -2128,7 +2128,7 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	}
 }
 
-void meshgen_plantlike_custom(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
 {
 	if (data->mesh_detail < 3) {
 		meshgen_plantlike(data,p,n,selected);
@@ -2175,134 +2175,86 @@ void meshgen_plantlike_custom(MeshMakeData *data, v3s16 p, MapNode &n, SelectedN
 	v3f pos = offset+intToFloat(p,BS)+pos_inner;
 	std::vector<video::S3DVertex> vertices;
 
+	video::S3DVertex vb[4] = {
+		video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+		video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+		video::S3DVertex( 0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
+		video::S3DVertex(-0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
+	};
+	video::S3DVertex vl[8] = {
+		// stalk
+		video::S3DVertex( 0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+		video::S3DVertex(-0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+		video::S3DVertex(-0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
+		video::S3DVertex( 0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
+		// end
+		video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
+		video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
+		video::S3DVertex(-0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
+		video::S3DVertex( 0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
+	};
+	s16 angle[4] = {
+		  45,
+		 -45,
+		 135,
+		-135
+	};
+	float xo = 0;
+	if (selected.is_coloured || selected.has_crack)
+		xo = 0.005;
+	for (u32 j=0; j<2; j++) {
+		video::S3DVertex v1[4];
 
-	switch (n.getContent()) {
-	case CONTENT_JUNGLEGRASS:
-	{
-		video::S3DVertex vb[4] = {
-			video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-			video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-			video::S3DVertex( 0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
-			video::S3DVertex(-0.5*BS, 1.0*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
-		};
-		video::S3DVertex vl[8] = {
-			// stalk
-			video::S3DVertex( 0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,1.),
-			video::S3DVertex(-0.5*data->m_BS, 0. *data->m_BS,0.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,1.),
-			video::S3DVertex(-0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
-			video::S3DVertex( 0.5*data->m_BS, 0.5  *data->m_BS,1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
-			// end
-			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.3),
-			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 1.*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.3),
-			video::S3DVertex(-0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
-			video::S3DVertex( 0.5*data->m_BS, 0.25*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
-		};
-		s16 angle[4] = {
-			  45,
-			 -45,
-			 135,
-			-135
-		};
-		float xo = 0;
-		if (selected.is_coloured || selected.has_crack)
-			xo = 0.005;
-		for (u32 j=0; j<2; j++) {
-			video::S3DVertex v1[4];
-
-			for (u16 i=0; i<4; i++) {
-				v1[i] = vb[i];
-				v1[i].Pos.rotateXZBy(angle[j]);
-				v1[i].Pos.X += xo;
-				vertices.push_back(v1[i]);
-			}
-
-			if (!selected.is_coloured && !selected.has_crack)
-				continue;
-			for (u16 i=0; i<4; i++) {
-				v1[i].Pos.X -= 0.01;
-				vertices.push_back(v1[i]);
-			}
+		for (u16 i=0; i<4; i++) {
+			v1[i] = vb[i];
+			v1[i].Pos.rotateXZBy(angle[j]);
+			v1[i].Pos.X += xo;
+			vertices.push_back(v1[i]);
 		}
-		for (u32 j=0; j<4; j++) {
-			video::S3DVertex v1[8];
 
-			for (u16 i=0; i<8; i++) {
-				v1[i] = vl[i];
-				v1[i].Pos.rotateXZBy(angle[j]);
-				v1[i].Pos.Y += xo;
-				v1[i].TCoords *= tile.texture.size;
-				v1[i].TCoords += tile.texture.pos;
-				vertices.push_back(v1[i]);
-			}
-
-			if (!selected.is_coloured && !selected.has_crack)
-				continue;
-			for (u16 i=0; i<8; i++) {
-				v1[i].Pos.Y -= 0.01;
-				vertices.push_back(v1[i]);
-			}
-		}
-		for (u32 j=0; j<4; j++) {
-			video::S3DVertex v1[8];
-
-			for (u16 i=0; i<8; i++) {
-				v1[i] = vl[i];
-				v1[i].Pos.rotateXZBy(angle[j]+45);
-				v1[i].Pos.Y += xo-(0.25*BS);
-				v1[i].TCoords *= tile.texture.size;
-				v1[i].TCoords += tile.texture.pos;
-				vertices.push_back(v1[i]);
-			}
-
-			if (!selected.is_coloured && !selected.has_crack)
-				continue;
-			for (u16 i=0; i<8; i++) {
-				v1[i].Pos.Y -= 0.01;
-				vertices.push_back(v1[i]);
-			}
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+		for (u16 i=0; i<4; i++) {
+			v1[i].Pos.X -= 0.01;
+			vertices.push_back(v1[i]);
 		}
 	}
-		break;
-	default:
-		if (selected.is_coloured || selected.has_crack) {
-			for (u32 j=0; j<2; j++) {
-				video::S3DVertex v[4] = {
-					video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-					video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-					video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
-					video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
-				};
+	for (u32 j=0; j<4; j++) {
+		video::S3DVertex v1[8];
 
-				s16 angle = 45;
-				if (j == 1)
-					angle = -45;
+		for (u16 i=0; i<8; i++) {
+			v1[i] = vl[i];
+			v1[i].Pos.rotateXZBy(angle[j]);
+			v1[i].Pos.Y += xo;
+			v1[i].TCoords *= tile.texture.size;
+			v1[i].TCoords += tile.texture.pos;
+			vertices.push_back(v1[i]);
+		}
 
-				for (u16 i=0; i<4; i++) {
-					v[i].Pos.rotateXZBy(angle);
-					v[i].Pos.X += 0.005;
-					vertices.push_back(v[i]);
-					v[i].Pos.X -= 0.01;
-					vertices.push_back(v[i]);
-				}
-			}
-		}else{
-			for (u32 j=0; j<2; j++) {
-				video::S3DVertex v[4] = {
-					video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-					video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-					video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0()),
-					video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0())
-				};
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+		for (u16 i=0; i<8; i++) {
+			v1[i].Pos.Y -= 0.01;
+			vertices.push_back(v1[i]);
+		}
+	}
+	for (u32 j=0; j<4; j++) {
+		video::S3DVertex v1[8];
 
-				s16 angle = 45;
-				if (j == 1)
-					angle = -45;
+		for (u16 i=0; i<8; i++) {
+			v1[i] = vl[i];
+			v1[i].Pos.rotateXZBy(angle[j]+45);
+			v1[i].Pos.Y += xo-(0.25*BS);
+			v1[i].TCoords *= tile.texture.size;
+			v1[i].TCoords += tile.texture.pos;
+			vertices.push_back(v1[i]);
+		}
 
-				for (u16 i=0; i<4; i++) {
-					v[i].Pos.rotateXZBy(angle);
-					vertices.push_back(v[i]);
-				}
-			}
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+		for (u16 i=0; i<8; i++) {
+			v1[i].Pos.Y -= 0.01;
+			vertices.push_back(v1[i]);
 		}
 	}
 

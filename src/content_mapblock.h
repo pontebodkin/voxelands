@@ -36,7 +36,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_raillike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
-void meshgen_plantlike_custom(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
+void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_liquid_source(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_nodebox(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected, bool meta);

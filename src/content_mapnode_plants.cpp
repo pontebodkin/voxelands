@@ -213,7 +213,29 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
-	f->draw_type = CDT_PLANTLIKE_CUSTOM;
+	f->draw_type = CDT_PLANTLIKE_FERN;
+	f->air_equivalent = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->solidness = 0; // drawn separately, makes no faces
+	f->walkable = false;
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/32;
+	f->type = CMT_PLANT;
+	f->hardness = 0.20;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+	lists::add("creative",i);
+
+	i = CONTENT_JUNGLEFERN;
+	f = &content_features(i);
+	f->description = wgettext("Jungle Fern");
+	f->setInventoryTexture("junglegrass.png");
+	f->setAllTextures("junglegrass.png");
+	f->setTexture(1,"leaf_big.png");
+	f->setAllTextureFlags(0);
+	f->light_propagates = true;
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_PLANTLIKE_FERN;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->solidness = 0; // drawn separately, makes no faces
