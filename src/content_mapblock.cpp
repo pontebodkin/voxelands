@@ -1050,6 +1050,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	 * 		1 - spring grass
 	 * 		2 - autumn grass
 	 * 		4 - snow
+	 * 		8 - jungle grass
 	 *
 	 * param2:
 	 *  plantgrowth, only valid if param1 bottom nibble is 1 or 2
@@ -1109,6 +1110,35 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		std::string btex = g_texturesource->getTextureName(basetile.texture.id);
 		std::string tex = btex;
 		switch (overlay) {
+		case 8:
+			if (n.param2 == 0) {
+				tex = "grass_jungle.png";
+				if (data->mesh_detail > 1) {
+					for (int i=0; i<6; i++) {
+						o_faces[i] = faces[i];
+					}
+				}
+			}else{
+				tex = getGrassTile(n.param2,btex,"grass_growing_jungle.png");
+				if (data->mesh_detail > 1) {
+					u8 pg = n.param2&0xF0;
+					if ((pg&(1<<7)) != 0) { // -Z
+						o_faces[5] = faces[5];
+					}
+					if ((pg&(1<<6)) != 0) { // +Z
+						o_faces[4] = faces[4];
+					}
+					if ((pg&(1<<5)) != 0) { // -X
+						o_faces[3] = faces[3];
+					}
+					if ((pg&(1<<4)) != 0) { // +X
+						o_faces[2] = faces[2];
+					}
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side_jungle.png");
+			upstile.texture = g_texturesource->getTexture("grass_corner_jungle.png");
+			break;
 		case 4:
 			tex = "snow.png";
 			if (data->mesh_detail > 1) {
@@ -2028,7 +2058,7 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			unf = &content_features(unc);
 		}
 
-		if (unf->draw_type == CDT_CUBELIKE && unc != CONTENT_FARM_DIRT) {
+		if ((unf->draw_type == CDT_CUBELIKE || unf->draw_type == CDT_DIRTLIKE) && unc != CONTENT_FARM_DIRT) {
 			if (up.X%2) {
 				pos_inner.Z = -0.1*data->m_BS;
 			}else{
@@ -2158,6 +2188,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 	ContentFeatures *f = &content_features(n);
 	TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected);
 	v3f offset(0,0,0);
+	s16 rot = 0;
 	bool is_dropped = false;
 	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT) {
 		offset = v3f(0,-0.25*data->m_BS,0);
@@ -2175,23 +2206,29 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			unf = &content_features(unc);
 		}
 
-		if (unf->draw_type == CDT_CUBELIKE && unc != CONTENT_FARM_DIRT) {
+		if ((unf->draw_type == CDT_CUBELIKE || unf->draw_type == CDT_DIRTLIKE) && unc != CONTENT_FARM_DIRT) {
 			if (up.X%2) {
 				pos_inner.Z = -0.1*data->m_BS;
+				rot = 20;
 			}else{
 				pos_inner.Z = 0.1*data->m_BS;
+				rot = -20;
 			}
 			if (up.Z%2) {
 				pos_inner.X = -0.1*data->m_BS;
+				rot += 10;
 			}else{
 				pos_inner.X = 0.1*data->m_BS;
+				rot += -10;
 			}
 			if (up.Y%2) {
 				pos_inner.X += 0.05*data->m_BS;
 				pos_inner.Z -= 0.05*data->m_BS;
+				rot += 5;
 			}else{
 				pos_inner.X -= 0.05*data->m_BS;
 				pos_inner.Z += 0.05*data->m_BS;
+				rot += -5;
 			}
 		}
 	}
@@ -2217,14 +2254,14 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 		video::S3DVertex( 0.5*data->m_BS, 0.28125*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
 	};
 	s16 angle[8] = {
-		  45,
-		 -45,
-		 135,
-		-135,
-		  90,
-		   0,
-		 180,
-		 -90
+		  45+rot,
+		 -45+rot,
+		 135+rot,
+		-135+rot,
+		  90+rot,
+		   0+rot,
+		 180+rot,
+		 -90+rot
 	};
 	float vo[8] = {
 		 0.0,

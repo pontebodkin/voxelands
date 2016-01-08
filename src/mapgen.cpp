@@ -1854,6 +1854,12 @@ void make_block(BlockMakeData *data)
 							}else if (current_depth==0 && !water_detected && y >= WATER_LEVEL && air_detected) {
 								if (y > 50 || (y > 45 && myrand()%5 == 0)) {
 									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x04);
+								}else if (is_jungle) {
+									if (noisebuf_ground_wetness.get(x,y,z) > 1.0) {
+										vmanip.m_data[i] = MapNode(CONTENT_CLAY,0x08);
+									}else{
+										vmanip.m_data[i] = MapNode(CONTENT_MUD,0x08);
+									}
 								}else if (noisebuf_ground_wetness.get(x,y,z) > 1.0) {
 									vmanip.m_data[i] = MapNode(CONTENT_CLAY,0x01);
 								}else{
@@ -1881,8 +1887,13 @@ void make_block(BlockMakeData *data)
 		}
 		// Amount of trees
 		u32 tree_count = block_area_nodes * tree_amount_2d(data->seed, p2d_center);
-		if (is_jungle)
-			tree_count *= 5;
+		if (is_jungle) {
+			if (!tree_count) {
+				tree_count = 20;
+			}else{
+				tree_count *= 5;
+			}
+		}
 
 		/*
 			Add trees

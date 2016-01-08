@@ -1145,9 +1145,27 @@ void ServerEnvironment::step(float dtime)
 				}
 
 				switch(n.getContent()) {
-				/*
-					Convert mud under proper lighting to grass
-				*/
+	/*
+	 * param1:
+	 * 	top nibble:
+	 * 		0 - no effect
+	 * 		1 - footsteps
+	 * 		2 - salt
+	 * 	bottom nibble:
+	 *		0 - no overlay
+	 * 		1 - spring grass
+	 * 		2 - autumn grass
+	 * 		4 - snow
+	 * 		8 - jungle grass
+	 *
+	 * param2:
+	 *  plantgrowth, only valid if param1 bottom nibble is 1 or 2
+	 *	top nibble:
+	 * 		bitwise OR direction of growth
+	 *	bottom nibble:
+	 *		0 - fully grown
+	 *		1-15 - growth stages
+	 */
 				case CONTENT_MUD:
 				case CONTENT_CLAY:
 				{
@@ -1164,7 +1182,7 @@ void ServerEnvironment::step(float dtime)
 								m_map->addNodeWithEvent(p, n);
 							}
 						// footsteps fade out
-						}else if ((n.param1&0xF0) == 0x10 && n.envticks > 3) {
+						}else if ((n.param1&0x10) == 0x10 && n.envticks > 3) {
 							n.param1 &= ~0x10;
 							m_map->addNodeWithEvent(p,n);
 						// autumn grass in autumn/winter
@@ -1221,34 +1239,7 @@ void ServerEnvironment::step(float dtime)
 							(n.param1&0x0F) != 0x04
 							&& n_top.getLightBlend(getDayNightRatio()) >= 13
 						) {
-							if ((n.param1&0x0F) != 0x00 && (n.param2&0x0F) == 0x0) {
-								int f = (700-(p.Y*2))+10;
-								if (p.Y > 1 && myrand()%f == 0) {
-									if (
-										n_top.getContent() == CONTENT_AIR
-										&& n_top.getLightBlend(getDayNightRatio()) >= 13
-									) {
-										v3f pp = intToFloat(p,BS);
-										Player *nearest = getNearestConnectedPlayer(pp);
-										if (nearest == NULL || nearest->getPosition().getDistanceFrom(pp)/BS > 20.0) {
-											std::vector<content_t> search;
-											search.push_back(CONTENT_WILDGRASS_SHORT);
-											if (season != ENV_SEASON_SPRING)
-												search.push_back(CONTENT_WILDGRASS_LONG);
-											search.push_back(CONTENT_FLOWER_STEM);
-											search.push_back(CONTENT_FLOWER_ROSE);
-											search.push_back(CONTENT_FLOWER_TULIP);
-											search.push_back(CONTENT_FLOWER_DAFFODIL);
-											if (!searchNear(p,v3s16(1,1,1),search,NULL)) {
-												n_top.setContent(CONTENT_WILDGRASS_SHORT);
-												m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top);
-											}
-										}
-									}
-								}
-							}else{
-								plantgrowth_grass(this,p);
-							}
+							plantgrowth_grass(this,p);
 						}
 					}else{
 						if (n.param1 == 0x01) {
