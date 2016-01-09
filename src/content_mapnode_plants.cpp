@@ -32,7 +32,6 @@
 
 void content_mapnode_plants(bool repeat)
 {
-	bool new_style_leaves = g_settings->getBool("new_style_leaves");
 	content_t i;
 	ContentFeatures *f = NULL;
 
@@ -256,19 +255,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("leaves.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -293,19 +286,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("leaves_autumn.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("leaves_autumn.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves_autumn.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -330,19 +317,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("leaves_winter.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("leaves_winter.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves_winter.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
@@ -367,19 +348,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("leaves_snowy.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("leaves_snowy.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves_snowy.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
@@ -405,18 +380,13 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->special_alternate_node = CONTENT_APPLE_BLOSSOM;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("apple_leaves.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("apple_leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:apple_leaves.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -441,19 +411,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("jungleleaves.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("jungleleaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:jungleleaves.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -478,19 +442,13 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	//f->is_ground_content = true;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->setAllTextures("conifer_leaves.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->setAllTextures("conifer_leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:conifer_leaves.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -515,19 +473,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("leaves.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("leaves.png", "leaves.png", "leaves.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves.png");
-	}
+	f->setInventoryTextureCube("leaves.png", "leaves.png", "leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -547,19 +500,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("leaves_autumn.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("leaves_autumn.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("leaves_autumn.png", "leaves_autumn.png", "leaves_autumn.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves_autumn.png");
-	}
+	f->setInventoryTextureCube("leaves_autumn.png", "leaves_autumn.png", "leaves_autumn.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -579,19 +527,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("leaves_winter.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("leaves_winter.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("leaves_winter.png", "leaves_winter.png", "leaves_winter.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:leaves_winter.png");
-	}
+	f->setInventoryTextureCube("leaves_winter.png", "leaves_winter.png", "leaves_winter.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
@@ -611,19 +554,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("apple_leaves.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("apple_leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("apple_leaves.png", "apple_leaves.png", "apple_leaves.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:apple_leaves.png");
-	}
+	f->setInventoryTextureCube("apple_leaves.png", "apple_leaves.png", "apple_leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -643,19 +581,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("jungleleaves.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("jungleleaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("jungleleaves.png", "jungleleaves.png", "jungleleaves.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:jungleleaves.png");
-	}
+	f->setInventoryTextureCube("jungleleaves.png", "jungleleaves.png", "jungleleaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -675,19 +608,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("conifer_leaves.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("conifer_leaves.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("conifer_leaves.png", "conifer_leaves.png", "conifer_leaves.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:conifer_leaves.png");
-	}
+	f->setInventoryTextureCube("conifer_leaves.png", "conifer_leaves.png", "conifer_leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->cook_result = std::string("CraftItem lump_of_resin 1");
@@ -708,19 +636,14 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->special_alternate_node = CONTENT_APPLE_LEAVES;
-	if (new_style_leaves) {
-		f->draw_type = CDT_LEAFLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("apple_leaves.png^apple_blossom.png");
+	f->draw_type = CDT_LEAFLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("apple_leaves.png^apple_blossom.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
-		f->setAllTextureFlags(0);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
 #endif
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:apple_leaves.png^apple_blossom.png");
-	}
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->extra_dug_item = std::string("CraftItem apple_blossom 1");
 	f->extra_dug_item_rarity = 1;
@@ -739,19 +662,14 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
-	if (new_style_leaves) {
-		f->draw_type = CDT_GLASSLIKE;
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
-		f->setAllTextures("apple_leaves.png^apple_blossom.png");
+	f->draw_type = CDT_GLASSLIKE;
+	f->solidness = 0; // drawn separately, makes no faces
+	f->visual_solidness = 1;
+	f->setAllTextures("apple_leaves.png^apple_blossom.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
 #endif
-		f->setInventoryTextureCube("apple_leaves.png^apple_blossom.png", "apple_leaves.png^apple_blossom.png", "apple_leaves.png^apple_blossom.png");
-	}else{
-		f->draw_type = CDT_CUBELIKE;
-		f->setAllTextures("[noalpha:apple_leaves.png^apple_blossom.png");
-	}
+	f->setInventoryTextureCube("apple_leaves.png^apple_blossom.png", "apple_leaves.png^apple_blossom.png", "apple_leaves.png^apple_blossom.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -897,6 +815,7 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_PLANTGROWTH;
 	f->draw_type = CDT_PLANTLIKE;
+	f->plantlike_tiled = true;
 	f->plantgrowth_large_dug_node = CONTENT_PAPYRUS;
 	f->plantgrowth_large_count = 1;
 	f->plantgrowth_max_height = 5;

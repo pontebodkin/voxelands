@@ -512,18 +512,65 @@ void plantgrowth_grass(ServerEnvironment *env, v3s16 p0)
 	u8 p1mask = (n.param1&0x0F);
 	bool add = false;
 
+	if ((n.param1&0x20) == 0x20)
+		return;
+
 	if (p1mask == 0) {
-		u8 season = env->getSeason();
-		if (season == ENV_SEASON_WINTER)
-			return;
-		if (season == ENV_SEASON_AUTUMN) {
-			p1mask = 0x02;
+		bool is_jungle = false;
+		v3s16 near[4] = {
+			v3s16(0,0,-1),
+			v3s16(0,0,1),
+			v3s16(-1,0,0),
+			v3s16(1,0,0)
+		};
+
+		for (int i=0; !is_jungle && i<4; i++) {
+			MapNode nn = env->getMap().getNodeNoEx(p0+near[i]);
+			if (content_features(nn.getContent()).draw_type == CDT_DIRTLIKE && (nn.param1&0x0F) == 0x08)
+				is_jungle = true;
+		}
+
+		if (is_jungle) {
+			p1mask = 0x08;
 		}else{
-			p1mask = 0x01;
+			u8 season = env->getSeason();
+			if (season == ENV_SEASON_WINTER)
+				return;
+			if (season == ENV_SEASON_AUTUMN) {
+				p1mask = 0x02;
+			}else{
+				p1mask = 0x01;
+			}
 		}
 		n.param1 |= p1mask;
 		n.param2 = 0;
 	}else if (n.param2 == 0) {
+		int f = (700-(p0.Y*2))+10;
+		if (p0.Y > 1 && myrand()%f == 0) {
+			MapNode n_top = env->getMap().getNodeNoEx(p0+v3s16(0,1,0));
+			if (
+				n_top.getContent() == CONTENT_AIR
+				&& n_top.getLightBlend(env->getDayNightRatio()) >= 13
+			) {
+				v3f pp = intToFloat(p0,BS);
+				Player *nearest = env->getNearestConnectedPlayer(pp);
+				if (nearest == NULL || nearest->getPosition().getDistanceFrom(pp)/BS > 20.0) {
+					std::vector<content_t> search;
+					search.push_back(CONTENT_WILDGRASS_SHORT);
+					u8 season = env->getSeason();
+					if (season != ENV_SEASON_SPRING)
+						search.push_back(CONTENT_WILDGRASS_LONG);
+					search.push_back(CONTENT_FLOWER_STEM);
+					search.push_back(CONTENT_FLOWER_ROSE);
+					search.push_back(CONTENT_FLOWER_TULIP);
+					search.push_back(CONTENT_FLOWER_DAFFODIL);
+					if (!env->searchNear(p0,v3s16(1,1,1),search,NULL)) {
+						n_top.setContent(CONTENT_WILDGRASS_SHORT);
+						env->getMap().addNodeWithEvent(p0+v3s16(0,1,0), n_top);
+					}
+				}
+			}
+		}
 		return;
 	}
 
