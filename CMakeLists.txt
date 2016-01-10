@@ -30,6 +30,9 @@ else()
 	set(BUILD_SERVER 1 CACHE BOOL "Build server")
 endif()
 
+# conf options for building fresh voxelands.icns from voxelands.svg if a new icon is made.
+set(REBUILD_ICNS 0 CACHE BOOL "Rebuild icns from voxelands.svg .")
+
 set(CPU_OPTS 0 CACHE BOOL "Enable CPU optimizations")
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -67,6 +70,7 @@ elseif(UNIX) # Linux, BSD etc
         set(MANDIR "share/man")
         set(EXAMPLE_CONF_DIR ${DOCDIR})
         set(XDG_APPS_DIR "share/applications")
+        set(APPDATADIR "share/appdata")
         set(ICONDIR "share/icons")
         set(LOCALEDIR "share/${PROJECT_NAME}/locale")
     else()
@@ -76,6 +80,7 @@ elseif(UNIX) # Linux, BSD etc
         set(MANDIR "${CMAKE_INSTALL_PREFIX}/share/man")
         set(EXAMPLE_CONF_DIR ${DOCDIR})
         set(XDG_APPS_DIR "${CMAKE_INSTALL_PREFIX}/share/applications")
+        set(APPDATADIR "${CMAKE_INSTALL_PREFIX}/share/appdata")
         set(ICONDIR "${CMAKE_INSTALL_PREFIX}/share/icons")
         set(LOCALEDIR "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}/locale")
     endif()
@@ -90,6 +95,7 @@ endif()
 if (UNIX AND NOT APPLE)
     install(FILES "doc/voxelands.6" "doc/voxelands-server.6" DESTINATION "${MANDIR}/man6")
     install(FILES "misc/freedesktop/voxelands.desktop" DESTINATION "${XDG_APPS_DIR}")
+    install(FILES "misc/voxelands.appdata.xml" DESTINATION "${APPDATADIR}")
     install(FILES "misc/freedesktop/icons/scalable/apps/voxelands.svg" DESTINATION "${ICONDIR}/hicolor/scalable/apps")
     install(FILES "misc/freedesktop/icons/192x192/apps/voxelands.png" DESTINATION "${ICONDIR}/hicolor/192x192/apps")
     install(FILES "misc/freedesktop/icons/128x128/apps/voxelands.png" DESTINATION "${ICONDIR}/hicolor/128x128/apps")
