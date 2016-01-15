@@ -205,10 +205,6 @@ void mob_spawn_passive(v3s16 pos, bool water, ServerEnvironment *env)
 			continue;
 		if (m.spawn_water != water)
 			continue;
-		if (m.spawn_min_height > pos.Y)
-			continue;
-		if (m.spawn_max_height < pos.Y)
-			continue;
 		if (m.spawn_chance > 1 && rand%m.spawn_chance != 0)
 			continue;
 		can.push_back(i);
@@ -246,19 +242,18 @@ void mob_spawn_passive(v3s16 pos, bool water, ServerEnvironment *env)
 			if (env->getMap().getNodeNoEx(p+v3s16(0,1,0)).getContent() != CONTENT_WATERSOURCE)
 				continue;
 		}else{
-			content_t c = env->getMap().getNodeNoEx(pos).getContent();
 			bool have_spot = false;
 			for (s16 x=-1; !have_spot && x<2; x++) {
 			for (s16 y=-1; !have_spot && y<2; y++) {
 			for (s16 z=-1; !have_spot && z<2; z++) {
 				v3s16 pp = p+v3s16(x,y,z);
-				if (env->getMap().getNodeNoEx(pp).getContent() != c)
+				if (content_features(env->getMap().getNodeNoEx(pp).getContent()).draw_type != CDT_DIRTLIKE)
 					continue;
 				pp.Y++;
-				if (env->getMap().getNodeNoEx(pp).getContent() != CONTENT_AIR)
+				if (!content_features(env->getMap().getNodeNoEx(pp).getContent()).air_equivalent)
 					continue;
 				pp.Y++;
-				if (env->getMap().getNodeNoEx(pp).getContent() != CONTENT_AIR)
+				if (!content_features(env->getMap().getNodeNoEx(pp).getContent()).air_equivalent)
 					continue;
 				p += v3s16(x,y,z);
 				have_spot = true;
@@ -291,12 +286,6 @@ void mob_spawn_hostile(v3s16 pos, bool water, ServerEnvironment *env)
 		if (m.level > level)
 			continue;
 		if (m.spawn_water != water)
-			continue;
-		if (m.spawn_min_height > pos.Y)
-			continue;
-		if (m.spawn_max_height < pos.Y)
-			continue;
-		if (m.spawn_chance > 1 && rand%m.spawn_chance != 0)
 			continue;
 		can.push_back(i);
 	}
@@ -367,6 +356,10 @@ void content_mob_init()
 	content_t i;
 	MobFeatures *f = NULL;
 
+	float one_day = ((g_settings->getFloat("time_speed")*24000.)/(24.*3600))*60;
+	float one_week = one_day*5;
+	float one_month = one_day*20;
+
 	i = CONTENT_MOB_RAT;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
@@ -382,7 +375,7 @@ void content_mob_init()
 	f->spawn_max_height = -10;
 	f->spawn_group = 3;
 	f->spawn_naturally = false;
-	f->lifetime = 900.0;
+	f->lifetime = one_month;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -402,7 +395,7 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 50;
 	f->spawn_naturally = false;
-	f->lifetime = 1200.0;
+	f->lifetime = one_month;
 	f->setCollisionBox(aabb3f(-BS/4.,-BS/6.,-BS/4., BS/4.,BS/6.,BS/4.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -411,39 +404,11 @@ void content_mob_init()
 	f->content = i;
 	f->description = wgettext("Oerkki");
 	f->level = MOB_AGGRESSIVE;
-	if (g_settings->getBool("enable_supernatural")) {
-		f->model = "oerkki.x";
-		f->model_scale = v3f(4,4,4);
-		f->setTexture("mob_oerkki.png");
-		f->setAnimationFrames(MA_STAND,24,36);
-		f->setAnimationFrames(MA_ATTACK,37,49);
-	}else{
-		f->setNodeBox(NodeBox(
-			-0.3125*BS,-0.4375*BS,-0.4375*BS,0.3125*BS,-0.25*BS,0.4375*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.3125*BS,-0.5*BS,0.1875*BS,0.5*BS,-0.1875*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.3125*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.1875*BS,-0.1875*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.5*BS,-0.5*BS,0.1875*BS,-0.3125*BS,-0.1875*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.5*BS,-0.5*BS,-0.5*BS,-0.3125*BS,-0.1875*BS,-0.1875*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.125*BS,-0.25*BS,-0.125*BS,0.125*BS,1.*BS,0.125*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.375*BS,0.6875*BS,-0.5*BS,-0.125*BS,0.9375*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.125*BS,0.6875*BS,-0.5*BS,0.375*BS,0.9375*BS,0.5*BS
-		));
-		f->setAllBoxTextures("copper_block.png");
-	}
+	f->model = "oerkki.x";
+	f->model_scale = v3f(4,4,4);
+	f->setTexture("mob_oerkki.png");
+	f->setAnimationFrames(MA_STAND,24,36);
+	f->setAnimationFrames(MA_ATTACK,37,49);
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_OERKKI_DUST)+" 2";
 	f->motion = MM_SEEKER;
@@ -453,7 +418,7 @@ void content_mob_init()
 	f->notices_player = true;
 	f->attack_player_damage = 3;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = 600.0;
+	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS*2.,BS/3.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -462,41 +427,13 @@ void content_mob_init()
 	f->content = i;
 	f->description = wgettext("Dungeon Master");
 	f->level = MOB_DESTRUCTIVE;
-	if (g_settings->getBool("enable_supernatural")) {
-		f->model = "dungeon_master.b3d";
-		f->model_rotation = v3f(0,-90,0);
-		f->model_offset = v3f(0,1.0,0);
-		f->setTexture("mob_dungeon_master.png");
-		f->setAnimationFrames(MA_STAND,1,30);
-		f->setAnimationFrames(MA_MOVE,31,60);
-		f->setAnimationFrames(MA_ATTACK,61,90);
-	}else{
-		f->setNodeBox(NodeBox(
-			-0.3125*BS,-0.4375*BS,-0.4375*BS,0.3125*BS,-0.25*BS,0.4375*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.3125*BS,-0.5*BS,0.1875*BS,0.5*BS,-0.1875*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.3125*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.1875*BS,-0.1875*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.5*BS,-0.5*BS,0.1875*BS,-0.3125*BS,-0.1875*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.5*BS,-0.5*BS,-0.5*BS,-0.3125*BS,-0.1875*BS,-0.1875*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.125*BS,-0.25*BS,-0.125*BS,0.125*BS,1.*BS,0.125*BS
-		));
-		f->addNodeBox(NodeBox(
-			-0.375*BS,0.6875*BS,-0.5*BS,-0.125*BS,0.9375*BS,0.5*BS
-		));
-		f->addNodeBox(NodeBox(
-			0.125*BS,0.6875*BS,-0.5*BS,0.375*BS,0.9375*BS,0.5*BS
-		));
-		f->setAllBoxTextures("steel_block.png");
-	}
+	f->model = "dungeon_master.b3d";
+	f->model_rotation = v3f(0,-90,0);
+	f->model_offset = v3f(0,1.0,0);
+	f->setTexture("mob_dungeon_master.png");
+	f->setAnimationFrames(MA_STAND,1,30);
+	f->setAnimationFrames(MA_MOVE,31,60);
+	f->setAnimationFrames(MA_ATTACK,61,90);
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_GUNPOWDER)+" 4";
 	f->motion = MM_SENTRY;
@@ -504,7 +441,7 @@ void content_mob_init()
 	f->attack_throw_object = CONTENT_MOB_FIREBALL;
 	f->attack_glow_light = LIGHT_MAX-1;
 	f->attack_throw_offset = v3f(0,1.4,-1.0);
-	f->lifetime = 600.0;
+	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-0.75*BS, 0.*BS, -0.75*BS, 0.75*BS, 2.0*BS, 0.75*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -548,7 +485,7 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
 	f->spawn_group = 3;
-	f->lifetime = 1200.0;
+	f->lifetime = one_month;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -579,7 +516,7 @@ void content_mob_init()
 	f->notices_player = true;
 	f->attack_player_damage = 3;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = 900.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -603,7 +540,7 @@ void content_mob_init()
 	f->motion_type = MMT_WALK;
 	f->sound_random = "mob-deer-env";
 	f->notices_player = true;
-	f->lifetime = 1800.0;
+	f->lifetime = 0.0;
 	f->spawn_naturally = false;
 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
 
@@ -629,7 +566,7 @@ void content_mob_init()
 	f->spawn_group = 3;
 	f->spawn_water = true;
 	f->hp = 5;
-	f->lifetime = 1200.0;
+	f->lifetime = one_month;
 	f->setCollisionBox(aabb3f(-0.25*BS, 0.25*BS, -0.25*BS, 0.25*BS, 0.75*BS, 0.25*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -656,7 +593,7 @@ void content_mob_init()
 	f->notices_player = true;
 	f->attack_player_damage = 3;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = 600.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.75*BS, 0., -0.75*BS, 0.75*BS, 1.*BS, 0.75*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -686,7 +623,7 @@ void content_mob_init()
 	f->notices_player = true;
 	f->attack_player_damage = 3;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = 900.0;
+	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -712,7 +649,7 @@ void content_mob_init()
 	f->notices_player = true;
 	f->attack_mob_damage = 5;
 	f->attack_mob_range = v3f(1,1,1);
-	f->lifetime = 1800.0;
+	f->lifetime = 0.0;
 	f->spawn_naturally = false;
 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
@@ -744,7 +681,7 @@ void content_mob_init()
 	f->spawn_min_height = 2;
 	f->spawn_max_height = 50;
 	f->spawn_group = 4;
-	f->lifetime = 1800.0;
+	f->lifetime = one_month;
 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -769,7 +706,7 @@ void content_mob_init()
 	f->sound_random = "mob-sheep-env";
 	f->sound_random_extra = "mob-ducksheep-env";
 	f->spawn_naturally = false;
-	f->lifetime = 1800.0;
+	f->lifetime = 0.0;
 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -835,7 +772,7 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->lifetime = 1200.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -861,7 +798,7 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->lifetime = 1200.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -887,7 +824,7 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->lifetime = 1200.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -913,7 +850,7 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->lifetime = 1200.0;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 }
