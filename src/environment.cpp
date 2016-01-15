@@ -560,7 +560,7 @@ void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
 	// Get time difference
 	u32 dtime_s = 0;
 	u32 stamp = block->getTimestamp();
-	if(m_game_time > stamp && stamp != BLOCK_TIMESTAMP_UNDEFINED)
+	if (m_game_time > stamp && stamp != BLOCK_TIMESTAMP_UNDEFINED)
 		dtime_s = m_game_time - block->getTimestamp();
 	dtime_s += additional_dtime;
 
@@ -583,6 +583,73 @@ void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
 		m_map->dispatchEvent(&event);
 
 		block->setChangedFlag();
+	}
+
+	if (block->m_active_objects.size() > 5 || myrand_range(0,20) != 0)
+		return;
+
+	bool has_spawn = false;
+	bool water_spawn = false;
+	v3s16 bsp(0,0,0);
+	v3s16 sp(0,0,0);
+	v3s16 wsp(0,0,0);
+
+	/* find a place to spawn, bias to water */
+	v3s16 p0;
+	for (p0.X=0; !water_spawn && p0.X<MAP_BLOCKSIZE; p0.X++) {
+	for (p0.Y=0; !water_spawn && p0.Y<MAP_BLOCKSIZE; p0.Y++) {
+	for (p0.Z=0; !water_spawn && p0.Z<MAP_BLOCKSIZE; p0.Z++) {
+		v3s16 p = p0 + block->getPosRelative();
+		MapNode n = block->getNodeNoEx(p0);
+		MapNode n1 = block->getNodeNoEx(p0+v3s16(0,1,0));
+		MapNode n2 = block->getNodeNoEx(p0+v3s16(0,2,0));
+		u8 light = n1.getLightBlend(getDayNightRatio());
+		if (n1.getContent() == CONTENT_IGNORE || n2.getContent() == CONTENT_IGNORE)
+			continue;
+		if (n.getContent() == CONTENT_WATERSOURCE && n1.getContent() == CONTENT_WATERSOURCE && n2.getContent() == CONTENT_WATERSOURCE) {
+			water_spawn = true;
+			wsp = p;
+			break;
+		}
+		if (has_spawn)
+			continue;
+		if (
+			content_features(n.getContent()).draw_type == CDT_DIRTLIKE
+			&& content_features(n1.getContent()).air_equivalent
+			&& content_features(n2.getContent()).air_equivalent
+		) {
+			has_spawn = true;
+			sp = p+v3s16(0,1,0);
+			bsp = p0;
+		}
+	}
+	}
+	}
+
+	if (water_spawn) {
+		if (myrand_range(0,5) == 0) {
+			mob_spawn_hostile(wsp,true,this);
+		}else{
+			mob_spawn_passive(wsp,true,this);
+		}
+		return;
+	}
+
+	if (!has_spawn)
+		return;
+
+	{
+		MapNode n = block->getNodeNoEx(bsp);
+		u8 overlay = (n.param1&0x0F);
+		if (overlay == 0x01 || overlay == 0x02 || (overlay == 0x04 && myrand_range(0,5) == 0)) {
+			mob_spawn_passive(sp,false,this);
+		}else if (overlay == 0x00 && block->getPosRelative().Y < -16) {
+			mob_spawn(sp,CONTENT_MOB_RAT,this);
+		}else if (overlay == 0x08) {
+			for (int i=0; i<4; i++) {
+				mob_spawn(sp,CONTENT_MOB_FIREFLY,this);
+			}
+		}
 	}
 }
 
@@ -1046,14 +1113,7 @@ void ServerEnvironment::step(float dtime)
 				active_object_count_wider += wblock->m_active_objects.size();
 			}
 
-			// TODO: don't spawn if there was a recent one nearby
-			if (
-				active_object_count_wider < 6
-				&& (
-					block->last_spawn < m_time_of_day-6000
-					|| block->last_spawn > m_time_of_day+6000
-				)
-			) {
+			if (block->last_spawn < m_time_of_day-6000) {
 				MapNode n = block->getNodeNoEx(block->spawn_area);
 				MapNode n1 = block->getNodeNoEx(block->spawn_area+v3s16(0,1,0));
 				MapNode n2 = block->getNodeNoEx(block->spawn_area+v3s16(0,2,0));
@@ -1069,49 +1129,19 @@ void ServerEnvironment::step(float dtime)
 						block->has_spawn_area = false;
 				}
 
-				if (block->has_spawn_area) {
-					// dawn, passive mobs spawn
-					if (m_time_of_day > 7000 && m_time_of_day < 8000) {
-						if (!active_object_count_wider) {
-							if (block->water_spawn) {
-								if (n.getContent() == CONTENT_SAND)
-									mob_spawn_passive(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
-							}else if (
-								n.getContent() == CONTENT_MUD
-								&& (
-									n.param1 == 1
-									|| n.param1 == 2
-								) && n.param2 == 0
-								&& light >= LIGHT_SPAWN_BRIGHT
-							) {
-								mob_spawn_passive(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
-							}else if (n.getContent() == CONTENT_STONE && light <= LIGHT_SPAWN_DARK && block->getPosRelative().Y < -16) {
-								mob_spawn(block->spawn_area+block->getPosRelative(),CONTENT_MOB_RAT,this);
-							}
+				if (block->has_spawn_area && m_time_of_day > 19000 && m_time_of_day < 20000) {
+					if (light <= LIGHT_SPAWN_DARK) {
+						if (
+							block->water_spawn
+							|| (
+								block->getPos().Y > 0
+								|| myrand_range(0,5) == 0
+							)
+						) {
+							mob_spawn_hostile(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
 						}
-						block->last_spawn = m_time_of_day;
-					// dusk, hostile mobs spawn, or fireflies
-					}else if (m_time_of_day > 19000 && m_time_of_day < 20000) {
-						if (light <= LIGHT_SPAWN_DARK) {
-							if (
-								(
-									n.getContent() == CONTENT_STONE
-									|| n.getContent() == CONTENT_SAND
-								) && (
-									block->water_spawn
-									|| (
-										block->getPos().Y > 0
-										|| myrand_range(0,5) == 0
-									)
-								)
-							) {
-								mob_spawn_hostile(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
-							}else if (n1.getContent() == CONTENT_JUNGLEGRASS) {
-								mob_spawn(block->spawn_area+block->getPosRelative(),CONTENT_MOB_FIREFLY,this);
-							}
-						}
-						block->last_spawn = m_time_of_day;
 					}
+					block->last_spawn = m_time_of_day;
 				}
 			}
 
@@ -1122,7 +1152,14 @@ void ServerEnvironment::step(float dtime)
 				v3s16 p = p0 + block->getPosRelative();
 				block->incNodeTicks(p0);
 				MapNode n = block->getNodeNoEx(p0);
-				if (!block->has_spawn_area && content_features(n.getContent()).draw_type == CDT_CUBELIKE) {
+				if (
+					!block->has_spawn_area
+					&& (
+						content_features(n.getContent()).draw_type == CDT_DIRTLIKE
+						|| n.getContent() == CONTENT_SAND
+						|| n.getContent() == CONTENT_STONE
+					)
+				) {
 					MapNode n1 = block->getNodeNoEx(p0+v3s16(0,1,0));
 					MapNode n2 = block->getNodeNoEx(p0+v3s16(0,2,0));
 					if (
