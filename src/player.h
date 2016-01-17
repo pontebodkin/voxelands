@@ -55,6 +55,16 @@
 #define PLAYERFLAG_BLACK 7
 #define PLAYERFLAG_COUNT 8
 
+#define PLAYER_FEET	0x01
+#define PLAYER_LLEG	0x02
+#define PLAYER_RLEG	0x04
+#define PLAYER_TORSO	0x08
+#define PLAYER_HANDS	0x10
+#define PLAYER_LARM	0x20
+#define PLAYER_RARM	0x40
+#define PLAYER_HEAD	0x80
+#define PLAYER_ALL	0xFF
+
 class Map;
 
 class Player
