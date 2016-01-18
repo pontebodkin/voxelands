@@ -3807,8 +3807,9 @@ void ClientEnvironment::step(float dtime)
 			s16 coldzone = 60;
 			bool possible_cold = (pp.Y > coldzone && pp.Y < 1024);
 
-			v3f ps[6] = {
+			v3f ps[7] = {
 				v3f(0, BS*-0.1, 0),
+				v3f(0, BS*0.1, 0),
 				v3f(0, BS*0.1, 0),
 				v3f(0, BS*0.8, 0),
 				v3f(BS*0.4, BS*0.8, 0),
@@ -3816,7 +3817,8 @@ void ClientEnvironment::step(float dtime)
 				v3f(0, BS*1.6, 0)
 			};
 
-			u8 area[6] = {
+			u8 area[7] = {
+				PLAYER_FEET,
 				PLAYER_FEET,
 				(PLAYER_LLEG|PLAYER_RLEG),
 				PLAYER_TORSO,
@@ -3826,9 +3828,8 @@ void ClientEnvironment::step(float dtime)
 			};
 			ps[3].rotateXZBy(lplayer->getYaw());
 			ps[4].rotateXZBy(lplayer->getYaw());
-			pf.Y += BS;
 
-			for (int i=0; i<6; i++) {
+			for (int i=0; i<7; i++) {
 				v3s16 p = floatToInt(pf+ps[i],BS);
 				printf("(%d,%d,%d) ",p.X,p.Y,p.Z);
 				MapNode n = m_map->getNodeNoEx(p);
@@ -3865,7 +3866,7 @@ void ClientEnvironment::step(float dtime)
 					damageLocalPlayer(area[i],DAMAGE_COLD,warmth);
 				if (pressure > 0)
 					damageLocalPlayer(area[i],DAMAGE_SPACE,pressure);
-				if (i < 5)
+				if (i < 6)
 					continue;
 				if (suffocation > 0) {
 					damageLocalPlayer(area[i],DAMAGE_AIR,suffocation);

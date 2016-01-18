@@ -2029,7 +2029,7 @@ void the_game(
 			guitext_status->setVisible(!statustext.empty());
 
 			if (!statustext.empty()) {
-				s32 status_y = screensize.Y - 130;
+				s32 status_y = screensize.Y - 200;
 				core::rect<s32> rect(
 					10,
 					status_y - guitext_status->getTextHeight(),

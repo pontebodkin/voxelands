@@ -635,7 +635,7 @@ void hud_draw(
 					c = 0;
 				const video::SColor color(255,255,c,c);
 				video::ITexture *texture = driver->getTexture(getTexturePath(image[i]).c_str());
-				core::rect<s32> rect(20,screensize.Y-182,52,screensize.Y-118);
+				core::rect<s32> rect(10,screensize.Y-172,42,screensize.Y-108);
 				draw_image(driver,texture,color,rect,NULL,NULL);
 			}
 		}
@@ -662,7 +662,7 @@ void hud_draw(
 
 			v2u32 dim = font->getDimension(t.c_str());
 			v2s32 sdim(dim.X,dim.Y);
-			v2s32 p(52,screensize.Y-150);
+			v2s32 p(42,screensize.Y-140);
 			p.Y -= sdim.Y/2;
 			core::rect<s32> rect2(
 				p,
