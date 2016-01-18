@@ -246,8 +246,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_ASH;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 8;
-	f->health_effect = 4;
+	f->hunger_effect = 40;
+	f->health_effect = 20;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -269,8 +269,8 @@ void content_craftitem_init()
 	f->description = wgettext("Apple");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 15;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_APPLE_IRON;
@@ -281,8 +281,8 @@ void content_craftitem_init()
 	f->description = wgettext("Iron Apple");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 16;
-	f->health_effect = 8;
+	f->hunger_effect = 80;
+	f->health_effect = 40;
 	{
 		u16 recipe[9] = {
 			CONTENT_CRAFTITEM_STEEL_INGOT,		CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT,
@@ -499,8 +499,8 @@ void content_craftitem_init()
 	f->description = wgettext("Apple Blossoms");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 2;
-	f->health_effect = 1;
+	f->hunger_effect = 10;
+	f->health_effect = 5;
 	f->fuel_time = 30/16;
 	lists::add("creative",i);
 
@@ -512,8 +512,8 @@ void content_craftitem_init()
 	f->description = wgettext("Cactus Berry");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 15;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_MUSH;
@@ -525,7 +525,7 @@ void content_craftitem_init()
 	f->description = wgettext("Mush");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->health_effect = -1;
+	f->health_effect = -5;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_PUMPKINSLICE;
@@ -536,8 +536,8 @@ void content_craftitem_init()
 	f->description = wgettext("Sliced Pumpkin");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 15;
 	crafting::set1To2Recipe(CONTENT_FARM_PUMPKIN,CONTENT_CRAFTITEM_PUMPKINSLICE);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -550,8 +550,8 @@ void content_craftitem_init()
 	f->description = wgettext("Pumpkin Pie Slice");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 12;
-	f->health_effect = 6;
+	f->hunger_effect = 60;
+	f->health_effect = 30;
 	lists::add("craftguide",i);
 
 	i = CONTENT_CRAFTITEM_APPLE_PIE_SLICE;
@@ -562,8 +562,8 @@ void content_craftitem_init()
 	f->description = wgettext("Apple Pie Slice");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 12;
-	f->health_effect = 6;
+	f->hunger_effect = 60;
+	f->health_effect = 30;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_MELONSLICE;
@@ -574,8 +574,8 @@ void content_craftitem_init()
 	f->description = wgettext("Sliced Melon");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 8;
-	f->health_effect = 4;
+	f->hunger_effect = 40;
+	f->health_effect = 20;
 	crafting::set1To2Recipe(CONTENT_FARM_MELON,CONTENT_CRAFTITEM_MELONSLICE);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -588,8 +588,8 @@ void content_craftitem_init()
 	f->description = wgettext("Wheat");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 2;
-	f->health_effect = 1;
+	f->hunger_effect = 10;
+	f->health_effect = 5;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_FLOUR;
@@ -600,8 +600,8 @@ void content_craftitem_init()
 	f->description = wgettext("Flour");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 2;
-	f->health_effect = 1;
+	f->hunger_effect = 10;
+	f->health_effect = 5;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_WHEAT,CONTENT_CRAFTITEM_WHEAT,CONTENT_CRAFTITEM_FLOUR);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -615,8 +615,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_BREAD;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 4;
-	f->health_effect = 2;
+	f->hunger_effect = 20;
+	f->health_effect = 10;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FLOUR,CONTENT_CRAFTITEM_FLOUR,CONTENT_CRAFTITEM_DOUGH);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -630,8 +630,8 @@ void content_craftitem_init()
 	f->description = wgettext("Bread");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 10;
-	f->health_effect = 5;
+	f->hunger_effect = 50;
+	f->health_effect = 20;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_POTATO;
@@ -643,8 +643,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_ROASTPOTATO;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 15;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -666,8 +666,8 @@ void content_craftitem_init()
 	f->description = wgettext("Roast Potato");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 12;
-	f->health_effect = 6;
+	f->hunger_effect = 60;
+	f->health_effect = 30;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_CARROT;
@@ -678,8 +678,8 @@ void content_craftitem_init()
 	f->description = wgettext("Carrot");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 4;
+	f->hunger_effect = 30;
+	f->health_effect = 20;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_CARROT_CAKE_RAW;
@@ -691,8 +691,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_CARROT_CAKE;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 20;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_CARROT,CONTENT_CRAFTITEM_DOUGH,CONTENT_CRAFTITEM_CARROT_CAKE_RAW);
 	lists::add("craftguide",i);
 	lists::add("cooking",i);
@@ -705,8 +705,8 @@ void content_craftitem_init()
 	f->description = wgettext("Carrot Cake");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 12;
-	f->health_effect = 6;
+	f->hunger_effect = 60;
+	f->health_effect = 30;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_BEETROOT;
@@ -717,8 +717,8 @@ void content_craftitem_init()
 	f->description = wgettext("Beetroot");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 3;
+	f->hunger_effect = 30;
+	f->health_effect = 15;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_GRAPE;
@@ -729,8 +729,8 @@ void content_craftitem_init()
 	f->description = wgettext("Bunch of Grapes");
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 6;
-	f->health_effect = 4;
+	f->hunger_effect = 30;
+	f->health_effect = 20;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_STRING;
@@ -786,8 +786,8 @@ void content_craftitem_init()
 	f->drop_item = CONTENT_MOB_FISH;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 1;
-	f->health_effect = -1;
+	f->hunger_effect = 5;
+	f->health_effect = -5;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -800,8 +800,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_ASH;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 8;
-	f->health_effect = 6;
+	f->hunger_effect = 40;
+	f->health_effect = 30;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -814,8 +814,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_COOKED_MEAT;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 1;
-	f->health_effect = -1;
+	f->hunger_effect = 5;
+	f->health_effect = -5;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -828,8 +828,8 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_ASH;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 10;
-	f->health_effect = 6;
+	f->hunger_effect = 50;
+	f->health_effect = 30;
 	lists::add("creative",i);
 	lists::add("cooking",i);
 
@@ -1348,8 +1348,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 3;
-	f->health_effect = 3;
+	f->hunger_effect = 15;
+	f->health_effect = 15;
 	f->energy_effect = 30;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_GRAPE,CONTENT_CRAFTITEM_GLASS_BOTTLE,CONTENT_CRAFTITEM_GRAPE_JUICE);
@@ -1366,8 +1366,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 2;
-	f->health_effect = 3;
+	f->hunger_effect = 10;
+	f->health_effect = 15;
 	f->energy_effect = 10;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_APPLE,CONTENT_CRAFTITEM_GLASS_BOTTLE,CONTENT_CRAFTITEM_APPLE_JUICE);
@@ -1383,8 +1383,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 1;
-	f->health_effect = 2;
+	f->hunger_effect = 5;
+	f->health_effect = 10;
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_TEA;
@@ -1397,8 +1397,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 3;
-	f->health_effect = 4;
+	f->hunger_effect = 15;
+	f->health_effect = 20;
 	f->cold_effect = 300;
 	f->energy_effect = 10;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
@@ -1415,8 +1415,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-eat";
-	f->hunger_effect = 2;
-	f->health_effect = 3;
+	f->hunger_effect = 10;
+	f->health_effect = 15;
 	f->energy_effect = 30;
 	lists::add("creative",i);
 
@@ -1430,8 +1430,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 2;
-	f->health_effect = 3;
+	f->hunger_effect = 10;
+	f->health_effect = 15;
 	f->cold_effect = 10;
 	f->energy_effect = 300;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
@@ -1467,8 +1467,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 1;
-	f->health_effect = 1;
+	f->hunger_effect = 5;
+	f->health_effect = 5;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	lists::add("creative",i);
 
@@ -1482,8 +1482,8 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->consumable = true;
 	f->sound_use = "use-drink";
-	f->hunger_effect = 1;
-	f->health_effect = 1;
+	f->hunger_effect = 5;
+	f->health_effect = 8;
 	f->cold_effect = 5;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
 	lists::add("creative",i);

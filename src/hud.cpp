@@ -369,12 +369,14 @@ void hud_draw(
 	bool show_index,
 	Inventory *inventory,
 	bool have_health,
-	s32 halfheartcount,
+	s32 health,
+	u8 damage_type,
+	u8 damage_pos,
 	float cold_boost,
 	bool have_suffocation,
-	s32 halfbubblecount,
+	s32 air,
 	bool have_hunger,
-	s32 halfhungercount,
+	s32 hunger,
 	float energy,
 	float energy_boost,
 	int crosshair,
@@ -570,10 +572,10 @@ void hud_draw(
 
 	// health
 	if (have_health) {
-		int c = 55+(halfheartcount*10);
+		int c = 55+(health*2);
 		float e = 0.0;
-		if (halfheartcount > 0.0)
-			e = energy/((float)halfheartcount/100.0);
+		if (health > 0.0)
+			e = energy/((float)health/100.0);
 		if (e > 100.0)
 			e = 100.0;
 		if (e < 0.0)
@@ -601,7 +603,7 @@ void hud_draw(
 			draw_image(driver,texture,color,rect,NULL,NULL);
 		}
 
-		std::wstring txt = itows(halfheartcount*5);
+		std::wstring txt = itows(health);
 		txt += L"%";
 
 		v2u32 dim = font->getDimension(txt.c_str());
@@ -613,16 +615,71 @@ void hud_draw(
 			sdim
 		);
 		font->draw(txt.c_str(), rect2, video::SColor(255,255,255,255), false, false, NULL);
+
+		{
+			char* image[8] = {
+				(char*)"body_feet.png",
+				(char*)"body_lleg.png",
+				(char*)"body_rleg.png",
+				(char*)"body_torso.png",
+				(char*)"body_hands.png",
+				(char*)"body_larm.png",
+				(char*)"body_rarm.png",
+				(char*)"body_head.png"
+			};
+
+			for (int i=0; i<8; i++) {
+				u8 a = (1<<i);
+				u8 c = 255;
+				if ((damage_pos&a) == a)
+					c = 0;
+				const video::SColor color(255,255,c,c);
+				video::ITexture *texture = driver->getTexture(getTexturePath(image[i]).c_str());
+				core::rect<s32> rect(20,screensize.Y-182,52,screensize.Y-118);
+				draw_image(driver,texture,color,rect,NULL,NULL);
+			}
+		}
+		{
+			char* damage_types[] = {
+				(char*)"",
+				gettext("Unknown"),
+				gettext("Fall"),
+				gettext("Exposure"),
+				gettext("Cold"),
+				gettext("Attack"),
+				gettext("Space"),
+				gettext("Hunger"),
+				gettext("Air"),
+				gettext("Lava"),
+				gettext("Cactus"),
+				gettext("Fire"),
+				gettext("TNT"),
+				gettext("Steam"),
+				gettext("Poison")
+			};
+
+			std::wstring t = narrow_to_wide(damage_types[damage_type]);
+
+			v2u32 dim = font->getDimension(t.c_str());
+			v2s32 sdim(dim.X,dim.Y);
+			v2s32 p(52,screensize.Y-150);
+			p.Y -= sdim.Y/2;
+			core::rect<s32> rect2(
+				p,
+				sdim
+			);
+			font->draw(t.c_str(), rect2, video::SColor(255,255,255,255), false, false, NULL);
+		}
 	}
 	// air
-	if (have_suffocation && halfbubblecount<20) {
-		int c = 55+(halfbubblecount*10);
+	if (have_suffocation && air < 100) {
+		int c = 55+(air*2);
 		const video::SColor color(255,255,c,c);
 		video::ITexture *texture = driver->getTexture(getTexturePath("bubble.png").c_str());
 		core::rect<s32> rect(100,screensize.Y-68,132,screensize.Y-36);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 
-		std::wstring txt = itows(halfbubblecount*5);
+		std::wstring txt = itows(air);
 		txt += L"%";
 
 		v2u32 dim = font->getDimension(txt.c_str());
@@ -637,13 +694,13 @@ void hud_draw(
 	}
 	// hunger
 	if (have_hunger) {
-		int c = 55+(halfhungercount*10);
+		int c = 55+(hunger*2);
 		const video::SColor color(255,255,c,c);
 		video::ITexture *texture = driver->getTexture(getTexturePath("harvested_carrot.png").c_str());
 		core::rect<s32> rect(36,screensize.Y-68,68,screensize.Y-36);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 
-		std::wstring txt = itows(halfhungercount*5);
+		std::wstring txt = itows(hunger);
 		txt += L"%";
 
 		v2u32 dim = font->getDimension(txt.c_str());
@@ -833,7 +890,7 @@ void hud_draw(
 			core::rect<s32> rect(x_off+132,screensize.Y-36,x_off+164,screensize.Y-4);
 			draw_image(driver,texture,color,rect,NULL,NULL);
 
-			std::wstring txt = itows(halfhungercount*5);
+			std::wstring txt = itows(hunger);
 			txt += L"%";
 
 			v2u32 dim = font->getDimension(txt.c_str());
@@ -858,7 +915,7 @@ void hud_draw(
 			core::rect<s32> rect(x_off+132,screensize.Y-36,x_off+164,screensize.Y-4);
 			draw_image(driver,texture,color,rect,NULL,NULL);
 
-			std::wstring txt = itows(halfhungercount*5);
+			std::wstring txt = itows(hunger);
 			txt += L"%";
 
 			v2u32 dim = font->getDimension(txt.c_str());

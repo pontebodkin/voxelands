@@ -453,20 +453,16 @@ bool CraftItem::use(ServerEnvironment *env, Player *player)
 	bool used = false;
 	CraftItemFeatures f = content_craftitem_features(m_content);
 	if (f.consumable) {
-		if (f.hunger_effect && (f.health_effect < 1 || player->hunger < 20)) {
-			if (player->hunger + f.hunger_effect > 20) {
-				player->hunger = 20;
+		if (f.hunger_effect && (f.health_effect < 1 || player->hunger < 100)) {
+			if (player->hunger + f.hunger_effect > 100) {
+				player->hunger = 100;
 			}else{
 				player->hunger += f.hunger_effect;
 			}
 			used = true;
 		}
 		if (f.health_effect < 0 || (!used && f.health_effect > 0)) {
-			if (player->hp + f.health_effect > 20) {
-				player->hp = 20;
-			}else{
-				player->hp += f.health_effect;
-			}
+			player->addHealth(f.health_effect);
 			used = true;
 		}
 		if (f.cold_effect) {

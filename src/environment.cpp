@@ -603,7 +603,6 @@ void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
 		MapNode n = block->getNodeNoEx(p0);
 		MapNode n1 = block->getNodeNoEx(p0+v3s16(0,1,0));
 		MapNode n2 = block->getNodeNoEx(p0+v3s16(0,2,0));
-		u8 light = n1.getLightBlend(getDayNightRatio());
 		if (n1.getContent() == CONTENT_IGNORE || n2.getContent() == CONTENT_IGNORE)
 			continue;
 		if (n.getContent() == CONTENT_WATERSOURCE && n1.getContent() == CONTENT_WATERSOURCE && n2.getContent() == CONTENT_WATERSOURCE) {
@@ -1114,7 +1113,6 @@ void ServerEnvironment::step(float dtime)
 			}
 
 			if (block->last_spawn < m_time_of_day-6000) {
-				MapNode n = block->getNodeNoEx(block->spawn_area);
 				MapNode n1 = block->getNodeNoEx(block->spawn_area+v3s16(0,1,0));
 				MapNode n2 = block->getNodeNoEx(block->spawn_area+v3s16(0,2,0));
 				u8 light = n1.getLightBlend(getDayNightRatio());
@@ -2747,10 +2745,12 @@ void ServerEnvironment::step(float dtime)
 							!searchNearInv(p,v3s16(0,1,0),v3s16(0,16,0),search,NULL)
 							&& !searchNear(p,v3s16(3,3,3),CONTENT_FIRE,NULL)
 						) {
-							n.param1 &= ~0x0F;
-							n.param1 |= 0x04;
-							n.envticks = 0;
-							m_map->addNodeWithEvent(p,n);
+							MapNode nn(CONTENT_SNOW);
+							m_map->addNodeWithEvent(p+v3s16(0,1,0),nn);
+							//n.param1 &= ~0x0F;
+							//n.param1 |= 0x04;
+							//n.envticks = 0;
+							//m_map->addNodeWithEvent(p,n);
 						}
 					}
 				}
@@ -3782,17 +3782,13 @@ void ClientEnvironment::step(float dtime)
 		if (info.t == COLLISION_FALL) {
 			//f32 tolerance = BS*10; // 2 without damage
 			f32 tolerance = BS*12; // 3 without damage
-			f32 factor = 1;
+			f32 factor = 5;
 			if (info.speed > BS*4)
 				m_client->playStepSound(0);
 			if (info.speed > tolerance) {
 				f32 damage_f = (info.speed - tolerance)/BS*factor;
 				u16 damage = (u16)(damage_f+0.5);
-				if (lplayer->hp > damage) {
-					lplayer->hp -= damage;
-				}else{
-					lplayer->hp = 0;
-				}
+				lplayer->addDamage(PLAYER_FEET|PLAYER_LLEG|PLAYER_RLEG,DAMAGE_FALL,damage);
 
 				ClientEnvEvent event;
 				event.type = CEE_PLAYER_DAMAGE;
@@ -3805,59 +3801,87 @@ void ClientEnvironment::step(float dtime)
 	/* player damage */
 	if (m_damage_interval.step(dtime, 1.0)) {
 		v3f pf = lplayer->getPosition();
-
 		v3s16 pp = floatToInt(pf, BS);
-		// Feet, middle and head
-		v3s16 p0 = floatToInt(pf - v3f(0, BS*0.1, 0), BS);
-		MapNode feet = m_map->getNodeNoEx(p0);
-		v3s16 p1 = floatToInt(pf + v3f(0, BS*0.1, 0), BS);
-		MapNode legs = m_map->getNodeNoEx(p1);
-		v3s16 p2 = floatToInt(pf + v3f(0, BS*0.8, 0), BS);
-		MapNode torso = m_map->getNodeNoEx(p2);
-		v3s16 p3 = floatToInt(pf + v3f(0, BS*1.6, 0), BS);
-		MapNode head = m_map->getNodeNoEx(p3);
 
-		u32 damage_per_second = 0;
-		u32 suffocation_per_second = 0;
-		u32 warmth_per_second = 0;
-		u32 pressure_per_second = 0;
-		damage_per_second = content_features(feet).damage_per_second;
-		damage_per_second = MYMAX(damage_per_second, content_features(legs).damage_per_second);
-		damage_per_second = MYMAX(damage_per_second, content_features(torso).damage_per_second);
-		damage_per_second = MYMAX(damage_per_second, content_features(head).damage_per_second);
-		suffocation_per_second = content_features(head).suffocation_per_second;
-		warmth_per_second = content_features(feet).warmth_per_second;
-		warmth_per_second = MYMAX(warmth_per_second, content_features(legs).warmth_per_second);
-		warmth_per_second = MYMAX(warmth_per_second, content_features(torso).warmth_per_second);
-		warmth_per_second = MYMAX(warmth_per_second, content_features(head).warmth_per_second);
-		pressure_per_second = content_features(feet).pressure_per_second;
-		pressure_per_second = MYMAX(pressure_per_second, content_features(legs).pressure_per_second);
-		pressure_per_second = MYMAX(pressure_per_second, content_features(torso).pressure_per_second);
-		pressure_per_second = MYMAX(pressure_per_second, content_features(head).pressure_per_second);
-		// cold zone
-		if (warmth_per_second == 0 && pp.Y > 60 && myrand()%10 == 0) {
-			if (pp.Y < 1024) {
-				std::vector<content_t> search;
-				search.push_back(CONTENT_FIRE);
-				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
-					warmth_per_second = 1;
+		s16 coldzone = 60;
+		bool possible_cold = (pp.Y > coldzone && pp.Y < 1024);
+
+		v3f ps[6] = {
+			v3f(0, BS*-0.1, 0),
+			v3f(0, BS*0.1, 0),
+			v3f(0, BS*0.8, 0),
+			v3f(BS*0.4, BS*0.8, 0),
+			v3f(BS*-0.4, BS*0.8, 0),
+			v3f(0, BS*1.6, 0)
+		};
+
+		u8 area[6] = {
+			PLAYER_FEET,
+			(PLAYER_LLEG|PLAYER_RLEG),
+			PLAYER_TORSO,
+			PLAYER_RARM,
+			PLAYER_LARM,
+			PLAYER_HEAD
+		};
+		ps[3].rotateXZBy(lplayer->getYaw());
+		ps[4].rotateXZBy(lplayer->getYaw());
+		pf.Y += BS;
+
+		for (int i=0; i<6; i++) {
+			v3s16 p = floatToInt(pf+ps[i],BS);
+			MapNode n = m_map->getNodeNoEx(p);
+			u32 damage = content_features(n).damage_per_second;
+			u32 suffocation = content_features(n).suffocation_per_second;
+			u32 warmth = content_features(n).warmth_per_second;
+			u32 pressure = content_features(n).pressure_per_second;
+			if (damage > 0) {
+				u8 t = DAMAGE_UNKNOWN;
+				switch (n.getContent()) {
+				case CONTENT_LAVA:
+				case CONTENT_LAVASOURCE:
+					t = DAMAGE_LAVA;
+					break;
+				case CONTENT_CACTUS:
+					t = DAMAGE_CACTUS;
+					break;
+				case CONTENT_FIRE:
+				case CONTENT_FIRE_SHORTTERM:
+					t = DAMAGE_FIRE;
+					break;
+				case CONTENT_TNT:
+				case CONTENT_FLASH:
+					t = DAMAGE_TNT;
+					break;
+				case CONTENT_STEAM:
+					t = DAMAGE_STEAM;
+					break;
+				default:;
+				}
+				damageLocalPlayer(area[i],t,damage);
+			}
+			if (warmth > 0)
+				damageLocalPlayer(area[i],DAMAGE_COLD,warmth);
+			if (pressure > 0)
+				damageLocalPlayer(area[i],DAMAGE_SPACE,pressure);
+			if (i < 5)
+				continue;
+			if (suffocation > 0) {
+				damageLocalPlayer(area[i],DAMAGE_AIR,suffocation);
+			}else if (lplayer->air < 100) {
+				ClientEnvEvent event;
+				event.type = CEE_PLAYER_SUFFOCATE;
+				event.player_damage.amount = -100;
+				m_client_event_queue.push_back(event);
 			}
 		}
 
-		if (damage_per_second != 0)
-			damageLocalPlayer(damage_per_second);
-		if (suffocation_per_second != 0) {
-			damageLocalPlayerWithSuffocation(suffocation_per_second);
-		}else if (lplayer->air < 20) {
-			ClientEnvEvent event;
-			event.type = CEE_PLAYER_SUFFOCATE;
-			event.player_damage.amount = -20;
-			m_client_event_queue.push_back(event);
+		// cold zone
+		if (possible_cold) {
+			std::vector<content_t> search;
+			search.push_back(CONTENT_FIRE);
+			if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+				damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
 		}
-		if (pressure_per_second != 0)
-			damageLocalPlayerWithVacuum(pressure_per_second);
-		if (warmth_per_second != 0)
-			damageLocalPlayerWithWarmth(warmth_per_second);
 	}
 
 	if (m_hunger_interval.step(dtime,5.0)) {
@@ -3876,7 +3900,7 @@ void ClientEnvironment::step(float dtime)
 		if (hungry) {
 			ClientEnvEvent event;
 			event.type = CEE_PLAYER_HUNGER;
-			event.player_damage.amount = hungry;
+			event.player_damage.amount = 3;
 			m_client_event_queue.push_back(event);
 		}
 		// a little discouragement for running around naked
@@ -3897,7 +3921,7 @@ void ClientEnvironment::step(float dtime)
 					safe = true;
 			}
 			if (!safe)
-				damageLocalPlayer(1);
+				damageLocalPlayer((PLAYER_TORSO|PLAYER_RLEG|PLAYER_LLEG),DAMAGE_EXPOSURE,2);
 		}
 	}
 
@@ -4100,152 +4124,20 @@ void ClientEnvironment::processActiveObjectMessage(u16 id,
 	Callbacks for activeobjects
 */
 
-void ClientEnvironment::damageLocalPlayer(u8 damage)
+void ClientEnvironment::damageLocalPlayer(u8 area, u8 type, u8 damage)
 {
 	if (!m_client->getServerDamage())
 		return;
 	LocalPlayer *lplayer = getLocalPlayer();
 	assert(lplayer);
-
-	if (lplayer->hp > damage) {
-		lplayer->hp -= damage;
-	}else{
-		lplayer->hp = 0;
-	}
-
-	ClientEnvEvent event;
-	event.type = CEE_PLAYER_DAMAGE;
-	event.player_damage.amount = damage;
-	m_client_event_queue.push_back(event);
-}
-
-void ClientEnvironment::damageLocalPlayerWithArmour(u8 damage)
-{
-	if (!m_client->getServerDamage())
-		return;
-	LocalPlayer *lplayer = getLocalPlayer();
-	assert(lplayer);
-	f32 effect = lplayer->getArmourProtection();
+	f32 effect = lplayer->getProtection(area,type);
 	f32 f_damage = damage;
 
 	if (damage > 0 && effect > 0.0) {
 		f_damage -= f_damage*effect;
 		ClientEnvEvent event;
 		event.type = CEE_PLAYER_WEARCLOTHES;
-		event.player_wear.amount = damage*(500*(2.0-effect));
-		m_client_event_queue.push_back(event);
-		if (f_damage < 1.0 && f_damage > 0.0) {
-			damage = 1.0/f_damage;
-			if (myrand_range(0,damage) == 0)
-				f_damage = 1.0;
-		}
-		damage = f_damage;
-		if (damage < 1)
-			return;
-	}
-
-	if (lplayer->hp > damage) {
-		lplayer->hp -= damage;
-	}else{
-		lplayer->hp = 0;
-	}
-
-	ClientEnvEvent event;
-	event.type = CEE_PLAYER_DAMAGE;
-	event.player_damage.amount = damage;
-	m_client_event_queue.push_back(event);
-}
-
-void ClientEnvironment::damageLocalPlayerWithWarmth(u8 damage)
-{
-	if (!m_client->getServerDamage())
-		return;
-	LocalPlayer *lplayer = getLocalPlayer();
-	assert(lplayer);
-	f32 effect = lplayer->getWarmthProtection();
-	f32 f_damage = damage;
-	if (lplayer->cold_effectf > 0.0)
-		return;
-
-	if (damage > 0 && effect > 0.0) {
-		f_damage -= f_damage*effect;
-		ClientEnvEvent event;
-		event.type = CEE_PLAYER_WEARCLOTHES;
-		event.player_wear.amount = damage*(500*(2.0-effect));
-		m_client_event_queue.push_back(event);
-		if (f_damage < 1.0 && f_damage > 0.0) {
-			damage = 1.0/f_damage;
-			if (myrand_range(0,damage) == 0)
-				f_damage = 1.0;
-		}
-		damage = f_damage;
-		if (damage < 1)
-			return;
-	}
-
-	if (lplayer->hp > damage) {
-		lplayer->hp -= damage;
-	}else{
-		lplayer->hp = 0;
-	}
-
-	ClientEnvEvent event;
-	event.type = CEE_PLAYER_DAMAGE;
-	event.player_damage.amount = damage;
-	m_client_event_queue.push_back(event);
-}
-
-void ClientEnvironment::damageLocalPlayerWithVacuum(u8 damage)
-{
-	if (!m_client->getServerDamage())
-		return;
-	LocalPlayer *lplayer = getLocalPlayer();
-	assert(lplayer);
-	f32 effect = lplayer->getVacuumProtection();
-	f32 f_damage = damage;
-
-	if (damage > 0 && effect > 0.0) {
-		f_damage -= f_damage*effect;
-		ClientEnvEvent event;
-		event.type = CEE_PLAYER_WEARCLOTHES;
-		event.player_wear.amount = damage*(500*(2.0-effect));
-		m_client_event_queue.push_back(event);
-		if (f_damage < 1.0 && f_damage > 0.0) {
-			damage = 1.0/f_damage;
-			if (myrand_range(0,damage) == 0)
-				f_damage = 1.0;
-		}
-		damage = f_damage;
-		if (damage < 1)
-			return;
-	}
-
-	if (lplayer->hp > damage) {
-		lplayer->hp -= damage;
-	}else{
-		lplayer->hp = 0;
-	}
-
-	ClientEnvEvent event;
-	event.type = CEE_PLAYER_DAMAGE;
-	event.player_damage.amount = damage;
-	m_client_event_queue.push_back(event);
-}
-
-void ClientEnvironment::damageLocalPlayerWithSuffocation(u8 damage)
-{
-	if (!m_client->getServerSuffocation())
-		return;
-	LocalPlayer *lplayer = getLocalPlayer();
-	assert(lplayer);
-	f32 effect = lplayer->getSuffocationProtection();
-	f32 f_damage = damage;
-
-	if (damage > 0 && effect > 0.0) {
-		f_damage -= f_damage*effect;
-		ClientEnvEvent event;
-		event.type = CEE_PLAYER_WEARCLOTHES;
-		event.player_wear.amount = damage*(500*(2.0-effect));
+		event.player_wear.amount = damage*(100*(2.0-effect));
 		m_client_event_queue.push_back(event);
 		if (f_damage < 1.0 && f_damage > 0.0) {
 			damage = 1.0/f_damage;
@@ -4258,7 +4150,12 @@ void ClientEnvironment::damageLocalPlayerWithSuffocation(u8 damage)
 	}
 
 	ClientEnvEvent event;
-	event.type = CEE_PLAYER_SUFFOCATE;
+	if (type == DAMAGE_AIR) {
+		event.type = CEE_PLAYER_SUFFOCATE;
+	}else{
+		lplayer->addDamage(area,type,damage);
+		event.type = CEE_PLAYER_DAMAGE;
+	}
 	event.player_damage.amount = damage;
 	m_client_event_queue.push_back(event);
 }

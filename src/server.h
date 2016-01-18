@@ -489,7 +489,18 @@ private:
 		Static send methods
 	*/
 
-	static void SendHP(con::Connection &con, u16 peer_id, u8 hp, u8 air, u8 hunger, u16 energy_effect, u16 cold_effect);
+	static void SendState(
+		con::Connection &con,
+		u16 peer_id,
+		u8 health,
+		u8 air,
+		u8 hunger,
+		u8 dirt,
+		u8 wet,
+		u8 blood,
+		u16 energy_effect,
+		u16 cold_effect
+	);
 	static void SendAccessDenied(con::Connection &con, u16 peer_id,
 			const std::wstring &reason);
 	static void SendDeathscreen(con::Connection &con, u16 peer_id,
@@ -511,7 +522,7 @@ private:
 	void SendPlayerItems(Player *player);
 	void SendChatMessage(u16 peer_id, const std::wstring &message);
 	void BroadcastChatMessage(const std::wstring &message);
-	void SendPlayerHP(Player *player);
+	void SendPlayerState(Player *player);
 	// tell the client what kind of game is being played
 	void SendSettings(Player *player);
 	/*
@@ -552,7 +563,7 @@ private:
 	std::string getPlayerName(u16 peer_id)
 	{
 		Player *player = m_env.getPlayer(peer_id);
-		if(player == NULL)
+		if (player == NULL)
 			return "[id="+itos(peer_id);
 		return player->getName();
 	}

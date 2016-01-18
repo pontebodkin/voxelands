@@ -752,7 +752,7 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->damage_per_second = 2;
+	f->damage_per_second = 10;
 	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;

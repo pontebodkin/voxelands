@@ -2305,6 +2305,8 @@ void the_game(
 					&local_inventory,
 					client.getServerDamage(),
 					client.getHP(),
+					(p->last_damage&0xFF00)>>8,
+					(p->last_damage&0x00FF),
 					p->cold_effectf,
 					client.getServerSuffocation(),
 					client.getAir(),

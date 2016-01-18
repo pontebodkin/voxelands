@@ -1979,7 +1979,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		SendPlayerItems();
 
 		// Send HP
-		SendPlayerHP(player);
+		SendPlayerState(player);
 
 		// Send time of day
 		{
@@ -2170,7 +2170,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			return;
 
 		// Track changes super-crappily
-		u16 oldhp = player->hp;
+		u16 oldhp = player->health;
 		u16 oldair = player->air;
 		u16 oldhunger = player->hunger;
 
@@ -2185,8 +2185,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		SendInventory(peer_id);
 
 		// Send back stuff
-		if (player->hp != oldhp || player->air != oldair || player->hunger != oldhunger || player->energy_effect || player->cold_effect)
-			SendPlayerHP(player);
+		if (player->health != oldhp || player->air != oldair || player->hunger != oldhunger || player->energy_effect || player->cold_effect)
+			SendPlayerState(player);
 	}
 	break;
 	case TOSERVER_PLAYERPOS:
@@ -2396,7 +2396,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					<<obj->getId()<<std::endl;
 
 			// Track changes super-crappily
-			u16 oldhp = player->hp;
+			u16 oldhp = player->health;
 			u16 oldair = player->air;
 			u16 oldhunger = player->hunger;
 
@@ -2407,8 +2407,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			}
 
 			// Send back stuff
-			if (player->hp != oldhp || player->air != oldair || player->hunger != oldhunger)
-				SendPlayerHP(player);
+			if (player->health != oldhp || player->air != oldair || player->hunger != oldhunger)
+				SendPlayerState(player);
 		}
 	}
 	break;
@@ -4183,7 +4183,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		}
 
 		if (!damage && !suffocate && !hunger) {
-			SendPlayerHP(player);
+			SendPlayerState(player);
 		}else{
 			HandlePlayerHP(player, damage, suffocate, hunger);
 		}
@@ -4613,7 +4613,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 	break;
 	case TOSERVER_RESPAWN:
 	{
-		if(player->hp != 0)
+		if(player->health != 0)
 			return;
 
 		RespawnPlayer(player);
@@ -4827,15 +4827,29 @@ void Server::deletingPeer(con::Peer *peer, bool timeout)
 	Static send methods
 */
 
-void Server::SendHP(con::Connection &con, u16 peer_id, u8 hp, u8 air, u8 hunger, u16 energy_effect, u16 cold_effect)
+void Server::SendState(
+	con::Connection &con,
+	u16 peer_id,
+	u8 health,
+	u8 air,
+	u8 hunger,
+	u8 dirt,
+	u8 wet,
+	u8 blood,
+	u16 energy_effect,
+	u16 cold_effect
+)
 {
 	DSTACK(__FUNCTION_NAME);
 	std::ostringstream os(std::ios_base::binary);
 
-	writeU16(os, TOCLIENT_PLAYERHP);
-	writeU8(os, hp);
+	writeU16(os, TOCLIENT_PLAYERSTATE);
+	writeU8(os, health);
 	writeU8(os, air);
 	writeU8(os, hunger);
+	writeU8(os, dirt);
+	writeU8(os, wet);
+	writeU8(os, blood);
 	writeU16(os, energy_effect);
 	writeU16(os, cold_effect);
 
@@ -5159,18 +5173,29 @@ void Server::BroadcastChatMessage(const std::wstring &message)
 	}
 }
 
-void Server::SendPlayerHP(Player *player)
+void Server::SendPlayerState(Player *player)
 {
-	u8 hp = player->hp;
+	u8 hp = player->health;
 	u8 air = player->air;
 	u8 hunger = player->hunger;
-	if (hp < 20 && !g_settings->getBool("enable_damage"))
-		hp = 20;
-	if (air < 20 && !g_settings->getBool("enable_suffocation"))
-		air = 20;
-	if (hunger < 20 && !g_settings->getBool("enable_hunger"))
-		hunger = 20;
-	SendHP(m_con, player->peer_id, hp,air,hunger,player->energy_effect,player->cold_effect);
+	if (hp < 100 && !g_settings->getBool("enable_damage"))
+		hp = 100;
+	if (air < 100 && !g_settings->getBool("enable_suffocation"))
+		air = 100;
+	if (hunger < 100 && !g_settings->getBool("enable_hunger"))
+		hunger = 100;
+	SendState(
+		m_con,
+		player->peer_id,
+		hp,
+		air,
+		hunger,
+		player->dirt,
+		player->wet,
+		player->blood,
+		player->energy_effect,
+		player->cold_effect
+	);
 	player->energy_effect = 0;
 	player->cold_effect = 0;
 }
@@ -5514,30 +5539,31 @@ void Server::HandlePlayerHP(Player *player, s16 damage, s16 suffocate, s16 hunge
 {
 	if (player->air > suffocate) {
 		player->air -= suffocate;
-		if (player->air > 20)
-			player->air = 20;
+		if (player->air > 100)
+			player->air = 100;
 	}else{
 		damage += suffocate-player->air;
 		player->air = 0;
 	}
 	if (player->hunger > hunger) {
 		player->hunger -= hunger;
-		if (player->hunger > 20)
-			player->hunger = 20;
+		if (player->hunger > 100)
+			player->hunger = 100;
 	}else{
 		damage += hunger-player->hunger;
 		player->hunger = 0;
 	}
-	if (player->hp > damage) {
-		player->hp -= damage;
-		if (player->hp > 20)
-			player->hp = 20;
-		SendPlayerHP(player);
+	player->addDamage(PLAYER_ALL,DAMAGE_UNKNOWN,damage);
+	if (player->health > 0) {
+		SendPlayerState(player);
 	}else{
 		infostream<<"Server::HandlePlayerHP(): Player "
 				<<player->getName()<<" dies"<<std::endl;
 
-		player->hp = 0;
+		player->health = 0;
+		player->dirt = 0;
+		player->wet = 0;
+		player->blood = 0;
 
 		//TODO: Throw items around
 		if (g_settings->getBool("death_drops_inv")) {
@@ -5636,7 +5662,7 @@ void Server::HandlePlayerHP(Player *player, s16 damage, s16 suffocate, s16 hunge
 			return;
 		}
 
-		SendPlayerHP(player);
+		SendPlayerState(player);
 
 		RemoteClient *client = getClient(player->peer_id);
 		if (client->net_proto_version >= 3) {
@@ -5653,11 +5679,14 @@ void Server::RespawnPlayer(Player *player)
 	if (!player->getHome(PLAYERFLAG_HOME,pos))
 		pos = findSpawnPos(m_env.getServerMap());
 	player->setPosition(pos);
-	player->hp = 20;
-	player->air = 20;
-	player->hunger = 20;
+	player->health = 100;
+	player->air = 100;
+	player->hunger = 100;
+	player->dirt = 0;
+	player->wet = 0;
+	player->blood = 0;
 	SendMovePlayer(player);
-	SendPlayerHP(player);
+	SendPlayerState(player);
 }
 
 void Server::UpdateCrafting(u16 peer_id)

@@ -559,11 +559,7 @@ public:
 	/*
 		Callbacks for activeobjects
 	*/
-	void damageLocalPlayer(u8 damage);
-	void damageLocalPlayerWithArmour(u8 damage);
-	void damageLocalPlayerWithWarmth(u8 damage);
-	void damageLocalPlayerWithVacuum(u8 damage);
-	void damageLocalPlayerWithSuffocation(u8 damage);
+	void damageLocalPlayer(u8 area, u8 type, u8 damage);
 
 	/*
 		Client likes to call these

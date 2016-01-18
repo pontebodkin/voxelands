@@ -51,11 +51,15 @@ Player::Player():
 	in_bed(false),
 	wake_timeout(0.0),
 	craftresult_is_preview(true),
-	hp(20),
-	air(20),
-	hunger(20),
+	health(100),
+	air(100),
+	hunger(100),
 	energy_effect(0),
 	cold_effect(0),
+	dirt(0),
+	wet(0),
+	blood(0),
+	last_damage(0),
 	peer_id(PEER_ID_INEXISTENT),
 	m_selected_item(0),
 	m_pitch(0),
@@ -213,7 +217,7 @@ void Player::serialize(std::ostream &os)
 	args.setFloat("yaw", m_yaw);
 	args.setV3F("position", m_position);
 	args.setBool("craftresult_is_preview", craftresult_is_preview);
-	args.setS32("hp", hp);
+	args.setS32("health", health);
 	args.setS32("air", air);
 	args.setS32("hunger", hunger);
 	if (m_hashome)
@@ -263,20 +267,32 @@ void Player::deSerialize(std::istream &is)
 	}else{
 		craftresult_is_preview = true;
 	}
-	if (args.exists("hp")) {
-		hp = args.getS32("hp");
+	if (args.exists("health")) {
+		health = args.getS32("health");
+		if (args.exists("air")) {
+			air = args.getS32("air");
+		}else{
+			air = 100;
+		}
+		if (args.exists("hunger")) {
+			hunger = args.getS32("hunger");
+		}else{
+			hunger = 100;
+		}
+	}else if (args.exists("hp")) {
+		health = 5*args.getS32("hp");
+		if (args.exists("air")) {
+			air = 5*args.getS32("air");
+		}else{
+			air = 100;
+		}
+		if (args.exists("hunger")) {
+			hunger = 5*args.getS32("hunger");
+		}else{
+			hunger = 100;
+		}
 	}else{
-		hp = 20;
-	}
-	if (args.exists("air")) {
-		air = args.getS32("air");
-	}else{
-		air = 20;
-	}
-	if (args.exists("hunger")) {
-		hunger = args.getS32("hunger");
-	}else{
-		hunger = 20;
+		health = 100;
 	}
 	if (args.exists("home")) {
 		m_home = args.getV3F("home");
@@ -1106,11 +1122,11 @@ void LocalPlayer::applyControl(float dtime)
 		}
 	}else{
 		if (energy_effectf) {
-			if (m_energy < hp)
-				m_energy += dtime*5.0;
+			if (m_energy < health)
+				m_energy += dtime*25.0;
 		}else if (control.digging) {
-			m_energy -= dtime*0.2;
-		}else if (m_energy < hp) {
+			m_energy -= dtime;
+		}else if (m_energy < health) {
 			if (speed.X || speed.Y || speed.Z) {
 				m_energy += dtime*((float)hunger/30.0);
 			}else{
@@ -1123,8 +1139,8 @@ void LocalPlayer::applyControl(float dtime)
 			speed = speed.normalize() * walkspeed_max;
 		}
 	}
-	if (m_energy > hp) {
-		m_energy = hp;
+	if (m_energy > health) {
+		m_energy = health;
 	}else if (m_energy < -0.1) {
 		m_can_use_energy = false;
 		m_energy = -0.1;
@@ -1138,7 +1154,7 @@ void LocalPlayer::applyControl(float dtime)
 
 			m_low_energy_effect = g_sound->playSound(snd,true);
 		}
-	}else if (m_energy > 1.8) {
+	}else if (m_energy > 9.8) {
 		m_can_use_energy = true;
 		if (g_sound && m_low_energy_effect) {
 			g_sound->stopSound(m_low_energy_effect);

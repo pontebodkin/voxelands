@@ -273,7 +273,6 @@ void mob_spawn_passive(v3s16 pos, bool water, ServerEnvironment *env)
 void mob_spawn_hostile(v3s16 pos, bool water, ServerEnvironment *env)
 {
 	std::vector<content_t> can;
-	int rand = myrand();
 	u8 level = mobLevelI(g_settings->get("max_mob_level"));
 	if (level < MOB_AGGRESSIVE)
 		return;
@@ -416,7 +415,7 @@ void content_mob_init()
 	f->spawn_max_height = 2;
 	f->sound_spawn = "mob-oerkki-spawn";
 	f->notices_player = true;
-	f->attack_player_damage = 3;
+	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS*2.,BS/3.));
@@ -457,7 +456,7 @@ void content_mob_init()
 	f->glow_light = LIGHT_MAX-1;
 	f->notices_player = true;
 	f->moves_silently = true;
-	f->attack_player_damage = 3;
+	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(2,2,2);
 	f->contact_explosion_diameter = 3;
 	f->spawn_naturally = false;
@@ -514,7 +513,7 @@ void content_mob_init()
 	f->spawn_max_height = 40;
 	f->spawn_chance = 2;
 	f->notices_player = true;
-	f->attack_player_damage = 3;
+	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
@@ -591,7 +590,7 @@ void content_mob_init()
 	f->moves_silently = true;
 	f->spawn_water = true;
 	f->notices_player = true;
-	f->attack_player_damage = 3;
+	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.75*BS, 0., -0.75*BS, 0.75*BS, 1.*BS, 0.75*BS));
@@ -621,7 +620,7 @@ void content_mob_init()
 	f->sound_punch = "mob-wolf-hit";
 	f->sound_spawn = "mob-wolf-spawn";
 	f->notices_player = true;
-	f->attack_player_damage = 3;
+	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
@@ -772,6 +771,9 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
+	f->notices_player = true;
+	f->attack_player_damage = 1;
+	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
@@ -798,6 +800,9 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
+	f->notices_player = true;
+	f->attack_player_damage = 1;
+	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
@@ -824,6 +829,9 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
+	f->notices_player = true;
+	f->attack_player_damage = 1;
+	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
@@ -850,6 +858,9 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
+	f->notices_player = true;
+	f->attack_player_damage = 1;
+	f->attack_player_range = v3f(1,1,1);
 	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);

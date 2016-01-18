@@ -3795,8 +3795,8 @@ void ClientMap::renderPostFx()
 
 	if (m_client->getServerSuffocation()) {
 		u16 a = m_client->getAir();
-		if (a < 18) {
-			u8 c = 255-(a*14);
+		if (a < 50) {
+			u8 c = 255-(a*5);
 			const video::SColor color(c,255,255,255);
 			const video::SColor colors[] = {color,color,color,color};
 			std::string tex = getTexturePath("low_air.png");

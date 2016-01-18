@@ -65,6 +65,22 @@
 #define PLAYER_HEAD	0x80
 #define PLAYER_ALL	0xFF
 
+#define DAMAGE_NONE	0x00
+#define DAMAGE_UNKNOWN	0x01
+#define DAMAGE_FALL	0x02
+#define DAMAGE_EXPOSURE	0x03
+#define DAMAGE_COLD	0x04
+#define DAMAGE_ATTACK	0x05
+#define DAMAGE_SPACE	0x06
+#define DAMAGE_HUNGER	0x07
+#define DAMAGE_AIR	0x08
+#define DAMAGE_LAVA	0x09
+#define DAMAGE_CACTUS	0x0A
+#define DAMAGE_FIRE	0x0B
+#define DAMAGE_TNT	0x0C
+#define DAMAGE_STEAM	0x0D
+#define DAMAGE_POISON	0x0E
+
 class Map;
 
 class Player
@@ -213,11 +229,49 @@ public:
 
 	bool craftresult_is_preview;
 
-	u16 hp;
+	u16 health;
 	u16 air;
 	u16 hunger;
 	u16 energy_effect;
 	u16 cold_effect;
+
+	u8 dirt;
+	u8 wet;
+	float wet_dtime;
+	u8 blood;
+
+	void addDirt(u8 area)
+	{
+		dirt |= area;
+	}
+	void addBlood(u8 area)
+	{
+		blood |= area;
+	}
+	void addWater(u8 area)
+	{
+		wet |= area;
+		dirt &= ~area;
+		blood &= ~area;
+	}
+
+	u16 last_damage;
+	void addDamage(u8 area, u8 type, u16 amount)
+	{
+		last_damage = (type<<8)|area;
+		if (amount > health) {
+			health = 0;
+		}else{
+			health -= amount;
+		}
+	}
+	void addHealth(u16 amount)
+	{
+		last_damage = 0;
+		health += amount;
+		if (health > 100)
+			health = 100;
+	}
 
 	u16 peer_id;
 
@@ -225,68 +279,91 @@ public:
 	void setHome(s8 i, v3f h);
 	void unsetHome(s8 i);
 
-	f32 getArmourProtection()
+	f32 getProtection(u8 area, u8 type)
 	{
+		InventoryList *l;
+		InventoryItem *i;
 		f32 v = 0;
 		const char* list[7] = {"hat","shirt","jacket","decorative","belt","pants","boots"};
+
+		switch (type) {
+		case DAMAGE_FALL:
+			l = inventory.getList("boots");
+			if (l == NULL)
+				return 0;
+			i = l->getItem(0);
+			if (i == NULL)
+				return 0;
+			return content_clothesitem_features(i->getContent()).armour;
+			break;
+		case DAMAGE_AIR:
+			l = inventory.getList("hat");
+			if (l == NULL)
+				return 0;
+			i = l->getItem(0);
+			if (i == NULL)
+				return 0;
+			return content_clothesitem_features(i->getContent()).suffocate;
+			break;
+		default:;
+		}
+
 		for (int j=0; j<7; j++) {
-			InventoryList *l = inventory.getList(list[j]);
+			if (area && area != PLAYER_ALL) {
+				switch (area) {
+				case PLAYER_FEET:
+					if (j != 6)
+						continue;
+					break;
+				case PLAYER_LLEG:
+				case PLAYER_RLEG:
+					if (j != 5 && j != 6)
+						continue;
+					break;
+				case PLAYER_TORSO:
+					if (j != 1)
+						continue;
+					break;
+				case PLAYER_HANDS:
+				case PLAYER_LARM:
+				case PLAYER_RARM:
+					if (j != 2)
+						continue;
+					break;
+				case PLAYER_HEAD:
+					if (j != 0)
+						continue;
+					break;
+				default:;
+				}
+			}
+
+			l = inventory.getList(list[j]);
 			if (l == NULL)
 				continue;
-			InventoryItem *i = l->getItem(0);
+			i = l->getItem(0);
 			if (i == NULL)
 				continue;
-			v += content_clothesitem_features(i->getContent()).armour;
+
+			switch (type) {
+			case DAMAGE_TNT:
+			case DAMAGE_FIRE:
+			case DAMAGE_ATTACK:
+			case DAMAGE_CACTUS:
+				v += content_clothesitem_features(i->getContent()).armour;
+				break;
+			case DAMAGE_COLD:
+				v += content_clothesitem_features(i->getContent()).warmth;
+				break;
+			case DAMAGE_SPACE:
+				v += content_clothesitem_features(i->getContent()).vacuum;
+				break;
+			default:;
+			}
 		}
 		if (v > 1.0)
 			return 1.0;
 		return v;
-	}
-	f32 getWarmthProtection()
-	{
-		f32 v = 0;
-		const char* list[7] = {"hat","shirt","jacket","decorative","belt","pants","boots"};
-		if (cold_effect)
-			return 1.0;
-		for (int j=0; j<7; j++) {
-			InventoryList *l = inventory.getList(list[j]);
-			if (l == NULL)
-				continue;
-			InventoryItem *i = l->getItem(0);
-			if (i == NULL)
-				continue;
-			v += content_clothesitem_features(i->getContent()).warmth;
-		}
-		if (v > 1.0)
-			return 1.0;
-		return v;
-	}
-	f32 getVacuumProtection()
-	{
-		f32 v = 0;
-		const char* list[7] = {"hat","shirt","jacket","decorative","belt","pants","boots"};
-		for (int j=0; j<7; j++) {
-			InventoryList *l = inventory.getList(list[j]);
-			if (l == NULL)
-				continue;
-			InventoryItem *i = l->getItem(0);
-			if (i == NULL)
-				continue;
-			v += content_clothesitem_features(i->getContent()).vacuum;
-		}
-		if (v > 1.0)
-			return 1.0;
-		return v;
-	}
-	f32 getSuffocationProtection()
-	{
-		InventoryList *l = inventory.getList("hat");
-		if (l == NULL)
-			return 0;
-		InventoryItem *i = l->getItem(0);
-		if (i == NULL)
-			return 0;
-		return content_clothesitem_features(i->getContent()).suffocate;
 	}
 
 	// character def used for skin creation and model scaling

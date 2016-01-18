@@ -1042,7 +1042,7 @@ void content_mapnode_special(bool repeat)
 	f->pointable = false;
 	f->diggable = false;
 	f->buildable_to = true;
-	f->damage_per_second = 8;
+	f->damage_per_second = 40;
 	f->sound_ambient = "env-fire";
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
@@ -1063,7 +1063,7 @@ void content_mapnode_special(bool repeat)
 	f->pointable = false;
 	f->diggable = false;
 	f->buildable_to = true;
-	f->damage_per_second = 8;
+	f->damage_per_second = 40;
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
 #endif
@@ -1757,7 +1757,7 @@ void content_mapnode_special(bool repeat)
 	f->pointable = false;
 	f->diggable = false;
 	f->buildable_to = true;
-	f->damage_per_second = 50;
+	f->damage_per_second = 80;
 	f->pressure_type = CST_CRUSHED;
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -1777,7 +1777,7 @@ void content_mapnode_special(bool repeat)
 	f->pointable = false;
 	f->diggable = false;
 	f->buildable_to = true;
-	f->warmth_per_second = 4;
+	f->damage_per_second = 20;
 	f->pressure_type = CST_CRUSHED;
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);

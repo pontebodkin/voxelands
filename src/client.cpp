@@ -504,8 +504,10 @@ void Client::step(float dtime)
 					event.type = CE_PLAYER_SUFFOCATE;
 					// this will cause the damage screen to flash
 					// when suffocation starts effecting damage
-					if (getAir() < 1 && damage > 0)
+					if (getAir() < 1 && damage > 0) {
 						event.type = CE_PLAYER_DAMAGE;
+						player->addDamage(PLAYER_HEAD,DAMAGE_AIR,damage);
+					}
 					event.player_damage.amount = damage;
 					m_client_event_queue.push_back(event);
 				}
@@ -519,8 +521,10 @@ void Client::step(float dtime)
 					event.type = CE_PLAYER_HUNGER;
 					// this will cause the damage screen to flash
 					// when hunger starts effecting damage
-					if (getHunger() < 1 && damage > 0)
+					if (getHunger() < 1 && damage > 0) {
 						event.type = CE_PLAYER_DAMAGE;
+						player->addDamage(PLAYER_TORSO,DAMAGE_HUNGER,damage);
+					}
 					event.player_damage.amount = damage;
 					m_client_event_queue.push_back(event);
 				}
@@ -1004,7 +1008,7 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		player->updateAnim(anim_id,pointed);
 	}
 	break;
-	case TOCLIENT_PLAYERHP:
+	case TOCLIENT_PLAYERSTATE:
 	{
 		std::string datastring((char*)&data[2], datasize-2);
 		std::istringstream is(datastring, std::ios_base::binary);
@@ -1013,14 +1017,17 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		u8 hp = readU8(is);
 		u8 air = readU8(is);
 		u8 hunger = readU8(is);
+		player->dirt = readU8(is);
+		player->wet = readU8(is);
+		player->blood = readU8(is);
 		u16 energy_effect = readU16(is);
 		if (energy_effect > player->energy_effectf)
 			player->energy_effectf = energy_effect;
 		player->cold_effectf += readU16(is);
 		if (m_server_damage) {
-			if (!player->hp)
+			if (!player->health)
 				player->setEnergy(hp);
-			player->hp = hp;
+			player->health = hp;
 		}
 		if (m_server_suffocation)
 			player->air = air;
@@ -2167,7 +2174,7 @@ u16 Client::getHP()
 	Player *player = m_env.getLocalPlayer();
 	if (!player)
 		return 0;
-	return player->hp;
+	return player->health;
 }
 
 u16 Client::getAir()

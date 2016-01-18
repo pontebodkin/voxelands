@@ -29,7 +29,7 @@
 
 #include "utility.h"
 
-#define PROTOCOL_VERSION 10
+#define PROTOCOL_VERSION 11
 /* the last protocol version used by 0.3.x minetest-c55 clients */
 #define PROTOCOL_DOTTHREE 3
 /* this is the oldest protocol that we will allow to connect
@@ -89,12 +89,17 @@ enum ToClientCommand
 		[4] u8 animation_id
 	*/
 
-	TOCLIENT_PLAYERHP = 0x26,
+	TOCLIENT_PLAYERSTATE = 0x26,
 	/*
 		u16 command
 		s8 hp
 		s8 air
 		s8 hunger
+		u8 dirt
+		u8 water
+		u8 blood
+		u16 energy_effect
+		u16 cold_effect
 	*/
 
 	TOCLIENT_INVENTORY = 0x27,

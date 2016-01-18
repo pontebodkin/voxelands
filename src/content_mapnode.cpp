@@ -297,7 +297,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
-	f->warmth_per_second = 2;
+	f->warmth_per_second = 10;
 	lists::add("creative",i);
 
 	i = CONTENT_COAL;
@@ -1695,7 +1695,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem snow_ball 9");
 	f->type = CMT_DIRT;
 	f->hardness = 0.3;
-	f->warmth_per_second = 2;
+	f->warmth_per_second = 10;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_SNOW_BALL,CONTENT_SNOW_BLOCK);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -1784,7 +1784,7 @@ void content_mapnode_init(bool repeat)
 	f->hardness = 0.3;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	f->warmth_per_second = 2;
+	f->warmth_per_second = 10;
 	lists::add("creative",i);
 	lists::add("decrafting",i);
 
@@ -2159,8 +2159,8 @@ void content_mapnode_init(bool repeat)
 	f->buildable_to = true;
 	f->air_equivalent = true;
 	f->pressure_type = CST_CRUSHED;
-	f->suffocation_per_second = 15;
-	f->pressure_per_second = 10;
+	f->suffocation_per_second = 75;
+	f->pressure_per_second = 50;
 
 	i = CONTENT_WATER;
 	f = &content_features(i);
@@ -2190,7 +2190,7 @@ void content_mapnode_init(bool repeat)
 	f->post_effect_color = video::SColor(64, 100, 100, 200);
 #endif
 	f->sound_ambient = "env-water";
-	f->suffocation_per_second = 2;
+	f->suffocation_per_second = 10;
 
 	i = CONTENT_WATERSOURCE;
 	f = &content_features(i);
@@ -2220,7 +2220,7 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_LIQUID;
 	f->hardness = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 2;
+	f->suffocation_per_second = 10;
 
 	i = CONTENT_LAVA;
 	f = &content_features(i);
@@ -2245,7 +2245,7 @@ void content_mapnode_init(bool repeat)
 	f->liquid_alternative_flowing = CONTENT_LAVA;
 	f->liquid_alternative_source = CONTENT_LAVASOURCE;
 	f->liquid_viscosity = LAVA_VISC;
-	f->damage_per_second = 4*2;
+	f->damage_per_second = 40;
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
 #endif
@@ -2272,7 +2272,7 @@ void content_mapnode_init(bool repeat)
 	f->liquid_alternative_flowing = CONTENT_LAVA;
 	f->liquid_alternative_source = CONTENT_LAVASOURCE;
 	f->liquid_viscosity = LAVA_VISC;
-	f->damage_per_second = 4*2;
+	f->damage_per_second = 40;
 	f->sound_ambient = "env-lava";
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);

@@ -595,7 +595,7 @@ struct ContentFeatures
 		hardness = 1.0;
 		pressure_type = CST_MOVABLE;
 		damage_per_second = 0;
-		suffocation_per_second = 4;
+		suffocation_per_second = 20;
 		warmth_per_second = 0;
 		pressure_per_second = 0;
 		home_node = -1;

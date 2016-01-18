@@ -1518,7 +1518,6 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		}
 	}
 	if (faces[1]) {
-		TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected,NULL);
 		video::S3DVertex v[4] = {
 			video::S3DVertex( 0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x0(), basetile.texture.y0()),
 			video::S3DVertex(-0.5*data->m_BS,-0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), basetile.texture.x1(), basetile.texture.y0()),
@@ -2188,7 +2187,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 	ContentFeatures *f = &content_features(n);
 	TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected);
 	v3f offset(0,0,0);
-	s16 rot = 0;
+	int rot = 0;
 	bool is_dropped = false;
 	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT) {
 		offset = v3f(0,-0.25*data->m_BS,0);
@@ -2253,7 +2252,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 		video::S3DVertex(-0.5*data->m_BS, 0.28125*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,0.),
 		video::S3DVertex( 0.5*data->m_BS, 0.28125*data->m_BS,1.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,0.)
 	};
-	s16 angle[8] = {
+	int angle[8] = {
 		  45+rot,
 		 -45+rot,
 		 135+rot,

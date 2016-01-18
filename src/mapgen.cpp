@@ -1823,7 +1823,6 @@ void make_block(BlockMakeData *data)
 				u32 current_depth = 0;
 				bool air_detected = false;
 				bool water_detected = false;
-				bool have_clay = false;
 
 				// Use fast index incrementing
 				s16 start_y = node_max.Y+2;
