@@ -981,11 +981,9 @@ void LocalPlayer::move(f32 dtime, Map &map, f32 pos_max_d,
 	/*
 		Report collisions
 	*/
-	if(collision_info)
-	{
+	if (collision_info) {
 		// Report fall collision
-		if(old_speed.Y < m_speed.Y - 0.1 && !result.standing_on_unloaded)
-		{
+		if (old_speed.Y < m_speed.Y - 0.1 && !result.standing_on_unloaded) {
 			CollisionInfo info;
 			info.t = COLLISION_FALL;
 			info.speed = m_speed.Y - old_speed.Y;
@@ -1170,6 +1168,9 @@ void LocalPlayer::applyControl(float dtime)
 		cold_effectf -= dtime;
 	if (cold_effectf < 0.0)
 		cold_effectf = 0.0;
+
+	if (health == 100)
+		last_damage = 0;
 
 	f32 inc = walk_acceleration * BS * dtime;
 

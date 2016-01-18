@@ -3798,130 +3798,134 @@ void ClientEnvironment::step(float dtime)
 		}
 	}
 
-	/* player damage */
-	if (m_damage_interval.step(dtime, 1.0)) {
-		v3f pf = lplayer->getPosition();
-		v3s16 pp = floatToInt(pf, BS);
+	if (lplayer->health > 0) {
+		/* player damage */
+		if (m_damage_interval.step(dtime, 1.0)) {
+			v3f pf = lplayer->getPosition();
+			v3s16 pp = floatToInt(pf, BS);
 
-		s16 coldzone = 60;
-		bool possible_cold = (pp.Y > coldzone && pp.Y < 1024);
+			s16 coldzone = 60;
+			bool possible_cold = (pp.Y > coldzone && pp.Y < 1024);
 
-		v3f ps[6] = {
-			v3f(0, BS*-0.1, 0),
-			v3f(0, BS*0.1, 0),
-			v3f(0, BS*0.8, 0),
-			v3f(BS*0.4, BS*0.8, 0),
-			v3f(BS*-0.4, BS*0.8, 0),
-			v3f(0, BS*1.6, 0)
-		};
+			v3f ps[6] = {
+				v3f(0, BS*-0.1, 0),
+				v3f(0, BS*0.1, 0),
+				v3f(0, BS*0.8, 0),
+				v3f(BS*0.4, BS*0.8, 0),
+				v3f(BS*-0.4, BS*0.8, 0),
+				v3f(0, BS*1.6, 0)
+			};
 
-		u8 area[6] = {
-			PLAYER_FEET,
-			(PLAYER_LLEG|PLAYER_RLEG),
-			PLAYER_TORSO,
-			PLAYER_RARM,
-			PLAYER_LARM,
-			PLAYER_HEAD
-		};
-		ps[3].rotateXZBy(lplayer->getYaw());
-		ps[4].rotateXZBy(lplayer->getYaw());
-		pf.Y += BS;
+			u8 area[6] = {
+				PLAYER_FEET,
+				(PLAYER_LLEG|PLAYER_RLEG),
+				PLAYER_TORSO,
+				PLAYER_RARM,
+				PLAYER_LARM,
+				PLAYER_HEAD
+			};
+			ps[3].rotateXZBy(lplayer->getYaw());
+			ps[4].rotateXZBy(lplayer->getYaw());
+			pf.Y += BS;
 
-		for (int i=0; i<6; i++) {
-			v3s16 p = floatToInt(pf+ps[i],BS);
-			MapNode n = m_map->getNodeNoEx(p);
-			u32 damage = content_features(n).damage_per_second;
-			u32 suffocation = content_features(n).suffocation_per_second;
-			u32 warmth = content_features(n).warmth_per_second;
-			u32 pressure = content_features(n).pressure_per_second;
-			if (damage > 0) {
-				u8 t = DAMAGE_UNKNOWN;
-				switch (n.getContent()) {
-				case CONTENT_LAVA:
-				case CONTENT_LAVASOURCE:
-					t = DAMAGE_LAVA;
-					break;
-				case CONTENT_CACTUS:
-					t = DAMAGE_CACTUS;
-					break;
-				case CONTENT_FIRE:
-				case CONTENT_FIRE_SHORTTERM:
-					t = DAMAGE_FIRE;
-					break;
-				case CONTENT_TNT:
-				case CONTENT_FLASH:
-					t = DAMAGE_TNT;
-					break;
-				case CONTENT_STEAM:
-					t = DAMAGE_STEAM;
-					break;
-				default:;
+			for (int i=0; i<6; i++) {
+				v3s16 p = floatToInt(pf+ps[i],BS);
+				printf("(%d,%d,%d) ",p.X,p.Y,p.Z);
+				MapNode n = m_map->getNodeNoEx(p);
+				u32 damage = content_features(n).damage_per_second;
+				u32 suffocation = content_features(n).suffocation_per_second;
+				u32 warmth = content_features(n).warmth_per_second;
+				u32 pressure = content_features(n).pressure_per_second;
+				if (damage > 0) {
+					u8 t = DAMAGE_UNKNOWN;
+					switch (n.getContent()) {
+					case CONTENT_LAVA:
+					case CONTENT_LAVASOURCE:
+						t = DAMAGE_LAVA;
+						break;
+					case CONTENT_CACTUS:
+						t = DAMAGE_CACTUS;
+						break;
+					case CONTENT_FIRE:
+					case CONTENT_FIRE_SHORTTERM:
+						t = DAMAGE_FIRE;
+						break;
+					case CONTENT_TNT:
+					case CONTENT_FLASH:
+						t = DAMAGE_TNT;
+						break;
+					case CONTENT_STEAM:
+						t = DAMAGE_STEAM;
+						break;
+					default:;
+					}
+					damageLocalPlayer(area[i],t,damage);
 				}
-				damageLocalPlayer(area[i],t,damage);
+				if (warmth > 0)
+					damageLocalPlayer(area[i],DAMAGE_COLD,warmth);
+				if (pressure > 0)
+					damageLocalPlayer(area[i],DAMAGE_SPACE,pressure);
+				if (i < 5)
+					continue;
+				if (suffocation > 0) {
+					damageLocalPlayer(area[i],DAMAGE_AIR,suffocation);
+				}else if (lplayer->air < 100) {
+					ClientEnvEvent event;
+					event.type = CEE_PLAYER_SUFFOCATE;
+					event.player_damage.amount = -100;
+					m_client_event_queue.push_back(event);
+				}
 			}
-			if (warmth > 0)
-				damageLocalPlayer(area[i],DAMAGE_COLD,warmth);
-			if (pressure > 0)
-				damageLocalPlayer(area[i],DAMAGE_SPACE,pressure);
-			if (i < 5)
-				continue;
-			if (suffocation > 0) {
-				damageLocalPlayer(area[i],DAMAGE_AIR,suffocation);
-			}else if (lplayer->air < 100) {
+			printf("\n");
+
+			// cold zone
+			if (possible_cold) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+		}
+
+		if (m_hunger_interval.step(dtime,5.0)) {
+			f32 speed = lplayer->getSpeed().getLength();
+			s8 hungry = 0;
+			s32 chance = 200;
+			if (speed > 1.0) {
+				chance = 50;
+				if (speed > 50.0) {
+					chance = 0;
+					hungry = 1;
+				}
+			}
+			if (chance && myrand()%chance == 0)
+				hungry = 1;
+			if (hungry) {
 				ClientEnvEvent event;
-				event.type = CEE_PLAYER_SUFFOCATE;
-				event.player_damage.amount = -100;
+				event.type = CEE_PLAYER_HUNGER;
+				event.player_damage.amount = 3;
 				m_client_event_queue.push_back(event);
 			}
-		}
-
-		// cold zone
-		if (possible_cold) {
-			std::vector<content_t> search;
-			search.push_back(CONTENT_FIRE);
-			if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
-				damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
-		}
-	}
-
-	if (m_hunger_interval.step(dtime,5.0)) {
-		f32 speed = lplayer->getSpeed().getLength();
-		s8 hungry = 0;
-		s32 chance = 200;
-		if (speed > 1.0) {
-			chance = 50;
-			if (speed > 50.0) {
-				chance = 0;
-				hungry = 1;
+			// a little discouragement for running around naked
+			{
+				bool safe = false;
+				InventoryList *sl = lplayer->inventory.getList("shirt");
+				InventoryList *jl = lplayer->inventory.getList("jacket");
+				InventoryList *pl = lplayer->inventory.getList("pants");
+				if ((sl || jl) && pl) {
+					InventoryItem *si = NULL;
+					if (sl)
+						si = sl->getItem(0);
+					InventoryItem *ji = NULL;
+					if (jl)
+						ji = jl->getItem(0);
+					InventoryItem *pi = pl->getItem(0);
+					if ((si || ji) && pi)
+						safe = true;
+				}
+				if (!safe)
+					damageLocalPlayer((PLAYER_TORSO|PLAYER_RLEG|PLAYER_LLEG),DAMAGE_EXPOSURE,2);
 			}
-		}
-		if (chance && myrand()%chance == 0)
-			hungry = 1;
-		if (hungry) {
-			ClientEnvEvent event;
-			event.type = CEE_PLAYER_HUNGER;
-			event.player_damage.amount = 3;
-			m_client_event_queue.push_back(event);
-		}
-		// a little discouragement for running around naked
-		{
-			bool safe = false;
-			InventoryList *sl = lplayer->inventory.getList("shirt");
-			InventoryList *jl = lplayer->inventory.getList("jacket");
-			InventoryList *pl = lplayer->inventory.getList("pants");
-			if ((sl || jl) && pl) {
-				InventoryItem *si = NULL;
-				if (sl)
-					si = sl->getItem(0);
-				InventoryItem *ji = NULL;
-				if (jl)
-					ji = jl->getItem(0);
-				InventoryItem *pi = pl->getItem(0);
-				if ((si || ji) && pi)
-					safe = true;
-			}
-			if (!safe)
-				damageLocalPlayer((PLAYER_TORSO|PLAYER_RLEG|PLAYER_LLEG),DAMAGE_EXPOSURE,2);
 		}
 	}
 
@@ -4132,6 +4136,9 @@ void ClientEnvironment::damageLocalPlayer(u8 area, u8 type, u8 damage)
 	assert(lplayer);
 	f32 effect = lplayer->getProtection(area,type);
 	f32 f_damage = damage;
+
+	if (lplayer->health < 1)
+		return;
 
 	if (damage > 0 && effect > 0.0) {
 		f_damage -= f_damage*effect;
