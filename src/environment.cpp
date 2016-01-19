@@ -3831,7 +3831,6 @@ void ClientEnvironment::step(float dtime)
 
 			for (int i=0; i<7; i++) {
 				v3s16 p = floatToInt(pf+ps[i],BS);
-				printf("(%d,%d,%d) ",p.X,p.Y,p.Z);
 				MapNode n = m_map->getNodeNoEx(p);
 				u32 damage = content_features(n).damage_per_second;
 				u32 suffocation = content_features(n).suffocation_per_second;
@@ -3877,7 +3876,6 @@ void ClientEnvironment::step(float dtime)
 					m_client_event_queue.push_back(event);
 				}
 			}
-			printf("\n");
 
 			// cold zone
 			if (possible_cold) {
