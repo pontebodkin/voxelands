@@ -1451,14 +1451,6 @@ void Server::AsyncRunStep()
 				// Send as unreliable
 				m_con.Send(client->peer_id, 0, reply, false);
 			}
-
-			/*if(reliable_data.size() > 0 || unreliable_data.size() > 0)
-			{
-				infostream<<"Server: Size of object message data: "
-						<<"reliable: "<<reliable_data.size()
-						<<", unreliable: "<<unreliable_data.size()
-						<<std::endl;
-			}*/
 		}
 
 		// Clear buffered_messages
