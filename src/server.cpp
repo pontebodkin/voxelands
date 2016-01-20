@@ -1969,7 +1969,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		*/
 
 		// Send player info to all players
-		SendPlayerInfos();
+		SendPlayerData();
 
 		// Send inventory to player
 		UpdateCrafting(peer_id);
@@ -2494,6 +2494,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			0: start digging
 		*/
 		if (action == 0) {
+			player->updateAnim(PLAYERANIM_DIG,selected_content);
 			if (!wielded_tool_features.has_punch_effect)
 				return;
 			// KEY
@@ -2955,7 +2956,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			2: stop digging
 		*/
 		else if (action == 2) {
-			SendPlayerAnim(player,PLAYERANIM_STAND);
+			player->updateAnim(PLAYERANIM_STAND,CONTENT_AIR);
 #if 0
 			RemoteClient *client = getClient(peer_id);
 			JMutexAutoLock digmutex(client->m_dig_mutex);
@@ -4921,13 +4922,15 @@ void Server::SendPlayerInfo(float dtime)
 	os.write((char*)buf, 2);
 
 	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-		Player *player = *i;
+		ServerRemotePlayer *player = (ServerRemotePlayer*)(*i);
 
 		writeU16(os, player->peer_id);
 		writeV3F1000(os, player->getPosition());
 		writeV3F1000(os, player->getSpeed());
 		writeF1000(os, player->getPitch());
 		writeF1000(os, player->getYaw());
+		writeU8(os, player->animation_id);
+		writeU16(os, player->pointed_id);
 	}
 
 	// Make data buffer
@@ -4937,7 +4940,7 @@ void Server::SendPlayerInfo(float dtime)
 	m_con.SendToAll(0, data, false);
 }
 
-void Server::SendPlayerInfos()
+void Server::SendPlayerData()
 {
 	DSTACK(__FUNCTION_NAME);
 
@@ -5023,36 +5026,6 @@ void Server::SendInventory(u16 peer_id, bool full)
 		// Send as reliable
 		m_con.Send(peer_id, 0, data, true);
 	}
-}
-
-std::string getWieldedItemString(const Player *player)
-{
-	const InventoryItem *item = player->getWieldItem();
-	if (item == NULL)
-		return std::string("");
-	std::ostringstream os(std::ios_base::binary);
-	item->serialize(os);
-	return os.str();
-}
-
-void Server::SendPlayerAnim(const Player* player, u8 animation_id, content_t pointed)
-{
-	DSTACK(__FUNCTION_NAME);
-
-	assert(player);
-
-	std::ostringstream os(std::ios_base::binary);
-
-	writeU16(os, TOCLIENT_PLAYER_ANIMATION);
-	writeU16(os, player->peer_id);
-	writeU8(os, animation_id);
-	writeU16(os, pointed);
-
-	// Make data buffer
-	std::string s = os.str();
-	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
-
-	m_con.SendToAll(0, data, true);
 }
 
 void Server::SendPlayerItems()
@@ -5664,12 +5637,8 @@ void Server::HandlePlayerHP(Player *player, s16 damage, s16 suffocate, s16 hunge
 
 		SendPlayerState(player);
 
-		RemoteClient *client = getClient(player->peer_id);
-		if (client->net_proto_version >= 3) {
-			SendDeathscreen(m_con, player->peer_id, false, v3f(0,0,0));
-		}else{
-			RespawnPlayer(player);
-		}
+		player->updateAnim(PLAYERANIM_DIE,CONTENT_AIR);
+		SendDeathscreen(m_con, player->peer_id, false, v3f(0,0,0));
 	}
 }
 
@@ -5685,6 +5654,7 @@ void Server::RespawnPlayer(Player *player)
 	player->dirt = 0;
 	player->wet = 0;
 	player->blood = 0;
+	player->updateAnim(PLAYERANIM_STAND,CONTENT_AIR);
 	SendMovePlayer(player);
 	SendPlayerState(player);
 }
@@ -6020,7 +5990,7 @@ void Server::handlePeerChange(PeerChange &c)
 		m_clients.remove(c.peer_id);
 
 		// Send player info to all remaining clients
-		SendPlayerInfos();
+		SendPlayerData();
 
 		// Send leave chat message to all remaining clients
 		BroadcastChatMessage(message);

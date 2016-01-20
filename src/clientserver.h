@@ -80,13 +80,8 @@ enum ToClientCommand
 			v3F1000 speed
 			F1000 pitch
 			F1000 yaw
-	*/
-
-	TOCLIENT_PLAYER_ANIMATION = 0x25,
-	/*
-		[0] u16 command
-		[2] u16 peer_id
-		[4] u8 animation_id
+			u8 animation_id
+			u16 pointed_node_id
 	*/
 
 	TOCLIENT_PLAYERSTATE = 0x26,

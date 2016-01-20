@@ -43,6 +43,17 @@
 #define PLAYERANIM_DIG 2
 #define PLAYERANIM_WALKDIG 3
 #define PLAYERANIM_DIE 4
+#define PLAYERANIM_SIT 5
+
+/*
+	Animation Indices
+	Stand		0-79
+	Sit		80-161
+	Die		162-167
+	Walk		168-187
+	Dig		189-198
+	Dig/Walk	200-219
+*/
 
 #define PLAYERFLAG_HOME -1
 #define PLAYERFLAG_WHITE 0
@@ -402,6 +413,8 @@ class ServerRemotePlayer : public Player
 {
 public:
 	ServerRemotePlayer():
+		animation_id(PLAYERANIM_STAND),
+		pointed_id(CONTENT_AIR),
 		m_addr("")
 	{
 	}
@@ -422,6 +435,14 @@ public:
 	std::string getAddress() {return m_addr;}
 
 	virtual void setCharDef(std::string d);
+
+	u8 animation_id;
+	content_t pointed_id;
+	virtual void updateAnim(u8 anim_id, content_t pointed)
+	{
+		animation_id = anim_id;
+		pointed_id = pointed;
+	}
 
 private:
 	std::string m_addr;

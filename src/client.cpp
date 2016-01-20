@@ -984,30 +984,6 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		} //envlock
 	}
 	break;
-	case TOCLIENT_PLAYER_ANIMATION:
-	{
-		std::string datastring((char*)&data[2], datasize-2);
-		std::istringstream is(datastring, std::ios_base::binary);
-		u16 peer_id = readU16(is);
-		u8 anim_id = readU8(is);
-		content_t pointed = readU16(is);
-
-		Player *player = m_env.getPlayer(peer_id);
-
-		// Create a player if it doesn't exist
-		if (player == NULL) {
-			player = new RemotePlayer(
-					m_device->getSceneManager()->getRootSceneNode(),
-					m_device,
-					-1);
-			player->peer_id = peer_id;
-			m_env.addPlayer(player);
-			infostream<<"Client: Adding new player " <<peer_id<<std::endl;
-		}
-
-		player->updateAnim(anim_id,pointed);
-	}
-	break;
 	case TOCLIENT_PLAYERSTATE:
 	{
 		std::string datastring((char*)&data[2], datasize-2);
@@ -1101,6 +1077,8 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			v3f speed = readV3F1000(is);
 			f32 pitch = readF1000(is);
 			f32 yaw = readF1000(is);
+			u8 anim_id = readU8(is);
+			content_t pointed = readU16(is);
 
 			Player *player = m_env.getPlayer(peer_id);
 
@@ -1116,6 +1094,7 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			player->setSpeed(speed);
 			player->setPitch(pitch);
 			player->setYaw(yaw);
+			player->updateAnim(anim_id,pointed);
 		}
 	}
 	break;

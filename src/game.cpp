@@ -2265,9 +2265,9 @@ void the_game(
 					hotbar_imagesize,
 					hotbar_itemcount,
 					&local_inventory,
-					client.getHP(),
-					client.getAir(),
-					hunger
+					client.getHP()/5,
+					client.getAir()/5,
+					hunger/5
 				);
 			}else{
 				int crosshair = 1;

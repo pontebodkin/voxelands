@@ -697,27 +697,32 @@ void RemotePlayer::move(f32 dtime, Map &map, f32 pos_max_d)
 		sound_playDig(m_pointed,m_showpos);
 	}
 
-	if (
-		(
-			movevector.X < 0.001
-			&& movevector.X > -0.001
-		) || (
-			movevector.Z < 0.001
-			&& movevector.Z > -0.001
-		)
-	) {
-		if (m_anim_id == PLAYERANIM_DIG) {
-			if (m_node->getEndFrame() != 198)
-				m_node->setFrameLoop(189,198);
-		}else if (m_node->getEndFrame() != 79) {
-			m_node->setFrameLoop(0,79);
-		}
+	if (m_anim_id == PLAYERANIM_DIE) {
+		if (m_node->getEndFrame() != 167)
+			m_node->setFrameLoop(162,167);
 	}else{
-		if (m_anim_id == PLAYERANIM_DIG) { // walk/dig
-			if (m_node->getEndFrame() != 219)
-				m_node->setFrameLoop(200,219);
-		}else if (m_node->getEndFrame() != 187) { // walk
-			m_node->setFrameLoop(168,187);
+		if (
+			(
+				movevector.X < 0.001
+				&& movevector.X > -0.001
+			) || (
+				movevector.Z < 0.001
+				&& movevector.Z > -0.001
+			)
+		) {
+			if (m_anim_id == PLAYERANIM_DIG) {
+				if (m_node->getEndFrame() != 198)
+					m_node->setFrameLoop(189,198);
+			}else if (m_node->getEndFrame() != 79) {
+				m_node->setFrameLoop(0,79);
+			}
+		}else{
+			if (m_anim_id == PLAYERANIM_DIG) { // walk/dig
+				if (m_node->getEndFrame() != 219)
+					m_node->setFrameLoop(200,219);
+			}else if (m_node->getEndFrame() != 187) { // walk
+				m_node->setFrameLoop(168,187);
+			}
 		}
 	}
 
