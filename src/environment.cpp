@@ -585,7 +585,7 @@ void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
 		block->setChangedFlag();
 	}
 
-	if (block->m_active_objects.size() > 5 || myrand_range(0,20) != 0)
+	if (block->m_active_objects.size() > 3 || myrand_range(0,50) != 0)
 		return;
 
 	bool has_spawn = false;
