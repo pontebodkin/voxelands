@@ -58,7 +58,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_WATERSOURCE 0x009
 #define CONTENT_FORGE_FIRE 0x00A
 #define CONTENT_MARBLE 0x00B
-// FREE 0x00C
+#define CONTENT_SPACEROCK 0x00C
 #define CONTENT_SAFE 0x00D
 #define CONTENT_SIGN_WALL 0x00E
 #define CONTENT_CHEST 0x00F

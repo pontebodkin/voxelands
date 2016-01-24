@@ -2597,6 +2597,7 @@ void ServerEnvironment::step(float dtime)
 					std::vector<content_t> search;
 					bool found = false;
 					search.push_back(CONTENT_WATER);
+					search.push_back(CONTENT_VACUUM);
 					search.push_back(CONTENT_WATERSOURCE);
 					if (p.Y > 60 && p.Y < 1024) {
 						found = true;

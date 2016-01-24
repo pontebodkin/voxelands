@@ -1863,7 +1863,8 @@ void the_game(
 		float time_brightness = (float)decode_light((daynight_ratio * LIGHT_SUN) / 1000) / 255.0;
 		float direct_brightness = 0;
 		bool sunlight_seen = false;
-		if (free_move) {
+		bool in_space = (client.getLocalPlayer()->getPosition().Y>(1024*BS));
+		if (in_space || free_move) {
 			direct_brightness = time_brightness;
 			sunlight_seen = true;
 		}else{
@@ -1895,7 +1896,7 @@ void the_game(
 
 		float moon_phase = client.getEnv().getMoonPhase();
 
-		sky->update(time_of_day_smooth, moon_phase, time_brightness, direct_brightness, sunlight_seen);
+		sky->update(time_of_day_smooth, moon_phase, time_brightness, direct_brightness, sunlight_seen, in_space);
 
 		video::SColor bgcolor = sky->getBgColor();
 		video::SColor skycolor = sky->getSkyColor();

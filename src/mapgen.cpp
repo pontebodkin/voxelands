@@ -1170,10 +1170,27 @@ double tree_amount_2d(uint64_t seed, v2s16 p)
 			0.5+(float)p.X/125, 0.5+(float)p.Y/125,
 			seed+2, 4, 0.66);
 	double zeroval = -0.39;
-	if(noise < zeroval)
+	if (noise < zeroval)
 		return 0;
-	else
-		return 0.04 * (noise-zeroval) / (1.0-zeroval);
+
+	return 0.04 * (noise-zeroval) / (1.0-zeroval);
+}
+
+// used in space
+double debris_amount_2d(uint64_t seed, v2s16 p)
+{
+	double noise = noise2d_perlin(
+		0.5+(float)p.X/125,
+		0.5+(float)p.Y/125,
+		seed+2,
+		4,
+		0.7
+	);
+	double zeroval = -0.41;
+	if (noise < zeroval)
+		return 0;
+
+	return 0.037 * (noise-zeroval) / (1.0-zeroval);
 }
 
 double surface_humidity_2d(uint64_t seed, v2s16 p)
@@ -1327,10 +1344,158 @@ bool get_have_sand(uint64_t seed, v2s16 p2d)
 	return (sandnoise > -0.15);
 }
 
+void make_space(BlockMakeData *data)
+{
+	v3s16 blockpos = data->blockpos;
+
+	ManualMapVoxelManipulator &vmanip = *(data->vmanip);
+	// Area of center block
+	v3s16 node_min = blockpos*MAP_BLOCKSIZE;
+	v3s16 node_max = (blockpos+v3s16(1,1,1))*MAP_BLOCKSIZE-v3s16(1,1,1);
+	// Full allocated area
+	v3s16 full_node_min = (blockpos-1)*MAP_BLOCKSIZE;
+	// Area of a block
+	double block_area_nodes = MAP_BLOCKSIZE*MAP_BLOCKSIZE;
+
+	v2s16 p2d_center(node_min.X+MAP_BLOCKSIZE/2, node_min.Z+MAP_BLOCKSIZE/2);
+	u32 blockseed = (u32)(data->seed%0x100000000ULL) + full_node_min.Z*38134234 + full_node_min.Y*42123 + full_node_min.X*23;
+
+	for (s16 x=node_min.X; x<=node_max.X; x++)
+	for (s16 z=node_min.Z; z<=node_max.Z; z++) {
+		// Node position
+		v2s16 p2d(x,z);
+		{
+			// Use fast index incrementing
+			v3s16 em = vmanip.m_area.getExtent();
+			u32 i = vmanip.m_area.index(v3s16(p2d.X, node_min.Y, p2d.Y));
+			for (s16 y=node_min.Y; y<=node_max.Y; y++) {
+				vmanip.m_data[i] = MapNode(CONTENT_VACUUM);
+				data->vmanip->m_area.add_y(em, i, 1);
+			}
+		}
+	}
+
+	u32 debris_amount = block_area_nodes*debris_amount_2d(blockseed,p2d_center);
+
+	if (debris_amount < 10)
+		return;
+
+	NoiseBuffer noisebuf_mineral;
+	{
+		v3f minpos_f(node_min.X, node_min.Y, node_min.Z);
+		v3f maxpos_f(node_max.X, node_max.Y, node_max.Z);
+
+
+		// Sample length
+		v3f sl(2.5, 2.5, 2.5);
+		noisebuf_mineral.create(
+			get_ground_wetness_params(data->seed),
+			minpos_f.X, minpos_f.Y, minpos_f.Z,
+			maxpos_f.X, maxpos_f.Y+5, maxpos_f.Z,
+			sl.X, sl.Y, sl.Z
+		);
+	}
+
+	{
+		PseudoRandom debrisrandom(blockseed);
+		u32 count = debris_amount/6;
+		for (u32 i=0; i<count; i++) {
+			s16 x = debrisrandom.range(node_min.X, node_max.X);
+			s16 y = debrisrandom.range(node_min.Y, node_max.Y);
+			s16 z = debrisrandom.range(node_min.Z, node_max.Z);
+
+			MapNode new_content(CONTENT_VACUUM);
+
+			float mineral_noise = noisebuf_mineral.get(x,y,z);
+
+			if (mineral_noise < -0.1) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_IRON);
+			}else if (mineral_noise > 0.4) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_SILVER);
+			}else if (mineral_noise > 0.3) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_QUARTZ);
+			}else if (mineral_noise > 0.2) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_COPPER);
+			}else if (mineral_noise > 0.1) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_TIN);
+			}else if (mineral_noise > 0.0) {
+				new_content = MapNode(CONTENT_SPACEROCK, MINERAL_GOLD);
+			}
+
+			u32 vi = vmanip.m_area.index(v3s16(x,y,z));
+			if (vmanip.m_data[vi].getContent() == CONTENT_VACUUM)
+				vmanip.m_data[vi] = new_content;
+		}
+	}
+
+	if (debris_amount < 13)
+		return;
+
+	{
+		v3s16 pos = node_min+(MAP_BLOCKSIZE/2);
+		u16 comet_size = debris_amount-11;
+		if (comet_size > 5)
+			comet_size = 5;
+		s16 comet_min = -comet_size;
+		s16 comet_max = comet_size;
+		MapNode new_content(CONTENT_SPACEROCK);
+
+		float mineral_noise = noisebuf_mineral.get(pos.X,pos.Y,pos.Z);
+
+		if (mineral_noise < -0.5) {
+			new_content = MapNode(CONTENT_LAVASOURCE);
+		}else if (mineral_noise < -0.3) {
+			new_content = MapNode(CONTENT_ICE);
+		}else if (mineral_noise < -0.1) {
+			new_content = MapNode(CONTENT_STEEL);
+		}else if (mineral_noise > 0.4) {
+			new_content = MapNode(CONTENT_SILVER);
+		}else if (mineral_noise > 0.3) {
+			new_content = MapNode(CONTENT_MITHRIL_BLOCK);
+		}else if (mineral_noise > 0.2) {
+			new_content = MapNode(CONTENT_COPPER);
+		}else if (mineral_noise > 0.1) {
+			new_content = MapNode(CONTENT_TIN);
+		}else if (mineral_noise > 0.0) {
+			new_content = MapNode(CONTENT_GOLD);
+		}
+
+		for (s16 x=comet_min; x<=comet_max; x++) {
+		for (s16 y=comet_min; y<=comet_max; y++) {
+		for (s16 z=comet_min; z<=comet_max; z++) {
+			int edge = 0;
+			if (x == comet_min || x == comet_max)
+				edge++;
+			if (y == comet_min || y == comet_max)
+				edge++;
+			if (z == comet_min || z == comet_max)
+				edge++;
+
+			if (edge > 1)
+				continue;
+			u32 vi = vmanip.m_area.index(pos+v3s16(x,y,z));
+			if (vmanip.m_data[vi].getContent() != CONTENT_VACUUM)
+				continue;
+			if (edge) {
+				vmanip.m_data[vi] = MapNode(CONTENT_SPACEROCK);
+				continue;
+			}
+			vmanip.m_data[vi] = new_content;
+		}
+		}
+		}
+	}
+}
+
 void make_block(BlockMakeData *data)
 {
 	if (data->no_op)
 		return;
+
+	if ((data->blockpos.Y*MAP_BLOCKSIZE) > 1200) {
+		make_space(data);
+		return;
+	}
 
 	v3s16 blockpos = data->blockpos;
 

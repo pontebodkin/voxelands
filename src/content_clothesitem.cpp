@@ -54,7 +54,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->armour = 0.10;
 	f->warmth = 0.20;
-	f->vacuum = 0.30;
+	f->vacuum = 1.0;
 	f->durability = 20;
 	{
 		u16 r[9] = {
@@ -76,7 +76,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->armour = 0.10;
 	f->warmth = 0.20;
-	f->vacuum = 0.30;
+	f->vacuum = 1.0;
 	f->durability = 20;
 	{
 		u16 r[9] = {
@@ -98,7 +98,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->armour = 0.05;
 	f->warmth = 0.15;
-	f->vacuum = 0.20;
+	f->vacuum = 1.0;
 	f->suffocate = 1.0;
 	f->durability = 20;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
@@ -114,7 +114,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->armour = 0.05;
 	f->warmth = 0.20;
-	f->vacuum = 0.20;
+	f->vacuum = 1.0;
 	f->durability = 20;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
 	lists::add("craftguide",i);

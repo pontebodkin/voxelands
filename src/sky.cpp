@@ -42,6 +42,7 @@ Sky::Sky(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id):
 		m_cloud_brightness(0.5),
 		m_moon_phase(0.0),
 		m_moon_phase_pending(0.0),
+		m_space(false),
 		m_bgcolor_bright_f(1,1,1,1),
 		m_skycolor_bright_f(1,0,0,0),
 		m_cloudcolor_bright_f(1,1,1,1)
@@ -193,17 +194,22 @@ void Sky::render()
 		m_moon_phase = m_moon_phase_pending;
 	}
 
+	float f = 0.0;
 	// Stars
-	float starbrightness = MYMAX(
-		0,
-		MYMIN(
-			1,
-			(0.285 - fabs(
-				wicked_time_of_day < 0.5 ? wicked_time_of_day : (1.0 - wicked_time_of_day)
-			)) * 10
-		)
-	);
-	float f = starbrightness*120;
+	if (m_space) {
+		f = 120.0;
+	}else{
+		float starbrightness = MYMAX(
+			0,
+			MYMIN(
+				1,
+				(0.285 - fabs(
+					wicked_time_of_day < 0.5 ? wicked_time_of_day : (1.0 - wicked_time_of_day)
+				)) * 10
+			)
+		);
+		f = starbrightness*120;
+	}
 	if (f >= m_skycolor.getBlue()) {
 		driver->setMaterial(m_materials[1]);
 		video::SColor starcolor(255, f,f,f);
@@ -234,7 +240,8 @@ void Sky::update(
 	float moon_phase,
 	float time_brightness,
 	float direct_brightness,
-	bool sunlight_seen
+	bool sunlight_seen,
+	bool in_space
 )
 {
 	// Stabilize initial brightness and color values by flooding updates
@@ -242,7 +249,7 @@ void Sky::update(
 		m_first_update = false;
 		m_moon_phase = moon_phase;
 		for (u32 i=0; i<100; i++) {
-			update(time_of_day, moon_phase, time_brightness, direct_brightness, sunlight_seen);
+			update(time_of_day, moon_phase, time_brightness, direct_brightness, sunlight_seen, in_space);
 		}
 		return;
 	}
@@ -252,7 +259,9 @@ void Sky::update(
 	m_time_brightness = time_brightness;
 	m_sunlight_seen = sunlight_seen;
 
-	bool is_dawn = (time_brightness >= 0.20 && time_brightness < 0.50);
+	m_space = in_space;
+
+	bool is_dawn = (!in_space && time_brightness >= 0.20 && time_brightness < 0.50);
 
 	video::SColorf bgcolor_bright_normal_f(170./255,200./255,230./255, 1.0);
 	video::SColorf bgcolor_bright_indoor_f(100./255,100./255,100./255, 1.0);
@@ -264,7 +273,9 @@ void Sky::update(
 	video::SColorf cloudcolor_bright_normal_f = video::SColor(255, 240,240,255);
 	video::SColorf cloudcolor_bright_dawn_f(1.0, 0.7, 0.5, 1.0);
 
-	if (sunlight_seen) {
+	if (in_space) {
+		m_brightness = 0.02;
+	}else if (sunlight_seen) {
 		if (fabs(time_brightness - m_brightness) < 0.2) {
 			m_brightness = m_brightness * 0.95 + time_brightness * 0.05;
 		}else{
@@ -276,7 +287,7 @@ void Sky::update(
 		m_brightness = m_brightness * 0.98 + direct_brightness * 0.02;
 	}
 
-	m_clouds_visible = true;
+	m_clouds_visible = !in_space;
 	float color_change_fraction = 0.98;
 	if (sunlight_seen) {
 		if (is_dawn) {

@@ -1564,4 +1564,22 @@ void content_craftitem_init()
 	f->name = "salt_dust";
 	f->description = wgettext("Salt");
 	lists::add("creative",i);
+
+	i = CONTENT_CRAFTITEM_OERKKI_DUST_SPACE;
+	f = &g_content_craftitem_features[i];
+	f->content = CONTENT_CRAFTITEM_OERKKI_DUST_SPACE;
+	f->texture = "oerkki_dust_space.png";
+	f->name = "oerkki_dust_space";
+	f->description = wgettext("Space Dust");
+	f->drop_count = 1;
+	f->teleports = PLAYERFLAG_JUMP; // teleports player up 1500
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_OERKKI_DUST,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_OERKKI_DUST,	CONTENT_CRAFTITEM_MITHRILDUST,	CONTENT_CRAFTITEM_OERKKI_DUST,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_OERKKI_DUST,	CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_OERKKI_DUST_SPACE,1);
+	}
+	lists::add("creative",i);
 }

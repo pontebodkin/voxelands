@@ -65,6 +65,7 @@
 #define PLAYERFLAG_YELLOW 6
 #define PLAYERFLAG_BLACK 7
 #define PLAYERFLAG_COUNT 8
+#define PLAYERFLAG_JUMP PLAYERFLAG_COUNT
 
 #define PLAYER_FEET	0x01
 #define PLAYER_LLEG	0x02
@@ -332,7 +333,7 @@ public:
 						continue;
 					break;
 				case PLAYER_TORSO:
-					if (j != 1)
+					if (j != 1 && j != 2)
 						continue;
 					break;
 				case PLAYER_HANDS:

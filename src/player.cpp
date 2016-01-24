@@ -341,6 +341,9 @@ bool Player::getHome(s8 i, v3f &h)
 			return false;
 		h = m_flag[i];
 		return true;
+	}else if (i == PLAYERFLAG_JUMP) {
+		h = m_position+intToFloat(v3s16(0,1500,0),BS);
+		return true;
 	}
 	return false;
 }

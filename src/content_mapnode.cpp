@@ -251,6 +251,21 @@ void content_mapnode_init(bool repeat)
 	lists::add("cooking",i);
 	lists::add("decrafting",i);
 
+	i = CONTENT_SPACEROCK;
+	f = &content_features(i);
+	f->description = wgettext("Space Rock");
+	f->setAllTextures("spacerock.png");
+	f->setInventoryTextureCube("spacerock.png", "spacerock.png", "spacerock.png");
+	f->param_type = CPT_MINERAL;
+	f->draw_type = CDT_CUBELIKE;
+	f->is_ground_content = true;
+	f->often_contains_mineral = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->type = CMT_STONE;
+	f->hardness = 1.1;
+	if (invisible_stone)
+		f->solidness = 0; // For debugging, hides regular stone
+
 	i = CONTENT_MARBLE;
 	f = &content_features(i);
 	f->description = wgettext("Marble");
