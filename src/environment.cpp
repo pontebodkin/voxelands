@@ -3745,15 +3745,20 @@ void ClientEnvironment::step(float dtime)
 		{
 			// Apply physics
 			if (lplayer->control.free == false && is_climbing == false) {
+				bool space = (lplayer->getPosition().Y > 1000*BS);
 				// Gravity
 				v3f speed = lplayer->getSpeed();
-				if (lplayer->swimming_up == false)
-					speed.Y -= 9.81 * BS * dtime_part * 2;
+				if (lplayer->swimming_up == false) {
+					float pull = 9.81;
+					if (space)
+						pull = 1.0;
+					speed.Y -= (pull*BS)*(dtime_part*2);
+				}
 
 				// Water resistance
 				if (lplayer->in_water_stable || lplayer->in_water) {
 					f32 max_down = 2.0*BS;
-					if (speed.Y < -max_down)
+					if (!space && speed.Y < -max_down)
 						speed.Y = -max_down;
 
 					f32 max = 2.5*BS;
