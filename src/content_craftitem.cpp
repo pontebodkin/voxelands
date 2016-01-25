@@ -1581,5 +1581,6 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_OERKKI_DUST_SPACE,1);
 	}
+	lists::add("craftguide",i);
 	lists::add("creative",i);
 }
