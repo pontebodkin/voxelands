@@ -2201,7 +2201,7 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
 {
-	if (data->mesh_detail < 3) {
+	if (data->mesh_detail < 2) {
 		meshgen_plantlike(data,p,n,selected);
 		return;
 	}
@@ -2353,7 +2353,8 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 
 		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
 	}
-	for (u32 j=0; j<8; j++) {
+	u32 max = (data->mesh_detail == 3 ? 8 : 4);
+	for (u32 j=0; j<max; j++) {
 		video::S3DVertex v[8];
 
 		for (u16 i=0; i<8; i++) {
