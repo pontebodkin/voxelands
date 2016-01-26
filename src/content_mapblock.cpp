@@ -561,6 +561,71 @@ static int meshgen_check_walllike(MeshMakeData *data, MapNode n, v3s16 p, u8 d[8
 	return 2;
 }
 
+static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p, bool *ignore)
+{
+	int level = 0;
+	bool would_ignore;
+	bool my_ignore[4] = {
+		false,
+		false,
+		false,
+		false
+	};
+	v3s16 around[4] = {
+		v3s16(-1,0,0),
+		v3s16(1,0,0),
+		v3s16(0,0,-1),
+		v3s16(0,0,1)
+	};
+	MapNode nn;
+	ContentFeatures *f = &content_features(n.getContent());
+	if (f->draw_type != CDT_PLANTLIKE && f->draw_type != CDT_PLANTLIKE_FERN)
+		return 0;
+
+	if (!ignore)
+		ignore = my_ignore;
+
+	for (int i=0; i<4; i++) {
+		if (ignore[i]) {
+			level++;
+			continue;
+		}
+		nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+around[i]);
+		would_ignore = ignore[i];
+		ignore[i] = true;
+		if (
+			nn.getContent() == CONTENT_WATERSOURCE
+			|| (
+				(
+					content_features(nn.getContent()).draw_type == CDT_PLANTLIKE
+					|| content_features(nn.getContent()).draw_type == CDT_PLANTLIKE_FERN
+				) && meshgen_check_plantlike_water(data,nn,p+around[i],ignore) > 0
+			)
+		) {
+			level++;
+		}
+		ignore[i] = would_ignore;
+	}
+
+	if (level != 4)
+		return 0;
+
+	nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(0,1,0));
+	if (
+		nn.getContent() == CONTENT_WATERSOURCE
+		|| (
+			(
+				content_features(nn.getContent()).draw_type == CDT_PLANTLIKE
+				|| content_features(nn.getContent()).draw_type == CDT_PLANTLIKE_FERN
+			) && meshgen_check_plantlike_water(data,nn,p+v3s16(0,1,0),NULL) > 0
+		)
+	) {
+		return 2;
+	}
+
+	return 1;
+}
+
 static void meshgen_cuboid(
 	MeshMakeData *data,
 	MapNode &n,
@@ -2205,6 +2270,32 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
 		}
 	}
+
+	if (selected.is_coloured || selected.has_crack)
+		return;
+
+	if (meshgen_check_plantlike_water(data, n, p, NULL) == 1) {
+		tile.texture = g_texturesource->getTexture("water.png");
+		tile.material_flags = 0;
+		tile.material_type = MATERIAL_ALPHA_VERTEX;
+		pos = intToFloat(p,BS);
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(-0.5*BS, 0.375*BS,-0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(),tile.texture.y0()),
+			video::S3DVertex( 0.5*BS, 0.375*BS,-0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(),tile.texture.y0()),
+			video::S3DVertex( 0.5*BS, 0.375*BS, 0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(),tile.texture.y1()),
+			video::S3DVertex(-0.5*BS, 0.375*BS, 0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(),tile.texture.y1())
+		};
+
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		meshgen_lights(data,n,p,colours,160,v3s16(0,1,0),4,vertices);
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+		}
+
+		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+	}
 }
 
 void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
@@ -2395,6 +2486,32 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 		}
 
 		data->append(tile.getMaterial(), v, 8, indices, 12, colours);
+	}
+
+	if (selected.is_coloured || selected.has_crack)
+		return;
+
+	if (meshgen_check_plantlike_water(data, n, p, NULL) == 1) {
+		tile.texture = g_texturesource->getTexture("water.png");
+		tile.material_flags = 0;
+		tile.material_type = MATERIAL_ALPHA_VERTEX;
+		pos = intToFloat(p,BS);
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(-0.5*BS, 0.375*BS,-0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(),tile.texture.y0()),
+			video::S3DVertex( 0.5*BS, 0.375*BS,-0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(),tile.texture.y0()),
+			video::S3DVertex( 0.5*BS, 0.375*BS, 0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(),tile.texture.y1()),
+			video::S3DVertex(-0.5*BS, 0.375*BS, 0.5*BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(),tile.texture.y1())
+		};
+
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		meshgen_lights(data,n,p,colours,160,v3s16(0,1,0),4,vertices);
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+		}
+
+		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -2725,7 +2842,9 @@ void meshgen_liquid_source(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode
 		n2p = data->m_blockpos_nodes + p + g_6dirs[j];
 		n2 = data->m_vmanip.getNodeRO(n2p);
 		f2 = &content_features(n2);
-		if (f2->liquid_type != LIQUID_NONE) {
+		if (meshgen_check_plantlike_water(data,n2,p+g_6dirs[j],NULL)) {
+			continue;
+		}else if (f2->liquid_type != LIQUID_NONE) {
 			if (n2.getContent() == f->liquid_alternative_flowing)
 				continue;
 			if (n2.getContent() == f->liquid_alternative_source)
