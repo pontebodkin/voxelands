@@ -2919,6 +2919,44 @@ void meshgen_glasslike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 
 		data->append(tiles[j].getMaterial(), vertices, 4, indices, 6, colours);
 	}
+
+	if (data->mesh_detail > 2 && data->light_detail > 2 && content_features(n.getContent()).light_source > 0) {
+		TileSpec tile;
+		tile.texture = g_texturesource->getTexture("flare.png");
+		tile.material_flags = 0;
+		tile.material_type = MATERIAL_ALPHA_BLEND;
+		s16 angle[4] = {
+			45,
+			-45,
+			45,
+			-45
+		};
+		for (u32 j=0; j<4; j++) {
+			video::S3DVertex vertices[4] = {
+				video::S3DVertex(-1.125*BS,-1.125*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+				video::S3DVertex( 1.125*BS,-1.125*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+				video::S3DVertex( 1.125*BS, 1.125*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,0.),
+				video::S3DVertex(-1.125*BS, 1.125*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,0.)
+			};
+
+			for (u16 i=0; i<4; i++) {
+				if (j > 1) {
+					vertices[i].Pos.rotateYZBy(angle[j]);
+				}else{
+					vertices[i].Pos.rotateXZBy(angle[j]);
+				}
+				vertices[i].Pos += pos;
+				vertices[i].TCoords *= tile.texture.size;
+				vertices[i].TCoords += tile.texture.pos;
+			}
+
+			u16 indices[] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			meshgen_custom_lights(colours,255,255,255,255,4);
+
+			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		}
+	}
 }
 
 void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
@@ -2939,6 +2977,7 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 		v3s16( 0, 0, 1),
 		v3s16( 0, 0,-1),
 	};
+	v3f os(0,0,0);
 	v3s16 dir = unpackDir(n.param2);
 	video::S3DVertex vertices[6][4] = {
 		{	// up
@@ -2979,6 +3018,7 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	f32 sy = tile.texture.y1()-tile.texture.y0();
 
 	if (dir.Y == 1) { // roof
+		os.Y = -0.125*BS;
 		for (s32 i=0; i<6; i++) {
 			for (int j=0; j<4; j++) {
 				vertices[i][j].Pos.rotateXYBy(175);
@@ -2991,6 +3031,7 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			}
 		}
 	}else if (dir.Y == -1) { // floor
+		os.Y = 0.125*BS;
 		for (s32 i=0; i<6; i++) {
 			for (int j=0; j<4; j++) {
 				vertices[i][j].TCoords *= v2f(sx,sy);
@@ -3001,6 +3042,17 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			}
 		}
 	}else{ // wall
+		os.Y = 0.375*BS;
+		os.Z = 0.375*BS;
+		if (dir.X == 1) {
+			os.rotateXZBy(-90);
+		}else if (dir.X == -1) {
+			os.rotateXZBy(90);
+		}else if (dir.Z == 1) {
+			os.rotateXZBy(0);
+		}else if (dir.Z == -1) {
+			os.rotateXZBy(180);
+		}
 		for (s32 i=0; i<6; i++) {
 			for (int j=0; j<4; j++) {
 				vertices[i][j].Pos.Y += 0.25*BS;
@@ -3010,8 +3062,6 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					vertices[i][j].Pos.rotateXZBy(-90);
 				}else if (dir.X == -1) {
 					vertices[i][j].Pos.rotateXZBy(90);
-				}else if (dir.Z == 1) {
-					vertices[i][j].Pos.rotateXZBy(0);
 				}else if (dir.Z == -1) {
 					vertices[i][j].Pos.rotateXZBy(180);
 				}
@@ -3043,6 +3093,43 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 		}
 
 		data->append(tile.getMaterial(), vertices[j], 4, indices, 6, colours);
+	}
+
+	if (data->mesh_detail > 2 && data->light_detail > 2) {
+		tile.texture = g_texturesource->getTexture("flare.png");
+		tile.material_flags = 0;
+		tile.material_type = MATERIAL_ALPHA_BLEND;
+		s16 angle[4] = {
+			45,
+			-45,
+			45,
+			-45
+		};
+		for (u32 j=0; j<4; j++) {
+			video::S3DVertex vertices[4] = {
+				video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+				video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+				video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,0.),
+				video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,0.)
+			};
+
+			for (u16 i=0; i<4; i++) {
+				if (j > 1) {
+					vertices[i].Pos.rotateYZBy(angle[j]);
+				}else{
+					vertices[i].Pos.rotateXZBy(angle[j]);
+				}
+				vertices[i].Pos += pos+os;
+				vertices[i].TCoords *= tile.texture.size;
+				vertices[i].TCoords += tile.texture.pos;
+			}
+
+			u16 indices[] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			meshgen_custom_lights(colours,255,255,255,255,4);
+
+			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		}
 	}
 }
 
