@@ -1113,14 +1113,14 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		case 8:
 			if (n.param2 == 0) {
 				tex = "grass_jungle.png";
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					for (int i=0; i<6; i++) {
 						o_faces[i] = faces[i];
 					}
 				}
 			}else{
 				tex = getGrassTile(n.param2,btex,"grass_growing_jungle.png");
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					u8 pg = n.param2&0xF0;
 					if ((pg&(1<<7)) != 0) { // -Z
 						o_faces[5] = faces[5];
@@ -1141,7 +1141,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			break;
 		case 4:
 			tex = "snow.png";
-			if (data->mesh_detail > 1) {
+			if (data->mesh_detail > 2) {
 				for (int i=0; i<6; i++) {
 					o_faces[i] = faces[i];
 				}
@@ -1151,14 +1151,14 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		case 2:
 			if (n.param2 == 0) {
 				tex = "grass_autumn.png";
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					for (int i=0; i<6; i++) {
 						o_faces[i] = faces[i];
 					}
 				}
 			}else{
 				tex = getGrassTile(n.param2,btex,"grass_growing_autumn.png");
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					u8 pg = n.param2&0xF0;
 					if ((pg&(1<<7)) != 0) { // -Z
 						o_faces[5] = faces[5];
@@ -1179,14 +1179,14 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		case 1:
 			if (n.param2 == 0) {
 				tex = "grass.png";
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					for (int i=0; i<6; i++) {
 						o_faces[i] = faces[i];
 					}
 				}
 			}else{
 				tex = getGrassTile(n.param2,btex,"grass_growing.png");
-				if (data->mesh_detail > 1) {
+				if (data->mesh_detail > 2) {
 					u8 pg = n.param2&0xF0;
 					if ((pg&(1<<7)) != 0) { // -Z
 						o_faces[5] = faces[5];
@@ -1252,7 +1252,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		0.0  // x-,z+
 	};
 
-	if (data->mesh_detail > 2) {
+	if (data->mesh_detail > 1) {
 		v3s16 np = data->m_blockpos_nodes + p;
 		v3s16 nearby_p[9] = {
 			v3s16(-1,0,1),  // 0 x-,z+
@@ -1583,6 +1583,27 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		v3s16(0,0,1),
 		v3s16(0,0,-1)
 	};
+	if (data->mesh_detail < 3 && data->texture_detail > 1) {
+		std::string base_name;
+		std::string o_name;
+
+		{
+			u32 orig_id = basetile.texture.id;
+			base_name = g_texturesource->getTextureName(orig_id);
+		}
+		{
+			u32 orig_id = sidetile.texture.id;
+			o_name = g_texturesource->getTextureName(orig_id);
+		}
+		// Create new texture name
+		std::ostringstream os;
+		os<<base_name<<"^"<<o_name;
+
+		// Get new texture
+		u32 new_id = g_texturesource->getTextureId(os.str());
+
+		basetile.texture = g_texturesource->getTexture(new_id);
+	}
 	for (int face=2; face<6; face++) {
 		video::S3DVertex v[4];
 		u16 indices[6] = {0,1,2,2,3,0};
