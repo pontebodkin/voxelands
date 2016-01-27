@@ -595,6 +595,8 @@ static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p,
 		ignore[i] = true;
 		if (
 			nn.getContent() == CONTENT_WATERSOURCE
+			|| content_features(nn.getContent()).draw_type == CDT_DIRTLIKE
+			|| content_features(nn.getContent()).draw_type == CDT_CUBELIKE
 			|| (
 				(
 					content_features(nn.getContent()).draw_type == CDT_PLANTLIKE
