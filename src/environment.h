@@ -387,6 +387,9 @@ public:
 
 	void setPostStepNodeSwap(v3s16 pos, MapNode n) {m_poststep_nodeswaps[pos] = n;}
 
+	bool getCollidedPosition(v3s16 pos, v3s16 dir, v3s16 *result);
+	bool dropToParcel(v3s16 pos, InventoryItem *item);
+
 private:
 
 	/*

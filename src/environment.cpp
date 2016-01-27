@@ -804,6 +804,275 @@ bool ServerEnvironment::searchNearInv(v3s16 pos, v3s16 radius_min, v3s16 radius_
 	return false;
 }
 
+/* search from pos in direction dir, until a collidable node is hit
+ * if pos is a collidable node, then search till not collidable
+ * return false if CONTENT_IGNORE is found
+ * return true otherwise
+ * result is a non-collidable node, which is:
+ *	the first liquid node found
+ *	if searching till not collidable:
+ *		the first walkable node found
+ *	else
+ *		the last walkable node found
+ */
+bool ServerEnvironment::getCollidedPosition(v3s16 pos, v3s16 dir, v3s16 *result)
+{
+	ContentFeatures *f;
+	v3s16 cpos = pos;
+	MapNode n = m_map->getNodeNoEx(pos);
+	if (n.getContent() == CONTENT_IGNORE)
+		return false;
+
+	f = &content_features(n.getContent());
+
+	// if pos is a collidable node, search till not collidable
+	if (!f->walkable) {
+		while (!f->walkable) {
+			cpos += dir;
+			n = m_map->getNodeNoEx(cpos);
+			if (n.getContent() == CONTENT_IGNORE)
+				return false;
+
+			f = &content_features(n.getContent());
+		}
+	//else search till collidable, then go back one
+	}else{
+		while (f->walkable) {
+			cpos += dir;
+			n = m_map->getNodeNoEx(cpos);
+			if (n.getContent() == CONTENT_IGNORE)
+				return false;
+
+			f = &content_features(n.getContent());
+		}
+		cpos -= dir;
+		n = m_map->getNodeNoEx(cpos);
+		f = &content_features(n.getContent());
+	}
+
+	// if node is liquid, or air_equivalent and buildable_to, return true
+	if (f->liquid_type != LIQUID_NONE || (f->air_equivalent && f->buildable_to)) {
+		if (result)
+			*result = cpos;
+		return true;
+	}
+
+	// otherwise, reverse direction, but no further than (but including) pos
+	// search for last air_equivalent and buildable_to
+	while (cpos != pos) {
+		cpos -= dir;
+		n = m_map->getNodeNoEx(cpos);
+		if (n.getContent() == CONTENT_IGNORE)
+			return false;
+
+		f = &content_features(n.getContent());
+		if (f->liquid_type != LIQUID_NONE || (f->air_equivalent && f->buildable_to)) {
+			if (result)
+				*result = cpos;
+			return true;
+		}
+	}
+
+	n = m_map->getNodeNoEx(cpos);
+	if (n.getContent() == CONTENT_IGNORE)
+		return false;
+
+	f = &content_features(n.getContent());
+
+	// if found, return true
+	if (f->liquid_type != LIQUID_NONE || (f->air_equivalent && f->buildable_to)) {
+		if (result)
+			*result = cpos;
+		return true;
+	}
+
+	// otherwise, return false
+	return false;
+}
+
+bool ServerEnvironment::dropToParcel(v3s16 pos, InventoryItem *item)
+{
+	v3s16 ppos;
+	NodeMetadata *meta;
+	Inventory *inv;
+	InventoryList *list;
+
+	if (!item)
+		return true;
+
+	// check for single material item and above dirtlike
+	// if so, and it has a place_on_drop then
+	if (
+		item->getCount() == 1
+		&& (item->getContent()&0xF000) == 0
+		&& content_features(item->getContent()).place_on_drop != CONTENT_IGNORE
+		&& getCollidedPosition(pos,v3s16(0,-1,0),&ppos)
+		&& content_features(m_map->getNodeNoEx(ppos+v3s16(0,-1,0)).getContent()).draw_type == CDT_DIRTLIKE
+	) {
+		ContentFeatures *f = &content_features(item->getContent());
+		// if it's landing on a place_on_drop, destroy it
+		if (m_map->getNodeNoEx(ppos).getContent() == f->place_on_drop) {
+			delete item;
+			return true;
+		// it has a place_on_drop_alternate and a place_on_drop is nearby
+		}else if (f->place_on_drop_alternate && searchNear(ppos,v3s16(3,3,3),f->place_on_drop,NULL)) {
+			// place place_on_drop_alternate at pos
+			MapNode n(f->place_on_drop_alternate);
+			m_map->addNodeWithEvent(ppos,n);
+			delete item;
+			return true;
+		// else place place_on_drop
+		}else{
+			MapNode n(f->place_on_drop);
+			m_map->addNodeWithEvent(ppos,n);
+			delete item;
+			return true;
+		}
+	}
+
+	// look for a parcel near pos
+	if (searchNear(pos,v3s16(3,3,3),CONTENT_PARCEL,&ppos)) {
+		// add items if found
+		meta = m_map->getNodeMetadata(ppos);
+		if (meta) {
+			inv = meta->getInventory();
+			if (inv) {
+				list = inv->getList("0");
+				if (list)
+					item = list->addItem(item);
+			}
+		}
+	}
+
+	if (!item) {
+		v3s16 bp = getNodeBlockPos(ppos);
+		MapBlock *block = m_map->getBlockNoCreateNoEx(bp);
+		if (block) {
+			MapEditEvent event;
+			event.type = MEET_BLOCK_NODE_METADATA_CHANGED;
+			event.p = bp;
+			m_map->dispatchEvent(&event);
+
+			block->setChangedFlag();
+		}
+		return true;
+	}
+
+	// if underground, go up to first air_equivalent and buildable_to
+	if (!content_features(m_map->getNodeNoEx(pos).getContent()).air_equivalent) {
+		if (!getCollidedPosition(pos,v3s16(0,1,0),&ppos)) {
+			delete item;
+			return false;
+		}
+		pos = ppos;
+	// otherwise go down to first non-air_equivalent and buildable_to
+	}else{
+		if (!getCollidedPosition(pos,v3s16(0,-1,0),&ppos)) {
+			delete item;
+			return false;
+		}
+		pos = ppos;
+	}
+
+	// look for a parcel near pos
+	if (searchNear(pos,v3s16(3,3,3),CONTENT_PARCEL,&ppos)) {
+		// add items if found
+		meta = m_map->getNodeMetadata(ppos);
+		if (meta) {
+			inv = meta->getInventory();
+			if (inv) {
+				list = inv->getList("0");
+				if (list)
+					item = list->addItem(item);
+			}
+		}
+	}
+
+	if (!item) {
+		v3s16 bp = getNodeBlockPos(ppos);
+		MapBlock *block = m_map->getBlockNoCreateNoEx(bp);
+		if (block) {
+			MapEditEvent event;
+			event.type = MEET_BLOCK_NODE_METADATA_CHANGED;
+			event.p = bp;
+			m_map->dispatchEvent(&event);
+
+			block->setChangedFlag();
+		}
+		return true;
+	}
+
+	// if liquid, do a slightly wider search for a parcel on shore
+	if (content_features(m_map->getNodeNoEx(pos).getContent()).liquid_type != LIQUID_NONE) {
+		if (content_features(m_map->getNodeNoEx(pos).getContent()).damage_per_second > 0) {
+			delete item;
+			return false;
+		}else if (searchNear(pos,v3s16(5,5,5),CONTENT_PARCEL,&ppos)) {
+			// add items if found
+			meta = m_map->getNodeMetadata(ppos);
+			if (meta) {
+				inv = meta->getInventory();
+				if (inv) {
+					list = inv->getList("0");
+					if (list)
+						item = list->addItem(item);
+				}
+			}
+		}
+	}
+
+	if (!item) {
+		v3s16 bp = getNodeBlockPos(ppos);
+		MapBlock *block = m_map->getBlockNoCreateNoEx(bp);
+		if (block) {
+			MapEditEvent event;
+			event.type = MEET_BLOCK_NODE_METADATA_CHANGED;
+			event.p = bp;
+			m_map->dispatchEvent(&event);
+
+			block->setChangedFlag();
+		}
+		return true;
+	}
+
+	// check that pos is air_equivalent and buildable_to
+	{
+		ContentFeatures *f = &content_features(m_map->getNodeNoEx(pos).getContent());
+		if (f->liquid_type != LIQUID_NONE || (f->air_equivalent && f->buildable_to)) {
+			// create a parcel
+			MapNode n(CONTENT_PARCEL);
+			m_map->addNodeWithEvent(pos,n);
+			// add items
+			meta = m_map->getNodeMetadata(pos);
+			if (meta) {
+				inv = meta->getInventory();
+				if (inv) {
+					list = inv->getList("0");
+					if (list)
+						item = list->addItem(item);
+				}
+			}
+		}
+	}
+
+	if (!item) {
+		v3s16 bp = getNodeBlockPos(pos);
+		MapBlock *block = m_map->getBlockNoCreateNoEx(bp);
+		if (block) {
+			MapEditEvent event;
+			event.type = MEET_BLOCK_NODE_METADATA_CHANGED;
+			event.p = bp;
+			m_map->dispatchEvent(&event);
+
+			block->setChangedFlag();
+		}
+		return true;
+	}
+
+	delete item;
+	return false;
+}
+
 void ServerEnvironment::step(float dtime)
 {
 	DSTACK(__FUNCTION_NAME);
@@ -1101,16 +1370,6 @@ void ServerEnvironment::step(float dtime)
 				Everything should bind to inside this single content
 				searching loop to keep things fast.
 			*/
-			u32 active_object_count_wider = 0;
-			for (s16 x=-1; x<=1; x++)
-			for (s16 y=-1; y<=1; y++)
-			for (s16 z=-1; z<=1; z++) {
-				MapBlock *wblock = m_map->getBlockNoCreateNoEx(bp+v3s16(x,y,z));
-				if (wblock == NULL)
-					continue;
-				active_object_count_wider += wblock->m_static_objects.m_objects.size();
-				active_object_count_wider += wblock->m_active_objects.size();
-			}
 
 			if (block->last_spawn < m_time_of_day-6000) {
 				MapNode n1 = block->getNodeNoEx(block->spawn_area+v3s16(0,1,0));
@@ -1713,12 +1972,8 @@ void ServerEnvironment::step(float dtime)
 							m_map->addNodeWithEvent(p, n);
 						}else{
 							m_map->removeNodeWithEvent(p);
-							if (active_object_count_wider < 10) {
-								v3f rot_pos = intToFloat(p, BS);
-								rot_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-								ServerActiveObject *obj = new ItemSAO(this, 0, rot_pos, "CraftItem mush 1");
-								addActiveObject(obj);
-							}
+							InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_MUSH,1,0,0);
+							dropToParcel(p,item);
 						}
 					}
 					break;
@@ -1762,10 +2017,8 @@ void ServerEnvironment::step(float dtime)
 						if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
 							m_map->removeNodeWithEvent(leaf_p);
 							if (myrand()%10 == 0) {
-								v3f sapling_pos = intToFloat(leaf_p, BS);
-								sapling_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-								ServerActiveObject *obj = new ItemSAO(this, 0, sapling_pos, "MaterialItem2 " + itos(n.getContent()) + " 1");
-								addActiveObject(obj);
+								InventoryItem *item = InventoryItem::create(n.getContent(),1,0,0);
+								dropToParcel(p,item);
 							}
 						}else if (n.getContent() == CONTENT_LEAVES) {
 							if (season == ENV_SEASON_AUTUMN) {
@@ -1832,10 +2085,8 @@ void ServerEnvironment::step(float dtime)
 							if (myrand()%5 == 0) {
 								n.setContent(CONTENT_APPLE_LEAVES);
 								m_map->addNodeWithEvent(p, n);
-								v3f blossom_pos = intToFloat(p, BS);
-								blossom_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-								ServerActiveObject *obj = new ItemSAO(this, 0, blossom_pos, "CraftItem apple_blossom 1");
-								addActiveObject(obj);
+								InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_APPLE_BLOSSOM,1,0,0);
+								dropToParcel(p,item);
 							}
 						}
 					}
@@ -1873,17 +2124,13 @@ void ServerEnvironment::step(float dtime)
 						}
 						if (n.envticks > 10) {
 							m_map->removeNodeWithEvent(p);
-							v3f ash_pos = intToFloat(p, BS);
-							ash_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-							ServerActiveObject *obj = new ItemSAO(this, 0, ash_pos, "CraftItem lump_of_ash 1");
-							addActiveObject(obj);
+							InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_ASH,1,0,0);
+							dropToParcel(p,item);
 						}
 					}else if (n.envticks > 2) {
 						m_map->removeNodeWithEvent(p);
-						v3f ash_pos = intToFloat(p, BS);
-						ash_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-						ServerActiveObject *obj = new ItemSAO(this, 0, ash_pos, "CraftItem lump_of_ash 1");
-						addActiveObject(obj);
+						InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_ASH,1,0,0);
+						dropToParcel(p,item);
 					}
 					break;
 				}
@@ -2493,17 +2740,13 @@ void ServerEnvironment::step(float dtime)
 					search.push_back(CONTENT_IGNORE);
 					if (!searchNear(p,v3s16(1,1,1),search,NULL)) {
 						m_map->removeNodeWithEvent(apple_p);
-						v3f apple_pos = intToFloat(apple_p, BS);
-						apple_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-						ServerActiveObject *obj = new ItemSAO(this, 0, apple_pos, "CraftItem apple 1");
-						addActiveObject(obj);
-					}else if ((n.envticks > 600 || (n.envticks > 100 && season == ENV_SEASON_WINTER)) && active_object_count_wider < 10) {
+						InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_APPLE,1,0,0);
+						dropToParcel(p,item);
+					}else if (n.envticks > 600 || (n.envticks > 100 && season == ENV_SEASON_WINTER)) {
 						n.setContent(CONTENT_APPLE_LEAVES);
 						m_map->addNodeWithEvent(p,n);
-						v3f rot_pos = intToFloat(p, BS);
-						rot_pos += v3f(myrand_range(-1500,1500)*1.0/1000, 0, myrand_range(-1500,1500)*1.0/1000);
-						ServerActiveObject *obj = new ItemSAO(this, 0, rot_pos, "CraftItem mush 1");
-						addActiveObject(obj);
+						InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_MUSH,1,0,0);
+						dropToParcel(p,item);
 					}
 					break;
 				}

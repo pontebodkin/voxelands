@@ -424,6 +424,11 @@ struct ContentFeatures
 	// if false then player gets as much as possible, rest stays in undug node
 	bool ondig_gives_inventory_all_or_none;
 
+	// if dropped on dirt, place this instead of inserting in a parcel
+	content_t place_on_drop;
+	// if a place_on_drop is nearby, place this instead
+	content_t place_on_drop_alternate;
+
 	// when energised, replace with this node
 	content_t powered_node;
 	// when unenergised, replace with this node
@@ -569,6 +574,8 @@ struct ContentFeatures
 		onact_also_affects = v3s16(0,0,0);
 		ondig_gives_inventory = false;
 		ondig_gives_inventory_all_or_none = false;
+		place_on_drop = CONTENT_IGNORE;
+		place_on_drop_alternate = CONTENT_IGNORE;
 		powered_node = CONTENT_IGNORE;
 		unpowered_node = CONTENT_IGNORE;
 		cook_result = "";

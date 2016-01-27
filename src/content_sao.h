@@ -31,30 +31,6 @@
 #include "content_object.h"
 #include "content_mob.h"
 
-class ItemSAO : public ServerActiveObject
-{
-public:
-	ItemSAO(ServerEnvironment *env, u16 id, v3f pos, const std::string inventorystring);
-	ItemSAO(ServerEnvironment *env, u16 id, v3f pos, float age, const std::string inventorystring);
-	u8 getType() const
-		{return ACTIVEOBJECT_TYPE_ITEM;}
-	static ServerActiveObject* create(ServerEnvironment *env, u16 id, v3f pos,
-			const std::string &data);
-	void step(float dtime, bool send_recommended);
-	std::string getClientInitializationData();
-	std::string getStaticData();
-	InventoryItem* createInventoryItem();
-	InventoryItem* createPickedUpItem(content_t punch_item){return createInventoryItem();}
-	bool rightClick(Player *player);
-private:
-	std::string m_inventorystring;
-	v3f m_speed_f;
-	v3f m_last_sent_position;
-	IntervalLimiter m_move_interval;
-	float m_age;
-	content_t m_content;
-};
-
 class MobSAO : public ServerActiveObject
 {
 public:

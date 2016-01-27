@@ -178,16 +178,6 @@ std::string InventoryItem::getItemString() {
 	return os.str();
 }
 
-ServerActiveObject* InventoryItem::createSAO(ServerEnvironment *env, u16 id, v3f pos)
-{
-	/*
-		Create an ItemSAO
-	*/
-	// Create object
-	ServerActiveObject *obj = new ItemSAO(env, 0, pos, getItemString());
-	return obj;
-}
-
 /*
 	MaterialItem
 */
@@ -414,7 +404,7 @@ ServerActiveObject* CraftItem::createSAO(ServerEnvironment *env, u16 id, v3f pos
 			return obj;
 	}
 	// Default
-	return InventoryItem::createSAO(env, id, pos);
+	return NULL;
 }
 
 u16 CraftItem::getDropCount() const
@@ -620,7 +610,7 @@ ServerActiveObject* ToolItem::createSAO(ServerEnvironment *env, u16 id, v3f pos)
 			return obj;
 	}
 	// Default
-	return InventoryItem::createSAO(env, id, pos);
+	return NULL;
 }
 
 /*

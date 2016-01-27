@@ -347,31 +347,15 @@ bool CampBedNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	if (fp == pos)
 		return false;
 
-	MapNode nn = env->getMap().getNodeNoEx(fp);
-	nn.setContent(CONTENT_PARCEL);
-	env->getMap().addNodeWithEvent(fp,nn);
-	NodeMetadata *meta = env->getMap().getNodeMetadata(fp);
-	if (meta) {
-		Inventory* inv = meta->getInventory();
-		if (inv) {
-			InventoryList *l = inv->getList("0");
-			if (l) {
-				// add random dead grass/fur to parcel
-				{
-					u16 c = myrand_range(1,4);
-					InventoryItem *item = InventoryItem::create(CONTENT_DEADGRASS,c);
-					item = l->addItem(item);
-					if (item)
-						delete item;
-				}
-				if (myrand_range(0,1)) {
-					InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_FUR,1);
-					item = l->addItem(item);
-					if (item)
-						delete item;
-				}
-			}
-		}
+	// add random dead grass/fur to parcel
+	{
+		u16 c = myrand_range(1,4);
+		InventoryItem *item = InventoryItem::create(CONTENT_DEADGRASS,c);
+		env->dropToParcel(pos,item);
+	}
+	if (myrand_range(0,1)) {
+		InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_FUR,1);
+		env->dropToParcel(pos,item);
 	}
 
 	n.setContent(CONTENT_DEADGRASS);

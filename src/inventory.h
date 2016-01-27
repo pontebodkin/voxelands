@@ -81,7 +81,7 @@ public:
 	// Returns the string used for inventory
 	virtual std::string getItemString();
 	// Creates an object from the item, to be placed in the world.
-	virtual ServerActiveObject* createSAO(ServerEnvironment *env, u16 id, v3f pos);
+	virtual ServerActiveObject* createSAO(ServerEnvironment *env, u16 id, v3f pos) {return NULL;}
 	// Gets amount of items that dropping one SAO will decrement
 	virtual u16 getDropCount() const { return getCount(); }
 

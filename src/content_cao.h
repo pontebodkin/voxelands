@@ -125,58 +125,6 @@ struct SmoothTranslator
 };
 
 /*
-	ItemCAO
-*/
-
-class ItemCAO : public ClientActiveObject
-{
-public:
-	ItemCAO();
-	virtual ~ItemCAO();
-
-	u8 getType() const
-	{
-		return ACTIVEOBJECT_TYPE_ITEM;
-	}
-
-	static ClientActiveObject* create();
-
-	void addToScene(scene::ISceneManager *smgr);
-	void removeFromScene();
-	void updateLight(u8 light_at_pos);
-	v3s16 getLightPosition();
-	void updateNodePos();
-
-	void step(float dtime, ClientEnvironment *env);
-
-	void processMessage(const std::string &data);
-
-	void initialize(const std::string &data);
-
-	core::aabbox3d<f32>* getSelectionBox() {return &m_selection_box;}
-	v3f getPosition() {return pos_translator.vect_show;}
-
-	void updateCameraOffset(v3s16 camera_offset)
-	{
-		m_camera_offset = camera_offset;
-	}
-
-	virtual content_t getContent() {return m_content;}
-
-private:
-	void updateVisual();
-
-	core::aabbox3d<f32> m_selection_box;
-	ExtrudedSpriteSceneNode *m_node;
-	v3f m_position;
-	v3s16 m_camera_offset;
-	std::string m_inventorystring;
-	content_t m_content;
-	f32 m_rot;
-	SmoothTranslator pos_translator;
-};
-
-/*
 	MobCAO
 */
 

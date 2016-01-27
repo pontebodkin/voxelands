@@ -271,6 +271,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -302,6 +304,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_AUTUMN;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -333,6 +337,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_WINTER;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -364,6 +370,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_WINTER;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -396,6 +404,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_APPLE_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_APPLE_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -427,6 +437,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_JUNGLE_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_JUNGLESAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -458,6 +470,8 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_special_drop = CONTENT_TRIMMED_CONIFER_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
+	f->place_on_drop = CONTENT_CONIFER_SAPLING;
+	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
