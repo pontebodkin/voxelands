@@ -824,7 +824,10 @@ int main(int argc, char *argv[])
 
 	// Create user data directory
 	fs::CreateDir(porting::path_userdata);
-
+        
+#if defined(linux)
+        fs::CreateDir(porting::path_configdata);
+#endif
 	init_gettext();
 
 	// Initialize debug streams
@@ -879,10 +882,10 @@ int main(int argc, char *argv[])
 		configpath = cmd_args.get("config");
 	}else{
 		core::array<std::string> filenames;
-		filenames.push_back(porting::path_userdata +
+		filenames.push_back(porting::path_configdata +
 				DIR_DELIM + "voxelands.conf");
 #ifdef RUN_IN_PLACE
-		filenames.push_back(porting::path_userdata +
+		filenames.push_back(porting::path_configdata +
 				DIR_DELIM + ".." + DIR_DELIM + "voxelands.conf");
 #endif
 

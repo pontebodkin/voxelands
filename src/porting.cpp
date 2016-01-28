@@ -124,6 +124,7 @@ void signal_handler_init(void)
 */
 
 std::string path_data = ".." DIR_DELIM "data";
+std::string path_configdata = "..";
 std::string path_userdata = "..";
 
 std::string getDataPath(const char *subpath)
@@ -213,6 +214,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/.."
 	path_userdata = std::string(buf);
+        path_configdata = std::string(buf);
 
 	/*
 		Linux
@@ -268,11 +270,13 @@ void initializePaths(char* argv0)
 
 	if (path) {
 		path_userdata = std::string(path);
+                path_configdata = std::string(path);
 		path_data = std::string(path) + "/data";
 
 		free(path);
 	}else{
 		path_userdata = std::string("..");
+                path_configdata = std::string("..");
 		path_data = std::string("../data");
 	}
 
@@ -303,6 +307,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/../data"
 	path_data = std::string(buf) + DIR_DELIM ".." DIR_DELIM "data";
+        path_configdata = std::string(buf) + DIR_DELIM + PROJECT_NAME;
 	//path_data = std::string(buf) + "/../share/" + PROJECT_NAME;
 
 	// Use "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
@@ -332,7 +337,8 @@ void initializePaths(char* argv0)
 		dstream<<" Trying " << path_data << std::endl;
 	}
 
-	path_userdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+	path_configdata = std::string(getenv("HOME")) + "/.config/" + PROJECT_NAME;
+	path_userdata = std::string(getenv("HOME")) + "/.local/share/" + PROJECT_NAME;
 
 	/*
 		OS X
@@ -359,17 +365,20 @@ void initializePaths(char* argv0)
 	CFRelease(resources_url);
 
 	path_userdata = std::string(getenv("HOME")) + "/Library/Application Support/" + PROJECT_NAME;
+        path_configdata = std::string(getenv("HOME")) + "/Library/Application Support/" + PROJECT_NAME;
 
 	#elif defined(__FreeBSD__)
 
 	path_data = std::string(INSTALL_PREFIX) + "/share/" + PROJECT_NAME;
 	path_userdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+        path_configdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
 
 	#endif
 
 #endif // RUN_IN_PLACE
 
 	dstream<<"path_data = "<<path_data<<std::endl;
+        dstream<<"path_configdata = "<<path_configdata<<std::endl;
 	dstream<<"path_userdata = "<<path_userdata<<std::endl;
 }
 
