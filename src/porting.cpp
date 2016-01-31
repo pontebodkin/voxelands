@@ -337,8 +337,16 @@ void initializePaths(char* argv0)
 		dstream<<" Trying " << path_data << std::endl;
 	}
 
-	path_configdata = std::string(getenv("HOME")) + "/.config/" + PROJECT_NAME;
-	path_userdata = std::string(getenv("HOME")) + "/.local/share/" + PROJECT_NAME;
+	if(getenv("XDG_CONFIG_HOME") == NULL) {
+		path_configdata = std::string(getenv("HOME")) + "/.config/" + PROJECT_NAME;
+	} else {
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"));
+	}
+	if(getenv("XDG_DATA_HOME") == NULL) {
+		path_userdata = std::string(getenv("HOME")) + "/.local/share/" + PROJECT_NAME;
+	} else {
+		path_userdata = std::string(getenv("XDG_DATA_HOME"));
+	}
 
 	/*
 		OS X
