@@ -73,13 +73,13 @@ bool * signal_handler_killstatus(void);
 extern std::string path_data;
 
 /*
-	Directory for storing user data. Examples:
-	Windows: "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
-	Linux: "~/.local/share/<PROJECT_NAME>"
-	Mac: "~/Library/Application Support/<PROJECT_NAME>"
+	Get full path of stuff in data directory.
+	Example: "stone.png" -> "../data/textures/stone.png"
 */
 
+
 extern std::string path_configdata;
+
 /*
 	Directory for storing user config. Examples:
 	Windows: "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
@@ -89,8 +89,10 @@ extern std::string path_configdata;
 extern std::string path_userdata;
 
 /*
-	Get full path of stuff in data directory.
-	Example: "stone.png" -> "../data/textures/stone.png"
+	Directory for storing user data. Examples:
+	Windows: "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
+	Linux: "~/.local/share/<PROJECT_NAME>"
+	Mac: "~/Library/Application Support/<PROJECT_NAME>"
 */
 std::string getDataPath(const char *subpath);
 
