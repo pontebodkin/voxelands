@@ -77,7 +77,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_STEEL_FENCE 0x01C
 #define CONTENT_STEEL_BARS 0x01D
 #define CONTENT_RAIL 0x01E
-// FREE 0x01F
+#define CONTENT_DESERT_SAND 0x01F
 #define CONTENT_LAVA 0x020
 #define CONTENT_LAVASOURCE 0x021
 #define CONTENT_LADDER_WALL 0x022

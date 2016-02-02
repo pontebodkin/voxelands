@@ -1974,6 +1974,7 @@ void make_block(BlockMakeData *data)
 
 		float surface_humidity = surface_humidity_2d(data->seed, p2d_center);
 		bool is_jungle = surface_humidity > 0.75;
+		bool is_desert = surface_humidity < 0.25;
 		/*
 			Add grass and mud
 		*/
@@ -2009,10 +2010,12 @@ void make_block(BlockMakeData *data)
 							air_detected || water_detected
 						)
 					) {
-						if (current_depth == 0 && y <= WATER_LEVEL+2 && possibly_have_sand && !is_jungle)
+						if (is_desert || (current_depth == 0 && y <= WATER_LEVEL+2 && possibly_have_sand && !is_jungle))
 							have_sand = true;
 
-						if (current_depth < 4) {
+						if (is_desert) {
+							vmanip.m_data[i] = MapNode(CONTENT_DESERT_SAND);
+						}else if (current_depth < 4) {
 							if (have_sand) {
 								vmanip.m_data[i] = MapNode(CONTENT_SAND);
 							}else if (current_depth==0 && !water_detected && y >= WATER_LEVEL && air_detected) {
@@ -2133,10 +2136,17 @@ void make_block(BlockMakeData *data)
 						}
 					}
 				// Cactii grow only on sand, on land
-				}else if (n->getContent() == CONTENT_SAND) {
+				}else if (n->getContent() == CONTENT_DESERT_SAND) {
 					if (y > (WATER_LEVEL+2)) {
 						p.Y++;
 						make_cactus(vmanip, p);
+					}
+				// grass on sand
+				}else if (n->getContent() == CONTENT_SAND) {
+					if (y > (WATER_LEVEL+2)) {
+						p.Y++;
+						if (vmanip.m_area.contains(p))
+							vmanip.m_data[vmanip.m_area.index(p)] = MapNode(CONTENT_WILDGRASS_SHORT);
 					}
 				}
 			}
