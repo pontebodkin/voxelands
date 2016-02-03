@@ -3129,6 +3129,10 @@ bool ServerEnvironment::propogateEnergy(u8 level, v3s16 powersrc, v3s16 signalsr
 			m_map->addNodeAndUpdate(pos, n, modified_blocks, st);
 		}
 	}
+	if (f.energy_type == CET_DEVICE) {
+	    // devices receive power, but don't propogate it further
+	    return false;
+	}
 
 	if (f.energy_type != CET_SOURCE && f.energy_type != CET_SWITCH)
 		level -= f.energy_drop;

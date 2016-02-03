@@ -1733,7 +1733,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureCube("tnt_top.png", "tnt.png", "tnt.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new TNTNodeMetadata();

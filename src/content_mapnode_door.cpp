@@ -116,7 +116,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_DOOR_LT;
@@ -145,7 +145,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_STEEL_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_DOOR_LT);
@@ -297,7 +297,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_W_DOOR_LT;
@@ -327,7 +327,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_STEEL_W_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_DOOR_LT);
@@ -475,7 +475,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_DOOR_RT;
@@ -504,7 +504,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	lists::add("creative",i);
@@ -594,7 +594,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_W_DOOR_RT;
@@ -624,7 +624,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1To1Recipe(CONTENT_STEEL_W_DOOR_LT,CONTENT_STEEL_W_DOOR_RT);
@@ -761,7 +761,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_DOOR_LT_OPEN;
@@ -788,7 +788,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -869,7 +869,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_W_DOOR_LT_OPEN;
@@ -896,7 +896,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -1039,7 +1039,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_DOOR_RT_OPEN;
@@ -1068,7 +1068,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -1155,7 +1155,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	i = CONTENT_STEEL_W_DOOR_RT_OPEN;
@@ -1184,7 +1184,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -1236,7 +1236,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL_HATCH);
@@ -1295,7 +1295,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_HATCH);
@@ -1360,7 +1360,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL,CONTENT_STEEL_GATE);
@@ -1421,7 +1421,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -1478,7 +1478,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 
@@ -1532,7 +1532,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 5.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 }
