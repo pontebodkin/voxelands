@@ -517,7 +517,7 @@ void plantgrowth_grass(ServerEnvironment *env, v3s16 p0)
 
 	if (p1mask == 0) {
 		bool is_jungle = false;
-		v3s16 near[4] = {
+		v3s16 nearby_pos[4] = {
 			v3s16(0,0,-1),
 			v3s16(0,0,1),
 			v3s16(-1,0,0),
@@ -525,7 +525,7 @@ void plantgrowth_grass(ServerEnvironment *env, v3s16 p0)
 		};
 
 		for (int i=0; !is_jungle && i<4; i++) {
-			MapNode nn = env->getMap().getNodeNoEx(p0+near[i]);
+			MapNode nn = env->getMap().getNodeNoEx(p0+nearby_pos[i]);
 			if (content_features(nn.getContent()).draw_type == CDT_DIRTLIKE && (nn.param1&0x0F) == 0x08)
 				is_jungle = true;
 		}
