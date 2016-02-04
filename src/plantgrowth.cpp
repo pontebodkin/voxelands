@@ -500,7 +500,10 @@ void plantgrowth_plant(ServerEnvironment *env, v3s16 p0, s16 height)
 	}else{
 		n.param2++;
 	}
-	env->getMap().addNodeWithEvent(p0,n);
+
+	/* update will fail if the content has changed, so add it */
+	if (!env->getMap().updateNodeWithEvent(p0,n))
+		env->getMap().addNodeWithEvent(p0,n);
 }
 
 void plantgrowth_grass(ServerEnvironment *env, v3s16 p0)
@@ -624,7 +627,7 @@ void plantgrowth_grass(ServerEnvironment *env, v3s16 p0)
 	}
 
 	if (add)
-		env->getMap().addNodeWithEvent(p0,n);
+		env->getMap().updateNodeWithEvent(p0,n);
 }
 
 void plantgrowth_cactus(ServerEnvironment *env, v3s16 p0)
