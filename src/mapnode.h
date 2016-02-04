@@ -172,7 +172,8 @@ enum ContentEnergyType {
 	CET_CONDUCTIVE,
 	CET_SOURCE,
 	CET_SWITCH,
-	CET_GATE
+	CET_GATE,
+	CET_DEVICE,
 };
 
 /*

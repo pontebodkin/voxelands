@@ -3532,6 +3532,9 @@ NodeMetadata* CircuitNodeMetadata::create(std::istream &is)
 NodeMetadata* CircuitNodeMetadata::clone()
 {
 	CircuitNodeMetadata *d = new CircuitNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 void CircuitNodeMetadata::serializeBody(std::ostream &os)
@@ -3627,6 +3630,9 @@ NodeMetadata* SwitchNodeMetadata::create(std::istream &is)
 NodeMetadata* SwitchNodeMetadata::clone()
 {
 	SwitchNodeMetadata *d = new SwitchNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 bool SwitchNodeMetadata::stepCircuit(float dtime, v3s16 pos, ServerEnvironment *env)
@@ -3719,6 +3725,9 @@ NodeMetadata* ButtonNodeMetadata::create(std::istream &is)
 NodeMetadata* ButtonNodeMetadata::clone()
 {
 	ButtonNodeMetadata *d = new ButtonNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 bool ButtonNodeMetadata::stepCircuit(float dtime, v3s16 pos, ServerEnvironment *env)
@@ -3794,6 +3803,9 @@ NodeMetadata* SolarPanelNodeMetadata::create(std::istream &is)
 NodeMetadata* SolarPanelNodeMetadata::clone()
 {
 	SolarPanelNodeMetadata *d = new SolarPanelNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 bool SolarPanelNodeMetadata::stepCircuit(float dtime, v3s16 pos, ServerEnvironment *env)
@@ -3868,6 +3880,9 @@ NodeMetadata* WaterWheelNodeMetadata::create(std::istream &is)
 NodeMetadata* WaterWheelNodeMetadata::clone()
 {
 	WaterWheelNodeMetadata *d = new WaterWheelNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 bool WaterWheelNodeMetadata::stepCircuit(float dtime, v3s16 pos, ServerEnvironment *env)
@@ -3970,6 +3985,9 @@ NodeMetadata* SourceNodeMetadata::create(std::istream &is)
 NodeMetadata* SourceNodeMetadata::clone()
 {
 	SourceNodeMetadata *d = new SourceNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 
@@ -4017,6 +4035,9 @@ NodeMetadata* NotGateNodeMetadata::create(std::istream &is)
 NodeMetadata* NotGateNodeMetadata::clone()
 {
 	NotGateNodeMetadata *d = new NotGateNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 bool NotGateNodeMetadata::stepCircuit(float dtime, v3s16 pos, ServerEnvironment *env)
@@ -4107,6 +4128,9 @@ NodeMetadata* RepeaterNodeMetadata::create(std::istream &is)
 NodeMetadata* RepeaterNodeMetadata::clone()
 {
 	RepeaterNodeMetadata *d = new RepeaterNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_sources = m_sources;
 	return d;
 }
 void RepeaterNodeMetadata::serializeBody(std::ostream &os)
@@ -4217,6 +4241,10 @@ NodeMetadata* DoorNodeMetadata::create(std::istream &is)
 NodeMetadata* DoorNodeMetadata::clone()
 {
 	DoorNodeMetadata *d = new DoorNodeMetadata();
+	d->m_energy = m_energy;
+	d->m_ptime = m_ptime;
+	d->m_otime = m_otime;
+	d->m_sources = m_sources;
 	return d;
 }
 void DoorNodeMetadata::serializeBody(std::ostream &os)

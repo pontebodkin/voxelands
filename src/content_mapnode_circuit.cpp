@@ -374,7 +374,7 @@ void content_mapnode_circuit(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->light_source = LIGHT_MAX-1;
 	f->unpowered_node = CONTENT_CIRCUIT_LAMP_OFF;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_LAMP_OFF)+" 1";
@@ -395,7 +395,7 @@ void content_mapnode_circuit(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->powered_node = CONTENT_CIRCUIT_LAMP;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("circuit_lamp.png");
@@ -426,7 +426,7 @@ void content_mapnode_circuit(bool repeat)
 	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_PISTON_UP_OFF;
 	f->roofmount_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_ARM;
@@ -462,7 +462,7 @@ void content_mapnode_circuit(bool repeat)
 	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_PISTON_OFF)+" 1";
@@ -514,7 +514,7 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_PISTON_OFF;
 	f->roofmount_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_UP_ARM;
@@ -536,7 +536,7 @@ void content_mapnode_circuit(bool repeat)
 	f->solidness = 0; // drawn separately, makes no faces
 	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_UP_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_PISTON_OFF)+" 1";
@@ -580,7 +580,7 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_PISTON_UP_OFF;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_PISTON_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN_ARM;
@@ -602,7 +602,7 @@ void content_mapnode_circuit(bool repeat)
 	f->solidness = 0; // drawn separately, makes no faces
 	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_PISTON_OFF)+" 1";
@@ -647,7 +647,7 @@ void content_mapnode_circuit(bool repeat)
 	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_OFF;
 	f->roofmount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_ARM;
@@ -676,7 +676,7 @@ void content_mapnode_circuit(bool repeat)
 	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_STICKYPISTON_OFF)+" 1";
@@ -728,7 +728,7 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_OFF;
 	f->roofmount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_ARM;
@@ -750,7 +750,7 @@ void content_mapnode_circuit(bool repeat)
 	f->solidness = 0; // drawn separately, makes no faces
 	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_STICKYPISTON_OFF)+" 1";
@@ -794,7 +794,7 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_OFF;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_OFF;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN_ARM;
@@ -816,7 +816,7 @@ void content_mapnode_circuit(bool repeat)
 	f->solidness = 0; // drawn separately, makes no faces
 	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN_ARM;
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_STICKYPISTON_OFF)+" 1";
