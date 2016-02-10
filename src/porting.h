@@ -95,6 +95,7 @@ extern std::string path_userdata;
 	Mac: "~/Library/Application Support/<PROJECT_NAME>"
 */
 std::string getDataPath(const char *subpath);
+
 /*
 	Initialize path_data and path_userdata.
 */
