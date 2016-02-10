@@ -4620,7 +4620,7 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			if (selected.is_coloured) {
 				meshgen_selected_lights(colours,255,4);
 			}else{
-				meshgen_lights(data,n,p,colours,255,v3s16(1,0,0),4,vertices);
+				meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,vertices);
 			}
 
 			for (u16 i=0; i<4; i++) {
@@ -4658,7 +4658,7 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 		u16 indices[6] = {0,1,2,2,3,0};
 		std::vector<u32> colours;
-		meshgen_lights(data,n,p,colours,255,v3s16(1,0,0),4,vertices);
+		meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,vertices);
 
 		for (u16 i=0; i<4; i++) {
 			vertices[i].Pos += pos;
