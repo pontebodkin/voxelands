@@ -34,6 +34,7 @@
 #include "debug.h"
 #include "filesys.h"
 #include "player.h"
+#include "errno.h"
 
 #ifdef __APPLE__
 	#include "CoreFoundation/CoreFoundation.h"
@@ -378,8 +379,17 @@ void initializePaths(char* argv0)
 	#elif defined(__FreeBSD__)
 
 	path_data = std::string(INSTALL_PREFIX) + "/share/" + PROJECT_NAME;
-	path_userdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
-        path_configdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+
+	if (getenv("XDG_CONFIG_HOME") == NULL) {
+		path_configdata = std::string(getenv("HOME")) + "/.config/" + PROJECT_NAME;
+	} else {
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"));
+	}
+	if (getenv("XDG_DATA_HOME") == NULL) {
+		path_userdata = std::string(getenv("HOME")) + "/.local/share/" + PROJECT_NAME;
+	} else {
+		path_userdata = std::string(getenv("XDG_DATA_HOME"));
+	}
 
 	#endif
 
@@ -388,6 +398,40 @@ void initializePaths(char* argv0)
 	dstream<<"path_data = "<<path_data<<std::endl;
         dstream<<"path_configdata = "<<path_configdata<<std::endl;
 	dstream<<"path_userdata = "<<path_userdata<<std::endl;
+
+#if defined(__FreeBSD__) || defined(linux)
+
+	std::string path_olddirectory = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+
+	if (fs::PathExists(path_olddirectory)) {
+		dstream<<"Found the old Directory! I will try to migrate the Directory." << std::endl;
+
+		if (!fs::PathExists(path_configdata)) {
+			fs::CreateDir(path_configdata);
+			std::string path_oldconfig = std::string(getenv("HOME")) + "/.voxelands/voxelands.conf";
+			std::string path_newconfig = path_configdata + "/voxelands.conf";
+
+			if (rename( path_oldconfig.c_str() , path_newconfig.c_str() ) == 0) {
+				dstream<<"Config was sucessful migrated." << std::endl;
+			} else {
+				dstream<<"Error while move the Config Directory: " << strerror(errno) << std::endl;
+			}
+		} else {
+			dstream<<"There is already a Directory for the config!" << std::endl;
+		}
+		// Move the rest of the rest
+		if (!fs::PathExists(path_userdata)) {
+			if (rename( path_olddirectory.c_str() ,
+				    path_userdata.c_str() ) == 0) {
+				dstream<<"Data Directory was sucessful migrated." << std::endl;
+			} else {
+				dstream<<"Error while move the Data Directory: " << strerror(errno) << std::endl;
+			}
+		} else {
+			dstream<<"There is already a Directory for the Data!" << std::endl;
+		}
+	}
+#endif
 }
 
 std::string getUser()
