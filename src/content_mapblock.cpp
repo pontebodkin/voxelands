@@ -4523,6 +4523,8 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 	s16 angle = 0;
 	s16 dir = 0;
+	s16 twist = 0;
+	v3f offset(0,0,0);
 	bool ground = true;
 
 	{
@@ -4550,11 +4552,11 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 		if (ground) {
 			inv = true;
-			for (distance = 0; ground && distance<4; distance++) {
+			for (distance=0; ground && distance<4; distance++) {
 				for (s16 x=-distance; ground && x<=distance; x++) {
 					for (s16 z=-distance; ground && z<=distance; z++) {
 						if (x == -distance || x == distance || z == -distance || z == distance) {
-							for (s16 y=0; ground && y>-5; y--) {
+							for (s16 y=-1; ground && y>-5; y--) {
 								MapNode nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(x,y,z));
 								if (
 									nn.getContent() == CONTENT_TREE
@@ -4574,6 +4576,7 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 		if (!ground) {
 			if (inv) {
+				offset.Y = (-0.2*BS)*(float)distance;
 				angle = 12*(5-distance);
 			}else{
 				angle = 12*distance;
@@ -4582,12 +4585,56 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			tv.normalize();
 			dir = 180./PI*atan2(tv.Z,tv.X);
 			dir -= 90;
+
+			twist = (tp.X*5)+(tp.Y*2);
 		}
 	}
 
 
 	v3f pos = intToFloat(p,BS);
-	{
+	if (selected.is_coloured || selected.has_crack) {
+		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
+		for (u16 k=0; k<2; k++) {
+			video::S3DVertex vertices[4] = {
+				video::S3DVertex( 0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+				video::S3DVertex(-0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+				video::S3DVertex(-0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0()),
+				video::S3DVertex( 0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0())
+			};
+			if (ground) {
+				for (u16 i=0; i<4; i++) {
+					vertices[i].Pos.Y = -0.49*data->m_BS;
+					vertices[i].Pos += offset;
+				}
+			}else{
+				for (u16 i=0; i<4; i++) {
+					vertices[i].Pos.rotateYZBy(angle);
+					vertices[i].Pos.rotateXYBy(twist);
+					vertices[i].Pos.rotateXZBy(dir);
+					vertices[i].Pos += offset;
+				}
+			}
+
+			u16 indices[6] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			if (selected.is_coloured) {
+				meshgen_selected_lights(colours,255,4);
+			}else{
+				meshgen_lights(data,n,p,colours,255,v3s16(1,0,0),4,vertices);
+			}
+
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos += pos;
+				if (k == 0) {
+					vertices[i].Pos += data->m_BSd;
+				}else{
+					vertices[i].Pos -= data->m_BSd;
+				}
+			}
+
+			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		}
+	}else{
 		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
 		video::S3DVertex vertices[4] = {
 			video::S3DVertex( 0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
@@ -4598,21 +4645,20 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 		if (ground) {
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.Y = -0.49*data->m_BS;
+				vertices[i].Pos += offset;
 			}
 		}else{
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.rotateYZBy(angle);
+				vertices[i].Pos.rotateXYBy(twist);
 				vertices[i].Pos.rotateXZBy(dir);
+				vertices[i].Pos += offset;
 			}
 		}
 
 		u16 indices[6] = {0,1,2,2,3,0};
 		std::vector<u32> colours;
-		if (selected.is_coloured) {
-			meshgen_selected_lights(colours,255,4);
-		}else{
-			meshgen_lights(data,n,p,colours,255,v3s16(1,0,0),4,vertices);
-		}
+		meshgen_lights(data,n,p,colours,255,v3s16(1,0,0),4,vertices);
 
 		for (u16 i=0; i<4; i++) {
 			vertices[i].Pos += pos;
