@@ -165,7 +165,7 @@ void SelectionMesh::generate(MeshMakeData *data)
 
 	BEGIN_DEBUG_EXCEPTION_HANDLER
 
-	data->m_BSd = 0.01;
+	data->m_BSd = 0.02;
 	data->m_BS = (float)BS+data->m_BSd;
 	data->mesh_detail = g_settings->getU16("mesh_detail");
 	data->texture_detail = g_settings->getU16("texture_detail");
