@@ -4541,6 +4541,10 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 							|| nn.getContent() == CONTENT_JUNGLETREE
 							|| nn.getContent() == CONTENT_APPLE_TREE
 							|| nn.getContent() == CONTENT_CONIFER_TREE
+							|| nn.getContent() == CONTENT_YOUNG_TREE
+							|| nn.getContent() == CONTENT_YOUNG_JUNGLETREE
+							|| nn.getContent() == CONTENT_YOUNG_APPLE_TREE
+							|| nn.getContent() == CONTENT_YOUNG_CONIFER_TREE
 						) {
 							ground = false;
 							tp = v3s16(x,0,z);
@@ -4563,6 +4567,10 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 									|| nn.getContent() == CONTENT_JUNGLETREE
 									|| nn.getContent() == CONTENT_APPLE_TREE
 									|| nn.getContent() == CONTENT_CONIFER_TREE
+									|| nn.getContent() == CONTENT_YOUNG_TREE
+									|| nn.getContent() == CONTENT_YOUNG_JUNGLETREE
+									|| nn.getContent() == CONTENT_YOUNG_APPLE_TREE
+									|| nn.getContent() == CONTENT_YOUNG_CONIFER_TREE
 								) {
 									ground = false;
 									tp = v3s16(x,0,z);
