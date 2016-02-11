@@ -103,6 +103,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	lists::add("creative",i);
 
@@ -123,6 +124,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_MELONSLICE,CONTENT_SEEDS_MELON);
 	lists::add("craftguide",i);
@@ -145,6 +147,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_PUMPKINSLICE,CONTENT_SEEDS_PUMPKIN);
 	lists::add("craftguide",i);
@@ -167,6 +170,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_POTATO,CONTENT_SEEDS_POTATO);
 	lists::add("craftguide",i);
@@ -189,6 +193,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_CARROT,CONTENT_SEEDS_CARROT);
 	lists::add("craftguide",i);
@@ -211,6 +216,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_BEETROOT,CONTENT_SEEDS_BEETROOT);
 	lists::add("craftguide",i);
@@ -233,6 +239,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_GRAPE,CONTENT_SEEDS_GRAPE);
 	lists::add("craftguide",i);
@@ -255,6 +262,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
+	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	lists::add("creative",i);
 
