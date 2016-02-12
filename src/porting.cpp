@@ -345,7 +345,8 @@ void initializePaths(char* argv0)
 					+ "/.config/" + PROJECT_NAME;
 	} else
 	{
-		path_configdata = std::string(getenv("XDG_CONFIG_HOME"));
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"))
+					+ "/" + PROJECT_NAME;
 	}
 	if (getenv("XDG_DATA_HOME") == NULL)
 	{
@@ -353,7 +354,8 @@ void initializePaths(char* argv0)
 					+ "/.local/share/" + PROJECT_NAME;
 	} else
 	{
-		path_userdata = std::string(getenv("XDG_DATA_HOME"));
+		path_userdata = std::string(getenv("XDG_DATA_HOME"))
+					+ "/" + PROJECT_NAME;
 	}
 
 	/*
@@ -389,17 +391,21 @@ void initializePaths(char* argv0)
 
 	if (getenv("XDG_CONFIG_HOME") == NULL)
 	{
-		path_configdata = std::string(getenv("HOME")) + "/.config/" + PROJECT_NAME;
+		path_configdata = std::string(getenv("HOME"))
+					+ "/.config/" + PROJECT_NAME;
 	} else
 	{
-		path_configdata = std::string(getenv("XDG_CONFIG_HOME"));
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"))
+					+ "/" + PROJECT_NAME;
 	}
 	if (getenv("XDG_DATA_HOME") == NULL)
 	{
-		path_userdata = std::string(getenv("HOME")) + "/.local/share/" + PROJECT_NAME;
+		path_userdata = std::string(getenv("HOME"))
+					+ "/.local/share/" + PROJECT_NAME;
 	} else
 	{
-		path_userdata = std::string(getenv("XDG_DATA_HOME"));
+		path_userdata = std::string(getenv("XDG_DATA_HOME"))
+					+ "/" + PROJECT_NAME;
 	}
 
 	#endif

@@ -825,7 +825,7 @@ int main(int argc, char *argv[])
 	// Create user data directory
 	fs::CreateDir(porting::path_userdata);
         
-#if defined(linux)
+#if defined(__FreeBSD__) || defined(linux)
 	// Create user config directory
         fs::CreateDir(porting::path_configdata);
 #endif
