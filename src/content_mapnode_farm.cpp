@@ -54,7 +54,6 @@ void content_mapnode_farm(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_FERTILIZER)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"fertilizer.png", "fertilizer.png", "fertilizer.png");
@@ -70,7 +69,6 @@ void content_mapnode_farm(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
-	f->solidness = 0;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->is_ground_content = true;
@@ -98,7 +96,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_WHEAT;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -119,7 +116,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_MELON;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -142,7 +138,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_PUMPKIN;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -165,7 +160,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_POTATO;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -188,7 +182,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_CARROT;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -211,7 +204,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_BEETROOT;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -234,7 +226,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_GRAPEVINE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -257,7 +248,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_FARM_COTTON;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -280,7 +270,6 @@ void content_mapnode_farm(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->plantgrowth_max_height = 2; // maximum growth height;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_WHEAT;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_WHEAT;
 	f->plantgrowth_large_gives_small = true;
@@ -334,7 +323,6 @@ void content_mapnode_farm(bool repeat)
 		f->setTexture(5, "farm_pumpkin_jack.png"); // Z-
 		f->setInventoryTextureCube("farm_pumpkin_top.png","farm_pumpkin_jack.png","farm_pumpkin.png");
 		f->draw_type = CDT_NODEBOX;
-		f->solidness = 0; // drawn separately, makes no faces
 		content_nodebox_jackolantern(f);
 		f->setInventoryTextureNodeBox(i,"farm_pumpkin_top.png","farm_pumpkin_jack.png","farm_pumpkin.png");
 	}else{
@@ -345,8 +333,6 @@ void content_mapnode_farm(bool repeat)
 		f->draw_type = CDT_GLASSLIKE;
 		f->is_ground_content = true;
 		f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-		f->solidness = 0; // drawn separately, makes no faces
-		f->visual_solidness = 1;
 		f->setAllTextures("glasslight.png");
 #ifndef SERVER
 		f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -376,7 +362,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->flammable = 1;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_POTATO;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_POTATO;
 	f->type = CMT_PLANT;
@@ -397,7 +382,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->flammable = 1;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_CARROT;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_CARROT;
 	f->type = CMT_PLANT;
@@ -418,7 +402,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->flammable = 1;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_BEETROOT;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_BEETROOT;
 	f->type = CMT_PLANT;
@@ -439,7 +422,6 @@ void content_mapnode_farm(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->flammable = 1;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_GRAPE;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_GRAPE;
 	f->plantgrowth_trellis_node = CONTENT_FARM_TRELLIS_GRAPE;
@@ -462,7 +444,6 @@ void content_mapnode_farm(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->plantgrowth_max_height = 2; // maximum growth height;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_COTTON;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_STRING;
 	f->plantgrowth_large_count = 6;
@@ -480,7 +461,6 @@ void content_mapnode_farm(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_PLANTGROWTH;
-	f->solidness = 0;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->is_ground_content = true;
@@ -504,7 +484,6 @@ void content_mapnode_farm(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
-	f->solidness = 0;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->is_ground_content = true;
@@ -523,7 +502,6 @@ void content_mapnode_farm(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
-	f->solidness = 0;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->is_ground_content = true;

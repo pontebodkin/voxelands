@@ -51,7 +51,6 @@ void content_mapnode_furniture(bool repeat)
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
-	f->solidness = 0;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"bookshelf_top.png", "bookshelf_front.png", "bookshelf_side.png");
 	if (f->initial_metadata == NULL)
@@ -89,7 +88,6 @@ void content_mapnode_furniture(bool repeat)
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
-	f->solidness = 0;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"bookshelf_jungle_top.png", "bookshelf_jungle_front.png", "bookshelf_jungle_side.png");
 	if (f->initial_metadata == NULL)
@@ -127,7 +125,6 @@ void content_mapnode_furniture(bool repeat)
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
-	f->solidness = 0;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"bookshelf_pine_top.png", "bookshelf_pine_front.png", "bookshelf_pine_side.png");
 	if (f->initial_metadata == NULL)
@@ -149,7 +146,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -169,7 +165,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -189,7 +184,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -209,7 +203,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -229,7 +222,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -249,7 +241,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Couch");
 	f->setAllTextures("cotton.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -279,7 +270,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -299,7 +289,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -319,7 +308,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -339,7 +327,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -359,7 +346,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -379,7 +365,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Blue Couch");
 	f->setAllTextures("cotton_blue.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -403,7 +388,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -423,7 +407,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -443,7 +426,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -463,7 +445,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -483,7 +464,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -503,7 +483,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Green Couch");
 	f->setAllTextures("cotton_green.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -527,7 +506,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -547,7 +525,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -567,7 +544,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -587,7 +563,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -607,7 +582,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -627,7 +601,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Orange Couch");
 	f->setAllTextures("cotton_orange.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -651,7 +624,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -671,7 +643,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -691,7 +662,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -711,7 +681,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -731,7 +700,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -751,7 +719,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Purple Couch");
 	f->setAllTextures("cotton_purple.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -775,7 +742,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -795,7 +761,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -815,7 +780,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -835,7 +799,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -855,7 +818,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -875,7 +837,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Red Couch");
 	f->setAllTextures("cotton_red.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -899,7 +860,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -919,7 +879,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -939,7 +898,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -959,7 +917,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -979,7 +936,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -999,7 +955,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Yellow Couch");
 	f->setAllTextures("cotton_yellow.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1023,7 +978,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1043,7 +997,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1063,7 +1016,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1083,7 +1035,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1103,7 +1054,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1123,7 +1073,6 @@ void content_mapnode_furniture(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Black Couch");
 	f->setAllTextures("cotton_black.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
@@ -1154,7 +1103,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1188,7 +1136,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1212,7 +1159,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1236,7 +1182,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1260,7 +1205,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1284,7 +1228,6 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1307,7 +1250,6 @@ void content_mapnode_furniture(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
@@ -1344,7 +1286,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1377,7 +1318,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1405,7 +1345,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1438,7 +1377,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1466,7 +1404,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1499,7 +1436,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1527,7 +1463,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1560,7 +1495,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1588,7 +1522,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1621,7 +1554,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1649,7 +1581,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1682,7 +1613,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1710,7 +1640,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1743,7 +1672,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1771,7 +1699,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1804,7 +1731,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1827,7 +1753,6 @@ void content_mapnode_furniture(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1862,7 +1787,6 @@ void content_mapnode_furniture(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1887,7 +1811,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1922,7 +1845,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1957,7 +1879,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1992,7 +1913,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -2027,7 +1947,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -2064,7 +1983,6 @@ void content_mapnode_furniture(bool repeat)
 	f->draw_type = CDT_NODEBOX_META;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire

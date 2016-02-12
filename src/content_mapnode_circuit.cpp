@@ -43,7 +43,6 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->air_equivalent = true; // grass grows underneath
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_MITHRILDUST)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
@@ -67,7 +66,6 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->air_equivalent = true; // grass grows underneath
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ") + itos(i)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
@@ -97,7 +95,6 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_type = CET_SOURCE;
 	f->energy_drop = 0;
 	f->light_source = 10;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
 	f->hardness = 0.10;
@@ -121,7 +118,6 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_drop = 0;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
 	f->hardness = 0.10;
@@ -155,7 +151,6 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
 	f->hardness = 0.10;
@@ -190,7 +185,6 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->energy_type = CET_SWITCH;
 	f->energy_drop = 0;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -222,7 +216,6 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->energy_type = CET_SWITCH;
 	f->energy_drop = 0;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -251,7 +244,6 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->energy_type = CET_SWITCH;
 	f->energy_drop = 0;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -280,7 +272,6 @@ void content_mapnode_circuit(bool repeat)
 	f->is_ground_content = true;
 	f->energy_type = CET_SWITCH;
 	f->energy_drop = 0;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
 	f->hardness = 1.0;
@@ -312,7 +303,6 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_type = CET_GATE;
 	f->energy_drop = 0;
 	f->light_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -344,7 +334,6 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_type = CET_GATE;
 	f->energy_drop = 0;
 	f->light_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
@@ -368,8 +357,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Electric Lamp");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_CUBELIKE;
 	f->light_propagates = true;
@@ -389,8 +376,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Electric Lamp");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
 	f->light_propagates = true;
@@ -423,7 +408,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
@@ -458,8 +442,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
@@ -485,8 +467,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston Arm");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->rotate_tile_with_nodebox = true;
@@ -512,7 +492,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_PISTON_OFF;
@@ -533,8 +512,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_UP_ARM;
@@ -557,8 +534,6 @@ void content_mapnode_circuit(bool repeat)
 	f->description = wgettext("Piston Arm");
 	f->is_ground_content = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_UP;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_PISTON_OFF)+" 1";
@@ -578,7 +553,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_PISTON_UP_OFF;
@@ -599,8 +573,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN_ARM;
@@ -623,8 +595,6 @@ void content_mapnode_circuit(bool repeat)
 	f->description = wgettext("Piston Arm");
 	f->is_ground_content = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->special_alternate_node = CONTENT_CIRCUIT_PISTON_DOWN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_PISTON_OFF)+" 1";
@@ -644,7 +614,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
@@ -672,8 +641,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
@@ -700,8 +667,6 @@ void content_mapnode_circuit(bool repeat)
 	f->description = wgettext("Sticky Piston Arm");
 	f->is_ground_content = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->rotate_tile_with_nodebox = true;
@@ -726,7 +691,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
 	f->wallmount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_OFF;
@@ -747,8 +711,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_ARM;
@@ -771,8 +733,6 @@ void content_mapnode_circuit(bool repeat)
 	f->description = wgettext("Sticky Piston Arm");
 	f->is_ground_content = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_STICKYPISTON_OFF)+" 1";
@@ -792,7 +752,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->visual_solidness = 1;
 	f->draw_type = CDT_CUBELIKE;
 	f->energy_type = CET_DEVICE;
 	f->floormount_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_UP_OFF;
@@ -813,8 +772,6 @@ void content_mapnode_circuit(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Sticky Piston");
 	f->is_ground_content = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->energy_type = CET_DEVICE;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN_ARM;
@@ -837,8 +794,6 @@ void content_mapnode_circuit(bool repeat)
 	f->description = wgettext("Sticky Piston Arm");
 	f->is_ground_content = true;
 	f->air_equivalent = true;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->draw_type = CDT_NODEBOX;
 	f->special_alternate_node = CONTENT_CIRCUIT_STICKYPISTON_DOWN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CIRCUIT_STICKYPISTON_OFF)+" 1";

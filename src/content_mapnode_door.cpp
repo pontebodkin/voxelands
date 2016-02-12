@@ -46,7 +46,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -73,7 +72,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_WOOD_DOOR_RT;
@@ -105,7 +103,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -133,7 +130,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_STEEL_DOOR_RT;
@@ -167,7 +163,6 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -193,7 +188,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_GLASS_DOOR_RT;
@@ -224,7 +218,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -252,7 +245,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_WOOD_W_DOOR_RT;
@@ -286,7 +278,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -315,7 +306,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_STEEL_W_DOOR_RT;
@@ -350,7 +340,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -377,7 +366,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_WOOD_DOOR_LT;
@@ -408,7 +396,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -435,7 +422,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_GLASS_DOOR_LT;
@@ -464,7 +450,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -492,7 +477,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_STEEL_DOOR_LT;
@@ -524,7 +508,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -552,7 +535,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_WOOD_W_DOOR_LT;
@@ -583,7 +565,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -612,7 +593,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onuse_replace_node = CONTENT_STEEL_W_DOOR_LT;
@@ -646,7 +626,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -672,7 +651,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -699,7 +677,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -724,7 +701,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -750,7 +726,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -777,7 +752,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -805,7 +779,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -831,7 +804,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -858,7 +830,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -885,7 +856,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -916,7 +886,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -944,7 +913,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -973,7 +941,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -1000,7 +967,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -1028,7 +994,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -1057,7 +1022,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -1087,7 +1051,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -1115,7 +1078,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -1144,7 +1106,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
@@ -1173,7 +1134,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
@@ -1199,7 +1159,6 @@ void content_mapnode_door(bool repeat)
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_HATCH_OPEN;
@@ -1226,7 +1185,6 @@ void content_mapnode_door(bool repeat)
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_HATCH_OPEN;
@@ -1256,7 +1214,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_W_HATCH_OPEN;
@@ -1285,7 +1242,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_W_HATCH_OPEN;
@@ -1317,7 +1273,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_GATE_OPEN;
@@ -1350,7 +1305,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_GATE_OPEN;
@@ -1383,7 +1337,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->climbable = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_HATCH)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_HATCH;
@@ -1411,7 +1364,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->climbable = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_HATCH)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_HATCH;
@@ -1440,7 +1392,6 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->climbable = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_W_HATCH)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_W_HATCH;
@@ -1468,7 +1419,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->climbable = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_HATCH)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_W_HATCH;
@@ -1496,7 +1446,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_GATE)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_GATE;
@@ -1522,7 +1471,6 @@ void content_mapnode_door(bool repeat)
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_GATE)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_GATE;

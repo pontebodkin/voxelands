@@ -207,7 +207,6 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version)
 void content_mapnode_init(bool repeat)
 {
 	// Read some settings
-	bool invisible_stone = g_settings->getBool("invisible_stone");
 #ifndef SERVER
 	bool opaque_water = g_settings->getBool("opaque_water");
 #endif
@@ -227,8 +226,6 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
-	if (invisible_stone)
-		f->solidness = 0; // For debugging, hides regular stone
 	lists::add("creative",i);
 	lists::add("decrafting",i);
 
@@ -245,8 +242,6 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 0.6;
-	if (invisible_stone)
-		f->solidness = 0; // For debugging, hides regular stone
 	lists::add("creative",i);
 	lists::add("cooking",i);
 	lists::add("decrafting",i);
@@ -263,8 +258,6 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 1.1;
-	if (invisible_stone)
-		f->solidness = 0; // For debugging, hides regular stone
 
 	i = CONTENT_MARBLE;
 	f = &content_features(i);
@@ -290,7 +283,6 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->buildable_to = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->suffocation_per_second = 0;
 	content_nodebox_rock(f);
 	f->setInventoryTextureNodeBox(i,"stone.png", "stone.png", "stone.png");
@@ -864,7 +856,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"terracotta_tile.png", "terracotta_tile.png", "terracotta_tile.png");
@@ -881,8 +872,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -901,8 +890,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_blue.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -923,8 +910,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_green.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -945,8 +930,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_orange.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -967,8 +950,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_purple.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -989,8 +970,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_red.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -1011,8 +990,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_yellow.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -1033,8 +1010,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glass_black.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -1056,7 +1031,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_side.png");
 	f->setTexture(4,"glass.png");
 	f->setTexture(5,"glass.png");
@@ -1090,7 +1064,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_blue_side.png");
 	f->setTexture(4,"glass_blue.png");
 	f->setTexture(5,"glass_blue.png");
@@ -1125,7 +1098,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_green_side.png");
 	f->setTexture(4,"glass_green.png");
 	f->setTexture(5,"glass_green.png");
@@ -1160,7 +1132,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_orange_side.png");
 	f->setTexture(4,"glass_orange.png");
 	f->setTexture(5,"glass_orange.png");
@@ -1195,7 +1166,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_purple_side.png");
 	f->setTexture(4,"glass_purple.png");
 	f->setTexture(5,"glass_purple.png");
@@ -1230,7 +1200,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_red_side.png");
 	f->setTexture(4,"glass_red.png");
 	f->setTexture(5,"glass_red.png");
@@ -1265,7 +1234,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_yellow_side.png");
 	f->setTexture(4,"glass_yellow.png");
 	f->setTexture(5,"glass_yellow.png");
@@ -1300,7 +1268,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_pane_black_side.png");
 	f->setTexture(4,"glass_black.png");
 	f->setTexture(5,"glass_black.png");
@@ -1334,8 +1301,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("glasslight.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
@@ -1486,7 +1451,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_APPLE_PIE)+"  1";
 	content_nodebox_pie(f);
@@ -1515,7 +1479,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "apple_pie.png", "apple_pie.png", "apple_pie.png");
 	f->dug_item = std::string("CraftItem apple_pie_slice 1");
@@ -1541,7 +1504,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_3(f);
 	f->dug_item = std::string("CraftItem apple_pie_slice 1");
 	f->ondig_replace_node=CONTENT_APPLE_PIE_2;
@@ -1564,7 +1526,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_2(f);
 	f->dug_item = std::string("CraftItem apple_pie_slice 1");
 	f->ondig_replace_node=CONTENT_APPLE_PIE_1;
@@ -1587,7 +1548,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_1(f);
 	f->dug_item = std::string("CraftItem apple_pie_slice 1");
 	f->type = CMT_DIRT;
@@ -1610,7 +1570,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_PUMPKIN_PIE)+"  1";
 	content_nodebox_pie(f);
@@ -1639,7 +1598,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "pumpkin_pie.png", "pumpkin_pie.png", "pumpkin_pie.png");
 	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
@@ -1665,7 +1623,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_3(f);
 	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_2;
@@ -1688,7 +1645,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_2(f);
 	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_1;
@@ -1711,7 +1667,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	content_nodebox_pie_1(f);
 	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
 	f->type = CMT_DIRT;
@@ -1739,7 +1694,6 @@ void content_mapnode_init(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Snowman");
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->solidness = 0;
 	f->setAllTextures("snowman.png");
 	f->setTexture(0,"snowman_top.png");
 	f->setTexture(1,"snowman_top.png");
@@ -1810,7 +1764,6 @@ void content_mapnode_init(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("CraftItem snow_ball 1");
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"snow.png", "snow.png", "snow.png");
@@ -1981,7 +1934,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton.png", "cotton.png", "cotton.png");
@@ -2004,7 +1956,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
@@ -2028,7 +1979,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
@@ -2052,7 +2002,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
@@ -2076,7 +2025,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
@@ -2100,7 +2048,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
@@ -2124,7 +2071,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
@@ -2148,7 +2094,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
@@ -2170,7 +2115,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_AIRLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0;
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -2186,7 +2130,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_AIRLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0;
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -2205,8 +2148,6 @@ void content_mapnode_init(bool repeat)
 	f->param2_type = CPT_LIQUID;
 	f->draw_type = CDT_LIQUID;
 	f->light_propagates = true;
-	f->solidness = 0; // Drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -2231,7 +2172,6 @@ void content_mapnode_init(bool repeat)
 	f->description = wgettext("Water");
 	f->setAllTextures("water.png");
 	f->setInventoryTextureCube("water.png", "water.png", "water.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
 	f->draw_type = CDT_LIQUID_SOURCE;
@@ -2266,8 +2206,6 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_LIQUID;
 	f->light_propagates = false;
 	f->light_source = LIGHT_MAX-1;
-	f->solidness = 0; // Drawn separately, makes no faces
-	f->visual_solidness = 1; // Does not completely cover block boundaries
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -2289,7 +2227,6 @@ void content_mapnode_init(bool repeat)
 	f->description = wgettext("Lava");
 	f->setAllTextures("lava.png");
 	f->setInventoryTextureCube("lava.png", "lava.png", "lava.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
 	f->draw_type = CDT_LIQUID_SOURCE;
@@ -2497,7 +2434,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"stone_tile.png", "stone_tile.png", "stone_tile.png");
@@ -2519,7 +2455,6 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"wood_tile.png", "wood_tile.png", "wood_tile.png");

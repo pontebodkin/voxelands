@@ -3141,19 +3141,18 @@ static bool isOccluded(Map *map, v3s16 p0, v3s16 p1, float step, float stepfac,
 	uf.normalize();
 	v3f p0f = v3f(p0.X, p0.Y, p0.Z) * BS;
 	u32 count = 0;
-	for(float s=start_off; s<d0+end_off; s+=step){
+	for (float s=start_off; s<d0+end_off; s+=step){
 		v3f pf = p0f + uf * s;
 		v3s16 p = floatToInt(pf, BS);
 		MapNode n = map->getNodeNoEx(p);
-		bool is_transparent = false;
 		ContentFeatures &f = content_features(n);
-		if(f.solidness == 0)
-			is_transparent = (f.visual_solidness != 2);
-		else
-			is_transparent = (f.solidness != 2);
-		if(!is_transparent){
+		if (
+			f.draw_type == CDT_CUBELIKE
+			|| f.draw_type == CDT_DIRTLIKE
+			|| f.draw_type == CDT_MELONLIKE
+		) {
 			count++;
-			if(count >= needed_count)
+			if (count >= needed_count)
 				return true;
 		}
 		step *= stepfac;
@@ -3760,9 +3759,13 @@ void ClientMap::renderPostFx()
 
 		// - If the player is in a solid node, make everything black.
 		// - If the player is in liquid, draw a semi-transparent overlay.
-		ContentFeatures& features = content_features(n);
-		post_effect_color = features.post_effect_color;
-		if (features.solidness == 2 && m_client->getLocalPlayer()->control.free == false) {
+		ContentFeatures &f = content_features(n);
+		post_effect_color = f.post_effect_color;
+		if (
+			f.draw_type == CDT_CUBELIKE
+			|| f.draw_type == CDT_DIRTLIKE
+			|| f.draw_type == CDT_MELONLIKE
+		) {
 			post_effect_color = video::SColor(255, 0, 0, 0);
 		}
 	}

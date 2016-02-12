@@ -2618,7 +2618,11 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 		ContentFeatures &n_feat = content_features(neighbor_content);
 
 		// Don't draw face if neighbor is blocking the view
-		if (n_feat.solidness == 2)
+		if (
+			n_feat.draw_type == CDT_CUBELIKE
+			|| n_feat.draw_type == CDT_DIRTLIKE
+			|| n_feat.draw_type == CDT_MELONLIKE
+		)
 			continue;
 
 		bool neighbor_is_same_liquid = false;

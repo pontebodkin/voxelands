@@ -646,17 +646,24 @@ void RemotePlayer::wieldItem(u16 item)
 		// A block-type material
 		MaterialItem* mat_item = (MaterialItem*)i;
 		content_t content = mat_item->getMaterial();
-		if (content_features(content).solidness || content_features(content).visual_solidness) {
-			m_wield->setCube(content_features(content).tiles);
+		ContentFeatures *f = &content_features(content);
+		if (
+			f->draw_type == CDT_CUBELIKE
+			|| f->draw_type == CDT_GLASSLIKE
+			|| f->draw_type == CDT_DIRTLIKE
+			|| f->draw_type == CDT_LIQUID_SOURCE
+			|| f->draw_type == CDT_MELONLIKE
+		) {
+			m_wield->setCube(f->tiles);
 			haveWield = true;
 		}else if (
 			(
-				content_features(content).draw_type == CDT_NODEBOX
-				|| content_features(content).draw_type == CDT_NODEBOX_META
-				|| content_features(content).draw_type == CDT_FENCELIKE
-				|| content_features(content).draw_type == CDT_WALLLIKE
+				f->draw_type == CDT_NODEBOX
+				|| f->draw_type == CDT_NODEBOX_META
+				|| f->draw_type == CDT_FENCELIKE
+				|| f->draw_type == CDT_WALLLIKE
 			)
-			&& content_features(content).wield_nodebox == true
+			&& f->wield_nodebox == true
 		) {
 			m_wield->setNodeBox(content);
 			haveWield = true;

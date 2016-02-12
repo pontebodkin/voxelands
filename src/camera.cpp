@@ -413,11 +413,18 @@ void Camera::wield(const InventoryItem* item)
 		m_wieldnode_baseposition = v3f(45, -35, 65);
 
 		// Try to make a MaterialItem cube.
-		if (std::string(item->getName()) == "MaterialItem") {
+		if ((((InventoryItem*)item)->getContent()&0xF000) == 0) {
 			// A block-type material
 			MaterialItem* mat_item = (MaterialItem*) item;
 			content_t content = mat_item->getMaterial();
-			if (content_features(content).solidness || content_features(content).visual_solidness) {
+			ContentFeatures *f = &content_features(content);
+			if (
+				f->draw_type == CDT_CUBELIKE
+				|| f->draw_type == CDT_GLASSLIKE
+				|| f->draw_type == CDT_DIRTLIKE
+				|| f->draw_type == CDT_LIQUID_SOURCE
+				|| f->draw_type == CDT_MELONLIKE
+			) {
 				if (content_features(content).param_type == CPT_MINERAL && mat_item->getData() != 0) {
 					static const v3s16 tile_dirs[6] = {
 						v3s16(0, 1, 0),
@@ -443,12 +450,12 @@ void Camera::wield(const InventoryItem* item)
 				haveWield = true;
 			}else if (
 				(
-					content_features(content).draw_type == CDT_NODEBOX
-					|| content_features(content).draw_type == CDT_NODEBOX_META
-					|| content_features(content).draw_type == CDT_FENCELIKE
-					|| content_features(content).draw_type == CDT_WALLLIKE
-					|| content_features(content).draw_type == CDT_STAIRLIKE
-					|| content_features(content).draw_type == CDT_SLABLIKE
+					f->draw_type == CDT_NODEBOX
+					|| f->draw_type == CDT_NODEBOX_META
+					|| f->draw_type == CDT_FENCELIKE
+					|| f->draw_type == CDT_WALLLIKE
+					|| f->draw_type == CDT_STAIRLIKE
+					|| f->draw_type == CDT_SLABLIKE
 				)
 				&& content_features(content).wield_nodebox == true
 			) {

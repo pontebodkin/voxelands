@@ -28,7 +28,6 @@ void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMateri
 	features->param2_type = CPT_FACEDIR_WALLMOUNT;
 	features->draw_type = CDT_NODEBOX;
 	features->is_ground_content = false;
-	features->solidness = 0;
 	features->light_propagates = true;
 	features->dug_item = std::string("MaterialItem2 ")+itos(nodeid)+" 1";
 	features->type = CMT_STONE;
