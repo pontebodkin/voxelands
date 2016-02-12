@@ -1437,7 +1437,7 @@ void content_mapnode_door(bool repeat)
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->description = wgettext("Wood Gate");
-	f->setAllTextures("gate_wood.png");
+	f->setAllTextures("wood.png");
 	f->rotate_tile_with_nodebox = true;
 	f->setInventoryTexture("gate_wood_inv.png");
 	f->wield_nodebox = false;
@@ -1462,7 +1462,7 @@ void content_mapnode_door(bool repeat)
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->description = wgettext("Steel Gate");
-	f->setAllTextures("gate_steel.png");
+	f->setAllTextures("steel.png");
 	f->rotate_tile_with_nodebox = true;
 	f->setInventoryTexture("gate_steel_inv.png");
 	f->wield_nodebox = false;

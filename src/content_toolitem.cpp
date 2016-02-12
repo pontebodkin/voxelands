@@ -513,7 +513,7 @@ void content_toolitem_init()
 	i = CONTENT_TOOLITEM_WBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_woodbucket_water.png";
+	f->texture = "tool_woodbucket.png^bucket_water.png";
 	f->name = "WBucket_water";
 	f->description = wgettext("Wooden Bucket of Water");
 	f->type = TT_SPECIAL;
@@ -524,7 +524,7 @@ void content_toolitem_init()
 	i = CONTENT_TOOLITEM_TINBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_tinbucket_water.png";
+	f->texture = "tool_tinbucket.png^bucket_water.png";
 	f->name = "TinBucket_water";
 	f->description = wgettext("Tin Bucket of Water");
 	f->type = TT_SPECIAL;
@@ -550,7 +550,7 @@ void content_toolitem_init()
 	i = CONTENT_TOOLITEM_STEELBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelbucket_water.png";
+	f->texture = "tool_steelbucket.png^bucket_water.png";
 	f->name = "SteelBucket_water";
 	f->description = wgettext("Steel Bucket of Water");
 	f->type = TT_SPECIAL;
@@ -561,7 +561,7 @@ void content_toolitem_init()
 	i = CONTENT_TOOLITEM_STEELBUCKET_LAVA;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelbucket_lava.png";
+	f->texture = "tool_steelbucket.png^bucket_lava.png";
 	f->name = "SteelBucket_lava";
 	f->description = wgettext("Steel Bucket of Lava");
 	f->onplace_node = CONTENT_LAVASOURCE;
