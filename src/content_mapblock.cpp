@@ -912,48 +912,6 @@ static void meshgen_rooftri(MeshMakeData *data, MapNode &n, v3s16 p, v3f corners
 	}
 }
 
-static void meshgen_leaftri(MeshMakeData *data, MapNode &n, v3s16 p, v3f corners[3], v3f pos, TileSpec &tile, SelectedNode &selected, s16 rot)
-{
-	if (selected.is_coloured || selected.has_crack) {
-		meshgen_rooftri(data,n,p,corners,pos,tile,selected,rot,v3s16(0,0,0));
-		return;
-	}
-	// vertices
-	v3f v[3];
-	// tex coords
-	v2f t[3];
-	for (int i=0; i<3; i++) {
-		v[i].X = (corners[i].X*data->m_BS);
-		v[i].Y = (corners[i].Y*data->m_BS);
-		v[i].Z = (corners[i].Z*data->m_BS);
-		t[i].X = (corners[i].X+0.5);
-		t[i].Y = (corners[i].Z+0.5);
-		if (rot)
-			t[i] = t[i].rotateBy(rot,v2f(0.5,0.5));
-		t[i].X = (t[i].X*tile.texture.size.X)+tile.texture.pos.X;
-		t[i].Y = (t[i].Y*tile.texture.size.Y)+tile.texture.pos.Y;
-	}
-
-	{
-		video::S3DVertex tri_v[3] = {
-			video::S3DVertex(v[0].X, v[0].Y, v[0].Z, 0,0,0, video::SColor(255,255,255,255),  t[0].X, t[0].Y),
-			video::S3DVertex(v[1].X, v[1].Y, v[1].Z, 0,0,0, video::SColor(255,255,255,255),  t[1].X, t[1].Y),
-			video::S3DVertex(v[2].X, v[2].Y, v[2].Z, 0,0,0, video::SColor(255,255,255,255),  t[2].X, t[2].Y),
-		};
-		u16 indices[] = {0,1,2};
-		std::vector<u32> colours;
-		if (selected.is_coloured) {
-			meshgen_selected_lights(colours,255,3);
-		}else{
-			meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),3,tri_v);
-		}
-		tri_v[0].Pos += pos;
-		tri_v[1].Pos += pos;
-		tri_v[2].Pos += pos;
-		data->append(tile.getMaterial(),tri_v, 3, indices, 3, colours);
-	}
-}
-
 void meshgen_preset_smooth_lights(MeshMakeData *data, v3s16 p)
 {
 	v3s16 pos = data->m_blockpos_nodes+p;
@@ -2660,7 +2618,11 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 		ContentFeatures &n_feat = content_features(neighbor_content);
 
 		// Don't draw face if neighbor is blocking the view
-		if (n_feat.solidness == 2)
+		if (
+			n_feat.draw_type == CDT_CUBELIKE
+			|| n_feat.draw_type == CDT_DIRTLIKE
+			|| n_feat.draw_type == CDT_MELONLIKE
+		)
 			continue;
 
 		bool neighbor_is_same_liquid = false;
@@ -4558,181 +4520,163 @@ void meshgen_rooflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
 {
-	bool is_xp = false;
-	bool is_xm = false;
-	bool is_zp = false;
-	bool is_zm = false;
-	bool is_xpzm = false;
-	bool is_xmzp = false;
-	bool is_xmzm = false;
-
-	content_t thiscontent = n.getContent();
-
 	if (data->mesh_detail == 1) {
 		meshgen_glasslike(data,p,n,selected);
 		return;
 	}
 
-	content_t n_xp = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 1,0, 0)).getContent();
-	content_t n_xm = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(-1,0, 0)).getContent();
-	content_t n_zp = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 0,0, 1)).getContent();
-	content_t n_zm = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 0,0,-1)).getContent();
-	content_t n_xpzm = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16( 1,0,-1)).getContent();
-	content_t n_xmzp = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(-1,0, 1)).getContent();
-	content_t n_xmzm = data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(-1,0,-1)).getContent();
-
-	if (n_xp == thiscontent || content_features(n_xp).special_alternate_node == thiscontent)
-		is_xp = true;
-	if (n_xm == thiscontent || content_features(n_xm).special_alternate_node == thiscontent)
-		is_xm = true;
-	if (n_zp == thiscontent || content_features(n_zp).special_alternate_node == thiscontent)
-		is_zp = true;
-	if (n_zm == thiscontent || content_features(n_zm).special_alternate_node == thiscontent)
-		is_zm = true;
-	if (n_xpzm == thiscontent || content_features(n_xpzm).special_alternate_node == thiscontent)
-		is_xpzm = true;
-	if (n_xmzp == thiscontent || content_features(n_xmzp).special_alternate_node == thiscontent)
-		is_xmzp = true;
-	if (n_xmzm == thiscontent || content_features(n_xmzm).special_alternate_node == thiscontent)
-		is_xmzm = true;
-
-	// get the tile, with crack if being dug
-	TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected);
-	TileSpec toptile = getNodeTile(n,p,v3s16(0,-1,0),selected);
-
-	u8 type = 0;
 	s16 angle = 0;
+	s16 dir = 0;
+	s16 twist = 0;
+	v3f offset(0,0,0);
+	bool ground = true;
 
-	MapNode abv;
-
-	v3f pos = intToFloat(p, BS);
-
-	if (is_xp && is_xm) {
-		if (is_zm || (is_xpzm && is_xmzm) || content_features(n_zm).walkable)
-			angle = 180;
-	}else if (is_zp && is_zm) {
-		if (is_xm || (is_xmzp && is_xmzm) || content_features(n_xm).walkable) {
-			angle = 90;
-		}else{
-			angle = 270;
+	{
+		s16 distance = 1;
+		bool inv = false;
+		v3s16 tp;
+		for (; ground && distance<4; distance++) {
+			for (s16 x=-distance; ground && x<=distance; x++) {
+				for (s16 z=-distance; ground && z<=distance; z++) {
+					if (x == -distance || x == distance || z == -distance || z == distance) {
+						MapNode nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(x,0,z));
+						if (
+							nn.getContent() == CONTENT_TREE
+							|| nn.getContent() == CONTENT_JUNGLETREE
+							|| nn.getContent() == CONTENT_APPLE_TREE
+							|| nn.getContent() == CONTENT_CONIFER_TREE
+							|| nn.getContent() == CONTENT_YOUNG_TREE
+							|| nn.getContent() == CONTENT_YOUNG_JUNGLETREE
+							|| nn.getContent() == CONTENT_YOUNG_APPLE_TREE
+							|| nn.getContent() == CONTENT_YOUNG_CONIFER_TREE
+						) {
+							ground = false;
+							tp = v3s16(x,0,z);
+						}
+					}
+				}
+			}
 		}
-	}else if (is_xp && is_zp) {
-		type = 1;
-		angle = 270;
-	}else if (is_xp && is_zm) {
-		type = 1;
-		angle = 180;
-	}else if (is_xm && is_zp) {
-		type = 1;
-	}else if (is_xm && is_zm) {
-		type = 1;
-		angle = 90;
-	}else if (is_xp || is_xm) {
-		if (is_zm || (is_xp && is_xpzm) || (is_xm && is_xmzm) || content_features(n_zm).walkable)
-			angle = 180;
-	}else if (is_zp || is_zm) {
-		if (is_xm || (is_zp && is_xmzp) || (is_zm && is_xmzm) || content_features(n_xm).walkable) {
-			angle = 90;
-		}else{
-			angle = 270;
+
+		if (ground) {
+			inv = true;
+			for (distance=0; ground && distance<4; distance++) {
+				for (s16 x=-distance; ground && x<=distance; x++) {
+					for (s16 z=-distance; ground && z<=distance; z++) {
+						if (x == -distance || x == distance || z == -distance || z == distance) {
+							for (s16 y=-1; ground && y>-5; y--) {
+								MapNode nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(x,y,z));
+								if (
+									nn.getContent() == CONTENT_TREE
+									|| nn.getContent() == CONTENT_JUNGLETREE
+									|| nn.getContent() == CONTENT_APPLE_TREE
+									|| nn.getContent() == CONTENT_CONIFER_TREE
+									|| nn.getContent() == CONTENT_YOUNG_TREE
+									|| nn.getContent() == CONTENT_YOUNG_JUNGLETREE
+									|| nn.getContent() == CONTENT_YOUNG_APPLE_TREE
+									|| nn.getContent() == CONTENT_YOUNG_CONIFER_TREE
+								) {
+									ground = false;
+									tp = v3s16(x,0,z);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (!ground) {
+			if (inv) {
+				offset.Y = (-0.2*BS)*(float)distance;
+				angle = 12*(5-distance);
+			}else{
+				angle = 12*distance;
+			}
+			v3f tv = intToFloat(tp,-1);
+			tv.normalize();
+			dir = 180./PI*atan2(tv.Z,tv.X);
+			dir -= 90;
+
+			twist = (tp.X*5)+(tp.Y*2);
+		}
+	}
+
+
+	v3f pos = intToFloat(p,BS);
+	if (selected.is_coloured || selected.has_crack) {
+		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
+		for (u16 k=0; k<2; k++) {
+			video::S3DVertex vertices[4] = {
+				video::S3DVertex( 0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+				video::S3DVertex(-0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+				video::S3DVertex(-0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0()),
+				video::S3DVertex( 0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0())
+			};
+			if (ground) {
+				for (u16 i=0; i<4; i++) {
+					vertices[i].Pos.Y = -0.49*data->m_BS;
+					vertices[i].Pos += offset;
+				}
+			}else{
+				for (u16 i=0; i<4; i++) {
+					vertices[i].Pos.rotateYZBy(angle);
+					vertices[i].Pos.rotateXYBy(twist);
+					vertices[i].Pos.rotateXZBy(dir);
+					vertices[i].Pos += offset;
+				}
+			}
+
+			u16 indices[6] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			if (selected.is_coloured) {
+				meshgen_selected_lights(colours,255,4);
+			}else{
+				meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,vertices);
+			}
+
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos += pos;
+				if (k == 0) {
+					vertices[i].Pos += data->m_BSd;
+				}else{
+					vertices[i].Pos -= data->m_BSd;
+				}
+			}
+
+			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
 		}
 	}else{
-		type = 2;
-	}
-	/*
-		0: slope
-		1: corner
-		2: top cap
-	*/
-	switch (type) {
-	case 0:
-	{
-		v3f cnr[2][3];
-		if (angle == 0) {
-			cnr[0][0] = v3f(-0.5,-0.5,-0.5);
-			cnr[0][1] = v3f(0.5,-0.5,-0.5);
-			cnr[0][2] = v3f(0.5,0.5,0.5);
-			cnr[1][0] = v3f(0.5,0.5,0.5);
-			cnr[1][1] = v3f(-0.5,0.5,0.5);
-			cnr[1][2] = v3f(-0.5,-0.5,-0.5);
-		}else if (angle == 90) {
-			cnr[0][0] = v3f(-0.5,0.5,-0.5);
-			cnr[0][1] = v3f(0.5,-0.5,-0.5);
-			cnr[0][2] = v3f(0.5,-0.5,0.5);
-			cnr[1][0] = v3f(0.5,-0.5,0.5);
-			cnr[1][1] = v3f(-0.5,0.5,0.5);
-			cnr[1][2] = v3f(-0.5,0.5,-0.5);
-		}else if (angle == 180) {
-			cnr[0][0] = v3f(-0.5,0.5,-0.5);
-			cnr[0][1] = v3f(0.5,0.5,-0.5);
-			cnr[0][2] = v3f(0.5,-0.5,0.5);
-			cnr[1][0] = v3f(0.5,-0.5,0.5);
-			cnr[1][1] = v3f(-0.5,-0.5,0.5);
-			cnr[1][2] = v3f(-0.5,0.5,-0.5);
-		}else if (angle == 270) {
-			cnr[0][0] = v3f(-0.5,-0.5,-0.5);
-			cnr[0][1] = v3f(0.5,0.5,-0.5);
-			cnr[0][2] = v3f(0.5,0.5,0.5);
-			cnr[1][0] = v3f(0.5,0.5,0.5);
-			cnr[1][1] = v3f(-0.5,-0.5,0.5);
-			cnr[1][2] = v3f(-0.5,-0.5,-0.5);
+		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex( 0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+			video::S3DVertex(-0.75*data->m_BS, 0.,-0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+			video::S3DVertex(-0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0()),
+			video::S3DVertex( 0.75*data->m_BS, 0., 0.75*data->m_BS, 0,1,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0())
+		};
+		if (ground) {
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos.Y = -0.49*data->m_BS;
+				vertices[i].Pos += offset;
+			}
+		}else{
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos.rotateYZBy(angle);
+				vertices[i].Pos.rotateXYBy(twist);
+				vertices[i].Pos.rotateXZBy(dir);
+				vertices[i].Pos += offset;
+			}
 		}
-		s16 a = 180-angle;
-		if (a < 0)
-			a += 360;
-		for (int s=0; s<2; s++) {
-			meshgen_leaftri(data,n,p,cnr[s],pos,tile,selected,a);
+
+		u16 indices[6] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,vertices);
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
 		}
-	}
-	break;
-	case 1:
-	{
-		v3f cnr[3];
-		s16 a = angle;
-		if (angle == 0) {
-			cnr[0] = v3f(-0.5,-0.5,-0.5);
-			cnr[1] = v3f(0.5,-0.5,0.5);
-			cnr[2] = v3f(-0.5,0.5,0.5);
-			a = 180;
-		}else if (angle == 90) {
-			cnr[0] = v3f(-0.5,-0.5,0.5);
-			cnr[1] = v3f(0.5,-0.5,-0.5);
-			cnr[2] = v3f(-0.5,0.5,-0.5);
-			a = 0;
-		}else if (angle == 180) {
-			cnr[0] = v3f(-0.5,-0.5,-0.5);
-			cnr[1] = v3f(0.5,0.5,-0.5);
-			cnr[2] = v3f(0.5,-0.5,0.5);
-			a = 270;
-		}else if (angle == 270) {
-			cnr[0] = v3f(-0.5,-0.5,0.5);
-			cnr[1] = v3f(0.5,0.5,0.5);
-			cnr[2] = v3f(0.5,-0.5,-0.5);
-		}
-		meshgen_leaftri(data,n,p,cnr,pos,tile,selected,a);
-	}
-	break;
-	case 2:
-	{
-		v3f cnr[4][3];
-		cnr[0][0] = v3f(0.,0.,0.);
-		cnr[0][1] = v3f(-0.5,-0.5,-0.5);
-		cnr[0][2] = v3f(-0.5,-0.5,0.5);
-		cnr[1][0] = v3f(0.,0.,0.);
-		cnr[1][1] = v3f(-0.5,-0.5,-0.5);
-		cnr[1][2] = v3f(0.5,-0.5,-0.5);
-		cnr[2][0] = v3f(0.,0.,0.);
-		cnr[2][1] = v3f(0.5,-0.5,-0.5);
-		cnr[2][2] = v3f(0.5,-0.5,0.5);
-		cnr[3][0] = v3f(0.,0.,0.);
-		cnr[3][1] = v3f(-0.5,-0.5,0.5);
-		cnr[3][2] = v3f(0.5,-0.5,0.5);
-		for (int s=0; s<4; s++) {
-			meshgen_leaftri(data,n,p,cnr[s],pos,toptile,selected,(90*s)+90+(180*(!(s%2))));
-		}
-	}
-	break;
-	default:;
+
+		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
 	}
 }
 

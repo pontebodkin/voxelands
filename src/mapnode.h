@@ -172,7 +172,8 @@ enum ContentEnergyType {
 	CET_CONDUCTIVE,
 	CET_SOURCE,
 	CET_SWITCH,
-	CET_GATE
+	CET_GATE,
+	CET_DEVICE,
 };
 
 /*
@@ -331,10 +332,7 @@ struct ContentFeatures
 	bool is_ground_content;
 	bool light_propagates;
 	bool sunlight_propagates;
-	u8 solidness; // Used when choosing which face is drawn
-	u8 visual_solidness; // When solidness=0, this tells how it looks like
 	// This is used for collision detection.
-	// Also for general solidness queries.
 	bool walkable;
 	// Player can point to these
 	bool pointable;
@@ -533,8 +531,6 @@ struct ContentFeatures
 		is_ground_content = false;
 		light_propagates = false;
 		sunlight_propagates = false;
-		solidness = 2;
-		visual_solidness = 0;
 		walkable = true;
 		pointable = true;
 		material_pointable = true;

@@ -126,7 +126,6 @@ void content_mapnode_plants(bool repeat)
 	f->setTexture(0, "tree_top.png");
 	f->setTexture(1, "tree_top.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	content_nodebox_youngtree(f);
@@ -147,7 +146,6 @@ void content_mapnode_plants(bool repeat)
 	f->setTexture(0, "jungletree_top.png");
 	f->setTexture(1, "jungletree_top.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	content_nodebox_youngtree(f);
@@ -168,7 +166,6 @@ void content_mapnode_plants(bool repeat)
 	f->setTexture(0, "apple_tree_top.png");
 	f->setTexture(1, "apple_tree_top.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	content_nodebox_youngtree(f);
@@ -189,7 +186,6 @@ void content_mapnode_plants(bool repeat)
 	f->setTexture(0, "conifer_tree_top.png");
 	f->setTexture(1, "conifer_tree_top.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	content_nodebox_youngtree(f);
@@ -215,7 +211,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE_FERN;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -237,7 +232,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE_FERN;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -256,7 +250,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -289,7 +282,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("leaves_autumn.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -322,7 +314,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("leaves_winter.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -355,7 +346,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("leaves_snowy.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -389,7 +379,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->special_alternate_node = CONTENT_APPLE_BLOSSOM;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("apple_leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -422,7 +411,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("jungleleaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -455,7 +443,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("conifer_leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -488,8 +475,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -515,8 +500,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("leaves_autumn.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -542,8 +525,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("leaves_winter.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -569,8 +550,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("apple_leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -596,8 +575,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("jungleleaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -623,8 +600,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("conifer_leaves.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -651,8 +626,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->special_alternate_node = CONTENT_APPLE_LEAVES;
 	f->draw_type = CDT_LEAFLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("apple_leaves.png^apple_blossom.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -677,8 +650,6 @@ void content_mapnode_plants(bool repeat)
 	f->climbable = true;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
-	f->visual_solidness = 1;
 	f->setAllTextures("apple_leaves.png^apple_blossom.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
@@ -703,7 +674,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = false; // grass grows underneath
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -724,7 +694,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CACTUS_BLOSSOM)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -746,7 +715,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
 	f->dug_item = std::string("CraftItem cactus_fruit 1");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -767,7 +735,6 @@ void content_mapnode_plants(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->damage_per_second = 10;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -833,7 +800,6 @@ void content_mapnode_plants(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_PAPYRUS;
 	f->plantgrowth_large_count = 1;
 	f->plantgrowth_max_height = 5;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -854,7 +820,6 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_propagates = true;
 	f->air_equivalent = false;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
@@ -876,7 +841,6 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_propagates = true;
 	f->air_equivalent = false;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
@@ -898,7 +862,6 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_propagates = true;
 	f->air_equivalent = false;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
@@ -920,7 +883,6 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_propagates = true;
 	f->air_equivalent = false;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
@@ -941,7 +903,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -968,7 +929,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -992,7 +952,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WILDGRASS_SHORT)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1015,7 +974,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1038,7 +996,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1061,7 +1018,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1085,7 +1041,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1109,7 +1064,6 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1133,7 +1087,6 @@ void content_mapnode_plants(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_TEA;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
@@ -1154,7 +1107,6 @@ void content_mapnode_plants(bool repeat)
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_TEA;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_TEA_LEAVES;
 	f->plantgrowth_large_gives_small = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
@@ -1177,7 +1129,6 @@ void content_mapnode_plants(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->special_alternate_node = CONTENT_COFFEE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_COFFEE_BEANS)+" 1";
 	f->type = CMT_PLANT;
@@ -1198,7 +1149,6 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->plantgrowth_small_dug_node = CONTENT_BEANS_COFFEE;
 	f->plantgrowth_large_dug_node = CONTENT_BEANS_COFFEE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;

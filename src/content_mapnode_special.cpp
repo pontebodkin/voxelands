@@ -45,7 +45,6 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->jumpable = false;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
@@ -74,7 +73,6 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->jumpable = false;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->special_alternate_node = CONTENT_STEEL;
 	f->type = CMT_STONE;
@@ -102,7 +100,6 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->jumpable = false;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
@@ -131,7 +128,6 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->jumpable = false;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
@@ -156,7 +152,6 @@ void content_mapnode_special(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->special_alternate_node = CONTENT_STEEL;
 	f->type = CMT_STONE;
@@ -188,7 +183,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_RAILLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->type = CMT_DIRT;
 	f->hardness = 0.75;
@@ -217,7 +211,6 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_DIRT;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -234,7 +227,6 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -252,7 +244,6 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_DIRT;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -276,7 +267,6 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_DIRT;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -299,7 +289,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -322,7 +311,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -346,7 +334,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -370,7 +357,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -394,7 +380,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -418,7 +403,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -442,7 +426,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -466,7 +449,6 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_GLASS;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -484,7 +466,6 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->type = CMT_DIRT;
 	f->hardness = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -506,7 +487,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem ")+itos(i)+" 1";
-	f->solidness = 0;
 	f->floormount_alternate_node = CONTENT_LADDER_FLOOR;
 	f->roofmount_alternate_node = CONTENT_LADDER_ROOF;
 	f->rotate_tile_with_nodebox = true;
@@ -566,7 +546,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem ")+itos(CONTENT_LADDER_WALL)+" 1";
-	f->solidness = 0;
 	f->wallmount_alternate_node = CONTENT_LADDER_WALL;
 	f->roofmount_alternate_node = CONTENT_LADDER_ROOF;
 	f->rotate_tile_with_nodebox = true;
@@ -601,7 +580,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem ")+itos(CONTENT_LADDER_WALL)+" 1";
-	f->solidness = 0;
 	f->floormount_alternate_node = CONTENT_LADDER_FLOOR;
 	f->wallmount_alternate_node = CONTENT_LADDER_WALL;
 	f->rotate_tile_with_nodebox = true;
@@ -671,7 +649,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setFaceText(0,FaceText(0.45,0.3,0.9875,0.7375));
 	f->setInventoryTextureNodeBox(i, "book_cover.png", "book_end.png^[transformFX", "book_side.png^[transformFY");
@@ -703,7 +680,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_COOK_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_cook_cover.png", "book_cook_end.png^[transformFX", "book_cook_side.png^[transformFY");
 	f->type = CMT_DIRT;
@@ -735,7 +711,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_DECRAFT_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_decraft_cover.png", "book_decraft_end.png^[transformFX", "book_decraft_side.png^[transformFY");
 	f->type = CMT_DIRT;
@@ -766,7 +741,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_DIARY_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setFaceText(0,FaceText(0.45,0.3,0.9875,0.7375));
 	f->setInventoryTextureNodeBox(i, "book_diary_cover.png", "book_diary_end.png^[transformFX", "book_diary_side.png^[transformFY");
@@ -798,7 +772,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_CRAFT_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_craft_cover.png", "book_craft_end.png^[transformFX", "book_craft_side.png^[transformFY");
 	f->type = CMT_DIRT;
@@ -838,7 +811,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_RCRAFT_BOOK_OPEN;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0;
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_rcraft_cover.png", "book_rcraft_end.png^[transformFX", "book_rcraft_side.png^[transformFY");
 	f->type = CMT_DIRT;
@@ -875,7 +847,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setFaceText(0,FaceText(0.15,0.35,0.85,0.85,FTT_BOOKCONTENT));
 	f->setInventoryTextureNodeBox(i, "guide_top.png", "guide_end.png", "guide_side.png");
@@ -904,7 +875,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_COOK_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COOK_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_cook_top.png", "guide_cook_end.png", "guide_cook_side.png");
 	f->type = CMT_DIRT;
@@ -932,7 +902,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_DECRAFT_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_DECRAFT_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_decraft_top.png", "guide_decraft_end.png", "guide_decraft_side.png");
 	f->type = CMT_DIRT;
@@ -960,7 +929,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_DIARY_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_DIARY_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setFaceText(0,FaceText(0.15,0.35,0.85,0.85,FTT_BOOKCONTENT));
 	f->setInventoryTextureNodeBox(i, "guide_diary_top.png", "guide_diary_end.png", "guide_diary_side.png");
@@ -989,7 +957,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_CRAFT_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFT_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_craft_top.png", "guide_craft_end.png", "guide_craft_side.png");
 	f->type = CMT_DIRT;
@@ -1017,7 +984,6 @@ void content_mapnode_special(bool repeat)
 	f->onpunch_replace_node = CONTENT_RCRAFT_BOOK;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_RCRAFT_BOOK)+" 1";
-	f->solidness = 0;
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_rcraft_top.png", "guide_rcraft_end.png", "guide_rcraft_side.png");
 	f->type = CMT_DIRT;
@@ -1037,7 +1003,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FIRELIKE;
 	f->light_propagates = true;
 	f->light_source = LIGHT_MAX-1;
-	f->solidness = 0; // Drawn separately, makes no faces
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -1058,7 +1023,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FIRELIKE;
 	f->light_propagates = true;
 	f->light_source = LIGHT_MAX-1;
-	f->solidness = 0; // Drawn separately, makes no faces
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;
@@ -1080,7 +1044,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_TORCHLIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1108,7 +1071,6 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->floormount_alternate_node = CONTENT_SIGN;
 	f->roofmount_alternate_node = CONTENT_SIGN_UD;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1138,7 +1100,6 @@ void content_mapnode_special(bool repeat)
 	f->roofmount_alternate_node = CONTENT_SIGN_UD;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -1172,7 +1133,6 @@ void content_mapnode_special(bool repeat)
 	f->floormount_alternate_node = CONTENT_SIGN;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN)+" 1";
@@ -1201,7 +1161,6 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true;
 	f->floormount_alternate_node = CONTENT_LOCKABLE_SIGN;
 	f->roofmount_alternate_node = CONTENT_LOCKABLE_SIGN_UD;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -1232,7 +1191,6 @@ void content_mapnode_special(bool repeat)
 	f->roofmount_alternate_node = CONTENT_LOCKABLE_SIGN_UD;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -1265,7 +1223,6 @@ void content_mapnode_special(bool repeat)
 	f->floormount_alternate_node = CONTENT_LOCKABLE_SIGN;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_SIGN)+" 1";
@@ -1394,7 +1351,6 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_furnace(f);
 	f->setInventoryTextureNodeBox(i,"furnace_top.png^[transformR90", "furnace_front.png", "furnace_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new FurnaceNodeMetadata();
@@ -1439,7 +1395,6 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_lockedfurnace(f);
 	f->setInventoryTextureNodeBox(i,"furnace_top.png^[transformR90", "furnace_lock.png", "furnace_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingFurnaceNodeMetadata();
@@ -1485,7 +1440,6 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_incinerator(f);
 	f->setInventoryTextureNodeBox(i,"incinerator_top.png^[transformR90", "incinerator_front.png", "incinerator_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new IncineratorNodeMetadata();
@@ -1549,7 +1503,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_FLOWER_POT)+" 1";
 	f->type = CMT_STONE;
@@ -1571,7 +1524,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->hardness = 0.75;
@@ -1591,7 +1543,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1615,7 +1566,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1639,7 +1589,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1663,7 +1612,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1687,7 +1635,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1711,7 +1658,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_WALLLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_wall_inv(f);
 	content_nodebox_wall(f);
@@ -1733,7 +1679,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureCube("tnt_top.png", "tnt.png", "tnt.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->energy_type = CET_CONDUCTIVE;
+	f->energy_type = CET_DEVICE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new TNTNodeMetadata();
@@ -1748,7 +1694,6 @@ void content_mapnode_special(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("In-Progress explosion - how did you get this???");
 	f->setAllTextures("flash.png");
-	f->solidness = 0; // drawn separately, makes no faces
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
 	f->light_propagates = true;
@@ -1768,7 +1713,6 @@ void content_mapnode_special(bool repeat)
 	f = &content_features(i);
 	f->description = wgettext("Steam");
 	f->setAllTextures("steam.png");
-	f->solidness = 0;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_GLASSLIKE;
 	f->light_propagates = true;
@@ -1797,7 +1741,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_WHITE;
@@ -1843,7 +1786,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_BLUE;
@@ -1868,7 +1810,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_GREEN;
@@ -1893,7 +1834,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_ORANGE;
@@ -1918,7 +1858,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_PURPLE;
@@ -1943,7 +1882,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_RED;
@@ -1968,7 +1906,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_YELLOW;
@@ -1993,7 +1930,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_FLAGLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_BLACK;
@@ -2045,7 +1981,6 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->buildable_to = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->solidness = 0; // drawn separately, makes no faces
 	f->air_equivalent = true; // grass grows underneath
 	f->borderstone_diggable = true;
 	content_nodebox_parcel(f);
@@ -2065,7 +2000,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX_META;
 	f->type = CMT_STONE;
 	f->hardness = 3.0;
-	f->solidness = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_cauldron(f);
 	f->setInventoryTextureNodeBox(i,"cauldron_outer.png", "cauldron_outer.png", "cauldron_outer.png");
@@ -2086,7 +2020,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->type = CMT_STONE;
 	f->hardness = 3.0;
-	f->solidness = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_forge(f);
 	f->setInventoryTextureNodeBox(i,"forge_top.png", "forge_side.png", "forge_side.png");
@@ -2114,7 +2047,6 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_PLANTLIKE;
 	f->light_propagates = true;
 	f->light_source = LIGHT_MAX-4;
-	f->solidness = 0; // Drawn separately, makes no faces
 	f->walkable = false;
 	f->pointable = false;
 	f->diggable = false;

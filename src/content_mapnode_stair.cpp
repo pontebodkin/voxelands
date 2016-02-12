@@ -38,7 +38,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_stair(f);
@@ -55,7 +54,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_stair(f);
@@ -72,7 +70,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_stair(f);
@@ -89,7 +86,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -106,7 +102,6 @@ void content_mapnode_stair(bool repeat)
 	f->description = wgettext("Wood Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("wood.png");
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -126,7 +121,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	//f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_stair(f);
@@ -150,7 +144,6 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(3,"brick_side.png");
 	f->setTexture(5,"brick_stair_front.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 4");
 	content_nodebox_stair(f);
@@ -167,7 +160,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	content_nodebox_stair(f);
@@ -184,7 +176,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_stair(f);
@@ -201,7 +192,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -215,7 +205,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -229,7 +218,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -243,7 +231,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -257,7 +244,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("wood.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -273,7 +259,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	//f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_STAIR)+" 1";
 	content_nodebox_stairud(f);
@@ -294,7 +279,6 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(3,"brick_side.png^[transformfy");
 	f->setTexture(5,"brick_stair_front.png^[transformfy");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 4");
 	content_nodebox_stairud(f);
@@ -308,7 +292,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	content_nodebox_stairud(f);
@@ -322,7 +305,6 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_STAIRLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_STAIR)+" 1";
 	content_nodebox_stairud(f);

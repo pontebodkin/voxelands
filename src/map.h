@@ -226,6 +226,10 @@ public:
 	bool addNodeWithEvent(v3s16 p, MapNode n);
 	bool removeNodeWithEvent(v3s16 p);
 
+	/* like addNodeWithEvent but does not affect lighting
+	 * pretty much only for changing param values of unlit nodes */
+	bool updateNodeWithEvent(v3s16 p, MapNode n);
+
 	/*
 		Takes the blocks at the edges into account
 	*/

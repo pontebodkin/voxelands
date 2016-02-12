@@ -1473,12 +1473,12 @@ void ServerEnvironment::step(float dtime)
 							search.push_back(CONTENT_AIR);
 							if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,32,0),search,NULL)) {
 								n.param1 = 0x04;
-								m_map->addNodeWithEvent(p, n);
+								m_map->updateNodeWithEvent(p, n);
 							}
 						// footsteps fade out
 						}else if ((n.param1&0x10) == 0x10 && n.envticks > 3) {
 							n.param1 &= ~0x10;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						// autumn grass in autumn/winter
 						}else if (
 							(
@@ -1496,7 +1496,7 @@ void ServerEnvironment::step(float dtime)
 						) {
 							n.param1 &= ~0x0F;
 							n.param1 |= 0x02;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						// green grass in spring/summer
 						}else if (
 							(
@@ -1514,7 +1514,7 @@ void ServerEnvironment::step(float dtime)
 						) {
 							n.param1 &= ~0x0F;
 							n.param1 |= 0x01;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						// melt snow out of the coldzone
 						}else if (
 							(n.param1&0x0F) == 0x04
@@ -1527,7 +1527,7 @@ void ServerEnvironment::step(float dtime)
 								n.param1 |= 0x02;
 							}
 							n.param2 = 0;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						// grow
 						}else if (
 							(n.param1&0x0F) != 0x04
@@ -1538,11 +1538,11 @@ void ServerEnvironment::step(float dtime)
 					}else{
 						if (n.param1 == 0x01) {
 							n.param1 = 0x02;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						}else if (n.param1 != 0) {
 							n.param1 = 0;
 							n.param2 = 0;
-							m_map->addNodeWithEvent(p,n);
+							m_map->updateNodeWithEvent(p,n);
 						}
 					}
 					break;
@@ -3129,9 +3129,17 @@ bool ServerEnvironment::propogateEnergy(u8 level, v3s16 powersrc, v3s16 signalsr
 			m_map->addNodeAndUpdate(pos, n, modified_blocks, st);
 		}
 	}
+	if (f.energy_type == CET_DEVICE) {
+	    // devices receive power, but don't propogate it further
+	    return false;
+	}
 
 	if (f.energy_type != CET_SOURCE && f.energy_type != CET_SWITCH)
 		level -= f.energy_drop;
+
+	if (level < 1) {
+	    return false;
+	}
 
 	MapNode n_plus_y = m_map->getNodeNoEx(pos + v3s16(0,1,0));
 	MapNode n_minus_x = m_map->getNodeNoEx(pos + v3s16(-1,0,0));

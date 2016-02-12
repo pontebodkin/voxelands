@@ -360,7 +360,7 @@ collisionMoveResult collisionMoveSimple(Map *map,
 
 	int loopcount = 0;
 
-	while (dtime > BS*1e-10) {
+	while (dtime > 0.00001) {
 		//TimeTaker tt3("collisionMoveSimple dtime loop");
 			ScopeProfiler sp(g_profiler, "collisionMoveSimple dtime loop avg", SPT_AVG);
 

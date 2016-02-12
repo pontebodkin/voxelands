@@ -1143,6 +1143,23 @@ bool Map::removeNodeWithEvent(v3s16 p)
 	return succeeded;
 }
 
+bool Map::updateNodeWithEvent(v3s16 p, MapNode n)
+{
+	MapEditEvent event;
+	event.type = MEET_ADDNODE;
+	event.p = p;
+	event.n = n;
+
+	MapNode nn = getNodeNoEx(p);
+	if (nn.getContent() != n.getContent())
+		return false;
+
+	setNode(p, n);
+	dispatchEvent(&event);
+
+	return true;
+}
+
 bool Map::dayNightDiffed(v3s16 blockpos)
 {
 	try{
@@ -2386,49 +2403,13 @@ MapBlock * ServerMap::emergeBlock(v3s16 p, bool allow_generate)
 
 s16 ServerMap::findGroundLevel(v2s16 p2d)
 {
-#if 0
-	/*
-		Uh, just do something random...
-	*/
-	// Find existing map from top to down
-	s16 max=63;
-	s16 min=-64;
-	v3s16 p(p2d.X, max, p2d.Y);
-	for(; p.Y>min; p.Y--)
-	{
-		MapNode n = getNodeNoEx(p);
-		if(n.getContent() != CONTENT_IGNORE)
-			break;
-	}
-	if(p.Y == min)
-		goto plan_b;
-	// If this node is not air, go to plan b
-	if(getNodeNoEx(p).getContent() != CONTENT_AIR)
-		goto plan_b;
-	// Search existing walkable and return it
-	for(; p.Y>min; p.Y--)
-	{
-		MapNode n = getNodeNoEx(p);
-		if(content_walkable(n.d) && n.getContent() != CONTENT_IGNORE)
-			return p.Y;
-	}
-
-	// Move to plan b
-plan_b:
-#endif
-
-	/*
-		Determine from map generator noise functions
-	*/
+	/* determine from map generator noise functions */
 	mapgen::BlockMakeData d;
 	d.type = m_type;
 	d.seed = m_seed;
 
 	s16 level = mapgen::find_ground_level_from_noise(&d, p2d, 1);
 	return level;
-
-	//double level = base_rock_level_2d(m_seed, p2d) + AVERAGE_MUD_AMOUNT;
-	//return (s16)level;
 }
 
 void ServerMap::createDatabase() {
@@ -3160,19 +3141,18 @@ static bool isOccluded(Map *map, v3s16 p0, v3s16 p1, float step, float stepfac,
 	uf.normalize();
 	v3f p0f = v3f(p0.X, p0.Y, p0.Z) * BS;
 	u32 count = 0;
-	for(float s=start_off; s<d0+end_off; s+=step){
+	for (float s=start_off; s<d0+end_off; s+=step){
 		v3f pf = p0f + uf * s;
 		v3s16 p = floatToInt(pf, BS);
 		MapNode n = map->getNodeNoEx(p);
-		bool is_transparent = false;
 		ContentFeatures &f = content_features(n);
-		if(f.solidness == 0)
-			is_transparent = (f.visual_solidness != 2);
-		else
-			is_transparent = (f.solidness != 2);
-		if(!is_transparent){
+		if (
+			f.draw_type == CDT_CUBELIKE
+			|| f.draw_type == CDT_DIRTLIKE
+			|| f.draw_type == CDT_MELONLIKE
+		) {
 			count++;
-			if(count >= needed_count)
+			if (count >= needed_count)
 				return true;
 		}
 		step *= stepfac;
@@ -3779,9 +3759,13 @@ void ClientMap::renderPostFx()
 
 		// - If the player is in a solid node, make everything black.
 		// - If the player is in liquid, draw a semi-transparent overlay.
-		ContentFeatures& features = content_features(n);
-		post_effect_color = features.post_effect_color;
-		if (features.solidness == 2 && m_client->getLocalPlayer()->control.free == false) {
+		ContentFeatures &f = content_features(n);
+		post_effect_color = f.post_effect_color;
+		if (
+			f.draw_type == CDT_CUBELIKE
+			|| f.draw_type == CDT_DIRTLIKE
+			|| f.draw_type == CDT_MELONLIKE
+		) {
 			post_effect_color = video::SColor(255, 0, 0, 0);
 		}
 	}

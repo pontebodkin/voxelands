@@ -38,7 +38,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_ROUGHSTONE;
@@ -57,7 +56,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_COBBLE;
@@ -76,7 +74,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_MOSSYCOBBLE;
@@ -94,7 +91,6 @@ void content_mapnode_slab(bool repeat)
 	f->description = wgettext("Stone Slab");
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_STONE;
@@ -112,7 +108,6 @@ void content_mapnode_slab(bool repeat)
 	f->description = wgettext("Wood Slab");
 	f->setAllTextures("wood.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_WOOD;
@@ -132,7 +127,6 @@ void content_mapnode_slab(bool repeat)
 	f->description = wgettext("Jungle Wood Slab");
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	//f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_JUNGLEWOOD;
@@ -156,7 +150,6 @@ void content_mapnode_slab(bool repeat)
 	f->setTexture(2,"brick_side.png");
 	f->setTexture(3,"brick_side.png");
 	f->draw_type = CDT_NODEBOX;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->special_alternate_node = CONTENT_BRICK;
@@ -174,7 +167,6 @@ void content_mapnode_slab(bool repeat)
 	f->description = wgettext("Sand Stone Slab");
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->special_alternate_node = CONTENT_SANDSTONE;
@@ -197,7 +189,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab.png");
 	f->setTexture(0,"glass.png");
 	f->setTexture(1,"glass.png");
@@ -223,7 +214,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLUE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_blue.png");
 	f->setTexture(0,"glass_blue.png");
 	f->setTexture(1,"glass_blue.png");
@@ -250,7 +240,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_GREEN;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_green.png");
 	f->setTexture(0,"glass_green.png");
 	f->setTexture(1,"glass_green.png");
@@ -277,7 +266,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_ORANGE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_orange.png");
 	f->setTexture(0,"glass_orange.png");
 	f->setTexture(1,"glass_oange.png");
@@ -304,7 +292,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_PURPLE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_purple.png");
 	f->setTexture(0,"glass_purple.png");
 	f->setTexture(1,"glass_purple.png");
@@ -331,7 +318,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_RED;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_red.png");
 	f->setTexture(0,"glass_red.png");
 	f->setTexture(1,"glass_red.png");
@@ -358,7 +344,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_YELLOW;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_yellow.png");
 	f->setTexture(0,"glass_yellow.png");
 	f->setTexture(1,"glass_yellow.png");
@@ -385,7 +370,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLACK;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_black.png");
 	f->setTexture(0,"glass_black.png");
 	f->setTexture(1,"glass_black.png");
@@ -408,7 +392,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_LIMESTONE;
@@ -427,7 +410,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_ROUGHSTONE;
@@ -443,7 +425,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_COBBLE;
@@ -458,7 +439,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_MOSSYCOBBLE;
@@ -472,7 +452,6 @@ void content_mapnode_slab(bool repeat)
 	f = &content_features(i);
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_STONE;
@@ -486,7 +465,6 @@ void content_mapnode_slab(bool repeat)
 	f = &content_features(i);
 	f->setAllTextures("wood.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_WOOD;
@@ -502,7 +480,6 @@ void content_mapnode_slab(bool repeat)
 	f = &content_features(i);
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	//f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_JUNGLEWOOD;
@@ -522,7 +499,6 @@ void content_mapnode_slab(bool repeat)
 	f->setTexture(2,"brick_side.png^[transformfy");
 	f->setTexture(3,"brick_side.png^[transformfy");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->special_alternate_node = CONTENT_BRICK;
@@ -536,7 +512,6 @@ void content_mapnode_slab(bool repeat)
 	f = &content_features(i);
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->special_alternate_node = CONTENT_SANDSTONE;
@@ -556,7 +531,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab.png");
 	f->setTexture(0,"glass.png");
 	f->setTexture(1,"glass.png");
@@ -579,7 +553,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLUE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_blue.png");
 	f->setTexture(0,"glass_blue.png");
 	f->setTexture(1,"glass_blue.png");
@@ -602,7 +575,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_GREEN;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_green.png");
 	f->setTexture(0,"glass_green.png");
 	f->setTexture(1,"glass_green.png");
@@ -625,7 +597,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_ORANGE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_orange.png");
 	f->setTexture(0,"glass_orange.png");
 	f->setTexture(1,"glass_orange.png");
@@ -648,7 +619,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_PURPLE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_purple.png");
 	f->setTexture(0,"glass_purple.png");
 	f->setTexture(1,"glass_purple.png");
@@ -671,7 +641,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_RED;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_red.png");
 	f->setTexture(0,"glass_red.png");
 	f->setTexture(1,"glass_red.png");
@@ -694,7 +663,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_YELLOW;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_yellow.png");
 	f->setTexture(0,"glass_yellow.png");
 	f->setTexture(1,"glass_yellow.png");
@@ -717,7 +685,6 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLACK;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->setAllTextures("glass_slab_black.png");
 	f->setTexture(0,"glass_black.png");
 	f->setTexture(1,"glass_black.png");
@@ -735,7 +702,6 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_SLABLIKE;
-	f->solidness = 0; // drawn separately, makes no faces
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_SLAB)+" 1";
 	f->special_alternate_node = CONTENT_LIMESTONE;
