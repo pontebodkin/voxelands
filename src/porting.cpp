@@ -244,6 +244,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/../"
 	path_userdata = std::string(buf);
+	path_configdata = std::string(buf);
 
 	/*
 		OS X
@@ -417,7 +418,8 @@ void initializePaths(char* argv0)
 	dstream<<"path_userdata = "<<path_userdata<<std::endl;
 
 #if defined(__FreeBSD__) || defined(linux)
-
+	#ifndef RUN_IN_PLACE
+	// Migrate to the new Directories
 	std::string path_olddirectory = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
 
 	if (fs::PathExists(path_olddirectory))
@@ -461,6 +463,7 @@ void initializePaths(char* argv0)
 			dstream<<"The Data directory will not be migrated. " << std::endl;
 		}
 	}
+	#endif
 #endif
 }
 
