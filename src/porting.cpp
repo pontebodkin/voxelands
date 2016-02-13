@@ -34,6 +34,7 @@
 #include "debug.h"
 #include "filesys.h"
 #include "player.h"
+#include "errno.h"
 
 #ifdef __APPLE__
 	#include "CoreFoundation/CoreFoundation.h"
@@ -124,6 +125,7 @@ void signal_handler_init(void)
 */
 
 std::string path_data = ".." DIR_DELIM "data";
+std::string path_configdata = "..";
 std::string path_userdata = "..";
 
 std::string getDataPath(const char *subpath)
@@ -213,6 +215,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/.."
 	path_userdata = std::string(buf);
+        path_configdata = std::string(buf);
 
 	/*
 		Linux
@@ -241,6 +244,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/../"
 	path_userdata = std::string(buf);
+	path_configdata = std::string(buf);
 
 	/*
 		OS X
@@ -268,11 +272,13 @@ void initializePaths(char* argv0)
 
 	if (path) {
 		path_userdata = std::string(path);
+                path_configdata = std::string(path);
 		path_data = std::string(path) + "/data";
 
 		free(path);
 	}else{
 		path_userdata = std::string("..");
+                path_configdata = std::string("..");
 		path_data = std::string("../data");
 	}
 
@@ -303,6 +309,7 @@ void initializePaths(char* argv0)
 
 	// Use "./bin/../data"
 	path_data = std::string(buf) + DIR_DELIM ".." DIR_DELIM "data";
+        path_configdata = std::string(buf) + DIR_DELIM + PROJECT_NAME;
 	//path_data = std::string(buf) + "/../share/" + PROJECT_NAME;
 
 	// Use "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
@@ -326,13 +333,31 @@ void initializePaths(char* argv0)
 
 	path_data = std::string(buf) + "/share/" + PROJECT_NAME;
 	//path_data = std::string(INSTALL_PREFIX) + "/share/" + PROJECT_NAME;
-	if (!fs::PathExists(path_data)) {
+	if (!fs::PathExists(path_data))
+	{
 		dstream<<"WARNING: data path " << path_data << " not found!";
 		path_data = std::string(buf) + "/data";
 		dstream<<" Trying " << path_data << std::endl;
 	}
 
-	path_userdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+	if (getenv("XDG_CONFIG_HOME") == NULL)
+	{
+		path_configdata = std::string(getenv("HOME"))
+					+ "/.config/" + PROJECT_NAME;
+	} else
+	{
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"))
+					+ "/" + PROJECT_NAME;
+	}
+	if (getenv("XDG_DATA_HOME") == NULL)
+	{
+		path_userdata = std::string(getenv("HOME"))
+					+ "/.local/share/" + PROJECT_NAME;
+	} else
+	{
+		path_userdata = std::string(getenv("XDG_DATA_HOME"))
+					+ "/" + PROJECT_NAME;
+	}
 
 	/*
 		OS X
@@ -359,18 +384,87 @@ void initializePaths(char* argv0)
 	CFRelease(resources_url);
 
 	path_userdata = std::string(getenv("HOME")) + "/Library/Application Support/" + PROJECT_NAME;
+        path_configdata = std::string(getenv("HOME")) + "/Library/Application Support/" + PROJECT_NAME;
 
 	#elif defined(__FreeBSD__)
 
 	path_data = std::string(INSTALL_PREFIX) + "/share/" + PROJECT_NAME;
-	path_userdata = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+
+	if (getenv("XDG_CONFIG_HOME") == NULL)
+	{
+		path_configdata = std::string(getenv("HOME"))
+					+ "/.config/" + PROJECT_NAME;
+	} else
+	{
+		path_configdata = std::string(getenv("XDG_CONFIG_HOME"))
+					+ "/" + PROJECT_NAME;
+	}
+	if (getenv("XDG_DATA_HOME") == NULL)
+	{
+		path_userdata = std::string(getenv("HOME"))
+					+ "/.local/share/" + PROJECT_NAME;
+	} else
+	{
+		path_userdata = std::string(getenv("XDG_DATA_HOME"))
+					+ "/" + PROJECT_NAME;
+	}
 
 	#endif
 
 #endif // RUN_IN_PLACE
 
 	dstream<<"path_data = "<<path_data<<std::endl;
+        dstream<<"path_configdata = "<<path_configdata<<std::endl;
 	dstream<<"path_userdata = "<<path_userdata<<std::endl;
+
+#if defined(__FreeBSD__) || defined(linux)
+	#ifndef RUN_IN_PLACE
+	// Migrate to the new Directories
+	std::string path_olddirectory = std::string(getenv("HOME")) + "/." + PROJECT_NAME;
+
+	if (fs::PathExists(path_olddirectory))
+	{
+		dstream<<"Old directory found, Migrating process will start now." << std::endl;
+
+		if (!fs::PathExists(path_configdata))
+		{
+			fs::CreateDir(path_configdata);
+			std::string path_oldconfig = std::string(getenv("HOME"))
+							+ "/.voxelands/voxelands.conf";
+			std::string path_newconfig = path_configdata + "/voxelands.conf";
+
+			if (rename( path_oldconfig.c_str() , path_newconfig.c_str() ) == 0)
+			{
+				dstream<<"Config is successful migrated." << std::endl;
+			} else
+			{
+				dstream<<"Error while moving the Config directory: " << std::endl;
+				dstream<<strerror(errno) << std::endl;
+			}
+		} else
+		{
+			dstream<<"Warning: There is already a directory for the Config!" << std::endl;
+			dstream<<"The Config directory will not be migrated." << std::endl;
+		}
+		if (!fs::PathExists(path_userdata))
+		{
+			if (rename( path_olddirectory.c_str() ,
+				    path_userdata.c_str() ) == 0)
+			{
+				dstream<<"Data Directory is successful migrated." << std::endl;
+			} else
+			{
+				dstream<<"Error while move the Data directory: " << std::endl;
+				dstream<<strerror(errno) << std::endl;
+			}
+		} else
+		{
+			dstream<<"Warning: There is already a Directory for the Data!" << std::endl;
+			dstream<<"The Data directory will not be migrated. " << std::endl;
+		}
+	}
+	#endif
+#endif
 }
 
 std::string getUser()

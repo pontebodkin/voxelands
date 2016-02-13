@@ -819,12 +819,16 @@ int main(int argc, char *argv[])
 	porting::signal_handler_init();
 	bool &kill = *porting::signal_handler_killstatus();
 
-	// Initialize porting::path_data and porting::path_userdata
+	// Initialize porting::path_data, porting::path_userdata and porting::userconfig
 	porting::initializePaths(argv[0]);
 
 	// Create user data directory
 	fs::CreateDir(porting::path_userdata);
-
+        
+#if defined(__FreeBSD__) || defined(linux)
+	// Create user config directory
+        fs::CreateDir(porting::path_configdata);
+#endif
 	init_gettext();
 
 	// Initialize debug streams
@@ -879,10 +883,10 @@ int main(int argc, char *argv[])
 		configpath = cmd_args.get("config");
 	}else{
 		core::array<std::string> filenames;
-		filenames.push_back(porting::path_userdata +
+		filenames.push_back(porting::path_configdata +
 				DIR_DELIM + "voxelands.conf");
 #ifdef RUN_IN_PLACE
-		filenames.push_back(porting::path_userdata +
+		filenames.push_back(porting::path_configdata +
 				DIR_DELIM + ".." + DIR_DELIM + "voxelands.conf");
 #endif
 
