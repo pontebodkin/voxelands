@@ -673,16 +673,16 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 			txt += "\n\n";
 
 			txt += gettext("Programmers");
-			txt += "\ndarkrose, sdzen, Pentium44, Menche, MavJS, tiemay, Tapoky, JHeaton, Wayward_One, Stephane, hdastwb, VargaD.\n\n";
+			txt += "\ndarkrose, sdzen, Pentium44, Menche, MavJS, tiemay, Tapoky, JHeaton, Wayward_One, Stephane, hdastwb, VargaD, GagaPete, Nascher.\n\n";
 
 			txt += gettext("Artists and Modellers");
-			txt += "\ndarkrose, sdzen, Menche, Pentium44, Wuzzy, Carl 'melkior' Kidwell, Jordach, Gwinna, elky, p0ss.\n\n";
+			txt += "\ndarkrose, sdzen, Menche, Pentium44, Wuzzy, Carl 'melkior' Kidwell, Jordach, Gwinna, elky, p0ss, GagaPete, nic96.\n\n";
 
 			txt += gettext("Translators");
 			txt += "\ndarkrose, Szkodnix, soognarf, Wuzzy, Akien, redhound, Rui, loh, wario, puma_rc, Uniaika.\n\n";
 
 			txt += gettext("Documentation Writters");
-			txt += "\ndarkrose, Menche, Pentium44, elky.\n\n";
+			txt += "\ndarkrose, Menche, Pentium44, elky, cambam, meldrian, comrad.\n\n";
 
 			txt += gettext("Testers, Packagers, and Builders");
 			txt += "\ndarkrose, sdzen, Menche, tiemay, JHeaton, MavJS, mcnalu.\n\n";
