@@ -43,23 +43,25 @@ Controls can be set in the Settings tab of the main menu
 
 Main controls:
 
-    W, A, S, D - Movement keys
+    W, S, A, D - Walk forward backward, left, and right.
     Mouse - Look / Aim.
     Mouse wheel - Change wielded item.
     1 through 8 - Change wielded item.
     Right Mouse Button - Place item.
     Left Mouse Button - Dig / Punch / Attack.
     Shift - Sneak.
-    Space - Jump/Move Up (ladders, swimming, flying)
-    R - Move Down (ladders, swimming, flying)
+    Space - Jump.
+    R - Move Up (ladders, swimming, flying)
+    F - Move Down (ladders, swimming, flying)
     E - Run.
 
 Action controls:
 
-    Q - Enter inventory. 
-    F - Use/Examine
+    I - Enter inventory.
+    Q - Examine pointed block.
+    H - Use item in hand.
     T - Talk / commands.
-    Left Control - Toggle fly mode.
+    K - Toggle fly mode.
     F1 - Hide / show hud.
     F2 - Hide / show chat.
     F3 - Disable / enable fog.
