@@ -57,9 +57,10 @@ Main controls:
 Action controls:
 
     Q - Enter inventory. 
-    F - Use/Examine
+    F - Examine
+    G - Use
     T - Talk / commands.
-    Left Control - Toggle fly mode.
+    K - Toggle fly mode.
     F1 - Hide / show hud.
     F2 - Hide / show chat.
     F3 - Disable / enable fog.
