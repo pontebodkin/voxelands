@@ -60,6 +60,7 @@ Action controls:
     I - Enter inventory.
     Q - Examine pointed block.
     H - Use item in hand.
+=======
     T - Talk / commands.
     K - Toggle fly mode.
     F1 - Hide / show hud.
