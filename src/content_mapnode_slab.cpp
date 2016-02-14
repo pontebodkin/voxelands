@@ -196,7 +196,7 @@ void content_mapnode_slab(bool repeat)
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png", "glass_slab.png");
+	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png", "glass_slab.png^glass.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -214,14 +214,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLUE;
-	f->setAllTextures("glass_slab_blue.png");
-	f->setTexture(0,"glass_blue.png");
-	f->setTexture(1,"glass_blue.png");
+	f->setAllTextures("glass_slab.png^glass_pane_blue_side.png");
+	f->setTexture(0,"glass.png^glass_pane_blue_side.png");
+	f->setTexture(1,"glass.png^glass_pane_blue_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_blue.png", "glass_slab_blue.png", "glass_slab_blue.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -240,14 +240,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_GREEN;
-	f->setAllTextures("glass_slab_green.png");
-	f->setTexture(0,"glass_green.png");
-	f->setTexture(1,"glass_green.png");
+	f->setAllTextures("glass_slab.png^glass_pane_green_side.png");
+	f->setTexture(0,"glass.png^glass_pane_green_side.png");
+	f->setTexture(1,"glass.png^glass_pane_green_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_green.png", "glass_slab_green.png", "glass_slab_green.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -266,14 +266,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_ORANGE;
-	f->setAllTextures("glass_slab_orange.png");
-	f->setTexture(0,"glass_orange.png");
+	f->setAllTextures("glass_slab.png^glass_pane_orange_side.png");
+	f->setTexture(0,"glass.png^glass_pane_orange_side.png");
 	f->setTexture(1,"glass_oange.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_orange.png", "glass_slab_orange.png", "glass_slab_orange.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -292,14 +292,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_PURPLE;
-	f->setAllTextures("glass_slab_purple.png");
-	f->setTexture(0,"glass_purple.png");
-	f->setTexture(1,"glass_purple.png");
+	f->setAllTextures("glass_slab.png^glass_pane_purple_side.png");
+	f->setTexture(0,"glass.png^glass_pane_purple_side.png");
+	f->setTexture(1,"glass.png^glass_pane_purple_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_purple.png", "glass_slab_purple.png", "glass_slab_purple.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -318,14 +318,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_RED;
-	f->setAllTextures("glass_slab_red.png");
-	f->setTexture(0,"glass_red.png");
-	f->setTexture(1,"glass_red.png");
+	f->setAllTextures("glass_slab.png^glass_pane_red_side.png");
+	f->setTexture(0,"glass.png^glass_pane_red_side.png");
+	f->setTexture(1,"glass.png^glass_pane_red_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_red.png", "glass_slab_red.png", "glass_slab_red.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -344,14 +344,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_YELLOW;
-	f->setAllTextures("glass_slab_yellow.png");
-	f->setTexture(0,"glass_yellow.png");
-	f->setTexture(1,"glass_yellow.png");
+	f->setAllTextures("glass_slab.png^glass_pane_yellow_side.png");
+	f->setTexture(0,"glass.png^glass_pane_yellow_side.png");
+	f->setTexture(1,"glass.png^glass_pane_yellow_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_yellow.png", "glass_slab_yellow.png", "glass_slab_yellow.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -370,14 +370,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLACK;
-	f->setAllTextures("glass_slab_black.png");
-	f->setTexture(0,"glass_black.png");
-	f->setTexture(1,"glass_black.png");
+	f->setAllTextures("glass_slab.png^glass_pane_black_side.png");
+	f->setTexture(0,"glass.png^glass_pane_black_side.png");
+	f->setTexture(1,"glass.png^glass_pane_black_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slab(f);
-	f->setInventoryTextureNodeBox(i,"glass_black.png", "glass_slab_black.png", "glass_slab_black.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -531,14 +531,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS;
-	f->setAllTextures("glass_slab.png");
+	f->setAllTextures("glass_slab.png^glass.png");
 	f->setTexture(0,"glass.png");
 	f->setTexture(1,"glass.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png", "glass_slab.png");
+	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png^glass.png", "glass_slab.png^glass.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -553,14 +553,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLUE;
-	f->setAllTextures("glass_slab_blue.png");
-	f->setTexture(0,"glass_blue.png");
-	f->setTexture(1,"glass_blue.png");
+	f->setAllTextures("glass_slab.png^glass_pane_blue_side.png");
+	f->setTexture(0,"glass.png^glass_pane_blue_side.png");
+	f->setTexture(1,"glass.png^glass_pane_blue_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_blue.png", "glass_slab_blue.png", "glass_slab_blue.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -575,14 +575,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_GREEN;
-	f->setAllTextures("glass_slab_green.png");
-	f->setTexture(0,"glass_green.png");
-	f->setTexture(1,"glass_green.png");
+	f->setAllTextures("glass_slab.png^glass_pane_green_side.png");
+	f->setTexture(0,"glass.png^glass_pane_green_side.png");
+	f->setTexture(1,"glass.png^glass_pane_green_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_green.png", "glass_slab_green.png", "glass_slab_green.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -597,14 +597,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_ORANGE;
-	f->setAllTextures("glass_slab_orange.png");
-	f->setTexture(0,"glass_orange.png");
-	f->setTexture(1,"glass_orange.png");
+	f->setAllTextures("glass_slab.png^glass_pane_orange_side.png");
+	f->setTexture(0,"glass.png^glass_pane_orange_side.png");
+	f->setTexture(1,"glass.png^glass_pane_orange_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_orange.png", "glass_slab_orange.png", "glass_slab_orange.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -619,14 +619,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_PURPLE;
-	f->setAllTextures("glass_slab_purple.png");
-	f->setTexture(0,"glass_purple.png");
-	f->setTexture(1,"glass_purple.png");
+	f->setAllTextures("glass_slab.png^glass_pane_purple_side.png");
+	f->setTexture(0,"glass.png^glass_pane_purple_side.png");
+	f->setTexture(1,"glass.png^glass_pane_purple_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_purple.png", "glass_slab_purple.png", "glass_slab_purple.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -641,14 +641,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_RED;
-	f->setAllTextures("glass_slab_red.png");
-	f->setTexture(0,"glass_red.png");
-	f->setTexture(1,"glass_red.png");
+	f->setAllTextures("glass_slab.png^glass_pane_red_side.png");
+	f->setTexture(0,"glass.png^glass_pane_red_side.png");
+	f->setTexture(1,"glass.png^glass_pane_red_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_red.png", "glass_slab_red.png", "glass_slab_red.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -663,14 +663,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_YELLOW;
-	f->setAllTextures("glass_slab_yellow.png");
-	f->setTexture(0,"glass_yellow.png");
-	f->setTexture(1,"glass_yellow.png");
+	f->setAllTextures("glass_slab.png^glass_pane_yellow_side.png");
+	f->setTexture(0,"glass.png^glass_pane_yellow_side.png");
+	f->setTexture(1,"glass.png^glass_pane_yellow_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_yellow.png", "glass_slab_yellow.png", "glass_slab_yellow.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
@@ -685,14 +685,14 @@ void content_mapnode_slab(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_GLASS_BLACK;
-	f->setAllTextures("glass_slab_black.png");
-	f->setTexture(0,"glass_black.png");
-	f->setTexture(1,"glass_black.png");
+	f->setAllTextures("glass_slab.png^glass_pane_black_side.png");
+	f->setTexture(0,"glass.png^glass_pane_black_side.png");
+	f->setTexture(1,"glass.png^glass_pane_black_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
 	content_nodebox_slabud(f);
-	f->setInventoryTextureNodeBox(i,"glass_black.png", "glass_slab_black.png", "glass_slab_black.png");
+	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;

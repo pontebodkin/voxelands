@@ -156,6 +156,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_b.png^[transformFX");
 	f->setTexture(3,"door_glass_b.png^[transformFX");
 	f->setTexture(4,"door_glass_b.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -181,6 +184,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_t.png^[transformFX");
 	f->setTexture(3,"door_glass_t.png^[transformFX");
 	f->setTexture(4,"door_glass_t.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -389,6 +395,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_b.png");
 	f->setTexture(3,"door_glass_b.png");
 	f->setTexture(4,"door_glass_b.png");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -415,6 +424,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_t.png");
 	f->setTexture(3,"door_glass_t.png");
 	f->setTexture(4,"door_glass_t.png");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -670,6 +682,9 @@ void content_mapnode_door(bool repeat)
 	f->description = wgettext("Glass Door");
 	f->setAllTextures("door_glass_b.png");
 	f->setTexture(3,"door_glass_b.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -694,6 +709,9 @@ void content_mapnode_door(bool repeat)
 	f->description = wgettext("Glass Door");
 	f->setAllTextures("door_glass_t.png");
 	f->setTexture(3,"door_glass_t.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -934,6 +952,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_b.png^[transformFX");
 	f->setTexture(3,"door_glass_b.png^[transformFX");
 	f->setTexture(4,"door_glass_b.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -960,6 +981,9 @@ void content_mapnode_door(bool repeat)
 	f->setTexture(2,"door_glass_t.png^[transformFX");
 	f->setTexture(3,"door_glass_t.png^[transformFX");
 	f->setTexture(4,"door_glass_t.png^[transformFX");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+#endif
 	f->setInventoryTexture("door_glass_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
@@ -972,7 +996,6 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,-1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_RT;
 	f->sound_punch = "env-doorclose";
-	f->fuel_time = 30;
 	content_nodebox_dooror(f);
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;

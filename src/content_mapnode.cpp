@@ -890,11 +890,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_blue.png");
+	f->setAllTextures("glass.png^glass_pane_blue_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_blue.png", "glass_blue.png", "glass_blue.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_GLASS,CONTENT_GLASS_BLUE);
@@ -910,11 +910,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_green.png");
+	f->setAllTextures("glass.png^glass_pane_green_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_green.png", "glass_green.png", "glass_green.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_green_side.png", "glass.png^glass_pane_green_side.png", "glass.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_GLASS,CONTENT_GLASS_GREEN);
@@ -930,11 +930,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_orange.png");
+	f->setAllTextures("glass.png^glass_pane_orange_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_orange.png", "glass_orange.png", "glass_orange.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_GLASS,CONTENT_GLASS_ORANGE);
@@ -950,11 +950,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_purple.png");
+	f->setAllTextures("glass.png^glass_pane_purple_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_purple.png", "glass_purple.png", "glass_purple.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_GLASS,CONTENT_GLASS_PURPLE);
@@ -970,11 +970,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_red.png");
+	f->setAllTextures("glass.png^glass_pane_red_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_red.png", "glass_red.png", "glass_red.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_red_side.png", "glass.png^glass_pane_red_side.png", "glass.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_GLASS,CONTENT_GLASS_RED);
@@ -990,11 +990,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_yellow.png");
+	f->setAllTextures("glass.png^glass_pane_yellow_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_yellow.png", "glass_yellow.png", "glass_yellow.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_GLASS,CONTENT_GLASS_YELLOW);
@@ -1010,11 +1010,11 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_GLASSLIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->setAllTextures("glass_black.png");
+	f->setAllTextures("glass.png^glass_pane_black_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setInventoryTextureCube("glass_black.png", "glass_black.png", "glass_black.png");
+	f->setInventoryTextureCube("glass.png^glass_pane_black_side.png", "glass.png^glass_pane_black_side.png", "glass.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_GLASS,CONTENT_GLASS_BLACK);
@@ -1065,8 +1065,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_blue_side.png");
-	f->setTexture(4,"glass_blue.png");
-	f->setTexture(5,"glass_blue.png");
+	f->setTexture(4,"glass.png^glass_pane_blue_side.png");
+	f->setTexture(5,"glass.png^glass_pane_blue_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1078,7 +1078,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_blue_side.png", "glass_blue.png", "glass_pane_blue_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png", "glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1099,8 +1099,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_green_side.png");
-	f->setTexture(4,"glass_green.png");
-	f->setTexture(5,"glass_green.png");
+	f->setTexture(4,"glass.png^glass_pane_green_side.png");
+	f->setTexture(5,"glass.png^glass_pane_green_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1112,7 +1112,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_green_side.png", "glass_green.png", "glass_pane_green_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_green_side.png", "glass.png^glass_pane_green_side.png", "glass_pane_green_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1133,8 +1133,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_orange_side.png");
-	f->setTexture(4,"glass_orange.png");
-	f->setTexture(5,"glass_orange.png");
+	f->setTexture(4,"glass.png^glass_pane_orange_side.png");
+	f->setTexture(5,"glass.png^glass_pane_orange_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1146,7 +1146,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_orange_side.png", "glass_orange.png", "glass_pane_orange_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png", "glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1167,8 +1167,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_purple_side.png");
-	f->setTexture(4,"glass_purple.png");
-	f->setTexture(5,"glass_purple.png");
+	f->setTexture(4,"glass.png^glass_pane_purple_side.png");
+	f->setTexture(5,"glass.png^glass_pane_purple_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1180,7 +1180,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_purple_side.png", "glass_purple.png", "glass_pane_purple_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png", "glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1201,8 +1201,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_red_side.png");
-	f->setTexture(4,"glass_red.png");
-	f->setTexture(5,"glass_red.png");
+	f->setTexture(4,"glass.png^glass_pane_red_side.png");
+	f->setTexture(5,"glass.png^glass_pane_red_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1214,7 +1214,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_red_side.png", "glass_red.png", "glass_pane_red_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_red_side.png", "glass.png^glass_pane_red_side.png", "glass_pane_red_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1235,8 +1235,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_yellow_side.png");
-	f->setTexture(4,"glass_yellow.png");
-	f->setTexture(5,"glass_yellow.png");
+	f->setTexture(4,"glass.png^glass_pane_yellow_side.png");
+	f->setTexture(5,"glass.png^glass_pane_yellow_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1248,7 +1248,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_yellow_side.png", "glass_yellow.png", "glass_pane_yellow_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png", "glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1269,8 +1269,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->setAllTextures("glass_pane_black_side.png");
-	f->setTexture(4,"glass_black.png");
-	f->setTexture(5,"glass_black.png");
+	f->setTexture(4,"glass.png^glass_pane_black_side.png");
+	f->setTexture(5,"glass.png^glass_pane_black_side.png");
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
@@ -1282,7 +1282,7 @@ void content_mapnode_init(bool repeat)
 		0.5*BS,
 		0.05*BS
 	));
-	f->setInventoryTextureNodeBox(i,"glass_pane_black_side.png", "glass_black.png", "glass_pane_black_side.png");
+	f->setInventoryTextureNodeBox(i,"glass_pane_black_side.png", "glass.png^glass_pane_black_side.png", "glass_pane_black_side.png");
 	f->type = CMT_GLASS;
 	f->hardness = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
