@@ -4219,16 +4219,14 @@ void ClientEnvironment::step(float dtime)
 			// Get node that is at BS/4 under player
 			v3s16 bottompos = floatToInt(playerpos + v3f(0,-BS/4,0), BS);
 			MapNode n = m_map->getNodeNoEx(bottompos);
-			if (n.getContent() == CONTENT_MUD && (n.param1&0xF0) == 0) {
+			if (content_features(n.getContent()).draw_type == CDT_DIRTLIKE && (n.param1&0xF0) == 0) {
 				n.param1 |= 0x10;
 				n.envticks = 0;
 				m_map->setNode(bottompos, n);
 				// Update mesh on client
 				if (m_map->mapType() == MAPTYPE_CLIENT) {
 					v3s16 p_blocks = getNodeBlockPos(bottompos);
-					MapBlock *b = m_map->getBlockNoCreate(p_blocks);
-					//b->updateMesh(getDayNightRatio());
-					b->setMeshExpired(true);
+					m_client->addUpdateMeshTask(p_blocks);
 				}
 			}
 		}

@@ -1961,14 +1961,16 @@ void Client::addNode(v3s16 p, MapNode n)
 	catch(InvalidPositionException &e)
 	{}
 
+	addUpdateMeshTaskWithEdge(getNodeBlockPos(p));
+
 	//TimeTaker timer2("Client::addNode(): updateMeshes");
 
 	for(core::map<v3s16, MapBlock * >::Iterator
 			i = modified_blocks.getIterator();
 			i.atEnd() == false; i++)
 	{
-		v3s16 p = i.getNode()->getKey();
-		addUpdateMeshTaskWithEdge(p);
+		MapBlock *b = i.getNode()->getValue();
+		b->setMeshExpired(true);
 	}
 }
 
