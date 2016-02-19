@@ -73,7 +73,7 @@ struct ClothesItemFeatures {
 		warmth(0.),
 		vacuum(0.),
 		suffocate(0.),
-		durability(10),
+		durability(5),
 		effect(1.)
 	{}
 };

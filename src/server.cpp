@@ -4230,8 +4230,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			u16 w = wear;
 			if (content_clothesitem_features(i->getContent()).durability > 1)
 				w /= content_clothesitem_features(i->getContent()).durability;
-			if (w < 150)
-				w = 150;
+			if (w < 15)
+				w = 15;
 			if (bonus > 0.0) {
 				f32 fw = w;
 				fw /= bonus;
