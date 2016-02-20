@@ -4398,7 +4398,7 @@ void ClientEnvironment::damageLocalPlayer(u8 area, u8 type, u8 damage)
 		f_damage -= f_damage*effect;
 		ClientEnvEvent event;
 		event.type = CEE_PLAYER_WEARCLOTHES;
-		event.player_wear.amount = damage*(100*(2.0-effect));
+		event.player_wear.amount = damage*(10*(2.0-effect));
 		m_client_event_queue.push_back(event);
 		if (f_damage < 1.0 && f_damage > 0.0) {
 			damage = 1.0/f_damage;
