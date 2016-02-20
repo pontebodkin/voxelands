@@ -4564,7 +4564,9 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				for (s16 x=-distance; ground && x<=distance; x++) {
 					for (s16 z=-distance; ground && z<=distance; z++) {
 						if (x == -distance || x == distance || z == -distance || z == distance) {
-							for (s16 y=-1; ground && y>-5; y--) {
+							for (s16 y=4; ground && y>-5; y--) {
+								if (!y)
+									continue;
 								MapNode nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(x,y,z));
 								if (
 									nn.getContent() == CONTENT_TREE
@@ -4576,6 +4578,8 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 									|| nn.getContent() == CONTENT_YOUNG_APPLE_TREE
 									|| nn.getContent() == CONTENT_YOUNG_CONIFER_TREE
 								) {
+									if (y<0)
+										inv = false;
 									ground = false;
 									tp = v3s16(x,0,z);
 								}
