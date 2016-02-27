@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Jay <joeyxtreme@hotmail.nl>, 2014
-# NOH <neinmeinleben@outlook.com>, 2015
+# NOH <neinmeinleben@outlook.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-18 02:31+1000\n"
-"PO-Revision-Date: 2015-12-22 20:36+0000\n"
+"PO-Revision-Date: 2016-02-20 13:07+0000\n"
 "Last-Translator: NOH <neinmeinleben@outlook.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/voxelands/"
-"voxelands/language/nl_NL/)\n"
-"Language: nl_NL\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/voxelands/voxelands/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
@@ -230,17 +229,9 @@ msgstr "Canvas Schoenen"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Hier kun je jouw personage aanmaken, zo zien de andere spelers jouw "
-"personage in het spel. Als je naar een nieuwe server gaat dan start je met "
-"de kleding die je daar hebt selecteerd. Aanvullende kleding, zowel "
-"beschermend als decoratief, kun je in het spel maken. Je kunt hier altijd "
-"terugkeren via het hoofdmenu om jouw personage te veranderen."
+msgstr "Hier kun je jouw personage aanmaken, zo zien de andere spelers jouw personage in het spel. Als je naar een nieuwe server gaat dan start je met de kleding die je daar hebt selecteerd. Aanvullende kleding, zowel beschermend als decoratief, kun je in het spel maken. Je kunt hier altijd terugkeren via het hoofdmenu om jouw personage te veranderen."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1579,14 +1570,12 @@ msgid "Sunstone"
 msgstr "Zonnesteen"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
-#, fuzzy
 msgid "Salt"
-msgstr "Salpeter"
+msgstr "Zout"
 
 #: src/content_craftitem.cpp:1573
-#, fuzzy
 msgid "Space Dust"
-msgstr "Spatie"
+msgstr "Ruimte poeder"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1597,9 +1586,8 @@ msgid "Limestone"
 msgstr "Kalksteen"
 
 #: src/content_mapnode.cpp:251
-#, fuzzy
 msgid "Space Rock"
-msgstr "Spatie"
+msgstr "Ruimte Steen"
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
@@ -1664,7 +1652,7 @@ msgstr "Zand"
 
 #: src/content_mapnode.cpp:570
 msgid "Desert Sand"
-msgstr ""
+msgstr "Woestijn Zand"
 
 #: src/content_mapnode.cpp:589
 msgid "Gravel"
@@ -2389,9 +2377,8 @@ msgid "Jungle Grass"
 msgstr "Jungle Grass"
 
 #: src/content_mapnode_plants.cpp:225
-#, fuzzy
 msgid "Jungle Fern"
-msgstr "Jungleboom"
+msgstr "Jungle Varen"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -3070,8 +3057,7 @@ msgstr "De verbrandingsoven is inactief"
 
 #: src/content_nodemeta.cpp:1618
 msgid "Add fuel, then punch to incinerate wielded item"
-msgstr ""
-"Brandstof toevoegen en dan het voorwerp stoten om het te laten verbranden"
+msgstr "Brandstof toevoegen en dan het voorwerp stoten om het te laten verbranden"
 
 #: src/content_nodemeta.cpp:1859 src/content_nodemeta.cpp:2147
 msgid "Add item here to see recipe"
@@ -3136,9 +3122,7 @@ msgstr "De Ketel heeft geen brondstof meer"
 
 #: src/content_nodemeta.cpp:3203
 msgid "Add fuel, then punch to add or remove water"
-msgstr ""
-"Brandstof toevoegen en dan het voorwerp stoten om water toe te voegen of te "
-"verwijderen"
+msgstr "Brandstof toevoegen en dan het voorwerp stoten om water toe te voegen of te verwijderen"
 
 #: src/content_nodemeta.cpp:3471
 msgid "Show Enchanting"
@@ -3529,8 +3513,7 @@ msgstr "Respawn"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"Linker knop: Alle items verplaatsen, Rechter knop: Enkele item verplaatsen"
+msgstr "Linker knop: Alle items verplaatsen, Rechter knop: Enkele item verplaatsen"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3714,10 +3697,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Gemaakt door Lisa 'darkrose' Milne <lisa@ltmnet.com> en door bijdragers."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nGemaakt door Lisa 'darkrose' Milne <lisa@ltmnet.com> en door bijdragers."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3750,15 +3730,8 @@ msgstr "Andere Bijdragers en Speciale Dank aan"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Gebaseerd op Minetest-C55 door Perttu Ahola <celeron55@gmail.com>\n"
-" en de volgende bijdragers: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), "
-"darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, "
-"Jonathan Neuschafer, thexyz, VanessaE, sfan5... en nog tientalle andere "
-"personen."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Gebaseerd op Minetest-C55 door Perttu Ahola <celeron55@gmail.com>\n en de volgende bijdragers: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... en nog tientalle andere personen."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3966,32 +3939,30 @@ msgstr "Geluid"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr ""
+msgstr "Terrein Mesh Detail"
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
-#, fuzzy
 msgid "Low"
-msgstr "Boog"
+msgstr "Laag"
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
-#, fuzzy
 msgid "Medium"
-msgstr "Gemiddeld Haar"
+msgstr "Middel"
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
 msgid "High"
-msgstr ""
+msgstr "Hoog"
 
 #: src/guiSettingsMenu.cpp:406
 msgid "Texture Detail"
-msgstr ""
+msgstr "Texture Detail"
 
 #: src/guiSettingsMenu.cpp:431
 msgid "Light Detail"
-msgstr ""
+msgstr "Light Detail"
 
 #: src/guiSettingsMenu.cpp:456
 msgid "Classic HUD"
@@ -4039,23 +4010,23 @@ msgstr "Druk op een knop"
 
 #: src/hud.cpp:645
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr ""
+msgstr "Val"
 
 #: src/hud.cpp:647
 msgid "Exposure"
-msgstr ""
+msgstr "Blootstellen"
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr ""
+msgstr "Koud"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr ""
+msgstr "Aanvallen"
 
 #: src/hud.cpp:650 src/keycode.cpp:258
 msgid "Space"
@@ -4063,7 +4034,7 @@ msgstr "Spatie"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr ""
+msgstr "Giftig"
 
 #: src/hud.cpp:842
 msgid "Summer"
@@ -4735,15 +4706,3 @@ msgstr "Kwarts"
 #: src/mineral.cpp:157
 msgid "Turquoise"
 msgstr "Turkoois"
-
-#~ msgid "Opaque water"
-#~ msgstr "Doorzichtig water"
-
-#~ msgid "3D Clouds"
-#~ msgstr "3D Wolken"
-
-#~ msgid "Smooth Lighting"
-#~ msgstr "Soepele Belichting"
-
-#~ msgid "Fancy trees"
-#~ msgstr "Mooie bomen"

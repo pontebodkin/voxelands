@@ -1,8 +1,9 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Augustin Roche <aroche@photoherbarium.fr>, 2015
 # David Salbei <david@chalvia.fr>, 2015
 # Judas C, 2015
 # puma.rc <puma.rc@wanadoo.fr>, 2015
@@ -11,14 +12,13 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-18 02:31+1000\n"
-"PO-Revision-Date: 2015-12-21 01:30+0000\n"
+"PO-Revision-Date: 2016-02-17 16:36+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: French (France) (http://www.transifex.com/voxelands/voxelands/"
-"language/fr_FR/)\n"
-"Language: fr_FR\n"
+"Language-Team: French (France) (http://www.transifex.com/voxelands/voxelands/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/character_creator.cpp:55
@@ -231,19 +231,9 @@ msgstr "Chaussures en Toile"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Ici, vous pouvez créer votre personnage par défaut, c'est la façon dont les "
-"autres joueurs vous verrons dans le jeu. Lorsque vous rejoignez un nouveau "
-"serveur, vous commencez avec les vêtements sélectionnés ici. Des vêtements "
-"supplémentaires, à la fois protecteurs et décoratifs, peuvent être conçu "
-"dans le jeu.\n"
-"Vous pouvez revenir ici dans le menu principal à tout moment pour changer "
-"votre personnage."
+msgstr "Ici, vous pouvez créer votre personnage par défaut, c'est la façon dont les autres joueurs vous verront dans le jeu. Lorsque vous rejoignez un nouveau serveur, vous commencez avec les vêtements sélectionnés ici. Des vêtements supplémentaires, à la fois protecteurs et décoratifs, peuvent être conçus dans le jeu.\nVous pouvez revenir ici dans le menu principal à tout moment pour changer votre personnage."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -251,11 +241,11 @@ msgstr "Créer Votre Personnage"
 
 #: src/character_creator.cpp:230
 msgid "Male"
-msgstr "Mâle"
+msgstr "Masculin"
 
 #: src/character_creator.cpp:235
 msgid "Female"
-msgstr "Femelle"
+msgstr "Féminin"
 
 #: src/character_creator.cpp:242
 msgid "Taller"
@@ -1563,7 +1553,7 @@ msgstr "Mithril"
 
 #: src/content_craftitem.cpp:1525 src/mineral.cpp:149
 msgid "Ruby"
-msgstr "Rubi"
+msgstr "Rubis"
 
 #: src/content_craftitem.cpp:1533
 msgid "Turquiose"
@@ -1571,7 +1561,7 @@ msgstr "Turquoise"
 
 #: src/content_craftitem.cpp:1541 src/mineral.cpp:165
 msgid "Amethyst"
-msgstr "Amethyste"
+msgstr "Améthyste"
 
 #: src/content_craftitem.cpp:1549 src/mineral.cpp:173
 msgid "Sapphire"
@@ -1582,14 +1572,12 @@ msgid "Sunstone"
 msgstr "Héliolite"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
-#, fuzzy
 msgid "Salt"
-msgstr "Salpêtre"
+msgstr ""
 
 #: src/content_craftitem.cpp:1573
-#, fuzzy
 msgid "Space Dust"
-msgstr "Esapce"
+msgstr ""
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1600,13 +1588,12 @@ msgid "Limestone"
 msgstr "Calcaire"
 
 #: src/content_mapnode.cpp:251
-#, fuzzy
 msgid "Space Rock"
-msgstr "Esapce"
+msgstr ""
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
-msgstr ""
+msgstr "Marbre"
 
 #: src/content_mapnode.cpp:275
 msgid "Rock"
@@ -1618,11 +1605,11 @@ msgstr "Glace"
 
 #: src/content_mapnode.cpp:312
 msgid "Coal Block"
-msgstr "Block de charbon"
+msgstr "Bloc de charbon"
 
 #: src/content_mapnode.cpp:329
 msgid "Charcoal Block"
-msgstr "Bloc de Charbon"
+msgstr "Bloc de Charbon de Bois"
 
 #: src/content_mapnode.cpp:346
 msgid "Stone Brick"
@@ -1647,7 +1634,7 @@ msgstr "Herbe"
 
 #: src/content_mapnode.cpp:425 src/content_mapnode.cpp:472
 msgid "Growing Grass"
-msgstr "Herbe Qui Pousse"
+msgstr "Herbe qui Pousse"
 
 #: src/content_mapnode.cpp:501
 msgid "Muddy Snow"
@@ -1807,7 +1794,7 @@ msgstr "Bois"
 
 #: src/content_mapnode.cpp:1344
 msgid "Jungle Wood"
-msgstr "Bois de la Jungle"
+msgstr "Acajou"
 
 #: src/content_mapnode.cpp:1369
 msgid "Pine"
@@ -1835,11 +1822,11 @@ msgstr "Tarte aux Pommes"
 
 #: src/content_mapnode.cpp:1560
 msgid "Raw Pumpkin Pie"
-msgstr "Tarte à la Courge Crue"
+msgstr "Tarte à la Citrouille Crue"
 
 #: src/content_mapnode.cpp:1588
 msgid "Pumpkin Pie"
-msgstr "Tarte au Potiron"
+msgstr "Tarte à la Citrouille"
 
 #: src/content_mapnode.cpp:1679 src/content_mapnode.cpp:1757
 msgid "Snow"
@@ -2019,7 +2006,7 @@ msgstr "Panneau Solaire"
 
 #: src/content_mapnode_circuit.cpp:142
 msgid "Water Wheel"
-msgstr ""
+msgstr "Roue à Aubes"
 
 #: src/content_mapnode_circuit.cpp:174
 msgid "Switch"
@@ -2209,7 +2196,7 @@ msgstr ""
 
 #: src/content_mapnode_farm.cpp:482 src/content_mapnode_farm.cpp:500
 msgid "Dead Vine"
-msgstr ""
+msgstr "Liane morte"
 
 #: src/content_mapnode_furniture.cpp:36
 msgid "Book Shelf"
@@ -2217,7 +2204,7 @@ msgstr "Bibliothèque"
 
 #: src/content_mapnode_furniture.cpp:73
 msgid "Junglewood Book Shelf"
-msgstr "Bibliothèque en Bois de Jungle"
+msgstr "Bibliothèque en Acajou"
 
 #: src/content_mapnode_furniture.cpp:110
 msgid "Pine Book Shelf"
@@ -2392,9 +2379,8 @@ msgid "Jungle Grass"
 msgstr "Herbe de la Jungle"
 
 #: src/content_mapnode_plants.cpp:225
-#, fuzzy
 msgid "Jungle Fern"
-msgstr "Arbre de la Jungle"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -2516,11 +2502,11 @@ msgstr "Dalle de Pierre Brutte"
 
 #: src/content_mapnode_slab.cpp:55 src/content_mapnode_slab.cpp:424
 msgid "Cobble Stone Slab"
-msgstr "Dalle en Caillous"
+msgstr "Dalle en Cailloux"
 
 #: src/content_mapnode_slab.cpp:73
 msgid "Mossy Cobble Stone Slab"
-msgstr "Dalle en Caillous Moussus"
+msgstr "Dalle en Cailloux Moussus"
 
 #: src/content_mapnode_slab.cpp:91
 msgid "Stone Slab"
@@ -2532,7 +2518,7 @@ msgstr "Dalle de Bois"
 
 #: src/content_mapnode_slab.cpp:127
 msgid "Jungle Wood Slab"
-msgstr "Dalle de Bois de la Jungle"
+msgstr "Dalle d'Acajou"
 
 #: src/content_mapnode_slab.cpp:146
 msgid "Brick Slab"
@@ -2686,7 +2672,7 @@ msgstr "Livre de montage"
 
 #: src/content_mapnode_special.cpp:798
 msgid "Reverse Craft Book"
-msgstr "Livre de Recette Inversé"
+msgstr "Livre de Montage Inversé"
 
 #: src/content_mapnode_special.cpp:835
 msgid "Guide"
@@ -2773,7 +2759,7 @@ msgstr "Pot de fleur"
 
 #: src/content_mapnode_special.cpp:1537
 msgid "Cobblestone Wall"
-msgstr "Mur de Caillous"
+msgstr "Mur de Cailloux"
 
 #: src/content_mapnode_special.cpp:1560
 msgid "Rough Stone Wall"
@@ -3413,7 +3399,7 @@ msgstr "Impossible de résoudre l'adresse"
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
 msgstr[0] "Connection au serveur... (expiré dans %d seconde)"
-msgstr[1] "Connection au serveur... (expiré dans %d secondes)"
+msgstr[1] "Connexion au serveur... (expirée dans %d secondes)"
 
 #: src/game.cpp:768
 #, c-format
@@ -3426,11 +3412,11 @@ msgstr "Connexion impossible (port déjà utilisé ?)."
 
 #: src/game.cpp:775
 msgid "Connection timed out."
-msgstr "Connection expiré"
+msgstr "Connexion expirée"
 
 #: src/game.cpp:928
 msgid "Access denied. Reason: "
-msgstr "Acces interdit. Raison:"
+msgstr "Accès interdit. Raison:"
 
 #: src/game.cpp:1162
 msgid "free_move disabled"
@@ -3455,7 +3441,7 @@ msgstr "HUD caché"
 
 #: src/game.cpp:1198
 msgid "Chat shown"
-msgstr "Caht affiché"
+msgstr "Chat affiché"
 
 #: src/game.cpp:1200
 msgid "Chat hidden"
@@ -3483,11 +3469,11 @@ msgstr "Affichage des infos de debug"
 
 #: src/game.cpp:1231
 msgid "Debug info and frametime graph hidden"
-msgstr "Info de debug et graph de temps de frame cachés"
+msgstr "Infos de debug et graphe de temps de frame cachés"
 
 #: src/game.cpp:1235
 msgid "Frametime graph shown"
-msgstr "Graph de temps de frame visible"
+msgstr "Graphe de temps de frame visible"
 
 #: src/game.cpp:1247
 #, c-format
@@ -3501,11 +3487,11 @@ msgstr ""
 #: src/game.cpp:1259 src/game.cpp:1270
 #, c-format
 msgid "Minimum viewing range changed to %d"
-msgstr "Champs de vision minimal changé pour %d"
+msgstr "Champ de vision minimal changé pour %d"
 
 #: src/game.cpp:1339
 msgid "Enabled full viewing range"
-msgstr "Champs de vision entier activé"
+msgstr "Champ de vision entier activé"
 
 #: src/game.cpp:1343
 msgid "Disabled full viewing range"
@@ -3513,7 +3499,7 @@ msgstr "Champs de vision entier désactivé"
 
 #: src/game.cpp:1951
 msgid "Disconnected (Network Timeout)"
-msgstr "Deconnectez (Réseau Timeout)"
+msgstr "Déconnecté (Réseau Timeout)"
 
 #: src/game.cpp:2385
 msgid "Shutting down..."
@@ -3529,12 +3515,11 @@ msgstr "Respawn"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"Clic gauche: Déplace tout les objets, clic droit: Déplace un seul objet"
+msgstr "Clic gauche: Déplace tous les objets, clic droit: Déplace un seul objet"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
-msgstr "Ecrire ici"
+msgstr "Écrire ici"
 
 #: src/guiMainMenu.cpp:319
 msgid "Character Creator"
@@ -3707,18 +3692,14 @@ msgstr "Effacer carte"
 
 #: src/guiMainMenu.cpp:650
 msgid "Warning! This will delete all construction from your map!"
-msgstr ""
-"Attention! Vous allez supprimer toutes les constructions de votre carte!"
+msgstr "Attention ! Vous allez supprimer toutes les constructions de votre carte !"
 
 #: src/guiMainMenu.cpp:668
 msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Par Lisa 'darkrose' Milne <lisa@ltmnet.com> et contributeurs."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nPar Lisa 'darkrose' Milne <lisa@ltmnet.com> et contributeurs."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3751,15 +3732,8 @@ msgstr "Autres Contributeurs et Remerciements Spéciaux"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Basé sur Minetest-C55 par Perttu Ahola <celeron55@gmail.com>\n"
-"et contributeurs : PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... et des dizaines d'autres gens plus "
-"divers les uns que les autres."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Basé sur Minetest-C55 par Perttu Ahola <celeron55@gmail.com>\net contributeurs : PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... et des dizaines d'autres gens plus divers les uns que les autres."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3771,11 +3745,11 @@ msgstr "Menu principal"
 
 #: src/guiMultiplayerMenu.cpp:142
 msgid "All Servers"
-msgstr ""
+msgstr "Tous les serveurs"
 
 #: src/guiMultiplayerMenu.cpp:148
 msgid "Favourite Servers"
-msgstr ""
+msgstr "Serveurs favoris"
 
 #: src/guiMultiplayerMenu.cpp:154
 msgid "Custom Connect"
@@ -3791,7 +3765,7 @@ msgstr "Adresse/Port"
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
-msgstr ""
+msgstr "Ajouter aux favoris"
 
 #: src/guiMultiplayerMenu.cpp:206 src/guiMultiplayerMenu.cpp:320
 msgid "Connect"
@@ -3803,15 +3777,15 @@ msgstr "Pseudo/Mot de passe"
 
 #: src/guiMultiplayerMenu.cpp:240
 msgid "Join Server"
-msgstr ""
+msgstr "Rejoindre le serveur"
 
 #: src/guiMultiplayerMenu.cpp:262
 msgid "My Favourites"
-msgstr ""
+msgstr "Mes favoris"
 
 #: src/guiMultiplayerMenu.cpp:265
 msgid "Server List"
-msgstr ""
+msgstr "Liste des serveurs"
 
 #: src/guiMultiplayerMenu.cpp:270
 msgid "Get New List"
@@ -3819,7 +3793,7 @@ msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:307
 msgid "Remove from Favourites"
-msgstr ""
+msgstr "Retirer des favoris"
 
 #: src/guiPasswordChange.cpp:105
 msgid "Old Password"
@@ -3839,7 +3813,7 @@ msgstr "Changer"
 
 #: src/guiPasswordChange.cpp:166
 msgid "Passwords do not match!"
-msgstr "Les mots de passe ne correspondent pas!"
+msgstr "Les mots de passe ne correspondent pas !"
 
 #: src/guiPauseMenu.cpp:103
 msgid "Voxelands by darkrose and contributors"
@@ -3851,7 +3825,7 @@ msgstr "Changer mot de passe"
 
 #: src/guiPauseMenu.cpp:161
 msgid "Disconnect"
-msgstr "Deconnection"
+msgstr "Déconnexion"
 
 #: src/guiSettingsMenu.cpp:70
 msgid "Forward"
@@ -3895,7 +3869,7 @@ msgstr "Commande"
 
 #: src/guiSettingsMenu.cpp:80
 msgid "Range Select"
-msgstr ""
+msgstr "Sélectionner la portée"
 
 #: src/guiSettingsMenu.cpp:81
 msgid "Toggle Fly"
@@ -3915,7 +3889,7 @@ msgstr "Courir"
 
 #: src/guiSettingsMenu.cpp:85
 msgid "Examine/Open"
-msgstr "Examiner/Ouvrire"
+msgstr "Examiner/Ouvrir"
 
 #: src/guiSettingsMenu.cpp:86
 msgid "Take Screenshot"
@@ -3971,15 +3945,13 @@ msgstr ""
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
-#, fuzzy
 msgid "Low"
-msgstr "Arc"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
-#, fuzzy
 msgid "Medium"
-msgstr "Cheveux Mi-Longs"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
@@ -4099,7 +4071,7 @@ msgstr "Protection Contre le Froid : %d:%02d"
 
 #: src/inventory.cpp:236 src/inventory.cpp:566
 msgid "Contains: "
-msgstr "Contiens :"
+msgstr "Contient :"
 
 #: src/inventory.cpp:243 src/inventory.cpp:365
 msgid "Cookable: Yes"
@@ -4219,7 +4191,7 @@ msgstr "Pause"
 
 #: src/keycode.cpp:248
 msgid "Capital"
-msgstr ""
+msgstr "Maj"
 
 #: src/keycode.cpp:249
 msgid "Kana"
@@ -4259,7 +4231,7 @@ msgstr ""
 
 #: src/keycode.cpp:259
 msgid "Prior"
-msgstr ""
+msgstr "Précédent"
 
 #: src/keycode.cpp:260
 msgid "Next"
@@ -4707,44 +4679,32 @@ msgstr "Chargement des MapNodes spéciaux"
 
 #: src/mineral.cpp:93
 msgid "Coal"
-msgstr ""
+msgstr "Charbon"
 
 #: src/mineral.cpp:99
 msgid "Iron"
-msgstr ""
+msgstr "Fer"
 
 #: src/mineral.cpp:106
 msgid "Tin"
-msgstr ""
+msgstr "Étain"
 
 #: src/mineral.cpp:113
 msgid "Copper"
-msgstr ""
+msgstr "Cuivre"
 
 #: src/mineral.cpp:121
 msgid "Silver"
-msgstr ""
+msgstr "Argent"
 
 #: src/mineral.cpp:128
 msgid "Gold"
-msgstr ""
+msgstr "Or"
 
 #: src/mineral.cpp:135
 msgid "Quartz"
-msgstr ""
+msgstr "Quartz"
 
 #: src/mineral.cpp:157
 msgid "Turquoise"
-msgstr ""
-
-#~ msgid "Opaque water"
-#~ msgstr "Eau opaque"
-
-#~ msgid "3D Clouds"
-#~ msgstr "Nuages 3D"
-
-#~ msgid "Smooth Lighting"
-#~ msgstr "Éclairage doux"
-
-#~ msgid "Fancy trees"
-#~ msgstr "Arbres qui Envoient du Rêve"
+msgstr "Turquoise"

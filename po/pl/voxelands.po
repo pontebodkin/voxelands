@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Robert Wolniak <robert.wolniak@gmail.com>, 2014-2015
 msgid ""
@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-18 02:31+1000\n"
-"PO-Revision-Date: 2015-10-18 15:56+0000\n"
+"PO-Revision-Date: 2016-02-17 16:36+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Polish (http://www.transifex.com/voxelands/voxelands/language/"
-"pl/)\n"
-"Language: pl\n"
+"Language-Team: Polish (http://www.transifex.com/voxelands/voxelands/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/character_creator.cpp:55
 msgid "White Skin"
@@ -230,17 +228,9 @@ msgstr "Buty Z Materiału"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"W tym okienku możesz stworzyć swoją domyślną postać tak, jak będzie widziana "
-"przez innych graczy. Po dołączeniu do dowolnego serwera, twoja postać będzie "
-"ubrana tak samo jak tutaj. Pozostałe ubrania, tak obronne jak i ozdobne, "
-"można stworzyć podczas gry.\n"
-"Możesz tu wrócić w dowolnym momencie z poziomu Menu Głównego."
+msgstr "W tym okienku możesz stworzyć swoją domyślną postać tak, jak będzie widziana przez innych graczy. Po dołączeniu do dowolnego serwera, twoja postać będzie ubrana tak samo jak tutaj. Pozostałe ubrania, tak obronne jak i ozdobne, można stworzyć podczas gry.\nMożesz tu wrócić w dowolnym momencie z poziomu Menu Głównego."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1579,14 +1569,12 @@ msgid "Sunstone"
 msgstr ""
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
-#, fuzzy
 msgid "Salt"
-msgstr "Saletra"
+msgstr ""
 
 #: src/content_craftitem.cpp:1573
-#, fuzzy
 msgid "Space Dust"
-msgstr "Spacja"
+msgstr ""
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1597,9 +1585,8 @@ msgid "Limestone"
 msgstr ""
 
 #: src/content_mapnode.cpp:251
-#, fuzzy
 msgid "Space Rock"
-msgstr "Spacja"
+msgstr ""
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
@@ -2389,9 +2376,8 @@ msgid "Jungle Grass"
 msgstr "Dżunglowa Trawa"
 
 #: src/content_mapnode_plants.cpp:225
-#, fuzzy
 msgid "Jungle Fern"
-msgstr "Drzewo Dżunglowe"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -3528,9 +3514,7 @@ msgstr "Odradzanie się"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"Kliknięcie lewym przyciskiem myszy: Przenieś wszystkie przedmioty, "
-"Kliknięcie prawym przyciskiem myszy: Przenieś pojedynczy przedmiot"
+msgstr "Kliknięcie lewym przyciskiem myszy: Przenieś wszystkie przedmioty, Kliknięcie prawym przyciskiem myszy: Przenieś pojedynczy przedmiot"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3747,9 +3731,7 @@ msgstr ""
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
 msgstr ""
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
@@ -3769,9 +3751,8 @@ msgid "Favourite Servers"
 msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:154
-#, fuzzy
 msgid "Custom Connect"
-msgstr "Połącz"
+msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
@@ -3963,15 +3944,13 @@ msgstr ""
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
-#, fuzzy
 msgid "Low"
-msgstr "Łuk"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
-#, fuzzy
 msgid "Medium"
-msgstr "Średniej Długości Włosy"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
@@ -4414,9 +4393,8 @@ msgid "T"
 msgstr ""
 
 #: src/keycode.cpp:304
-#, fuzzy
 msgid "U"
-msgstr "Góra"
+msgstr ""
 
 #: src/keycode.cpp:305
 msgid "V"
@@ -4511,9 +4489,8 @@ msgid "Numpad -"
 msgstr "Kl. num. -"
 
 #: src/keycode.cpp:328
-#, fuzzy
 msgid "Numpad ."
-msgstr "Kl. num. 0"
+msgstr ""
 
 #: src/keycode.cpp:330
 msgid "F10"
@@ -4700,52 +4677,33 @@ msgid "Loading Special MapNodes"
 msgstr "Wczytywanie Węzłów Specjalnych"
 
 #: src/mineral.cpp:93
-#, fuzzy
 msgid "Coal"
-msgstr "Bryła Węgla Kamiennego"
+msgstr ""
 
 #: src/mineral.cpp:99
-#, fuzzy
 msgid "Iron"
-msgstr "Bryła Żelaza"
+msgstr ""
 
 #: src/mineral.cpp:106
-#, fuzzy
 msgid "Tin"
-msgstr "Szczuplejszy/a"
+msgstr ""
 
 #: src/mineral.cpp:113
-#, fuzzy
 msgid "Copper"
-msgstr "Bryła Miedzi"
+msgstr ""
 
 #: src/mineral.cpp:121
-#, fuzzy
 msgid "Silver"
-msgstr "Bryła Srebra"
+msgstr ""
 
 #: src/mineral.cpp:128
-#, fuzzy
 msgid "Gold"
-msgstr "Bryła Złota"
+msgstr ""
 
 #: src/mineral.cpp:135
-#, fuzzy
 msgid "Quartz"
-msgstr "Proszek Kwarcowy"
+msgstr ""
 
 #: src/mineral.cpp:157
 msgid "Turquoise"
 msgstr ""
-
-#~ msgid "Opaque water"
-#~ msgstr "Nieprzezroczysta woda"
-
-#~ msgid "3D Clouds"
-#~ msgstr "Trójwymiarowe Chmury"
-
-#~ msgid "Smooth Lighting"
-#~ msgstr "Płynne Oświetlenie"
-
-#~ msgid "Fancy trees"
-#~ msgstr "Ozdobione drzewa"

@@ -1,10 +1,10 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Rui, 2015
-# Rui, 2015
+# Rui, 2015-2016
 # Rui Takeda, 2015
 # Rui, 2015
 msgid ""
@@ -12,14 +12,13 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-18 02:31+1000\n"
-"PO-Revision-Date: 2015-12-23 03:30+0000\n"
+"PO-Revision-Date: 2016-02-19 07:41+0000\n"
 "Last-Translator: Rui\n"
-"Language-Team: Japanese (http://www.transifex.com/voxelands/voxelands/"
-"language/ja/)\n"
-"Language: ja\n"
+"Language-Team: Japanese (http://www.transifex.com/voxelands/voxelands/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/character_creator.cpp:55
@@ -232,15 +231,9 @@ msgstr "ズック靴"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"ここではスキンを作成できます。\n"
-"スキンは他のプレイヤーに表示されます。\n"
-"タイトルからもこの設定に戻れます。"
+msgstr "ここではスキンを作成できます。\nスキンは他のプレイヤーに表示されます。\nタイトルからもこの設定に戻れます。"
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1579,14 +1572,12 @@ msgid "Sunstone"
 msgstr "サンストーン"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
-#, fuzzy
 msgid "Salt"
-msgstr "硝石"
+msgstr "塩"
 
 #: src/content_craftitem.cpp:1573
-#, fuzzy
 msgid "Space Dust"
-msgstr "スペースキー"
+msgstr "宇宙塵"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1597,9 +1588,8 @@ msgid "Limestone"
 msgstr "石灰岩"
 
 #: src/content_mapnode.cpp:251
-#, fuzzy
 msgid "Space Rock"
-msgstr "スペースキー"
+msgstr "宇宙岩"
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
@@ -1664,7 +1654,7 @@ msgstr "砂"
 
 #: src/content_mapnode.cpp:570
 msgid "Desert Sand"
-msgstr ""
+msgstr "砂漠の砂"
 
 #: src/content_mapnode.cpp:589
 msgid "Gravel"
@@ -2389,9 +2379,8 @@ msgid "Jungle Grass"
 msgstr "ジャングルの草"
 
 #: src/content_mapnode_plants.cpp:225
-#, fuzzy
 msgid "Jungle Fern"
-msgstr "ジャングルの木"
+msgstr "ジャングルのシダ"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -3708,10 +3697,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Lisa 'darkrose' Milne <lisa@ltmnet.com> と貢献者によって開発されています。"
+msgstr "Voxelands\nhttp://www.voxelands.com/\nLisa 'darkrose' Milne <lisa@ltmnet.com> と貢献者によって開発されています。"
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3744,15 +3730,8 @@ msgstr "その他の貢献者、スペシャルサンクス"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Perttu Ahola <celeron55@gmail.com>によるMinetest-C55をベースに開発されていま"
-"す。\n"
-"その開発者: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, "
-"erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... と様々な人たち"
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Perttu Ahola <celeron55@gmail.com>によるMinetest-C55をベースに開発されています。\nその開発者: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... と様々な人たち"
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3960,32 +3939,30 @@ msgstr "サウンド"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr ""
+msgstr "地形メッシュの詳細"
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
-#, fuzzy
 msgid "Low"
-msgstr "弓"
+msgstr "低"
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
-#, fuzzy
 msgid "Medium"
-msgstr "普通の髪"
+msgstr "並"
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
 msgid "High"
-msgstr ""
+msgstr "高"
 
 #: src/guiSettingsMenu.cpp:406
 msgid "Texture Detail"
-msgstr ""
+msgstr "テクスチャの詳細"
 
 #: src/guiSettingsMenu.cpp:431
 msgid "Light Detail"
-msgstr ""
+msgstr "光の詳細"
 
 #: src/guiSettingsMenu.cpp:456
 msgid "Classic HUD"
@@ -4033,23 +4010,23 @@ msgstr "キーを押してください"
 
 #: src/hud.cpp:645
 msgid "Unknown"
-msgstr ""
+msgstr "不明"
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr ""
+msgstr "落下"
 
 #: src/hud.cpp:647
 msgid "Exposure"
-msgstr ""
+msgstr "野ざらし"
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr ""
+msgstr "寒さ"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr ""
+msgstr "攻撃"
 
 #: src/hud.cpp:650 src/keycode.cpp:258
 msgid "Space"
@@ -4057,7 +4034,7 @@ msgstr "スペースキー"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr ""
+msgstr "毒"
 
 #: src/hud.cpp:842
 msgid "Summer"
@@ -4729,15 +4706,3 @@ msgstr "水晶"
 #: src/mineral.cpp:157
 msgid "Turquoise"
 msgstr "ターコイズ"
-
-#~ msgid "Opaque water"
-#~ msgstr "不透明な水"
-
-#~ msgid "3D Clouds"
-#~ msgstr "3Dの雲"
-
-#~ msgid "Smooth Lighting"
-#~ msgstr "滑らかな光"
-
-#~ msgid "Fancy trees"
-#~ msgstr "綺麗な木"

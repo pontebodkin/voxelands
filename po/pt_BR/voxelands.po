@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Juliana Alves de Sousa Rampi <juas2012@hotmail.com>, 2015
-# Lorram Lomeu de Souza Rampi <lorrampi@gmail.com>, 2015
+# Lorram Lomeu de Souza Rampi <lorrampi@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-18 02:31+1000\n"
-"PO-Revision-Date: 2015-12-21 10:52+0000\n"
+"PO-Revision-Date: 2016-02-17 17:21+0000\n"
 "Last-Translator: Lorram Lomeu de Souza Rampi <lorrampi@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/voxelands/"
-"voxelands/language/pt_BR/)\n"
-"Language: pt_BR\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/voxelands/voxelands/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/character_creator.cpp:55
@@ -230,18 +229,9 @@ msgstr "Sapatos de Lona"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Aqui você pode criar seu personagem padrão, esta é a forma como os outros "
-"jogadores vão vê-lo no jogo. Quando você entra em um novo servidor você vai "
-"começar com a roupa que você selecionar aqui. Roupas adicionais, ambas de "
-"proteção e decorativas, podem ser trabalhadas no jogo.\n"
-"Você pode voltar aqui a qualquer hora através do menu principal para alterar "
-"o seu personagem."
+msgstr "Aqui você pode criar seu personagem padrão, esta é a forma como os outros jogadores vão vê-lo no jogo. Quando você entra em um novo servidor você vai começar com a roupa que você selecionar aqui. Roupas adicionais, ambas de proteção e decorativas, podem ser trabalhadas no jogo.\nVocê pode voltar aqui a qualquer hora através do menu principal para alterar o seu personagem."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1580,14 +1570,12 @@ msgid "Sunstone"
 msgstr "Pedra do Sol"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
-#, fuzzy
 msgid "Salt"
-msgstr "Salitre"
+msgstr "Sal"
 
 #: src/content_craftitem.cpp:1573
-#, fuzzy
 msgid "Space Dust"
-msgstr "Espaço"
+msgstr "Poeira Espacial"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1598,9 +1586,8 @@ msgid "Limestone"
 msgstr "Calcário"
 
 #: src/content_mapnode.cpp:251
-#, fuzzy
 msgid "Space Rock"
-msgstr "Espaço"
+msgstr "Rocha Espacial"
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
@@ -1665,7 +1652,7 @@ msgstr "Areia"
 
 #: src/content_mapnode.cpp:570
 msgid "Desert Sand"
-msgstr ""
+msgstr "Areia do Deserto"
 
 #: src/content_mapnode.cpp:589
 msgid "Gravel"
@@ -2390,9 +2377,8 @@ msgid "Jungle Grass"
 msgstr "Grama da Selva"
 
 #: src/content_mapnode_plants.cpp:225
-#, fuzzy
 msgid "Jungle Fern"
-msgstr "Árvore da Selva"
+msgstr "Samambaia da Selva"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -3711,10 +3697,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Por Lisa 'darkrose' Milne <lisa@ltmnet.com> e contribuidores."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nPor Lisa 'darkrose' Milne <lisa@ltmnet.com> e contribuidores."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3747,15 +3730,8 @@ msgstr "Outros Contribuidores, e Agradecimentos Especiais"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Baseado em Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"e contribuidores: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... e dezenas de muitas pessoas "
-"aleatórias."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Baseado em Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\ne contribuidores: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... e dezenas de muitas pessoas aleatórias."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3963,32 +3939,30 @@ msgstr "Som"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr ""
+msgstr "Detalhe da Malha do Terreno"
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
-#, fuzzy
 msgid "Low"
-msgstr "Arco"
+msgstr "Baixo"
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
-#, fuzzy
 msgid "Medium"
-msgstr "Cabelo Mediano"
+msgstr "Médio"
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
 msgid "High"
-msgstr ""
+msgstr "Alto"
 
 #: src/guiSettingsMenu.cpp:406
 msgid "Texture Detail"
-msgstr ""
+msgstr "Detalhe da Textura"
 
 #: src/guiSettingsMenu.cpp:431
 msgid "Light Detail"
-msgstr ""
+msgstr "Detalhe da Luz"
 
 #: src/guiSettingsMenu.cpp:456
 msgid "Classic HUD"
@@ -4036,23 +4010,23 @@ msgstr "pressione a Tecla"
 
 #: src/hud.cpp:645
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr ""
+msgstr "Queda"
 
 #: src/hud.cpp:647
 msgid "Exposure"
-msgstr ""
+msgstr "Exposição"
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr ""
+msgstr "Frio"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr ""
+msgstr "Ataque"
 
 #: src/hud.cpp:650 src/keycode.cpp:258
 msgid "Space"
@@ -4060,7 +4034,7 @@ msgstr "Espaço"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr ""
+msgstr "Veneno"
 
 #: src/hud.cpp:842
 msgid "Summer"
@@ -4732,15 +4706,3 @@ msgstr "Quartzo"
 #: src/mineral.cpp:157
 msgid "Turquoise"
 msgstr "Turquesa"
-
-#~ msgid "Opaque water"
-#~ msgstr "Água opaca"
-
-#~ msgid "3D Clouds"
-#~ msgstr "Nuvens 3D"
-
-#~ msgid "Smooth Lighting"
-#~ msgstr "Iluminação Suave"
-
-#~ msgid "Fancy trees"
-#~ msgstr "Árvores extravagantes"
