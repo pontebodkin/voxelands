@@ -3,6 +3,43 @@ Voxelands changelog
 This should contain all the major changes.
 For minor stuff, refer to the commit log of the repository.
 
+1602.00: (release 2016-02-27)
+ - lots of new 32x textures
+ - circuits fixes (gagapete)
+ - add desert biome
+ - tweaked armour, warmth and durability values; adjusted wear levels
+ - get rid of ghost nodes, hopefully
+ - remove the slab, or suffer my curse
+ - glass doors may not be used as fuel
+ - remove solidness and visual_solidness fields from ContentFeatures
+ - make seeds burnable
+ - increase size of selected nodes
+ - positional leaves
+ - Add XDG Base Directory Specification
+ - remove Item{S,C}ao, drop items directly to parcels
+ - compile cguittfont statically
+ - make plantlike nodes in water actually be in the water, instead of a strange hole in the water
+ - adjust plantlike tileable growth tex coords
+ - add light flare effect to light sources
+ - less gravity in space
+ - space + space dust (oerkki dust + mithril dust)
+ - a little tweak to server async step
+ - change how animations are sent to client, add die animation
+ - adjust heights for environmental damage
+ - don't take damage when dead, and reset damage indicator on respawn
+ - switch player states to true percentages
+ - add player damage zones and hud indicator of last damage
+ - mob spawning, version UINT64_MAX+1
+ - new jungle ground cover
+ - icy lake shores in winter
+ - some hardface fiddling
+ - new junglegrass/fern
+ - add Nascher's steam controller config to utils
+ - add new settings to settings menu
+ - replace random graphics setting with mesh_detail, light_detail, and texture_detail
+ - remove excess water faces
+ - new dirtlike
+
 1512.00: (release 2015-12-27)
  - preload crack.png to reduce some HUD flicker
  - make leaf falling work in autumn/winter
