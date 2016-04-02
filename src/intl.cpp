@@ -447,9 +447,15 @@ static void intl_getlang(char* buff, int size)
 		strncpy(buff,"en",size);
 	}
 #else
-	char* lang = getenv("LANG");
-	if (!lang || !lang[0])
-		lang = (char*)"en";
+	char* lang = getenv("LANGUAGE");
+	if (!lang || !lang[0]) {
+		lang = getenv("LC_ALL");
+		if (!lang || !lang[0]) {
+			lang = getenv("LANG");
+			if (!lang || !lang[0])
+				lang = (char*)"en";
+		}
+	}
 	strncpy(buff,lang,size);
 #endif
 }
