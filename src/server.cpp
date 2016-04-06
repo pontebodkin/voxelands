@@ -783,11 +783,12 @@ void RemoteClient::GotBlock(v3s16 p)
 
 void RemoteClient::SentBlock(v3s16 p)
 {
-	if(m_blocks_sending.find(p) == NULL)
+	if (m_blocks_sending.find(p) == NULL) {
 		m_blocks_sending.insert(p, 0.0);
-	else
+	}else{
 		infostream<<"RemoteClient::SentBlock(): Sent block"
 				" already in m_blocks_sending"<<std::endl;
+	}
 }
 
 void RemoteClient::SetBlockNotSent(v3s16 p)
@@ -5409,6 +5410,8 @@ void Server::SendBlocks(float dtime)
 	JMutexAutoLock envlock(m_env_mutex);
 	JMutexAutoLock conlock(m_con_mutex);
 
+	s32 max = g_settings->getS32("max_simultaneous_block_sends_server_total");
+
 	//TimeTaker timer("Server::SendBlocks");
 
 	core::array<PrioritySortedBlockTransfer> queue;
@@ -5418,16 +5421,13 @@ void Server::SendBlocks(float dtime)
 	{
 		ScopeProfiler sp(g_profiler, "Server: selecting blocks for sending");
 
-		for(core::map<u16, RemoteClient*>::Iterator
-			i = m_clients.getIterator();
-			i.atEnd() == false; i++)
-		{
+		for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
 			RemoteClient *client = i.getNode()->getValue();
 			assert(client->peer_id == i.getNode()->getKey());
 
 			total_sending += client->SendingCount();
 
-			if(client->serialization_version == SER_FMT_VER_INVALID)
+			if (client->serialization_version == SER_FMT_VER_INVALID)
 				continue;
 
 			client->GetNextBlocks(this, dtime, queue);
@@ -5439,22 +5439,17 @@ void Server::SendBlocks(float dtime)
 	// Lowest is most important.
 	queue.sort();
 
-	for(u32 i=0; i<queue.size(); i++)
-	{
+	for (u32 i=0; i<queue.size(); i++) {
 		//TODO: Calculate limit dynamically
-		if(total_sending >= g_settings->getS32
-				("max_simultaneous_block_sends_server_total"))
+		if (total_sending >= max)
 			break;
 
 		PrioritySortedBlockTransfer q = queue[i];
 
 		MapBlock *block = NULL;
-		try
-		{
+		try{
 			block = m_env.getMap().getBlockNoCreate(q.pos);
-		}
-		catch(InvalidPositionException &e)
-		{
+		}catch (InvalidPositionException &e) {
 			continue;
 		}
 

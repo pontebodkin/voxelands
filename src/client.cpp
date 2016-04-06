@@ -577,15 +577,19 @@ void Client::step(float dtime)
 		while (m_mesh_update_thread.m_queue_out.size() > 0) {
 			MeshUpdateResult r = m_mesh_update_thread.m_queue_out.pop_front();
 			MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(r.p);
-			if (block && r.mesh != NULL) {
-				JMutexAutoLock lock(block->mesh_mutex);
+			if (block) {
+				if (r.mesh != NULL) {
+					JMutexAutoLock lock(block->mesh_mutex);
 
-				MapBlockMesh *mesh_old = block->mesh;
-				block->mesh = r.mesh;
-				block->setMeshExpired(false);
+					MapBlockMesh *mesh_old = block->mesh;
+					block->mesh = r.mesh;
+					block->setMeshExpired(false);
 
-				if (mesh_old != NULL)
-					delete mesh_old;
+					if (mesh_old != NULL)
+						delete mesh_old;
+				}else{
+					block->setMeshExpired(false);
+				}
 			}
 			if (r.ack_block_to_server) {
 				/*infostream<<"Client: ACK block ("<<r.p.X<<","<<r.p.Y

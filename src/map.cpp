@@ -3188,8 +3188,6 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 	*/
 	int time1 = time(0);
 
-	u32 daynight_ratio = m_client->getEnv().getDayNightRatio();
-
 	m_camera_mutex.Lock();
 	v3f camera_position = m_camera_position;
 	v3f camera_direction = m_camera_direction;
@@ -3348,11 +3346,8 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 
 				// Mesh has been expired: generate new mesh
 				if (block->mesh) {
-					JMutexAutoLock lock(block->mesh_mutex);
-					block->mesh->refresh(daynight_ratio);
-					block->setMeshExpired(false);
-				}else{
 					m_client->addUpdateMeshTask(block->getPos(),false,true);
+					block->setMeshExpired(false);
 				}
 
 				mesh_expired = false;
