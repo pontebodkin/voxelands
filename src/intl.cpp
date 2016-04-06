@@ -447,6 +447,7 @@ static void intl_getlang(char* buff, int size)
 		strncpy(buff,"en",size);
 	}
 #else
+	char* s;
 	char* lang = getenv("LANGUAGE");
 	if (!lang || !lang[0]) {
 		lang = getenv("LC_ALL");
@@ -457,6 +458,9 @@ static void intl_getlang(char* buff, int size)
 		}
 	}
 	strncpy(buff,lang,size);
+	s = strchr(buff,':');
+	if (s)
+		*s = 0;
 #endif
 }
 
