@@ -360,6 +360,9 @@ void content_toolitem_init()
 			CONTENT_IGNORE,	CONTENT_IGNORE,			CONTENT_IGNORE
 		};
 		crafting::setRecipe(r,i,1);
+
+		r[0] = CONTENT_IGNORE; r[2] = CONTENT_ROCK;
+		crafting::setRecipe(r,i,1);
 	}
 	lists::add("craftguide",i);
 	lists::add("creative",i);
