@@ -1957,6 +1957,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		// set the player's character definition
 		player->setCharDef(chardef);
 
+		player->updateAnim(PLAYERANIM_STAND,CONTENT_AIR);
+
 		/*
 			Send some initialization data
 		*/
@@ -2443,7 +2445,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		// selection distance is 5, give a little leaway and check
 		// the player is within 8 nodes of the target
-		{
+		if (action != 2) {
 			v3f p_underf = intToFloat(p_under,BS);
 			v3f pp = player->getPosition();
 			if (pp.getDistanceFrom(p_underf) > 8.0*BS)
