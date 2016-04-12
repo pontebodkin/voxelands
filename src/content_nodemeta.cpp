@@ -1617,7 +1617,9 @@ std::string IncineratorNodeMetadata::getDrawSpecString(Player *player)
 	spec += "label[1,0.5;";
 	spec += gettext("Add fuel, then punch to incinerate wielded item");
 	spec += "]";
-	spec += "label[3,1.5;Fuel]";
+	spec += "label[3,1.5;";
+	spec += gettext("Fuel");
+	spec += "]";
 	spec += "list[current_name;fuel;4,1;1,1;]";
 	spec += "ring[4,1;1;#FF0000;";
 	float v = 0;
@@ -3198,12 +3200,18 @@ bool CauldronNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 }
 std::string CauldronNodeMetadata::getDrawSpecString(Player *player)
 {
-	return
-		std::string("size[8,7]"
-		"label[1,0.5;")+gettext("Add fuel, then punch to add or remove water")+"]"
-		"label[3.5,1.5;Fuel]"
-		"list[current_name;fuel;4,1;1,1;]"
-		"list[current_player;main;0,3;8,4;]";
+	std::string spec("size[8,7]");
+
+	spec += "label[1,0.5;";
+	spec += gettext("Add fuel, then punch to add or remove water");
+	spec += "]";
+	spec += "label[3.5,1.5;";
+	spec += gettext("Fuel");
+	spec += "]";
+	spec += "list[current_name;fuel;4,1;1,1;]";
+	spec += "list[current_player;main;0,3;8,4;]";
+
+	return spec;
 }
 std::vector<NodeBox> CauldronNodeMetadata::getNodeBoxes(MapNode &n) {
 	std::vector<NodeBox> boxes;
