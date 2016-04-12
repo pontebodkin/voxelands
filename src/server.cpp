@@ -2450,6 +2450,18 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			v3f pp = player->getPosition();
 			if (pp.getDistanceFrom(p_underf) > 8.0*BS)
 				return;
+			if (
+				(getPlayerPrivs(player) & PRIV_SERVER) == 0
+				&& g_settings->exists("static_spawnpoint")
+				&& g_settings->exists("spawnguard_radius")
+			) {
+				v3f sp = g_settings->getV3F("static_spawnpoint");
+				f32 sg = g_settings->getFloat("spawnguard_radius");
+				sp *= BS;
+				sg *= BS;
+				if (pp.getDistanceFrom(sp) <= sg)
+					return;
+			}
 		}
 
 		InventoryItem *wielditem = (InventoryItem*)player->getWieldItem();
