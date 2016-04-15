@@ -2936,7 +2936,7 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 		u8 version = SER_FMT_VER_INVALID;
 		is.read((char*)&version, 1);
 
-		if(is.fail())
+		if (is.fail())
 			throw SerializationError("ServerMap::loadBlock(): Failed"
 					" to read MapBlock version");
 
@@ -2950,8 +2950,7 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 		MapBlock *block = NULL;
 		bool created_new = false;
 		block = sector->getBlockNoCreateNoEx(p3d.Y);
-		if(block == NULL)
-		{
+		if (block == NULL) {
 			block = sector->createBlankBlockNoInsert(p3d.Y);
 			created_new = true;
 		}
@@ -2963,32 +2962,25 @@ void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool 
 		block->deSerializeDiskExtra(is, version);
 
 		// If it's a new block, insert it to the map
-		if(created_new)
+		if (created_new)
 			sector->insertBlock(block);
 
 		/*
 			Save blocks loaded in old format in new format
 		*/
 
-		if(version < SER_FMT_VER_HIGHEST || save_after_load)
-		{
+		if (version < SER_FMT_VER_HIGHEST || save_after_load)
 			saveBlock(block);
-		}
 
 		// We just loaded it from, so it's up-to-date.
 		block->resetModified();
 
-	}
-	catch(SerializationError &e)
-	{
+	} catch(SerializationError &e) {
 		infostream<<"WARNING: Invalid block data in database "
 				<<" (SerializationError). "
 				<<"what()="<<e.what()
 				<<std::endl;
 				//" Ignoring. A new one will be generated.
-		assert(0);
-
-		// TODO: Copy to a backup database.
 	}
 }
 
