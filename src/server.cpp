@@ -1861,7 +1861,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
  			!m_authmanager.exists(playername)) {
 			infostream<<"Server: unknown player "<<playername
 				<<" was blocked"<<std::endl;
-			SendAccessDenied(m_con, peer_id, L"No unkown players allowed.");
+			SendAccessDenied(m_con, peer_id, L"No unknown players allowed.");
 			return;
 		}
 
