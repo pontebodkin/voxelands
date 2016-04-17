@@ -2812,6 +2812,14 @@ void ClosedBookNodeMetadata::serializeBody(std::ostream &os)
 	os<<serializeString(m_content);
 	os<<itos(m_page) << " ";
 }
+std::string ClosedBookNodeMetadata::getText()
+{
+	return gettext(m_title.c_str());
+}
+std::wstring ClosedBookNodeMetadata::infoText()
+{
+	return narrow_to_wide(gettext(m_title.c_str()eeeeeee));
+}
 bool ClosedBookNodeMetadata::nodeRemovalDisabled()
 {
 	return false;

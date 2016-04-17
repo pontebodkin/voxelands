@@ -566,8 +566,8 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::string getText() {return m_title;}
-	virtual std::wstring infoText() {return narrow_to_wide(m_title);}
+	virtual std::string getText();
+	virtual std::wstring infoText();
 	virtual bool nodeRemovalDisabled();
 	virtual bool import(NodeMetadata *meta);
 
