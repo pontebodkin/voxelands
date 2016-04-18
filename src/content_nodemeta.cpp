@@ -2818,7 +2818,7 @@ std::string ClosedBookNodeMetadata::getText()
 }
 std::wstring ClosedBookNodeMetadata::infoText()
 {
-	return narrow_to_wide(gettext(m_title.c_str()eeeeeee));
+	return narrow_to_wide(gettext(m_title.c_str()));
 }
 bool ClosedBookNodeMetadata::nodeRemovalDisabled()
 {
