@@ -564,6 +564,7 @@ static int meshgen_check_walllike(MeshMakeData *data, MapNode n, v3s16 p, u8 d[8
 static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p, bool *ignore)
 {
 	int level = 0;
+	int ignore_count = 0;
 	bool would_ignore;
 	bool my_ignore[4] = {
 		false,
@@ -579,6 +580,7 @@ static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p,
 	};
 	MapNode nn;
 	ContentFeatures *f = &content_features(n.getContent());
+	ContentFeatures *ff;
 	if (f->draw_type != CDT_PLANTLIKE && f->draw_type != CDT_PLANTLIKE_FERN)
 		return 0;
 
@@ -588,19 +590,21 @@ static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p,
 	for (int i=0; i<4; i++) {
 		if (ignore[i]) {
 			level++;
+			ignore_count++;
 			continue;
 		}
 		nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+around[i]);
 		would_ignore = ignore[i];
 		ignore[i] = true;
+		ff = &content_features(nn.getContent());
 		if (
 			nn.getContent() == CONTENT_WATERSOURCE
-			|| content_features(nn.getContent()).draw_type == CDT_DIRTLIKE
-			|| content_features(nn.getContent()).draw_type == CDT_CUBELIKE
+			|| ff->draw_type == CDT_DIRTLIKE
+			|| ff->draw_type == CDT_CUBELIKE
 			|| (
 				(
-					content_features(nn.getContent()).draw_type == CDT_PLANTLIKE
-					|| content_features(nn.getContent()).draw_type == CDT_PLANTLIKE_FERN
+					ff->draw_type == CDT_PLANTLIKE
+					|| ff->draw_type == CDT_PLANTLIKE_FERN
 				) && meshgen_check_plantlike_water(data,nn,p+around[i],ignore) > 0
 			)
 		) {
@@ -609,16 +613,17 @@ static int meshgen_check_plantlike_water(MeshMakeData *data, MapNode n, v3s16 p,
 		ignore[i] = would_ignore;
 	}
 
-	if (level != 4)
+	if (level != 4 || ignore_count == 4)
 		return 0;
 
 	nn = data->m_vmanip.getNodeRO(data->m_blockpos_nodes+p+v3s16(0,1,0));
+	ff = &content_features(nn.getContent());
 	if (
 		nn.getContent() == CONTENT_WATERSOURCE
 		|| (
 			(
-				content_features(nn.getContent()).draw_type == CDT_PLANTLIKE
-				|| content_features(nn.getContent()).draw_type == CDT_PLANTLIKE_FERN
+				ff->draw_type == CDT_PLANTLIKE
+				|| ff->draw_type == CDT_PLANTLIKE_FERN
 			) && meshgen_check_plantlike_water(data,nn,p+v3s16(0,1,0),NULL) > 0
 		)
 	) {
