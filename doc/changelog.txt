@@ -3,6 +3,19 @@ Voxelands changelog
 This should contain all the major changes.
 For minor stuff, refer to the commit log of the repository.
 
+1604.00: (release 2016-04-30)
+ - fix typo picked up by translators
+ - fix that water/plant meshgen bug
+ - dodgey intl fixish
+ - fix some/most? of sdzens broken textures
+ - add reverse recipe for small stone axe
+ - add missing translations to incinerator and cauldron
+ - spawnguard
+ - stop the constant digging
+ - remove hat recipe from bars
+ - some meshgen tweaks
+ - Check LANGUAGE and LC_ALL vars before LANG
+
 1602.00: (release 2016-02-27)
  - lots of new 32x textures
  - circuits fixes (gagapete)
