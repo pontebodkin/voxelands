@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 15:24+1000\n"
+"POT-Creation-Date: 2016-04-29 23:13+1000\n"
 "PO-Revision-Date: 2011-08-02 00:31+0100\n"
 "Last-Translator: Frederik Helth <Guides@live.dk>\n"
 "Language-Team: \n"
@@ -3736,7 +3736,7 @@ msgid "Translators"
 msgstr ""
 
 #: src/guiMainMenu.cpp:684
-msgid "Documentation Writters"
+msgid "Documentation Writers"
 msgstr ""
 
 #: src/guiMainMenu.cpp:687
@@ -4744,29 +4744,29 @@ msgstr ""
 msgid "Turquoise"
 msgstr ""
 
-#~ msgid "Fancy trees"
-#~ msgstr "Fancy trær"
-
-#~ msgid "Proceed"
-#~ msgstr "Fortsæt"
-
-#~ msgid "Delete map"
-#~ msgstr "Slet mappen"
-
-#~ msgid "Leave address blank to start a local server."
-#~ msgstr "Lad black for at spille localt"
-
-#~ msgid "Exit to OS"
-#~ msgstr "Afslut til OS"
-
-#~ msgid "Change keys"
-#~ msgstr "Indstillinger"
-
-#~ msgid "Print stacks"
-#~ msgstr "Print stykker"
+#~ msgid "Use"
+#~ msgstr "Brug"
 
 #~ msgid "Toggle fast"
 #~ msgstr "Hurtig flyvning"
 
-#~ msgid "Use"
-#~ msgstr "Brug"
+#~ msgid "Print stacks"
+#~ msgstr "Print stykker"
+
+#~ msgid "Change keys"
+#~ msgstr "Indstillinger"
+
+#~ msgid "Exit to OS"
+#~ msgstr "Afslut til OS"
+
+#~ msgid "Leave address blank to start a local server."
+#~ msgstr "Lad black for at spille localt"
+
+#~ msgid "Delete map"
+#~ msgstr "Slet mappen"
+
+#~ msgid "Proceed"
+#~ msgstr "Fortsæt"
+
+#~ msgid "Fancy trees"
+#~ msgstr "Fancy trær"

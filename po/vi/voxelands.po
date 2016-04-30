@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Deuce <ntg255@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 15:24+1000\n"
-"PO-Revision-Date: 2016-02-17 16:36+0000\n"
+"POT-Creation-Date: 2016-04-29 23:13+1000\n"
+"PO-Revision-Date: 2016-04-29 13:15+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/voxelands/voxelands/"
-"language/vi/)\n"
-"Language: vi\n"
+"Language-Team: Vietnamese (http://www.transifex.com/voxelands/voxelands/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/character_creator.cpp:55
@@ -229,18 +228,9 @@ msgstr "Giày thể thao"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Ở đây bạn có thể làm người bạn. Đây là cách người khác sẽ nhìn thấy bạn "
-"trong trò chơi. Khi bạn vào server mới, bạn sẽ bắt đầu với những quần áo bạn "
-"chọn ở đây. Quần áo thêm, cho bảo vệ và ngoại hình, có thể được làm trong "
-"trò chơi.\n"
-" Bạn có thể trở lại đây từ thực đơn chính lúc nào để thay quần áo bạn và các "
-"tính năng trên khuôn mặt."
+msgstr "Ở đây bạn có thể làm người bạn. Đây là cách người khác sẽ nhìn thấy bạn trong trò chơi. Khi bạn vào server mới, bạn sẽ bắt đầu với những quần áo bạn chọn ở đây. Quần áo thêm, cho bảo vệ và ngoại hình, có thể được làm trong trò chơi.\n Bạn có thể trở lại đây từ thực đơn chính lúc nào để thay quần áo bạn và các tính năng trên khuôn mặt."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -3708,10 +3698,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Được làm bởi Lisa 'darkrose' Milne <lisa@ltmnet.com> và người giúp sức khác"
+msgstr "Voxelands\nhttp://www.voxelands.com/\nĐược làm bởi Lisa 'darkrose' Milne <lisa@ltmnet.com> và người giúp sức khác"
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3726,8 +3713,8 @@ msgid "Translators"
 msgstr "Người dịch"
 
 #: src/guiMainMenu.cpp:684
-msgid "Documentation Writters"
-msgstr "Người viết sự chứng minh bằng tài liệu"
+msgid "Documentation Writers"
+msgstr ""
 
 #: src/guiMainMenu.cpp:687
 msgid "Testers, Packagers, and Builders"
@@ -3744,15 +3731,8 @@ msgstr "Người giúp sức khác, và cảm ơn đặc biệt"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Có nguồn gốc từ Minetest-C55 được làm bởi Perttu Ahola <celeron55@gmail."
-"com>\n"
-"và người giúp sức: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... và nhiều người ngẫu nhiên hơn!"
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Có nguồn gốc từ Minetest-C55 được làm bởi Perttu Ahola <celeron55@gmail.com>\nvà người giúp sức: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... và nhiều người ngẫu nhiên hơn!"
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"

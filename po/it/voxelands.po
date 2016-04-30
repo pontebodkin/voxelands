@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Emon <emon@openmailbox.org>, 2015-2016
 # trekmarvel <trekmarvel@gmail.com>, 2015
@@ -9,15 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 15:24+1000\n"
-"PO-Revision-Date: 2016-02-17 18:01+0000\n"
+"POT-Creation-Date: 2016-04-29 23:13+1000\n"
+"PO-Revision-Date: 2016-04-29 20:33+0000\n"
 "Last-Translator: Emon <emon@openmailbox.org>\n"
-"Language-Team: Italian (http://www.transifex.com/voxelands/voxelands/"
-"language/it/)\n"
-"Language: it\n"
+"Language-Team: Italian (http://www.transifex.com/voxelands/voxelands/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
@@ -230,18 +229,9 @@ msgstr "Scarpe di tela"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Qui potete creare il vostro personaggio predefinito, è come gli altri "
-"giocatori vi vedranno nel gioco. Quando vi unirete a un nuovo server "
-"inizierete coi vestiti che scegliete qua. L'abbigliamento aggiuntivo, sia "
-"protettivo che decorativo, può essere creato nel gioco.\n"
-"Potete tornare qui per modificare il vostro personaggio in qualsiasi "
-"momento, dal menu principale."
+msgstr "Qui potete creare il vostro personaggio predefinito, è come gli altri giocatori vi vedranno nel gioco. Quando vi unirete a un nuovo server inizierete coi vestiti che scegliete qua. L'abbigliamento aggiuntivo, sia protettivo che decorativo, può essere creato nel gioco.\nPotete tornare qui per modificare il vostro personaggio in qualsiasi momento, dal menu principale."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1629,11 +1619,11 @@ msgstr "Blocco di pietra"
 
 #: src/content_mapnode.cpp:374
 msgid "Rough Stone Brick"
-msgstr "Mattoni di pietra rozza"
+msgstr "Mattoni di pietra grezza"
 
 #: src/content_mapnode.cpp:391
 msgid "Rough Stone Block"
-msgstr "Blocco di pietra rozza"
+msgstr "Blocco di pietra grezza"
 
 #: src/content_mapnode.cpp:407 src/content_mapnode.cpp:440
 #: src/content_mapnode.cpp:454 src/content_mapnode.cpp:487
@@ -1926,7 +1916,7 @@ msgstr "Lava"
 
 #: src/content_mapnode.cpp:2257
 msgid "Rough Stone"
-msgstr "Pietra rozza"
+msgstr "Pietra grezza"
 
 #: src/content_mapnode.cpp:2274
 msgid "Cobble Stone"
@@ -1950,7 +1940,7 @@ msgstr "Pomello di pietra"
 
 #: src/content_mapnode.cpp:2337
 msgid "Rough Stone Knob"
-msgstr "Pomello di pietra rozza"
+msgstr "Pomello di pietra grezza"
 
 #: src/content_mapnode.cpp:2338
 msgid "Sandstone Knob"
@@ -2506,7 +2496,7 @@ msgstr "Pianta di caffè"
 
 #: src/content_mapnode_slab.cpp:37
 msgid "Rough Stone Slab"
-msgstr "Lastra di pietra rozza"
+msgstr "Lastra di pietra grezza"
 
 #: src/content_mapnode_slab.cpp:55 src/content_mapnode_slab.cpp:424
 msgid "Cobble Stone Slab"
@@ -2771,7 +2761,7 @@ msgstr "Muro di ciottoli"
 
 #: src/content_mapnode_special.cpp:1559
 msgid "Rough Stone Wall"
-msgstr "Muro di pietra rozza"
+msgstr "Muro di pietra grezza"
 
 #: src/content_mapnode_special.cpp:1582
 msgid "Mossy Cobblestone Wall"
@@ -2855,7 +2845,7 @@ msgstr "Fuoco della forgia"
 
 #: src/content_mapnode_stair.cpp:37
 msgid "Rough Stone Stair"
-msgstr "Scala di pietra rozza"
+msgstr "Scala di pietra grezza"
 
 #: src/content_mapnode_stair.cpp:53
 msgid "Cobble Stone Stair"
@@ -3067,12 +3057,11 @@ msgstr "L'inceneritore non è attivo"
 
 #: src/content_nodemeta.cpp:1618
 msgid "Add fuel, then punch to incinerate wielded item"
-msgstr ""
-"Aggiungete combustibile, poi colpite per incenerire l'oggetto impugnato"
+msgstr "Aggiungete combustibile, poi colpite per incenerire l'oggetto impugnato"
 
 #: src/content_nodemeta.cpp:1621 src/content_nodemeta.cpp:3217
 msgid "Fuel"
-msgstr ""
+msgstr "Combustibile"
 
 #: src/content_nodemeta.cpp:1861 src/content_nodemeta.cpp:2149
 msgid "Add item here to see recipe"
@@ -3528,8 +3517,7 @@ msgstr "Ricomparire"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"Click sinistro: muove tutti gli oggetti; Click destro: muove un oggetto"
+msgstr "Click sinistro: muove tutti gli oggetti; Click destro: muove un oggetto"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3713,10 +3701,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Di Lisa 'darkrose' Milne <lisa@ltmnet.com> e contributori."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nDi Lisa 'darkrose' Milne <lisa@ltmnet.com> e contributori."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3731,7 +3716,7 @@ msgid "Translators"
 msgstr "Traduttori"
 
 #: src/guiMainMenu.cpp:684
-msgid "Documentation Writters"
+msgid "Documentation Writers"
 msgstr "Scrittori della documentazione"
 
 #: src/guiMainMenu.cpp:687
@@ -3749,14 +3734,8 @@ msgstr "Altri contributori, e ringraziamenti speciali"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Basato su Minetest-C55 di Perttu Ahola <celeron55@gmail.com>\n"
-"e contributori: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... e decine di altre persone casuali."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Basato su Minetest-C55 di Perttu Ahola <celeron55@gmail.com>\ne contributori: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... e decine di altre persone casuali."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3904,7 +3883,7 @@ msgstr "Su"
 
 #: src/guiSettingsMenu.cpp:83 src/keycode.cpp:266
 msgid "Down"
-msgstr "Giù"
+msgstr "Giu`"
 
 #: src/guiSettingsMenu.cpp:84
 msgid "Run"
@@ -3964,7 +3943,7 @@ msgstr "Suono"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr "Dettaglio della mesh del terreno"
+msgstr "Dett. mesh del terreno"
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
@@ -4258,7 +4237,7 @@ msgstr "Pag su"
 
 #: src/keycode.cpp:260
 msgid "Next"
-msgstr "Pag giù"
+msgstr "Pag giu`"
 
 #: src/keycode.cpp:261
 msgid "End"

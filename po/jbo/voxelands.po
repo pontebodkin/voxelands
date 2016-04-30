@@ -1,23 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Wuzzy <almikes@aol.com>, 2015
+# Wuzzy <almikes@aol.com>, 2015-2016
 # Wuzzy <almikes@aol.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 15:24+1000\n"
-"PO-Revision-Date: 2016-02-17 16:36+0000\n"
+"POT-Creation-Date: 2016-04-29 23:13+1000\n"
+"PO-Revision-Date: 2016-04-29 13:15+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Lojban (http://www.transifex.com/voxelands/voxelands/language/"
-"jbo/)\n"
-"Language: jbo\n"
+"Language-Team: Lojban (http://www.transifex.com/voxelands/voxelands/language/jbo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: jbo\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/character_creator.cpp:55
@@ -230,20 +229,9 @@ msgstr "lo fanbu'u cutci"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-".i vi lo ti sazycimde ku do kakne lo nu finti lo xarpre be do be'o goi xy\n"
-".i xy. ba se viska lo drata kelci ca lo nu kelci\n"
-".i ca lo nu do co'a pilno lo cnino samse'u kei xy. dasni lo taxfu poi do "
-"cuxna ke'a\n"
-".i cumki fa lo nu lo seljmina taxfu noi ke'a badgai gi'e jadni ku'o se zbasu "
-"kei fe lo nu kelci\n"
-".i cumki fa lo nu do xrukla pe'a lo ti sazycimde le ralju sazycimde tezu'e "
-"lo nu gafygau xy."
+msgstr ".i vi lo ti sazycimde ku do kakne lo nu finti lo xarpre be do be'o goi xy\n.i xy. ba se viska lo drata kelci ca lo nu kelci\n.i ca lo nu do co'a pilno lo cnino samse'u kei xy. dasni lo taxfu poi do cuxna ke'a\n.i cumki fa lo nu lo seljmina taxfu noi ke'a badgai gi'e jadni ku'o se zbasu kei fe lo nu kelci\n.i cumki fa lo nu do xrukla pe'a lo ti sazycimde le ralju sazycimde tezu'e lo nu gafygau xy."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1579,15 +1567,15 @@ msgstr "lo jemnrsapfiro"
 
 #: src/content_craftitem.cpp:1557 src/mineral.cpp:181
 msgid "Sunstone"
-msgstr ""
+msgstr "lo pevysoljme"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
 msgid "Salt"
-msgstr ""
+msgstr "lo silna"
 
 #: src/content_craftitem.cpp:1573
 msgid "Space Dust"
-msgstr ""
+msgstr "lo kensa pulce"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
@@ -1599,7 +1587,7 @@ msgstr "lo bogjimro'i"
 
 #: src/content_mapnode.cpp:251
 msgid "Space Rock"
-msgstr ""
+msgstr "lo kensa rokci"
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
@@ -1664,7 +1652,7 @@ msgstr "lo canre"
 
 #: src/content_mapnode.cpp:570
 msgid "Desert Sand"
-msgstr ""
+msgstr "lo cantu'a canre"
 
 #: src/content_mapnode.cpp:589
 msgid "Gravel"
@@ -2390,7 +2378,7 @@ msgstr "lo glatimdemricfoi srasu"
 
 #: src/content_mapnode_plants.cpp:225
 msgid "Jungle Fern"
-msgstr ""
+msgstr "lo glatimdemricfoi filcina"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
@@ -2849,11 +2837,11 @@ msgstr "lo brapatxu"
 
 #: src/content_mapnode_special.cpp:2015 src/content_nodemeta.cpp:3313
 msgid "Forge"
-msgstr ""
+msgstr "lo makfa toknu"
 
 #: src/content_mapnode_special.cpp:2042
 msgid "Forge Fire"
-msgstr ""
+msgstr "lo makfa toknu fagri"
 
 #: src/content_mapnode_stair.cpp:37
 msgid "Rough Stone Stair"
@@ -2929,7 +2917,7 @@ msgstr "lo lanme"
 
 #: src/content_mob.cpp:690
 msgid "Sheared Sheep"
-msgstr ""
+msgstr "lo te sulka'a lanme"
 
 #: src/content_mob.cpp:715
 msgid "Snowball"
@@ -3073,7 +3061,7 @@ msgstr "ko setca lo livla .ijebabo ko darxi tezu'e lo nu jelgau lo jgari dacti"
 
 #: src/content_nodemeta.cpp:1621 src/content_nodemeta.cpp:3217
 msgid "Fuel"
-msgstr ""
+msgstr "lo livla"
 
 #: src/content_nodemeta.cpp:1861 src/content_nodemeta.cpp:2149
 msgid "Add item here to see recipe"
@@ -3138,8 +3126,7 @@ msgstr ".i lo brapatxu cu kunti loi livla"
 
 #: src/content_nodemeta.cpp:3214
 msgid "Add fuel, then punch to add or remove water"
-msgstr ""
-"ko setca lo livla .ijebabo ko darxi tezu'e lo nu jmina gi'a vimcu loi djacu"
+msgstr "ko setca lo livla .ijebabo ko darxi tezu'e lo nu jmina gi'a vimcu loi djacu"
 
 #: src/content_nodemeta.cpp:3487
 msgid "Show Enchanting"
@@ -3339,7 +3326,7 @@ msgstr "lo jimrmifrilie kilga'axa'i"
 
 #: src/content_toolitem.cpp:893
 msgid "Mob Spawner"
-msgstr ""
+msgstr "lo danlu tolcanci tutci"
 
 #: src/content_toolitem.cpp:912
 msgid "Mithril Key"
@@ -3413,12 +3400,8 @@ msgstr ".i na kakne lo nu facki lo samjudri"
 #, c-format
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
-msgstr[0] ""
-".i ca'o troci lo za'i samjo'e lo samse'u to da'i co'urdenpa za lo snidu be "
-"li %d toi"
-msgstr[1] ""
-".i ca'o troci lo za'i samjo'e lo samse'u to da'i co'urdenpa za lo snidu be "
-"li %d toi"
+msgstr[0] ".i ca'o troci lo za'i samjo'e lo samse'u to da'i co'urdenpa za lo snidu be li %d toi"
+msgstr[1] ".i ca'o troci lo za'i samjo'e lo samse'u to da'i co'urdenpa za lo snidu be li %d toi"
 
 #: src/game.cpp:768
 #, c-format
@@ -3427,9 +3410,7 @@ msgstr ".i na curmi le nu do vitke .iki'ubo me zoi gy.%ls.gy."
 
 #: src/game.cpp:772
 msgid "Unable to Connect (port already in use?)."
-msgstr ""
-".i na kakne fe lo nu co'a samjo'e to paunai xu lo judrnporte ca'o se pilno "
-"toi"
+msgstr ".i na kakne fe lo nu co'a samjo'e to paunai xu lo judrnporte ca'o se pilno toi"
 
 #: src/game.cpp:775
 msgid "Connection timed out."
@@ -3490,9 +3471,7 @@ msgstr ".i le si'o samcfisisku kei datni cu jarco"
 
 #: src/game.cpp:1231
 msgid "Debug info and frametime graph hidden"
-msgstr ""
-".i le si'o samcfisisku kei datni .e lo me la'o gy.frametime.gy. cartu cu "
-"jarco"
+msgstr ".i le si'o samcfisisku kei datni .e lo me la'o gy.frametime.gy. cartu cu jarco"
 
 #: src/game.cpp:1235
 msgid "Frametime graph shown"
@@ -3501,9 +3480,7 @@ msgstr ".i lo me la'o gy.frametime.gy. cartu cu jarco"
 #: src/game.cpp:1247
 #, c-format
 msgid "Profiler shown (page %d of %d)"
-msgstr ""
-".i lo me la'o gy.profiler.gy. cu jarco to %d moi le'i papri poi ke'a %d mei "
-"toi"
+msgstr ".i lo me la'o gy.profiler.gy. cu jarco to %d moi le'i papri poi ke'a %d mei toi"
 
 #: src/game.cpp:1251
 msgid "Profiler hidden"
@@ -3512,8 +3489,7 @@ msgstr ".i lo me la'o gy.profiler.gy. toljarco"
 #: src/game.cpp:1259 src/game.cpp:1270
 #, c-format
 msgid "Minimum viewing range changed to %d"
-msgstr ""
-".i lo nacmecrai ke ni jvinu se kuspe pu se galfi fi tu'a lo gutci be li %d"
+msgstr ".i lo nacmecrai ke ni jvinu se kuspe pu se galfi fi tu'a lo gutci be li %d"
 
 #: src/game.cpp:1339
 msgid "Enabled full viewing range"
@@ -3541,9 +3517,7 @@ msgstr "gasnu lo nu mi tolcanci"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
-"da'i iklki fe lo zulselpevysmacu lo nu muvdu lo ro dacti .i da'i iklki fe lo "
-"prityselpevysmacu lo nu muvdu lo pa dacti"
+msgstr "da'i iklki fe lo zulselpevysmacu lo nu muvdu lo ro dacti .i da'i iklki fe lo prityselpevysmacu lo nu muvdu lo pa dacti"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3656,7 +3630,7 @@ msgstr "lo nu falcru lo dacti cu cumki"
 
 #: src/guiMainMenu.cpp:527
 msgid "Death drops Inventory"
-msgstr ""
+msgstr "lo nu morsi cu rinka lo nu falcru lo dacti"
 
 #: src/guiMainMenu.cpp:569
 msgid "Hide Map Options"
@@ -3720,24 +3694,18 @@ msgstr "kuntygau lo munje"
 
 #: src/guiMainMenu.cpp:650
 msgid "Warning! This will delete all construction from your map!"
-msgstr ""
-".e'unai .i ganai da'i tu'a do ranji gi ju'o lo ro dilnu pe do cu ba se vimcu "
-"fi lo munje pe do"
+msgstr ".e'unai .i ganai da'i tu'a do ranji gi ju'o lo ro dilnu pe do cu ba se vimcu fi lo munje pe do"
 
 #: src/guiMainMenu.cpp:668
 msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-".i la'o gy.Voxelands.gy.\n"
-"noi ke'a se urli zoi gy.http://www.voxeland.com/.gy. nu'o\n"
-"se finti la'o gy.Lisa Milne.gy. nu'o la'o gy.darkrose.gy. to zoi gy."
-"lisa@ltmnet.com.gy. co'e toi .e lo sidju"
+msgstr ".i la'o gy.Voxelands.gy.\nnoi ke'a se urli zoi gy.http://www.voxeland.com/.gy. nu'o\nse finti la'o gy.Lisa Milne.gy. nu'o la'o gy.darkrose.gy. to zoi gy.lisa@ltmnet.com.gy. co'e toi .e lo sidju"
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
-msgstr ""
+msgstr "lo samtcifi'i"
 
 #: src/guiMainMenu.cpp:678
 msgid "Artists and Modellers"
@@ -3748,7 +3716,7 @@ msgid "Translators"
 msgstr "lo fanva"
 
 #: src/guiMainMenu.cpp:684
-msgid "Documentation Writters"
+msgid "Documentation Writers"
 msgstr ""
 
 #: src/guiMainMenu.cpp:687
@@ -3766,19 +3734,8 @@ msgstr "lo drata je se ckire sidju"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-".i finti fu la'o gy.Minetest-C55.gy.\n"
-"poi ke'a selfi'i la'o gy.Perttu Ahola.gy. to zoi gy.celeron55@gmail.com.gy. "
-"co'e toi\n"
-".e lo sidju po'u la'o gy.PilzAdam.gy. .e la'o gy.Taoki.gy. .e la'o gy.tango_."
-"gy. .e la'o gy.kahrl.gy. .e la'o gy.darkrose.gy. .e la'o gy.matttpt.gy. .e "
-"la'o gy.erlehmann.gy. .e la'o gy.SpeedProg.gy. .e la'o gy. JacobF.gy. .e "
-"la'o dy.teddydestodes.dy. .e la'o gy.marktraceur.gy. .e la'o dy.Jonathan "
-"Neuschafer.dy. .e la'o gy.thexyz.gy. .e la'o gy.VanessaE.gy. .e la'o gy."
-"sfan5.gy. .e lo mutce cunso drata prenu"
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr ".i finti fu la'o gy.Minetest-C55.gy.\npoi ke'a selfi'i la'o gy.Perttu Ahola.gy. to zoi gy.celeron55@gmail.com.gy. co'e toi\n.e lo sidju po'u la'o gy.PilzAdam.gy. .e la'o gy.Taoki.gy. .e la'o gy.tango_.gy. .e la'o gy.kahrl.gy. .e la'o gy.darkrose.gy. .e la'o gy.matttpt.gy. .e la'o gy.erlehmann.gy. .e la'o gy.SpeedProg.gy. .e la'o gy. JacobF.gy. .e la'o dy.teddydestodes.dy. .e la'o gy.marktraceur.gy. .e la'o dy.Jonathan Neuschafer.dy. .e la'o gy.thexyz.gy. .e la'o gy.VanessaE.gy. .e la'o gy.sfan5.gy. .e lo mutce cunso drata prenu"
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
@@ -3794,15 +3751,15 @@ msgstr "lo ro samtcise'u"
 
 #: src/guiMultiplayerMenu.cpp:148
 msgid "Favourite Servers"
-msgstr ""
+msgstr "lo se nelrai samtcise'u"
 
 #: src/guiMultiplayerMenu.cpp:154
 msgid "Custom Connect"
-msgstr ""
+msgstr "macnu samjongau"
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
-msgstr ""
+msgstr "lo macnu samjo'e"
 
 #: src/guiMultiplayerMenu.cpp:176
 msgid "Address/Port"
@@ -3810,7 +3767,7 @@ msgstr "lo samjudri jo'u judrnporte"
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
-msgstr ""
+msgstr "jmina fi lo se nelrai"
 
 #: src/guiMultiplayerMenu.cpp:206 src/guiMultiplayerMenu.cpp:320
 msgid "Connect"
@@ -3826,7 +3783,7 @@ msgstr "jongau lo samtcise'u"
 
 #: src/guiMultiplayerMenu.cpp:262
 msgid "My Favourites"
-msgstr ""
+msgstr "lo se nelrai be mi"
 
 #: src/guiMultiplayerMenu.cpp:265
 msgid "Server List"
@@ -3838,7 +3795,7 @@ msgstr "cpadu lo cnino liste"
 
 #: src/guiMultiplayerMenu.cpp:307
 msgid "Remove from Favourites"
-msgstr ""
+msgstr "vimcu fi lo se nelrai"
 
 #: src/guiPasswordChange.cpp:105
 msgid "Old Password"
@@ -3986,30 +3943,30 @@ msgstr "lei sance"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr ""
+msgstr "lo ni tumla te marji tcila"
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
 msgid "Low"
-msgstr ""
+msgstr "kandi"
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
 msgid "Medium"
-msgstr ""
+msgstr "milxe"
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
 msgid "High"
-msgstr ""
+msgstr "mutce"
 
 #: src/guiSettingsMenu.cpp:406
 msgid "Texture Detail"
-msgstr ""
+msgstr "ni tengu tcila"
 
 #: src/guiSettingsMenu.cpp:431
 msgid "Light Detail"
-msgstr ""
+msgstr "ni gusni tcila"
 
 #: src/guiSettingsMenu.cpp:456
 msgid "Classic HUD"
@@ -4061,7 +4018,7 @@ msgstr ""
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr ""
+msgstr "lo nu farlu"
 
 #: src/hud.cpp:647
 msgid "Exposure"
@@ -4069,19 +4026,19 @@ msgstr ""
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr ""
+msgstr "lo nu lenku"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr ""
+msgstr "lo nu gunta ce'u"
 
 #: src/hud.cpp:650 src/keycode.cpp:258
 msgid "Space"
-msgstr ""
+msgstr "canlu bu"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr ""
+msgstr "lo vindu"
 
 #: src/hud.cpp:842
 msgid "Summer"
@@ -4107,80 +4064,80 @@ msgstr ""
 #: src/hud.cpp:885
 #, c-format
 msgid "Energy Boost: %d:%02d"
-msgstr ""
+msgstr ".i zengau fi lo ka nejni fo li %d pi'e %02d"
 
 #: src/hud.cpp:910
 #, c-format
 msgid "Cold Protection: %d:%02d"
-msgstr ""
+msgstr " li %d pi'e %02d ni lenku bandu"
 
 #: src/inventory.cpp:236 src/inventory.cpp:566
 msgid "Contains: "
-msgstr ""
+msgstr "vasru fa "
 
 #: src/inventory.cpp:243 src/inventory.cpp:365
 msgid "Cookable: Yes"
-msgstr ""
+msgstr ".i ka'e se jukpa"
 
 #: src/inventory.cpp:248 src/inventory.cpp:370 src/inventory.cpp:541
 msgid "Fuel Burn Time: "
-msgstr ""
+msgstr "livla jelca temci fa "
 
 #: src/inventory.cpp:334
 msgid "Hunger: "
-msgstr ""
+msgstr "ni xagji fa "
 
 #: src/inventory.cpp:340
 msgid "Health: "
-msgstr ""
+msgstr "ni kanro fa "
 
 #: src/inventory.cpp:347
 msgid "Cold Protection: "
-msgstr ""
+msgstr "ni lenku bandu fa "
 
 #: src/inventory.cpp:356
 msgid "Energy Boost: "
-msgstr ""
+msgstr "nejni zenba fi "
 
 #: src/inventory.cpp:530
 msgid "Strength: "
-msgstr ""
+msgstr "ni tsali fa "
 
 #: src/inventory.cpp:533
 msgid "Speed: "
-msgstr ""
+msgstr "ni sutra fa "
 
 #: src/inventory.cpp:536
 msgid "Level: "
-msgstr ""
+msgstr "klani fa "
 
 #: src/inventory.cpp:652
 msgid "Armour: "
-msgstr ""
+msgstr "ni dabycalku fa "
 
 #: src/inventory.cpp:658
 msgid "Warmth: "
-msgstr ""
+msgstr "ni glare fa "
 
 #: src/inventory.cpp:664
 msgid "Pressure: "
-msgstr ""
+msgstr "ni danre fa "
 
 #: src/inventory.cpp:670
 msgid "Suffocation: "
-msgstr ""
+msgstr "ni dirva'u fa "
 
 #: src/inventory.cpp:676
 msgid "Durability: "
-msgstr ""
+msgstr "ni renvi fa "
 
 #: src/inventory.cpp:681
 msgid "Effect Boost: "
-msgstr ""
+msgstr "se rinka zenba fi "
 
 #: src/keycode.cpp:232
 msgid "-"
-msgstr ""
+msgstr "noda"
 
 #: src/keycode.cpp:234
 msgid "Left Button"

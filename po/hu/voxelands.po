@@ -3,2252 +3,2252 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Juliana Alves de Sousa Rampi <juas2012@hotmail.com>, 2015
-# Lorram Lomeu de Souza Rampi <lorrampi@gmail.com>, 2015-2016
+# dav19, 2016
+# dav19, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-29 23:13+1000\n"
-"PO-Revision-Date: 2016-04-29 13:30+0000\n"
-"Last-Translator: Lorram Lomeu de Souza Rampi <lorrampi@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/voxelands/voxelands/language/pt_BR/)\n"
+"PO-Revision-Date: 2016-04-29 13:15+0000\n"
+"Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/voxelands/voxelands/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
 msgid "White Skin"
-msgstr "Pele Branca"
+msgstr "fehér bőr"
 
 #: src/character_creator.cpp:56
 msgid "Red Skin"
-msgstr "Pele Vermelha"
+msgstr "vörös bőr"
 
 #: src/character_creator.cpp:57
 msgid "Green Skin"
-msgstr "Pele Verde"
+msgstr "zöld bőr"
 
 #: src/character_creator.cpp:58
 msgid "Fair Skin"
-msgstr "Pele Clara"
+msgstr "világos bőr"
 
 #: src/character_creator.cpp:59
 msgid "Tanned Skin"
-msgstr "Pele Bronzeada"
+msgstr "napbarnított bőr"
 
 #: src/character_creator.cpp:60
 msgid "Dark Skin"
-msgstr "Pele Escura"
+msgstr "sötét bőr"
 
 #: src/character_creator.cpp:61
 msgid "Black Skin"
-msgstr "Pele Negra"
+msgstr "fekete bőr"
 
 #: src/character_creator.cpp:63
 msgid "Human Face"
-msgstr "Rosto Humano"
+msgstr "emberarc"
 
 #: src/character_creator.cpp:64
 msgid "Elven Face"
-msgstr "Rosto Élfico"
+msgstr "elf arc"
 
 #: src/character_creator.cpp:65
 msgid "Dwarven Face"
-msgstr "Rosto de Anão"
+msgstr "törpe arc"
 
 #: src/character_creator.cpp:66
 msgid "Alien Face"
-msgstr "Rosto Alienigena"
+msgstr "földönkívüli arc"
 
 #: src/character_creator.cpp:68
 msgid "White Hair"
-msgstr "Cabelo Branco"
+msgstr "ősz haj"
 
 #: src/character_creator.cpp:69
 msgid "Blue Hair"
-msgstr "Cabelo Azul"
+msgstr "kék haj"
 
 #: src/character_creator.cpp:70
 msgid "Green Hair"
-msgstr "Cabelo Verde"
+msgstr "zöld haj"
 
 #: src/character_creator.cpp:71
 msgid "Orange Hair"
-msgstr "Cabelo Laranja"
+msgstr "narancssárga haj"
 
 #: src/character_creator.cpp:72
 msgid "Brown Hair"
-msgstr "Cabelo Castanho"
+msgstr "barna haj"
 
 #: src/character_creator.cpp:73
 msgid "Purple Hair"
-msgstr "Cabelo Roxo"
+msgstr "lila haj"
 
 #: src/character_creator.cpp:74
 msgid "Red Hair"
-msgstr "Cabelo Vermelho"
+msgstr "vörös haj"
 
 #: src/character_creator.cpp:75
 msgid "Blonde Hair"
-msgstr "Cabelo Loiro"
+msgstr "szőke haj"
 
 #: src/character_creator.cpp:76
 msgid "Black Hair"
-msgstr "Cabelo Preto"
+msgstr "fekete haj"
 
 #: src/character_creator.cpp:78
 msgid "Short Hair"
-msgstr "Cabelo Curto"
+msgstr "rövid haj"
 
 #: src/character_creator.cpp:79
 msgid "Medium Hair"
-msgstr "Cabelo Mediano"
+msgstr "közepes hosszúságú haj"
 
 #: src/character_creator.cpp:80
 msgid "Long Hair"
-msgstr "Cabelo Longo"
+msgstr "hosszú haj"
 
 #: src/character_creator.cpp:81
 msgid "Styled Hair"
-msgstr "Cabelo Estiloso"
+msgstr ""
 
 #: src/character_creator.cpp:83
 msgid "White Eyes"
-msgstr "Olhos Brancos"
+msgstr "fehér szemek"
 
 #: src/character_creator.cpp:84
 msgid "Blue Eyes"
-msgstr "Olhos Azuis"
+msgstr "kék szemek"
 
 #: src/character_creator.cpp:85
 msgid "Green Eyes"
-msgstr "Olhos Verdes"
+msgstr "zöld szemek"
 
 #: src/character_creator.cpp:86
 msgid "Orange Eyes"
-msgstr "Olhos Alaranjados"
+msgstr "narancssárga szemek"
 
 #: src/character_creator.cpp:87
 msgid "Brown Eyes"
-msgstr "Olhos Castanhos"
+msgstr "barna szemek"
 
 #: src/character_creator.cpp:88
 msgid "Purple Eyes"
-msgstr "Olhos Roxos"
+msgstr "lila szemek"
 
 #: src/character_creator.cpp:89
 msgid "Red Eyes"
-msgstr "Olhos Vermelhos"
+msgstr "vörös szemek"
 
 #: src/character_creator.cpp:90
 msgid "Yellow Eyes"
-msgstr "Olhos Amarelos"
+msgstr "sárga szemek"
 
 #: src/character_creator.cpp:91
 msgid "Black Eyes"
-msgstr "Olhos Negros"
+msgstr "fekete szem"
 
 #: src/character_creator.cpp:93
 msgid "White T-Shirt"
-msgstr "Camiseta Branca"
+msgstr "fehér póló"
 
 #: src/character_creator.cpp:94
 msgid "Blue T-Shirt"
-msgstr "Camiseta Azul"
+msgstr "kék póló"
 
 #: src/character_creator.cpp:95
 msgid "Green T-Shirt"
-msgstr "Camiseta Verde"
+msgstr "zöld póló"
 
 #: src/character_creator.cpp:96
 msgid "Orange T-Shirt"
-msgstr "Camiseta Laranja"
+msgstr "narancssárga póló"
 
 #: src/character_creator.cpp:97
 msgid "Purple T-Shirt"
-msgstr "Camiseta Roxa"
+msgstr "lila póló"
 
 #: src/character_creator.cpp:98
 msgid "Red T-Shirt"
-msgstr "Camiseta Vermelha"
+msgstr "piros póló"
 
 #: src/character_creator.cpp:99
 msgid "Yellow T-Shirt"
-msgstr "Camiseta Amarela"
+msgstr "sárga póló"
 
 #: src/character_creator.cpp:100
 msgid "Black T-Shirt"
-msgstr "Camiseta Preta"
+msgstr "fekete póló"
 
 #: src/character_creator.cpp:102
 msgid "White Pants"
-msgstr "Calças Brancas"
+msgstr "fehér nadrág"
 
 #: src/character_creator.cpp:103
 msgid "Blue Pants"
-msgstr "Calças Azuis"
+msgstr "kék nadrág"
 
 #: src/character_creator.cpp:104
 msgid "Green Pants"
-msgstr "Calças Verdes"
+msgstr "zöld nadrág"
 
 #: src/character_creator.cpp:105
 msgid "Orange Pants"
-msgstr "Calças Alaranjadas"
+msgstr "narancssárga nadrág"
 
 #: src/character_creator.cpp:106
 msgid "Purple Pants"
-msgstr "Calças Roxas"
+msgstr "lila nadrág"
 
 #: src/character_creator.cpp:107
 msgid "Red Pants"
-msgstr "Calças Vermelhas"
+msgstr "piros nadrág"
 
 #: src/character_creator.cpp:108
 msgid "Yellow Pants"
-msgstr "Calças Amarelas"
+msgstr "sárga nadrág"
 
 #: src/character_creator.cpp:109
 msgid "Black Pants"
-msgstr "Calças Pretas"
+msgstr "fekete nadrág"
 
 #: src/character_creator.cpp:111 src/content_clothesitem.cpp:1706
 msgid "Leather Shoes"
-msgstr "Sapatos de Couro"
+msgstr "bőrcipő"
 
 #: src/character_creator.cpp:112 src/content_clothesitem.cpp:2522
 msgid "Fur Shoes"
-msgstr "Sapatos de Pele"
+msgstr "szőrmecipő"
 
 #: src/character_creator.cpp:113 src/content_clothesitem.cpp:945
 msgid "Canvas Shoes"
-msgstr "Sapatos de Lona"
+msgstr "vászoncipő"
 
 #: src/character_creator.cpp:202
 msgid ""
 "Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr "Aqui você pode criar seu personagem padrão, esta é a forma como os outros jogadores vão vê-lo no jogo. Quando você entra em um novo servidor você vai começar com a roupa que você selecionar aqui. Roupas adicionais, ambas de proteção e decorativas, podem ser trabalhadas no jogo.\nVocê pode voltar aqui a qualquer hora através do menu principal para alterar o seu personagem."
+msgstr "Itt hozhatod létre az alapértelmezett kinézetedet, a többi játékos ilyennek lát majd a játékban. Amikor egy új szerverre csatlakozol, az itt kiválasztott ruhákban kezdel a szerveren. További ruházat és páncélzat készíthető a játékban.\nA főmenüből bármikor visszatérhetsz ide hogy megváltoztasd a karakteredet."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
-msgstr "Crie Seu Personagem"
+msgstr "Karaktered létrehozása"
 
 #: src/character_creator.cpp:230
 msgid "Male"
-msgstr "Masculino"
+msgstr "férfi"
 
 #: src/character_creator.cpp:235
 msgid "Female"
-msgstr "Feminino"
+msgstr "nő"
 
 #: src/character_creator.cpp:242
 msgid "Taller"
-msgstr "Mais Alto"
+msgstr "magasabb"
 
 #: src/character_creator.cpp:247
 msgid "Shorter"
-msgstr "Mais Baixo"
+msgstr "alacsonyabb"
 
 #: src/character_creator.cpp:254
 msgid "Wider"
-msgstr "Mais Largo"
+msgstr "szélesebb"
 
 #: src/character_creator.cpp:259
 msgid "Thinner"
-msgstr "Mais Fino"
+msgstr "vékonyabb"
 
 #: src/character_creator.cpp:418
 msgid "Done"
-msgstr "Feito"
+msgstr "Kész"
 
 #: src/character_creator.cpp:423 src/keycode.cpp:236
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Mégse"
 
 #: src/content_clothesitem.cpp:53
 msgid "Space Suit Pants"
-msgstr "Calças de Traje Espacial"
+msgstr "űrruha nadrág"
 
 #: src/content_clothesitem.cpp:75
 msgid "Space Suit Shirt"
-msgstr "Camiseta de Traje espacial"
+msgstr "űrruha felső"
 
 #: src/content_clothesitem.cpp:97
 msgid "Space Suit Helmet"
-msgstr "Capacete de Traje Espacial"
+msgstr "űrsisak"
 
 #: src/content_clothesitem.cpp:113
 msgid "Space Suit Boots"
-msgstr "Botas de Trajes Espacial"
+msgstr "űrcsizma"
 
 #: src/content_clothesitem.cpp:130
 msgid "Cotton T-Shirt"
-msgstr "Camiseta de Algodão"
+msgstr "pamutpóló"
 
 #: src/content_clothesitem.cpp:144
 msgid "Blue Cotton T-Shirt"
-msgstr "Camiseta de Algodão azul"
+msgstr "kék pamutpóló"
 
 #: src/content_clothesitem.cpp:158
 msgid "Green Cotton T-Shirt"
-msgstr "Camiseta de Algodão Verde"
+msgstr "zöld pamutpóló"
 
 #: src/content_clothesitem.cpp:172
 msgid "Orange Cotton Tshirt"
-msgstr "Camiseta de Algodão laranja"
+msgstr "narancssárga pamutpóló"
 
 #: src/content_clothesitem.cpp:186
 msgid "Purple Cotton T-Shirt"
-msgstr "Camiseta de algodão Roxa"
+msgstr "lila pamutpóló"
 
 #: src/content_clothesitem.cpp:200
 msgid "Red Cotton T-Shirt"
-msgstr "Camiseta de Algodão Vermelha"
+msgstr "piros pamutpóló"
 
 #: src/content_clothesitem.cpp:214
 msgid "Yellow Cotton T-Shirt"
-msgstr "Camiseta de Algodão Amarela"
+msgstr "sárga pamutpóló"
 
 #: src/content_clothesitem.cpp:228
 msgid "Black Cotton T-Shirt"
-msgstr "Camiseta de Algodão Preta"
+msgstr "fekete pamutpóló"
 
 #: src/content_clothesitem.cpp:243
 msgid "Cotton Shirt"
-msgstr "Camisa de Algodão"
+msgstr "pamuting"
 
 #: src/content_clothesitem.cpp:257
 msgid "Blue Cotton Shirt"
-msgstr "Camisa de Algodão azul"
+msgstr "kék pamuting"
 
 #: src/content_clothesitem.cpp:271
 msgid "Green Cotton Shirt"
-msgstr "Camisa de Algodão Verde "
+msgstr "zöld pamuting"
 
 #: src/content_clothesitem.cpp:285
 msgid "Orange Cotton Shirt"
-msgstr "Camisa de Algodão Laranja"
+msgstr "narancssárga pamuting"
 
 #: src/content_clothesitem.cpp:299
 msgid "Purple Cotton Shirt"
-msgstr "Camisa de Algodão Roxa"
+msgstr "lila pamuting"
 
 #: src/content_clothesitem.cpp:313
 msgid "Red Cotton Shirt"
-msgstr "Camisa de Algodão Vermelha"
+msgstr "piros pamuting"
 
 #: src/content_clothesitem.cpp:327
 msgid "Yellow Cotton Shirt"
-msgstr "Camisa de Algodão Amarela"
+msgstr "sárga pamuting"
 
 #: src/content_clothesitem.cpp:341
 msgid "Black Cotton Shirt"
-msgstr "Camisa  de Algodão Preta"
+msgstr "fekete pamuting"
 
 #: src/content_clothesitem.cpp:356
 msgid "Cotton Shorts"
-msgstr "Shorts de Algodão"
+msgstr "pamutnadrág"
 
 #: src/content_clothesitem.cpp:371
 msgid "Blue Cotton Shorts"
-msgstr "Shorts de Algodão Azul"
+msgstr "kék pamutnadrág"
 
 #: src/content_clothesitem.cpp:386
 msgid "Green Cotton Shorts"
-msgstr "Shorts de Algodão Verde"
+msgstr "zöld pamutnadrág"
 
 #: src/content_clothesitem.cpp:401
 msgid "Orange Cotton Shorts"
-msgstr "Shorts de Algodão Laranja"
+msgstr "narancssárga pamutnadrág"
 
 #: src/content_clothesitem.cpp:416
 msgid "Purple Cotton Shorts"
-msgstr "Shorts de Algodão Roxo"
+msgstr "lila pamutnadrág"
 
 #: src/content_clothesitem.cpp:431
 msgid "Red Cotton Shorts"
-msgstr "Botas de Pele"
+msgstr "piros pamutnadrág"
 
 #: src/content_clothesitem.cpp:446
 msgid "Yellow Cotton Shorts"
-msgstr "Shorts de Algodão Amarelo"
+msgstr "sárga pamutnadrág"
 
 #: src/content_clothesitem.cpp:461
 msgid "Black Cotton Shorts"
-msgstr "Shorts de Algodão Preto"
+msgstr "fekete pamutnadrág"
 
 #: src/content_clothesitem.cpp:477
 msgid "Cotton Hat"
-msgstr "Chapéu de Algodão"
+msgstr "pamutkalap"
 
 #: src/content_clothesitem.cpp:491
 msgid "Blue Cotton Hat"
-msgstr "Chapéu de Algodão Azul"
+msgstr "kék pamutkalap"
 
 #: src/content_clothesitem.cpp:505
 msgid "Green Cotton Hat"
-msgstr "Chapéu de Algodão Verde"
+msgstr "zöld pamutkalap"
 
 #: src/content_clothesitem.cpp:519
 msgid "Orange Cotton Hat"
-msgstr "Chapéu de Algodão Laranja"
+msgstr "narancssárga pamutkalap"
 
 #: src/content_clothesitem.cpp:533
 msgid "Purple Cotton Hat"
-msgstr "Chapéu de Algodão Roxo"
+msgstr "lila pamutkalap"
 
 #: src/content_clothesitem.cpp:547
 msgid "Red Cotton Hat"
-msgstr "Chapéu de Algodão Vermelho"
+msgstr "piros pamutkalap"
 
 #: src/content_clothesitem.cpp:561
 msgid "Yellow Cotton Hat"
-msgstr "Chapéu  de Algodão Amarelo"
+msgstr "sárga pamutkalap"
 
 #: src/content_clothesitem.cpp:575
 msgid "Black Cotton Hat"
-msgstr "Chapéu de Algodão Preto"
+msgstr "fekete pamutkalap"
 
 #: src/content_clothesitem.cpp:590
 msgid "Cotton Tie"
-msgstr "Gravata de Algodão"
+msgstr "pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:604
 msgid "Blue Cotton Tie"
-msgstr "Gravata de Algodão Azul"
+msgstr "kék pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:618
 msgid "Green Cotton Tie"
-msgstr "Gravata de Algodão Verde"
+msgstr "zöld pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:632
 msgid "Orange Cotton Tie"
-msgstr "Gravata de Algodão Laranja"
+msgstr "narancssárga pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:646
 msgid "Purple Cotton Tie"
-msgstr "Gravata de Algodão Roxa"
+msgstr "lila pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:660
 msgid "Red Cotton Tie"
-msgstr "Gravata de Algodão Vermelha"
+msgstr "piros pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:674
 msgid "Yellow Cotton Tie"
-msgstr "Gravata de Algodão Amarela"
+msgstr "sárga pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:688
 msgid "Black Cotton Tie"
-msgstr "Gravata de Algodão Preta"
+msgstr "fekete pamut nyakkendő"
 
 #: src/content_clothesitem.cpp:703
 msgid "Canvas Shirt"
-msgstr "Camisa de Lona"
+msgstr "vászoning"
 
 #: src/content_clothesitem.cpp:718
 msgid "Blue Canvas Shirt"
-msgstr "Camisa de Lona Azul"
+msgstr "kék vászoning"
 
 #: src/content_clothesitem.cpp:733
 msgid "Green Canvas Shirt"
-msgstr "Camisa de Lona Verde"
+msgstr "zöld vászoning"
 
 #: src/content_clothesitem.cpp:748
 msgid "Orange Canvas Shirt"
-msgstr "Camisa de Lona Laranja"
+msgstr "narancssárga vászoning"
 
 #: src/content_clothesitem.cpp:763
 msgid "Purple Canvas Shirt"
-msgstr "Camisa de Lona Roxa"
+msgstr "lila vászoning"
 
 #: src/content_clothesitem.cpp:778
 msgid "Red Canvas Shirt"
-msgstr "Camisa de Lona Vermalha"
+msgstr "piros vászoning"
 
 #: src/content_clothesitem.cpp:793
 msgid "Yellow Canvas Shirt"
-msgstr "Camisa de Lona Amarela"
+msgstr "sárga vászoning"
 
 #: src/content_clothesitem.cpp:808
 msgid "Black Canvas Shirt"
-msgstr "Camisa de Lona Preta"
+msgstr "fekete vászoning"
 
 #: src/content_clothesitem.cpp:824
 msgid "Canvas Pants"
-msgstr "Calças de Lona"
+msgstr "vászonnadrág"
 
 #: src/content_clothesitem.cpp:839
 msgid "Blue Canvas Pants"
-msgstr "Calças de Lona Azuis"
+msgstr "kék vászonnadrág"
 
 #: src/content_clothesitem.cpp:854
 msgid "Green Canvas Pants"
-msgstr "Calças de Lona Verdes"
+msgstr "zöld vászonnadrág"
 
 #: src/content_clothesitem.cpp:869
 msgid "Orange Canvas Pants"
-msgstr "Calças de Lona Alaranjadas"
+msgstr "narancssárga vászonnadrág"
 
 #: src/content_clothesitem.cpp:884
 msgid "Purple Canvas Pants"
-msgstr "Calças de Lona Roxas"
+msgstr "lila vászonnadrág"
 
 #: src/content_clothesitem.cpp:899
 msgid "Red Canvas Pants"
-msgstr "Calças de Lona Vermelhas"
+msgstr "piros vászonnadrág"
 
 #: src/content_clothesitem.cpp:914
 msgid "Yellow Canvas Pants"
-msgstr "Calças de Lona Amarelas"
+msgstr "sárga vászonnadrág"
 
 #: src/content_clothesitem.cpp:929
 msgid "Black Canvas Pants"
-msgstr "Calças de Lona Pretas"
+msgstr "fekete vászonnadrág"
 
 #: src/content_clothesitem.cpp:959
 msgid "Blue Canvas Shoes"
-msgstr "Sapatas de Lona Azuis"
+msgstr "kék vászoncipő"
 
 #: src/content_clothesitem.cpp:973
 msgid "Green Canvas Shoes"
-msgstr "Sapatos de Lona Verdes"
+msgstr "zöld vászoncipő"
 
 #: src/content_clothesitem.cpp:987
 msgid "Orange Canvas Shoes"
-msgstr "Sapatos de Lona Alaranjados"
+msgstr "narancssárga vászoncipő"
 
 #: src/content_clothesitem.cpp:1001
 msgid "Purple Canvas Shoes"
-msgstr "Sapatos de Lona Roxas"
+msgstr "lila vászoncipő"
 
 #: src/content_clothesitem.cpp:1015
 msgid "Red Canvas Shoes"
-msgstr "Sapatos de Lona Vermelhas"
+msgstr "piros vászoncipő"
 
 #: src/content_clothesitem.cpp:1029
 msgid "Yellow Canvas Shoes"
-msgstr "Sapatos de Lona Amarelos"
+msgstr "sárga vászoncipő"
 
 #: src/content_clothesitem.cpp:1043
 msgid "Black Canvas Shoes"
-msgstr "Sapatos de Lona Pretos"
+msgstr "fekete vászoncipő"
 
 #: src/content_clothesitem.cpp:1058
 msgid "Canvas Belt"
-msgstr "Cinto de Lona"
+msgstr "vászon öv"
 
 #: src/content_clothesitem.cpp:1072
 msgid "Blue Canvas Belt"
-msgstr "Cinto de Lona Azul"
+msgstr "kék vászon öv"
 
 #: src/content_clothesitem.cpp:1086
 msgid "Green Canvas Belt"
-msgstr "Cinto de Lona Verde"
+msgstr "zöld vászon öv"
 
 #: src/content_clothesitem.cpp:1100
 msgid "Orange Canvas Belt"
-msgstr "Cinto de Lona Laranja"
+msgstr "narancssárga vászon öv"
 
 #: src/content_clothesitem.cpp:1114
 msgid "Purple Canvas Belt"
-msgstr "Cinto de Lona Roxo"
+msgstr "lila vászon öv"
 
 #: src/content_clothesitem.cpp:1128
 msgid "Red Canvas Belt"
-msgstr "Cinto de Lona Vermelho"
+msgstr "piros vászon öv"
 
 #: src/content_clothesitem.cpp:1142
 msgid "Yellow Canvas Belt"
-msgstr "Cinto de Lona Amarelo"
+msgstr "sárga vászon öv"
 
 #: src/content_clothesitem.cpp:1156
 msgid "Black Canvas Belt"
-msgstr "Cinto de Lona Preto"
+msgstr "fekete vászon öv"
 
 #: src/content_clothesitem.cpp:1171
 msgid "Leather Jacket"
-msgstr "Jaqueta de Couro"
+msgstr "bőrkabát"
 
 #: src/content_clothesitem.cpp:1186
 msgid "White Leather Jacket"
-msgstr "Jaqueta de Couro Branca"
+msgstr "fehér bőrkabát"
 
 #: src/content_clothesitem.cpp:1201
 msgid "Blue Leather Jacket"
-msgstr "Jaqueta de Couro Azul"
+msgstr "kék bőrkabát"
 
 #: src/content_clothesitem.cpp:1216
 msgid "Green Leather Jacket"
-msgstr "Jaqueta de Couro Verde"
+msgstr "zöld bőrkabát"
 
 #: src/content_clothesitem.cpp:1231
 msgid "Orange Leather Jacket"
-msgstr "Jaqueta de Couro Laranja"
+msgstr "narancssárga bőrkabát"
 
 #: src/content_clothesitem.cpp:1246
 msgid "Purple Leather Jacket"
-msgstr "Jaqueta de Couro Roxo"
+msgstr "lila bőrkabát"
 
 #: src/content_clothesitem.cpp:1261
 msgid "Red Leather Jacket"
-msgstr "Jaqueta de Couro Vermelha"
+msgstr "piros bőrkabát"
 
 #: src/content_clothesitem.cpp:1276
 msgid "Yellow Leather Jacket"
-msgstr "Jaqueta de Couro Amarela"
+msgstr "sárga bőrkabát"
 
 #: src/content_clothesitem.cpp:1291
 msgid "Black Leather Jacket"
-msgstr "Jaqueta de Couro Preta"
+msgstr "fekete bőrkabát"
 
 #: src/content_clothesitem.cpp:1307
 msgid "Leather Pants"
-msgstr "Calças de Couro"
+msgstr "bőrnadrág"
 
 #: src/content_clothesitem.cpp:1322
 msgid "White Leather Pants"
-msgstr "Calças de Couro Brancas"
+msgstr "fehér bőrnadrág"
 
 #: src/content_clothesitem.cpp:1337
 msgid "Blue Leather Pants"
-msgstr "Calças de Couro Azuis"
+msgstr "kék bőrnadrág"
 
 #: src/content_clothesitem.cpp:1352
 msgid "Green Leather Pants"
-msgstr "Calças de Couro Verdes"
+msgstr "zöld bőrnadrág"
 
 #: src/content_clothesitem.cpp:1367
 msgid "Orange Leather Pants"
-msgstr "Calças de Couro Alarnajadas"
+msgstr "narancssárga bőrnadrág"
 
 #: src/content_clothesitem.cpp:1382
 msgid "Purple Leather Pants"
-msgstr "Calças de Couro Roxas"
+msgstr "lila bőrnadrág"
 
 #: src/content_clothesitem.cpp:1397
 msgid "Red Leather Pants"
-msgstr "Calças de Couro Vermelhas"
+msgstr "piros bőrnadrág"
 
 #: src/content_clothesitem.cpp:1412
 msgid "Yellow Leather Pants"
-msgstr "Calças de Couro Amarelas"
+msgstr "sárga bőrnadrág"
 
 #: src/content_clothesitem.cpp:1427
 msgid "Black Leather Pants"
-msgstr "Calças de Couro Pretas"
+msgstr "fekete bőrnadrág"
 
 #: src/content_clothesitem.cpp:1443
 msgid "Leather Hat"
-msgstr "Chapéu de Couro"
+msgstr "bőrkalap"
 
 #: src/content_clothesitem.cpp:1457
 msgid "White Leather Hat"
-msgstr "Chapéu de Couro Branco"
+msgstr "fehér bőrkalap"
 
 #: src/content_clothesitem.cpp:1471
 msgid "Blue Leather Hat"
-msgstr "Chapéu de Couro Azul"
+msgstr "kék bőrkalap"
 
 #: src/content_clothesitem.cpp:1485
 msgid "Green Leather Hat"
-msgstr "Chapéu de Couro Verde"
+msgstr "zöld bőrkalap"
 
 #: src/content_clothesitem.cpp:1499
 msgid "Orange Leather Hat"
-msgstr "Chapéu de Couro Laranja"
+msgstr "narancssárga bőrkalap"
 
 #: src/content_clothesitem.cpp:1513
 msgid "Purple Leather Hat"
-msgstr "Chapéu de Couro Roxo"
+msgstr "lila bőrkalap"
 
 #: src/content_clothesitem.cpp:1527
 msgid "Red Leather Hat"
-msgstr "Chapéu de Couro Vermelho"
+msgstr "piros bőrkalap"
 
 #: src/content_clothesitem.cpp:1541
 msgid "Yellow Leather Hat"
-msgstr "Chapéu de Couro Amarelo"
+msgstr "sárga bőrkalap"
 
 #: src/content_clothesitem.cpp:1555
 msgid "Black Leather Hat"
-msgstr "Chapéu de Couro Preto"
+msgstr "fekete bőrkalap"
 
 #: src/content_clothesitem.cpp:1570
 msgid "Leather Helmet"
-msgstr "Elmo de Couro"
+msgstr "bőrsisak"
 
 #: src/content_clothesitem.cpp:1585
 msgid "White Leather Helmet"
-msgstr "Elmo de Couro Branco"
+msgstr "fehér bőrsisak"
 
 #: src/content_clothesitem.cpp:1600
 msgid "Blue Leather Helmet"
-msgstr "Elmo de Couro Azul"
+msgstr "kék bőrsisak"
 
 #: src/content_clothesitem.cpp:1615
 msgid "Green Leather Helmet"
-msgstr "Elmo de Couro Verde"
+msgstr "zöld bőrsisak"
 
 #: src/content_clothesitem.cpp:1630
 msgid "Orange Leather Helmet"
-msgstr "Elmo de Couro Laranja"
+msgstr "narancssárga bőrsisak"
 
 #: src/content_clothesitem.cpp:1645
 msgid "Purple Leather Helmet"
-msgstr "Elmo de Couro Roxo"
+msgstr "lila bőrsisak"
 
 #: src/content_clothesitem.cpp:1660
 msgid "Red Leather Helmet"
-msgstr "Elmo de Couro Vermelho"
+msgstr "piros bőrsisak"
 
 #: src/content_clothesitem.cpp:1675
 msgid "Yellow Leather Helmet"
-msgstr "Elmo de Couro Amarelo"
+msgstr "sárga bőrsisak"
 
 #: src/content_clothesitem.cpp:1690
 msgid "Black Leather Helmet"
-msgstr "Elmo de Couro Preto"
+msgstr "fekete bőrsisak"
 
 #: src/content_clothesitem.cpp:1721
 msgid "White Leather Shoes"
-msgstr "Sapatos de Couro Brancos"
+msgstr "fehér bőrcipő"
 
 #: src/content_clothesitem.cpp:1736
 msgid "Blue Leather Shoes"
-msgstr "Sapatos de Couro Azuis"
+msgstr "kék bőrcipő"
 
 #: src/content_clothesitem.cpp:1751
 msgid "Green Leather Shoes"
-msgstr "Sapatos de Couro Verdes"
+msgstr "zöld bőrcipő"
 
 #: src/content_clothesitem.cpp:1766
 msgid "Orange Leather Shoes"
-msgstr "Sapatos de Couro Alaranjados"
+msgstr "narancssárga bőrcipő"
 
 #: src/content_clothesitem.cpp:1781
 msgid "Purple Leather Shoes"
-msgstr "Sapatos de Couro Roxos"
+msgstr "lila bőrcipő"
 
 #: src/content_clothesitem.cpp:1796
 msgid "Red Leather Shoes"
-msgstr "Sapatos de Couro Vermelhos"
+msgstr "piros bőrcipő"
 
 #: src/content_clothesitem.cpp:1811
 msgid "Yellow Leather Shoes"
-msgstr "Sapatos de Couro Amarelos"
+msgstr "sárga bőrcipő"
 
 #: src/content_clothesitem.cpp:1826
 msgid "Black Leather Shoes"
-msgstr "Sapatos de Couro Pretos"
+msgstr "fekete bőrcipő"
 
 #: src/content_clothesitem.cpp:1842
 msgid "Leather Boots"
-msgstr "Botas de Couro"
+msgstr "bőr csizma"
 
 #: src/content_clothesitem.cpp:1857
 msgid "White Leather Boots"
-msgstr "Botas de Couro Brancas"
+msgstr "fehér bőr csizma"
 
 #: src/content_clothesitem.cpp:1872
 msgid "Blue Leather Boots"
-msgstr "Botas de Couro Azuis"
+msgstr "kék bőr csizma"
 
 #: src/content_clothesitem.cpp:1887
 msgid "Green Leather Boots"
-msgstr "Botas de Couro Verdes"
+msgstr "zöld bőr csizma"
 
 #: src/content_clothesitem.cpp:1902
 msgid "Orange Leather Boots"
-msgstr "Botas de Couro Alaranjadas"
+msgstr "narancssárga bőr csizma"
 
 #: src/content_clothesitem.cpp:1917
 msgid "Purple Leather Boots"
-msgstr "Botas de Couro Roxas"
+msgstr "lila bőr csizma"
 
 #: src/content_clothesitem.cpp:1932
 msgid "Red Leather Boots"
-msgstr "Botas de Couro Vermelhas"
+msgstr "piros bőr csizma"
 
 #: src/content_clothesitem.cpp:1947
 msgid "Yellow Leather Boots"
-msgstr "Botas de Couro Amarelas"
+msgstr "sárga bőr csizma"
 
 #: src/content_clothesitem.cpp:1962
 msgid "Black Leather Boots"
-msgstr "Botas de Couro Pretas"
+msgstr "fekete bőr csizma"
 
 #: src/content_clothesitem.cpp:1978
 msgid "Leather Belt"
-msgstr "Cinto de Couro"
+msgstr "bőröv"
 
 #: src/content_clothesitem.cpp:1993
 msgid "White Leather Belt"
-msgstr "Cinto de Couro Branco"
+msgstr "fehér bőröv"
 
 #: src/content_clothesitem.cpp:2008
 msgid "Blue Leather Belt"
-msgstr "Cinto de Couro Azul"
+msgstr "kék bőröv"
 
 #: src/content_clothesitem.cpp:2023
 msgid "Green Leather Belt"
-msgstr "Cinto de Couro Verde"
+msgstr "zöld bőröv"
 
 #: src/content_clothesitem.cpp:2038
 msgid "Orange Leather Belt"
-msgstr "Cinto de Couro Laranja"
+msgstr "narancssárga bőröv"
 
 #: src/content_clothesitem.cpp:2053
 msgid "Purple Leather Belt"
-msgstr "Cinto de Couro Roxo"
+msgstr "lila bőröv"
 
 #: src/content_clothesitem.cpp:2068
 msgid "Red Leather Belt"
-msgstr "Cinto de Couro Vermelho"
+msgstr "piros bőröv"
 
 #: src/content_clothesitem.cpp:2083
 msgid "Yellow Leather Belt"
-msgstr "Cinto de Couro Amarelo"
+msgstr "sárga bőröv"
 
 #: src/content_clothesitem.cpp:2098
 msgid "Black Leather Belt"
-msgstr "Cinto de Couro Preto"
+msgstr "fekete bőröv"
 
 #: src/content_clothesitem.cpp:2114
 msgid "Fur Coat"
-msgstr "Casaco de Pele"
+msgstr "szőrmekabát"
 
 #: src/content_clothesitem.cpp:2129
 msgid "White Fur Coat"
-msgstr "Casaco de Pele Branco"
+msgstr "fehér szőrmekabát"
 
 #: src/content_clothesitem.cpp:2144
 msgid "Blue Fur Coat"
-msgstr "Casaco de Pele Azul"
+msgstr "kék szőrmekabát"
 
 #: src/content_clothesitem.cpp:2159
 msgid "Green Fur Coat"
-msgstr "Casaco de Pele Verde"
+msgstr "zöld szőrmekabát"
 
 #: src/content_clothesitem.cpp:2174
 msgid "Orange Fur Coat"
-msgstr "Casaco de Pele Laranja"
+msgstr "narancssárga szőrmekabát"
 
 #: src/content_clothesitem.cpp:2189
 msgid "Purple Fur Coat"
-msgstr "Casaco de Pele Roxo"
+msgstr "lila szőrmekabát"
 
 #: src/content_clothesitem.cpp:2204
 msgid "Red Fur Coat"
-msgstr "Casaco de Pele Vermelho"
+msgstr "piros szőrmekabát"
 
 #: src/content_clothesitem.cpp:2219
 msgid "Yellow Fur Coat"
-msgstr "Casaco de Pele Amarelo"
+msgstr "sárga szőrmekabát"
 
 #: src/content_clothesitem.cpp:2234
 msgid "Black Fur Coat"
-msgstr "Casaco de Pele Preto"
+msgstr "fekete szőrmekabát"
 
 #: src/content_clothesitem.cpp:2250
 msgid "Fur Pants"
-msgstr "Calças de Pele"
+msgstr "szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2265
 msgid "White Fur Pants"
-msgstr "Calças  de Pele Brancas"
+msgstr "fehér szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2280
 msgid "Blue Fur Pants"
-msgstr "Calças  de Pele Azuis"
+msgstr "kék szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2295
 msgid "Green Fur Pants"
-msgstr "Calças de Pele Verdes"
+msgstr "zöld szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2310
 msgid "Orange Fur Pants"
-msgstr "Calças  de Pele Alaranjadas"
+msgstr "narancssárga szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2325
 msgid "Purple Fur Pants"
-msgstr "Calças  de Pele Roxas"
+msgstr "lila szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2340
 msgid "Red Fur Pants"
-msgstr "Calças  de Pele Vermelhas"
+msgstr "piros szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2355
 msgid "Yellow Fur Pants"
-msgstr "Calças  de Pele Amarelas"
+msgstr "sárga szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2370
 msgid "Black Fur Pants"
-msgstr "Calças  de Pele Pretas"
+msgstr "fekete szőrmenadrág"
 
 #: src/content_clothesitem.cpp:2386
 msgid "Fur Hat"
-msgstr "Chapéu de Pele"
+msgstr "szőrmekalap"
 
 #: src/content_clothesitem.cpp:2401
 msgid "White Fur Hat"
-msgstr "Chapéu de Pele Branco"
+msgstr "fehér szőrmekalap"
 
 #: src/content_clothesitem.cpp:2416
 msgid "Blue Fur Hat"
-msgstr "Chapéu de Pele Azul"
+msgstr "kék szőrmekalap"
 
 #: src/content_clothesitem.cpp:2431
 msgid "Green Fur Hat"
-msgstr "Chapéu de Couro Verde"
+msgstr "zöld szőrmekalap"
 
 #: src/content_clothesitem.cpp:2446
 msgid "Orange Fur Hat"
-msgstr "Chapéu de Pele Laranja"
+msgstr "narancssárga szőrmekalap"
 
 #: src/content_clothesitem.cpp:2461
 msgid "Purple Fur Hat"
-msgstr "Chapéu de Pele Roxo"
+msgstr "lila szőrmekalap"
 
 #: src/content_clothesitem.cpp:2476
 msgid "Red Fur Hat"
-msgstr "Chapéu de Pele Vermelho"
+msgstr "piros szőrmekalap"
 
 #: src/content_clothesitem.cpp:2491
 msgid "Yellow Fur Hat"
-msgstr "Chapéu de Pele Amarelo"
+msgstr "sárga szőrmekalap"
 
 #: src/content_clothesitem.cpp:2506
 msgid "Black Fur Hat"
-msgstr "Chapéu de Pele Preto"
+msgstr "fekete szőrmekalap"
 
 #: src/content_clothesitem.cpp:2536
 msgid "White Fur Shoes"
-msgstr "Sapatos de Pele Brancos"
+msgstr "fehér szőrmecipő"
 
 #: src/content_clothesitem.cpp:2550
 msgid "Blue Fur Shoes"
-msgstr "Sapatos de Pele Azuis"
+msgstr "kék szőrmecipő"
 
 #: src/content_clothesitem.cpp:2564
 msgid "Green Fur Shoes"
-msgstr "Sapatos de Pele Verdes"
+msgstr "zöld szőrmecipő"
 
 #: src/content_clothesitem.cpp:2578
 msgid "Orange Fur Shoes"
-msgstr "Sapatos de Pele Alaranjados"
+msgstr "narancssárga szőrmecipő"
 
 #: src/content_clothesitem.cpp:2592
 msgid "Purple Fur Shoes"
-msgstr "Sapatos de Pele Roxos"
+msgstr "lila szőrmecipő"
 
 #: src/content_clothesitem.cpp:2606
 msgid "Red Fur Shoes"
-msgstr "Sapatos de Pele Vermelhos"
+msgstr "piros szőrmecipő"
 
 #: src/content_clothesitem.cpp:2620
 msgid "Yellow Fur Shoes"
-msgstr "Sapatos de Pele Amarelos"
+msgstr "sárga szőrmecipő"
 
 #: src/content_clothesitem.cpp:2634
 msgid "Black Fur Shoes"
-msgstr "Sapatos de Pele Pretos"
+msgstr "fekete szőrmecipő"
 
 #: src/content_clothesitem.cpp:2649
 msgid "Fur Boots"
-msgstr "Botas de Pele"
+msgstr "szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2664
 msgid "White Fur Boots"
-msgstr "Botas de Pele Brancas"
+msgstr "fehér szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2679
 msgid "Blue Fur Boots"
-msgstr "Botas de Pele Azuis"
+msgstr "kék szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2694
 msgid "Green Fur Boots"
-msgstr "Botas de Pele Verdes"
+msgstr "zöld szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2709
 msgid "Orange Fur Boots"
-msgstr "Botas de Pele Alaranjadas"
+msgstr "narancssárga szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2724
 msgid "Purple Fur Boots"
-msgstr "Botas de Pele Roxas"
+msgstr "lila szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2739
 msgid "Red Fur Boots"
-msgstr "Botas de Pele Vermelhas"
+msgstr "piros szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2754
 msgid "Yellow Fur Boots"
-msgstr "Botas de Pele Amarelas"
+msgstr "sárga szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2769
 msgid "Black Fur Boots"
-msgstr "Botas de Pele Pretas"
+msgstr "fekete szőrmecsizma"
 
 #: src/content_clothesitem.cpp:2785
 msgid "Leather Necklace"
-msgstr "Colar de Couro"
+msgstr "bőr nyaklánc"
 
 #: src/content_clothesitem.cpp:2808
 msgid "Gold Medallion"
-msgstr "Medalhão de Ouro"
+msgstr "aranymedalion"
 
 #: src/content_clothesitem.cpp:2824
 msgid "Copper Medallion"
-msgstr "Medalhão de Cobre"
+msgstr "rézmedalion"
 
 #: src/content_clothesitem.cpp:2840
 msgid "Silver Medallion"
-msgstr "Medalhão de Prata"
+msgstr "ezüstmedalion"
 
 #: src/content_clothesitem.cpp:2856
 msgid "Tin Medallion"
-msgstr "Medalhão de Estanho"
+msgstr "ónmedalion"
 
 #: src/content_clothesitem.cpp:2872
 msgid "Iron Medallion"
-msgstr "Medalhão de Ferro"
+msgstr "vasmedalion"
 
 #: src/content_clothesitem.cpp:2888
 msgid "Quartz Medallion"
-msgstr "Medalhão de Quartzo"
+msgstr "kvarcmedalion"
 
 #: src/content_clothesitem.cpp:2905
 msgid "Steel Helmet"
-msgstr "Capacete de Aço"
+msgstr "acélsisak"
 
 #: src/content_clothesitem.cpp:2920
 msgid "Steel Chest Armour"
-msgstr "Peito de Armadura de Aço"
+msgstr "acél mellvért"
 
 #: src/content_clothesitem.cpp:2935
 msgid "Steel Pants"
-msgstr "Calças de Aço"
+msgstr "acél lábvért"
 
 #: src/content_clothesitem.cpp:2950
 msgid "Steel Boots"
-msgstr "Botas de Aço"
+msgstr "acél csizma"
 
 #: src/content_clothesitem.cpp:2965
 msgid "Copper Helmet"
-msgstr "Elmo de Cobre"
+msgstr "rézsisak"
 
 #: src/content_clothesitem.cpp:2979
 msgid "Copper Chest Armour"
-msgstr "Peito de Armadura de Cobre"
+msgstr "réz mellvért"
 
 #: src/content_clothesitem.cpp:2993
 msgid "Copper Pants"
-msgstr "Calças de Cobre"
+msgstr "réz lábvért"
 
 #: src/content_clothesitem.cpp:3007
 msgid "Copper Boots"
-msgstr "Botas de Cobre"
+msgstr "réz csizma"
 
 #: src/content_craftitem.cpp:81
 msgid "Paper"
-msgstr "Papel"
+msgstr "papír"
 
 #: src/content_craftitem.cpp:91
 msgid "Charcoal Lump"
-msgstr "Carvão Vegetal"
+msgstr "faszéndarab"
 
 #: src/content_craftitem.cpp:100
 msgid "Coal Lump"
-msgstr "Pedaço de Carvão"
+msgstr "széndarab"
 
 #: src/content_craftitem.cpp:109
 msgid "Iron Lump"
-msgstr "Pedaço de Ferro"
+msgstr "vas dudor"
 
 #: src/content_craftitem.cpp:119
 msgid "Clay Lump"
-msgstr "Pedaço de Argila"
+msgstr "agyag dudor"
 
 #: src/content_craftitem.cpp:129
 msgid "Tin Lump"
-msgstr "Pedaço de Estanho"
+msgstr "ón dudor"
 
 #: src/content_craftitem.cpp:139
 msgid "Copper Lump"
-msgstr "Pedaço de Cobre"
+msgstr "réz dudor"
 
 #: src/content_craftitem.cpp:149
 msgid "Silver Lump"
-msgstr "Pedaço de Prata"
+msgstr "ezüst dudor"
 
 #: src/content_craftitem.cpp:159
 msgid "Gold Lump"
-msgstr "Pedaço de Ouro"
+msgstr "arany dudor"
 
 #: src/content_craftitem.cpp:169
 msgid "Quartz Crystal"
-msgstr "Cristal de Quartzo"
+msgstr "kvarckristály"
 
 #: src/content_craftitem.cpp:177
 msgid "Tin Ingot"
-msgstr "Barra de Estanho"
+msgstr "ónrúd"
 
 #: src/content_craftitem.cpp:185
 msgid "Copper Ingot"
-msgstr "Barra de Cobre"
+msgstr "rézrúd"
 
 #: src/content_craftitem.cpp:193
 msgid "Silver Ingot"
-msgstr "Barra de Prata"
+msgstr "ezüstrúd"
 
 #: src/content_craftitem.cpp:201
 msgid "Gold Ingot"
-msgstr "Barra de Ouro"
+msgstr "aranyrúd"
 
 #: src/content_craftitem.cpp:209
 msgid "Flint"
-msgstr "Pederneira"
+msgstr "kovakő"
 
 #: src/content_craftitem.cpp:217
 msgid "Steel Ingot"
-msgstr "Barra de Aço"
+msgstr "acélrúd"
 
 #: src/content_craftitem.cpp:225 src/content_mapnode.cpp:790
 msgid "Brick"
-msgstr "Tijolo"
+msgstr "tégla"
 
 #: src/content_craftitem.cpp:233 src/content_mob.cpp:365
 msgid "Rat"
-msgstr "Rato"
+msgstr "patkány"
 
 #: src/content_craftitem.cpp:245
 msgid "Cooked Rat"
-msgstr "Rato Cozinhado"
+msgstr "sült patkány"
 
 #: src/content_craftitem.cpp:259 src/content_mob.cpp:384
 msgid "Firefly"
-msgstr "Vaga-Lume "
+msgstr "szentjánosbogár"
 
 #: src/content_craftitem.cpp:269 src/content_mapnode_plants.cpp:898
 msgid "Apple"
-msgstr "Maçã"
+msgstr "alma"
 
 #: src/content_craftitem.cpp:281
 msgid "Iron Apple"
-msgstr "Maçã de Ferro"
+msgstr "vas alma"
 
 #: src/content_craftitem.cpp:302
 msgid "Blue Dye"
-msgstr "Corante Azul"
+msgstr "kék festék"
 
 #: src/content_craftitem.cpp:312
 msgid "Green Dye"
-msgstr "Corante Verde"
+msgstr "zöld festék"
 
 #: src/content_craftitem.cpp:322
 msgid "Orange Dye"
-msgstr "Corante Laranja"
+msgstr "narancssárga festék"
 
 #: src/content_craftitem.cpp:332
 msgid "Purple Dye"
-msgstr "Corante Roxo"
+msgstr "lila festék"
 
 #: src/content_craftitem.cpp:342
 msgid "Red Dye"
-msgstr "Corante Vermelho"
+msgstr "piros festék"
 
 #: src/content_craftitem.cpp:352
 msgid "Yellow Dye"
-msgstr "Corante Amarelo"
+msgstr "sárga festék"
 
 #: src/content_craftitem.cpp:363
 msgid "White Dye"
-msgstr "Corante Branco"
+msgstr "fehér festék"
 
 #: src/content_craftitem.cpp:374
 msgid "Black Dye"
-msgstr "Corante Preto"
+msgstr "fekete festék"
 
 #: src/content_craftitem.cpp:384
 msgid "Quartz Dust"
-msgstr "Pó de Quartzo"
+msgstr "kvarcpor"
 
 #: src/content_craftitem.cpp:394
 msgid "Saltpeter"
-msgstr "Salitre"
+msgstr "salétrom"
 
 #: src/content_craftitem.cpp:402
 msgid "Gun Powder"
-msgstr "Pólvora "
+msgstr "puskapor"
 
 #: src/content_craftitem.cpp:412
 msgid "Snow Ball"
-msgstr "Bola de Neve"
+msgstr "hógolyó"
 
 #: src/content_craftitem.cpp:420
 msgid "Stick"
-msgstr "Vareta"
+msgstr "bot"
 
 #: src/content_craftitem.cpp:437
 msgid "Pine Plank"
-msgstr "Tábua de Pinheiro"
+msgstr "fenyődeszka"
 
 #: src/content_craftitem.cpp:449
 msgid "Wood Plank"
-msgstr "Tábua de Madeira"
+msgstr "deszka"
 
 #: src/content_craftitem.cpp:462
 msgid "Jungle Wood Plank"
-msgstr "Tábua de Madeira da Selva"
+msgstr "dzsungel fa deszka"
 
 #: src/content_craftitem.cpp:474
 msgid "TNT Stick"
-msgstr "Banana de Dinamite"
+msgstr "TNT rúd"
 
 #: src/content_craftitem.cpp:491
 msgid "Ash"
-msgstr "Cinzas"
+msgstr "hamu"
 
 #: src/content_craftitem.cpp:499
 msgid "Apple Blossoms"
-msgstr "Flores de Maçã"
+msgstr "almavirág"
 
 #: src/content_craftitem.cpp:512 src/content_mapnode_plants.cpp:709
 msgid "Cactus Berry"
-msgstr "Fruta de Cacto"
+msgstr "kaktuszbogyó"
 
 #: src/content_craftitem.cpp:525
 msgid "Mush"
-msgstr "Papa de Fruta"
+msgstr "pép"
 
 #: src/content_craftitem.cpp:536
 msgid "Sliced Pumpkin"
-msgstr "Abóbora Cortada"
+msgstr ""
 
 #: src/content_craftitem.cpp:550
 msgid "Pumpkin Pie Slice"
-msgstr "Fatia de Torta de Abóbora"
+msgstr "tökös pite"
 
 #: src/content_craftitem.cpp:562
 msgid "Apple Pie Slice"
-msgstr "Fatia de Torta de Maçã"
+msgstr "almás pite"
 
 #: src/content_craftitem.cpp:574
 msgid "Sliced Melon"
-msgstr "Fatia de Melancia "
+msgstr "dinnyeszelet"
 
 #: src/content_craftitem.cpp:588 src/content_mapnode_farm.cpp:261
 msgid "Wheat"
-msgstr "Trigo"
+msgstr "búza"
 
 #: src/content_craftitem.cpp:600
 msgid "Flour"
-msgstr "Farinha"
+msgstr "liszt"
 
 #: src/content_craftitem.cpp:614
 msgid "Dough"
-msgstr "Massa de Farinha"
+msgstr "kelt tészta"
 
 #: src/content_craftitem.cpp:630
 msgid "Bread"
-msgstr "Pão"
+msgstr "kenyér"
 
 #: src/content_craftitem.cpp:642 src/content_mapnode_farm.cpp:354
 msgid "Potato"
-msgstr "Batata"
+msgstr "burgonya"
 
 #: src/content_craftitem.cpp:656
 msgid "Potato Starch"
-msgstr "Amido de Batata"
+msgstr "burgonyakeményítő"
 
 #: src/content_craftitem.cpp:666
 msgid "Roast Potato"
-msgstr "Batata Assada"
+msgstr "sült krumpli"
 
 #: src/content_craftitem.cpp:678 src/content_mapnode_farm.cpp:374
 msgid "Carrot"
-msgstr "Cenoura"
+msgstr "sárgarépa"
 
 #: src/content_craftitem.cpp:690
 msgid "Raw Carrot Cake"
-msgstr "Bolo de Cenoura Crua"
+msgstr "nyers répatorta"
 
 #: src/content_craftitem.cpp:705
 msgid "Carrot Cake"
-msgstr "Bolo de Cenoura"
+msgstr "répatorta"
 
 #: src/content_craftitem.cpp:717 src/content_mapnode_farm.cpp:394
 msgid "Beetroot"
-msgstr "Raiz de Beterraba"
+msgstr "cékla"
 
 #: src/content_craftitem.cpp:729
 msgid "Bunch of Grapes"
-msgstr "Cachos de Uvas"
+msgstr "szőlőfürt"
 
 #: src/content_craftitem.cpp:741
 msgid "String"
-msgstr "Corda"
+msgstr "madzag"
 
 #: src/content_craftitem.cpp:751
 msgid "Mithril Dust"
-msgstr "Pó de Mithril"
+msgstr "mithril por"
 
 #: src/content_craftitem.cpp:763
 msgid "Resin"
-msgstr "Resina"
+msgstr "gyanta"
 
 #: src/content_craftitem.cpp:773
 msgid "Oerkki Dust"
-msgstr "Pó de Oerkki"
+msgstr "oerkki por"
 
 #: src/content_craftitem.cpp:783 src/content_mob.cpp:549
 msgid "Fish"
-msgstr "Peixe"
+msgstr "hal"
 
 #: src/content_craftitem.cpp:799
 msgid "Cooked Fish"
-msgstr "Peixe de Cozido"
+msgstr "sült hal"
 
 #: src/content_craftitem.cpp:813
 msgid "Meat"
-msgstr "Carne"
+msgstr "hús"
 
 #: src/content_craftitem.cpp:827
 msgid "Cooked Meat"
-msgstr "Carne Cozida"
+msgstr "sült hús"
 
 #: src/content_craftitem.cpp:841
 msgid "Cotton Sheet"
-msgstr "Lençol de Algodão"
+msgstr "pamut lepedő"
 
 #: src/content_craftitem.cpp:858
 msgid "Blue Cotton Sheet"
-msgstr "Lençol de Algodão Azul"
+msgstr "kék pamutlepedő"
 
 #: src/content_craftitem.cpp:868
 msgid "Green Cotton Sheet"
-msgstr "Lençol de Algodão Verde"
+msgstr "zöld pamutlepedő"
 
 #: src/content_craftitem.cpp:878
 msgid "Orange Cotton Sheet"
-msgstr "Lençol de Algodão Laranja"
+msgstr "narancssárga pamutlepedő"
 
 #: src/content_craftitem.cpp:888
 msgid "Purple Cotton Sheet"
-msgstr "Lençol de Algodão Roxo"
+msgstr "lila pamutlepedő"
 
 #: src/content_craftitem.cpp:898
 msgid "Red Cotton Sheet"
-msgstr "Lençol de Algodão Vermelho"
+msgstr "piros pamutlepedő"
 
 #: src/content_craftitem.cpp:908
 msgid "Yellow Cotton Sheet"
-msgstr "Lençol de Algodão Amarelo"
+msgstr "sárga pamutlepedő"
 
 #: src/content_craftitem.cpp:918
 msgid "Black Cotton Sheet"
-msgstr "Lençol de Algodão Preto"
+msgstr "fekete pamutlepedő"
 
 #: src/content_craftitem.cpp:928
 msgid "Canvas Sheet"
-msgstr "Lençol de Lona"
+msgstr "vászonlepedő"
 
 #: src/content_craftitem.cpp:945
 msgid "Blue Canvas Sheet"
-msgstr "Lençol de Lona Azul"
+msgstr "kék vászonlepedő"
 
 #: src/content_craftitem.cpp:955
 msgid "Green Canvas Sheet"
-msgstr "Lençol de Lona Verde"
+msgstr "zöld vászonlepedő"
 
 #: src/content_craftitem.cpp:965
 msgid "Orange Canvas Sheet"
-msgstr "Lençol de Lona  Laranja"
+msgstr "narancssárga vászonlepedő"
 
 #: src/content_craftitem.cpp:975
 msgid "Purple Canvas Sheet"
-msgstr "Lençol de Lona Roxo"
+msgstr "lila vászonlepedő"
 
 #: src/content_craftitem.cpp:985
 msgid "Red Canvas Sheet"
-msgstr "Lençol de Lona Vermelho"
+msgstr "piros vászonlepedő"
 
 #: src/content_craftitem.cpp:995
 msgid "Yellow Canvas Sheet"
-msgstr "Lençol de Lona Amarela"
+msgstr "sárga vászonlepedő"
 
 #: src/content_craftitem.cpp:1005
 msgid "Black Canvas Sheet"
-msgstr "Lençol de Lona Preta"
+msgstr "fekete vászonlepedő"
 
 #: src/content_craftitem.cpp:1015
 msgid "Fur"
-msgstr "Pele de Animal"
+msgstr "szőrme"
 
 #: src/content_craftitem.cpp:1023
 msgid "White Fur"
-msgstr "Pele de Animal Branca"
+msgstr "fehér szőrme"
 
 #: src/content_craftitem.cpp:1034
 msgid "Blue Fur"
-msgstr "Pele de Animal Azul"
+msgstr "kék szőrme"
 
 #: src/content_craftitem.cpp:1045
 msgid "Green Fur"
-msgstr "Pele de Animal Verde"
+msgstr "zöld szőrme"
 
 #: src/content_craftitem.cpp:1056
 msgid "Orange Fur"
-msgstr "Pele de Animal Laranja"
+msgstr "narancssárga szőrme"
 
 #: src/content_craftitem.cpp:1067
 msgid "Purple Fur"
-msgstr "Pele de Animal Roxa"
+msgstr "lila szőrme"
 
 #: src/content_craftitem.cpp:1078
 msgid "Red Fur"
-msgstr "Pele de Animal Vermelha"
+msgstr "piros szőrme"
 
 #: src/content_craftitem.cpp:1089
 msgid "Yellow Fur"
-msgstr "Pele de Animal Amarela"
+msgstr "sárga szőrme"
 
 #: src/content_craftitem.cpp:1100
 msgid "Black Fur"
-msgstr "Pele de Animal Preta"
+msgstr "fekete szőrme"
 
 #: src/content_craftitem.cpp:1111
 msgid "Leather"
-msgstr "Couro"
+msgstr "bőr"
 
 #: src/content_craftitem.cpp:1121
 msgid "White Leather"
-msgstr "Couro Branco"
+msgstr "fehér bőr"
 
 #: src/content_craftitem.cpp:1132
 msgid "Blue Leather"
-msgstr "Couro Azul"
+msgstr "kék bőr"
 
 #: src/content_craftitem.cpp:1143
 msgid "Green Leather"
-msgstr "Couro Verde"
+msgstr "zöld bőr"
 
 #: src/content_craftitem.cpp:1154
 msgid "Orange Leather"
-msgstr "Couro Laranja"
+msgstr "narancssárga bőr"
 
 #: src/content_craftitem.cpp:1165
 msgid "Purple Leather"
-msgstr "Couro Roxo"
+msgstr "lila bőr"
 
 #: src/content_craftitem.cpp:1176
 msgid "Red Leather"
-msgstr "Couro Vermelho"
+msgstr "piros bőr"
 
 #: src/content_craftitem.cpp:1187
 msgid "Yellow Leather"
-msgstr "Couro Amarelo"
+msgstr "sárga bőr"
 
 #: src/content_craftitem.cpp:1198
 msgid "Black Leather"
-msgstr "Couro Preto"
+msgstr "fekete bőr"
 
 #: src/content_craftitem.cpp:1209 src/content_mob.cpp:735
 msgid "Arrow"
-msgstr "Flecha"
+msgstr "nyíl"
 
 #: src/content_craftitem.cpp:1220 src/content_mapnode_farm.cpp:50
 msgid "Fertilizer"
-msgstr "Fertilizante"
+msgstr "trágya"
 
 #: src/content_craftitem.cpp:1232
 msgid "White Oerkki Dust"
-msgstr "Pó Branco de Oerkki"
+msgstr "fehér oerkki por"
 
 #: src/content_craftitem.cpp:1244
 msgid "Blue Oerkki Dust"
-msgstr "Pó Azul de Oerkki"
+msgstr "kék oerkki por"
 
 #: src/content_craftitem.cpp:1256
 msgid "Green Oerkki Dust"
-msgstr "Pó Verde de Oerkki"
+msgstr "zöld oerkki por"
 
 #: src/content_craftitem.cpp:1268
 msgid "Orange Oerkki Dust"
-msgstr "Pó Laranja de Oerkki"
+msgstr "narancssárga oerkki por"
 
 #: src/content_craftitem.cpp:1280
 msgid "Purple Oerkki Dust"
-msgstr "Pó Roxo de Oerkki"
+msgstr "lila oerkki por"
 
 #: src/content_craftitem.cpp:1292
 msgid "Red Oerkki Dust"
-msgstr "Pó Vermelho de Oerkki"
+msgstr "piros oerkki por"
 
 #: src/content_craftitem.cpp:1304
 msgid "Yellow Oerkki Dust"
-msgstr "Pó Amarelo de Oerkki"
+msgstr "sárga oerkki por"
 
 #: src/content_craftitem.cpp:1316
 msgid "Black Oerkki Dust"
-msgstr "Pó Preto de Oerkki"
+msgstr "fekete oerkki por"
 
 #: src/content_craftitem.cpp:1328
 msgid "Glass Bottle"
-msgstr "Garrafa de Vidro"
+msgstr "üvegpalack"
 
 #: src/content_craftitem.cpp:1346
 msgid "Grape Juice"
-msgstr "Suco de Uva"
+msgstr "szőlőital"
 
 #: src/content_craftitem.cpp:1364
 msgid "Apple Juice"
-msgstr "Suco de Maçã"
+msgstr "almaital"
 
 #: src/content_craftitem.cpp:1382
 msgid "Tea Leaves"
-msgstr "Folhas de Chá"
+msgstr "tealevelek"
 
 #: src/content_craftitem.cpp:1395
 msgid "Tea"
-msgstr "Chá"
+msgstr "tea"
 
 #: src/content_craftitem.cpp:1414
 msgid "Roasted Coffee Beans"
-msgstr "Grãos de Café Torrado"
+msgstr "pörkölt kávészemek"
 
 #: src/content_craftitem.cpp:1428
 msgid "Coffee"
-msgstr "Café"
+msgstr "kávé"
 
 #: src/content_craftitem.cpp:1447
 msgid "Steel Bottle"
-msgstr "Garrafa de Aço"
+msgstr "acélpalack"
 
 #: src/content_craftitem.cpp:1465
 msgid "Bottle of Water"
-msgstr "Garrafa de Água"
+msgstr "palackozott víz"
 
 #: src/content_craftitem.cpp:1480
 msgid "Bottle of Hot Water"
-msgstr "Garrafa de Água Quente"
+msgstr "palackozott forró víz"
 
 #: src/content_craftitem.cpp:1496
 msgid "Raw Mithril"
-msgstr "Mithril Bruto"
+msgstr "nyers mithril"
 
 #: src/content_craftitem.cpp:1507
 msgid "Unbound Mithril"
-msgstr "Mithril não ligada"
+msgstr ""
 
 #: src/content_craftitem.cpp:1516 src/mineral.cpp:142
 msgid "Mithril"
-msgstr "Mithril"
+msgstr "mithril"
 
 #: src/content_craftitem.cpp:1525 src/mineral.cpp:149
 msgid "Ruby"
-msgstr "Rubi"
+msgstr "rubin"
 
 #: src/content_craftitem.cpp:1533
 msgid "Turquiose"
-msgstr "Turqueza"
+msgstr "türkiz"
 
 #: src/content_craftitem.cpp:1541 src/mineral.cpp:165
 msgid "Amethyst"
-msgstr "Ametista"
+msgstr "ametiszt"
 
 #: src/content_craftitem.cpp:1549 src/mineral.cpp:173
 msgid "Sapphire"
-msgstr "Safira"
+msgstr "zafír"
 
 #: src/content_craftitem.cpp:1557 src/mineral.cpp:181
 msgid "Sunstone"
-msgstr "Pedra do Sol"
+msgstr "avanturin"
 
 #: src/content_craftitem.cpp:1565 src/mineral.cpp:189
 msgid "Salt"
-msgstr "Sal"
+msgstr "só"
 
 #: src/content_craftitem.cpp:1573
 msgid "Space Dust"
-msgstr "Poeira Espacial"
+msgstr "űrpor"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
-msgstr "Pedra"
+msgstr "kő"
 
 #: src/content_mapnode.cpp:234
 msgid "Limestone"
-msgstr "Calcário"
+msgstr "mészkő"
 
 #: src/content_mapnode.cpp:251
 msgid "Space Rock"
-msgstr "Rocha Espacial"
+msgstr "űrszikla"
 
 #: src/content_mapnode.cpp:264
 msgid "Marble"
-msgstr "Mármore"
+msgstr "márvány"
 
 #: src/content_mapnode.cpp:275
 msgid "Rock"
-msgstr "Pedra"
+msgstr "szikla"
 
 #: src/content_mapnode.cpp:296
 msgid "Ice"
-msgstr "Gelo"
+msgstr "jég"
 
 #: src/content_mapnode.cpp:312
 msgid "Coal Block"
-msgstr "Bloco de Carvão"
+msgstr "széntömb"
 
 #: src/content_mapnode.cpp:329
 msgid "Charcoal Block"
-msgstr "Bloco de Carvão Vegetal"
+msgstr "faszéntömb"
 
 #: src/content_mapnode.cpp:346
 msgid "Stone Brick"
-msgstr "Tijolo de Pedra"
+msgstr "kőtégla"
 
 #: src/content_mapnode.cpp:360
 msgid "Stone Block"
-msgstr "Bloco de Pedra"
+msgstr "kőtömb"
 
 #: src/content_mapnode.cpp:374
 msgid "Rough Stone Brick"
-msgstr "Tijolo de Pedra Áspera"
+msgstr "durva kőtégla"
 
 #: src/content_mapnode.cpp:391
 msgid "Rough Stone Block"
-msgstr "Bloco de Pedra Áspera"
+msgstr "durva kőtömb"
 
 #: src/content_mapnode.cpp:407 src/content_mapnode.cpp:440
 #: src/content_mapnode.cpp:454 src/content_mapnode.cpp:487
 msgid "Grass"
-msgstr "Grama"
+msgstr "fű"
 
 #: src/content_mapnode.cpp:425 src/content_mapnode.cpp:472
 msgid "Growing Grass"
-msgstr "Grama Crescendo"
+msgstr "növő fű"
 
 #: src/content_mapnode.cpp:501
 msgid "Muddy Snow"
-msgstr "Neve Lamacenta"
+msgstr "sáros hó"
 
 #: src/content_mapnode.cpp:517
 msgid "Mud"
-msgstr "Lama"
+msgstr "sár"
 
 #: src/content_mapnode.cpp:536
 msgid "Ash Block"
-msgstr "Bloco de Cinza"
+msgstr "hamutömb"
 
 #: src/content_mapnode.cpp:551
 msgid "Sand"
-msgstr "Areia"
+msgstr "homok"
 
 #: src/content_mapnode.cpp:570
 msgid "Desert Sand"
-msgstr "Areia do Deserto"
+msgstr "sivatagi homok"
 
 #: src/content_mapnode.cpp:589
 msgid "Gravel"
-msgstr "Cascalho"
+msgstr "murva"
 
 #: src/content_mapnode.cpp:606
 msgid "Sand Stone"
-msgstr "Arenito"
+msgstr "homokkő"
 
 #: src/content_mapnode.cpp:621
 msgid "Sand Stone Bricks"
-msgstr "Tijolos de Arenito"
+msgstr "homokkőtégla"
 
 #: src/content_mapnode.cpp:636
 msgid "Sand Stone Blocks"
-msgstr "Blocos de Arenito"
+msgstr "homokkőtömb"
 
 #: src/content_mapnode.cpp:651
 msgid "Clay"
-msgstr "Argila"
+msgstr "agyag"
 
 #: src/content_mapnode.cpp:671
 msgid "Blue Clay"
-msgstr "Argila Azul"
+msgstr "kék agyag"
 
 #: src/content_mapnode.cpp:688
 msgid "Green Clay"
-msgstr "Argila Verde"
+msgstr "zöld agyag"
 
 #: src/content_mapnode.cpp:705
 msgid "Orange Clay"
-msgstr "Argila Laranja"
+msgstr "narancssárga agyag"
 
 #: src/content_mapnode.cpp:722
 msgid "Purple Clay"
-msgstr "Argila Roxa"
+msgstr "lila agyag"
 
 #: src/content_mapnode.cpp:739
 msgid "Red Clay"
-msgstr "Argila Vermelha"
+msgstr "piros agyag"
 
 #: src/content_mapnode.cpp:756
 msgid "Yellow Clay"
-msgstr "Argila Amarela"
+msgstr "sárga agyag"
 
 #: src/content_mapnode.cpp:773
 msgid "Black Clay"
-msgstr "Argila Preta"
+msgstr "fekete agyag"
 
 #: src/content_mapnode.cpp:809
 msgid "Terracotta"
-msgstr "Terracotta"
+msgstr "terrakotta"
 
 #: src/content_mapnode.cpp:821
 msgid "Terracotta Brick"
-msgstr "Tijolo de Terracotta"
+msgstr "terrakotta tégla"
 
 #: src/content_mapnode.cpp:835
 msgid "Terracotta Block"
-msgstr "Bloco de Terracotta"
+msgstr "terrakotta tömb"
 
 #: src/content_mapnode.cpp:849
 msgid "Terracotta Tile"
-msgstr "Azulejo de Terracotta"
+msgstr "terrakotta csempe"
 
 #: src/content_mapnode.cpp:868
 msgid "Glass"
-msgstr "Vidro"
+msgstr "üveg"
 
 #: src/content_mapnode.cpp:886
 msgid "Blue Glass"
-msgstr "Vidro Azul"
+msgstr "kék üveg"
 
 #: src/content_mapnode.cpp:906
 msgid "Green Glass"
-msgstr "Vidro Verde"
+msgstr "zöld üveg"
 
 #: src/content_mapnode.cpp:926
 msgid "Orange Glass"
-msgstr "Vidro Laranja"
+msgstr "narancssárga üveg"
 
 #: src/content_mapnode.cpp:946
 msgid "Purple Glass"
-msgstr "Vidro Roxo"
+msgstr "lila üveg"
 
 #: src/content_mapnode.cpp:966
 msgid "Red Glass"
-msgstr "Vidro Vermelho"
+msgstr "piros üveg"
 
 #: src/content_mapnode.cpp:986
 msgid "Yellow Glass"
-msgstr "Vidro Amarelo"
+msgstr "sárga üveg"
 
 #: src/content_mapnode.cpp:1006
 msgid "Black Glass"
-msgstr "Vidro Preto"
+msgstr "fekete üveg"
 
 #: src/content_mapnode.cpp:1026
 msgid "Glass Pane"
-msgstr "Painel de Vidro"
+msgstr "üvegtábla"
 
 #: src/content_mapnode.cpp:1059
 msgid "Blue Glass Pane"
-msgstr "Painel de Vidro Azul"
+msgstr "kék üvegtábla"
 
 #: src/content_mapnode.cpp:1093
 msgid "Green Glass Pane"
-msgstr "Painel de Vidro Verde"
+msgstr "zöld üvegtábla"
 
 #: src/content_mapnode.cpp:1127
 msgid "Orange Glass Pane"
-msgstr "Painel de Vidro Laranja"
+msgstr "narancssárga üvegtábla"
 
 #: src/content_mapnode.cpp:1161
 msgid "Purple Glass Pane"
-msgstr "Painel de Vidro Roxo"
+msgstr "lila üvegtábla"
 
 #: src/content_mapnode.cpp:1195
 msgid "Red Glass Pane"
-msgstr "Painel de Vidro Vermelho"
+msgstr "piros üvegtábla"
 
 #: src/content_mapnode.cpp:1229
 msgid "Yellow Glass Pane"
-msgstr "Painel de Vidro Amarelo"
+msgstr "sárga üvegtábla"
 
 #: src/content_mapnode.cpp:1263
 msgid "Black Glass Pane"
-msgstr "Painel de Vidro Preto"
+msgstr "fekete üvegtábla"
 
 #: src/content_mapnode.cpp:1297 src/content_mapnode_farm.cpp:329
 msgid "Glass Light"
-msgstr "Luminária"
+msgstr "üveglámpa"
 
 #: src/content_mapnode.cpp:1318
 msgid "Wood"
-msgstr "Madeira"
+msgstr "fa"
 
 #: src/content_mapnode.cpp:1344
 msgid "Jungle Wood"
-msgstr "Madeira de Selva"
+msgstr "dzsungel fa"
 
 #: src/content_mapnode.cpp:1369
 msgid "Pine"
-msgstr "Pinheiro"
+msgstr "fenyő"
 
 #: src/content_mapnode.cpp:1394
 msgid "Sponge"
-msgstr "Esponja"
+msgstr "szivacs"
 
 #: src/content_mapnode.cpp:1409
 msgid "Waterlogged Sponge"
-msgstr "Esponja Encharcada"
+msgstr "vizes szivacs"
 
 #: src/content_mapnode.cpp:1424
 msgid "Hay Bale"
-msgstr "Fardo de Feno"
+msgstr "szénabála"
 
 #: src/content_mapnode.cpp:1441
 msgid "Raw Apple Pie"
-msgstr "Torta de Maçã Crua"
+msgstr "nyers almáspite"
 
 #: src/content_mapnode.cpp:1469
 msgid "Apple Pie"
-msgstr "Torta de Maçã"
+msgstr "almáspite"
 
 #: src/content_mapnode.cpp:1560
 msgid "Raw Pumpkin Pie"
-msgstr "Torta de Abóbora Crua"
+msgstr "nyers tökös pite"
 
 #: src/content_mapnode.cpp:1588
 msgid "Pumpkin Pie"
-msgstr "Torta de Abóbora"
+msgstr "tökös pite"
 
 #: src/content_mapnode.cpp:1679 src/content_mapnode.cpp:1757
 msgid "Snow"
-msgstr "Neve"
+msgstr "hó"
 
 #: src/content_mapnode.cpp:1695
 msgid "Snowman"
-msgstr "Homem de Neve"
+msgstr "hóember"
 
 #: src/content_mapnode.cpp:1780 src/content_mapnode_farm.cpp:435
 msgid "Cotton"
-msgstr "Algodão"
+msgstr "pamut"
 
 #: src/content_mapnode.cpp:1811
 msgid "Blue Cotton"
-msgstr "Algodão Azul"
+msgstr "kék pamut"
 
 #: src/content_mapnode.cpp:1828
 msgid "Green Cotton"
-msgstr "Algodão Verde"
+msgstr "zöld pamut"
 
 #: src/content_mapnode.cpp:1845
 msgid "Orange Cotton"
-msgstr "Algodão Laranja"
+msgstr "narancssárga pamut"
 
 #: src/content_mapnode.cpp:1862
 msgid "Purple Cotton"
-msgstr "Algodão Roxo"
+msgstr "lila pamut"
 
 #: src/content_mapnode.cpp:1879
 msgid "Red Cotton"
-msgstr "Algodão Vermelho"
+msgstr "piros pamut"
 
 #: src/content_mapnode.cpp:1896
 msgid "Yellow Cotton"
-msgstr "Algodão Amarelo"
+msgstr "sárga pamut"
 
 #: src/content_mapnode.cpp:1913
 msgid "Black Cotton"
-msgstr "Algodão Preto"
+msgstr "fekete pamut"
 
 #: src/content_mapnode.cpp:1930
 msgid "Carpet"
-msgstr "Tapete"
+msgstr "szőnyeg"
 
 #: src/content_mapnode.cpp:1952
 msgid "Blue Carpet"
-msgstr "Tapete Azul"
+msgstr "kék szőnyeg"
 
 #: src/content_mapnode.cpp:1975
 msgid "Green Carpet"
-msgstr "Tapete Verde"
+msgstr "zöld szőnyeg"
 
 #: src/content_mapnode.cpp:1998
 msgid "Orange Carpet"
-msgstr "Tapete Laranja"
+msgstr "narancssárga szőnyeg"
 
 #: src/content_mapnode.cpp:2021
 msgid "Purple Carpet"
-msgstr "Tapete Roxo"
+msgstr "lila szőnyeg"
 
 #: src/content_mapnode.cpp:2044
 msgid "Red Carpet"
-msgstr "Tapete de Vermelho"
+msgstr "piros szőnyeg"
 
 #: src/content_mapnode.cpp:2067
 msgid "Yellow Carpet"
-msgstr "Tapete Amarelo"
+msgstr "sárga szőnyeg"
 
 #: src/content_mapnode.cpp:2090
 msgid "Black Carpet"
-msgstr "Tapete Preto"
+msgstr "fekete szőnyeg"
 
 #: src/content_mapnode.cpp:2113 src/hud.cpp:652
 msgid "Air"
-msgstr "Ar"
+msgstr "levegő"
 
 #: src/content_mapnode.cpp:2128
 msgid "Vacuum"
-msgstr "Vácuo "
+msgstr "vákuum"
 
 #: src/content_mapnode.cpp:2144 src/content_mapnode.cpp:2172
 msgid "Water"
-msgstr "Água "
+msgstr "víz"
 
 #: src/content_mapnode.cpp:2201 src/content_mapnode.cpp:2227 src/hud.cpp:653
 msgid "Lava"
-msgstr "Lava"
+msgstr "láva"
 
 #: src/content_mapnode.cpp:2257
 msgid "Rough Stone"
-msgstr "Pedra Áspera"
+msgstr "durva kő"
 
 #: src/content_mapnode.cpp:2274
 msgid "Cobble Stone"
-msgstr "Pedra de Calçada"
+msgstr "macskakő"
 
 #: src/content_mapnode.cpp:2290
 msgid "Mossy Cobble Stone"
-msgstr "Pedra de Calçada com Musgo"
+msgstr "mohás macskakő"
 
 #: src/content_mapnode.cpp:2303
 msgid "Steel Block"
-msgstr "Bloco de Aço"
+msgstr "acéltömb"
 
 #: src/content_mapnode.cpp:2320
 msgid "Mithril Block"
-msgstr "Bloco de Mithril"
+msgstr "mithril tömb"
 
 #: src/content_mapnode.cpp:2336
 msgid "Stone Knob"
-msgstr "Botão de Pedra"
+msgstr "kőgomb"
 
 #: src/content_mapnode.cpp:2337
 msgid "Rough Stone Knob"
-msgstr "Botão de Pedra Áspera"
+msgstr "durvakőgomb"
 
 #: src/content_mapnode.cpp:2338
 msgid "Sandstone Knob"
-msgstr "Botão de Arenito"
+msgstr "homokkőgomb"
 
 #: src/content_mapnode.cpp:2339
 msgid "Wooden Knob"
-msgstr "Botão de Madeira"
+msgstr "fagomb"
 
 #: src/content_mapnode.cpp:2340
 msgid "Junglewood Knob"
-msgstr "Botão de Madeira da Selva"
+msgstr "dzsungelfagomb"
 
 #: src/content_mapnode.cpp:2341
 msgid "Pine Knob"
-msgstr "Botão de Pinheiro"
+msgstr "fenyőfagomb"
 
 #: src/content_mapnode.cpp:2345
 msgid "Copper Block"
-msgstr "Bloco de Cobre"
+msgstr "réztömb"
 
 #: src/content_mapnode.cpp:2362
 msgid "Gold Block"
-msgstr "Bloco de Ouro"
+msgstr "aranytömb"
 
 #: src/content_mapnode.cpp:2379
 msgid "Silver Block"
-msgstr "Bloco de Prata"
+msgstr "ezüsttömb"
 
 #: src/content_mapnode.cpp:2396
 msgid "Tin Block"
-msgstr "Bloco de Estanho"
+msgstr "őntömb"
 
 #: src/content_mapnode.cpp:2413
 msgid "Quartz Block"
-msgstr "Bloco de Quartzo"
+msgstr "kvarctömb"
 
 #: src/content_mapnode.cpp:2430
 msgid "Stone Tiles"
-msgstr "Azulejos de Pedra"
+msgstr "kőcsempe"
 
 #: src/content_mapnode.cpp:2451
 msgid "Wood Tiles"
-msgstr "Azulejos de Madeira"
+msgstr "facsempe"
 
 #: src/content_mapnode_circuit.cpp:36
 msgid "Mithril Wire"
-msgstr "Fio de Mithril"
+msgstr "Mithril vezeték"
 
 #: src/content_mapnode_circuit.cpp:59
 msgid "Copper Wire"
-msgstr "Fio de Cobre"
+msgstr "réz vezeték"
 
 #: src/content_mapnode_circuit.cpp:90
 msgid "Reactor"
-msgstr "Reator"
+msgstr "reaktor"
 
 #: src/content_mapnode_circuit.cpp:112
 msgid "Solar Panel"
-msgstr "Painel Solar"
+msgstr "napelem"
 
 #: src/content_mapnode_circuit.cpp:142
 msgid "Water Wheel"
-msgstr "Roda de Água"
+msgstr "vízikerék"
 
 #: src/content_mapnode_circuit.cpp:174
 msgid "Switch"
-msgstr "Alavanca"
+msgstr "kapcsoló"
 
 #: src/content_mapnode_circuit.cpp:209
 msgid "Button"
-msgstr "Botão"
+msgstr "gomb"
 
 #: src/content_mapnode_circuit.cpp:240
 msgid "Stone Pressure Plate"
-msgstr "Placa de Pressão de Pedra"
+msgstr "kő nyomólap"
 
 #: src/content_mapnode_circuit.cpp:268
 msgid "Wood Pressure Plate"
-msgstr "Placa de Pressão de Madeira"
+msgstr "fa nyomólap"
 
 #: src/content_mapnode_circuit.cpp:296
 msgid "Not Gate"
-msgstr "Sem Portão"
+msgstr "NOT kapu"
 
 #: src/content_mapnode_circuit.cpp:327
 msgid "Repeater"
-msgstr "Repetidor"
+msgstr "erősítő"
 
 #: src/content_mapnode_circuit.cpp:358 src/content_mapnode_circuit.cpp:377
 msgid "Electric Lamp"
-msgstr "Lâmpada Elétrica "
+msgstr "elektromos lámpa"
 
 #: src/content_mapnode_circuit.cpp:409 src/content_mapnode_circuit.cpp:443
 #: src/content_mapnode_circuit.cpp:493 src/content_mapnode_circuit.cpp:513
 #: src/content_mapnode_circuit.cpp:554 src/content_mapnode_circuit.cpp:574
 msgid "Piston"
-msgstr "Pistão"
+msgstr "dugattyú"
 
 #: src/content_mapnode_circuit.cpp:468 src/content_mapnode_circuit.cpp:534
 #: src/content_mapnode_circuit.cpp:595
 msgid "Piston Arm"
-msgstr "Braço de Pistão"
+msgstr "dugattyú karja"
 
 #: src/content_mapnode_circuit.cpp:615 src/content_mapnode_circuit.cpp:642
 #: src/content_mapnode_circuit.cpp:692 src/content_mapnode_circuit.cpp:712
 #: src/content_mapnode_circuit.cpp:753 src/content_mapnode_circuit.cpp:773
 msgid "Sticky Piston"
-msgstr "Pistão Pegajoso"
+msgstr "tapadós dugattyú"
 
 #: src/content_mapnode_circuit.cpp:667 src/content_mapnode_circuit.cpp:733
 #: src/content_mapnode_circuit.cpp:794
 msgid "Sticky Piston Arm"
-msgstr "Braço de Pistão Pegajoso"
+msgstr "tapadós dugattyú karja"
 
 #: src/content_mapnode_door.cpp:38 src/content_mapnode_door.cpp:64
 #: src/content_mapnode_door.cpp:631 src/content_mapnode_door.cpp:656
 msgid "Wood Door"
-msgstr "Porta de Madeira"
+msgstr "faajtó"
 
 #: src/content_mapnode_door.cpp:95 src/content_mapnode_door.cpp:122
 #: src/content_mapnode_door.cpp:737 src/content_mapnode_door.cpp:763
 msgid "Steel Door"
-msgstr "Porta de Aço"
+msgstr "acélajtó"
 
 #: src/content_mapnode_door.cpp:154 src/content_mapnode_door.cpp:182
 #: src/content_mapnode_door.cpp:682 src/content_mapnode_door.cpp:709
 msgid "Glass Door"
-msgstr "Porta de Vidro"
+msgstr "üvegajtó"
 
 #: src/content_mapnode_door.cpp:215 src/content_mapnode_door.cpp:242
 #: src/content_mapnode_door.cpp:790 src/content_mapnode_door.cpp:815
 msgid "Wood Windowed Door"
-msgstr "Porta Janelada de Madeira"
+msgstr "ablakos faajtó"
 
 #: src/content_mapnode_door.cpp:275 src/content_mapnode_door.cpp:303
 #: src/content_mapnode_door.cpp:841 src/content_mapnode_door.cpp:867
 msgid "Steel Windowed Door"
-msgstr "Porta Janelada de Aço"
+msgstr "ablakos acélajtó"
 
 #: src/content_mapnode_door.cpp:338 src/content_mapnode_door.cpp:364
 #: src/content_mapnode_door.cpp:895 src/content_mapnode_door.cpp:922
 msgid "Right Hanging Wood Door"
-msgstr "Porta de Madeira com Suspensão a Direita"
+msgstr "jobbos faajtó"
 
 #: src/content_mapnode_door.cpp:393 src/content_mapnode_door.cpp:422
 #: src/content_mapnode_door.cpp:950 src/content_mapnode_door.cpp:979
 msgid "Right Hanging Glass Door"
-msgstr "Porta de Vidro com Suspensão a Direita"
+msgstr "jobbos üvegajtó"
 
 #: src/content_mapnode_door.cpp:454 src/content_mapnode_door.cpp:481
 #: src/content_mapnode_door.cpp:1008 src/content_mapnode_door.cpp:1036
 msgid "Right Hanging Steel Door"
-msgstr "Porta de Aço com Suspensão a Direita"
+msgstr "jobbos acélajtó"
 
 #: src/content_mapnode_door.cpp:511 src/content_mapnode_door.cpp:538
 #: src/content_mapnode_door.cpp:1065 src/content_mapnode_door.cpp:1092
 msgid "Right Hanging Wood Windowed Door"
-msgstr "Porta Janelada de Madeira com Suspensão a Direita"
+msgstr "jobbos ablakos faajtó"
 
 #: src/content_mapnode_door.cpp:568 src/content_mapnode_door.cpp:596
 #: src/content_mapnode_door.cpp:1120 src/content_mapnode_door.cpp:1148
 msgid "Right Hanging Steel Windowed Door"
-msgstr "Porta Janelada de Aço com Suspensão a Direita"
+msgstr "jobbos ablakos acélajtó"
 
 #: src/content_mapnode_door.cpp:1178 src/content_mapnode_door.cpp:1351
 #: src/content_mapnode_door.cpp:1406
 msgid "Wood Hatch"
-msgstr "Escotilha de Madeira"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1204 src/content_mapnode_door.cpp:1378
 #: src/content_mapnode_door.cpp:1433
 msgid "Steel Hatch"
-msgstr "Escotilha de Aço"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1230
 msgid "Wood Windowed Hatch"
-msgstr "Escotilha de Madeira Janelada"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1258
 msgid "Steel Windowed Hatch"
-msgstr "Escotilha de Aço Janelada"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1288 src/content_mapnode_door.cpp:1462
 msgid "Wood Gate"
-msgstr "Portão de Madeira"
+msgstr "fakapu"
 
 #: src/content_mapnode_door.cpp:1320 src/content_mapnode_door.cpp:1487
 msgid "Steel Gate"
-msgstr "Portão de Aço"
+msgstr "acélkapu"
 
 #: src/content_mapnode_farm.cpp:38
 msgid "Farm Dirt"
-msgstr "Terra para Plantio"
+msgstr ""
 
 #: src/content_mapnode_farm.cpp:67
 msgid "Trellis"
-msgstr "Latada"
+msgstr "lugas"
 
 #: src/content_mapnode_farm.cpp:89
 msgid "Wheat Seeds"
-msgstr "Sementes de Trigo"
+msgstr "búza vetőmag"
 
 #: src/content_mapnode_farm.cpp:109
 msgid "Melon Seeds"
-msgstr "Sementes de Melão"
+msgstr "görögdinnye mag"
 
 #: src/content_mapnode_farm.cpp:131
 msgid "Pumpkin Seeds"
-msgstr "Sementes de Abóbora"
+msgstr "tökmag"
 
 #: src/content_mapnode_farm.cpp:153
 msgid "Potato Seeds"
-msgstr "Sementes de Batata"
+msgstr "vetőburgonya"
 
 #: src/content_mapnode_farm.cpp:175
 msgid "Carrot Seeds"
-msgstr "Sementes de Cenoura"
+msgstr "sárgarépa vetőmag"
 
 #: src/content_mapnode_farm.cpp:197
 msgid "Beetroot Seeds"
-msgstr "Sementes de Beterraba"
+msgstr "cékla vetőmag"
 
 #: src/content_mapnode_farm.cpp:219
 msgid "Grape Seeds"
-msgstr "Sementes de Uva"
+msgstr "szőlőmag"
 
 #: src/content_mapnode_farm.cpp:241
 msgid "Cotton Seeds"
-msgstr "Sementes de Algodão"
+msgstr "gyapot mag"
 
 #: src/content_mapnode_farm.cpp:283
 msgid "Melon"
-msgstr "Melão"
+msgstr "görögdinnye"
 
 #: src/content_mapnode_farm.cpp:300
 msgid "Pumpkin"
-msgstr "Abóbora"
+msgstr "tök"
 
 #: src/content_mapnode_farm.cpp:319
 msgid "Jack' O Lantern"
-msgstr "Jack da Lanterna"
+msgstr "töklámpás"
 
 #: src/content_mapnode_farm.cpp:414
 msgid "Grape"
-msgstr "Uvas"
+msgstr "szőlő"
 
 #: src/content_mapnode_farm.cpp:458
 msgid "Trellis Grape"
-msgstr "Latada de Uva"
+msgstr "szőlőlugas"
 
 #: src/content_mapnode_farm.cpp:482 src/content_mapnode_farm.cpp:500
 msgid "Dead Vine"
-msgstr "Videira Morta"
+msgstr ""
 
 #: src/content_mapnode_furniture.cpp:36
 msgid "Book Shelf"
-msgstr "Estante de Livros"
+msgstr "könyvespolc"
 
 #: src/content_mapnode_furniture.cpp:73
 msgid "Junglewood Book Shelf"
-msgstr "Estante de Livros de Madeira da Selva"
+msgstr "dzsungelfa könyvespolc"
 
 #: src/content_mapnode_furniture.cpp:110
 msgid "Pine Book Shelf"
-msgstr "Estante de Livros de Pinheiro"
+msgstr "fenyőfa könyvespolc"
 
 #: src/content_mapnode_furniture.cpp:147 src/content_mapnode_furniture.cpp:166
 #: src/content_mapnode_furniture.cpp:185 src/content_mapnode_furniture.cpp:204
 #: src/content_mapnode_furniture.cpp:223 src/content_mapnode_furniture.cpp:242
 msgid "Couch"
-msgstr "Sofá"
+msgstr "kanapé"
 
 #: src/content_mapnode_furniture.cpp:271 src/content_mapnode_furniture.cpp:290
 #: src/content_mapnode_furniture.cpp:309 src/content_mapnode_furniture.cpp:328
 #: src/content_mapnode_furniture.cpp:347 src/content_mapnode_furniture.cpp:366
 msgid "Blue Couch"
-msgstr "Sofá Azul"
+msgstr "kék kanapé"
 
 #: src/content_mapnode_furniture.cpp:389 src/content_mapnode_furniture.cpp:408
 #: src/content_mapnode_furniture.cpp:427 src/content_mapnode_furniture.cpp:446
 #: src/content_mapnode_furniture.cpp:465 src/content_mapnode_furniture.cpp:484
 msgid "Green Couch"
-msgstr "Sofá Verde"
+msgstr "zöld kanapé"
 
 #: src/content_mapnode_furniture.cpp:507 src/content_mapnode_furniture.cpp:526
 #: src/content_mapnode_furniture.cpp:545 src/content_mapnode_furniture.cpp:564
 #: src/content_mapnode_furniture.cpp:583 src/content_mapnode_furniture.cpp:602
 msgid "Orange Couch"
-msgstr "Sofá Laranja"
+msgstr "narancssárga kanapé"
 
 #: src/content_mapnode_furniture.cpp:625 src/content_mapnode_furniture.cpp:644
 #: src/content_mapnode_furniture.cpp:663 src/content_mapnode_furniture.cpp:682
 #: src/content_mapnode_furniture.cpp:701 src/content_mapnode_furniture.cpp:720
 msgid "Purple Couch"
-msgstr "Sofá Roxo"
+msgstr "lila kanapé"
 
 #: src/content_mapnode_furniture.cpp:743 src/content_mapnode_furniture.cpp:762
 #: src/content_mapnode_furniture.cpp:781 src/content_mapnode_furniture.cpp:800
 #: src/content_mapnode_furniture.cpp:819 src/content_mapnode_furniture.cpp:838
 msgid "Red Couch"
-msgstr "Sofá Vermelho"
+msgstr "piros kanapé"
 
 #: src/content_mapnode_furniture.cpp:861 src/content_mapnode_furniture.cpp:880
 #: src/content_mapnode_furniture.cpp:899 src/content_mapnode_furniture.cpp:918
 #: src/content_mapnode_furniture.cpp:937 src/content_mapnode_furniture.cpp:956
 msgid "Yellow Couch"
-msgstr "Sofá Amarelo"
+msgstr "sárga kanapé"
 
 #: src/content_mapnode_furniture.cpp:979 src/content_mapnode_furniture.cpp:998
 #: src/content_mapnode_furniture.cpp:1017
@@ -2256,7 +2256,7 @@ msgstr "Sofá Amarelo"
 #: src/content_mapnode_furniture.cpp:1055
 #: src/content_mapnode_furniture.cpp:1074
 msgid "Black Couch"
-msgstr "Sofá Preto"
+msgstr "fekete kanapé"
 
 #: src/content_mapnode_furniture.cpp:1097
 #: src/content_mapnode_furniture.cpp:1130
@@ -2265,479 +2265,479 @@ msgstr "Sofá Preto"
 #: src/content_mapnode_furniture.cpp:1199
 #: src/content_mapnode_furniture.cpp:1222
 msgid "Chair"
-msgstr "Cadeira"
+msgstr "szék"
 
 #: src/content_mapnode_furniture.cpp:1245
 msgid "Table"
-msgstr "Mesa"
+msgstr "asztal"
 
 #: src/content_mapnode_furniture.cpp:1275
 #: src/content_mapnode_furniture.cpp:1307
 msgid "Bed"
-msgstr "Cama"
+msgstr "ágy"
 
 #: src/content_mapnode_furniture.cpp:1334
 #: src/content_mapnode_furniture.cpp:1366
 msgid "Blue Bed"
-msgstr "Cama Azul"
+msgstr "kék ágy"
 
 #: src/content_mapnode_furniture.cpp:1393
 #: src/content_mapnode_furniture.cpp:1425
 msgid "Green Bed"
-msgstr "Cama Verde"
+msgstr "zöld ágy"
 
 #: src/content_mapnode_furniture.cpp:1452
 #: src/content_mapnode_furniture.cpp:1484
 msgid "Orange Bed"
-msgstr "Cama Laranja"
+msgstr "narancssárga ágy"
 
 #: src/content_mapnode_furniture.cpp:1511
 #: src/content_mapnode_furniture.cpp:1543
 msgid "Purple Bed"
-msgstr "Cama Roxa"
+msgstr "lila ágy"
 
 #: src/content_mapnode_furniture.cpp:1570
 #: src/content_mapnode_furniture.cpp:1602
 msgid "Red Bed"
-msgstr "Cama Vermelha"
+msgstr "piros ágy"
 
 #: src/content_mapnode_furniture.cpp:1629
 #: src/content_mapnode_furniture.cpp:1661
 msgid "Yellow Bed"
-msgstr "Cama Amarela"
+msgstr "sárga ágy"
 
 #: src/content_mapnode_furniture.cpp:1688
 #: src/content_mapnode_furniture.cpp:1720
 msgid "Black Bed"
-msgstr "Cama Preta"
+msgstr "fekete ágy"
 
 #: src/content_mapnode_furniture.cpp:1747
 #: src/content_mapnode_furniture.cpp:1781
 msgid "Camp Bed"
-msgstr "Cama de Acampamento"
+msgstr "kempingágy"
 
 #: src/content_mapnode_furniture.cpp:1804
 msgid "Colorful Painting"
-msgstr "Pintura Colorida"
+msgstr "színes festék"
 
 #: src/content_mapnode_furniture.cpp:1838
 msgid "Red Rose Painting"
-msgstr "Pintura de Rosa Vermelha"
+msgstr "vörösrózsás festmény"
 
 #: src/content_mapnode_furniture.cpp:1872
 msgid "Field Painting"
-msgstr "Pintura de Campo"
+msgstr "rétes festmény"
 
 #: src/content_mapnode_furniture.cpp:1906
 msgid "Blue Flower Painting"
-msgstr "Pintura de Flor Azul"
+msgstr "kék virágos festmény"
 
 #: src/content_mapnode_furniture.cpp:1940
 msgid "Painting Canvas"
-msgstr "Tela de Pintura"
+msgstr "festővászon"
 
 #: src/content_mapnode_furniture.cpp:1977
 msgid "Clock"
-msgstr "Relógio"
+msgstr "óra"
 
 #: src/content_mapnode_plants.cpp:41
 msgid "Tree"
-msgstr "Árvore"
+msgstr "fa"
 
 #: src/content_mapnode_plants.cpp:62
 msgid "Apple Tree"
-msgstr "Macieira"
+msgstr "almafa"
 
 #: src/content_mapnode_plants.cpp:83
 msgid "Jungle Tree"
-msgstr "Árvore da Selva"
+msgstr "dzsungelfa"
 
 #: src/content_mapnode_plants.cpp:103
 msgid "Conifer Tree"
-msgstr "Árvore Conífera"
+msgstr "fenyőfa"
 
 #: src/content_mapnode_plants.cpp:124
 msgid "Young Tree"
-msgstr "Árvore Jovem"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:144
 msgid "Young Jungle Tree"
-msgstr "Árvore da Selva Jovem"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:164
 msgid "Young Apple Tree"
-msgstr "Macieira Jovem"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:184
 msgid "Young Conifer Tree"
-msgstr "Árvore Conífera Jovem"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:204
 msgid "Jungle Grass"
-msgstr "Grama da Selva"
+msgstr "dzsungelfű"
 
 #: src/content_mapnode_plants.cpp:225
 msgid "Jungle Fern"
-msgstr "Samambaia da Selva"
+msgstr "dzsungel páfrány"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
 msgid "Leaves"
-msgstr "Folhas"
+msgstr "levelek"
 
 #: src/content_mapnode_plants.cpp:374
 msgid "Apple Tree Leaves"
-msgstr "Folhas de Macieira"
+msgstr "almafa levelek"
 
 #: src/content_mapnode_plants.cpp:407
 msgid "Jungle Leaves"
-msgstr "Folhas da Selva"
+msgstr "dzsungelfa levelek"
 
 #: src/content_mapnode_plants.cpp:439
 msgid "Conifer Leaves"
-msgstr "Folhas de Conífera"
+msgstr "fenyőlevelek"
 
 #: src/content_mapnode_plants.cpp:471 src/content_mapnode_plants.cpp:496
 #: src/content_mapnode_plants.cpp:521
 msgid "Trimmed Leaves"
-msgstr "Folhas Aparadas"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:546
 msgid "Trimmed Apple Tree Leaves"
-msgstr "Folhas de Macieira Aparadas"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:571
 msgid "Trimmed Jungle Leaves"
-msgstr "Folhas da Selva Aparadas"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:596
 msgid "Trimmed Conifer Leaves"
-msgstr "Folhas de Coníferas Aparadas"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:621
 msgid "Apple Tree Blossom"
-msgstr "Floração de Macieira"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:646
 msgid "Trimmed Apple Tree Blossom"
-msgstr "Floração de Macieira Aparada"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:668
 msgid "Cactus Blossom"
-msgstr "Floração de Cactus"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:688
 msgid "Cactus Flower"
-msgstr "Flor de Cactus"
+msgstr "kaktuszvirág"
 
 #: src/content_mapnode_plants.cpp:729 src/hud.cpp:654
 msgid "Cactus"
-msgstr "Cactus"
+msgstr "kaktusz"
 
 #: src/content_mapnode_plants.cpp:791
 msgid "Papyrus"
-msgstr "Papiro"
+msgstr "papirusz"
 
 #: src/content_mapnode_plants.cpp:814
 msgid "Sapling"
-msgstr "Muda"
+msgstr "csemete"
 
 #: src/content_mapnode_plants.cpp:835
 msgid "Apple Tree Sapling"
-msgstr "Muda de Macieira"
+msgstr "almafa csemete"
 
 #: src/content_mapnode_plants.cpp:856
 msgid "Jungle Sapling"
-msgstr "Muda de Selva"
+msgstr "dzungelfa csemete"
 
 #: src/content_mapnode_plants.cpp:877
 msgid "Conifer Sapling"
-msgstr "Muda de Conífera"
+msgstr "fenyőfa csemete"
 
 #: src/content_mapnode_plants.cpp:922 src/content_mapnode_plants.cpp:945
 msgid "Wild Grass"
-msgstr "Ervas Daninhas"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:967
 msgid "Dead Grass"
-msgstr "Grama Morta"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:989
 msgid "Flower Stem"
-msgstr "Flor com Caule"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:1011
 msgid "Rose"
-msgstr "Rosa"
+msgstr "rózsa"
 
 #: src/content_mapnode_plants.cpp:1034
 msgid "Daffodil"
-msgstr "Narciso"
+msgstr "nárcisz"
 
 #: src/content_mapnode_plants.cpp:1057
 msgid "Tulip"
-msgstr "Tulipa"
+msgstr "tulipán"
 
 #: src/content_mapnode_plants.cpp:1080
 msgid "Tea Seeds"
-msgstr "Sementes de Chá"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:1099
 msgid "Tea Plant"
-msgstr "Planta de Chá"
+msgstr "teacserje"
 
 #: src/content_mapnode_plants.cpp:1122
 msgid "Coffee Beans"
-msgstr "Grãos de Café"
+msgstr "kávészemek"
 
 #: src/content_mapnode_plants.cpp:1142
 msgid "Coffee Plant"
-msgstr "Planta de Café"
+msgstr "kávécserje"
 
 #: src/content_mapnode_slab.cpp:37
 msgid "Rough Stone Slab"
-msgstr "Laje de Pedra Áspera"
+msgstr "durvakő tábla"
 
 #: src/content_mapnode_slab.cpp:55 src/content_mapnode_slab.cpp:424
 msgid "Cobble Stone Slab"
-msgstr "Laje de Pedra de Calçada"
+msgstr "macskakő tábla"
 
 #: src/content_mapnode_slab.cpp:73
 msgid "Mossy Cobble Stone Slab"
-msgstr "Laje de Pedra de Calçada com Musgo"
+msgstr "mohás macskakő tábla"
 
 #: src/content_mapnode_slab.cpp:91
 msgid "Stone Slab"
-msgstr "Laje de Pedra"
+msgstr "kőtábla"
 
 #: src/content_mapnode_slab.cpp:108
 msgid "Wood Slab"
-msgstr "Laje de Madeira"
+msgstr "fatábla"
 
 #: src/content_mapnode_slab.cpp:127
 msgid "Jungle Wood Slab"
-msgstr "Laje de Madeira da Selva"
+msgstr "dzungelfa tábla"
 
 #: src/content_mapnode_slab.cpp:146
 msgid "Brick Slab"
-msgstr "Laje de Tijolos"
+msgstr "tégla tábla"
 
 #: src/content_mapnode_slab.cpp:167
 msgid "Sand Stone Slab"
-msgstr "Laje de Arenito"
+msgstr "homokkő tábla"
 
 #: src/content_mapnode_slab.cpp:184 src/content_mapnode_slab.cpp:526
 msgid "Glass Slab"
-msgstr "Laje de Vidro"
+msgstr "üvegtábla"
 
 #: src/content_mapnode_slab.cpp:209 src/content_mapnode_slab.cpp:548
 msgid "Blue Glass Slab"
-msgstr "Laje de Vidro Azul"
+msgstr "kék üvegtábla"
 
 #: src/content_mapnode_slab.cpp:235 src/content_mapnode_slab.cpp:570
 msgid "Green Glass Slab"
-msgstr "Laje de Vidro Verde"
+msgstr "zöld üvegtábla"
 
 #: src/content_mapnode_slab.cpp:261 src/content_mapnode_slab.cpp:592
 msgid "Orange Glass Slab"
-msgstr "Laje de Vidro Laranja"
+msgstr "narancssárga üvegtábla"
 
 #: src/content_mapnode_slab.cpp:287 src/content_mapnode_slab.cpp:614
 msgid "Purple Glass Slab"
-msgstr "Laje de Vidro Roxo"
+msgstr "lila üvegtábla"
 
 #: src/content_mapnode_slab.cpp:313 src/content_mapnode_slab.cpp:636
 msgid "Red Glass Slab"
-msgstr "Laje de Vidro Vermelho"
+msgstr "piros üvegtábla"
 
 #: src/content_mapnode_slab.cpp:339 src/content_mapnode_slab.cpp:658
 msgid "Yellow Glass Slab"
-msgstr "Laje de Vidro Amarelo"
+msgstr "sárga üvegtábl"
 
 #: src/content_mapnode_slab.cpp:365 src/content_mapnode_slab.cpp:680
 msgid "Black Glass Slab"
-msgstr "Laje de Vidro Preto"
+msgstr "fekete üvegtábla"
 
 #: src/content_mapnode_slab.cpp:391
 msgid "Limestone Slab"
-msgstr "Laje de Calcário"
+msgstr "mészkő tábla"
 
 #: src/content_mapnode_special.cpp:37
 msgid "Fence"
-msgstr "Cerca"
+msgstr "kerítés"
 
 #: src/content_mapnode_special.cpp:65
 msgid "Steel Fence"
-msgstr "Cerca de Aço"
+msgstr "acél kerítés"
 
 #: src/content_mapnode_special.cpp:92
 msgid "Jungle Wood Fence"
-msgstr "Cerca de Madeira da Selva"
+msgstr "dzsungelfa kerítés"
 
 #: src/content_mapnode_special.cpp:120
 msgid "Pine Fence"
-msgstr "Cerca de Pinheiro"
+msgstr "fenyőkerítés"
 
 #: src/content_mapnode_special.cpp:148
 msgid "Steel Bars"
-msgstr "Grades de Aço"
+msgstr "acélrúd"
 
 #: src/content_mapnode_special.cpp:176
 msgid "Rail"
-msgstr "Trilho"
+msgstr "sín"
 
 #: src/content_mapnode_special.cpp:208
 msgid "Terracotta Roof Tile"
-msgstr "Telha de Terracotta"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:224
 msgid "Wood Roof Tile"
-msgstr "Telha de Madeira"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:241
 msgid "Asphalt Roof Tile"
-msgstr "Telha de Asfalto"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:264
 msgid "Stone Roof Tile"
-msgstr "Telha de Pedra"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:280
 msgid "Glass Roof Tile"
-msgstr "Telha de Vidro"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:302
 msgid "Blue Glass Roof Tile"
-msgstr "Telha de Vidro Azul"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:325
 msgid "Green Glass Roof Tile"
-msgstr "Telha de Vidro Verde"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:348
 msgid "Orange Glass Roof Tile"
-msgstr "Telha de Vidro Laranja"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:371
 msgid "Purple Glass Roof Tile"
-msgstr "Telha de Vidro Roxo"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:394
 msgid "Red Glass Roof Tile"
-msgstr "Telha de Vidro Vermelho"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:417
 msgid "Yellow Glass Roof Tile"
-msgstr "Telha de Vidro Amarelo"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:440
 msgid "Black Glass Roof Tile"
-msgstr "Telha de Vidro Preto"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:463
 msgid "Thatch Roof Tile"
-msgstr "Telha de Sapé"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:481 src/content_mapnode_special.cpp:540
 #: src/content_mapnode_special.cpp:574
 msgid "Ladder"
-msgstr "Escada"
+msgstr "létra"
 
 #: src/content_mapnode_special.cpp:608
 msgid "Border Stone"
-msgstr "Pedra de Fronteira"
+msgstr "határkő"
 
 #: src/content_mapnode_special.cpp:635
 msgid "Book"
-msgstr "Livro"
+msgstr "könyv"
 
 #: src/content_mapnode_special.cpp:666
 msgid "Cook Book"
-msgstr "Livro do Cozinheiro"
+msgstr "szakácskönyv"
 
 #: src/content_mapnode_special.cpp:697
 msgid "Decraft Book"
-msgstr "Livro do Desmontador"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:727 src/content_mapnode_special.cpp:916
 #: src/content_nodemeta.cpp:2680
 msgid "Diary"
-msgstr "Diário"
+msgstr "napló"
 
 #: src/content_mapnode_special.cpp:758
 msgid "Craft Book"
-msgstr "Livro de Trabalho Manual"
+msgstr "barkácskönyv"
 
 #: src/content_mapnode_special.cpp:797
 msgid "Reverse Craft Book"
-msgstr "Livro de Trabalho Manual Reverso"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:834
 msgid "Guide"
-msgstr "Guia"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:862 src/content_nodemeta.h:471
 msgid "Cooking Guide"
-msgstr "Guia de Cozinha"
+msgstr "szakácskönyv"
 
 #: src/content_mapnode_special.cpp:889 src/content_nodemeta.h:497
 msgid "Decrafting Guide"
-msgstr "Guia de Desmontagem"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:944 src/content_nodemeta.h:413
 msgid "Craft Guide"
-msgstr "Guia de Trabalho Manual"
+msgstr "barkácskönyv"
 
 #: src/content_mapnode_special.cpp:971 src/content_nodemeta.h:440
 msgid "Reverse Craft Guide"
-msgstr "Guia de Trabalho Manual Reverso"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:998 src/content_mapnode_special.cpp:1018
 #: src/hud.cpp:655
 msgid "Fire"
-msgstr "Fogo"
+msgstr "tűz"
 
 #: src/content_mapnode_special.cpp:1037
 msgid "Torch"
-msgstr "Tocha"
+msgstr "fáklya"
 
 #: src/content_mapnode_special.cpp:1064 src/content_mapnode_special.cpp:1090
 #: src/content_mapnode_special.cpp:1123
 msgid "Sign"
-msgstr "Placa"
+msgstr "tábla"
 
 #: src/content_mapnode_special.cpp:1151 src/content_mapnode_special.cpp:1181
 #: src/content_mapnode_special.cpp:1213
 msgid "Locking Sign"
-msgstr "Placa Bloqueada"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1242 src/content_nodemeta.cpp:485
 msgid "Chest"
-msgstr "Baú"
+msgstr "láda"
 
 #: src/content_mapnode_special.cpp:1266 src/content_nodemeta.cpp:760
 msgid "Creative Chest"
-msgstr "Baú do Creativo"
+msgstr "kreatív láda"
 
 #: src/content_mapnode_special.cpp:1287
 msgid "Locking Chest"
-msgstr "Baú Trancado"
+msgstr "zárt láda"
 
 #: src/content_mapnode_special.cpp:1318
 msgid "Safe"
-msgstr "Cofre"
+msgstr "széf"
 
 #: src/content_mapnode_special.cpp:1340 src/content_mapnode_special.cpp:1366
 msgid "Furnace"
-msgstr "Fornalha"
+msgstr "kemence"
 
 #: src/content_mapnode_special.cpp:1384 src/content_mapnode_special.cpp:1411
 msgid "Locking Furnace"
-msgstr "Fornalha Trancada"
+msgstr "zárt kemence"
 
 #: src/content_mapnode_special.cpp:1429 src/content_mapnode_special.cpp:1454
 msgid "Incinerator"
-msgstr "Incinerador"
+msgstr "égető"
 
 #: src/content_mapnode_special.cpp:1472
 msgid "Nyan Cat"
@@ -2745,1395 +2745,1395 @@ msgstr "Nyan Cat"
 
 #: src/content_mapnode_special.cpp:1486
 msgid "Rainbow"
-msgstr "Arco-íris"
+msgstr "szivárvány"
 
 #: src/content_mapnode_special.cpp:1498
 msgid "Unbaked Flower Pot"
-msgstr "Vaso de Flor Semi-Acabado"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1519
 msgid "Flower Pot"
-msgstr "Vaso de Flor"
+msgstr "virágcserép"
 
 #: src/content_mapnode_special.cpp:1536
 msgid "Cobblestone Wall"
-msgstr "Muro de Pedra de Calçada"
+msgstr "macskakőfal"
 
 #: src/content_mapnode_special.cpp:1559
 msgid "Rough Stone Wall"
-msgstr "Muro de Pedra Áspera"
+msgstr "durvakő fal"
 
 #: src/content_mapnode_special.cpp:1582
 msgid "Mossy Cobblestone Wall"
-msgstr "Muro de Pedra de Calçada com Musgo"
+msgstr "mohás macskakő fal"
 
 #: src/content_mapnode_special.cpp:1605
 msgid "Stone Wall"
-msgstr "Muro de Pedra"
+msgstr "kőfal"
 
 #: src/content_mapnode_special.cpp:1628
 msgid "Sand Stone Wall"
-msgstr "Muro de Arenito"
+msgstr "homokkő fal"
 
 #: src/content_mapnode_special.cpp:1651
 msgid "Limestone Wall"
-msgstr "Parede de Calcário"
+msgstr "mészkő fal"
 
 #: src/content_mapnode_special.cpp:1674 src/hud.cpp:656
 msgid "TNT"
-msgstr "Dinamite"
+msgstr "TNT"
 
 #: src/content_mapnode_special.cpp:1694
 msgid "In-Progress explosion - how did you get this???"
-msgstr "Explosão em progresso - como você conseguiu isso ???"
+msgstr "Folyamatban levő robbanás - hogy kaptad ezt???"
 
 #: src/content_mapnode_special.cpp:1713 src/hud.cpp:657
 msgid "Steam"
-msgstr "Vapor"
+msgstr "gőz"
 
 #: src/content_mapnode_special.cpp:1733
 msgid "Home Flag"
-msgstr "Bandeira de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1778
 msgid "Blue Home Flag"
-msgstr "Bandeira Azul de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1802
 msgid "Green Home Flag"
-msgstr "Bandeira Verde de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1826
 msgid "Orange Home Flag"
-msgstr "Bandeira Laranja de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1850
 msgid "Purple Home Flag"
-msgstr "Bandeira Roxa de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1874
 msgid "Red Home Flag"
-msgstr "Bandeira Vermelha de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1898
 msgid "Yellow Home Flag"
-msgstr "Bandeira Amarela de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1922
 msgid "Black Home Flag"
-msgstr "Bandeira Preta de Casa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1946
 msgid "Life Support System"
-msgstr "Sistema de Suporte de Vida"
+msgstr "létfenntartó rendszer"
 
 #: src/content_mapnode_special.cpp:1970
 msgid "Parcel"
-msgstr "Pacote"
+msgstr "csomag"
 
 #: src/content_mapnode_special.cpp:1995
 msgid "Cauldron"
-msgstr "Caldeirão"
+msgstr "üst"
 
 #: src/content_mapnode_special.cpp:2015 src/content_nodemeta.cpp:3313
 msgid "Forge"
-msgstr "Forja"
+msgstr "kohó"
 
 #: src/content_mapnode_special.cpp:2042
 msgid "Forge Fire"
-msgstr "Fogo de Forja"
+msgstr ""
 
 #: src/content_mapnode_stair.cpp:37
 msgid "Rough Stone Stair"
-msgstr "Escadas de Pedra Áspera"
+msgstr "durvakő lépcső"
 
 #: src/content_mapnode_stair.cpp:53
 msgid "Cobble Stone Stair"
-msgstr "Escadas de Pedra de Calçada"
+msgstr "macskakő lépcső"
 
 #: src/content_mapnode_stair.cpp:69
 msgid "Mossy Cobble Stone Stair"
-msgstr "Escadas de Pedra de Calçada com Musgo"
+msgstr "mohás macskakő lépcső"
 
 #: src/content_mapnode_stair.cpp:85
 msgid "Stone Stair"
-msgstr "Escadas de Pedra"
+msgstr "kőlépcső"
 
 #: src/content_mapnode_stair.cpp:102
 msgid "Wood Stair"
-msgstr "Escadas de Madeira"
+msgstr "falépcső"
 
 #: src/content_mapnode_stair.cpp:120
 msgid "Jungle Wood Stair"
-msgstr "Escadas de Madeira da Selva"
+msgstr "dzsungelfa lépcső"
 
 #: src/content_mapnode_stair.cpp:138
 msgid "Brick Stair"
-msgstr "Escadas de Tijolos"
+msgstr "tégla lépcső"
 
 #: src/content_mapnode_stair.cpp:159
 msgid "Sand Stone Stair"
-msgstr "Escadas de Arenito"
+msgstr "homokkő lépcső"
 
 #: src/content_mapnode_stair.cpp:175
 msgid "Limestone Stair"
-msgstr "Escadas de Calcário"
+msgstr "mészkő lépcső"
 
 #: src/content_mob.cpp:404
 msgid "Oerkki"
-msgstr "Oerkki"
+msgstr "oerkki"
 
 #: src/content_mob.cpp:427
 msgid "Dungeon Master"
-msgstr "Mestre das Cavernas"
+msgstr ""
 
 #: src/content_mob.cpp:450
 msgid "Fireball"
-msgstr "Bola de Fogo"
+msgstr "tűzgolyó"
 
 #: src/content_mob.cpp:468
 msgid "Doe"
-msgstr "Corça"
+msgstr "kelt tészta"
 
 #: src/content_mob.cpp:494 src/content_mob.cpp:525
 msgid "Stag"
-msgstr "Veado"
+msgstr "szarvas"
 
 #: src/content_mob.cpp:575
 msgid "Shark"
-msgstr "Tubarão"
+msgstr "cápa"
 
 #: src/content_mob.cpp:602
 msgid "Wolf"
-msgstr "Lobo"
+msgstr "farkas"
 
 #: src/content_mob.cpp:632
 msgid "Tame Wolf"
-msgstr "Lobo Domado"
+msgstr "szelíd farkas"
 
 #: src/content_mob.cpp:659
 msgid "Sheep"
-msgstr "Ovelha"
+msgstr "birka"
 
 #: src/content_mob.cpp:690
 msgid "Sheared Sheep"
-msgstr "Ovelha Tosquiada"
+msgstr "megnyírt birka"
 
 #: src/content_mob.cpp:715
 msgid "Snowball"
-msgstr "Bola de Neve"
+msgstr "hógolyó"
 
 #: src/content_mob.cpp:755
 msgid "Grey Kitten"
-msgstr "Gatinho Cinzento"
+msgstr "szürke macska"
 
 #: src/content_mob.cpp:784
 msgid "White Kitten"
-msgstr "Gatinho Branco"
+msgstr "fehér macska"
 
 #: src/content_mob.cpp:813
 msgid "Siamese Kitten"
-msgstr "Gatinho Siamês"
+msgstr "sziámi macska"
 
 #: src/content_mob.cpp:842
 msgid "Ginger Kitten"
-msgstr "Gatinho Gengibre"
+msgstr "vörös macska"
 
 #: src/content_nodemeta.cpp:76 src/content_nodemeta.cpp:139
 #: src/content_nodemeta.cpp:2664 src/content_nodemeta.cpp:2763
 msgid "Save"
-msgstr "Salvar"
+msgstr "mentés"
 
 #: src/content_nodemeta.cpp:186
 #, c-format
 msgid "%s's Home Flag"
-msgstr "Bandeira de Casa de '%s'"
+msgstr ""
 
 #: src/content_nodemeta.cpp:270 src/content_nodemeta.cpp:283
 #: src/content_nodemeta.cpp:421 src/content_nodemeta.cpp:434
 msgid "You can't sleep yet."
-msgstr "Você não pode dormir ainda."
+msgstr "Még nem alhatsz!"
 
 #: src/content_nodemeta.cpp:274 src/content_nodemeta.cpp:425
 msgid "Go to sleep"
-msgstr "Ir para dormir"
+msgstr "Alvás"
 
 #: src/content_nodemeta.cpp:279 src/content_nodemeta.cpp:430
 msgid "Someone else is sleeping here."
-msgstr "Outra pessoa está dormindo aqui."
+msgstr "Valaki más már alszik itt!"
 
 #: src/content_nodemeta.cpp:287 src/content_nodemeta.cpp:438
 msgid "Get out of bed"
-msgstr "Sair da cama"
+msgstr "Kelj ki az ágyból!"
 
 #: src/content_nodemeta.cpp:417
 msgid "This bed is too uncomfortable to sleep in."
-msgstr "Esta cama é muito desconfortável para dormir."
+msgstr "Ez az ágy túl kényelmetlen az alváshoz."
 
 #: src/content_nodemeta.cpp:558
 #, c-format
 msgid "Locking Chest owned by '%s'"
-msgstr "Baú Trancado possuído por '%s'"
+msgstr "'%s' zárt ládája"
 
 #: src/content_nodemeta.cpp:632
 #, c-format
 msgid "Safe owned by '%s'"
-msgstr "Cofre possuído por '%s'"
+msgstr "'%s' széfje"
 
 #: src/content_nodemeta.cpp:801 src/content_nodemeta.cpp:1857
 #: src/content_nodemeta.cpp:2144 src/content_nodemeta.cpp:2336
 #: src/content_nodemeta.cpp:2550
 #, c-format
 msgid "Page %d of %d"
-msgstr "Página %d de %d"
+msgstr ""
 
 #: src/content_nodemeta.cpp:805 src/content_nodemeta.cpp:1885
 #: src/content_nodemeta.cpp:2163 src/content_nodemeta.cpp:2345
 #: src/content_nodemeta.cpp:2566
 msgid "<< Previous Page"
-msgstr "<< Página Anterior"
+msgstr "<< Előző oldal"
 
 #: src/content_nodemeta.cpp:811 src/content_nodemeta.cpp:1891
 #: src/content_nodemeta.cpp:2169 src/content_nodemeta.cpp:2351
 #: src/content_nodemeta.cpp:2572
 msgid "Next Page >>"
-msgstr "Próxima Página >>"
+msgstr "Következő oldal >>"
 
 #: src/content_nodemeta.cpp:854
 #, c-format
 msgid "Border Stone owned by '%s'"
-msgstr "Pedra de Fronteira possuída por '%s'"
+msgstr "'%s' határköve"
 
 #: src/content_nodemeta.cpp:929
 msgid "Furnace is overloaded"
-msgstr "Fornalha está sobrecarregada"
+msgstr "Teli van a kemence"
 
 #: src/content_nodemeta.cpp:930
 msgid "Furnace is out of fuel"
-msgstr "Fornalha está sem combustível"
+msgstr "A kemencéből kifogyott a fűtőanyag"
 
 #: src/content_nodemeta.cpp:932
 msgid "Furnace is inactive"
-msgstr "Fornalha está inativa"
+msgstr "A kemence inaktív"
 
 #: src/content_nodemeta.cpp:935
 msgid "Furnace is active"
-msgstr "Fornalha está ativa"
+msgstr "A kemence aktív"
 
 #: src/content_nodemeta.cpp:1194
 msgid "Locking Furnace is overloaded"
-msgstr "Fornalha Trancada está sobrecarregada"
+msgstr "Teli van a zárt kemence"
 
 #: src/content_nodemeta.cpp:1195
 msgid "Locking Furnace is out of fuel"
-msgstr "Fornalha Trancada está sem combustível"
+msgstr "A zárt kemencéből kifogyott a fűtőanyag"
 
 #: src/content_nodemeta.cpp:1197
 msgid "Locking Furnace is inactive"
-msgstr "Fornalha Trancada está inativa"
+msgstr "A zárt kemence inaktív"
 
 #: src/content_nodemeta.cpp:1200
 msgid "Locking Furnace is active"
-msgstr "Fornalha Trancada está ativa"
+msgstr "A zárt kemence aktív"
 
 #: src/content_nodemeta.cpp:1455
 msgid "Armed Explosive: about to detonate"
-msgstr "Explosivo Armado: prestes a detonar"
+msgstr "Élesített robbanószer: azonnal robban"
 
 #: src/content_nodemeta.cpp:1458
 #, c-format
 msgid "Armed Explosive: %d second till detonation"
 msgid_plural "Armed Explosive: %d seconds till detonation"
-msgstr[0] "Explosivo Armado: %d segundo até a detonação"
-msgstr[1] "Explosivo Armado: %d segundos até a detonação"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/content_nodemeta.cpp:1519 src/content_nodemeta.cpp:1524
 msgid "Incinerator is active"
-msgstr "Incinerador está ativo"
+msgstr "Az égető aktív"
 
 #: src/content_nodemeta.cpp:1526
 msgid "Incinerator is inactive"
-msgstr "Incinerador está inativo"
+msgstr "Az égető inaktív"
 
 #: src/content_nodemeta.cpp:1618
 msgid "Add fuel, then punch to incinerate wielded item"
-msgstr "Ponha combustível, então, soque para incinerar o item empunhado"
+msgstr "Rakj bele fűtőanyagot, majd üsd meg a kezedben levő dolog elégetéséhez"
 
 #: src/content_nodemeta.cpp:1621 src/content_nodemeta.cpp:3217
 msgid "Fuel"
-msgstr "Combustível"
+msgstr "fűtőanyag"
 
 #: src/content_nodemeta.cpp:1861 src/content_nodemeta.cpp:2149
 msgid "Add item here to see recipe"
-msgstr "Ponha o item aqui para ver a receita"
+msgstr ""
 
 #: src/content_nodemeta.cpp:1866 src/content_nodemeta.cpp:2154
 #, c-format
 msgid "Recipe %d of %d"
-msgstr "Receita %d de %d"
+msgstr "%d . recept a %d -ből"
 
 #: src/content_nodemeta.cpp:1875
 msgid "Gives"
-msgstr "Dá"
+msgstr "Ad"
 
 #: src/content_nodemeta.cpp:2340
 msgid "Add item here to see cook result"
-msgstr "Ponha o item aqui para ver o resultado de cozinhar"
+msgstr ""
 
 #: src/content_nodemeta.cpp:2554
 msgid "Add item here to see dig result"
-msgstr "Ponha o item aqui para ver o resultado de cavar"
+msgstr ""
 
 #: src/content_nodemeta.cpp:2558
 msgid "Dig Result"
-msgstr "Cavar Resulta"
+msgstr ""
 
 #: src/content_nodemeta.cpp:2562
 msgid "Random Drop"
-msgstr "Ao acaso Cai"
+msgstr ""
 
 #: src/content_nodemeta.cpp:2654 src/content_nodemeta.cpp:2753
 msgid "Title"
-msgstr "Título"
+msgstr "Cím"
 
 #: src/content_nodemeta.cpp:2659 src/content_nodemeta.cpp:2758
 msgid "Content"
-msgstr "Conteúdo"
+msgstr "Tartalom"
 
 #: src/content_nodemeta.cpp:3122
 msgid "Cauldron is active"
-msgstr "Caldeirão está ativo"
+msgstr "Az üst aktív"
 
 #: src/content_nodemeta.cpp:3125
 msgid "Cauldron is hot"
-msgstr "Caldeirão está quente"
+msgstr "Az üst forró"
 
 #: src/content_nodemeta.cpp:3127
 msgid "Cauldron is cool"
-msgstr "Caldeirão está fresco"
+msgstr "Az üst hideg"
 
 #: src/content_nodemeta.cpp:3129
 msgid "Cauldron is empty"
-msgstr "Caldeirão está vazio"
+msgstr "Az üst üres"
 
 #: src/content_nodemeta.cpp:3133
 msgid "Cauldron is inactive"
-msgstr "Caldeirão está inativo"
+msgstr "Az üst inaktív"
 
 #: src/content_nodemeta.cpp:3134
 msgid "Cauldron is out of fuel"
-msgstr "Caldeirão está sem combustível"
+msgstr "Az üst alól elfogyott a fűtőanyag"
 
 #: src/content_nodemeta.cpp:3214
 msgid "Add fuel, then punch to add or remove water"
-msgstr "Adicionar Combustível, depois, um soco para adicionar ou remover água"
+msgstr ""
 
 #: src/content_nodemeta.cpp:3487
 msgid "Show Enchanting"
-msgstr "Mostrar Encantando"
+msgstr ""
 
 #: src/content_nodemeta.cpp:3494 src/game.cpp:209
 msgid "Show Crafting"
-msgstr "Mostrar Artesanato"
+msgstr ""
 
 #: src/content_toolitem.cpp:216
 msgid "Small Stone Pick"
-msgstr "Picareta de Pedra Pequena"
+msgstr "Kis kőcsákány"
 
 #: src/content_toolitem.cpp:239
 msgid "Stone Pick"
-msgstr "Picareta de Pedra"
+msgstr "Kőcsákány"
 
 #: src/content_toolitem.cpp:253
 msgid "Flint Pick"
-msgstr "Picareta de Pederneira"
+msgstr "Kovakő csákány"
 
 #: src/content_toolitem.cpp:267
 msgid "Steel Pick"
-msgstr "Picareta de Aço"
+msgstr "Acélcsákány"
 
 #: src/content_toolitem.cpp:281
 msgid "Creative Pick"
-msgstr "Picareta do Criativo"
+msgstr "Kreatív csákány"
 
 #: src/content_toolitem.cpp:295
 msgid "Stone Trowel"
-msgstr "Espátula de Pedra"
+msgstr ""
 
 #: src/content_toolitem.cpp:309
 msgid "Stone Shovel"
-msgstr "Pá de Pedra"
+msgstr "Kőásó"
 
 #: src/content_toolitem.cpp:323
 msgid "Flint Shovel"
-msgstr "Pá de Pederneira"
+msgstr "Kovakőásó"
 
 #: src/content_toolitem.cpp:337
 msgid "Steel Shovel"
-msgstr "Pá de Aço"
+msgstr "Acélásó"
 
 #: src/content_toolitem.cpp:351
 msgid "Small Stone Axe"
-msgstr "Machado de Pedra Pequeno"
+msgstr "Kőbalta"
 
 #: src/content_toolitem.cpp:375
 msgid "Stone Axe"
-msgstr "Machado de Pedra"
+msgstr "Kőfejsze"
 
 #: src/content_toolitem.cpp:389
 msgid "Flint Axe"
-msgstr "Machado de Pederneira"
+msgstr "Kovakő fejsze"
 
 #: src/content_toolitem.cpp:403
 msgid "Steel Axe"
-msgstr "Machado de Aço"
+msgstr "Acélfejsze"
 
 #: src/content_toolitem.cpp:417
 msgid "Wooden Club"
-msgstr "Taco de Madeira"
+msgstr ""
 
 #: src/content_toolitem.cpp:432
 msgid "Stone Sword"
-msgstr "Espada de Pedra"
+msgstr "Kőkard"
 
 #: src/content_toolitem.cpp:446
 msgid "Steel Sword"
-msgstr "Espada de Aço"
+msgstr "Acélkard"
 
 #: src/content_toolitem.cpp:460
 msgid "Flint Shears"
-msgstr "Tesoura de Pederneira"
+msgstr "Kovakő nyíróolló"
 
 #: src/content_toolitem.cpp:474
 msgid "Steel Shears"
-msgstr "Tesoura de Aço"
+msgstr "Acél nyíróolló"
 
 #: src/content_toolitem.cpp:488
 msgid "Wooden Bucket"
-msgstr "Balde de Madeira"
+msgstr "Favödör"
 
 #: src/content_toolitem.cpp:505
 msgid "Tin Bucket"
-msgstr "Balde de Estanho"
+msgstr "Ónvödör"
 
 #: src/content_toolitem.cpp:521
 msgid "Wooden Bucket of Water"
-msgstr "Balde de Madeira com Água"
+msgstr "Vízzel teli favödör"
 
 #: src/content_toolitem.cpp:532
 msgid "Tin Bucket of Water"
-msgstr "Balde de Estanho com Água"
+msgstr "Vízzel teli ónvödör"
 
 #: src/content_toolitem.cpp:543
 msgid "Steel Bucket"
-msgstr "Balde de Aço"
+msgstr "Acélvödör"
 
 #: src/content_toolitem.cpp:558
 msgid "Steel Bucket of Water"
-msgstr "Balde de Aço com Água"
+msgstr "Vízzel teli acélvödör"
 
 #: src/content_toolitem.cpp:569
 msgid "Steel Bucket of Lava"
-msgstr "Balde de Aço com Lava"
+msgstr "Lávával teli acélvödör"
 
 #: src/content_toolitem.cpp:581
 msgid "Fire Starter"
-msgstr "Isqueiro"
+msgstr "Tűzcsiholó"
 
 #: src/content_toolitem.cpp:595
 msgid "Crowbar"
-msgstr "Pé-de-Cabra"
+msgstr "Feszítővas"
 
 #: src/content_toolitem.cpp:608
 msgid "Key"
-msgstr "Chave"
+msgstr "kulcs"
 
 #: src/content_toolitem.cpp:620
 msgid "Stone Spear"
-msgstr "Lança de Pedra"
+msgstr "kődárda"
 
 #: src/content_toolitem.cpp:634
 msgid "Flint Spear"
-msgstr "Lança de Pederneira"
+msgstr "kovakő dárda"
 
 #: src/content_toolitem.cpp:648
 msgid "Steel Spear"
-msgstr "Lança de Aço"
+msgstr "Acéldárda"
 
 #: src/content_toolitem.cpp:662
 msgid "Bow"
-msgstr "Arco"
+msgstr "íj"
 
 #: src/content_toolitem.cpp:682
 msgid "Raw Mithril Pick"
-msgstr "Picareta de Mithril Bruto"
+msgstr "nyers mithril csákány"
 
 #: src/content_toolitem.cpp:696
 msgid "Raw Mithril Shovel"
-msgstr "Pá de Mithril Bruto"
+msgstr "nyers mithril ásó"
 
 #: src/content_toolitem.cpp:710
 msgid "Raw Mithril Axe"
-msgstr "Machado de Mithril Bruto"
+msgstr "nyers mithril fejsze"
 
 #: src/content_toolitem.cpp:724
 msgid "Raw Mithril Sword"
-msgstr "Espada de Mithril Bruto"
+msgstr "nyers mithril kard"
 
 #: src/content_toolitem.cpp:738
 msgid "Raw Mithril Spear"
-msgstr "Lança de Mithril Bruto"
+msgstr "nyers mithril dárda"
 
 #: src/content_toolitem.cpp:752
 msgid "Unbound Mithril Pick"
-msgstr "Picareta de Mithril não ligada"
+msgstr ""
 
 #: src/content_toolitem.cpp:766
 msgid "Unbound Mithril Shovel"
-msgstr "Pá de Mithril não ligada"
+msgstr ""
 
 #: src/content_toolitem.cpp:780
 msgid "Unbound Mithril Axe"
-msgstr "Machado de Mithril não ligada"
+msgstr ""
 
 #: src/content_toolitem.cpp:794
 msgid "Unbound Mithril Sword"
-msgstr "Espada de Mithril não ligada"
+msgstr ""
 
 #: src/content_toolitem.cpp:808
 msgid "Unbound Mithril Spear"
-msgstr "Lança de Mithril não ligada"
+msgstr ""
 
 #: src/content_toolitem.cpp:822
 msgid "Mithril Pick"
-msgstr "Picareta de Mithril"
+msgstr "mithril csákány"
 
 #: src/content_toolitem.cpp:837
 msgid "Mithril Shovel"
-msgstr "Pá de Mithril"
+msgstr "mithril ásó"
 
 #: src/content_toolitem.cpp:851
 msgid "Mithril Axe"
-msgstr "Machado de Mithril"
+msgstr "mithril fejsze"
 
 #: src/content_toolitem.cpp:865
 msgid "Mithril Sword"
-msgstr "Espada de Mithril"
+msgstr "mithril kard"
 
 #: src/content_toolitem.cpp:879
 msgid "Mithril Spear"
-msgstr "Lança de Mithril"
+msgstr "mithril dárda"
 
 #: src/content_toolitem.cpp:893
 msgid "Mob Spawner"
-msgstr "Spawnador de Mob"
+msgstr "mithril kulcs"
 
 #: src/content_toolitem.cpp:912
 msgid "Mithril Key"
-msgstr "Chave de Mithril"
+msgstr "mithril kulcs"
 
 #: src/game.cpp:210
 msgid "Clothes"
-msgstr "Roupas"
+msgstr "Ruházat"
 
 #: src/game.cpp:211
 msgid "Hat/Helmet"
-msgstr "Chapéu/Elmo"
+msgstr "Kalap/Sisak"
 
 #: src/game.cpp:213
 msgid "Jacket"
-msgstr "Jaqueta"
+msgstr "Kabát"
 
 #: src/game.cpp:215
 msgid "Decorative"
-msgstr "Decorativo"
+msgstr "Dísz"
 
 #: src/game.cpp:217
 msgid "Shirt"
-msgstr "Camisa"
+msgstr "Ing"
 
 #: src/game.cpp:219
 msgid "Belt"
-msgstr "Cinto"
+msgstr "öv"
 
 #: src/game.cpp:221
 msgid "Pants"
-msgstr "Calças"
+msgstr "Nadrág"
 
 #: src/game.cpp:223
 msgid "Boots"
-msgstr "Botas"
+msgstr "Csizma"
 
 #: src/game.cpp:230
 msgid "Drop to Ground"
-msgstr "Largar no Chão"
+msgstr "Földre dob"
 
 #: src/game.cpp:232
 msgid "Change Clothing"
-msgstr "Mudar a Roupa"
+msgstr "Ruhacsere"
 
 #: src/game.cpp:591
 msgid "Loading"
-msgstr "Carregando"
+msgstr "Töltés"
 
 #: src/game.cpp:663
 msgid "Loading..."
-msgstr "Carregando..."
+msgstr "Töltés..."
 
 #: src/game.cpp:672
 msgid "Creating server..."
-msgstr "Criando servidor..."
+msgstr "Szerver létrehozása..."
 
 #: src/game.cpp:683
 msgid "Creating client..."
-msgstr "Criando cliente..."
+msgstr "Kliens létrehozása..."
 
 #: src/game.cpp:688
 msgid "Resolving address..."
-msgstr "Resolvendo endereço..."
+msgstr "Cím feloldása..."
 
 #: src/game.cpp:699
 msgid "Couldn't resolve address"
-msgstr "Não foi possível resolver o endereço"
+msgstr "Nem tudtam feloldani a címet..."
 
 #: src/game.cpp:739
 #, c-format
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
-msgstr[0] "Conectando ao servidor... (tempo esgotado em %d segundo)"
-msgstr[1] "Conectando ao servidor... (tempo esgotado em %d segundos)"
+msgstr[0] "Csatlakozás a szerverhez... (időtúllépés %d másodperc múlva)"
+msgstr[1] "Csatlakozás a szerverhez... (időtúllépés %d másodperc múlva)"
 
 #: src/game.cpp:768
 #, c-format
 msgid "Access denied. Reason: %ls"
-msgstr "Acesso Negado. Motivo: %ls"
+msgstr "Engedély megtagadva. Oka: %ls"
 
 #: src/game.cpp:772
 msgid "Unable to Connect (port already in use?)."
-msgstr "Não é possível a Conexão (porta já em uso?)."
+msgstr "Nem tudok csatlakozni (port már használatban?)"
 
 #: src/game.cpp:775
 msgid "Connection timed out."
-msgstr "Tempo de conexão esgotada"
+msgstr "A kapcsolat túllépte az időkorlátot."
 
 #: src/game.cpp:928
 msgid "Access denied. Reason: "
-msgstr "Acesso Negado. Motivo:"
+msgstr "Engedély megtagadva. Ok:"
 
 #: src/game.cpp:1162
 msgid "free_move disabled"
-msgstr "free_move desabilitado"
+msgstr "free_move letiltva"
 
 #: src/game.cpp:1166
 msgid "free_move enabled"
-msgstr "free_move habilitado"
+msgstr "free_move engedélyezve"
 
 #: src/game.cpp:1178
 #, c-format
 msgid "Saved screenshot to '%s'"
-msgstr "Captura de Tela salva em '%s'"
+msgstr "Képernyőkép mentve ide: '%s'"
 
 #: src/game.cpp:1190
 msgid "HUD shown"
-msgstr "HUD mostrada"
+msgstr "HUD látható"
 
 #: src/game.cpp:1192
 msgid "HUD hidden"
-msgstr "HUD escondida"
+msgstr "HUD rejtve"
 
 #: src/game.cpp:1198
 msgid "Chat shown"
-msgstr "Bate-Papo mostrado"
+msgstr "Chat látható"
 
 #: src/game.cpp:1200
 msgid "Chat hidden"
-msgstr "Bate-Papo escondido"
+msgstr "Chat rejtve"
 
 #: src/game.cpp:1206
 msgid "Fog disabled"
-msgstr "Nevoeiro desabilitado"
+msgstr "Köd letiltva"
 
 #: src/game.cpp:1208
 msgid "Fog enabled"
-msgstr "Nevoeiro habilitado"
+msgstr "Köd engedélyezve"
 
 #: src/game.cpp:1214
 msgid "Camera update disabled"
-msgstr "Atualização de câmera desabilitada"
+msgstr "Kamera frissítés letiltva"
 
 #: src/game.cpp:1216
 msgid "Camera update enabled"
-msgstr "Atualização de câmera habitada"
+msgstr "Kamera frissítés engedélyezve"
 
 #: src/game.cpp:1226
 msgid "Debug info shown"
-msgstr "Informação de depuração mostrada"
+msgstr "Debug info megjelenítve"
 
 #: src/game.cpp:1231
 msgid "Debug info and frametime graph hidden"
-msgstr "Informação de depuração e de frametime gráfico escondida"
+msgstr "Debug info és frametime grafikon elrejtve"
 
 #: src/game.cpp:1235
 msgid "Frametime graph shown"
-msgstr "Frametime gráfico mostrado"
+msgstr "Frametime grafikon megjelenítve"
 
 #: src/game.cpp:1247
 #, c-format
 msgid "Profiler shown (page %d of %d)"
-msgstr "Profiler mostrado (página %d de %d)"
+msgstr "Profilozó megjelenítve (%d / %d oldal )"
 
 #: src/game.cpp:1251
 msgid "Profiler hidden"
-msgstr "Profiler escondido"
+msgstr "Profilozó elrejtve"
 
 #: src/game.cpp:1259 src/game.cpp:1270
 #, c-format
 msgid "Minimum viewing range changed to %d"
-msgstr "Alcance visual mínimo alterado para %d"
+msgstr "Legkisseb látótávolság %d -re változott"
 
 #: src/game.cpp:1339
 msgid "Enabled full viewing range"
-msgstr "Habilitado alcance de visualização completa"
+msgstr "Teljes látótávolság engedélyezve"
 
 #: src/game.cpp:1343
 msgid "Disabled full viewing range"
-msgstr "Desabilitado alcance de visualização completa"
+msgstr "Teljes látótávolság letiltva"
 
 #: src/game.cpp:1951
 msgid "Disconnected (Network Timeout)"
-msgstr "Desconectado (Tempo limite de Rede)"
+msgstr "Lecsatlakotatva (hálózati időtúllépés)"
 
 #: src/game.cpp:2385
 msgid "Shutting down..."
-msgstr "Encerrando..."
+msgstr "Kilépés..."
 
 #: src/guiDeathScreen.cpp:97
 msgid "You died."
-msgstr "Você morreu."
+msgstr "Meghaltál."
 
 #: src/guiDeathScreen.cpp:102
 msgid "Respawn"
-msgstr "Trazido de volta"
+msgstr ""
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr "Clique esquerdo: Move todos os itens, Clique direito: Move um item"
+msgstr ""
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
-msgstr "Escreva Isto"
+msgstr ""
 
 #: src/guiMainMenu.cpp:319
 msgid "Character Creator"
-msgstr "Criador de Personagens"
+msgstr "Karakter készítő"
 
 #: src/guiMainMenu.cpp:325 src/guiMainMenu.cpp:386 src/guiMainMenu.cpp:428
 #: src/guiMainMenu.cpp:539
 msgid "Single Player"
-msgstr "Um Jogador"
+msgstr "Egyjátékos mód"
 
 #: src/guiMainMenu.cpp:331 src/guiMultiplayerMenu.cpp:161
 msgid "Multi Player"
-msgstr "Multijogador"
+msgstr "Többjátékos mód"
 
 #: src/guiMainMenu.cpp:337 src/guiPauseMenu.cpp:155
 msgid "Settings"
-msgstr "Configurações"
+msgstr "Beállítások"
 
 #: src/guiMainMenu.cpp:343
 msgid "Credits"
-msgstr "Créditos"
+msgstr "Készítették"
 
 #: src/guiMainMenu.cpp:349
 msgid "Quit"
-msgstr "Sair"
+msgstr "Kilépés"
 
 #: src/guiMainMenu.cpp:395 src/guiMainMenu.cpp:437 src/guiMainMenu.cpp:548
 msgid "Creative Mode"
-msgstr "Modo Criativo"
+msgstr "Kreatív mód"
 
 #: src/guiMainMenu.cpp:396 src/guiMainMenu.cpp:438 src/guiMainMenu.cpp:549
 msgid "Adventure Mode"
-msgstr "Modo Aventura"
+msgstr "Kaland mód"
 
 #: src/guiMainMenu.cpp:397 src/guiMainMenu.cpp:439 src/guiMainMenu.cpp:550
 msgid "Survival Mode"
-msgstr "Modo Sobrevivência"
+msgstr "Tűlélő mód"
 
 #: src/guiMainMenu.cpp:410 src/guiMainMenu.cpp:563
 msgid "Advanced Settings"
-msgstr "Configurações Avançadas"
+msgstr "Haladó beállítások"
 
 #: src/guiMainMenu.cpp:416 src/guiMainMenu.cpp:458
 msgid "Map Options"
-msgstr "Opções de Mapa"
+msgstr "Pálya beállítások"
 
 #: src/guiMainMenu.cpp:422 src/guiMainMenu.cpp:533 src/guiMainMenu.cpp:658
 msgid "Start Game"
-msgstr "Iniciar Jogo"
+msgstr "Játék indítása"
 
 #: src/guiMainMenu.cpp:452
 msgid "Hide Advanced Settings"
-msgstr "Ocultar Configurações Avançadas"
+msgstr "Haladó beállítások elrejtése"
 
 #: src/guiMainMenu.cpp:463
 msgid "Creatures"
-msgstr "Criaturas"
+msgstr "Lények"
 
 #: src/guiMainMenu.cpp:470
 msgid "None"
-msgstr "Nenhum"
+msgstr "Egyik sem"
 
 #: src/guiMainMenu.cpp:471
 msgid "Passive"
-msgstr "Passivas"
+msgstr "Passzív"
 
 #: src/guiMainMenu.cpp:472
 msgid "Passive & Aggressive"
-msgstr "Passivas & Agressivas"
+msgstr "Passzív és aggresszív"
 
 #: src/guiMainMenu.cpp:473
 msgid "Passive, Aggressive, & Destructive"
-msgstr "Passivas, Agressivas, & Destrutivas"
+msgstr "Passzív, aggresszív és destruktív"
 
 #: src/guiMainMenu.cpp:487
 msgid "Player Damage"
-msgstr "Causar Dano no Jogador"
+msgstr ""
 
 #: src/guiMainMenu.cpp:492
 msgid "Suffocation/Drowning"
-msgstr "Asfixia/Afogamento"
+msgstr "Fojtás/Fulladás"
 
 #: src/guiMainMenu.cpp:497 src/hud.cpp:651
 msgid "Hunger"
-msgstr "Fome"
+msgstr "Éhség"
 
 #: src/guiMainMenu.cpp:502
 msgid "Tool Wear"
-msgstr "Desgaste de Ferramenta"
+msgstr "Eszközök kopnak"
 
 #: src/guiMainMenu.cpp:507
 msgid "Dangerous Fire"
-msgstr "Fogo Perigoso"
+msgstr "Veszélyes tűz"
 
 #: src/guiMainMenu.cpp:512
 msgid "Infinite Inventory"
-msgstr "Inventário Infinito"
+msgstr ""
 
 #: src/guiMainMenu.cpp:517
 msgid "Initial Inventory"
-msgstr "Inventário Inicial"
+msgstr ""
 
 #: src/guiMainMenu.cpp:522
 msgid "Droppable Inventory"
-msgstr "Inventário Soltavel"
+msgstr ""
 
 #: src/guiMainMenu.cpp:527
 msgid "Death drops Inventory"
-msgstr "Morte deixa cair Inventário"
+msgstr ""
 
 #: src/guiMainMenu.cpp:569
 msgid "Hide Map Options"
-msgstr "Ocultar Opções de Mapa"
+msgstr "Pálya beállítások elrejtése"
 
 #: src/guiMainMenu.cpp:574
 msgid "Create New Map"
-msgstr "Criar Mapa Novo"
+msgstr "Új pálya létrehozása"
 
 #: src/guiMainMenu.cpp:580
 msgid "Warning! Your old map will be deleted!"
-msgstr "Aviso! Seu mapa antigo será apagado!"
+msgstr "Figyelem! A régi pályád törlődni fog!"
 
 #: src/guiMainMenu.cpp:586
 msgid "Map Type"
-msgstr "Tipo de Mapa"
+msgstr "Pálya típusa"
 
 #: src/guiMainMenu.cpp:593
 msgid "Flat"
-msgstr "Plano"
+msgstr "egyenes"
 
 #: src/guiMainMenu.cpp:594
 msgid "Flatter"
-msgstr "Mais Plano"
+msgstr "Még egyenesebb"
 
 #: src/guiMainMenu.cpp:595
 msgid "Smoother"
-msgstr "Suave"
+msgstr "Sima"
 
 #: src/guiMainMenu.cpp:596
 msgid "Default"
-msgstr "Padrão"
+msgstr "Alapértelmezett"
 
 #: src/guiMainMenu.cpp:597
 msgid "Hilly"
-msgstr "Acidentado"
+msgstr "Dombos"
 
 #: src/guiMainMenu.cpp:598
 msgid "Mountains"
-msgstr "Montanhas"
+msgstr "Hegyes"
 
 #: src/guiMainMenu.cpp:599
 msgid "Crazy"
-msgstr "Maluco"
+msgstr "Őrült"
 
 #: src/guiMainMenu.cpp:600
 msgid "Crazy Hills"
-msgstr "Colinas Malucas"
+msgstr "Örült hegyes"
 
 #: src/guiMainMenu.cpp:622
 msgid "Use Fixed Seed"
-msgstr "Use Geração Determinada"
+msgstr ""
 
 #: src/guiMainMenu.cpp:628
 msgid "Map Seed"
-msgstr "Geração de Mapa"
+msgstr ""
 
 #: src/guiMainMenu.cpp:645
 msgid "Clear Map"
-msgstr "Limpar Mapa"
+msgstr "Pálya tisztítása"
 
 #: src/guiMainMenu.cpp:650
 msgid "Warning! This will delete all construction from your map!"
-msgstr "Aviso! Isto irá apagar todas as construções de seu mapa!"
+msgstr "Figyelem! Az összes változtatás törlődni fog a pályádról!"
 
 #: src/guiMainMenu.cpp:668
 msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr "Voxelands\nhttp://www.voxelands.com/\nPor Lisa 'darkrose' Milne <lisa@ltmnet.com> e contribuidores."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nKészítette: Lisa 'darkrose' Milne <lisa@ltmnet.com> és közreműdödők."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
-msgstr "Programadores"
+msgstr "Programozók"
 
 #: src/guiMainMenu.cpp:678
 msgid "Artists and Modellers"
-msgstr "Artistas e Modeladores"
+msgstr "Művészek és Modellezők"
 
 #: src/guiMainMenu.cpp:681
 msgid "Translators"
-msgstr "Tradutores"
+msgstr "Fordítók"
 
 #: src/guiMainMenu.cpp:684
 msgid "Documentation Writers"
-msgstr "Escritores de Documentação"
+msgstr ""
 
 #: src/guiMainMenu.cpp:687
 msgid "Testers, Packagers, and Builders"
-msgstr "Testadores, Empacotadores, e Construtores"
+msgstr ""
 
 #: src/guiMainMenu.cpp:690
 msgid "Music and Sound Effects Composers"
-msgstr "Compositores de Músicas e Efeitos Sonoros"
+msgstr "Zene,- és Hangeffekt szerzők"
 
 #: src/guiMainMenu.cpp:693
 msgid "Other Contributers, and Special Thanks"
-msgstr "Outros Contribuidores, e Agradecimentos Especiais"
+msgstr "További Közreműködők, és Külön Köszönet"
 
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
 "and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr "Baseado em Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\ne contribuidores: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... e dezenas de muitas pessoas aleatórias."
+msgstr ""
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
-msgstr "Continuar"
+msgstr "Folytatás"
 
 #: src/guiMultiplayerMenu.cpp:135 src/guiSettingsMenu.cpp:310
 msgid "Main Menu"
-msgstr "Menu Principal"
+msgstr "Főmenü"
 
 #: src/guiMultiplayerMenu.cpp:142
 msgid "All Servers"
-msgstr "Todos os Servidores"
+msgstr "Minden szerver"
 
 #: src/guiMultiplayerMenu.cpp:148
 msgid "Favourite Servers"
-msgstr "Servidores Favoritos"
+msgstr "Kedvenc szerverek"
 
 #: src/guiMultiplayerMenu.cpp:154
 msgid "Custom Connect"
-msgstr "Conectar Personalizado"
+msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
-msgstr "Conexão Personalizada"
+msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:176
 msgid "Address/Port"
-msgstr "Endereço/Porta"
+msgstr ""
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
-msgstr "Adicionar aos Favoritos"
+msgstr "Hozzáadás a kedvencekhez"
 
 #: src/guiMultiplayerMenu.cpp:206 src/guiMultiplayerMenu.cpp:320
 msgid "Connect"
-msgstr "Conectar"
+msgstr "Csatlakozás"
 
 #: src/guiMultiplayerMenu.cpp:213
 msgid "Name/Password"
-msgstr "Nome/Senha"
+msgstr "Név/Jelszó"
 
 #: src/guiMultiplayerMenu.cpp:240
 msgid "Join Server"
-msgstr "Juntar-se ao Servidor"
+msgstr "Csatlakozás a szerverhez"
 
 #: src/guiMultiplayerMenu.cpp:262
 msgid "My Favourites"
-msgstr "Meus Favoritos"
+msgstr "Kedvenceim"
 
 #: src/guiMultiplayerMenu.cpp:265
 msgid "Server List"
-msgstr "Lista de Servidores"
+msgstr "Szerverlista"
 
 #: src/guiMultiplayerMenu.cpp:270
 msgid "Get New List"
-msgstr "Obter Nova Lista"
+msgstr "Új lista szerzése"
 
 #: src/guiMultiplayerMenu.cpp:307
 msgid "Remove from Favourites"
-msgstr "Remover dos Favoritos"
+msgstr "Eltávolítás a kedvencek közül"
 
 #: src/guiPasswordChange.cpp:105
 msgid "Old Password"
-msgstr "Senha Antiga"
+msgstr "Régi Jelszó"
 
 #: src/guiPasswordChange.cpp:123
 msgid "New Password"
-msgstr "Senha Nova"
+msgstr "Új Jelszó"
 
 #: src/guiPasswordChange.cpp:140
 msgid "Confirm Password"
-msgstr "Confirmar Senha"
+msgstr "Jelszó megerősítése"
 
 #: src/guiPasswordChange.cpp:158
 msgid "Change"
-msgstr "Alterar"
+msgstr "Megváltoztatás"
 
 #: src/guiPasswordChange.cpp:166
 msgid "Passwords do not match!"
-msgstr "As senhas não são iguais!"
+msgstr "A jelszavak nem egyeznek!"
 
 #: src/guiPauseMenu.cpp:103
 msgid "Voxelands by darkrose and contributors"
-msgstr "Voxelands por darkrose e contribuidores"
+msgstr "Voxelands, készítette darkrose és közreműködők"
 
 #: src/guiPauseMenu.cpp:149
 msgid "Change Password"
-msgstr "Alterar Senha"
+msgstr "Jelszó megváltoztatása"
 
 #: src/guiPauseMenu.cpp:161
 msgid "Disconnect"
-msgstr "Desconectar"
+msgstr "Lecsatlakozás"
 
 #: src/guiSettingsMenu.cpp:70
 msgid "Forward"
-msgstr "Para a Frente"
+msgstr "Előre"
 
 #: src/guiSettingsMenu.cpp:71
 msgid "Backward"
-msgstr "Para atrás"
+msgstr "Hátra"
 
 #: src/guiSettingsMenu.cpp:72 src/keycode.cpp:263
 msgid "Left"
-msgstr "Esquerda"
+msgstr "Balra"
 
 #: src/guiSettingsMenu.cpp:73 src/keycode.cpp:265
 msgid "Right"
-msgstr "Direita"
+msgstr "Jobbra"
 
 #: src/guiSettingsMenu.cpp:74
 msgid "Jump"
-msgstr "Pular"
+msgstr "Ugrás"
 
 #: src/guiSettingsMenu.cpp:75
 msgid "Sneak"
-msgstr "Esgueirar-se"
+msgstr "Lopakodás"
 
 #: src/guiSettingsMenu.cpp:76
 msgid "Inventory"
-msgstr "Inventário"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:77
 msgid "Use Item"
-msgstr "Usar Item"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:78
 msgid "Chat"
-msgstr "Bate-Papo"
+msgstr "Chat"
 
 #: src/guiSettingsMenu.cpp:79
 msgid "Command"
-msgstr "Comando"
+msgstr "Parancs"
 
 #: src/guiSettingsMenu.cpp:80
 msgid "Range Select"
-msgstr "Selecionar Alcance"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:81
 msgid "Toggle Fly"
-msgstr "Alternar Vôo"
+msgstr "Repulés be/ki"
 
 #: src/guiSettingsMenu.cpp:82 src/keycode.cpp:264
 msgid "Up"
-msgstr "Subir"
+msgstr "Fel"
 
 #: src/guiSettingsMenu.cpp:83 src/keycode.cpp:266
 msgid "Down"
-msgstr "Descer"
+msgstr "Le"
 
 #: src/guiSettingsMenu.cpp:84
 msgid "Run"
-msgstr "Correr"
+msgstr "Futás"
 
 #: src/guiSettingsMenu.cpp:85
 msgid "Examine/Open"
-msgstr "Examinar/Abrir"
+msgstr "Megvizsgál/Kinyit"
 
 #: src/guiSettingsMenu.cpp:86
 msgid "Take Screenshot"
-msgstr "Pegar Captura de Tela"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:87
 msgid "Show/Hide HUD"
-msgstr "Mostrar/Ocultar HUD"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:88
 msgid "Show/Hide Chat"
-msgstr "Mostrar/Ocultar Bate-Papo"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:89
 msgid "Toggle Fog"
-msgstr "Alternar Nevoeiro"
+msgstr "Köd be/ki"
 
 #: src/guiSettingsMenu.cpp:93
 msgid "Increase Viewing Range"
-msgstr "+ Alcance de Visualização"
+msgstr "Látótávolság növelése"
 
 #: src/guiSettingsMenu.cpp:94
 msgid "Decrease Viewing Range"
-msgstr "- Alcance de Visualização"
+msgstr "Látótávolság csökkentése"
 
 #: src/guiSettingsMenu.cpp:96
 msgid "Previous Item"
-msgstr "Item Anterior"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:97
 msgid "Next Item"
-msgstr "Próximo Item"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:317 src/guiSettingsMenu.cpp:344
 msgid "Controls"
-msgstr "Controles"
+msgstr "Irányítás"
 
 #: src/guiSettingsMenu.cpp:323 src/guiSettingsMenu.cpp:375
 msgid "Graphics"
-msgstr "Gráficos"
+msgstr "Grafika"
 
 #: src/guiSettingsMenu.cpp:329 src/guiSettingsMenu.cpp:474
 msgid "Video"
-msgstr "Vídeo"
+msgstr "Video"
 
 #: src/guiSettingsMenu.cpp:335 src/guiSettingsMenu.cpp:517
 msgid "Sound"
-msgstr "Som"
+msgstr "Hang"
 
 #: src/guiSettingsMenu.cpp:381
 msgid "Terrain Mesh Detail"
-msgstr "Detalhe da Malha do Terreno"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:388 src/guiSettingsMenu.cpp:413
 #: src/guiSettingsMenu.cpp:438
 msgid "Low"
-msgstr "Baixo"
+msgstr "Alacsony"
 
 #: src/guiSettingsMenu.cpp:389 src/guiSettingsMenu.cpp:414
 #: src/guiSettingsMenu.cpp:439
 msgid "Medium"
-msgstr "Médio"
+msgstr "Közepes"
 
 #: src/guiSettingsMenu.cpp:390 src/guiSettingsMenu.cpp:415
 #: src/guiSettingsMenu.cpp:440
 msgid "High"
-msgstr "Alto"
+msgstr "Magas"
 
 #: src/guiSettingsMenu.cpp:406
 msgid "Texture Detail"
-msgstr "Detalhe da Textura"
+msgstr "textúra részletesség"
 
 #: src/guiSettingsMenu.cpp:431
 msgid "Light Detail"
-msgstr "Detalhe da Luz"
+msgstr "Fény részletesség"
 
 #: src/guiSettingsMenu.cpp:456
 msgid "Classic HUD"
-msgstr "HUD Clássica"
+msgstr "Klasszikus HUD"
 
 #: src/guiSettingsMenu.cpp:461
 msgid "Wieldring Index"
-msgstr "Índice de Wieldring "
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:467 src/guiSettingsMenu.cpp:510
 msgid "Some settings cannot be changed in-game."
-msgstr "Algumas definições não podem ser alteradas em jogo"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:480
 msgid "Fullscreen"
-msgstr "Tela Cheia"
+msgstr "Teljes képernyős"
 
 #: src/guiSettingsMenu.cpp:485
 msgid "Particles"
-msgstr "Partículas"
+msgstr "Részecskék"
 
 #: src/guiSettingsMenu.cpp:490
 msgid "Mip-Mapping"
-msgstr "Mip-Mapping"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:495
 msgid "Bi-Linear Filtering"
-msgstr "Filtragem Bi-Linear"
+msgstr "Bilineáris szűrő"
 
 #: src/guiSettingsMenu.cpp:500
 msgid "Tri-Linear Filtering"
-msgstr "Filtragem Tri-Linear"
+msgstr "Trilineáris szűtő"
 
 #: src/guiSettingsMenu.cpp:505
 msgid "Anisotropic Filtering"
-msgstr "Filtragem Anisotrópica"
+msgstr "Anizotropikus szűrő"
 
 #: src/guiSettingsMenu.cpp:523
 msgid "Volume:"
-msgstr "Volume:"
+msgstr "Hangerő:"
 
 #: src/guiSettingsMenu.cpp:734
 msgid "press Key"
-msgstr "pressione a Tecla"
+msgstr "nyomj meg egy gombot"
 
 #: src/hud.cpp:645
 msgid "Unknown"
-msgstr "Desconhecido"
+msgstr "Ismeretlen"
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr "Queda"
+msgstr "Esés"
 
 #: src/hud.cpp:647
 msgid "Exposure"
-msgstr "Exposição"
+msgstr "Kitevés"
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr "Frio"
+msgstr "Hideg"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr "Ataque"
+msgstr "Támadás"
 
 #: src/hud.cpp:650 src/keycode.cpp:258
 msgid "Space"
-msgstr "Espaço"
+msgstr "Világűr"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr "Veneno"
+msgstr "Mérgezés"
 
 #: src/hud.cpp:842
 msgid "Summer"
-msgstr "Verão"
+msgstr "Nyár"
 
 #: src/hud.cpp:845
 msgid "Autumn"
-msgstr "Outono"
+msgstr "Ősz"
 
 #: src/hud.cpp:848
 msgid "Winter"
-msgstr "Inverno"
+msgstr "Tél"
 
 #: src/hud.cpp:851
 msgid "Spring"
-msgstr "Primavera"
+msgstr "Tavasz"
 
 #: src/hud.cpp:861
 #, c-format
 msgid "Day %u of Year %u"
-msgstr "Dia %u do Ano %u"
+msgstr ""
 
 #: src/hud.cpp:885
 #, c-format
 msgid "Energy Boost: %d:%02d"
-msgstr "Impulso de Energia: %d:%02d"
+msgstr "Energia túltöltés: %d:%02d"
 
 #: src/hud.cpp:910
 #, c-format
 msgid "Cold Protection: %d:%02d"
-msgstr "Proteção contra o Frio: %d:%02d"
+msgstr "Hideg elleni védelem: %d:%02d"
 
 #: src/inventory.cpp:236 src/inventory.cpp:566
 msgid "Contains: "
-msgstr "Contém>"
+msgstr "Tartalmaz:"
 
 #: src/inventory.cpp:243 src/inventory.cpp:365
 msgid "Cookable: Yes"
-msgstr "Cozinhavel: Sim"
+msgstr "Süthető"
 
 #: src/inventory.cpp:248 src/inventory.cpp:370 src/inventory.cpp:541
 msgid "Fuel Burn Time: "
-msgstr "Tempo de Queima de Combustível:"
+msgstr "Fűtőanyag égési ideje:"
 
 #: src/inventory.cpp:334
 msgid "Hunger: "
-msgstr "Fome:"
+msgstr "Éhség:"
 
 #: src/inventory.cpp:340
 msgid "Health: "
-msgstr "Saúde:"
+msgstr "Életerő:"
 
 #: src/inventory.cpp:347
 msgid "Cold Protection: "
-msgstr "Proteção contra o Frio:"
+msgstr "Hideg elleni védelem:"
 
 #: src/inventory.cpp:356
 msgid "Energy Boost: "
-msgstr "Impulso de Energia:"
+msgstr "Energia túltöltés:"
 
 #: src/inventory.cpp:530
 msgid "Strength: "
-msgstr "Força:"
+msgstr "Erő:"
 
 #: src/inventory.cpp:533
 msgid "Speed: "
-msgstr "Velocidade:"
+msgstr "Sebesség:"
 
 #: src/inventory.cpp:536
 msgid "Level: "
-msgstr "Nível:"
+msgstr "Szint:"
 
 #: src/inventory.cpp:652
 msgid "Armour: "
-msgstr "Armadura:"
+msgstr "Páncél:"
 
 #: src/inventory.cpp:658
 msgid "Warmth: "
-msgstr "Calor:"
+msgstr "Meleg:"
 
 #: src/inventory.cpp:664
 msgid "Pressure: "
-msgstr "Pressão:"
+msgstr "Nyomás:"
 
 #: src/inventory.cpp:670
 msgid "Suffocation: "
-msgstr "Sufocação:"
+msgstr "Fulladás:"
 
 #: src/inventory.cpp:676
 msgid "Durability: "
-msgstr "Durabilidade:"
+msgstr "Tartósság:"
 
 #: src/inventory.cpp:681
 msgid "Effect Boost: "
-msgstr "Impulso de Efeito:"
+msgstr "Hatás túltöltés"
 
 #: src/keycode.cpp:232
 msgid "-"
@@ -4141,572 +4141,572 @@ msgstr "-"
 
 #: src/keycode.cpp:234
 msgid "Left Button"
-msgstr "Botão Esquerdo"
+msgstr ""
 
 #: src/keycode.cpp:235
 msgid "Right Button"
-msgstr "Botão Direito"
+msgstr ""
 
 #: src/keycode.cpp:237
 msgid "Middle Button"
-msgstr "Botão do Meio"
+msgstr ""
 
 #: src/keycode.cpp:238
 msgid "X Button 1"
-msgstr "X Botão 1"
+msgstr ""
 
 #: src/keycode.cpp:239
 msgid "X Button 2"
-msgstr "X Botão 2"
+msgstr ""
 
 #: src/keycode.cpp:240
 msgid "Back"
-msgstr "Back"
+msgstr ""
 
 #: src/keycode.cpp:241
 msgid "Tab"
-msgstr "Tab"
+msgstr ""
 
 #: src/keycode.cpp:242
 msgid "Clear"
-msgstr "Limpar"
+msgstr ""
 
 #: src/keycode.cpp:243
 msgid "Return"
-msgstr "Enter"
+msgstr ""
 
 #: src/keycode.cpp:244
 msgid "Shift"
-msgstr "Shift"
+msgstr ""
 
 #: src/keycode.cpp:245
 msgid "Control"
-msgstr "Control"
+msgstr ""
 
 #: src/keycode.cpp:246
 msgid "Menu"
-msgstr "Menu"
+msgstr ""
 
 #: src/keycode.cpp:247
 msgid "Pause"
-msgstr "Pausa"
+msgstr ""
 
 #: src/keycode.cpp:248
 msgid "Capital"
-msgstr "Fixa"
+msgstr ""
 
 #: src/keycode.cpp:249
 msgid "Kana"
-msgstr "Kana"
+msgstr ""
 
 #: src/keycode.cpp:250
 msgid "Junja"
-msgstr "Junja"
+msgstr ""
 
 #: src/keycode.cpp:251
 msgid "Final"
-msgstr "Final"
+msgstr ""
 
 #: src/keycode.cpp:252
 msgid "Kanji"
-msgstr "Kanji"
+msgstr ""
 
 #: src/keycode.cpp:253
 msgid "Escape"
-msgstr "Escape"
+msgstr ""
 
 #: src/keycode.cpp:254
 msgid "Convert"
-msgstr "Converter"
+msgstr ""
 
 #: src/keycode.cpp:255
 msgid "Nonconvert"
-msgstr "Não converter"
+msgstr ""
 
 #: src/keycode.cpp:256
 msgid "Accept"
-msgstr "Aceitar"
+msgstr ""
 
 #: src/keycode.cpp:257
 msgid "Mode Change"
-msgstr "Alterar Modo"
+msgstr ""
 
 #: src/keycode.cpp:259
 msgid "Prior"
-msgstr "Anterior"
+msgstr ""
 
 #: src/keycode.cpp:260
 msgid "Next"
-msgstr "Próximo"
+msgstr ""
 
 #: src/keycode.cpp:261
 msgid "End"
-msgstr "End"
+msgstr ""
 
 #: src/keycode.cpp:262
 msgid "Home"
-msgstr "Home"
+msgstr ""
 
 #: src/keycode.cpp:267
 msgid "Select"
-msgstr "Selecionar"
+msgstr ""
 
 #: src/keycode.cpp:268
 msgid "Print"
-msgstr "Print"
+msgstr ""
 
 #: src/keycode.cpp:269
 msgid "Execute"
-msgstr "Executar"
+msgstr ""
 
 #: src/keycode.cpp:270
 msgid "Snapshot"
-msgstr "Captura de Tela"
+msgstr ""
 
 #: src/keycode.cpp:271
 msgid "Insert"
-msgstr "Insert"
+msgstr ""
 
 #: src/keycode.cpp:272
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 #: src/keycode.cpp:273
 msgid "Help"
-msgstr "Ajuda"
+msgstr ""
 
 #: src/keycode.cpp:274
 msgid "0"
-msgstr "0"
+msgstr ""
 
 #: src/keycode.cpp:275
 msgid "1"
-msgstr "1"
+msgstr ""
 
 #: src/keycode.cpp:276
 msgid "2"
-msgstr "2"
+msgstr ""
 
 #: src/keycode.cpp:277
 msgid "3"
-msgstr "3"
+msgstr ""
 
 #: src/keycode.cpp:278
 msgid "4"
-msgstr "4"
+msgstr ""
 
 #: src/keycode.cpp:279
 msgid "5"
-msgstr "5"
+msgstr ""
 
 #: src/keycode.cpp:280
 msgid "6"
-msgstr "6"
+msgstr ""
 
 #: src/keycode.cpp:281
 msgid "7"
-msgstr "7"
+msgstr ""
 
 #: src/keycode.cpp:282
 msgid "8"
-msgstr "8"
+msgstr ""
 
 #: src/keycode.cpp:283
 msgid "9"
-msgstr "9"
+msgstr ""
 
 #: src/keycode.cpp:284
 msgid "A"
-msgstr "A"
+msgstr ""
 
 #: src/keycode.cpp:285
 msgid "B"
-msgstr "B"
+msgstr ""
 
 #: src/keycode.cpp:286
 msgid "C"
-msgstr "C"
+msgstr ""
 
 #: src/keycode.cpp:287
 msgid "D"
-msgstr "D"
+msgstr ""
 
 #: src/keycode.cpp:288
 msgid "E"
-msgstr "E"
+msgstr ""
 
 #: src/keycode.cpp:289
 msgid "F"
-msgstr "F"
+msgstr ""
 
 #: src/keycode.cpp:290
 msgid "G"
-msgstr "G"
+msgstr ""
 
 #: src/keycode.cpp:291
 msgid "H"
-msgstr "H"
+msgstr ""
 
 #: src/keycode.cpp:292
 msgid "I"
-msgstr "I"
+msgstr ""
 
 #: src/keycode.cpp:293
 msgid "J"
-msgstr "J"
+msgstr ""
 
 #: src/keycode.cpp:294
 msgid "K"
-msgstr "K"
+msgstr ""
 
 #: src/keycode.cpp:295
 msgid "L"
-msgstr "L"
+msgstr ""
 
 #: src/keycode.cpp:296
 msgid "M"
-msgstr "M"
+msgstr ""
 
 #: src/keycode.cpp:297
 msgid "N"
-msgstr "N"
+msgstr ""
 
 #: src/keycode.cpp:298
 msgid "O"
-msgstr "O"
+msgstr ""
 
 #: src/keycode.cpp:299
 msgid "P"
-msgstr "P"
+msgstr ""
 
 #: src/keycode.cpp:300
 msgid "Q"
-msgstr "Q"
+msgstr ""
 
 #: src/keycode.cpp:301
 msgid "R"
-msgstr "R"
+msgstr ""
 
 #: src/keycode.cpp:302
 msgid "S"
-msgstr "S"
+msgstr ""
 
 #: src/keycode.cpp:303
 msgid "T"
-msgstr "T"
+msgstr ""
 
 #: src/keycode.cpp:304
 msgid "U"
-msgstr "U"
+msgstr ""
 
 #: src/keycode.cpp:305
 msgid "V"
-msgstr "V"
+msgstr ""
 
 #: src/keycode.cpp:306
 msgid "W"
-msgstr "W"
+msgstr ""
 
 #: src/keycode.cpp:307
 msgid "X"
-msgstr "X"
+msgstr ""
 
 #: src/keycode.cpp:308
 msgid "Y"
-msgstr "Y"
+msgstr ""
 
 #: src/keycode.cpp:309
 msgid "Z"
-msgstr "Z"
+msgstr ""
 
 #: src/keycode.cpp:310
 msgid "Left Windows"
-msgstr "Windows Esquerdo"
+msgstr ""
 
 #: src/keycode.cpp:311
 msgid "Right Windows"
-msgstr "Windows Direito"
+msgstr ""
 
 #: src/keycode.cpp:312
 msgid "Apps"
-msgstr "Aplicativos"
+msgstr ""
 
 #: src/keycode.cpp:313
 msgid "Sleep"
-msgstr "Sleep"
+msgstr ""
 
 #: src/keycode.cpp:314
 msgid "Numpad 0"
-msgstr "Teclado Numérico 0"
+msgstr ""
 
 #: src/keycode.cpp:315
 msgid "Numpad 1"
-msgstr "Teclado Numérico 1"
+msgstr ""
 
 #: src/keycode.cpp:316
 msgid "Numpad 2"
-msgstr "Teclado Numérico 2"
+msgstr ""
 
 #: src/keycode.cpp:317
 msgid "Numpad 3"
-msgstr "Teclado Numérico 3"
+msgstr ""
 
 #: src/keycode.cpp:318
 msgid "Numpad 4"
-msgstr "Teclado Numérico 4"
+msgstr ""
 
 #: src/keycode.cpp:319
 msgid "Numpad 5"
-msgstr "Teclado Numérico 5"
+msgstr ""
 
 #: src/keycode.cpp:320
 msgid "Numpad 6"
-msgstr "Teclado Numérico 6"
+msgstr ""
 
 #: src/keycode.cpp:321
 msgid "Numpad 7"
-msgstr "Teclado Numérico 7"
+msgstr ""
 
 #: src/keycode.cpp:322
 msgid "Numpad 8"
-msgstr "Teclado Numérico 8"
+msgstr ""
 
 #: src/keycode.cpp:323
 msgid "Numpad 9"
-msgstr "Teclado Numérico 9"
+msgstr ""
 
 #: src/keycode.cpp:324
 msgid "Numpad *"
-msgstr "Teclado Numérico *"
+msgstr ""
 
 #: src/keycode.cpp:325
 msgid "Numpad +"
-msgstr "Teclado Numérico +"
+msgstr ""
 
 #: src/keycode.cpp:326 src/keycode.cpp:329
 msgid "Numpad /"
-msgstr "Teclado Numérico /"
+msgstr ""
 
 #: src/keycode.cpp:327
 msgid "Numpad -"
-msgstr "Teclado Numérico -"
+msgstr ""
 
 #: src/keycode.cpp:328
 msgid "Numpad ."
-msgstr "Teclado Numérico ."
+msgstr ""
 
 #: src/keycode.cpp:330
 msgid "F10"
-msgstr "F10"
+msgstr ""
 
 #: src/keycode.cpp:331
 msgid "F11"
-msgstr "F11"
+msgstr ""
 
 #: src/keycode.cpp:332
 msgid "F12"
-msgstr "F12"
+msgstr ""
 
 #: src/keycode.cpp:333
 msgid "F13"
-msgstr "F13"
+msgstr ""
 
 #: src/keycode.cpp:334
 msgid "F14"
-msgstr "F14"
+msgstr ""
 
 #: src/keycode.cpp:335
 msgid "F15"
-msgstr "F15"
+msgstr ""
 
 #: src/keycode.cpp:336
 msgid "F16"
-msgstr "F16"
+msgstr ""
 
 #: src/keycode.cpp:337
 msgid "F17"
-msgstr "F17"
+msgstr ""
 
 #: src/keycode.cpp:338
 msgid "F18"
-msgstr "F18"
+msgstr ""
 
 #: src/keycode.cpp:339
 msgid "F19"
-msgstr "F19"
+msgstr ""
 
 #: src/keycode.cpp:340
 msgid "F20"
-msgstr "F20"
+msgstr ""
 
 #: src/keycode.cpp:341
 msgid "F21"
-msgstr "F21"
+msgstr ""
 
 #: src/keycode.cpp:342
 msgid "F22"
-msgstr "F22"
+msgstr ""
 
 #: src/keycode.cpp:343
 msgid "F23"
-msgstr "F23"
+msgstr ""
 
 #: src/keycode.cpp:344
 msgid "F24"
-msgstr "F24"
+msgstr ""
 
 #: src/keycode.cpp:345
 msgid "Num Lock"
-msgstr "Num Lock"
+msgstr ""
 
 #: src/keycode.cpp:346
 msgid "Scroll Lock"
-msgstr "Scroll Lock"
+msgstr ""
 
 #: src/keycode.cpp:347
 msgid "Left Shift"
-msgstr "Shift Esquerdo"
+msgstr ""
 
 #: src/keycode.cpp:348
 msgid "Right Shift"
-msgstr "Shift Direito"
+msgstr ""
 
 #: src/keycode.cpp:349
 msgid "Left Control"
-msgstr "Control Esquerdo"
+msgstr ""
 
 #: src/keycode.cpp:350
 msgid "Right Control"
-msgstr "Control Direito"
+msgstr ""
 
 #: src/keycode.cpp:351
 msgid "Left Menu"
-msgstr "Menu Esquerdo"
+msgstr ""
 
 #: src/keycode.cpp:352
 msgid "Right Menu"
-msgstr "Menu Direito"
+msgstr ""
 
 #: src/keycode.cpp:353
 msgid "Plus"
-msgstr "Sinal de Mais"
+msgstr ""
 
 #: src/keycode.cpp:354
 msgid "Comma"
-msgstr "Vírgula"
+msgstr ""
 
 #: src/keycode.cpp:355
 msgid "Minus"
-msgstr "Sinal de Menos"
+msgstr ""
 
 #: src/keycode.cpp:356
 msgid "Period"
-msgstr "Periodo"
+msgstr ""
 
 #: src/keycode.cpp:357
 msgid "Attn"
-msgstr "Attn"
+msgstr ""
 
 #: src/keycode.cpp:358
 msgid "CrSel"
-msgstr "CrSel"
+msgstr ""
 
 #: src/keycode.cpp:359
 msgid "ExSel"
-msgstr "ExSel"
+msgstr ""
 
 #: src/keycode.cpp:360
 msgid "Erase OEF"
-msgstr "Erase OEF"
+msgstr ""
 
 #: src/keycode.cpp:361
 msgid "Play"
-msgstr "Play"
+msgstr ""
 
 #: src/keycode.cpp:362
 msgid "Zoom"
-msgstr "Zoom"
+msgstr ""
 
 #: src/keycode.cpp:363
 msgid "PA1"
-msgstr "PA1"
+msgstr ""
 
 #: src/keycode.cpp:364
 msgid "OEM Clear"
-msgstr "OEM Clear"
+msgstr ""
 
 #: src/main.cpp:1135
 msgid "Setting Up UI"
-msgstr "Configurando Interface de Usuário"
+msgstr ""
 
 #: src/main.cpp:1158
 msgid "Loading MapNodes"
-msgstr "Carregando MapNodes"
+msgstr ""
 
 #: src/main.cpp:1160
 msgid "Loading Creatures"
-msgstr "Carregando Criaturas"
+msgstr ""
 
 #: src/main.cpp:1165
 msgid "Setting Up Sound"
-msgstr "Configuração de Som"
+msgstr ""
 
 #: src/mapnode.cpp:285
 msgid "Loading Base MapNodes"
-msgstr "Carregando MapNodes Básicos"
+msgstr ""
 
 #: src/mapnode.cpp:289
 msgid "Loading Circuit MapNodes"
-msgstr "Carregando MapNodes Circuitos"
+msgstr ""
 
 #: src/mapnode.cpp:293
 msgid "Loading Plant MapNodes"
-msgstr "Carregando Mapnodes Plantas"
+msgstr ""
 
 #: src/mapnode.cpp:297
 msgid "Loading Farming MapNodes"
-msgstr "Carregando MapNodes Agricultura"
+msgstr ""
 
 #: src/mapnode.cpp:301
 msgid "Loading Decorative MapNodes"
-msgstr "Carregando MapNodes Decorativos"
+msgstr ""
 
 #: src/mapnode.cpp:305
 msgid "Loading Interactive MapNodes"
-msgstr "Carregando MapNodes Interativos"
+msgstr ""
 
 #: src/mapnode.cpp:309
 msgid "Loading Special MapNodes"
-msgstr "Carregando MapNodes Especiais"
+msgstr ""
 
 #: src/mineral.cpp:93
 msgid "Coal"
-msgstr "Carvão"
+msgstr ""
 
 #: src/mineral.cpp:99
 msgid "Iron"
-msgstr "Ferro"
+msgstr ""
 
 #: src/mineral.cpp:106
 msgid "Tin"
-msgstr "Estanho"
+msgstr ""
 
 #: src/mineral.cpp:113
 msgid "Copper"
-msgstr "Cobre"
+msgstr ""
 
 #: src/mineral.cpp:121
 msgid "Silver"
-msgstr "Prata"
+msgstr ""
 
 #: src/mineral.cpp:128
 msgid "Gold"
-msgstr "Ouro"
+msgstr ""
 
 #: src/mineral.cpp:135
 msgid "Quartz"
-msgstr "Quartzo"
+msgstr ""
 
 #: src/mineral.cpp:157
 msgid "Turquoise"
-msgstr "Turquesa"
+msgstr ""
