@@ -349,6 +349,7 @@ void getPointedNode(Client *client,
 		/*
 			Meta-objects
 		*/
+		//TODO Test whether the distance of box-shootline intersection point and camera position is not larger than d*BS
 		if(n.getContent() == CONTENT_TORCH) {
 			v3s16 dir = unpackDir(n.param2);
 			v3f dir_f = v3f(dir.X, dir.Y, dir.Z);
