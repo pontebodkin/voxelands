@@ -248,296 +248,126 @@ public:
 };
 
 /*
-	Find what the player is pointing at
-*/
-void getPointedNode(Client *client,
-		v3f camera_direction,v3f camera_position,
-		bool &nodefound, core::line3d<f32> shootline,
-		v3s16 &nodepos, v3s16 &neighbourpos, v3s16 camera_offset,
-		core::aabbox3d<f32> &nodehilightbox,
-		f32 d)
-{
-	//inventory
-	InventoryItem *wield = (InventoryItem*)client->getLocalPlayer()->getWieldItem();
-	bool wield_is_hand = (wield == NULL);
-	bool wield_is_tool = (wield && wield->getContent()&CONTENT_TOOLITEM_MASK);
-	bool wield_is_craft = (wield && wield->getContent()&CONTENT_CRAFTITEM_MASK);
-	bool wield_is_material = (!wield_is_hand && !wield_is_tool && !wield_is_craft);
-	//initialize iteration
-	content_t content = CONTENT_IGNORE;
-	v3s16 cam_i = floatToInt(camera_position, BS);
-	//coordinates of current node
-	s16 x=cam_i.X;
-	s16 y=cam_i.Y;
-	s16 z=cam_i.Z;
-	s16 oldx=x;
-	s16 oldy=y;
-	s16 oldz=z;
-	v3f norm_pos=camera_position/BS;//divide by BS so one node is one unit
-	v3f norm_dir=v3f(camera_direction);
-	norm_dir.normalize();
-	norm_dir*=d;
-	f32 rx=2;//ratio by which we multiply norm_dir to hit node (ratio x)
-	f32 rxs=1;//incrementing rx by rxs gives the next node in x direction (ratio x step)
-	s16 xs=1;//incrementing rx involves incrementing x by xs (x step)
-	if(norm_dir.X>0){//set rx,rxs and xs
-		rx=(floorf(norm_pos.X-0.5)+1.5-norm_pos.X)/norm_dir.X;
-		rxs=1/norm_dir.X;
-	}else if(norm_dir.X<0){
-		rx=(floorf(norm_pos.X-0.5)-norm_pos.X+0.5)/norm_dir.X;
-		rxs=-1/norm_dir.X;
-		xs=-1;
-	}//other directions
-	f32 rz=2;
-	f32 rzs=1;
-	s16 zs=1;
-	if(norm_dir.Z>0){
-		rz=(floorf(norm_pos.Z-0.5)+1.5-norm_pos.Z)/norm_dir.Z;
-		rzs=1/norm_dir.Z;
-	}else if(norm_dir.Z<0){
-		rz=(floorf(norm_pos.Z-0.5)-norm_pos.Z+0.5)/norm_dir.Z;
-		rzs=-1/norm_dir.Z;
-		zs=-1;
+ * Creates a hilightbox for the given node
+ */
+void createHilightbox(Map *map, v3s16 nodepos,
+		v3s16 camera_offset, core::aabbox3d<f32> &nodehilightbox
+		){
+	MapNode n;
+	try
+	{
+		n = map->getNode(nodepos);
 	}
-	f32 ry=2;
-	f32 rys=1;
-	s16 ys=1;
-	if(norm_dir.Y>0){
-		ry=(floorf(norm_pos.Y-0.5)+1.5-norm_pos.Y)/norm_dir.Y;
-		rys=1/norm_dir.Y;
-	}else if(norm_dir.Y<0){
-		ry=(floorf(norm_pos.Y-0.5)-norm_pos.Y+0.5)/norm_dir.Y;
-		rys=-1/norm_dir.Y;
-		ys=-1;
+	catch(InvalidPositionException &e)
+	{
+		return;
 	}
-	//now iterate through nodes
-	do{
-		bool testable=true;
-		MapNode n;
-		try
-		{
-			n = client->getNode(v3s16(x,y,z));
-			if (content_features(n.getContent()).pointable == false) {
-				if (content_features(n.getContent()).liquid_type != LIQUID_SOURCE)
-					testable=false;
-				if (!wield || content_toolitem_features(wield->getContent()).liquids_pointable == false)
-					testable=false;
-			}else if (content_features(n.getContent()).material_pointable == false && wield_is_material) {
-				testable=false;
-			}
-		}
-		catch(InvalidPositionException &e)
-		{
-			testable=false;
-		}
-		//if node is valid
-		if(testable){
-		v3s16 np(x,y,z);
-		v3f npf = intToFloat(np, BS);
+	v3f npf = intToFloat(nodepos, BS);
 
-		f32 d = 0.01;
-
-		v3s16 dirs[6] = {
-			v3s16(0,0,1), // back
-			v3s16(0,1,0), // top
-			v3s16(1,0,0), // right
-			v3s16(0,0,-1), // front
-			v3s16(0,-1,0), // bottom
-			v3s16(-1,0,0), // left
-		};
-
-		/*
-			Meta-objects
-		*/
-		//TODO Test whether the distance of box-shootline intersection point and camera position is not larger than d*BS
-		if(n.getContent() == CONTENT_TORCH) {
-			v3s16 dir = unpackDir(n.param2);
-			v3f dir_f = v3f(dir.X, dir.Y, dir.Z);
-			dir_f *= BS/2 - BS/6 - BS/20;
-			v3f cpf = npf + dir_f;
-
+	/*
+		Meta-objects
+	*/
+	if(n.getContent() == CONTENT_TORCH) {
+		v3s16 dir = unpackDir(n.param2);
+		v3f dir_f = v3f(dir.X, dir.Y, dir.Z);
+		dir_f *= BS/2 - BS/6 - BS/20;
+		v3f cpf = npf + dir_f;
 			core::aabbox3d<f32> box;
-
 			// bottom
-			if(dir == v3s16(0,-1,0))
-			{
-				box = core::aabbox3d<f32>(
-					npf - v3f(BS/6, BS/2, BS/6),
-					npf + v3f(BS/6, -BS/2+BS/3*2, BS/6)
-				);
-			}
-			// top
-			else if(dir == v3s16(0,1,0))
-			{
-				box = core::aabbox3d<f32>(
-					npf - v3f(BS/6, -BS/2+BS/3*2, BS/6),
-					npf + v3f(BS/6, BS/2, BS/6)
-				);
-			}
-			// side
-			else
-			{
-				box = core::aabbox3d<f32>(
-					cpf - v3f(BS/6, BS/3, BS/6),
-					cpf + v3f(BS/6, BS/3, BS/6)
-				);
-			}
-			if(box.intersectsWithLine(shootline))
-			{
-				nodefound = true;
-				nodepos = np;
-				content = n.getContent();
-				neighbourpos = np;
-				box.MinEdge -= intToFloat(camera_offset,BS);
-				box.MaxEdge -= intToFloat(camera_offset,BS);
-				nodehilightbox = box;
-			}
-		}else if(n.getContent() == CONTENT_RAIL) {
-			float d = (float)BS/8;
-			v3f vertices[4] =
-			{
-				v3f(BS/2, -BS/2+d, -BS/2),
-				v3f(-BS/2, -BS/2, BS/2),
-			};
-
-			for(s32 i=0; i<2; i++)
-			{
-				vertices[i] += npf;
-			}
-
-			core::aabbox3d<f32> box;
-
-			box = core::aabbox3d<f32>(vertices[0]);
-			box.addInternalPoint(vertices[1]);
-
-			if(box.intersectsWithLine(shootline))
-			{
-				nodefound = true;
-				nodepos = np;
-				content = n.getContent();
-				neighbourpos = np;
-				box.MinEdge -= intToFloat(camera_offset,BS);
-				box.MaxEdge -= intToFloat(camera_offset,BS);
-				nodehilightbox = box;
-			}
-		/*
-			Roofs and Node boxes
-		*/
-		}else if (
-			content_features(n).draw_type == CDT_NODEBOX
-			|| content_features(n).draw_type == CDT_NODEBOX_META
-			|| content_features(n).draw_type == CDT_WIRELIKE
-			|| content_features(n).draw_type == CDT_3DWIRELIKE
-			|| content_features(n).draw_type == CDT_FENCELIKE
-			|| content_features(n).draw_type == CDT_WALLLIKE
-			|| content_features(n).draw_type == CDT_STAIRLIKE
-			|| content_features(n).draw_type == CDT_SLABLIKE
-			|| content_features(n).draw_type == CDT_FLAGLIKE
-		) {
-			aabb3f box;
-			aabb3f nhbox(0.5*BS,0.5*BS,0.5*BS,-0.5*BS,-0.5*BS,-0.5*BS);
-			bool hit = false;
-			std::vector<NodeBox> boxes = content_features(n).getNodeBoxes(n);
-			for (std::vector<NodeBox>::iterator b = boxes.begin(); b != boxes.end(); b++) {
-				box = b->m_box;
-				if (nhbox.MinEdge.X > box.MinEdge.X)
-					nhbox.MinEdge.X = box.MinEdge.X;
-				if (nhbox.MinEdge.Y > box.MinEdge.Y)
-					nhbox.MinEdge.Y = box.MinEdge.Y;
-				if (nhbox.MinEdge.Z > box.MinEdge.Z)
-					nhbox.MinEdge.Z = box.MinEdge.Z;
-				if (nhbox.MaxEdge.X < box.MaxEdge.X)
-					nhbox.MaxEdge.X = box.MaxEdge.X;
-				if (nhbox.MaxEdge.Y < box.MaxEdge.Y)
-					nhbox.MaxEdge.Y = box.MaxEdge.Y;
-				if (nhbox.MaxEdge.Z < box.MaxEdge.Z)
-					nhbox.MaxEdge.Z = box.MaxEdge.Z;
-				box.MinEdge += npf;
-				box.MaxEdge += npf;
-				if (box.intersectsWithLine(shootline)) {
-					for(u16 i=0; i<6; i++) {
-						v3f dir_f = v3f(dirs[i].X,
-								dirs[i].Y, dirs[i].Z);
-
-						core::CMatrix4<f32> m;
-						m.buildRotateFromTo(v3f(0,0,1), dir_f);
-
-						// This is the back face
-						v3f corners[2] = {
-							v3f(BS/2, BS/2, BS/2),
-							v3f(-BS/2, -BS/2, BS/2+d)
-						};
-						for(u16 j=0; j<2; j++)
-						{
-							m.rotateVect(corners[j]);
-							corners[j] += npf;
-						}
-						core::aabbox3d<f32> facebox(corners[0]);
-						facebox.addInternalPoint(corners[1]);
-
-						if(facebox.intersectsWithLine(shootline))
-						{
-							nodefound = true;
-							nodepos = np;
-							content = n.getContent();
-							neighbourpos = np + dirs[i];
-							hit = true;
-						}
-					} // for dirs
-				}
-			}
-			if (hit) {
-				nhbox.MinEdge -= 0.002;
-				nhbox.MaxEdge += 0.002;
-				v3f nodepos_f = intToFloat(nodepos-camera_offset, BS);
-				nhbox.MinEdge += nodepos_f;
-				nhbox.MaxEdge += nodepos_f;
-				nodehilightbox = nhbox;
-			}
-			boxes.clear();
-
-		/*
-			Regular blocks
-		*/
-		}else{
-			nodefound = true;
-			nodepos = np;
-			content = n.getContent();
-			neighbourpos.set(oldx,oldy,oldz);
-			const float d = 0.502;
-			core::aabbox3d<f32> nodebox
-					(-BS*d, -BS*d, -BS*d, BS*d, BS*d, BS*d);
-			v3f nodepos_f = intToFloat(nodepos-camera_offset, BS);
-			nodebox.MinEdge += nodepos_f;
-			nodebox.MaxEdge += nodepos_f;
-			nodehilightbox = nodebox;
-		} // regular block
-		} //testable
-		//if found node, it is the closest
-		if(nodefound)break;
-		//check if we can step forward
-		if(rx>1&&ry>1&&rz>1)break;
-		//step to next node
-		oldx=x;
-		oldy=y;
-		oldz=z;
-		if((rx<ry)&&(rx<rz)){
-			rx+=rxs;
-			x+=xs;
-		}else if(ry<rz){
-			ry+=rys;
-			y+=ys;
-		}else{
-			rz+=rzs;
-			z+=zs;
+		if(dir == v3s16(0,-1,0))
+		{
+			box = core::aabbox3d<f32>(
+				npf - v3f(BS/6, BS/2, BS/6),
+				npf + v3f(BS/6, -BS/2+BS/3*2, BS/6)
+			);
 		}
-	}while(true);
-	if (nodefound) {
-		client->setPointedNode(nodepos);
-		client->setPointedContent(content);
+		// top
+		else if(dir == v3s16(0,1,0))
+		{
+			box = core::aabbox3d<f32>(
+				npf - v3f(BS/6, -BS/2+BS/3*2, BS/6),
+				npf + v3f(BS/6, BS/2, BS/6)
+			);
+		}
+		// side
+		else
+		{
+			box = core::aabbox3d<f32>(
+				cpf - v3f(BS/6, BS/3, BS/6),
+				cpf + v3f(BS/6, BS/3, BS/6)
+			);
+		}
+		box.MinEdge -= intToFloat(camera_offset,BS);
+		box.MaxEdge -= intToFloat(camera_offset,BS);
+		nodehilightbox = box;
+	}else if(n.getContent() == CONTENT_RAIL) {
+		float d = (float)BS/8;
+		v3f vertices[4] =
+		{
+			v3f(BS/2, -BS/2+d, -BS/2),
+			v3f(-BS/2, -BS/2, BS/2),
+		};
+		for(s32 i=0; i<2; i++)
+		{
+			vertices[i] += npf;
+		}
+		core::aabbox3d<f32> box;
+		box = core::aabbox3d<f32>(vertices[0]);
+		box.addInternalPoint(vertices[1]);
+		box.MinEdge -= intToFloat(camera_offset,BS);
+		box.MaxEdge -= intToFloat(camera_offset,BS);
+		nodehilightbox = box;
+	/*
+	Roofs and Node boxes
+	*/
+	}else if (
+		content_features(n).draw_type == CDT_NODEBOX
+		|| content_features(n).draw_type == CDT_NODEBOX_META
+		|| content_features(n).draw_type == CDT_WIRELIKE
+		|| content_features(n).draw_type == CDT_3DWIRELIKE
+		|| content_features(n).draw_type == CDT_FENCELIKE
+		|| content_features(n).draw_type == CDT_WALLLIKE
+		|| content_features(n).draw_type == CDT_STAIRLIKE
+		|| content_features(n).draw_type == CDT_SLABLIKE
+		|| content_features(n).draw_type == CDT_FLAGLIKE
+	) {
+		aabb3f box;
+		aabb3f nhbox(0.5*BS,0.5*BS,0.5*BS,-0.5*BS,-0.5*BS,-0.5*BS);
+		std::vector<NodeBox> boxes = content_features(n).getNodeBoxes(n);
+		for (std::vector<NodeBox>::iterator b = boxes.begin(); b != boxes.end(); b++) {
+			box = b->m_box;
+			if (nhbox.MinEdge.X > box.MinEdge.X)
+				nhbox.MinEdge.X = box.MinEdge.X;
+			if (nhbox.MinEdge.Y > box.MinEdge.Y)
+				nhbox.MinEdge.Y = box.MinEdge.Y;
+			if (nhbox.MinEdge.Z > box.MinEdge.Z)
+				nhbox.MinEdge.Z = box.MinEdge.Z;
+			if (nhbox.MaxEdge.X < box.MaxEdge.X)
+				nhbox.MaxEdge.X = box.MaxEdge.X;
+			if (nhbox.MaxEdge.Y < box.MaxEdge.Y)
+				nhbox.MaxEdge.Y = box.MaxEdge.Y;
+			if (nhbox.MaxEdge.Z < box.MaxEdge.Z)
+				nhbox.MaxEdge.Z = box.MaxEdge.Z;
+		}
+		nhbox.MinEdge -= 0.002;
+		nhbox.MaxEdge += 0.002;
+		v3f nodepos_f = intToFloat(nodepos-camera_offset, BS);
+		nhbox.MinEdge += nodepos_f;
+		nhbox.MaxEdge += nodepos_f;
+		nodehilightbox = nhbox;
+		boxes.clear();
+	/*
+	Regular blocks
+	 */
 	}else{
-		client->setPointedContent(CONTENT_IGNORE);
-	}
+		const float d = 0.502;
+		core::aabbox3d<f32> nodebox
+				(-BS*d, -BS*d, -BS*d, BS*d, BS*d, BS*d);
+		v3f nodepos_f = intToFloat(nodepos-camera_offset, BS);
+		nodebox.MinEdge += nodepos_f;
+		nodebox.MaxEdge += nodepos_f;
+		nodehilightbox = nodebox;
+	} // regular block
 }
 
 /*
@@ -1552,82 +1382,101 @@ void the_game(
 			*/
 
 			f32 d = 4; // max. distance
-			core::line3d<f32> shootline(camera_position, camera_position + camera_direction * BS * (d+1));
-
+			core::line3d<f32> shootline(camera_position, camera_position + camera_direction * BS * d);
+			//which is closer: the active object or the block?
 			ClientActiveObject *selected_active_object = client.getSelectedActiveObject(d*BS, camera_position, shootline);
-
-			if (selected_active_object != NULL) {
-				has_selected_node = false;
-				client.setPointedContent(selected_active_object->getContent());
-				/* Clear possible cracking animation */
+			f32 active_object_distance=(d+10)*BS;
+			if(selected_active_object!=NULL)
+				active_object_distance=(selected_active_object->getPosition()-camera_position).getLength();
+			//search node
+			bool nodefound = false;
+			v3s16 nodepos;
+			v3s16 neighbourpos;
+			core::aabbox3d<f32> nodehilightbox;
+			content_t content=CONTENT_IGNORE;
+			//inventory test
+			InventoryItem *wield = (InventoryItem*)client.getLocalPlayer()->getWieldItem();
+			bool wield_is_hand = (wield == NULL);
+			bool wield_is_tool = (wield && wield->getContent()&CONTENT_TOOLITEM_MASK);
+			bool wield_is_craft = (wield && wield->getContent()&CONTENT_CRAFTITEM_MASK);
+			bool wield_is_material = (!wield_is_hand && !wield_is_tool && !wield_is_craft);
+			bool ignore_liquids=!wield || content_toolitem_features(wield->getContent()).liquids_pointable == false;
+			client.getEnv().getMap().raycast(
+					camera_direction, camera_position, d,
+					ignore_liquids,wield_is_material,
+					nodefound, nodepos, neighbourpos);
+			f32 node_distance=(d+10)*BS;
+			if(nodefound){
+				node_distance=(intToFloat(nodepos, BS)-camera_position).getLength();
+			}
+			if(active_object_distance<node_distance)
+				nodefound=false;
+			else
+				selected_active_object=NULL;
+			if(!nodefound){
 				if (nodepos_old != v3s16(-32768,-32768,-32768)) {
 					dig_time = 0.0;
 					nodepos_old = v3s16(-32768,-32768,-32768);
 				}
-
-				core::aabbox3d<f32> *selection_box
-						= selected_active_object->getSelectionBox();
-				// Box should exist because object was returned in the
-				// first place
-				assert(selection_box);
-
-				v3f pos = selected_active_object->getPosition()-intToFloat(camera_offset,BS);
-
-				core::aabbox3d<f32> box_on_map(
-						selection_box->MinEdge + pos,
-						selection_box->MaxEdge + pos
-				);
-
-				if (selected_active_object->doShowSelectionBox())
-					hilightboxes.push_back(box_on_map);
-
-				infotext = narrow_to_wide(selected_active_object->infoText());
-
-				if (input->getLeftState()) {
-					bool do_punch = false;
-					bool do_punch_damage = false;
-					if (object_hit_delay_timer <= 0.0){
-						do_punch = true;
-						do_punch_damage = true;
-						object_hit_delay_timer = object_hit_delay;
-					}
-					if (input->getLeftClicked()) {
-						do_punch = true;
-					}
-					if (do_punch) {
-						infostream<<"Left-clicked object"<<std::endl;
-						left_punch = true;
-					}
-					if (do_punch_damage) {
-						client.clickActiveObject(0, selected_active_object->getId(), g_selected_item);
-					}
-				}else if (input->getRightClicked()) {
-					infostream<<"Right-clicked object"<<std::endl;
-					client.clickActiveObject(1, selected_active_object->getId(), g_selected_item);
-				}
-			}else{ // selected_object == NULL
-				/*
-					Find out which node we are pointing at
-				*/
-
-				bool nodefound = false;
-				v3s16 nodepos;
-				v3s16 neighbourpos;
-				core::aabbox3d<f32> nodehilightbox;
-
-				getPointedNode(&client,
-						camera_direction, camera_position,
-						nodefound, shootline,
-						nodepos, neighbourpos, camera_offset,
-						nodehilightbox, d);
-
-				if (!nodefound) {
+				has_selected_node = false;
+			}
+			if(selected_active_object != NULL) {
+					has_selected_node = false;
+					client.setPointedContent(selected_active_object->getContent());
+					/* Clear possible cracking animation */
 					if (nodepos_old != v3s16(-32768,-32768,-32768)) {
 						dig_time = 0.0;
 						nodepos_old = v3s16(-32768,-32768,-32768);
 					}
-					has_selected_node = false;
-				}else{
+
+					core::aabbox3d<f32> *selection_box
+					= selected_active_object->getSelectionBox();
+					// Box should exist because object was returned in the
+					// first place
+					assert(selection_box);
+
+					v3f pos = selected_active_object->getPosition()-intToFloat(camera_offset,BS);
+
+					core::aabbox3d<f32> box_on_map(
+							selection_box->MinEdge + pos,
+							selection_box->MaxEdge + pos
+					);
+
+					if (selected_active_object->doShowSelectionBox())
+						hilightboxes.push_back(box_on_map);
+
+					infotext = narrow_to_wide(selected_active_object->infoText());
+
+					if (input->getLeftState()) {
+						bool do_punch = false;
+						bool do_punch_damage = false;
+						if (object_hit_delay_timer <= 0.0){
+							do_punch = true;
+							do_punch_damage = true;
+							object_hit_delay_timer = object_hit_delay;
+						}
+						if (input->getLeftClicked()) {
+							do_punch = true;
+						}
+						if (do_punch) {
+							infostream<<"Left-clicked object"<<std::endl;
+							left_punch = true;
+						}
+						if (do_punch_damage) {
+							client.clickActiveObject(0, selected_active_object->getId(), g_selected_item);
+						}
+					}else if (input->getRightClicked()) {
+						infostream<<"Right-clicked object"<<std::endl;
+						client.clickActiveObject(1, selected_active_object->getId(), g_selected_item);
+					}
+
+			}else{ // selected_active_object==NULL
+				if(nodefound){
+					content=client.getEnv().getMap().getNode(nodepos).getContent();
+					createHilightbox(&client.getEnv().getMap(),nodepos,
+							camera_offset,nodehilightbox);
+					client.setPointedNode(nodepos);
+					client.setPointedContent(content);
 					has_selected_node = true;
 					if (nodepos != selected_node_pos)
 						selected_node_crack = 0;
@@ -1800,8 +1649,9 @@ void the_game(
 					}
 
 					nodepos_old = nodepos;
+				}else{
+					client.setPointedContent(CONTENT_IGNORE);
 				}
-
 			} // selected_object == NULL
 		}
 
