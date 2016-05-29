@@ -293,6 +293,24 @@ public:
 	*/
 	core::map<v2s16, MapSector*> *getSectorsPtr(){return &m_sectors;}
 
+
+	//!Finds the nearest node from a position in a given direction.
+	/**
+	 *\param camera_direction: direction of ray
+	 *\param camera_position: starting point of ray
+	 *\param d: maximal distance of the search
+	 *\param ignore_liquids: if true, liquids are invisible
+	 *\param ignore_not_material_pointable: if true, nodes which are not
+	 *	material_pointable will be invisible
+	 *\param nodefound: true if a node was found
+	 *\param nodepos: the integer coordinates of found node
+	 *\param neighbourpos: the node in front of the found node
+	 */
+	void raycast(v3f camera_direction,
+			v3f camera_position, f32 d,
+			bool ignore_liquids, bool ignore_not_material_pointable,
+			bool &nodefound, v3s16 &nodepos, v3s16 &neighbourpos);
+
 	/*
 		Variables
 	*/
