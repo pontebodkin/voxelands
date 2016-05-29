@@ -124,6 +124,7 @@ void set_default_settings(Settings *settings)
 	settings->setDefault("max_users", "20");
 	settings->setDefault("strict_protocol_version_checking", "false");
 	settings->setDefault("disallow_empty_passwords","false");
+	settings->setDefault("disallow_unknown_users","false");
 	settings->setDefault("fixed_map_seed", "");
 	settings->setDefault("default_password", "");
 	settings->setDefault("default_privs", "build, shout");
