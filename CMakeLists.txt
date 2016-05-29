@@ -34,6 +34,7 @@ endif()
 set(REBUILD_ICNS 0 CACHE BOOL "Rebuild icns from voxelands.svg .")
 
 set(CPU_OPTS 0 CACHE BOOL "Enable CPU optimizations")
+set(CPUTYPE native CACHE STRING "CPU to optimize for")
 set(ENABLE_SSP 1 CACHE BOOL "Enable stack smashing protection")
 set(ENABLE_SAFESTACK 1 CACHE BOOL "Enable SafeStack if supported (LLVM only)")
 set(ENABLE_PIE 0 CACHE BOOL "Produce a Position Independent Executable")

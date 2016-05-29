@@ -312,8 +312,8 @@ bool UDPSocket::WaitData(int timeout_ms)
 
 	// Initialize time out struct
 	struct timeval tv;
-	tv.tv_sec = 0;
-	tv.tv_usec = timeout_ms * 1000;
+	tv.tv_sec = floor(timeout_ms / 1000) ;
+	tv.tv_usec = 1000 * (timeout_ms % 1000);
 	// select()
 	result = select(m_handle+1, &readset, NULL, NULL, &tv);
 
@@ -574,8 +574,8 @@ bool TCPSocket::WaitData(int timeout_ms)
 
 	// Initialize time out struct
 	struct timeval tv;
-	tv.tv_sec = 0;
-	tv.tv_usec = timeout_ms * 1000;
+	tv.tv_sec = floor(timeout_ms / 1000);
+	tv.tv_usec = 1000 * (timeout_ms % 1000);
 
 	if (m_bstart != m_bend)
 		return true;
