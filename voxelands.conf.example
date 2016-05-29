@@ -212,6 +212,8 @@
 #default_password =
 # Don't let players join with an empty password
 #disallow_empty_passwords = false
+# Don't let players join without a entry on the auth.txt (should be used with disallow_empty_passwords = true)
+#disallow_unknown_users = false
 # Available privileges: build, teleport, settime, privs, shout
 #default_privs = build, shout
 # enable a static spawnpoint (default unset)
