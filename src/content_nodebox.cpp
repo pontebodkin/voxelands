@@ -74,6 +74,106 @@ void content_nodebox_stairud(ContentFeatures *f)
 	));
 }
 
+void content_nodebox_stair_corner(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.25*BS,-0.25*BS,0.25*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0*BS,0*BS,0*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.25*BS,0.25*BS,-0.25*BS,0.5*BS,0.5*BS
+	));
+}
+
+void content_nodebox_stair_cornerud(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.5*BS,0.25*BS,-0.5*BS,0.5*BS,0.5*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0*BS,-0.25*BS,0.25*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.25*BS,0*BS,0*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,0.25*BS,-0.25*BS,-0.25*BS,0.5*BS
+	));
+}
+
+void content_nodebox_inner_stair_corner(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.25*BS,-0.5*BS,0.25*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		0.25*BS,-0.25*BS,-0.25*BS,0.5*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0*BS,-0.5*BS,0*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		0*BS,0*BS,0*BS,0.5*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.25*BS,-0.5*BS,-0.25*BS,0.5*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,0.25*BS,0.25*BS,0.5*BS,0.5*BS,0.5*BS
+	));
+}
+
+void content_nodebox_inner_stair_cornerud(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.5*BS,0.25*BS,-0.5*BS,0.5*BS,0.5*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0*BS,-0.5*BS,0.25*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		0.25*BS,0*BS,-0.25*BS,0.5*BS,0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.25*BS,-0.5*BS,0*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		0*BS,-0.25*BS,0*BS,0.5*BS,0*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.5*BS,-0.25*BS,-0.25*BS,0.5*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.5*BS,0.25*BS,0.5*BS,-0.25*BS,0.5*BS
+	));
+}
+
 void content_nodebox_slab(ContentFeatures *f)
 {
 	f->setNodeBox(NodeBox(
