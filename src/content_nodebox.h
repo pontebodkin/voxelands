@@ -5,6 +5,10 @@ struct ContentFeatures;
 
 void content_nodebox_stair(ContentFeatures *f);
 void content_nodebox_stairud(ContentFeatures *f);
+void content_nodebox_stair_corner(ContentFeatures *f);
+void content_nodebox_stair_cornerud(ContentFeatures *f);
+void content_nodebox_inner_stair_corner(ContentFeatures *f);
+void content_nodebox_inner_stair_cornerud(ContentFeatures *f);
 void content_nodebox_slab(ContentFeatures *f);
 void content_nodebox_slabud(ContentFeatures *f);
 void content_nodebox_door(ContentFeatures *f);
