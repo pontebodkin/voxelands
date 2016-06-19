@@ -2647,7 +2647,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2671,7 +2671,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2687,7 +2687,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2704,7 +2704,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2727,7 +2727,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2742,7 +2742,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3167,7 +3167,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3184,7 +3184,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3200,7 +3200,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 12";
+				  itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3216,7 +3216,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3232,7 +3232,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3247,7 +3247,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 12");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
