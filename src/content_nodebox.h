@@ -83,5 +83,11 @@ void content_nodebox_chair_endr(ContentFeatures *f);
 void content_nodebox_chair_inner(ContentFeatures *f);
 void content_nodebox_chair_outer(ContentFeatures *f);
 void content_nodebox_table(ContentFeatures *f);
+void content_nodebox_column_square(ContentFeatures *f);
+void content_nodebox_column_square_base(ContentFeatures *f);
+void content_nodebox_column_square_top(ContentFeatures *f);
+void content_nodebox_column_cross(ContentFeatures *f);
+void content_nodebox_column_cross_base(ContentFeatures *f);
+void content_nodebox_column_cross_top(ContentFeatures *f);
 
 #endif

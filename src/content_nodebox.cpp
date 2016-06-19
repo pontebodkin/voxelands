@@ -1940,3 +1940,101 @@ void content_nodebox_table(ContentFeatures *f)
 		-0.25*BS,-0.375*BS,-0.3125*BS,0.25*BS,-0.28125*BS,-0.28125*BS
 	));
 }
+
+void content_nodebox_column_square(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.25*BS,-0.5*BS,-0.25*BS,0.25*BS,0.5*BS,0.25*BS
+	));
+}
+
+void content_nodebox_column_square_base(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.375*BS,-0.5*BS,-0.375*BS,0.375*BS,-0.375*BS,0.375*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.25*BS,-0.25*BS,0.25*BS,0.5*BS,0.25*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.3125*BS,-0.375*BS,-0.3125*BS,0.3125*BS,-0.25*BS,0.3125*BS
+	));
+}
+
+void content_nodebox_column_square_top(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.375*BS,0.375*BS,-0.375*BS,0.375*BS,0.5*BS,0.375*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.5*BS,-0.25*BS,0.25*BS,0.25*BS,0.25*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.3125*BS,0.25*BS,-0.3125*BS,0.3125*BS,0.375*BS,0.3125*BS
+	));
+}
+
+void content_nodebox_column_cross(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.1875*BS,-0.5*BS,-0.1875*BS,0.1875*BS,0.5*BS,0.1875*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.5*BS,-0.25*BS,0.0625*BS,0.5*BS,0.25*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.5*BS,-0.0625*BS,0.25*BS,0.5*BS,0.0625*BS
+	));
+}
+
+void content_nodebox_column_cross_base(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.375*BS,-0.5*BS,-0.375*BS,0.375*BS,-0.375*BS,0.375*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.1875*BS,-0.25*BS,-0.1875*BS,0.1875*BS,0.5*BS,0.1875*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.3125*BS,-0.375*BS,-0.3125*BS,0.3125*BS,-0.25*BS,0.3125*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.25*BS,-0.25*BS,0.0625*BS,0.5*BS,0.25*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.25*BS,-0.0625*BS,0.25*BS,0.5*BS,0.0625*BS
+	));
+}
+
+void content_nodebox_column_cross_top(ContentFeatures *f)
+{
+	f->setNodeBox(NodeBox(
+		-0.375*BS,0.375*BS,-0.375*BS,0.375*BS,0.5*BS,0.375*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.1875*BS,-0.5*BS,-0.1875*BS,0.1875*BS,0.25*BS,0.1875*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.3125*BS,0.25*BS,-0.3125*BS,0.3125*BS,0.375*BS,0.3125*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.5*BS,-0.25*BS,0.0625*BS,0.25*BS,0.25*BS
+	));
+
+	f->addNodeBox(NodeBox(
+		-0.25*BS,-0.5*BS,-0.0625*BS,0.25*BS,0.25*BS,0.0625*BS
+	));
+}
