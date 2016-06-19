@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Deuce <ntg255@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-29 23:13+1000\n"
+"POT-Creation-Date: 2016-06-19 17:56+1000\n"
 "PO-Revision-Date: 2016-04-29 13:15+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Vietnamese (http://www.transifex.com/voxelands/voxelands/language/vi/)\n"
+"Language-Team: Vietnamese (http://www.transifex.com/voxelands/voxelands/"
+"language/vi/)\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/character_creator.cpp:55
@@ -228,9 +229,18 @@ msgstr "Giày thể thao"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
+"Here you can create your default character, this is how other players will "
+"see you in-game. When you join a new server you will start with the clothing "
+"you select here. Additional clothing, both protective and decorative, can be "
+"crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr "Ở đây bạn có thể làm người bạn. Đây là cách người khác sẽ nhìn thấy bạn trong trò chơi. Khi bạn vào server mới, bạn sẽ bắt đầu với những quần áo bạn chọn ở đây. Quần áo thêm, cho bảo vệ và ngoại hình, có thể được làm trong trò chơi.\n Bạn có thể trở lại đây từ thực đơn chính lúc nào để thay quần áo bạn và các tính năng trên khuôn mặt."
+msgstr ""
+"Ở đây bạn có thể làm người bạn. Đây là cách người khác sẽ nhìn thấy bạn "
+"trong trò chơi. Khi bạn vào server mới, bạn sẽ bắt đầu với những quần áo bạn "
+"chọn ở đây. Quần áo thêm, cho bảo vệ và ngoại hình, có thể được làm trong "
+"trò chơi.\n"
+" Bạn có thể trở lại đây từ thực đơn chính lúc nào để thay quần áo bạn và các "
+"tính năng trên khuôn mặt."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1985,6 +1995,51 @@ msgstr "Đá lát"
 msgid "Wood Tiles"
 msgstr "Gạch mem gỗ"
 
+#: src/content_mapnode.cpp:2473
+#, fuzzy
+msgid "Stone Column"
+msgstr "Cái bay bằng đá"
+
+#: src/content_mapnode.cpp:2530
+#, fuzzy
+msgid "Limestone Column"
+msgstr "Đá vôi"
+
+#: src/content_mapnode.cpp:2587
+#, fuzzy
+msgid "Marble Column"
+msgstr "Đá cẩm thạch"
+
+#: src/content_mapnode.cpp:2644
+#, fuzzy
+msgid "Sandstone Column"
+msgstr "Buả đấm bằng sa thạch"
+
+#: src/content_mapnode.cpp:2702
+#, fuzzy
+msgid "Brick Column"
+msgstr "Miếng gạch"
+
+#: src/content_mapnode.cpp:2757
+#, fuzzy
+msgid "Wood Column"
+msgstr "Tấm ván gỗ"
+
+#: src/content_mapnode.cpp:2824
+#, fuzzy
+msgid "Jungle Wood Column"
+msgstr "Tấm ván gỗ cây cọ"
+
+#: src/content_mapnode.cpp:2891
+#, fuzzy
+msgid "Pine Wood Column"
+msgstr "Tấm ván gỗ cây cọ"
+
+#: src/content_mapnode.cpp:2958
+#, fuzzy
+msgid "Rough Stone Column"
+msgstr "Buả đấm bằng đá nham"
+
 #: src/content_mapnode_circuit.cpp:36
 msgid "Mithril Wire"
 msgstr "Dây mithril"
@@ -2846,35 +2901,35 @@ msgstr "Lửa lò rèn"
 msgid "Rough Stone Stair"
 msgstr "Cầu thang đá nhám"
 
-#: src/content_mapnode_stair.cpp:53
+#: src/content_mapnode_stair.cpp:55
 msgid "Cobble Stone Stair"
 msgstr "Cầu thang đá sỏi"
 
-#: src/content_mapnode_stair.cpp:69
+#: src/content_mapnode_stair.cpp:73
 msgid "Mossy Cobble Stone Stair"
 msgstr "Cầu thang đá sỏi có rêu"
 
-#: src/content_mapnode_stair.cpp:85
+#: src/content_mapnode_stair.cpp:91
 msgid "Stone Stair"
 msgstr "Cầu thang đá"
 
-#: src/content_mapnode_stair.cpp:102
+#: src/content_mapnode_stair.cpp:110
 msgid "Wood Stair"
 msgstr "Cầu thang gỗ"
 
-#: src/content_mapnode_stair.cpp:120
+#: src/content_mapnode_stair.cpp:130
 msgid "Jungle Wood Stair"
 msgstr "Cầu thang gỗ cây cọ"
 
-#: src/content_mapnode_stair.cpp:138
+#: src/content_mapnode_stair.cpp:150
 msgid "Brick Stair"
 msgstr "Cầu thang gạch"
 
-#: src/content_mapnode_stair.cpp:159
+#: src/content_mapnode_stair.cpp:173
 msgid "Sand Stone Stair"
 msgstr "Cầu thang sa thạch"
 
-#: src/content_mapnode_stair.cpp:175
+#: src/content_mapnode_stair.cpp:191
 msgid "Limestone Stair"
 msgstr "Cầu thang đá vôi"
 
@@ -3370,137 +3425,137 @@ msgstr ""
 msgid "Change Clothing"
 msgstr ""
 
-#: src/game.cpp:591
+#: src/game.cpp:404
 msgid "Loading"
 msgstr ""
 
-#: src/game.cpp:663
+#: src/game.cpp:476
 msgid "Loading..."
 msgstr ""
 
-#: src/game.cpp:672
+#: src/game.cpp:485
 msgid "Creating server..."
 msgstr ""
 
-#: src/game.cpp:683
+#: src/game.cpp:496
 msgid "Creating client..."
 msgstr ""
 
-#: src/game.cpp:688
+#: src/game.cpp:501
 msgid "Resolving address..."
 msgstr ""
 
-#: src/game.cpp:699
+#: src/game.cpp:512
 msgid "Couldn't resolve address"
 msgstr ""
 
-#: src/game.cpp:739
+#: src/game.cpp:552
 #, c-format
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
 msgstr[0] ""
 
-#: src/game.cpp:768
+#: src/game.cpp:581
 #, c-format
 msgid "Access denied. Reason: %ls"
 msgstr ""
 
-#: src/game.cpp:772
+#: src/game.cpp:585
 msgid "Unable to Connect (port already in use?)."
 msgstr ""
 
-#: src/game.cpp:775
+#: src/game.cpp:588
 msgid "Connection timed out."
 msgstr ""
 
-#: src/game.cpp:928
+#: src/game.cpp:741
 msgid "Access denied. Reason: "
 msgstr ""
 
-#: src/game.cpp:1162
+#: src/game.cpp:975
 msgid "free_move disabled"
 msgstr ""
 
-#: src/game.cpp:1166
+#: src/game.cpp:979
 msgid "free_move enabled"
 msgstr ""
 
-#: src/game.cpp:1178
+#: src/game.cpp:991
 #, c-format
 msgid "Saved screenshot to '%s'"
 msgstr ""
 
-#: src/game.cpp:1190
+#: src/game.cpp:1003
 msgid "HUD shown"
 msgstr ""
 
-#: src/game.cpp:1192
+#: src/game.cpp:1005
 msgid "HUD hidden"
 msgstr ""
 
-#: src/game.cpp:1198
+#: src/game.cpp:1011
 msgid "Chat shown"
 msgstr ""
 
-#: src/game.cpp:1200
+#: src/game.cpp:1013
 msgid "Chat hidden"
 msgstr ""
 
-#: src/game.cpp:1206
+#: src/game.cpp:1019
 msgid "Fog disabled"
 msgstr ""
 
-#: src/game.cpp:1208
+#: src/game.cpp:1021
 msgid "Fog enabled"
 msgstr ""
 
-#: src/game.cpp:1214
+#: src/game.cpp:1027
 msgid "Camera update disabled"
 msgstr ""
 
-#: src/game.cpp:1216
+#: src/game.cpp:1029
 msgid "Camera update enabled"
 msgstr ""
 
-#: src/game.cpp:1226
+#: src/game.cpp:1039
 msgid "Debug info shown"
 msgstr ""
 
-#: src/game.cpp:1231
+#: src/game.cpp:1044
 msgid "Debug info and frametime graph hidden"
 msgstr ""
 
-#: src/game.cpp:1235
+#: src/game.cpp:1048
 msgid "Frametime graph shown"
 msgstr ""
 
-#: src/game.cpp:1247
+#: src/game.cpp:1060
 #, c-format
 msgid "Profiler shown (page %d of %d)"
 msgstr ""
 
-#: src/game.cpp:1251
+#: src/game.cpp:1064
 msgid "Profiler hidden"
 msgstr ""
 
-#: src/game.cpp:1259 src/game.cpp:1270
+#: src/game.cpp:1072 src/game.cpp:1083
 #, c-format
 msgid "Minimum viewing range changed to %d"
 msgstr ""
 
-#: src/game.cpp:1339
+#: src/game.cpp:1152
 msgid "Enabled full viewing range"
 msgstr ""
 
-#: src/game.cpp:1343
+#: src/game.cpp:1156
 msgid "Disabled full viewing range"
 msgstr ""
 
-#: src/game.cpp:1951
+#: src/game.cpp:1784
 msgid "Disconnected (Network Timeout)"
 msgstr ""
 
-#: src/game.cpp:2385
+#: src/game.cpp:2218
 msgid "Shutting down..."
 msgstr ""
 
@@ -3698,7 +3753,10 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr "Voxelands\nhttp://www.voxelands.com/\nĐược làm bởi Lisa 'darkrose' Milne <lisa@ltmnet.com> và người giúp sức khác"
+msgstr ""
+"Voxelands\n"
+"http://www.voxelands.com/\n"
+"Được làm bởi Lisa 'darkrose' Milne <lisa@ltmnet.com> và người giúp sức khác"
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3731,8 +3789,15 @@ msgstr "Người giúp sức khác, và cảm ơn đặc biệt"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr "Có nguồn gốc từ Minetest-C55 được làm bởi Perttu Ahola <celeron55@gmail.com>\nvà người giúp sức: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... và nhiều người ngẫu nhiên hơn!"
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
+"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
+"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr ""
+"Có nguồn gốc từ Minetest-C55 được làm bởi Perttu Ahola <celeron55@gmail."
+"com>\n"
+"và người giúp sức: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
+"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
+"Neuschafer, thexyz, VanessaE, sfan5... và nhiều người ngẫu nhiên hơn!"
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"

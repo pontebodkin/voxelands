@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Robert Wolniak <robert.wolniak@gmail.com>, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-29 23:13+1000\n"
+"POT-Creation-Date: 2016-06-19 17:56+1000\n"
 "PO-Revision-Date: 2016-04-29 13:15+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Polish (http://www.transifex.com/voxelands/voxelands/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/voxelands/voxelands/language/"
+"pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: src/character_creator.cpp:55
 msgid "White Skin"
@@ -228,9 +230,17 @@ msgstr "Buty Z Materiału"
 
 #: src/character_creator.cpp:202
 msgid ""
-"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
+"Here you can create your default character, this is how other players will "
+"see you in-game. When you join a new server you will start with the clothing "
+"you select here. Additional clothing, both protective and decorative, can be "
+"crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr "W tym okienku możesz stworzyć swoją domyślną postać tak, jak będzie widziana przez innych graczy. Po dołączeniu do dowolnego serwera, twoja postać będzie ubrana tak samo jak tutaj. Pozostałe ubrania, tak obronne jak i ozdobne, można stworzyć podczas gry.\nMożesz tu wrócić w dowolnym momencie z poziomu Menu Głównego."
+msgstr ""
+"W tym okienku możesz stworzyć swoją domyślną postać tak, jak będzie widziana "
+"przez innych graczy. Po dołączeniu do dowolnego serwera, twoja postać będzie "
+"ubrana tak samo jak tutaj. Pozostałe ubrania, tak obronne jak i ozdobne, "
+"można stworzyć podczas gry.\n"
+"Możesz tu wrócić w dowolnym momencie z poziomu Menu Głównego."
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
@@ -1985,6 +1995,51 @@ msgstr "Kamienne Płytki"
 msgid "Wood Tiles"
 msgstr "Drewniane Płytki"
 
+#: src/content_mapnode.cpp:2473
+#, fuzzy
+msgid "Stone Column"
+msgstr "Kamienna Kielnia"
+
+#: src/content_mapnode.cpp:2530
+#, fuzzy
+msgid "Limestone Column"
+msgstr "Płyta Wapienna"
+
+#: src/content_mapnode.cpp:2587
+#, fuzzy
+msgid "Marble Column"
+msgstr "Marmur"
+
+#: src/content_mapnode.cpp:2644
+#, fuzzy
+msgid "Sandstone Column"
+msgstr "Gałka Z Piaskowca"
+
+#: src/content_mapnode.cpp:2702
+#, fuzzy
+msgid "Brick Column"
+msgstr "Ceglasta Płyta"
+
+#: src/content_mapnode.cpp:2757
+#, fuzzy
+msgid "Wood Column"
+msgstr "Drewniana Buława"
+
+#: src/content_mapnode.cpp:2824
+#, fuzzy
+msgid "Jungle Wood Column"
+msgstr "Deska z Drzewa Dżunglowego"
+
+#: src/content_mapnode.cpp:2891
+#, fuzzy
+msgid "Pine Wood Column"
+msgstr "Deska z Drzewa Dżunglowego"
+
+#: src/content_mapnode.cpp:2958
+#, fuzzy
+msgid "Rough Stone Column"
+msgstr "Nieobrobiona Kamienna Gałka"
+
 #: src/content_mapnode_circuit.cpp:36
 msgid "Mithril Wire"
 msgstr "Kabel z Mithrilu"
@@ -2846,35 +2901,35 @@ msgstr "Ogień z Kuźni"
 msgid "Rough Stone Stair"
 msgstr "Schody Z Nieobrobionego Kamienia"
 
-#: src/content_mapnode_stair.cpp:53
+#: src/content_mapnode_stair.cpp:55
 msgid "Cobble Stone Stair"
 msgstr "Schody Z Brukowca"
 
-#: src/content_mapnode_stair.cpp:69
+#: src/content_mapnode_stair.cpp:73
 msgid "Mossy Cobble Stone Stair"
 msgstr "Schody Z Omszałego Brukowca"
 
-#: src/content_mapnode_stair.cpp:85
+#: src/content_mapnode_stair.cpp:91
 msgid "Stone Stair"
 msgstr "Kamienne Schody"
 
-#: src/content_mapnode_stair.cpp:102
+#: src/content_mapnode_stair.cpp:110
 msgid "Wood Stair"
 msgstr "Drewniane Schody"
 
-#: src/content_mapnode_stair.cpp:120
+#: src/content_mapnode_stair.cpp:130
 msgid "Jungle Wood Stair"
 msgstr "Schody Z Drewna Dżunglowego"
 
-#: src/content_mapnode_stair.cpp:138
+#: src/content_mapnode_stair.cpp:150
 msgid "Brick Stair"
 msgstr "Schody Z Cegieł"
 
-#: src/content_mapnode_stair.cpp:159
+#: src/content_mapnode_stair.cpp:173
 msgid "Sand Stone Stair"
 msgstr "Schody Z Piaskowca"
 
-#: src/content_mapnode_stair.cpp:175
+#: src/content_mapnode_stair.cpp:191
 msgid "Limestone Stair"
 msgstr "Schody Wapienne"
 
@@ -3372,31 +3427,31 @@ msgstr "Wyrzuć na Ziemię"
 msgid "Change Clothing"
 msgstr "Zmień Ubranie"
 
-#: src/game.cpp:591
+#: src/game.cpp:404
 msgid "Loading"
 msgstr "Wczytywanie"
 
-#: src/game.cpp:663
+#: src/game.cpp:476
 msgid "Loading..."
 msgstr "Wczytywanie..."
 
-#: src/game.cpp:672
+#: src/game.cpp:485
 msgid "Creating server..."
 msgstr "Tworzenie serwera..."
 
-#: src/game.cpp:683
+#: src/game.cpp:496
 msgid "Creating client..."
 msgstr "Tworzenie klienta..."
 
-#: src/game.cpp:688
+#: src/game.cpp:501
 msgid "Resolving address..."
 msgstr "Rozwiązywanie adresu..."
 
-#: src/game.cpp:699
+#: src/game.cpp:512
 msgid "Couldn't resolve address"
 msgstr "Nie można rozwinąć adresu"
 
-#: src/game.cpp:739
+#: src/game.cpp:552
 #, c-format
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
@@ -3404,107 +3459,107 @@ msgstr[0] "Łączenie z serwerem... (koniec czasu połączenia za %d sekundę)"
 msgstr[1] "Łączenie z serwerem... (koniec czasu połączenia za %d sekund)"
 msgstr[2] "Łączenie z serwerem... (koniec czasu połączenia za %d sekund)"
 
-#: src/game.cpp:768
+#: src/game.cpp:581
 #, c-format
 msgid "Access denied. Reason: %ls"
 msgstr "Odmowa dostępu. Powód: %ls"
 
-#: src/game.cpp:772
+#: src/game.cpp:585
 msgid "Unable to Connect (port already in use?)."
 msgstr "Nie można się połączyć (port już zajęty?)"
 
-#: src/game.cpp:775
+#: src/game.cpp:588
 msgid "Connection timed out."
 msgstr "Koniec czasu połączenia"
 
-#: src/game.cpp:928
+#: src/game.cpp:741
 msgid "Access denied. Reason: "
 msgstr "Odmowa dostępu. Powód:"
 
-#: src/game.cpp:1162
+#: src/game.cpp:975
 msgid "free_move disabled"
 msgstr "swobodny_ruch wyłączony"
 
-#: src/game.cpp:1166
+#: src/game.cpp:979
 msgid "free_move enabled"
 msgstr "swobodny_ruch włączony"
 
-#: src/game.cpp:1178
+#: src/game.cpp:991
 #, c-format
 msgid "Saved screenshot to '%s'"
 msgstr "Zapisano zrzut ekranu do '%s'"
 
-#: src/game.cpp:1190
+#: src/game.cpp:1003
 msgid "HUD shown"
 msgstr "Interfejs HUD pokazany"
 
-#: src/game.cpp:1192
+#: src/game.cpp:1005
 msgid "HUD hidden"
 msgstr "Interfejs HUD ukryty"
 
-#: src/game.cpp:1198
+#: src/game.cpp:1011
 msgid "Chat shown"
 msgstr "Okno czatu pokazane"
 
-#: src/game.cpp:1200
+#: src/game.cpp:1013
 msgid "Chat hidden"
 msgstr "Okno czatu ukryte"
 
-#: src/game.cpp:1206
+#: src/game.cpp:1019
 msgid "Fog disabled"
 msgstr "Mgła wyłączona"
 
-#: src/game.cpp:1208
+#: src/game.cpp:1021
 msgid "Fog enabled"
 msgstr "Mgła włączona"
 
-#: src/game.cpp:1214
+#: src/game.cpp:1027
 msgid "Camera update disabled"
 msgstr "Ulepszenie kamery wyłączone"
 
-#: src/game.cpp:1216
+#: src/game.cpp:1029
 msgid "Camera update enabled"
 msgstr "Ulepszenie kamery włączone"
 
-#: src/game.cpp:1226
+#: src/game.cpp:1039
 msgid "Debug info shown"
 msgstr "Debug pokazany"
 
-#: src/game.cpp:1231
+#: src/game.cpp:1044
 msgid "Debug info and frametime graph hidden"
 msgstr "Debug oraz wykres klatek ukryty"
 
-#: src/game.cpp:1235
+#: src/game.cpp:1048
 msgid "Frametime graph shown"
 msgstr "Wykres klatek pokazany"
 
-#: src/game.cpp:1247
+#: src/game.cpp:1060
 #, c-format
 msgid "Profiler shown (page %d of %d)"
 msgstr "Profiler pokazany (strona %d z %d)"
 
-#: src/game.cpp:1251
+#: src/game.cpp:1064
 msgid "Profiler hidden"
 msgstr "Profiler ukryty"
 
-#: src/game.cpp:1259 src/game.cpp:1270
+#: src/game.cpp:1072 src/game.cpp:1083
 #, c-format
 msgid "Minimum viewing range changed to %d"
 msgstr "Minimalny zasięg widoczności zmieniony na %d"
 
-#: src/game.cpp:1339
+#: src/game.cpp:1152
 msgid "Enabled full viewing range"
 msgstr "Włącz pełny zasięg widoczności"
 
-#: src/game.cpp:1343
+#: src/game.cpp:1156
 msgid "Disabled full viewing range"
 msgstr "Wyłącz pełny zasięg widoczności"
 
-#: src/game.cpp:1951
+#: src/game.cpp:1784
 msgid "Disconnected (Network Timeout)"
 msgstr "Rozłączono z serwera (Brak Odpowiedzi Sieci)"
 
-#: src/game.cpp:2385
+#: src/game.cpp:2218
 msgid "Shutting down..."
 msgstr "Wyłączanie..."
 
@@ -3518,7 +3573,9 @@ msgstr "Odradzanie się"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr "Kliknięcie lewym przyciskiem myszy: Przenieś wszystkie przedmioty, Kliknięcie prawym przyciskiem myszy: Przenieś pojedynczy przedmiot"
+msgstr ""
+"Kliknięcie lewym przyciskiem myszy: Przenieś wszystkie przedmioty, "
+"Kliknięcie prawym przyciskiem myszy: Przenieś pojedynczy przedmiot"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
@@ -3702,7 +3759,10 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr "Voxelands\nhttp://www.voxelands.com/\nStworzone przez Lisa 'darkrose' Milne <lisa@ltmnet.com> i współtwórców."
+msgstr ""
+"Voxelands\n"
+"http://www.voxelands.com/\n"
+"Stworzone przez Lisa 'darkrose' Milne <lisa@ltmnet.com> i współtwórców."
 
 #: src/guiMainMenu.cpp:675
 msgid "Programmers"
@@ -3735,8 +3795,15 @@ msgstr "Inni współtworzący oraz należącym się specjalne podziękowania"
 #: src/guiMainMenu.cpp:697
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr "Stworzono na bazie Minetest-C55 autorstwa Perttu Ahola <celeron55@gmail.com>\noraz współtwórców: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... i innych losowych osób."
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
+"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
+"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr ""
+"Stworzono na bazie Minetest-C55 autorstwa Perttu Ahola <celeron55@gmail."
+"com>\n"
+"oraz współtwórców: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
+"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
+"Neuschafer, thexyz, VanessaE, sfan5... i innych losowych osób."
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
