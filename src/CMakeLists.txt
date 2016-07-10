@@ -373,9 +373,9 @@ else()
 		set(ARCH x86_64)
 	endif()
 
-	set(SAFETY_FLAGS "-fwrapv")
+	set(SAFETY_FLAGS "-fwrapv -fno-fast-math")
 	set(SAFETY_LDFLAGS "-Wl,-z,relro,-z,now")
-	set(OPT_FLAGS "-O2 -fomit-frame-pointer")
+	set(OPT_FLAGS "-O3 -fomit-frame-pointer")
 	set(OPT_LDFLAGS "-Wl,-O1,--sort-common,-s")
 
 	if(ENABLE_SSP)
@@ -405,7 +405,7 @@ else()
 
 	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe")
 	set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
-	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g2 -ggdb")
+	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb")
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${OPT_LDFLAGS} ${SAFETY_LDFLAGS}")
