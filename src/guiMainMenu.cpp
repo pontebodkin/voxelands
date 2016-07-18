@@ -58,8 +58,10 @@ GUIMainMenu::GUIMainMenu(gui::IGUIEnvironment* env,
 	GUIModalMenu(env, parent, id, menumgr),
 	m_data(data),
 	m_accepted(false),
-	m_gamecallback(gamecallback),
-	m_sound(sound)
+#if USE_SOUND == 1
+	m_sound(sound),
+#endif
+	m_gamecallback(gamecallback)
 {
 	assert(m_data);
 	this->env = env;

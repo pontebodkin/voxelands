@@ -103,8 +103,7 @@ class HTTPRemoteClient
 {
 public:
 	HTTPRemoteClient(TCPSocket *sock, HTTPServer *server):
-		m_response(""),
-		m_auth(false)
+		m_response("")
 	{
 		m_socket = sock;
 		m_server = server;
@@ -134,7 +133,6 @@ private:
 	HTTPRequestHeaders m_recv_headers;
 	HTTPResponseHeaders m_send_headers;
 	std::string m_response;
-	bool m_auth;
 	TCPSocket *m_socket;
 	HTTPServer *m_server;
 };
