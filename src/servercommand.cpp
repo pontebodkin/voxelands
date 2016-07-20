@@ -299,10 +299,38 @@ void cmd_banunban(std::wostringstream &os, ServerCommandContext *ctx)
 	}
 }
 
+void cmd_adduser(std::wostringstream &os,
+	ServerCommandContext *ctx)
+{
+	if ((ctx->privs & PRIV_BAN) == 0) {
+		os<<L"-!- You don't have permission to do that";
+		return;
+	}
+
+	if (ctx->parms.size() != 3) {
+		os<<L"-!- /adduser <PLAYERNAME> <PASSWORD>";
+		return;
+	}
+
+	if (ctx->server->userExists(wide_to_narrow(ctx->parms[1]).c_str())) {
+		os<<L"-!- User already exists!";
+		return;
+	}
+
+	std::string name = wide_to_narrow(ctx->parms[1]);
+	std::string pass = translatePassword(name,ctx->parms[2]);
+	ctx->server->addUser(name.c_str(), pass.c_str());
+
+	os<<L"-!- Added user "<<ctx->parms[1];
+
+	actionstream<<ctx->player->getName()<<" creates user "
+		<<wide_to_narrow(ctx->parms[1])<<std::endl;
+}
+
 void cmd_clearobjects(std::wostringstream &os,
 	ServerCommandContext *ctx)
 {
-	if ((ctx->privs & PRIV_SERVER) ==0) {
+	if ((ctx->privs & PRIV_SERVER) == 0) {
 		os<<L"-!- You don't have permission to do that";
 		return;
 	}
@@ -400,6 +428,9 @@ void cmd_help(std::wostringstream &os,
 			}else if (ctx->parms[1] == L"unban") {
 				os<<L"-!- /unban <PLAYERNAME OR IP ADDRESS> - remove a player's ban from the server";
 				return;
+			}else if (ctx->parms[1] == L"adduser") {
+				os<<L"-!- /adduser <PLAYERNAME> <PASSWORD> - add a new player with the specified password";
+				return;
 			}
 		}
 		if (ctx->parms[1] == L"privs") {
@@ -459,6 +490,8 @@ std::wstring processServerCommand(ServerCommandContext *ctx)
 		cmd_teleport(os, ctx);
 	}else if(ctx->parms[0] == L"ban" || ctx->parms[0] == L"unban") {
 		cmd_banunban(os, ctx);
+	}else if(ctx->parms[0] == L"adduser") {
+		cmd_adduser(os, ctx);
 	}else if(ctx->parms[0] == L"me") {
 		cmd_me(os, ctx);
 	}else if(ctx->parms[0] == L"setpassword") {

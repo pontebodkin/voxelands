@@ -5974,6 +5974,13 @@ void Server::handlePeerChanges()
 	}
 }
 
+void Server::addUser(const char *name, const char *password)
+{
+	m_authmanager.add(name);
+	m_authmanager.setPassword(name, password);
+	m_authmanager.save();
+}
+
 uint64_t Server::getPlayerPrivs(Player *player)
 {
 	if(player==NULL)

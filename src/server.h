@@ -440,6 +440,8 @@ public:
 		}
 	}
 	void setPlayerPassword(const char *name, const char *password) {m_authmanager.setPassword(name,password);}
+	void addUser(const char *name, const char *password);
+	bool userExists(const char *name) {return m_authmanager.exists(name);}
 
 	Player *getPlayer(std::string name) {return m_env.getPlayer(name.c_str());}
 	core::list<Player*> getPlayers() {return m_env.getPlayers();}
