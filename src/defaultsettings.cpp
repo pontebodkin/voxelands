@@ -161,7 +161,7 @@ void set_default_settings(Settings *settings)
 	settings->setDefault("enable_tnt", "true");
 	settings->setDefault("unsafe_fire", "false");
 
-	settings->setDefault("api_server", "api.voxelands.com");
+	settings->setDefault("api_server", "servers.voxelands.com");
 #ifdef SERVER
 	settings->setDefault("api_announce","true");
 #else
