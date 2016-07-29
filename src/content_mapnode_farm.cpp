@@ -347,6 +347,7 @@ void content_mapnode_farm(bool repeat)
 	f->light_source = LIGHT_MAX-1;
 	crafting::set1Any2Recipe(CONTENT_TORCH,CONTENT_FARM_PUMPKIN,CONTENT_FARM_PUMPKIN_JACK);
 	lists::add("creative", i);
+	lists::add("craftguide", i);
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_FARM_POTATO;
