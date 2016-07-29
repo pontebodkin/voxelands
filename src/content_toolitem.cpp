@@ -902,7 +902,7 @@ void content_toolitem_init()
 		};
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
+	//lists::add("craftguide",i);
 
 	i = CONTENT_TOOLITEM_MITHRIL_KEY;
 	f = &g_content_toolitem_features[i];
