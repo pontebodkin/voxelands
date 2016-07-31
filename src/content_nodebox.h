@@ -89,5 +89,6 @@ void content_nodebox_column_square_top(ContentFeatures *f);
 void content_nodebox_column_cross(ContentFeatures *f);
 void content_nodebox_column_cross_base(ContentFeatures *f);
 void content_nodebox_column_cross_top(ContentFeatures *f);
+void content_nodebox_scaffolding(ContentFeatures *f);
 
 #endif

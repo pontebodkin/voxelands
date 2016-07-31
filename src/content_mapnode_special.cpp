@@ -2078,4 +2078,38 @@ void content_mapnode_special(bool repeat)
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
 #endif
 	f->pressure_type = CST_CRUSHED;
+
+	i = CONTENT_SCAFFOLDING;
+	f = &content_features(i);
+	f->description = wgettext("Scaffolding");
+	f->setAllTextures("wood.png");
+	f->air_equivalent = true;
+	f->climbable = true;
+	f->cook_result = std::string("CraftItem lump_of_charcoal 1");
+	f->draw_type = CDT_NODEBOX;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->flammable = 1;
+    f->fuel_time = 30/4;
+	f->hardness = 0.75;
+	f->is_ground_content = true;
+	f->light_propagates = true;
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->pressure_type = CST_CRUSHABLE;
+	f->special_alternate_node = CONTENT_SCAFFOLDING;
+	f->type = CMT_WOOD;
+	f->walkable = false;
+	content_nodebox_scaffolding(f);
+    f->setInventoryTextureNodeBox(i, "wood.png", "wood.png", "wood.png");
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,                 CONTENT_WOOD_SLAB,              CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_WOOD_PLANK,   CONTENT_IGNORE,                 CONTENT_CRAFTITEM_WOOD_PLANK,
+			CONTENT_CRAFTITEM_WOOD_PLANK,   CONTENT_CRAFTITEM_WOOD_PLANK,   CONTENT_CRAFTITEM_WOOD_PLANK,
+		};
+		crafting::setRecipe(r,CONTENT_SCAFFOLDING,1);
+	}
+	lists::add("cooking",i);
+	lists::add("craftguide",i);
+	lists::add("creative",i);
 }

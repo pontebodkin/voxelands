@@ -657,6 +657,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_WOOD_KNOB 0xD04
 #define CONTENT_PINE_KNOB 0xD05
 #define CONTENT_JUNGLEWOOD_KNOB 0xD06
+#define CONTENT_SCAFFOLDING 0xD07
 
 // stairs' corners
 #define CONTENT_ROUGHSTONE_STAIR_CORNER 0xE00
