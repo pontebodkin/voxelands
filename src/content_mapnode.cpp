@@ -2437,7 +2437,6 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"stone_tile.png", "stone_tile.png", "stone_tile.png");
-	f->fuel_time = 5;
 	f->type = CMT_STONE;
 	f->hardness = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
