@@ -8,8 +8,8 @@ endif(${CMAKE_VERSION} STREQUAL "2.8.2")
 project(voxelands)
 
 # Also remember to set PROTOCOL_VERSION in clientserver.h when releasing
-set(VERSION_STRING "")
-execute_process(COMMAND git log -1 --date=short --format='%cd-%h' OUTPUT_VARIABLE VERSION_STRING)
+execute_process(COMMAND git log -1 --date=short --format=%cd-%h OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE VERSION_STRING)
+set(VERSION_STRING \"${VERSION_STRING}\")
 
 MESSAGE(STATUS "*** Will build version ${VERSION_STRING} ***")
 
