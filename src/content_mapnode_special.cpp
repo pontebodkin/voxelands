@@ -2096,7 +2096,6 @@ void content_mapnode_special(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->pressure_type = CST_CRUSHABLE;
-	f->special_alternate_node = CONTENT_SCAFFOLDING;
 	f->type = CMT_WOOD;
 	f->walkable = false;
 	f->suffocation_per_second = 0;
