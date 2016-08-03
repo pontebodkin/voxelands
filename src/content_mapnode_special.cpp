@@ -2099,6 +2099,7 @@ void content_mapnode_special(bool repeat)
 	f->special_alternate_node = CONTENT_SCAFFOLDING;
 	f->type = CMT_WOOD;
 	f->walkable = false;
+	f->suffocation_per_second = 0;
 	content_nodebox_scaffolding(f);
     f->setInventoryTextureNodeBox(i, "wood.png", "wood.png", "wood.png");
 	{
