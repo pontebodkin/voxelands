@@ -597,7 +597,7 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 
 bool GUIMultiplayerMenu::fetchServers()
 {
-	char* u = const_cast<char*>("/list.cgi");
+	char* u = const_cast<char*>("/list");
 	std::string data = http_request(NULL,u);
 	std::string path = getPath("","servers.txt",false);
 
