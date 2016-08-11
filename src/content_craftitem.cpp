@@ -773,6 +773,11 @@ void content_craftitem_init()
 	f->description = wgettext("Oerkki Dust");
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_HOME; // teleports player to default home location
+	u16 recipe[9] = {CONTENT_CRAFTITEM_RUBY, CONTENT_CRAFTITEM_TURQUOISE, CONTENT_CRAFTITEM_AMETHYST, 
+		CONTENT_CRAFTITEM_SAPPHIRE, CONTENT_CRAFTITEM_SUNSTONE, CONTENT_CRAFTITEM_QUARTZ,
+		CONTENT_IGNORE, CONTENT_IGNORE, CONTENT_IGNORE};
+	crafting::setShapelessRecipe(recipe , i, 2);
+	lists::add("craftguide",i);
 	lists::add("creative",i);
 
 	i = CONTENT_CRAFTITEM_FISH;
