@@ -42,7 +42,7 @@
 #include "settings.h"
 #include "log.h"
 #include "profiler.h"
-#include <matrix4.h>
+#include <matrix4.h>;
 
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
