@@ -419,11 +419,11 @@ u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip)
 			nl += n.getLight(LIGHTBANK_NIGHT);
 			light_count++;
 			if (f.light_source > 0)
-				ambient_occlusion -= 2.0;
+				ambient_occlusion -= 1.0;
 		} else if (f.draw_type == CDT_CUBELIKE || f.draw_type == CDT_DIRTLIKE) {
-			ambient_occlusion += 1.0;
-		} else if (n.getContent() != CONTENT_IGNORE) {
 			ambient_occlusion += 0.5;
+		} else if (n.getContent() != CONTENT_IGNORE) {
+			ambient_occlusion += 0.25;
 		}
 	}
 
@@ -433,8 +433,8 @@ u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip)
 	dl /= light_count;
 	nl /= light_count;
 
-	if (ambient_occlusion > 4.0) {
-		ambient_occlusion = (ambient_occlusion-4) * 0.4 + 1.0;
+	if (ambient_occlusion > 2.0) {
+		ambient_occlusion = (ambient_occlusion-2) * 0.4 + 1.0;
 		dl /= ambient_occlusion;
 		nl /= ambient_occlusion;
 	}
