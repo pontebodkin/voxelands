@@ -497,7 +497,6 @@ public:
 	// Used by the server env for mob spawning
 	bool has_spawn_area;
 	v3s16 spawn_area;
-	bool water_spawn;
 	u32 last_spawn;
 
 private:

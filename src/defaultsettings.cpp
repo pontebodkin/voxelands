@@ -132,6 +132,7 @@ void set_default_settings(Settings *settings)
 	settings->setDefault("enable_footprints","true");
 	settings->setDefault("game_mode","adventure");
 	set_adventure_defaults(settings);
+	settings->setDefault("enable_mob_spawning","true");
 
 	// only enable http on the server, singleplayer doesn't need it
 #ifndef SERVER

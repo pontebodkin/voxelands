@@ -584,72 +584,6 @@ void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
 
 		block->setChangedFlag();
 	}
-
-	if (block->m_active_objects.size() > 0 || myrand_range(0,50) != 0)
-		return;
-
-	bool has_spawn = false;
-	bool water_spawn = false;
-	v3s16 bsp(0,0,0);
-	v3s16 sp(0,0,0);
-	v3s16 wsp(0,0,0);
-
-	/* find a place to spawn, bias to water */
-	v3s16 p0;
-	for (p0.X=0; !water_spawn && p0.X<MAP_BLOCKSIZE; p0.X++) {
-	for (p0.Y=0; !water_spawn && p0.Y<MAP_BLOCKSIZE; p0.Y++) {
-	for (p0.Z=0; !water_spawn && p0.Z<MAP_BLOCKSIZE; p0.Z++) {
-		v3s16 p = p0 + block->getPosRelative();
-		MapNode n = block->getNodeNoEx(p0);
-		MapNode n1 = block->getNodeNoEx(p0+v3s16(0,1,0));
-		MapNode n2 = block->getNodeNoEx(p0+v3s16(0,2,0));
-		if (n1.getContent() == CONTENT_IGNORE || n2.getContent() == CONTENT_IGNORE)
-			continue;
-		if (n.getContent() == CONTENT_WATERSOURCE && n1.getContent() == CONTENT_WATERSOURCE && n2.getContent() == CONTENT_WATERSOURCE) {
-			water_spawn = true;
-			wsp = p;
-			break;
-		}
-		if (has_spawn)
-			continue;
-		if (
-			content_features(n.getContent()).draw_type == CDT_DIRTLIKE
-			&& content_features(n1.getContent()).air_equivalent
-			&& content_features(n2.getContent()).air_equivalent
-		) {
-			has_spawn = true;
-			sp = p+v3s16(0,1,0);
-			bsp = p0;
-		}
-	}
-	}
-	}
-
-	if (water_spawn) {
-		if (myrand_range(0,5) == 0) {
-			mob_spawn_hostile(wsp,true,this);
-		}else{
-			mob_spawn_passive(wsp,true,this);
-		}
-		return;
-	}
-
-	if (!has_spawn)
-		return;
-
-	{
-		MapNode n = block->getNodeNoEx(bsp);
-		u8 overlay = (n.param1&0x0F);
-		if (overlay == 0x01 || overlay == 0x02 || (overlay == 0x04 && myrand_range(0,5) == 0)) {
-			mob_spawn_passive(sp,false,this);
-		}else if (overlay == 0x00 && block->getPosRelative().Y < -16) {
-			mob_spawn(sp,CONTENT_MOB_RAT,this);
-		}else if (overlay == 0x08) {
-			for (int i=0; i<4; i++) {
-				mob_spawn(sp,CONTENT_MOB_FIREFLY,this);
-			}
-		}
-	}
 }
 
 void ServerEnvironment::clearAllObjects()
@@ -1375,27 +1309,19 @@ void ServerEnvironment::step(float dtime)
 				MapNode n1 = block->getNodeNoEx(block->spawn_area+v3s16(0,1,0));
 				MapNode n2 = block->getNodeNoEx(block->spawn_area+v3s16(0,2,0));
 				u8 light = n1.getLightBlend(getDayNightRatio());
-				if (block->water_spawn) {
-					if (n1.getContent() != CONTENT_WATERSOURCE || n2.getContent() != CONTENT_WATERSOURCE)
-						block->has_spawn_area = false;
-				}else{
-					if (
-						!content_features(n1.getContent()).air_equivalent
-						|| !content_features(n2.getContent()).air_equivalent
-					)
-						block->has_spawn_area = false;
-				}
+				if (
+					!content_features(n1.getContent()).air_equivalent
+					|| !content_features(n2.getContent()).air_equivalent
+				)
+					block->has_spawn_area = false;
 
 				if (block->has_spawn_area && m_time_of_day > 19000 && m_time_of_day < 20000) {
 					if (light <= LIGHT_SPAWN_DARK) {
 						if (
-							block->water_spawn
-							|| (
-								block->getPos().Y > 0
-								|| myrand_range(0,5) == 0
-							)
+							block->getPos().Y > 0
+							|| myrand_range(0,5) == 0
 						) {
-							mob_spawn_hostile(block->spawn_area+block->getPosRelative(),block->water_spawn,this);
+							mob_spawn_hostile(block->spawn_area+block->getPosRelative(),false,this);
 						}
 					}
 					block->last_spawn = m_time_of_day;
@@ -1426,15 +1352,6 @@ void ServerEnvironment::step(float dtime)
 					) {
 						block->spawn_area = p0;
 						block->has_spawn_area = true;
-						block->water_spawn = false;
-					}else if (
-						n.getContent() == CONTENT_SAND
-						&& n1.getContent() == CONTENT_WATERSOURCE
-						&& n2.getContent() == CONTENT_WATERSOURCE
-					) {
-						block->spawn_area = p0;
-						block->has_spawn_area = true;
-						block->water_spawn = true;
 					}
 				}
 
@@ -3830,8 +3747,9 @@ void ServerEnvironment::deactivateFarObjects(bool force_delete)
 		v3s16 blockpos = getNodeBlockPos(floatToInt(objectpos, BS));
 		// Get or generate the block
 		MapBlock *block = NULL;
+		bool was_generated = false;
 		try{
-			block = m_map->emergeBlock(blockpos);
+			block = m_map->emergeBlock(blockpos,true,&was_generated);
 		} catch(InvalidPositionException &e) {
 			// Handled via NULL pointer
 			// NOTE: emergeBlock's failure is usually determined by it

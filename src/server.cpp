@@ -140,7 +140,7 @@ void * EmergeThread::Thread()
 	while(getRun())
 	{
 		QueuedBlockEmerge *qptr = m_server->m_emerge_queue.pop();
-		if(qptr == NULL)
+		if (qptr == NULL)
 			break;
 
 		SharedPtr<QueuedBlockEmerge> q(qptr);
@@ -151,7 +151,7 @@ void * EmergeThread::Thread()
 		/*
 			Do not generate over-limit
 		*/
-		if(p.X < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
+		if (p.X < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
 		|| p.X > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
 		|| p.Y < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
 		|| p.Y > MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
@@ -193,7 +193,7 @@ void * EmergeThread::Thread()
 			}
 		}
 
-		if(enable_mapgen_debug_info)
+		if (enable_mapgen_debug_info)
 			infostream<<"EmergeThread: p="
 					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<") "
 					<<"only_from_disk="<<only_from_disk<<std::endl;
@@ -217,42 +217,30 @@ void * EmergeThread::Thread()
 			map.getSectorNoGenerateNoEx(p2d);
 
 			block = map.getBlockNoCreateNoEx(p);
-			if(!block || block->isDummy() || !block->isGenerated())
-			{
-				if(enable_mapgen_debug_info)
+			if (!block || block->isDummy() || !block->isGenerated()) {
+				bool was_generated = false;
+				if (enable_mapgen_debug_info)
 					infostream<<"EmergeThread: not in memory, loading"<<std::endl;
 
-				// Get, load or create sector
-				/*ServerMapSector *sector =
-						(ServerMapSector*)map.createSector(p2d);*/
-
 				// Load/generate block
-
-				/*block = map.emergeBlock(p, sector, changed_blocks,
-						lighting_invalidated_blocks);*/
-
 				block = map.loadBlock(p);
 
-				if(only_from_disk == false)
-				{
-					if(block == NULL || block->isGenerated() == false)
-					{
-						if(enable_mapgen_debug_info)
+				if (only_from_disk == false) {
+					if (block == NULL || block->isGenerated() == false) {
+						if (enable_mapgen_debug_info)
 							infostream<<"EmergeThread: generating"<<std::endl;
 						block = map.generateBlock(p, modified_blocks);
+						was_generated = true;
 					}
 				}
 
-				if(enable_mapgen_debug_info)
+				if (enable_mapgen_debug_info)
 					infostream<<"EmergeThread: ended up with: "
 							<<analyze_block(block)<<std::endl;
 
-				if(block == NULL)
-				{
+				if (block == NULL) {
 					got_block = false;
-				}
-				else
-				{
+				}else{
 					/*
 						Ignore map edit events, they will not need to be
 						sent to anybody because the block hasn't been sent
@@ -263,58 +251,74 @@ void * EmergeThread::Thread()
 					// Activate objects and stuff
 					m_server->m_env.activateBlock(block, 3600);
 				}
-			}
-			else
-			{
-				/*if(block->getLightingExpired()){
-					lighting_invalidated_blocks[block->getPos()] = block;
-				}*/
+
+				if (was_generated && myrand_range(0,27) == 0) {
+					bool has_spawn = false;
+					bool water_spawn = false;
+					v3s16 bsp(0,0,0);
+					v3s16 sp(0,0,0);
+					v3s16 wsp(0,0,0);
+
+					/* find a place to spawn, bias to water */
+					v3s16 p0;
+					for (p0.X=0; !water_spawn && p0.X<MAP_BLOCKSIZE; p0.X++) {
+					for (p0.Y=0; !water_spawn && p0.Y<MAP_BLOCKSIZE; p0.Y++) {
+					for (p0.Z=0; !water_spawn && p0.Z<MAP_BLOCKSIZE; p0.Z++) {
+						v3s16 p = p0 + block->getPosRelative();
+						MapNode n = block->getNodeNoEx(p0);
+						MapNode n1 = block->getNodeNoEx(p0+v3s16(0,1,0));
+						MapNode n2 = block->getNodeNoEx(p0+v3s16(0,2,0));
+						if (n1.getContent() == CONTENT_IGNORE || n2.getContent() == CONTENT_IGNORE)
+							continue;
+						if (
+							n.getContent() == CONTENT_WATERSOURCE
+							&& n1.getContent() == CONTENT_WATERSOURCE
+							&& n2.getContent() == CONTENT_WATERSOURCE
+						) {
+							water_spawn = true;
+							wsp = p;
+							break;
+						}
+						if (has_spawn)
+							continue;
+						if (
+							content_features(n.getContent()).draw_type == CDT_DIRTLIKE
+							&& content_features(n1.getContent()).air_equivalent
+							&& content_features(n2.getContent()).air_equivalent
+						) {
+							has_spawn = true;
+							sp = p+v3s16(0,1,0);
+							bsp = p0;
+						}
+					}
+					}
+					}
+
+					if (water_spawn) {
+						if (myrand_range(0,5) == 0) {
+							mob_spawn_hostile(wsp,true,&m_server->m_env);
+						}else{
+							mob_spawn_passive(wsp,true,&m_server->m_env);
+						}
+					}else if (has_spawn) {
+						MapNode n = block->getNodeNoEx(bsp);
+						u8 overlay = (n.param1&0x0F);
+						if (overlay == 0x01 || overlay == 0x02 || (overlay == 0x04 && myrand_range(0,5) == 0)) {
+							mob_spawn_passive(sp,false,&m_server->m_env);
+						}else if (overlay == 0x00 && block->getPosRelative().Y < -16) {
+							mob_spawn(sp,CONTENT_MOB_RAT,&m_server->m_env);
+						}else if (overlay == 0x08) {
+							for (int i=0; i<4; i++) {
+								mob_spawn(sp,CONTENT_MOB_FIREFLY,&m_server->m_env);
+							}
+						}
+					}
+				}
 			}
 
 			// TODO: Some additional checking and lighting updating,
 			//       see emergeBlock
 		}
-
-		{//envlock
-		JMutexAutoLock envlock(m_server->m_env_mutex);
-
-		if(got_block)
-		{
-			/*
-				Collect a list of blocks that have been modified in
-				addition to the fetched one.
-			*/
-
-#if 0
-			if(lighting_invalidated_blocks.size() > 0)
-			{
-				/*infostream<<"lighting "<<lighting_invalidated_blocks.size()
-						<<" blocks"<<std::endl;*/
-
-				// 50-100ms for single block generation
-				//TimeTaker timer("** EmergeThread updateLighting");
-
-				// Update lighting without locking the environment mutex,
-				// add modified blocks to changed blocks
-				map.updateLighting(lighting_invalidated_blocks, modified_blocks);
-			}
-
-			// Add all from changed_blocks to modified_blocks
-			for(core::map<v3s16, MapBlock*>::Iterator i = changed_blocks.getIterator();
-					i.atEnd() == false; i++)
-			{
-				MapBlock *block = i.getNode()->getValue();
-				modified_blocks.insert(block->getPos(), block);
-			}
-#endif
-		}
-		// If we got no block, there should be no invalidated blocks
-		else
-		{
-			//assert(lighting_invalidated_blocks.size() == 0);
-		}
-
-		}//envlock
 
 		/*
 			Set sent status of modified blocks on clients
@@ -326,26 +330,19 @@ void * EmergeThread::Thread()
 		/*
 			Add the originally fetched block to the modified list
 		*/
-		if(got_block)
-		{
+		if (got_block)
 			modified_blocks.insert(p, block);
-		}
 
 		/*
 			Set the modified blocks unsent for all the clients
 		*/
 
-		for(core::map<u16, RemoteClient*>::Iterator
-				i = m_server->m_clients.getIterator();
-				i.atEnd() == false; i++)
-		{
+		for (core::map<u16, RemoteClient*>::Iterator i = m_server->m_clients.getIterator(); i.atEnd() == false; i++) {
 			RemoteClient *client = i.getNode()->getValue();
 
-			if(modified_blocks.size() > 0)
-			{
-				// Remove block from sent history
+			// Remove block from sent history
+			if (modified_blocks.size() > 0)
 				client->SetBlocksNotSent(modified_blocks);
-			}
 		}
 
 	}
@@ -1856,7 +1853,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			SendAccessDenied(m_con, peer_id, L"Empty passwords are not allowed on this server.");
 			return;
 		}
-		
+
 		if (g_settings->getBool("disallow_unknown_users") &&
  			!m_authmanager.exists(playername)) {
 			infostream<<"Server: unknown player "<<playername
@@ -2359,6 +2356,38 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				v3f playerpos = player->getPosition();
 				v3f objpos = obj->getBasePosition();
 				v3f dir = (objpos - playerpos).normalize();
+
+				if (g_settings->getBool("infinite_inventory") == false && titem) {
+					ToolItemFeatures &tool = content_toolitem_features(wield_item);
+					if (
+						tool.type == TT_SWORD
+						&& tool.param_type == CPT_ENCHANTMENT
+						&& enchantment_have(titem->getData(),ENCHANTMENT_DONTBREAK)
+						&& obj->getType() == ACTIVEOBJECT_TYPE_MOB
+					) {
+						InventoryList *mlist = player->inventory.getList("main");
+						if (mlist != NULL) {
+							for (u32 i=0; i<(8*4); i++) {
+								InventoryItem *item = mlist->getItem(i);
+								if (item && item->getContent() == CONTENT_TOOLITEM_MOB_SPAWNER && item->getData() == 0) {
+									MobSAO *mob = (MobSAO*)obj;
+									item->setData(mob->getContent());
+									obj->m_removed = true;
+									if (g_settings->getBool("tool_wear")) {
+										if (titem->addWear(655)) {
+											mlist->deleteItem(item_i);
+										}else{
+											mlist->addDiff(item_i,titem);
+										}
+									}
+									UpdateCrafting(player->peer_id);
+									SendInventory(player->peer_id);
+									return;
+								}
+							}
+						}
+					}
+				}
 
 				u16 wear = obj->punch(wield_item, dir, player->getName());
 				item = obj->createPickedUpItem(wield_item);

@@ -89,7 +89,6 @@ MobSAO::MobSAO(ServerEnvironment *env, u16 id, v3f pos, content_t type):
 	m_yaw(0),
 	m_falling(false),
 	m_next_pos_exists(false),
-	m_age(0),
 	m_hp(10),
 	m_angry(false),
 	m_special_count(0),
@@ -121,7 +120,6 @@ MobSAO::MobSAO(ServerEnvironment *env, u16 id, v3f pos, v3f speed, content_t typ
 	m_yaw(0),
 	m_falling(false),
 	m_next_pos_exists(false),
-	m_age(0),
 	m_hp(10),
 	m_angry(false),
 	m_special_count(0),
@@ -154,7 +152,7 @@ ServerActiveObject* MobSAO::create(ServerEnvironment *env, u16 id, v3f pos, cons
 	is.read(buf, 1);
 	u8 version = buf[0];
 	// check if version is supported
-	if (version != 0)
+	if (version > 1)
 		return NULL;
 	v3f p = readV3F1000(is);
 	content_t c = readU16(is);
@@ -165,7 +163,9 @@ ServerActiveObject* MobSAO::create(ServerEnvironment *env, u16 id, v3f pos, cons
 	o->m_base_position = p;
 	o->m_yaw = readF1000(is);
 	o->m_speed = readV3F1000(is);
-	o->m_age = readF1000(is);
+	// this was age
+	if (version == 0)
+		readF1000(is);
 	o->m_hp = readU8(is);
 	return o;
 }
@@ -173,7 +173,7 @@ std::string MobSAO::getStaticData()
 {
 	std::ostringstream os(std::ios::binary);
 	// version
-	writeU8(os, 0);
+	writeU8(os, 1);
 	// pos
 	writeV3F1000(os, m_base_position);
 	// content
@@ -182,8 +182,6 @@ std::string MobSAO::getStaticData()
 	writeF1000(os,m_yaw);
 	// speed
 	writeV3F1000(os, m_speed);
-	// age
-	writeF1000(os,m_age);
 	// hp
 	writeU8(os,m_hp);
 	// shooting
@@ -214,14 +212,8 @@ void MobSAO::step(float dtime, bool send_recommended)
 	float disturbing_player_distance = 1000000;
 	float disturbing_player_dir = 0;
 	bool dont_move = false;
-
-	m_age += dtime;
-
-	/* die, but not in the middle of attacking someone */
-	if (m.lifetime > 0.0 && m_age >= m.lifetime && (!m.notices_player || m_disturbing_player == "")) {
-		m_removed = true;
-		return;
-	}
+	bool notices_player = false;
+	bool following = false;
 
 	/* don't do anything if there's no nearby player */
 	if (m_disturbing_player == "") {
@@ -233,14 +225,22 @@ void MobSAO::step(float dtime, bool send_recommended)
 			f32 dist = m_base_position.getDistanceFrom(playerpos);
 			if (dist < distance)
 				distance = dist;
-			if (distance < 32*BS)
-				break;
 		}
-		if (distance > 32*BS)
+		if (distance > 32*BS) {
+			/* kill of anything that shouldn't be on its own */
+			if (
+				m.level == MOB_AGGRESSIVE
+				|| (m.motion == MM_THROWN || m.motion == MM_CONSTANT || m.motion == MM_STATIC)
+			)
+				m_removed = true;
 			return;
-		if (distance > 16*BS && myrand_range(0,4) != 0)
+		}
+		if (distance > 16*BS && myrand_range(0,10) != 0)
 			dont_move = true;
 	}
+
+	if (m.follow_item != CONTENT_IGNORE || m.motion == MM_SEEKER || m.angry_motion == MM_SEEKER || m.angry_motion == MM_FLEE)
+		notices_player = true;
 
 	/* if it isn't a swimmer, kill it in liquid */
 	if (m.motion_type != MMT_SWIM) {
@@ -279,11 +279,11 @@ void MobSAO::step(float dtime, bool send_recommended)
 		}
 	}
 
-	if (m.special_dropped_max > 0 && m_special_count < m.special_dropped_max && myrand_range(0,50) == 0)
+	if (m.special_dropped_max > 0 && m_special_count < m.special_dropped_max && myrand_range(0,5000) == 0)
 		m_special_count++;
 
 	m_random_disturb_timer += dtime;
-	if (m.notices_player) {
+	if (notices_player) {
 		if (m_random_disturb_timer >= 5.0) {
 			m_random_disturb_timer = 0;
 			if (
@@ -319,9 +319,41 @@ void MobSAO::step(float dtime, bool send_recommended)
 				disturbing_player_norm = disturbing_player_off;
 				disturbing_player_norm.normalize();
 				disturbing_player_dir = 180./PI*atan2(disturbing_player_norm.Z,disturbing_player_norm.X);
+				if (m.follow_item != CONTENT_IGNORE && !dont_move) {
+					u16 item_i = disturbing_player->getSelectedItem();
+					InventoryList *ilist = disturbing_player->inventory.getList("main");
+					if (ilist != NULL) {
+						InventoryItem *item = ilist->getItem(item_i);
+						if (item != NULL && item->getContent() == m.follow_item)
+							following = true;
+					}
+				}
 			}
 		}else if (m_angry) {
 			m_angry = false;
+		}else if (m.follow_item != CONTENT_IGNORE && !dont_move && myrand_range(0,100) == 0) {
+			core::array<DistanceSortedActiveObject> objects;
+			f32 range = 32*BS;
+
+			m_env->getActiveObjects(m_base_position, range, objects);
+
+			// Sort them.
+			// After this, the closest object is the first in the array.
+			objects.sort();
+			if (objects.size() < 3) {
+				for (u32 i=0; i<objects.size(); i++) {
+					ServerActiveObject *obj = (ServerActiveObject*)objects[i].obj;
+					if (obj->getId() == m_id)
+						continue;
+					if (obj->getType() == ACTIVEOBJECT_TYPE_MOB) {
+						MobSAO *mob = (MobSAO*)obj;
+						if (mob->getContent() == m_content) {
+							v3s16 p = floatToInt(m_base_position,BS);
+							mob_spawn(p,m_content,m_env);
+						}
+					}
+				}
+			}
 		}
 		m_disturb_timer += dtime;
 
@@ -418,7 +450,7 @@ void MobSAO::step(float dtime, bool send_recommended)
 		if (mot != MM_CONSTANT && mot != MM_STATIC) {
 			m_walk_around_timer -= dtime;
 			if (m_walk_around_timer <= 0.0) {
-				if (m.motion_type == MMT_FLY || (disturbing_player && mot == MM_SEEKER)) {
+				if (m.motion_type == MMT_FLY || (disturbing_player && (mot == MM_SEEKER || mot == MM_FLEE))) {
 					if (!m_walk_around) {
 						m_walk_around_timer = 0.2;
 						m_walk_around = true;
@@ -426,7 +458,7 @@ void MobSAO::step(float dtime, bool send_recommended)
 				}else{
 					m_walk_around = !m_walk_around;
 					if (m_walk_around) {
-						if ((!m.notices_player && !disturbing_player) || mot != MM_SEEKER)
+						if ((!notices_player && !disturbing_player) || mot != MM_SEEKER)
 							m_walk_around_timer = myrand_range(10,20);
 					}else{
 						m_walk_around_timer = myrand_range(10,20);
@@ -443,7 +475,7 @@ void MobSAO::step(float dtime, bool send_recommended)
 				v3f dir = diff;
 				dir.normalize();
 				float speed = BS;
-				if (mot == MM_SEEKER && m.level == MOB_AGGRESSIVE && disturbing_player)
+				if (((mot == MM_SEEKER && m.level == MOB_AGGRESSIVE) || mot == MM_FLEE) && disturbing_player)
 					speed = BS * 3.0;
 				if (m_falling)
 					speed = BS * 3.0;
@@ -466,12 +498,18 @@ void MobSAO::step(float dtime, bool send_recommended)
 		mot = getMotion();
 
 		if (mot == MM_WANDER) {
-			stepMotionWander(dtime);
+			if (following) {
+				stepMotionSeeker(dtime,1.5);
+			}else{
+				stepMotionWander(dtime);
+			}
+		}else if (mot == MM_FLEE) {
+			stepMotionFlee(dtime);
 		}else if (mot == MM_SEEKER) {
 			if (!disturbing_player) {
 				stepMotionWander(dtime);
 			}else{
-				stepMotionSeeker(dtime);
+				stepMotionSeeker(dtime,0.5);
 			}
 		}else if (mot == MM_SENTRY) {
 			stepMotionSentry(dtime);
@@ -485,7 +523,7 @@ void MobSAO::step(float dtime, bool send_recommended)
 	if (send_recommended == false)
 		return;
 
-	if (m_base_position.getDistanceFrom(m_last_sent_position) > 0.1*BS)
+	if (m_base_position.getDistanceFrom(m_last_sent_position) > 0.5*BS)
 		sendPosition();
 }
 void MobSAO::stepMotionWander(float dtime)
@@ -513,7 +551,7 @@ void MobSAO::stepMotionWander(float dtime)
 			for (int dx=-1; dx<=1; dx++)
 			for (int dy=-1; dy<=1; dy++)
 			for (int dz=-1; dz<=1; dz++) {
-				if (dx == 0 && dy == 0)
+				if (dx == 0 && dz == 0)
 					continue;
 				if (dx != 0 && dz != 0 && dy != 0)
 					continue;
@@ -652,7 +690,203 @@ void MobSAO::stepMotionWander(float dtime)
 		}
 	}
 }
-void MobSAO::stepMotionSeeker(float dtime)
+void MobSAO::stepMotionSeeker(float dtime, float offset)
+{
+	MobFeatures m = content_mob_features(m_content);
+	v3s16 pos_i = floatToInt(m_base_position, BS);
+	Player *disturbing_player = m_env->getPlayer(m_disturbing_player.c_str());
+	if (!disturbing_player) {
+		m_next_pos_exists = false;
+		return;
+	}
+	v3f player_pos = disturbing_player->getPosition();
+	float distance = m_base_position.getDistanceFrom(player_pos);
+	float d;
+	float min;
+	float max;
+
+	offset = offset*(float)BS;
+
+	min = offset;
+	max = offset+6.0;
+
+	if (m.motion_type == MMT_WALK) {
+		if (!m_next_pos_exists) {
+			/* Check whether to drop down */
+			if (checkFreePosition(pos_i + v3s16(0,-1,0))) {
+				m_next_pos_i = pos_i + v3s16(0,-1,0);
+				m_next_pos_exists = true;
+				m_falling = true;
+			}else{
+				m_falling = false;
+			}
+		}
+
+		if (m_walk_around && !m_next_pos_exists) {
+			/* Find some position where to go next */
+			v3s16 dps[3*3*3];
+			int num_dps = 0;
+			for (int dx=-1; dx<=1; dx++)
+			for (int dy=-1; dy<=1; dy++)
+			for (int dz=-1; dz<=1; dz++) {
+				if (dx == 0 && dz == 0)
+					continue;
+				if (dx != 0 && dz != 0 && dy != 0)
+					continue;
+				d = (m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos);
+				if (distance < min) {
+					if (d > max)
+						continue;
+				}else if (d > distance) {
+					continue;
+				}
+				dps[num_dps++] = v3s16(dx,dy,dz);
+			}
+			u32 order[3*3*3];
+			get_random_u32_array(order, num_dps);
+			v3s16 op = floatToInt(m_oldpos,BS);
+			for (int i=0; i<num_dps; i++) {
+				v3s16 p = dps[order[i]] + pos_i;
+				if (p == op)
+					continue;
+				if (!checkFreeAndWalkablePosition(p))
+					continue;
+				m_next_pos_i = p;
+				m_next_pos_exists = true;
+				break;
+			}
+		}
+	}else if (m.motion_type == MMT_FLY) {
+		bool falling = false;
+		bool raising = false;
+		if (!m_next_pos_exists) {
+			u16 above;
+			v3s16 p = pos_i;
+			for (above=0; above < 14; above++) {
+				p.Y--;
+				if (!checkFreePosition(p))
+					break;
+			}
+			if (above > 12) {
+				/* Check whether to drop down */
+				if (checkFreePosition(pos_i + v3s16(0,-1,0))) {
+					m_next_pos_i = pos_i + v3s16(0,-1,0);
+					falling = true;
+				}
+			}else if (above < 8) {
+				/* Check whether to rise up */
+				if (checkFreePosition(pos_i + v3s16(0,1,0))) {
+					m_next_pos_i = pos_i + v3s16(0,1,0);
+					raising = true;
+				}
+			}
+		}
+
+		if (m_walk_around && !m_next_pos_exists) {
+			/* Find some position where to go next */
+			v3s16 dps[3*3*3];
+			int num_dps = 0;
+			for (int dx=-1; dx<=1; dx++)
+			for (int dy=-1; dy<=1; dy++)
+			for (int dz=-1; dz<=1; dz++) {
+				if (dx == 0 && dy == 0)
+					continue;
+				if (dx != 0 && dz != 0 && dy != 0)
+					continue;
+				if (falling && dy > 0)
+					continue;
+				if (raising && dy < 0)
+					continue;
+				d = (m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos);
+				if (distance < min) {
+					if (d > max)
+						continue;
+				}else if (d > distance) {
+					continue;
+				}
+				dps[num_dps++] = v3s16(dx,dy,dz);
+			}
+			u32 order[3*3*3];
+			get_random_u32_array(order, num_dps);
+			v3s16 op = floatToInt(m_oldpos,BS);
+			for (int i=0; i<num_dps; i++) {
+				v3s16 p = dps[order[i]] + pos_i;
+				if (p == op)
+					continue;
+				if (!checkFreePosition(p))
+					continue;
+				m_next_pos_i = p;
+				m_next_pos_exists = true;
+				break;
+			}
+		}
+	}else if (m.motion_type == MMT_FLYLOW || m.motion_type == MMT_SWIM) {
+		bool falling = false;
+		bool raising = false;
+		if (!m_next_pos_exists) {
+			u16 above;
+			v3s16 p = pos_i;
+			for (above=0; above < 6; above++) {
+				p.Y--;
+				if (!checkFreePosition(p))
+					break;
+			}
+			if (above > 5) {
+				/* Check whether to drop down */
+				if (checkFreePosition(pos_i + v3s16(0,-1,0))) {
+					m_next_pos_i = pos_i + v3s16(0,-1,0);
+					falling = true;
+				}
+			}else if (above < 2) {
+				/* Check whether to rise up */
+				if (checkFreePosition(pos_i + v3s16(0,1,0))) {
+					m_next_pos_i = pos_i + v3s16(0,1,0);
+					raising = true;
+				}
+			}
+		}
+
+		if (m_walk_around && !m_next_pos_exists) {
+			/* Find some position where to go next */
+			v3s16 dps[3*3*3];
+			int num_dps = 0;
+			for (int dx=-1; dx<=1; dx++)
+			for (int dy=-1; dy<=1; dy++)
+			for (int dz=-1; dz<=1; dz++) {
+				if (dx == 0 && dy == 0)
+					continue;
+				if (dx != 0 && dz != 0 && dy != 0)
+					continue;
+				if (falling && dy > 0)
+					continue;
+				if (raising && dy < 0)
+					continue;
+				d = (m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos);
+				if (distance < min) {
+					if (d > max)
+						continue;
+				}else if (d > distance) {
+					continue;
+				}
+				dps[num_dps++] = v3s16(dx,dy,dz);
+			}
+			u32 order[3*3*3];
+			get_random_u32_array(order, num_dps);
+			v3s16 op = floatToInt(m_oldpos,BS);
+			for (int i=0; i<num_dps; i++) {
+				v3s16 p = dps[order[i]] + pos_i;
+				if (p == op)
+					continue;
+				if (!checkFreePosition(p))
+					continue;
+				m_next_pos_i = p;
+				m_next_pos_exists = true;
+				break;
+			}
+		}
+	}
+}
+void MobSAO::stepMotionFlee(float dtime)
 {
 	MobFeatures m = content_mob_features(m_content);
 	v3s16 pos_i = floatToInt(m_base_position, BS);
@@ -683,11 +917,11 @@ void MobSAO::stepMotionSeeker(float dtime)
 			for (int dx=-1; dx<=1; dx++)
 			for (int dy=-1; dy<=1; dy++)
 			for (int dz=-1; dz<=1; dz++) {
-				if (dx == 0 && dy == 0)
+				if (dx == 0 && dz == 0)
 					continue;
 				if (dx != 0 && dz != 0 && dy != 0)
 					continue;
-				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) > distance)
+				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) < distance)
 					continue;
 				dps[num_dps++] = v3s16(dx,dy,dz);
 			}
@@ -746,7 +980,7 @@ void MobSAO::stepMotionSeeker(float dtime)
 					continue;
 				if (raising && dy < 0)
 					continue;
-				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) > distance)
+				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) < distance)
 					continue;
 				dps[num_dps++] = v3s16(dx,dy,dz);
 			}
@@ -805,7 +1039,7 @@ void MobSAO::stepMotionSeeker(float dtime)
 					continue;
 				if (raising && dy < 0)
 					continue;
-				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) > distance)
+				if ((m_base_position+intToFloat(v3s16(dx,dy,dz),BS)).getDistanceFrom(player_pos) < distance)
 					continue;
 				dps[num_dps++] = v3s16(dx,dy,dz);
 			}
@@ -849,7 +1083,7 @@ void MobSAO::stepMotionSentry(float dtime)
 			for (int dx=-1; dx<=1; dx++)
 			for (int dy=-1; dy<=1; dy++)
 			for (int dz=-1; dz<=1; dz++) {
-				if (dx == 0 && dy == 0)
+				if (dx == 0 && dz == 0)
 					continue;
 				if (dx != 0 && dz != 0 && dy != 0)
 					continue;
@@ -1064,6 +1298,9 @@ void MobSAO::explodeSquare(v3s16 p0, v3s16 size)
 	Map *map = &m_env->getMap();
 	core::map<v3s16, MapBlock*> modified_blocks;
 
+	MapNode fire(CONTENT_FIRE);
+	std::string blame("damned mobs");
+
 	if (content_mob_features(m_content).level != MOB_DESTRUCTIVE) {
 		if (m_env->searchNear(p0,size+v3s16(5,5,5),CONTENT_BORDERSTONE,NULL))
 			return;
@@ -1077,9 +1314,8 @@ void MobSAO::explodeSquare(v3s16 p0, v3s16 size)
 		MapNode n = map->getNodeNoEx(p);
 		if (n.getContent() == CONTENT_IGNORE)
 			continue;
-		if (content_features(n).destructive_mob_safe)
-			continue;
-		map->removeNodeAndUpdate(p, modified_blocks);
+		if (content_features(n).flammable)
+			map->addNodeAndUpdate(p,fire,modified_blocks,blame);
 	}
 
 	// Send a MEET_OTHER event
@@ -1144,6 +1380,8 @@ u16 MobSAO::punch(content_t punch_item, v3f dir, const std::string &playername)
 		m_disturbing_player = playername;
 		m_next_pos_exists = false; // Cancel moving immediately
 		m_angry = true;
+		m_walk_around_timer = 0.2;
+		m_walk_around = true;
 
 		m_yaw = wrapDegrees_180(180./PI*atan2(dir.Z, dir.X) + 180.);
 		v3f new_base_position = m_base_position + dir * BS;
@@ -1259,17 +1497,19 @@ void MobSAO::sendPosition()
 }
 void MobSAO::doDamage(u16 d)
 {
-	infostream<<"Mob hp="<<((int)m_hp)<<" damage="<<((int)d)<<" age="<<((int)m_age)<<std::endl;
+	infostream<<"Mob hp="<<((int)m_hp)<<" damage="<<((int)d)<<std::endl;
 
-	if (d < m_hp) {
-		m_hp -= d;
-	}else{
+	if (d >= m_hp) {
 		actionstream<<"A "<<mobLevelS(content_mob_features(m_content).level)
 				<<" mob id="<<m_id<<" dies at "<<PP(m_base_position)<<std::endl;
 		// Die
 		m_hp = 0;
 		m_removed = true;
+		return;
 	}
+
+	m_hp -= d;
+
 	{
 		std::ostringstream os(std::ios::binary);
 		// command (1 = damage)

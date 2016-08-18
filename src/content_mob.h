@@ -48,7 +48,7 @@ enum MobMotion
 	MM_SENTRY,
 	MM_THROWN,
 	MM_CONSTANT,
-	MM_FOLLOW
+	MM_FLEE
 };
 
 enum MobMotionType
@@ -81,7 +81,6 @@ enum MobDrawType
 	MDT_NOTHING = 0,
 	MDT_AUTO,
 	MDT_MODEL,
-	MDT_BLOCK,
 	MDT_SPRITE,
 	MDT_EXTRUDED
 };
@@ -103,15 +102,14 @@ struct MobFeatures {
 	v3f model_scale;
 	v3f model_offset;
 	v3f model_rotation;
-	std::vector<NodeBox> nodeboxes;
 	aabb3f collisionbox;
 
 	MobPunchAction punch_action;
-	MobMotion motion;
 	MobMotionType motion_type;
+	MobMotion motion;
 	MobMotion angry_motion;
 	f32 static_thrown_speed;
-	bool notices_player;
+	content_t follow_item;
 	content_t tamed_mob;
 	content_t attack_throw_object;
 	v3f attack_throw_offset;
@@ -127,7 +125,6 @@ struct MobFeatures {
 	content_t special_dropped_item;
 	u16 special_dropped_count;
 	u16 special_dropped_max;
-	f32 lifetime;
 	u16 contact_explosion_diameter;
 	content_t contact_place_node;
 	content_t contact_drop_item;
@@ -153,26 +150,6 @@ struct MobFeatures {
 		reset();
 	}
 
-	/*
-		Gets list of node boxes
-	*/
-	std::vector<NodeBox> getNodeBoxes()
-	{
-		return nodeboxes;
-	}
-
-	void setNodeBox(NodeBox bb)
-	{
-		model_offset = v3f(0,0.5,0);
-		nodeboxes.clear();
-		nodeboxes.push_back(bb);
-	}
-
-	void addNodeBox(NodeBox bb)
-	{
-		nodeboxes.push_back(bb);
-	}
-
 	void setCollisionBox(aabb3f cb)
 	{
 		cb.MinEdge.Y -= 0.5*BS;
@@ -184,10 +161,7 @@ struct MobFeatures {
 	{
 		if (collisionbox.MinEdge != collisionbox.MaxEdge)
 			return collisionbox;
-		if (!nodeboxes.size())
-			return aabb3f(-0.5*BS,0.,-0.5*BS,0.5*BS,BS,0.5*BS);
-		aabb3f b = nodeboxes[0].m_box;
-		return b;
+		return aabb3f(-0.5*BS,0.,-0.5*BS,0.5*BS,BS,0.5*BS);
 	}
 
 	v3f getSize()
@@ -232,13 +206,12 @@ struct MobFeatures {
 		model_scale = v3f(1.0,1.0,1.0);
 		model_offset = v3f(0,0,0);
 		model_rotation = v3f(0,0,0);
-		nodeboxes.clear();
 		punch_action = MPA_DIE;
-		motion = MM_STATIC;
 		motion_type = MMT_WALK;
+		motion = MM_STATIC;
 		angry_motion = MM_STATIC;
 		static_thrown_speed = 20.0;
-		notices_player = false;
+		follow_item = CONTENT_IGNORE;
 		tamed_mob = CONTENT_IGNORE;
 		attack_throw_object = CONTENT_IGNORE;
 		attack_throw_offset = v3f(0,0,0);
@@ -254,7 +227,6 @@ struct MobFeatures {
 		special_dropped_item = CONTENT_IGNORE;
 		special_dropped_count = 0;
 		special_dropped_max = 0;
-		lifetime = 0.0;
 		contact_explosion_diameter = 0;
 		contact_place_node = CONTENT_IGNORE;
 		contact_drop_item = CONTENT_IGNORE;

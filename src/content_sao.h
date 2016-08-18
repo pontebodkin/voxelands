@@ -49,6 +49,7 @@ public:
 	bool rightClick(Player *player);
 	u8 level();
 	void doDamage(u16 d);
+	content_t getContent() {return m_content;}
 private:
 	void sendPosition();
 
@@ -61,7 +62,8 @@ private:
 	}
 
 	void stepMotionWander(float dtime);
-	void stepMotionSeeker(float dtime);
+	void stepMotionSeeker(float dtime, float offset);
+	void stepMotionFlee(float dtime);
 	void stepMotionSentry(float dtime);
 	void stepMotionThrown(float dtime);
 	void stepMotionConstant(float dtime);
@@ -81,7 +83,6 @@ private:
 	bool m_next_pos_exists;
 	v3s16 m_next_pos_i;
 
-	float m_age;
 	u8 m_hp;
 	bool m_angry;
 	u16 m_special_count;

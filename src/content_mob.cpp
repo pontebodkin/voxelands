@@ -179,9 +179,11 @@ void mob_spawn(v3s16 pos, content_t mob, ServerEnvironment *env)
 
 	if (m.content == CONTENT_IGNORE)
 		return;
+	if (!g_settings->getBool("enable_mob_spawning"))
+		return;
 
 	v3f p = intToFloat(pos+v3s16(0,1,0), BS);
-	actionstream<<"A mob of type "<<m.content<<" spawns at "<<PP(floatToInt(p,BS))<<std::endl;
+	actionstream<<"A "<<wide_to_narrow(m.description)<<" ("<<m.content<<") mob spawns at "<<PP(floatToInt(p,BS))<<std::endl;
 	ServerActiveObject *obj = new MobSAO(env, 0, p, m.content);
 	u16 id = env->addActiveObject(obj);
 	if (!id) {
@@ -355,10 +357,6 @@ void content_mob_init()
 	content_t i;
 	MobFeatures *f = NULL;
 
-	float one_day = ((g_settings->getFloat("time_speed")*24000.)/(24.*3600))*60;
-	float one_week = one_day*5;
-	float one_month = one_day*20;
-
 	i = CONTENT_MOB_RAT;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
@@ -370,11 +368,11 @@ void content_mob_init()
 	f->punch_action = MPA_PICKUP;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RAT)+" 1";
 	f->motion = MM_WANDER;
+	f->angry_motion = MM_FLEE;
 	f->moves_silently = true;
 	f->spawn_max_height = -5;
 	f->spawn_group = 3;
 	f->spawn_naturally = true;
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -394,7 +392,6 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 50;
 	f->spawn_naturally = false;
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-BS/4.,-BS/6.,-BS/4., BS/4.,BS/6.,BS/4.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -414,10 +411,8 @@ void content_mob_init()
 	f->moves_silently = true;
 	f->spawn_max_height = 2;
 	f->sound_spawn = "mob-oerkki-spawn";
-	f->notices_player = true;
 	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS*2.,BS/3.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -436,11 +431,9 @@ void content_mob_init()
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_GUNPOWDER)+" 4";
 	f->motion = MM_SENTRY;
-	f->notices_player = true;
 	f->attack_throw_object = CONTENT_MOB_FIREBALL;
 	f->attack_glow_light = LIGHT_MAX-1;
 	f->attack_throw_offset = v3f(0,1.4,-1.0);
-	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-0.75*BS, 0.*BS, -0.75*BS, 0.75*BS, 2.0*BS, 0.75*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -450,12 +443,10 @@ void content_mob_init()
 	f->description = wgettext("Fireball");
 	f->level = MOB_DESTRUCTIVE;
 	f->setTexture("mob_fireball.png");
-    f->lifetime = 20.0;
 	f->punch_action = MPA_IGNORE;
 	f->motion = MM_CONSTANT;
 	f->motion_type = MMT_FLY;
 	f->glow_light = LIGHT_MAX-1;
-	f->notices_player = true;
 	f->moves_silently = true;
 	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(2,2,2);
@@ -479,13 +470,14 @@ void content_mob_init()
 	f->setAnimationFrames(MA_ATTACK,241,300);
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_FUR)+" 2";
-	f->motion = MM_SEEKER;
+	f->motion = MM_WANDER;
+	f->angry_motion = MM_FLEE;
 	f->motion_type = MMT_WALK;
+	f->follow_item = CONTENT_CRAFTITEM_WHEAT;
 	f->sound_random = "mob-deer-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
 	f->spawn_group = 3;
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -513,10 +505,8 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
 	f->spawn_chance = 2;
-	f->notices_player = true;
 	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -537,10 +527,9 @@ void content_mob_init()
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_FUR)+" 2";
 	f->motion = MM_SEEKER;
+	f->angry_motion = MM_FLEE;
 	f->motion_type = MMT_WALK;
 	f->sound_random = "mob-deer-env";
-	f->notices_player = true;
-	f->lifetime = 0.0;
 	f->spawn_naturally = false;
 	f->setCollisionBox(aabb3f(-0.7*BS, 0., -0.7*BS, 0.7*BS, 1.5*BS, 0.7*BS));
 
@@ -561,12 +550,12 @@ void content_mob_init()
 	f->special_dropped_count = 1;
 	f->special_dropped_max = 0;
 	f->motion = MM_WANDER;
+	f->angry_motion = MM_FLEE;
 	f->motion_type = MMT_SWIM;
 	f->moves_silently = true;
 	f->spawn_group = 3;
 	f->spawn_water = true;
 	f->hp = 5;
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.25*BS, 0.25*BS, -0.25*BS, 0.25*BS, 0.75*BS, 0.25*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -590,10 +579,8 @@ void content_mob_init()
 	f->motion_type = MMT_SWIM;
 	f->moves_silently = true;
 	f->spawn_water = true;
-	f->notices_player = true;
 	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.75*BS, 0., -0.75*BS, 0.75*BS, 1.*BS, 0.75*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -620,10 +607,8 @@ void content_mob_init()
 	f->spawn_max_height = 40;
 	f->sound_punch = "mob-wolf-hit";
 	f->sound_spawn = "mob-wolf-spawn";
-	f->notices_player = true;
 	f->attack_player_damage = 15;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_day;
 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -645,11 +630,10 @@ void content_mob_init()
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_FUR)+" 2";
 	f->motion = MM_SEEKER;
 	f->motion_type = MMT_WALK;
+	f->angry_motion = MM_FLEE;
 	f->sound_punch = "mob-wolf-hit";
-	f->notices_player = true;
 	f->attack_mob_damage = 5;
 	f->attack_mob_range = v3f(1,1,1);
-	f->lifetime = 0.0;
 	f->spawn_naturally = false;
 	f->setCollisionBox(aabb3f(-0.5*BS, 0., -0.5*BS, 0.5*BS, 1.*BS, 0.5*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
@@ -674,14 +658,15 @@ void content_mob_init()
 	f->special_dropped_item = CONTENT_CRAFTITEM_STRING;
 	f->special_dropped_count = 4;
 	f->special_dropped_max = 8;
-	f->motion = MM_SEEKER;
+	f->motion = MM_WANDER;
+	f->angry_motion = MM_FLEE;
 	f->motion_type = MMT_WALK;
+	f->follow_item = CONTENT_CRAFTITEM_WHEAT;
 	f->sound_random = "mob-sheep-env";
 	f->sound_random_extra = "mob-ducksheep-env";
 	f->spawn_min_height = 2;
 	f->spawn_max_height = 50;
 	f->spawn_group = 4;
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -701,12 +686,12 @@ void content_mob_init()
 	f->setAnimationFrames(MA_ATTACK,1,28);
 	f->punch_action = MPA_HARM;
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_MEAT)+" 2";
-	f->motion = MM_SEEKER;
+	f->motion = MM_WANDER;
+	f->angry_motion = MM_FLEE;
 	f->motion_type = MMT_WALK;
 	f->sound_random = "mob-sheep-env";
 	f->sound_random_extra = "mob-ducksheep-env";
 	f->spawn_naturally = false;
-	f->lifetime = 0.0;
 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -721,10 +706,8 @@ void content_mob_init()
 	f->motion = MM_THROWN;
 	f->motion_type = MMT_FLY;
 	f->moves_silently = true;
-	f->notices_player = true;
 	f->attack_mob_damage = 5;
 	f->attack_mob_range = v3f(1,1,1);
-	f->lifetime = 10.0;
 	f->contact_place_node = CONTENT_SNOW;
 	f->contact_drop_item = CONTENT_CRAFTITEM_SNOW_BALL;
 	f->spawn_naturally = false;
@@ -742,10 +725,8 @@ void content_mob_init()
 	f->motion = MM_THROWN;
 	f->motion_type = MMT_FLY;
 	f->moves_silently = true;
-	f->notices_player = true;
 	f->attack_mob_damage = 20;
 	f->attack_mob_range = v3f(1,1,1);
-	f->lifetime = 20.0;
 	f->contact_drop_item = CONTENT_CRAFTITEM_ARROW;
 	f->spawn_naturally = false;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
@@ -772,10 +753,8 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->notices_player = true;
 	f->attack_player_damage = 1;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -801,10 +780,8 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->notices_player = true;
 	f->attack_player_damage = 1;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -830,10 +807,8 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->notices_player = true;
 	f->attack_player_damage = 1;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -859,10 +834,8 @@ void content_mob_init()
 	f->sound_random = "mob-kitty-env";
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
-	f->notices_player = true;
 	f->attack_player_damage = 1;
 	f->attack_player_range = v3f(1,1,1);
-	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 }

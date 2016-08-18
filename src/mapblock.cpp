@@ -40,7 +40,6 @@
 MapBlock::MapBlock(Map *parent, v3s16 pos, bool dummy):
 	has_spawn_area(false),
 	spawn_area(0,0,0),
-	water_spawn(false),
 	last_spawn(0),
 	m_parent(parent),
 	m_pos(pos),

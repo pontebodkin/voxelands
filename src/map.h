@@ -163,7 +163,7 @@ public:
 	MapBlock * getBlockNoCreateNoEx(v3s16 p);
 
 	/* Server overrides */
-	virtual MapBlock * emergeBlock(v3s16 p, bool allow_generate=true)
+	virtual MapBlock * emergeBlock(v3s16 p, bool allow_generate=true, bool *was_generated=NULL)
 	{ return getBlockNoCreateNoEx(p); }
 
 	// Returns InvalidPositionException if not found
@@ -367,7 +367,7 @@ public:
 		- Load from disk
 		- Generate
 	*/
-	MapBlock * emergeBlock(v3s16 p, bool allow_generate=true);
+	MapBlock * emergeBlock(v3s16 p, bool allow_generate=true, bool *was_generated=NULL);
 
 	// Helper for placing objects on ground level
 	s16 findGroundLevel(v2s16 p2d);
@@ -430,14 +430,6 @@ private:
 
 	std::string m_savedir;
 	bool m_map_saving_enabled;
-
-#if 0
-	// Chunk size in MapSectors
-	// If 0, chunks are disabled.
-	s16 m_chunksize;
-	// Chunks
-	core::map<v2s16, MapChunk*> m_chunks;
-#endif
 
 	/*
 		Metadata is re-written on disk only if this is true.

@@ -1311,63 +1311,6 @@ void Map::deleteSectors(core::list<v2s16> &list)
 	}
 }
 
-#if 0
-void Map::unloadUnusedData(float timeout,
-		core::list<v3s16> *deleted_blocks)
-{
-	core::list<v2s16> sector_deletion_queue;
-	u32 deleted_blocks_count = 0;
-	u32 saved_blocks_count = 0;
-
-	core::map<v2s16, MapSector*>::Iterator si = m_sectors.getIterator();
-	for(; si.atEnd() == false; si++)
-	{
-		MapSector *sector = si.getNode()->getValue();
-
-		bool all_blocks_deleted = true;
-
-		core::list<MapBlock*> blocks;
-		sector->getBlocks(blocks);
-		for(core::list<MapBlock*>::Iterator i = blocks.begin();
-				i != blocks.end(); i++)
-		{
-			MapBlock *block = (*i);
-
-			if(block->getUsageTimer() > timeout)
-			{
-				// Save if modified
-				if(block->getModified() != MOD_STATE_CLEAN)
-				{
-					saveBlock(block);
-					saved_blocks_count++;
-				}
-				// Delete from memory
-				sector->deleteBlock(block);
-				deleted_blocks_count++;
-			}
-			else
-			{
-				all_blocks_deleted = false;
-			}
-		}
-
-		if(all_blocks_deleted)
-		{
-			sector_deletion_queue.push_back(si.getNode()->getKey());
-		}
-	}
-
-	deleteSectors(sector_deletion_queue);
-
-	infostream<<"Map: Unloaded "<<deleted_blocks_count<<" blocks from memory"
-			<<", of which "<<saved_blocks_count<<" were wr."
-			<<std::endl;
-
-	//return sector_deletion_queue.getSize();
-	//return deleted_blocks_count;
-}
-#endif
-
 void Map::PrintInfo(std::ostream &out)
 {
 	out<<"Map: ";
@@ -1897,18 +1840,6 @@ ServerMap::~ServerMap()
 		sqlite3_finalize(m_database_list);
 	if(m_database)
 		sqlite3_close(m_database);
-
-#if 0
-	/*
-		Free all MapChunks
-	*/
-	core::map<v2s16, MapChunk*>::Iterator i = m_chunks.getIterator();
-	for(; i.atEnd() == false; i++)
-	{
-		MapChunk *chunk = i.getNode()->getValue();
-		delete chunk;
-	}
-#endif
 }
 
 void ServerMap::initBlockMake(mapgen::BlockMakeData *data, v3s16 blockpos)
@@ -2135,26 +2066,6 @@ ServerMapSector * ServerMap::createSector(v2s16 p2d)
 		return sector;
 
 	/*
-		Try to load it from disk (with blocks)
-	*/
-	//if(loadSectorFull(p2d) == true)
-
-	/*
-		Try to load metadata from disk
-	*/
-#if 0
-	if(loadSectorMeta(p2d) == true)
-	{
-		ServerMapSector *sector = (ServerMapSector*)getSectorNoGenerateNoEx(p2d);
-		if(sector == NULL)
-		{
-			infostream<<"ServerMap::createSector(): loadSectorFull didn't make a sector"<<std::endl;
-			throw InvalidPositionException("");
-		}
-		return sector;
-	}
-#endif
-	/*
 		Do not create over-limit
 	*/
 	if(p2d.X < -MAP_GENERATION_LIMIT / MAP_BLOCKSIZE
@@ -2195,15 +2106,12 @@ MapBlock * ServerMap::generateBlock(
 
 	TimeTaker timer("generateBlock");
 
-	//MapBlock *block = original_dummy;
-
 	v2s16 p2d(p.X, p.Z);
 
 	/*
 		Do not generate over-limit
 	*/
-	if(blockpos_over_limit(p))
-	{
+	if (blockpos_over_limit(p)) {
 		infostream<<__FUNCTION_NAME<<": Block position over limit"<<std::endl;
 		throw InvalidPositionException("generateBlock(): pos. over limit");
 	}
@@ -2221,7 +2129,7 @@ MapBlock * ServerMap::generateBlock(
 		TimeTaker t("mapgen::make_block()");
 		mapgen::make_block(&data);
 
-		if(enable_mapgen_debug_info == false)
+		if (enable_mapgen_debug_info == false)
 			t.stop(true); // Hide output
 	}
 
@@ -2235,58 +2143,7 @@ MapBlock * ServerMap::generateBlock(
 	*/
 	MapBlock *block = getBlockNoCreateNoEx(p);
 
-#if 0
-	/*
-		Check result
-	*/
-	if(block)
-	{
-		bool erroneus_content = false;
-		for(s16 z0=0; z0<MAP_BLOCKSIZE; z0++)
-		for(s16 y0=0; y0<MAP_BLOCKSIZE; y0++)
-		for(s16 x0=0; x0<MAP_BLOCKSIZE; x0++)
-		{
-			v3s16 p(x0,y0,z0);
-			MapNode n = block->getNode(p);
-			if(n.getContent() == CONTENT_IGNORE)
-			{
-				infostream<<"CONTENT_IGNORE at "
-						<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
-						<<std::endl;
-				erroneus_content = true;
-				assert(0);
-			}
-		}
-		if(erroneus_content)
-		{
-			assert(0);
-		}
-	}
-#endif
-
-#if 0
-	/*
-		Generate a completely empty block
-	*/
-	if(block)
-	{
-		for(s16 z0=0; z0<MAP_BLOCKSIZE; z0++)
-		for(s16 x0=0; x0<MAP_BLOCKSIZE; x0++)
-		{
-			for(s16 y0=0; y0<MAP_BLOCKSIZE; y0++)
-			{
-				MapNode n;
-				if(y0%2==0)
-					n.setContent(CONTENT_AIR);
-				else
-					n.setContent(CONTENT_STONE);
-				block->setNode(v3s16(x0,y0,z0), n);
-			}
-		}
-	}
-#endif
-
-	if(enable_mapgen_debug_info == false)
+	if (enable_mapgen_debug_info == false)
 		timer.stop(true); // Hide output
 
 	return block;
@@ -2355,11 +2212,13 @@ MapBlock * ServerMap::createBlock(v3s16 p)
 	return block;
 }
 
-MapBlock * ServerMap::emergeBlock(v3s16 p, bool allow_generate)
+MapBlock * ServerMap::emergeBlock(v3s16 p, bool allow_generate, bool *was_generated)
 {
 	DSTACKF("%s: p=(%d,%d,%d), allow_generate=%d",
 			__FUNCTION_NAME,
 			p.X, p.Y, p.Z, allow_generate);
+	if (was_generated)
+		*was_generated = false;
 
 	{
 		MapBlock *block = getBlockNoCreateNoEx(p);
@@ -2394,6 +2253,8 @@ MapBlock * ServerMap::emergeBlock(v3s16 p, bool allow_generate)
 			// Queue event
 			dispatchEvent(&event);
 
+			if (was_generated)
+				*was_generated = true;
 			return block;
 		}
 	}
@@ -2798,18 +2659,6 @@ void ServerMap::saveBlock(MapBlock *block)
 	// Get destination
 	v3s16 p3d = block->getPos();
 
-
-#if 0
-	v2s16 p2d(p3d.X, p3d.Z);
-	std::string sectordir = getSectorDir(p2d);
-
-	createDirs(sectordir);
-
-	std::string fullpath = sectordir+DIR_DELIM+getBlockFilename(p3d);
-	std::ofstream o(fullpath.c_str(), std::ios_base::binary);
-	if(o.good() == false)
-		throw FileNotGoodException("Cannot open block data");
-#endif
 	/*
 		[0] u8 serialization version
 		[1] data
@@ -3084,34 +2933,6 @@ MapSector * ClientMap::emergeSector(v2s16 p2d)
 
 	return sector;
 }
-
-#if 0
-void ClientMap::deSerializeSector(v2s16 p2d, std::istream &is)
-{
-	DSTACK(__FUNCTION_NAME);
-	ClientMapSector *sector = NULL;
-
-	//JMutexAutoLock lock(m_sector_mutex); // Bulk comment-out
-
-	core::map<v2s16, MapSector*>::Node *n = m_sectors.find(p2d);
-
-	if(n != NULL)
-	{
-		sector = (ClientMapSector*)n->getValue();
-		assert(sector->getId() == MAPSECTOR_CLIENT);
-	}
-	else
-	{
-		sector = new ClientMapSector(this, p2d);
-		{
-			//JMutexAutoLock lock(m_sector_mutex); // Bulk comment-out
-			m_sectors.insert(p2d, sector);
-		}
-	}
-
-	sector->deSerialize(is);
-}
-#endif
 
 void ClientMap::OnRegisterSceneNode()
 {
