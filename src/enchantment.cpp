@@ -212,3 +212,25 @@ bool enchantment_enchant(uint16_t *data, content_t item)
 	}
 	return false;
 }
+
+uint16_t enchantment_create(uint16_t enchantment, uint8_t level)
+{
+	uint16_t d;
+
+	if (!enchantment_isinit)
+		enchantment_init();
+
+	if (!level || enchantment == ENCHANTMENT_NONE || enchantment > ENCHANTMENT_MAX || enchantments[enchantment].type != enchantment)
+		return 0;
+
+	d = enchantments[enchantment].mask;
+
+	if (enchantment > 2) {
+		if (level > 3)
+			level = 3;
+
+		d |= (level<<(enchantment-3));
+	}
+
+	return d;
+}

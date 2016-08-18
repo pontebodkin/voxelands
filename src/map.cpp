@@ -36,12 +36,15 @@
 #include "porting.h"
 #include "nodemetadata.h"
 #include "content_mapnode.h"
+#include "content_nodemeta.h"
 #ifndef SERVER
 #include <IMaterialRenderer.h>
 #endif
 #include "settings.h"
 #include "log.h"
 #include "profiler.h"
+#include "inventory.h"
+#include "enchantment.h"
 
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
@@ -1925,20 +1928,10 @@ void ServerMap::initBlockMake(mapgen::BlockMakeData *data, v3s16 blockpos)
 MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 		core::map<v3s16, MapBlock*> &changed_blocks)
 {
-	//v3s16 blockpos = data->blockpos;
-	/*infostream<<"finishBlockMake(): ("<<blockpos.X<<","<<blockpos.Y<<","
-			<<blockpos.Z<<")"<<std::endl;*/
-
-	if(data->no_op)
-	{
-		//infostream<<"finishBlockMake(): no-op"<<std::endl;
+	if (data->no_op)
 		return NULL;
-	}
 
 	bool enable_mapgen_debug_info = g_settings->getBool("enable_mapgen_debug_info");
-
-	/*infostream<<"Resulting vmanip:"<<std::endl;
-	data->vmanip.print(infostream);*/
 
 	/*
 		Blit generated stuff to map
@@ -1947,18 +1940,17 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 	{
 		// 70ms @cs=8
 		//TimeTaker timer("finishBlockMake() blitBackAll");
-		data->vmanip->blitBackAll(&changed_blocks);
+		data->vmanip->blitBackAllWithMeta(&changed_blocks);
 	}
 
-	if(enable_mapgen_debug_info)
+	if (enable_mapgen_debug_info)
 		infostream<<"finishBlockMake: changed_blocks.size()="
 				<<changed_blocks.size()<<std::endl;
 
 	/*
 		Copy transforming liquid information
 	*/
-	while(data->transforming_liquid.size() > 0)
-	{
+	while (data->transforming_liquid.size() > 0) {
 		v3s16 p = data->transforming_liquid.pop_front();
 		m_transforming_liquid.push_back(p);
 	}
@@ -1969,33 +1961,80 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 	MapBlock *block = getBlockNoCreateNoEx(data->blockpos);
 	assert(block);
 
-	/*
-		Set is_underground flag for lighting with sunlight.
-
-		Refer to map generator heuristics.
-
-		NOTE: This is done in initChunkMake
-	*/
-	//block->setIsUnderground(mapgen::block_is_underground(data->seed, blockpos));
-
-
-	/*
-		Add sunlight to central block.
-		This makes in-dark-spawning monsters to not flood the whole thing.
-		Do not spread the light, though.
-	*/
-	/*core::map<v3s16, bool> light_sources;
-	bool black_air_left = false;
-	block->propagateSunlight(light_sources, true, &black_air_left);*/
-
-	/*
-		NOTE: Lighting and object adding shouldn't really be here, but
-		lighting is a bit tricky to move properly to makeBlock.
-		TODO: Do this the right way anyway, that is, move it to makeBlock.
-		      - There needs to be some way for makeBlock to report back if
-			    the lighting update is going further down because of the
-				new block blocking light
-	*/
+	{
+		v3s16 p0;
+		for (p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++) {
+		for (p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++) {
+		for (p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++) {
+			MapNode n = block->getNodeNoEx(p0);
+			if (n.getContent() == CONTENT_CHEST) {
+				printf("CHEST!!\n");
+				// chest? give it metadata and put shit in it
+				NodeMetadata *f = block->m_node_metadata.get(p0);
+				Inventory *inv = f->getInventory();
+				if (inv) {
+					InventoryList *ilist = inv->getList("0");
+					if (ilist) {
+						if (myrand_range(0,2) == 0)
+							ilist->addItem(new CraftItem(CONTENT_CRAFTITEM_GRAPE,10,0));
+						if (myrand_range(0,2) == 0)
+							ilist->addItem(new CraftItem(CONTENT_CRAFTITEM_OERKKI_DUST,6,0));
+						if (myrand_range(0,3) == 0)
+							ilist->addItem(new ClothesItem(CONTENT_CLOTHESITEM_QUARTZ_MEDALLION,0,0));
+						if (myrand_range(0,3) == 0)
+							ilist->addItem(new ClothesItem(CONTENT_CLOTHESITEM_SPACESUIT_PANTS,0,0));
+						if (myrand_range(0,4) == 0) {
+							content_t c = CONTENT_CRAFTITEM_STEEL_INGOT;
+							switch (myrand_range(0,4)) {
+							case 0:
+								c = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;
+								break;
+							case 1:
+								c = CONTENT_CRAFTITEM_FLINT;
+								break;
+							case 2:
+								c = CONTENT_CRAFTITEM_TIN_INGOT;
+								break;
+							case 3:
+								c = CONTENT_CRAFTITEM_QUARTZ;
+								break;
+							default:;
+							}
+							ilist->addItem(new CraftItem(c,50,0));
+						}
+						if (myrand_range(0,4) == 0) {
+							content_t c = CONTENT_CRAFTITEM_RUBY;
+							switch (myrand_range(0,4)) {
+							case 0:
+								c = CONTENT_CRAFTITEM_TURQUOISE;
+								break;
+							case 1:
+								c = CONTENT_CRAFTITEM_AMETHYST;
+								break;
+							case 2:
+								c = CONTENT_CRAFTITEM_SAPPHIRE;
+								break;
+							case 3:
+								c = CONTENT_CRAFTITEM_SUNSTONE;
+								break;
+							default:;
+							}
+							ilist->addItem(new CraftItem(c,20,0));
+						}
+						if (myrand_range(0,5) == 0) {
+							uint16_t en = enchantment_create(ENCHANTMENT_LONGLASTING,3);
+							ilist->addItem(new ToolItem(CONTENT_TOOLITEM_MITHRIL_PICK,0,en));
+						}
+						if (ilist->getUsedSlots() == 0)
+							ilist->addItem(new CraftItem(CONTENT_CRAFTITEM_COAL,10,0));
+					}
+				}
+				continue;
+			}
+		}
+		}
+		}
+	}
 
 	/*
 		Update lighting

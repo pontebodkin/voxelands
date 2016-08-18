@@ -45,5 +45,6 @@ bool enchantment_get(uint16_t *data, EnchantmentInfo *info);
 bool enchantment_have(uint16_t data, uint16_t enchantment);
 bool enchantment_set(uint16_t *data, uint16_t enchantment);
 bool enchantment_enchant(uint16_t *data, content_t item);
+uint16_t enchantment_create(uint16_t enchantment, uint8_t level);
 
 #endif
