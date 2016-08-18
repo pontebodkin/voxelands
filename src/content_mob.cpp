@@ -371,10 +371,10 @@ void content_mob_init()
 	f->dropped_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RAT)+" 1";
 	f->motion = MM_WANDER;
 	f->moves_silently = true;
-	f->spawn_max_height = -10;
+	f->spawn_max_height = -5;
 	f->spawn_group = 3;
-	f->spawn_naturally = false;
-	f->lifetime = one_month;
+	f->spawn_naturally = true;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-BS/3.,0.0,-BS/3., BS/3.,BS/2.,BS/3.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -394,7 +394,7 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 50;
 	f->spawn_naturally = false;
-	f->lifetime = one_month;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-BS/4.,-BS/6.,-BS/4., BS/4.,BS/6.,BS/4.));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -485,7 +485,7 @@ void content_mob_init()
 	f->spawn_min_height = -5;
 	f->spawn_max_height = 40;
 	f->spawn_group = 3;
-	f->lifetime = one_month;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.6*BS, 0., -0.6*BS, 0.6*BS, 1.25*BS, 0.6*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -566,7 +566,7 @@ void content_mob_init()
 	f->spawn_group = 3;
 	f->spawn_water = true;
 	f->hp = 5;
-	f->lifetime = one_month;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.25*BS, 0.25*BS, -0.25*BS, 0.25*BS, 0.75*BS, 0.25*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
@@ -681,7 +681,7 @@ void content_mob_init()
 	f->spawn_min_height = 2;
 	f->spawn_max_height = 50;
 	f->spawn_group = 4;
-	f->lifetime = one_month;
+	f->lifetime = one_week;
 	f->setCollisionBox(aabb3f(-0.4*BS, 0., -0.4*BS, 0.4*BS, 1.*BS, 0.4*BS));
 	lists::add("creative",CONTENT_TOOLITEM_MOB_SPAWNER,1,i);
 
