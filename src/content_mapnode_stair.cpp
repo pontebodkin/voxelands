@@ -646,7 +646,7 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(5,"brick_stair_ud_corner_front_5.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 24");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	content_nodebox_stair_cornerud(f);
 	f->setInventoryTextureNodeBox(i,"brick_stair_corner_top.png",
                                     "brick_stair_ud_corner_front_5.png",
@@ -663,7 +663,7 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 24";
+						     itos(CONTENT_SAND)+ " 4";
 	content_nodebox_stair_cornerud(f);
 	f->setInventoryTextureNodeBox(i,"sandstone.png",
 									"sandstone.png",
