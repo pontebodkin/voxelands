@@ -469,6 +469,7 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->rotate_tile_with_nodebox = true;
 	f->setAllTextures("brick.png");
+	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 24");
@@ -634,6 +635,7 @@ void content_mapnode_stair(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->rotate_tile_with_nodebox = true;
 	f->setAllTextures("brick.png");
+	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 24");
