@@ -450,7 +450,7 @@ void content_mob_init()
 	f->description = wgettext("Fireball");
 	f->level = MOB_DESTRUCTIVE;
 	f->setTexture("mob_fireball.png");
-    f->lifetime = 20.0;
+    f->lifetime = 10.0;
 	f->punch_action = MPA_IGNORE;
 	f->motion = MM_CONSTANT;
 	f->motion_type = MMT_FLY;
