@@ -385,7 +385,7 @@ TileSpec getMetaTile(MapNode mn, v3s16 p, v3s16 face_dir, SelectedNode &select)
 	return spec;
 }
 
-v3s16 dirs8[8] = {
+static const v3s16 dirs8[8] = {
 	v3s16(0,0,0),
 	v3s16(0,0,1),
 	v3s16(0,1,0),
@@ -411,20 +411,19 @@ u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip)
 	if (corner.Z == 1)
 		p.Z += 1;
 
-	for (u32 i=0; i<8; i++) {
+		for (u8 i = 0; i < 8; i++) {
 		MapNode n = vmanip.getNodeRO(p - dirs8[i]);
-		if (
-			content_features(n).param_type == CPT_LIGHT
-		) {
+		ContentFeatures &f = content_features(n);
+		if (f.param_type == CPT_LIGHT) {
 			dl += n.getLight(LIGHTBANK_DAY);
 			nl += n.getLight(LIGHTBANK_NIGHT);
 			light_count++;
-			if (content_features(n).light_source > 0)
-				ambient_occlusion -= 2.0;
-		}else if (content_features(n).draw_type == CDT_CUBELIKE) {
-			ambient_occlusion += 1.0;
-		}else if (n.getContent() != CONTENT_IGNORE) {
+			if (f.light_source > 0)
+				ambient_occlusion -= 1.0;
+		} else if (f.draw_type == CDT_CUBELIKE || f.draw_type == CDT_DIRTLIKE) {
 			ambient_occlusion += 0.5;
+		} else if (n.getContent() != CONTENT_IGNORE) {
+			ambient_occlusion += 0.25;
 		}
 	}
 
@@ -434,8 +433,8 @@ u8 getSmoothLight(v3s16 p, v3s16 corner, VoxelManipulator &vmanip)
 	dl /= light_count;
 	nl /= light_count;
 
-	if (ambient_occlusion > 4.0) {
-		ambient_occlusion = (ambient_occlusion-4) * 0.4 + 1.0;
+	if (ambient_occlusion > 2.0) {
+		ambient_occlusion = (ambient_occlusion-2) * 0.4 + 1.0;
 		dl /= ambient_occlusion;
 		nl /= ambient_occlusion;
 	}
