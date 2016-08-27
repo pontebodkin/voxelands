@@ -468,19 +468,15 @@ void content_mapnode_stair(bool repeat)
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->rotate_tile_with_nodebox = true;
-	f->setTexture(0,"brick_stair_corner_top.png");
+	f->setAllTextures("brick.png");
 	f->setTexture(1,"brick_bottom.png");
-	f->setTexture(2,"brick_stair_corner_front_2.png");
-	f->setTexture(3,"brick_stair_corner_front_3.png");
-	f->setTexture(4,"brick_stair_corner_front_4.png");
-	f->setTexture(5,"brick_stair_corner_front_5.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem clay_brick 24");
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"brick_stair_corner_top.png",
-                                    "brick_stair_corner_front_5.png",
-                                    "brick_stair_corner_front_2.png");
+	f->setInventoryTextureNodeBox(i,"brick.png",
+                                    "brick.png",
+                                    "brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_INNER_STAIR_CORNER;
@@ -638,19 +634,15 @@ void content_mapnode_stair(bool repeat)
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->rotate_tile_with_nodebox = true;
-	f->setTexture(0,"brick_bottom.png");
-	f->setTexture(1,"brick_stair_ud_corner_top.png");
-	f->setTexture(2,"brick_stair_ud_corner_front_2.png");
-	f->setTexture(3,"brick_stair_ud_corner_front_3.png");
-	f->setTexture(4,"brick_stair_ud_corner_front_4.png");
-	f->setTexture(5,"brick_stair_ud_corner_front_5.png");
+	f->setAllTextures("brick.png");
+	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 24");
+	f->dug_item = std::string("CraftItem clay_brick 4");
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"brick_stair_corner_top.png",
-                                    "brick_stair_ud_corner_front_5.png",
-                                    "brick_stair_ud_corner_front_2.png");
+	f->setInventoryTextureNodeBox(i,"brick.png",
+                                    "brick.png",
+                                    "brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_INNER_STAIR_CORNER_UD;
@@ -663,7 +655,7 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 24";
+						     itos(CONTENT_SAND)+ " 4";
 	content_nodebox_stair_cornerud(f);
 	f->setInventoryTextureNodeBox(i,"sandstone.png",
 									"sandstone.png",
