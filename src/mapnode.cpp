@@ -102,9 +102,28 @@ void ContentFeatures::setTexture(u16 i, std::string name, u8 alpha)
 {
 	used_texturenames[name] = true;
 
-	if(g_texturesource)
-	{
+	if (g_texturesource) {
 		tiles[i].texture = g_texturesource->getTexture(name);
+
+		// we have an animated texture!
+		if (tiles[i].material_flags & MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES) {
+			// Get raw texture size to determine frame count by aspect ratio
+			video::ITexture *t = g_texturesource->getTextureRaw(name);
+			if (t != NULL) {
+				v2u32 size = t->getOriginalSize();
+				int frame_count = size.Y / size.X;
+				int frame_length_ms = 1000.0 * animation_length / frame_count;
+				tiles[i].animation_frame_count = frame_count;
+				tiles[i].animation_frame_length_ms = frame_length_ms;
+
+				// If there are no frames for an animation, switch
+				// animation off (so that having specified an animation
+				// for something but not using it in the texture pack
+				// gives no overhead)
+				if (frame_count == 1)
+					tiles[i].material_flags &= ~MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES;
+			}
+		}
 	}
 
 	if(alpha != 255)
@@ -721,5 +740,3 @@ u8 face_light(MapNode n, MapNode n2, v3s16 face_dir)
 
 	return (ln<<4)|ld;
 }
-
-

@@ -807,7 +807,7 @@ static void meshgen_cuboid(
 		for (s32 j=0; j<4; j++) {
 			vertices[i][j].Pos += pos;
 		}
-		data->append(tiles[tileindex].getMaterial(), vertices[i], 4, indices, 6, colours);
+		data->append(tiles[tileindex], vertices[i], 4, indices, 6, colours);
 	}
 }
 
@@ -895,7 +895,7 @@ static void meshgen_rooftri(MeshMakeData *data, MapNode &n, v3s16 p, v3f corners
 		tri_v[0].Pos += pos;
 		tri_v[1].Pos += pos;
 		tri_v[2].Pos += pos;
-		data->append(tile.getMaterial(),tri_v, 3, indices, 3, colours);
+		data->append(tile, tri_v, 3, indices, 3, colours);
 	}
 	{
 		video::S3DVertex tri_v[3] = {
@@ -913,7 +913,7 @@ static void meshgen_rooftri(MeshMakeData *data, MapNode &n, v3s16 p, v3f corners
 		tri_v[0].Pos += pos;
 		tri_v[1].Pos += pos;
 		tri_v[2].Pos += pos;
-		data->append(tile.getMaterial(),tri_v, 3, indices, 3, colours);
+		data->append(tile, tri_v, 3, indices, 3, colours);
 	}
 }
 
@@ -949,7 +949,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 	if (meshgen_hardface(data,p,n,v3s16(1,0,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
@@ -972,7 +972,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 	if (meshgen_hardface(data,p,n,v3s16(0,-1,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected,NULL);
@@ -995,7 +995,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 	if (meshgen_hardface(data,p,n,v3s16(0,1,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected,NULL);
@@ -1018,7 +1018,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 	if (meshgen_hardface(data,p,n,v3s16(0,0,-1))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,0,-1),selected,NULL);
@@ -1041,7 +1041,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 	if (meshgen_hardface(data,p,n,v3s16(0,0,1))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,0,1),selected,NULL);
@@ -1064,7 +1064,7 @@ void meshgen_cubelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -1432,7 +1432,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			v[i].Pos += pos;
 		}
 
-		data->append(toptile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(toptile, v, 4, indices, 6, colours);
 
 		if (!o_faces[2] || !o_faces[3] || !o_faces[4] || !o_faces[5]) {
 			if (o_faces[2]) {
@@ -1459,7 +1459,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 					v2[i].TCoords += toptile.texture.pos;
 				}
 
-				data->append(toptile.getMaterial(), v2, 4, indices, 6, colours);
+				data->append(toptile, v2, 4, indices, 6, colours);
 			}
 			if (o_faces[3]) {
 				video::S3DVertex v2[4] = {
@@ -1487,7 +1487,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 					v2[i].TCoords += toptile.texture.pos;
 				}
 
-				data->append(toptile.getMaterial(), v2, 4, indices, 6, colours);
+				data->append(toptile, v2, 4, indices, 6, colours);
 			}
 			if (o_faces[4]) {
 				video::S3DVertex v2[4] = {
@@ -1515,7 +1515,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 					v2[i].TCoords += toptile.texture.pos;
 				}
 
-				data->append(toptile.getMaterial(), v2, 4, indices, 6, colours);
+				data->append(toptile, v2, 4, indices, 6, colours);
 			}
 			if (o_faces[5]) {
 				video::S3DVertex v2[4] = {
@@ -1543,7 +1543,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 					v2[i].TCoords += toptile.texture.pos;
 				}
 
-				data->append(toptile.getMaterial(), v2, 4, indices, 6, colours);
+				data->append(toptile, v2, 4, indices, 6, colours);
 			}
 		}
 	}
@@ -1567,7 +1567,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			v[i].Pos += pos;
 		}
 
-		data->append(basetile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(basetile, v, 4, indices, 6, colours);
 	}
 
 	video::S3DVertex vertices[4] = {
@@ -1654,7 +1654,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				v[i].Pos += pos;
 			}
 
-			data->append(upstile.getMaterial(), v, 4, indices, 6, colours);
+			data->append(upstile, v, 4, indices, 6, colours);
 		}
 		if (!faces[face])
 			continue;
@@ -1683,7 +1683,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			v[i].Pos += pos;
 		}
 
-		data->append(basetile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(basetile, v, 4, indices, 6, colours);
 		if (!o_faces[face])
 			continue;
 
@@ -1711,7 +1711,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			v[i].Pos += pos;
 		}
 
-		data->append(sidetile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(sidetile, v, 4, indices, 6, colours);
 	}
 }
 
@@ -2193,13 +2193,13 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				vertices[i].Pos.X += 0.005;
 			}
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 
 			for (u16 i=0; i<4; i++) {
 				vertices[i].Pos.X -= 0.01;
 			}
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 		}
 	}else{
 		for (u32 j=0; j<2; j++) {
@@ -2232,7 +2232,7 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				vertices[i].Pos += pos;
 			}
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 		}
 	}
 
@@ -2259,7 +2259,7 @@ void meshgen_plantlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -2406,7 +2406,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			v[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(tile, v, 4, indices, 6, colours);
 
 		if (!selected.is_coloured && !selected.has_crack)
 			continue;
@@ -2415,7 +2415,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			v[i].Pos.X -= 0.01;
 		}
 
-		data->append(tile.getMaterial(), v, 4, indices, 6, colours);
+		data->append(tile, v, 4, indices, 6, colours);
 	}
 	u32 max = (data->mesh_detail == 3 ? 8 : 4);
 	for (u32 j=0; j<max; j++) {
@@ -2441,7 +2441,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			v[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), v, 8, indices, 12, colours);
+		data->append(tile, v, 8, indices, 12, colours);
 
 		if (!selected.is_coloured && !selected.has_crack)
 			continue;
@@ -2450,7 +2450,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			v[i].Pos.Y -= 0.01;
 		}
 
-		data->append(tile.getMaterial(), v, 8, indices, 12, colours);
+		data->append(tile, v, 8, indices, 12, colours);
 	}
 
 	if (selected.is_coloured || selected.has_crack)
@@ -2476,7 +2476,7 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -2700,7 +2700,7 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 			vertices[j].Pos += pos;
 		}
 
-		data->append(tiles[i].getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tiles[i], vertices, 4, indices, 6, colours);
 	}
 
 	/*
@@ -2735,7 +2735,7 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 			vertices[j].Pos += pos;
 		}
 
-		data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tiles[0], vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -2912,7 +2912,7 @@ void meshgen_liquid_source(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode
 		for(u16 i=0; i<4; i++) {
 			vertices[i].Pos += pos;
 		}
-		data->append(tiles[j].getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tiles[j], vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -3035,7 +3035,7 @@ void meshgen_glasslike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tiles[j].getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tiles[j], vertices, 4, indices, 6, colours);
 	}
 
 	if (data->mesh_detail > 2 && data->light_detail > 2 && content_features(n.getContent()).light_source > 0) {
@@ -3072,7 +3072,7 @@ void meshgen_glasslike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			std::vector<u32> colours;
 			meshgen_custom_lights(colours,255,255,255,255,4);
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 		}
 	}
 }
@@ -3210,7 +3210,7 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			vertices[j][i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices[j], 4, indices, 6, colours);
+		data->append(tile, vertices[j], 4, indices, 6, colours);
 	}
 
 	if (data->mesh_detail > 2 && data->light_detail > 2) {
@@ -3246,7 +3246,7 @@ void meshgen_torchlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			std::vector<u32> colours;
 			meshgen_custom_lights(colours,255,255,255,255,4);
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 		}
 	}
 }
@@ -3477,7 +3477,7 @@ void meshgen_firelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -4653,7 +4653,7 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				}
 			}
 
-			data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+			data->append(tile, vertices, 4, indices, 6, colours);
 		}
 	}else{
 		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
@@ -4685,7 +4685,7 @@ void meshgen_leaflike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(tile.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
@@ -4869,7 +4869,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			{
 				video::S3DVertex vertices[4] = {
@@ -4884,7 +4884,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 		}else{
 			if (x_plus) {
@@ -4900,7 +4900,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (x_minus) {
 				video::S3DVertex vertices[4] = {
@@ -4915,7 +4915,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (z_plus) {
 				video::S3DVertex vertices[4] = {
@@ -4930,7 +4930,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (z_minus) {
 				video::S3DVertex vertices[4] = {
@@ -4945,7 +4945,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (x_plus_y) {
 				video::S3DVertex vertices[4] = {
@@ -4960,7 +4960,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (x_minus_y) {
 				video::S3DVertex vertices[4] = {
@@ -4975,7 +4975,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (z_plus_y) {
 				video::S3DVertex vertices[4] = {
@@ -4990,7 +4990,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 			if (z_minus_y) {
 				video::S3DVertex vertices[4] = {
@@ -5005,7 +5005,7 @@ void meshgen_wirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				u16 indices[] = {0,1,2,2,3,0};
 				std::vector<u32> colours;
 				meshgen_custom_lights(colours,cols[0],cols[1],cols[2],cols[3],4);
-				data->append(tiles[0].getMaterial(), vertices, 4, indices, 6, colours);
+				data->append(tiles[0], vertices, 4, indices, 6, colours);
 			}
 		}
 		return;
@@ -5319,7 +5319,7 @@ void meshgen_stairlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					vertices[i][j].Pos += pos;
 				}
 
-				data->append(tiles[i].getMaterial(), vertices[i], vcounts[i], indices[i], icounts[i], colours);
+				data->append(tiles[i], vertices[i], vcounts[i], indices[i], icounts[i], colours);
 			}
 		}else{
 			for (int i=0; i<6; i++) {
@@ -5343,7 +5343,7 @@ void meshgen_stairlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					vertices[i][j].Pos += pos;
 				}
 
-				data->append(tiles[i].getMaterial(), vertices[i], vcounts[i], indices[i], icounts[i], colours);
+				data->append(tiles[i], vertices[i], vcounts[i], indices[i], icounts[i], colours);
 			}
 		}
 	}else if (rot) {
@@ -5368,7 +5368,7 @@ void meshgen_stairlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				vertices[i][j].Pos += pos;
 			}
 
-			data->append(tiles[i].getMaterial(), vertices[i], vcounts[i], indices[i], icounts[i], colours);
+			data->append(tiles[i], vertices[i], vcounts[i], indices[i], icounts[i], colours);
 		}
 	}else{
 		for (int i=0; i<6; i++) {
@@ -5389,7 +5389,7 @@ void meshgen_stairlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				vertices[i][j].Pos += pos;
 			}
 
-			data->append(tiles[i].getMaterial(), vertices[i], vcounts[i], indices[i], icounts[i], colours);
+			data->append(tiles[i], vertices[i], vcounts[i], indices[i], icounts[i], colours);
 		}
 	}
 }
@@ -5485,7 +5485,7 @@ void meshgen_slablike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				vertices[i][j].Pos += pos;
 			}
 
-			data->append(tiles[i].getMaterial(), vertices[i], 4, indices, 6, colours);
+			data->append(tiles[i], vertices[i], 4, indices, 6, colours);
 		}
 	}else{
 		for (u16 i=0; i<6; i++) {
@@ -5509,7 +5509,7 @@ void meshgen_slablike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				vertices[i][j].Pos += pos;
 			}
 
-			data->append(tiles[i].getMaterial(), vertices[i], 4, indices, 6, colours);
+			data->append(tiles[i], vertices[i], 4, indices, 6, colours);
 		}
 	}
 }
@@ -5673,7 +5673,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				v[k].Pos += pos;
 			}
 
-			data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+			data->append(tile, v, 10, indices, 24, colours);
 		}
 		if (!y_plus_any) {
 			for (u16 j=0; j<4; j++) {
@@ -5695,7 +5695,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+				data->append(endtile, v, 6, end_indices, 12, colours);
 			}
 		}
 		if (!y_minus_any) {
@@ -5719,7 +5719,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+				data->append(endtile, v, 6, end_indices, 12, colours);
 			}
 		}else if (mud_under) {
 			for (u16 j=0; j<4; j++) {
@@ -5741,7 +5741,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 6, base_indices, 12, colours);
+				data->append(tile, v, 6, base_indices, 12, colours);
 			}
 		}
 		if (x_plus) {
@@ -5777,7 +5777,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 		}
 		if (x_minus) {
@@ -5812,7 +5812,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 		}
 		if (z_plus) {
@@ -5847,7 +5847,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 		}
 		if (z_minus) {
@@ -5883,7 +5883,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 		}
 	}else{ /* horizontal trunk */
@@ -5919,7 +5919,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 			if (!x_plus_any) {
 				for (u16 j=0; j<4; j++) {
@@ -5942,7 +5942,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+					data->append(endtile, v, 6, end_indices, 12, colours);
 				}
 			}
 			if (!x_minus_any) {
@@ -5966,7 +5966,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+					data->append(endtile, v, 6, end_indices, 12, colours);
 				}
 			}
 			if (z_plus) {
@@ -6001,7 +6001,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+					data->append(tile, v, 10, indices, 24, colours);
 				}
 			}
 			if (z_minus) {
@@ -6037,7 +6037,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+					data->append(tile, v, 10, indices, 24, colours);
 				}
 			}
 		}else{ // centred along Z
@@ -6072,7 +6072,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					v[k].Pos += pos;
 				}
 
-				data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+				data->append(tile, v, 10, indices, 24, colours);
 			}
 			if (!z_plus_any) {
 				for (u16 j=0; j<4; j++) {
@@ -6095,7 +6095,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+					data->append(endtile, v, 6, end_indices, 12, colours);
 				}
 			}
 			if (!z_minus_any) {
@@ -6119,7 +6119,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(endtile.getMaterial(), v, 6, end_indices, 12, colours);
+					data->append(endtile, v, 6, end_indices, 12, colours);
 				}
 			}
 			if (x_plus) {
@@ -6155,7 +6155,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+					data->append(tile, v, 10, indices, 24, colours);
 				}
 			}
 			if (x_minus) {
@@ -6190,7 +6190,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 						v[k].Pos += pos;
 					}
 
-					data->append(tile.getMaterial(), v, 10, indices, 24, colours);
+					data->append(tile, v, 10, indices, 24, colours);
 				}
 			}
 		}
@@ -6269,7 +6269,7 @@ void meshgen_flaglike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 				v[i].Pos += pos;
 			}
 
-			data->append(flag.getMaterial(), v, 4, indices, 6, colours);
+			data->append(flag, v, 4, indices, 6, colours);
 		}
 	}else{
 		for (u16 i=0; i<4; i++) {
@@ -6289,7 +6289,7 @@ void meshgen_flaglike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			vertices[i].Pos += pos;
 		}
 
-		data->append(flag.getMaterial(), vertices, 4, indices, 6, colours);
+		data->append(flag, vertices, 4, indices, 6, colours);
 	}
 	delete meta;
 }
@@ -6343,7 +6343,7 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 	if (meshgen_farface(data,p,n,v3s16(1,0,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected,NULL);
@@ -6360,7 +6360,7 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 	if (meshgen_farface(data,p,n,v3s16(0,-1,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,-1,0),selected,NULL);
@@ -6378,7 +6378,7 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 	if (meshgen_farface(data,p,n,v3s16(0,1,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected,NULL);
@@ -6395,7 +6395,7 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 	if (meshgen_farface(data,p,n,v3s16(0,0,-1))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,0,-1),selected,NULL);
@@ -6412,7 +6412,7 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 	if (meshgen_farface(data,p,n,v3s16(0,0,1))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,0,1),selected,NULL);
@@ -6429,9 +6429,8 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 			vertices[i].Pos += pos;
 		}
 
-		data->appendFar(tile.getMaterial(), vertices, 4, indices, 6);
+		data->appendFar(tile, vertices, 4, indices, 6);
 	}
 }
 
 #endif
-

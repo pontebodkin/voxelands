@@ -3090,6 +3090,8 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 	// Blocks from which stuff was actually drawn
 	u32 blocks_without_stuff = 0;
 
+	float anim_time = m_client->getAnimationTime();
+
 	/*
 		Collect a set of blocks for drawing
 	*/
@@ -3271,6 +3273,12 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 				&& d > m_control.wanted_min_range * BS
 			)
 				continue;
+
+			// Animate textures in block mesh
+			if (block->mesh->isAnimated()) {
+				//JMutexAutoLock lock(block->mesh_mutex); //needed?
+				block->mesh->animate(anim_time);
+			}
 
 			// Add to set
 			drawset[block->getPos()] = block;

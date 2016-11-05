@@ -466,6 +466,49 @@ MapBlockMesh::~MapBlockMesh()
 	m_mesh = NULL;
 	m_farmesh->drop();
 	m_farmesh = NULL;
+	if (!m_animation_data.empty())
+		m_animation_data.clear();
+}
+
+void MapBlockMesh::animate(float time)
+{
+	if (!m_mesh)
+		return;
+
+	for (std::map<u32, AnimationData>::iterator it = m_animation_data.begin();
+				it != m_animation_data.end(); ++it) {
+
+		AnimationData temp_data = it->second;
+		const TileSpec &tile = temp_data.tile;
+		// Figure out current frame
+		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
+
+		// If frame doesn't change, skip
+		if (frame == temp_data.frame)
+			continue;
+
+		temp_data.frame = frame;
+
+		m_animation_data[it->first] = temp_data;
+
+		 // Make sure we don't cause an overflow. Can get removed if future is no problems occuring
+		if (it->first >= m_mesh->getMeshBufferCount()) {
+			errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
+			return;
+		}
+
+		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
+
+		// Create new texture name from original
+		if (g_texturesource && buf != 0) {
+			std::ostringstream os(std::ios::binary);
+			os << g_texturesource->getTextureName(tile.texture.id);
+			os << "^[verticalframe:" << (int)tile.animation_frame_count << ":" << frame;
+			// Set the texture
+			AtlasPointer ap = g_texturesource->getTexture(os.str());
+			buf->getMaterial().setTexture(0, ap.atlas);
+		}
+	}
 }
 
 void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mutex)
@@ -479,6 +522,8 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	data->light_detail = g_settings->getU16("light_detail");
 	m_pos = data->m_blockpos;
 	SelectedNode selected;
+	if (!m_animation_data.empty())
+		m_animation_data.clear();
 
 	for(s16 z=0; z<MAP_BLOCKSIZE; z++)
 	for(s16 y=0; y<MAP_BLOCKSIZE; y++)
@@ -626,12 +671,22 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	scene::SMesh *fmesh = new scene::SMesh();
 	for (u32 i=0; i<data->m_meshdata.size(); i++) {
 		MeshData &d = data->m_meshdata[i];
+
+		// - Texture animation
+		if (d.tile.material_flags & MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES) {
+			// Add to MapBlockMesh in order to animate these tiles
+			AnimationData anim_data;
+			anim_data.tile = d.tile;
+			anim_data.frame = 0;
+			m_animation_data[i] = anim_data;
+		}
+
 		// Create meshbuffer
 		// This is a "Standard MeshBuffer",
 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
 		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
 		// Set material
-		buf->Material = d.material;
+		buf->Material = d.tile.getMaterial();
 		// Add to mesh
 		mesh->addMeshBuffer(buf);
 		// Mesh grabbed it
@@ -646,7 +701,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
 		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
 		// Set material
-		buf->Material = d.material;
+		buf->Material = d.tile.getMaterial();
 		// Add to mesh
 		fmesh->addMeshBuffer(buf);
 		// Mesh grabbed it
@@ -670,6 +725,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	m_meshdata.swap(data->m_meshdata);
 	m_fardata.swap(data->m_fardata);
 	refresh(data->m_daynight_ratio);
+	animate(0.0);// get first frame of animation
 	m_mesh->recalculateBoundingBox();
 
 	if (mutex != NULL)

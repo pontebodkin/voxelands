@@ -271,6 +271,7 @@ enum MaterialType{
 
 // Material flags
 #define MATERIAL_FLAG_BACKFACE_CULLING 0x01
+#define MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES 0x02
 
 /*
 	This fully defines the looks of a tile.
@@ -287,8 +288,12 @@ struct TileSpec
 		material_flags(
 			//0 // <- DEBUG, Use the one below
 			MATERIAL_FLAG_BACKFACE_CULLING
-		)
+		),
+		animation_frame_count(0),
+		animation_frame_length_ms(0)
 	{
+		video::SMaterial m;
+		m_material = m;
 	}
 
 	bool operator==(TileSpec &other)
@@ -299,6 +304,11 @@ struct TileSpec
 			material_type == other.material_type &&
 			material_flags == other.material_flags
 		);
+	}
+
+	bool operator!=(TileSpec &other)
+	{
+		return !(*this == other);
 	}
 
 	// Sets everything else except the texture in the material
@@ -327,10 +337,9 @@ struct TileSpec
 
 	video::SMaterial getMaterial()
 	{
-		video::SMaterial m;
-		applyMaterialOptions(m);
-		m.setTexture(0,texture.atlas);
-		return m;
+		applyMaterialOptions(m_material);
+		m_material.setTexture(0, texture.atlas);
+		return m_material;
 	}
 
 	AtlasPointer texture;
@@ -340,6 +349,11 @@ struct TileSpec
 	u8 material_type;
 	// Material flags
 	u8 material_flags;
+
+	u8 animation_frame_count;
+	u16 animation_frame_length_ms;
+
+	video::SMaterial m_material;
 };
 
 #endif

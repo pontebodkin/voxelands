@@ -300,6 +300,8 @@ struct ContentFeatures
 	TileSpec tiles[6];
 	TileSpec meta_tiles[6];
 
+	float animation_length;
+
 	video::ITexture *inventory_texture;
 	std::string inventory_texture_name;
 
@@ -528,6 +530,7 @@ struct ContentFeatures
 		param_type = CPT_NONE;
 		param2_type = CPT_NONE;
 		draw_type = CDT_AIRLIKE;
+		animation_length = 1.0;
 		is_ground_content = false;
 		light_propagates = false;
 		sunlight_propagates = false;

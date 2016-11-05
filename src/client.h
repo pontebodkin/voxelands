@@ -341,6 +341,11 @@ public:
 
 	u8 getSleepAlpha() {return m_sleep_state*255;}
 
+	float Client::getAnimationTime()
+	{
+		return m_animation_time;
+	}
+
 private:
 
 	// Virtual methods from con::PeerHandler
@@ -416,6 +421,7 @@ private:
 	bool m_sleeping;
 	bool m_waking;
 	float m_sleep_state;
+	float m_animation_time;
 };
 
 #endif // !SERVER

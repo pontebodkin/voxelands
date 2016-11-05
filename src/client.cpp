@@ -235,7 +235,8 @@ Client::Client(
 	m_time_of_day_update_timer(0),
 	m_sleeping(false),
 	m_waking(false),
-	m_sleep_state(0.0)
+	m_sleep_state(0.0),
+	m_animation_time(0.0)
 {
 	m_mesh_update_thread.m_env = &m_env;
 	m_packetcounter_timer = 0.0;
@@ -313,6 +314,10 @@ void Client::step(float dtime)
 	}else{
 		m_ignore_damage_timer = 0.0;
 	}
+
+	m_animation_time += dtime;
+	if (m_animation_time > 60.0)
+		m_animation_time -= 60.0;
 
 	if (m_sleeping) {
 		m_sleep_state += dtime;

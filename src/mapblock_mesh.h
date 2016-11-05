@@ -50,12 +50,12 @@ struct MeshData
 {
 	bool single;
 	v3s16 pos;
-	video::SMaterial material;
+	TileSpec tile;
 	std::vector<u16> indices;
 	std::vector<video::S3DVertex> vertices;
 	std::vector<u32> colours;
 	std::vector<MeshData*> siblings;
-	MeshData* parent;
+	MeshData *parent;
 };
 
 struct MapBlockSound
@@ -98,12 +98,12 @@ struct MeshMakeData
 	*/
 	void fill(u32 daynight_ratio, MapBlock *block);
 
-	void startSingle(v3s16 pos, video::SMaterial material)
+	void startSingle(v3s16 pos, TileSpec tile)
 	{
 		MeshData dd;
 		dd.single = true;
 		dd.pos = pos;
-		dd.material = material;
+		dd.tile = tile;
 		dd.parent = NULL;
 		m_meshdata.push_back(dd);
 		m_single = &m_meshdata[m_meshdata.size()-1];
@@ -113,7 +113,7 @@ struct MeshMakeData
 		m_single = NULL;
 	}
 	void append(
-		video::SMaterial material,
+		TileSpec tile,
 		const video::S3DVertex* const vertices,
 		u32 v_count,
 		const u16* const indices,
@@ -125,9 +125,9 @@ struct MeshMakeData
 		if (m_single) {
 			if (m_single->parent)
 				m_single = m_single->parent;
-			if (m_single->material != material) {
+			if (m_single->tile != tile) {
 				for (u16 i=0; i<m_single->siblings.size(); i++) {
-					if (m_single->siblings[i]->material == material) {
+					if (m_single->siblings[i]->tile == tile) {
 						d = m_single->siblings[i];
 						break;
 					}
@@ -136,7 +136,7 @@ struct MeshMakeData
 					MeshData dd;
 					dd.single = true;
 					dd.pos = m_single->pos;
-					dd.material = material;
+					dd.tile = tile;
 					dd.parent = m_single;
 					m_meshdata.push_back(dd);
 					d = &m_meshdata[m_meshdata.size()-1];
@@ -148,7 +148,7 @@ struct MeshMakeData
 		}else{
 			for (u32 i=0; i<m_meshdata.size(); i++) {
 				MeshData &dd = m_meshdata[i];
-				if (dd.material != material)
+				if (dd.tile != tile)
 					continue;
 				if (dd.vertices.size() + v_count > 65535)
 					continue;
@@ -160,7 +160,7 @@ struct MeshMakeData
 			if (d == NULL) {
 				MeshData dd;
 				dd.single = false;
-				dd.material = material;
+				dd.tile = tile;
 				m_meshdata.push_back(dd);
 				d = &m_meshdata[m_meshdata.size()-1];
 			}
@@ -180,7 +180,7 @@ struct MeshMakeData
 		}
 	}
 	void appendFar(
-		video::SMaterial material,
+		TileSpec tile,
 		const video::S3DVertex* const vertices,
 		u32 v_count,
 		const u16* const indices,
@@ -190,7 +190,7 @@ struct MeshMakeData
 		MeshData *d = NULL;
 		for (u32 i=0; i<m_fardata.size(); i++) {
 			MeshData &dd = m_fardata[i];
-			if (dd.material != material)
+			if (dd.tile != tile)
 				continue;
 			if (dd.vertices.size() + v_count > 65535)
 				continue;
@@ -202,7 +202,7 @@ struct MeshMakeData
 		if (d == NULL) {
 			MeshData dd;
 			dd.single = false;
-			dd.material = material;
+			dd.tile = tile;
 			m_fardata.push_back(dd);
 			d = &m_fardata[m_fardata.size()-1];
 		}
@@ -216,6 +216,12 @@ struct MeshMakeData
 			d->vertices.push_back(vertices[i]);
 		}
 	}
+};
+
+struct AnimationData
+{
+	TileSpec tile;
+	int frame;
 };
 
 class MapBlockMesh
@@ -236,6 +242,12 @@ public:
 
 	void generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mutex);
 	void refresh(u32 daynight_ratio);
+	void animate(float time);
+
+	bool isAnimated()
+	{
+		return !m_animation_data.empty();
+	}
 
 	void updateCameraOffset(v3s16 camera_offset);
 
@@ -247,7 +259,8 @@ private:
 	v3s16 m_camera_offset;
 	std::vector<MeshData> m_meshdata;
 	std::vector<MeshData> m_fardata;
+
+	std::map<u32, AnimationData> m_animation_data;
 };
 
 #endif
-

@@ -2142,7 +2142,9 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_WATER;
 	f = &content_features(i);
 	f->description = wgettext("Water");
-	f->setAllTextures("water.png");
+	f->animation_length = 0.8;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("water_flowing.png");
 	f->setInventoryTextureCube("water.png", "water.png", "water.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2160,7 +2162,6 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	if(!opaque_water)
 		f->vertex_alpha = WATER_ALPHA;
-	f->setAllTextureFlags(0);
 	f->setAllTextureTypes(MATERIAL_ALPHA_VERTEX);
 	f->post_effect_color = video::SColor(64, 100, 100, 200);
 #endif
@@ -2170,7 +2171,9 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_WATERSOURCE;
 	f = &content_features(i);
 	f->description = wgettext("Water");
-	f->setAllTextures("water.png");
+	f->animation_length = 2.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("water_source.png");
 	f->setInventoryTextureCube("water.png", "water.png", "water.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2187,7 +2190,6 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	if(!opaque_water)
 		f->vertex_alpha = WATER_ALPHA;
-	f->setAllTextureFlags(0);
 	f->setAllTextureTypes(MATERIAL_ALPHA_VERTEX);
 	f->post_effect_color = video::SColor(64, 100, 100, 200);
 #endif
@@ -2199,7 +2201,9 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_LAVA;
 	f = &content_features(i);
 	f->description = wgettext("Lava");
-	f->setAllTextures("lava.png");
+	f->animation_length = 3.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("lava_flowing.png");
 	f->setInventoryTextureCube("lava.png", "lava.png", "lava.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2225,7 +2229,9 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_LAVASOURCE;
 	f = &content_features(i);
 	f->description = wgettext("Lava");
-	f->setAllTextures("lava.png");
+	f->animation_length = 3.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("lava_source.png");
 	f->setInventoryTextureCube("lava.png", "lava.png", "lava.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
