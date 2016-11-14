@@ -66,6 +66,7 @@ GUISettingsMenu::GUISettingsMenu(
 	m_data.hotbar = g_settings->getBool("old_hotbar");
 	m_data.wield_index = g_settings->getBool("enable_wieldindex");
 	m_data.volume = g_settings->getFloat("sound_volume");
+	m_data.texture_animation = g_settings->getBool("enable_animated_textures");
 
 	keynames[VLKC_FORWARD] = wgettext("Forward");
 	keynames[VLKC_BACKWARD] = wgettext("Backward");
@@ -127,6 +128,7 @@ void GUISettingsMenu::save()
 	g_settings->set("light_detail", itos(m_data.light_detail));
 	g_settings->set("old_hotbar", itos(m_data.hotbar));
 	g_settings->set("enable_wieldindex", itos(m_data.wield_index));
+	g_settings->set("enable_animated_textures", itos(m_data.texture_animation));
 	// video
 	g_settings->set("mip_map", itos(m_data.mip_map));
 	g_settings->set("anisotropic_filter", itos(m_data.anisotropic_filter));
@@ -152,6 +154,7 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	bool anisotropic;
 	bool hotbar;
 	bool wield_index;
+	bool texture_animation;
 	f32 volume;
 
 	m_screensize = screensize;
@@ -260,6 +263,13 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 			anisotropic = ((gui::IGUICheckBox*)e)->isChecked();
 		else
 			anisotropic = m_data.anisotropic_filter;
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_TEXTUREANIM_CB);
+		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
+			texture_animation = ((gui::IGUICheckBox*)e)->isChecked();
+		else
+			texture_animation = m_data.texture_animation;
 	}
 	{
 		gui::IGUIElement *e = getElementFromId(GUI_ID_HOTBAR_CB);
@@ -504,9 +514,14 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 			rect += topleft_content + v2s32(80, 210);
 			Environment->addCheckBox(anisotropic, rect, this, GUI_ID_ANISOTROPIC_CB, wgettext("Anisotropic Filtering"));
 		}
+		{
+			core::rect<s32> rect(0, 0, 200, 30);
+			rect += topleft_content + v2s32(80, 240);
+			Environment->addCheckBox(texture_animation, rect, this, GUI_ID_TEXTUREANIM_CB, wgettext("Enable Texture Animation"));
+		}
 		if (m_is_ingame) {
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 250);
+			rect += topleft_content + v2s32(0, 280);
 			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Some settings cannot be changed in-game."), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -658,6 +673,11 @@ bool GUISettingsMenu::acceptInput()
 		gui::IGUIElement *e = getElementFromId(GUI_ID_ANISOTROPIC_CB);
 		if(e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
 			m_data.anisotropic_filter = ((gui::IGUICheckBox*)e)->isChecked();
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_TEXTUREANIM_CB);
+		if (e != NULL && e->getType() == gui::EGUIET_CHECK_BOX)
+			m_data.texture_animation = ((gui::IGUICheckBox*)e)->isChecked();
 	}
 	{
 		gui::IGUIElement *e = getElementFromId(GUI_ID_HOTBAR_CB);

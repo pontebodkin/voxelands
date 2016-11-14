@@ -77,6 +77,8 @@
 # Enable smooth lighting with simple ambient occlusion;
 # disable for speed or for different looks.
 #smooth_lighting = true
+# Enable Texture Animations
+#enable_animated_textures = true
 # Whether to draw a frametime graph (for debugging frametime)
 #frametime_graph = false
 # Enable combining mainly used textures to a bigger one for improved speed
@@ -251,4 +253,3 @@
 #enable_experimental = false
 # a slow delete for objects, stops them being loaded from disk
 #onload_ignore_objects = false
-

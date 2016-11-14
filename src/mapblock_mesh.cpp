@@ -677,7 +677,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			// Add to MapBlockMesh in order to animate these tiles
 			AnimationData anim_data;
 			anim_data.tile = d.tile;
-			anim_data.frame = 0;
+			anim_data.frame = -1;
 			m_animation_data[i] = anim_data;
 		}
 
@@ -725,7 +725,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	m_meshdata.swap(data->m_meshdata);
 	m_fardata.swap(data->m_fardata);
 	refresh(data->m_daynight_ratio);
-	animate(0.0);// get first frame of animation
+	animate(0.0); // get first frame of animation
 	m_mesh->recalculateBoundingBox();
 
 	if (mutex != NULL)

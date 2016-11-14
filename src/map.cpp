@@ -3090,6 +3090,7 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 	// Blocks from which stuff was actually drawn
 	u32 blocks_without_stuff = 0;
 
+	bool anim_textures = g_settings->getBool("enable_animated_textures");
 	float anim_time = m_client->getAnimationTime();
 
 	/*
@@ -3275,7 +3276,7 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 				continue;
 
 			// Animate textures in block mesh
-			if (block->mesh->isAnimated()) {
+			if (anim_textures && block->mesh->isAnimated()) {
 				//JMutexAutoLock lock(block->mesh_mutex); //needed?
 				block->mesh->animate(anim_time);
 			}

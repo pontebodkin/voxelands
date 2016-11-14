@@ -109,6 +109,7 @@ void set_default_settings(Settings *settings)
 	settings->setDefault("enable_3d_clouds", "true");
 	settings->setDefault("opaque_water", "false");
 	settings->setDefault("enable_particles", "true");
+	settings->setDefault("enable_animated_textures", "true");
 	settings->setDefault("mip_map", "true");
 	settings->setDefault("anisotropic_filter", "true");
 	settings->setDefault("bilinear_filter", "false");

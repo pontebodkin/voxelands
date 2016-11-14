@@ -55,6 +55,7 @@ enum
 	GUI_ID_LIGHT_DETAIL_HIGH,
 	GUI_ID_HOTBAR_CB,
 	GUI_ID_WIELDINDEX_CB,
+	GUI_ID_TEXTUREANIM_CB,
 	// video
 	GUI_ID_MIPMAP_CB,
 	GUI_ID_BILINEAR_CB,
@@ -94,7 +95,8 @@ struct SettingsMenuData
 		wield_index(false),
 		volume(0.0f),
 		particles(true),
-		fullscreen(false)
+		fullscreen(false),
+		texture_animation(true)
 	{}
 
 	// These are in the native format of the gui elements
@@ -115,6 +117,7 @@ struct SettingsMenuData
 	//int enable_shaders;
 	bool particles;
 	bool fullscreen;
+	bool texture_animation;
 };
 
 class GUISettingsMenu: public GUIModalMenu
