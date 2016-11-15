@@ -34,10 +34,6 @@
 #include "sound.h"
 
 #ifndef SERVER
-float roundf(float x)
-{
-	return (float)((x < 0) ? (ceil((x) - 0.5)) : (floor((x) + 0.5)));
-}
 static const v3s16 corners[8] = {
 	v3s16(-1, 1, 1),
 	v3s16( 1, 1, 1),

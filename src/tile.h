@@ -292,11 +292,8 @@ struct TileSpec
 		animation_frame_count(0),
 		animation_frame_length_ms(0)
 	{
-#ifndef SERVER
-		// init material only on clients
 		video::SMaterial m;
 		m_material = m;
-#endif
 	}
 
 	bool operator==(TileSpec &other)
