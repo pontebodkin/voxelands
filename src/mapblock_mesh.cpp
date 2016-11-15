@@ -480,6 +480,7 @@ void MapBlockMesh::animate(float time)
 
 		AnimationData temp_data = it->second;
 		const TileSpec &tile = temp_data.tile;
+
 		// Figure out current frame
 		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
 
@@ -500,7 +501,7 @@ void MapBlockMesh::animate(float time)
 		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
 
 		// Create new texture name from original
-		if (g_texturesource && buf != 0) {
+		if (g_texturesource && frame >= 0) {
 			std::ostringstream os(std::ios::binary);
 			os << g_texturesource->getTextureName(tile.texture.id);
 			os << "^[verticalframe:" << (int)tile.animation_frame_count << ":" << frame;
@@ -725,11 +726,13 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	m_meshdata.swap(data->m_meshdata);
 	m_fardata.swap(data->m_fardata);
 	refresh(data->m_daynight_ratio);
-	animate(0.0); // get first frame of animation
 	m_mesh->recalculateBoundingBox();
 
 	if (mutex != NULL)
 		mutex->Unlock();
+
+	// Get frist frame of animation AFTER the mutex is unlocked
+	animate(0.0);
 
 	END_DEBUG_EXCEPTION_HANDLER(errorstream)
 }

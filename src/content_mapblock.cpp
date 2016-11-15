@@ -34,7 +34,10 @@
 #include "sound.h"
 
 #ifndef SERVER
-
+float roundf(float x)
+{
+	return (float)((x < 0) ? (ceil((x) - 0.5)) : (floor((x) + 0.5)));
+}
 static const v3s16 corners[8] = {
 	v3s16(-1, 1, 1),
 	v3s16( 1, 1, 1),
@@ -2709,10 +2712,10 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 
 	if (top_is_same_liquid == false) {
 		video::S3DVertex vertices[4] = {
-			video::S3DVertex(-0.5*data->m_BS,0, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x1(), tiles[0].texture.y1()),
-			video::S3DVertex( 0.5*data->m_BS,0, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x0(), tiles[0].texture.y1()),
-			video::S3DVertex( 0.5*data->m_BS,0,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x0(), tiles[0].texture.y0()),
-			video::S3DVertex(-0.5*data->m_BS,0,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x1(), tiles[0].texture.y0())
+			video::S3DVertex(-0.5*data->m_BS,0, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x0(), tiles[0].texture.y1()),
+			video::S3DVertex( 0.5*data->m_BS,0, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x1(), tiles[0].texture.y1()),
+			video::S3DVertex( 0.5*data->m_BS,0,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x1(), tiles[0].texture.y0()),
+			video::S3DVertex(-0.5*data->m_BS,0,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tiles[0].texture.x0(), tiles[0].texture.y0())
 		};
 
 		// To get backface culling right, the vertices need to go
@@ -2730,15 +2733,15 @@ void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selec
 		// -Z towards +Z, thus the direction is +Z.
 		// Rotate texture to make animation go in flow direction
 		// Positive if liquid moves towards +Z
-		int dz = (corner_levels[side_corners[2][0]] +
-				corner_levels[side_corners[2][1]] <
-				corner_levels[side_corners[3][0]] +
-				corner_levels[side_corners[3][1]]);
+		int dz = (corner_levels[side_corners[3][0]] +
+				corner_levels[side_corners[3][1]]) -
+				(corner_levels[side_corners[2][0]] +
+				corner_levels[side_corners[2][1]]);
 		// Positive if liquid moves towards +X
-		int dx = (corner_levels[side_corners[0][0]] +
-				corner_levels[side_corners[0][1]] <
-				corner_levels[side_corners[1][0]] +
-				corner_levels[side_corners[1][1]]);
+		int dx = (corner_levels[side_corners[1][0]] +
+				corner_levels[side_corners[1][1]]) -
+				(corner_levels[side_corners[0][0]] +
+				corner_levels[side_corners[0][1]]);
 		// -X
 		if (-dx >= abs(dz)) {
 			v2f t = vertices[0].TCoords;

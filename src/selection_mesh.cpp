@@ -262,7 +262,7 @@ void SelectionMesh::generate(MeshMakeData *data)
 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
 		scene::SMeshBuffer *buf = new scene::SMeshBuffer();
 		// Set material
-		buf->Material = d.material;
+		buf->Material = d.tile.getMaterial();
 		// Add to mesh
 		mesh->addMeshBuffer(buf);
 		// Mesh grabbed it
