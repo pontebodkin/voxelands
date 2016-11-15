@@ -1712,8 +1712,8 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 		{
 			Strfnd sf(part_of_name);
 			sf.next(":");
-			u32 frame_count = stoi(sf.next(":"));
-			u32 frame_index = stoi(sf.next(":"));
+			u32 frame_count = mystoi(sf.next(":"));
+			u32 frame_index = mystoi(sf.next(":"));
 
 			if(baseimg == NULL){
 				errorstream<<"generate_image(): baseimg!=NULL "
@@ -1721,7 +1721,7 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 						<<"\", cancelling."<<std::endl;
 				return false;
 			}
-			
+
 			v2u32 frame_size = baseimg->getDimension();
 			frame_size.Y /= frame_count;
 
@@ -2092,4 +2092,3 @@ void imageTransform(u32 transform, video::IImage *src, video::IImage *dst)
 		dst->setPixel(dx,dy,c);
 	}
 }
-
