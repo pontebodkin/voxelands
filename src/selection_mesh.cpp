@@ -130,6 +130,49 @@ void selection_draw(video::IVideoDriver* driver, Client &client, v3s16 camera_of
 			translateMesh(m, cos_diff);
 
 		u32 c = m->getMeshBufferCount();
+
+		if (mesh->isAnimated()) {
+			std::map<u32, AnimationData> anim_data = mesh->getAnimationData();
+			for (std::map<u32, AnimationData>::iterator it = anim_data.begin();
+					it != anim_data.end(); ++it) {
+
+				AnimationData temp_data = it->second;
+				const TileSpec &tile = temp_data.tile;
+
+				// Figure out current frame
+				int frame = (int)(client.getAnimationTime() * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
+
+				// If frame doesn't change, skip
+				if (frame == temp_data.frame)// || temp_data.frame < 0)
+					continue;
+
+				temp_data.frame = frame;
+
+				anim_data[it->first] = temp_data;
+
+				// Make sure we don't cause an overflow. Can get removed if future is no problems occuring
+				if (it->first >= c) {
+					errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
+					return;
+				}
+
+				scene::IMeshBuffer *buf = m->getMeshBuffer(it->first);
+
+				// Create new texture name from original
+				if (g_texturesource && frame >= 0) {
+					std::ostringstream os(std::ios::binary);
+					os << g_texturesource->getTextureName(tile.texture.id);
+					os << "^[verticalframe:" << (int)tile.animation_frame_count << ":" << frame;
+					// Set the texture
+					AtlasPointer ap = g_texturesource->getTexture(os.str());
+					buf->getMaterial().setTexture(0, ap.atlas);
+				}
+			}
+
+			// update mesh data
+			mesh->setAnimationData(anim_data);
+		}
+
 		for (u32 i=0; i<c; i++) {
 			scene::IMeshBuffer *buf = m->getMeshBuffer(i);
 			if (buf == NULL)
@@ -157,6 +200,9 @@ SelectionMesh::~SelectionMesh()
 {
 	m_mesh->drop();
 	m_mesh = NULL;
+
+	if (!m_animation_data.empty())
+			m_animation_data.clear();
 }
 
 void SelectionMesh::generate(MeshMakeData *data)
@@ -257,6 +303,16 @@ void SelectionMesh::generate(MeshMakeData *data)
 	scene::SMesh *mesh = new scene::SMesh();
 	for (u32 i=0; i<data->m_meshdata.size(); i++) {
 		MeshData &d = data->m_meshdata[i];
+
+		// - Texture animation
+		if (d.tile.material_flags & MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES) {
+			// Add to MapBlockMesh in order to animate these tiles
+			AnimationData anim_data;
+			anim_data.tile = d.tile;
+			anim_data.frame = -1;
+			m_animation_data[i] = anim_data;
+		}
+
 		// Create meshbuffer
 		// This is a "Standard MeshBuffer",
 		// it's a typedeffed CMeshBuffer<video::S3DVertex>
