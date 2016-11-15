@@ -511,6 +511,7 @@ struct ContentFeatures
 
 		vertex_alpha = 255;
 		post_effect_color = video::SColor(0, 0, 0, 0);
+		animation_length = 1.0;
 #endif
 		rotate_tile_with_nodebox = false;
 		plantlike_tiled = false;
@@ -530,7 +531,6 @@ struct ContentFeatures
 		param_type = CPT_NONE;
 		param2_type = CPT_NONE;
 		draw_type = CDT_AIRLIKE;
-		animation_length = 1.0;
 		is_ground_content = false;
 		light_propagates = false;
 		sunlight_propagates = false;

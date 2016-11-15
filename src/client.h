@@ -341,7 +341,7 @@ public:
 
 	u8 getSleepAlpha() {return m_sleep_state*255;}
 
-	float Client::getAnimationTime()
+	float getAnimationTime()
 	{
 		return m_animation_time;
 	}
@@ -427,4 +427,3 @@ private:
 #endif // !SERVER
 
 #endif // !CLIENT_HEADER
-

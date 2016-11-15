@@ -2142,9 +2142,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_WATER;
 	f = &content_features(i);
 	f->description = wgettext("Water");
-	f->animation_length = 0.8;
-	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
-	f->setAllTextures("water_flowing.png");
+	f->setAllTextures("water.png");
 	f->setInventoryTextureCube("water.png", "water.png", "water.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2164,6 +2162,9 @@ void content_mapnode_init(bool repeat)
 		f->vertex_alpha = WATER_ALPHA;
 	f->setAllTextureTypes(MATERIAL_ALPHA_VERTEX);
 	f->post_effect_color = video::SColor(64, 100, 100, 200);
+	f->animation_length = 0.8;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("water_flowing.png");
 #endif
 	f->sound_ambient = "env-water";
 	f->suffocation_per_second = 10;
@@ -2171,9 +2172,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_WATERSOURCE;
 	f = &content_features(i);
 	f->description = wgettext("Water");
-	f->animation_length = 2.0;
-	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
-	f->setAllTextures("water_source.png");
+	f->setAllTextures("water.png");
 	f->setInventoryTextureCube("water.png", "water.png", "water.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2192,6 +2191,9 @@ void content_mapnode_init(bool repeat)
 		f->vertex_alpha = WATER_ALPHA;
 	f->setAllTextureTypes(MATERIAL_ALPHA_VERTEX);
 	f->post_effect_color = video::SColor(64, 100, 100, 200);
+	f->animation_length = 2.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("water_source.png");
 #endif
 	f->type = CMT_LIQUID;
 	f->hardness = 0.5;
@@ -2201,9 +2203,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_LAVA;
 	f = &content_features(i);
 	f->description = wgettext("Lava");
-	f->animation_length = 3.0;
-	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
-	f->setAllTextures("lava_flowing.png");
+	f->setAllTextures("lava.png");
 	f->setInventoryTextureCube("lava.png", "lava.png", "lava.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2224,14 +2224,15 @@ void content_mapnode_init(bool repeat)
 	f->damage_per_second = 40;
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
+	f->animation_length = 3.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("lava_flowing.png");
 #endif
 
 	i = CONTENT_LAVASOURCE;
 	f = &content_features(i);
 	f->description = wgettext("Lava");
-	f->animation_length = 3.0;
-	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
-	f->setAllTextures("lava_source.png");
+	f->setAllTextures("lava.png");
 	f->setInventoryTextureCube("lava.png", "lava.png", "lava.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_LIQUID;
@@ -2253,6 +2254,9 @@ void content_mapnode_init(bool repeat)
 	f->sound_ambient = "env-lava";
 #ifndef SERVER
 	f->post_effect_color = video::SColor(192, 255, 64, 0);
+	f->animation_length = 3.0;
+	f->setAllTextureFlags(MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setAllTextures("lava_source.png");
 #endif
 	f->type = CMT_LIQUID;
 	f->hardness = 0.5;
