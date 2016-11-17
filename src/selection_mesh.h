@@ -42,22 +42,11 @@ public:
 	void generate(MeshMakeData *data);
 	void refresh(u32 daynight_ratio);
 
+	void animate(float time);
+
 	bool isAnimated()
 	{
 		return !m_animation_data.empty();
-	}
-
-	std::map<u32, AnimationData> getAnimationData()
-	{
-		return m_animation_data;
-	}
-
-	void setAnimationData(std::map<u32, AnimationData> new_data)
-	{
-		if (!m_animation_data.empty())
-			m_animation_data.clear();
-
-		m_animation_data = new_data;
 	}
 
 private:

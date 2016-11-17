@@ -118,6 +118,7 @@ void selection_draw(video::IVideoDriver* driver, Client &client, v3s16 camera_of
 	bool render_trilinear = g_settings->getBool("trilinear_filter");
 	bool render_bilinear = g_settings->getBool("bilinear_filter");
 	bool render_anisotropic = g_settings->getBool("anisotropic_filter");
+	bool anim_textures = g_settings->getBool("enable_animated_textures");
 
 	for (std::vector<SelectionMesh*>::iterator i = meshes.begin(); i != meshes.end(); i++) {
 			SelectionMesh *mesh = *i;
@@ -129,49 +130,10 @@ void selection_draw(video::IVideoDriver* driver, Client &client, v3s16 camera_of
 		if (cos_changed)
 			translateMesh(m, cos_diff);
 
+		if (anim_textures && mesh->isAnimated())
+			mesh->animate(client.getAnimationTime());
+
 		u32 c = m->getMeshBufferCount();
-
-		if (mesh->isAnimated()) {
-			std::map<u32, AnimationData> anim_data = mesh->getAnimationData();
-			for (std::map<u32, AnimationData>::iterator it = anim_data.begin();
-					it != anim_data.end(); ++it) {
-
-				AnimationData temp_data = it->second;
-				const TileSpec &tile = temp_data.tile;
-
-				// Figure out current frame
-				int frame = (int)(client.getAnimationTime() * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
-
-				// If frame doesn't change, skip
-				if (frame == temp_data.frame)// || temp_data.frame < 0)
-					continue;
-
-				temp_data.frame = frame;
-
-				anim_data[it->first] = temp_data;
-
-				// Make sure we don't cause an overflow. Can get removed if future is no problems occuring
-				if (it->first >= c) {
-					errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
-					return;
-				}
-
-				scene::IMeshBuffer *buf = m->getMeshBuffer(it->first);
-
-				// Create new texture name from original
-				if (g_texturesource && frame >= 0) {
-					std::ostringstream os(std::ios::binary);
-					os << g_texturesource->getTextureName(tile.texture.id);
-					os << "^[verticalframe:" << (int)tile.animation_frame_count << ":" << frame;
-					// Set the texture
-					AtlasPointer ap = g_texturesource->getTexture(os.str());
-					buf->getMaterial().setTexture(0, ap.atlas);
-				}
-			}
-
-			// update mesh data
-			mesh->setAnimationData(anim_data);
-		}
 
 		for (u32 i=0; i<c; i++) {
 			scene::IMeshBuffer *buf = m->getMeshBuffer(i);
@@ -194,6 +156,45 @@ SelectionMesh::SelectionMesh(MeshMakeData *data):
 	m_mesh(NULL)
 {
 	generate(data);
+}
+
+void SelectionMesh::animate(float time)
+{
+	for (std::map<u32, AnimationData>::iterator it = m_animation_data.begin();
+			it != m_animation_data.end(); ++it) {
+
+		AnimationData temp_data = it->second;
+		const TileSpec &tile = temp_data.tile;
+
+		// Figure out current frame
+		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
+
+		// If frame doesn't change, skip
+		if (frame == temp_data.frame)// || temp_data.frame < 0)
+			continue;
+
+		temp_data.frame = frame;
+
+		m_animation_data[it->first] = temp_data;
+
+		// Make sure we don't cause an overflow. Can get removed if future is no problems occuring
+		if (it->first >= m_mesh->getMeshBufferCount()) {
+			errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
+			return;
+		}
+
+		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
+
+		// Create new texture name from original
+		if (g_texturesource && frame >= 0) {
+			std::ostringstream os(std::ios::binary);
+			os << g_texturesource->getTextureName(tile.texture.id);
+			os << "^[verticalframe:" << (int)tile.animation_frame_count << ":" << frame;
+			// Set the texture
+			AtlasPointer ap = g_texturesource->getTexture(os.str());
+			buf->getMaterial().setTexture(0, ap.atlas);
+		}
+	}
 }
 
 SelectionMesh::~SelectionMesh()
@@ -335,7 +336,7 @@ void SelectionMesh::generate(MeshMakeData *data)
 	m_meshdata.swap(data->m_meshdata);
 	refresh(data->m_daynight_ratio);
 	m_mesh->recalculateBoundingBox();
-
+	animate(0.0); // init first frame
 	END_DEBUG_EXCEPTION_HANDLER(errorstream)
 }
 
