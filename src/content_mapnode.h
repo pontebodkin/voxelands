@@ -95,7 +95,8 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 // more walls
 #define CONTENT_LIMESTONE_WALL 0x02C
 #define CONTENT_MARBLE_WALL 0x02D
-// FREE 0x02E-0x07C
+#define CONTENT_CAMPFIRE 0x02E
+// FREE 0x02F-0x07C
 // 0x7D-0x7F reserved values, air, ignore, etc
 #define CONTENT_CHAIR_CENTRE 0x080
 #define CONTENT_CHAIR_ENDL 0x081

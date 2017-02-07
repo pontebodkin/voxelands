@@ -1467,6 +1467,49 @@ void content_mapnode_special(bool repeat)
 	f->hardness = 0.4;
 	f->pressure_type = CST_SOLID;
 
+
+
+	i = CONTENT_CAMPFIRE;
+	f = &content_features(i);
+	f->description = wgettext("Camp Fire");
+	f->draw_type = CDT_CAMPFIRELIKE;
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_CAMPFIRELIKE;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->walkable = false;
+	f->fuel_time = 1.0;
+	f->light_source = LIGHT_MAX-1;
+	f->damage_per_second = 40;
+	f->setAllTextures("campfire_stones.png");
+	f->setTexture(0, "campfire_stones.png");
+	f->setTexture(1, "campfire_logs.png");
+#ifndef SERVER
+	f->animation_length = 1.0;
+	f->setTextureFlags(2, MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+#endif
+	f->setTexture(2, "campfire_flame.png");
+	content_nodebox_roofcollide(f);
+	f->setInventoryTexture("campfire_inv.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new CampFireNodeMetadata();
+	f->type = CMT_WOOD;
+	f->hardness = 2.0;
+	f->pressure_type = CST_CRUSHED;
+	{
+		u16 r[9] = {
+			CONTENT_ROCK,	CONTENT_WOOD,	CONTENT_ROCK,
+			CONTENT_WOOD,	CONTENT_IGNORE,	CONTENT_WOOD,
+			CONTENT_ROCK,	CONTENT_WOOD,	CONTENT_ROCK
+		};
+		crafting::setRecipe(r,CONTENT_CAMPFIRE,1);
+	}
+	lists::add("craftguide",i);
+	lists::add("creative",i);
+
+
+
 	i = CONTENT_NC;
 	f = &content_features(i);
 	f->description = wgettext("Nyan Cat");

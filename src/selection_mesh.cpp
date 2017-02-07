@@ -297,6 +297,11 @@ void SelectionMesh::generate(MeshMakeData *data)
 		case CDT_MELONLIKE:
 			meshgen_melonlike(data,p,n,selected);
 			break;
+		case CDT_CAMPFIRELIKE:
+			meshgen_campfirelike(data,p,n,selected);
+			break;
+		case CDT_BUSHLIKE:
+			break;
 		default:;
 		}
 	}

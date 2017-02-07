@@ -32,6 +32,8 @@
 #include "main.h"
 #include "serverobject.h"
 #include "content_mapnode.h"
+#include "content_craftitem.h"
+#include "content_toolitem.h"
 #include "content_sao.h"
 #include "content_mob.h"
 #include "player.h"
@@ -255,9 +257,16 @@ std::wstring MaterialItem::getGuiText()
 	return txt;
 }
 
-bool MaterialItem::isCookable() const
+bool MaterialItem::isCookable(CookType type) const
 {
-	return (content_features(m_content).cook_result != "");
+	ContentFeatures *f = &content_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->cook_type && f->cook_type != COOK_ANY)
+		return false;
+	if (f->cook_result == "")
+		return false;
+	return true;
 }
 
 InventoryItem *MaterialItem::createCookResult() const
@@ -417,9 +426,16 @@ u16 CraftItem::getDropCount() const
 	return InventoryItem::getDropCount();
 }
 
-bool CraftItem::isCookable() const
+bool CraftItem::isCookable(CookType type) const
 {
-	return content_craftitem_features(m_content).cook_result != CONTENT_IGNORE;
+	CraftItemFeatures *f = &content_craftitem_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->cook_type && f->cook_type != COOK_ANY)
+		return false;
+	if (f->cook_result == CONTENT_IGNORE)
+		return false;
+	return true;
 }
 
 InventoryItem *CraftItem::createCookResult() const
@@ -575,9 +591,16 @@ std::wstring ToolItem::getGuiText()
 	return txt;
 }
 
-bool ToolItem::isCookable() const
+bool ToolItem::isCookable(CookType type) const
 {
-	return content_toolitem_features(m_content).cook_result != "";
+	ToolItemFeatures *f = &content_toolitem_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->cook_type && f->cook_type != COOK_ANY)
+		return false;
+	if (f->cook_result == "")
+		return false;
+	return true;
 }
 
 InventoryItem *ToolItem::createCookResult() const

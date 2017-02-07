@@ -120,7 +120,9 @@ enum ContentDrawType
 	CDT_SLABLIKE,
 	CDT_TRUNKLIKE,
 	CDT_DIRTLIKE,
-	CDT_FLAGLIKE
+	CDT_FLAGLIKE,
+	CDT_CAMPFIRELIKE,
+	CDT_BUSHLIKE
 };
 
 /*
@@ -148,6 +150,13 @@ enum LiquidType
 	LIQUID_NONE,
 	LIQUID_FLOWING,
 	LIQUID_SOURCE
+};
+
+enum CookType
+{
+	COOK_ANY,
+	COOK_FIRE,
+	COOK_FURNACE
 };
 
 /*
@@ -436,6 +445,8 @@ struct ContentFeatures
 
 	// the result of cooking this node
 	std::string cook_result;
+	// what type of cooking device this node needs
+	CookType cook_type;
 	// the fuel value of this node
 	float fuel_time;
 
@@ -578,6 +589,7 @@ struct ContentFeatures
 		powered_node = CONTENT_IGNORE;
 		unpowered_node = CONTENT_IGNORE;
 		cook_result = "";
+		cook_type = COOK_ANY;
 		fuel_time = 0.0;
 		plantgrowth_max_height = 1;
 		plantgrowth_small_dug_node = CONTENT_IGNORE;

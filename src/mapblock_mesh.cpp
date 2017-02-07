@@ -664,6 +664,11 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			meshgen_melonlike(data,p,n,selected);
 			meshgen_farnode(data,p,n);
 			break;
+		case CDT_CAMPFIRELIKE:
+			meshgen_campfirelike(data,p,n,selected);
+			break;
+		case CDT_BUSHLIKE:
+			break;
 		default:;
 		}
 	}

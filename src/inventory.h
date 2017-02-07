@@ -134,7 +134,7 @@ public:
 	*/
 
 	// Whether it can be cooked
-	virtual bool isCookable() const {return false;}
+	virtual bool isCookable(CookType type=COOK_ANY) const {return false;}
 	// Time of cooking
 	virtual float getCookTime() const {return 3.0;}
 	// Result of cooking (can randomize)
@@ -221,7 +221,7 @@ public:
 	/*
 		Other properties
 	*/
-	bool isCookable() const;
+	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
 	virtual bool isFuel() const;
 	virtual float getFuelTime() const;
@@ -319,7 +319,7 @@ public:
 		Other properties
 	*/
 
-	bool isCookable() const;
+	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
 	bool isFuel() const;
 	float getFuelTime() const;
@@ -400,7 +400,7 @@ public:
 
 	ServerActiveObject* createSAO(ServerEnvironment *env, u16 id, v3f pos);
 
-	bool isCookable() const;
+	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
 	bool isFuel() const;
 	float getFuelTime() const;

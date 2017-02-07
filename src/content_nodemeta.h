@@ -314,6 +314,33 @@ private:
 	float m_src_time;
 };
 
+class CampFireNodeMetadata : public NodeMetadata
+{
+public:
+	CampFireNodeMetadata();
+	~CampFireNodeMetadata();
+
+	virtual u16 typeId() const;
+	virtual NodeMetadata* clone();
+	static NodeMetadata* create(std::istream &is);
+	virtual void serializeBody(std::ostream &os);
+	virtual std::wstring infoText();
+	virtual Inventory* getInventory() {return m_inventory;}
+	virtual void inventoryModified();
+	virtual bool step(float dtime, v3s16 pos, ServerEnvironment *env);
+	virtual bool nodeRemovalDisabled();
+	virtual std::string getDrawSpecString(Player *player);
+	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
+
+private:
+	Inventory *m_inventory;
+	float m_step_accumulator;
+	float m_fuel_totaltime;
+	float m_fuel_time;
+	float m_src_totaltime;
+	float m_src_time;
+};
+
 class LockingFurnaceNodeMetadata : public NodeMetadata
 {
 public:

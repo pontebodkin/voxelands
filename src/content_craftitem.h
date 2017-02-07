@@ -39,6 +39,8 @@ struct CraftItemFeatures {
 	std::wstring description;
 	// the result of cooking this item
 	content_t cook_result;
+	// what type of cooking device this item needs
+	CookType cook_type;
 	// the fuel value of this item
 	float fuel_time;
 	// whether the item can be stacked in inventory
@@ -82,6 +84,7 @@ struct CraftItemFeatures {
 		name(""),
 		description(L""),
 		cook_result(CONTENT_IGNORE),
+		cook_type(COOK_ANY),
 		fuel_time(0.0),
 		stackable(true),
 		consumable(false),

@@ -6365,6 +6365,101 @@ void meshgen_melonlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	meshgen_build_nodebox(data,p,n,selected,boxes,tiles);
 }
 
+void meshgen_campfirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+{
+	TileSpec stone_tiles[6];
+	TileSpec wood_tiles[6];
+	TileSpec fire_tile;
+	ContentFeatures *f;
+	std::vector<NodeBox> boxes;
+
+	f = &content_features(n.getContent());
+
+	fire_tile = f->tiles[2];
+
+	for (u16 i=0; i<6; i++) {
+		stone_tiles[i] = f->tiles[0];
+		wood_tiles[i] = f->tiles[1];
+	}
+
+	boxes.push_back(NodeBox(
+		-0.5*data->m_BS,-0.5*data->m_BS,-0.125*data->m_BS,-0.3125*data->m_BS,-0.375*data->m_BS,0.125*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(0,45,0),v3f(0,0,0),-0.5*data->m_BS,-0.5*data->m_BS,-0.125*data->m_BS,-0.3125*data->m_BS,-0.375*data->m_BS,0.125*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		-0.125*data->m_BS,-0.5*data->m_BS,0.3125*data->m_BS,0.125*data->m_BS,-0.375*data->m_BS,0.5*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(0,45,0),v3f(0,0,0),-0.125*data->m_BS,-0.5*data->m_BS,0.3125*data->m_BS,0.125*data->m_BS,-0.375*data->m_BS,0.5*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		0.3125*data->m_BS,-0.5*data->m_BS,-0.125*data->m_BS,0.5*data->m_BS,-0.375*data->m_BS,0.125*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(0,45,0),v3f(0,0,0),0.3125*data->m_BS,-0.5*data->m_BS,-0.125*data->m_BS,0.5*data->m_BS,-0.375*data->m_BS,0.125*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		-0.125*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS,0.125*data->m_BS,-0.375*data->m_BS,-0.3125*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(0,45,0),v3f(0,0,0),-0.125*data->m_BS,-0.5*data->m_BS,-0.5*data->m_BS,0.125*data->m_BS,-0.375*data->m_BS,-0.3125*data->m_BS
+	));
+	meshgen_build_nodebox(data,p,n,selected,boxes,stone_tiles);
+
+	boxes.clear();
+
+	boxes.push_back(NodeBox(
+		v3s16(0,0,-20),v3f(0,0,0),-0.125*data->m_BS,-0.5*data->m_BS,-0.0625*data->m_BS,0.0*data->m_BS,-0.0625*data->m_BS,0.0625*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(0,0,20),v3f(0,0,0),0.0*data->m_BS,-0.5*data->m_BS,-0.0625*data->m_BS,0.125*data->m_BS,-0.0625*data->m_BS,0.0625*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(20,0,0),v3f(0,0,0),-0.0625*data->m_BS,-0.5*data->m_BS,-0.125*data->m_BS,0.0625*data->m_BS,-0.0625*data->m_BS,0.0*data->m_BS
+	));
+	boxes.push_back(NodeBox(
+		v3s16(-20,0,0),v3f(0,0,0),-0.0625*data->m_BS,-0.5*data->m_BS,0.0*data->m_BS,0.0625*data->m_BS,-0.0625*data->m_BS,0.125*data->m_BS
+	));
+
+	meshgen_build_nodebox(data,p,n,selected,boxes,wood_tiles);
+
+	if (selected.is_coloured || selected.has_crack)
+		return;
+
+	v3f pos = intToFloat(p,BS);
+
+	for (u32 j=0; j<2; j++) {
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,1.),
+			video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,1.),
+			video::S3DVertex( 0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,0.),
+			video::S3DVertex(-0.5*BS, 0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,0.)
+		};
+
+		s16 angle = 45;
+		if (j == 1)
+			angle = -45;
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos.rotateXZBy(angle);
+			vertices[i].TCoords *= fire_tile.texture.size;
+			vertices[i].TCoords += fire_tile.texture.pos;
+		}
+
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+		}
+
+		data->append(fire_tile, vertices, 4, indices, 6, colours);
+	}
+}
+
 void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 {
 	SelectedNode selected;

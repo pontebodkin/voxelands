@@ -27,6 +27,8 @@ struct ToolItemFeatures {
 	std::wstring description;
 	// the result of cooking this item
 	std::string cook_result;
+	// what type of cooking device this item needs
+	CookType cook_type;
 	// the fuel value of this item
 	float fuel_time;
 	// 0 if inedible, otherwise the value it improves hp by
@@ -69,6 +71,7 @@ struct ToolItemFeatures {
 		name(""),
 		description(L""),
 		cook_result(""),
+		cook_type(COOK_ANY),
 		fuel_time(0.0),
 		edible(0),
 		drop_count(-1),
