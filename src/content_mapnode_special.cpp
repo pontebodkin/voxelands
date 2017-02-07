@@ -1479,16 +1479,16 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->walkable = false;
 	f->fuel_time = 1.0;
-	f->light_source = LIGHT_MAX-1;
+	f->light_source = LIGHT_MAX-3;
 	f->damage_per_second = 40;
 	f->setAllTextures("campfire_stones.png");
-	f->setTexture(0, "campfire_stones.png");
 	f->setTexture(1, "campfire_logs.png");
+	f->setTexture(2, "campfire_embers.png");
 #ifndef SERVER
 	f->animation_length = 1.0;
-	f->setTextureFlags(2, MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
+	f->setTextureFlags(3, MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
 #endif
-	f->setTexture(2, "campfire_flame.png");
+	f->setTexture(3, "campfire_flame.png");
 	content_nodebox_roofcollide(f);
 	f->setInventoryTexture("campfire_inv.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -1499,9 +1499,9 @@ void content_mapnode_special(bool repeat)
 	f->pressure_type = CST_CRUSHED;
 	{
 		u16 r[9] = {
-			CONTENT_ROCK,	CONTENT_WOOD,	CONTENT_ROCK,
-			CONTENT_WOOD,	CONTENT_IGNORE,	CONTENT_WOOD,
-			CONTENT_ROCK,	CONTENT_WOOD,	CONTENT_ROCK
+			CONTENT_ROCK,			CONTENT_CRAFTITEM_STICK,	CONTENT_ROCK,
+			CONTENT_CRAFTITEM_STICK,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_STICK,
+			CONTENT_ROCK,			CONTENT_CRAFTITEM_STICK,	CONTENT_ROCK
 		};
 		crafting::setRecipe(r,CONTENT_CAMPFIRE,1);
 	}

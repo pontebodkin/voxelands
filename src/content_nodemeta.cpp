@@ -1398,7 +1398,7 @@ CampFireNodeMetadata::CampFireNodeMetadata()
 	m_inventory = new Inventory();
 	m_inventory->addList("fuel", 1);
 	m_inventory->addList("src", 1);
-	m_inventory->addList("dst", 4);
+	m_inventory->addList("dst", 1);
 
 	m_step_accumulator = 0;
 	m_fuel_totaltime = 0;
@@ -1605,15 +1605,9 @@ bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 std::string CampFireNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,9]");
-	spec += "list[current_name;fuel;2,3;1,1;]";
-	spec += "ring[2,3;1;#FF0000;";
-	float v = 0;
-	if (m_fuel_totaltime > 0.0)
-		v = 100.0-((100.0/m_fuel_totaltime)*m_fuel_time);
-	spec += itos((int)v);
-	spec += "]";
-	spec += "list[current_name;src;2,1;1,1;]";
-	spec += "list[current_name;dst;5,1;2,2;]";
+	spec += "list[current_name;fuel;2,2;1,1;]";
+	spec += "list[current_name;src;5,1;1,1;]";
+	spec += "list[current_name;dst;5,3;1,1;]";
 	spec += "list[current_player;main;0,5;8,4;]";
 	return spec;
 }
