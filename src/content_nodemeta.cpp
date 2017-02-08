@@ -1625,6 +1625,13 @@ std::vector<NodeBox> CampFireNodeMetadata::getNodeBoxes(MapNode &n)
 	return transformNodeBox(n,boxes);
 }
 
+bool CampFireNodeMetadata::isActive()
+{
+	if (m_fuel_time >= m_fuel_totaltime)
+		return false;
+	return true;
+}
+
 /*
 	LockedDoorNodeMetadata
 */

@@ -332,6 +332,8 @@ public:
 	virtual std::string getDrawSpecString(Player *player);
 	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
 
+	bool isActive();
+
 private:
 	Inventory *m_inventory;
 	float m_step_accumulator;

@@ -31,6 +31,7 @@
 #include "settings.h"
 #include "environment.h"
 #include "nodemetadata.h"
+#include "content_nodemeta.h"
 #include "sound.h"
 
 #ifndef SERVER
@@ -6432,38 +6433,36 @@ void meshgen_campfirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode 
 
 	v3f pos = intToFloat(p,BS);
 
-	video::S3DVertex end_vertices[6] = {
-		video::S3DVertex(data->m_BS*0.25  ,data->m_BS*-0.4375,0       , 0,0,0, video::SColor(255,255,255,255), 0.5, 0.),
-		video::S3DVertex(data->m_BS*0.25  ,data->m_BS*-0.4375,data->m_BS*0.0625, 0,0,0, video::SColor(255,255,255,255), 0.625, 0.),
-		video::S3DVertex(data->m_BS*0.175,data->m_BS*-0.4375,data->m_BS*0.175, 0,0,0, video::SColor(255,255,255,255), 0.875, 0.125),
-		video::S3DVertex(data->m_BS*0.0625,data->m_BS*-0.4375,data->m_BS*0.25  , 0,0,0, video::SColor(255,255,255,255), 1.0, 0.375),
-		video::S3DVertex(0       ,data->m_BS*-0.4375,data->m_BS*0.25  , 0,0,0, video::SColor(255,255,255,255), 1.0, 0.5),
-		video::S3DVertex(0       ,data->m_BS*-0.4375,0       , 0,0,0, video::SColor(255,255,255,255), 0.5, 0.5)
+	video::S3DVertex end_vertices[4] = {
+		video::S3DVertex(data->m_BS*0.0    ,data->m_BS*-0.4375 ,data->m_BS*0.0    ,0,0,0, video::SColor(255,255,255,255), 0.5, 0.5),
+		video::S3DVertex(data->m_BS*0.0    ,data->m_BS*-0.4375 ,data->m_BS*0.375  ,0,0,0, video::SColor(255,255,255,255), 0.5, 0.875),
+		video::S3DVertex(data->m_BS*0.375  ,data->m_BS*-0.4375 ,data->m_BS*0.0    ,0,0,0, video::SColor(255,255,255,255), 0.875, 0.5),
+		video::S3DVertex(data->m_BS*0.25   ,data->m_BS*-0.4375 ,data->m_BS*0.25   ,0,0,0, video::SColor(255,255,255,255), 0.75, 0.75)
 	};
-	u16 end_indices[12] = {5,1,0,5,2,1,5,3,2,5,4,3};
+	u16 end_indices[6] = {0,1,3,0,3,2};
 	u16 rots[4] = {0,90,180,270};
 
 	for (u16 j=0; j<4; j++) {
-		video::S3DVertex v[6];
-		for (u16 i=0; i<6; i++) {
+		video::S3DVertex v[4];
+		for (u16 i=0; i<4; i++) {
 			v[i] = end_vertices[i];
 			v[i].Pos.rotateXZBy(rots[j]);
 			v[i].TCoords *= ember_tile.texture.size;
 			v[i].TCoords += ember_tile.texture.pos;
 		}
 		std::vector<u32> colours;
-		if (selected.is_coloured) {
-			meshgen_selected_lights(colours,255,6);
-		}else{
-			meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),6,v);
-		}
+		meshgen_lights(data,n,p,colours,255,v3s16(0,1,0),4,v);
 
-		for (int k=0; k<6; k++) {
+		for (int k=0; k<4; k++) {
 			v[k].Pos += pos;
 		}
 
-		data->append(ember_tile, v, 6, end_indices, 12, colours);
+		data->append(ember_tile, v, 4, end_indices, 6, colours);
 	}
+
+	NodeMetadata *meta = data->m_env->getMap().getNodeMetadataClone(p+data->m_blockpos_nodes);
+	if (!meta || !((CampFireNodeMetadata*)meta)->isActive())
+		return;
 
 	for (u32 j=0; j<2; j++) {
 		video::S3DVertex vertices[4] = {

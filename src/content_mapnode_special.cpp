@@ -1483,11 +1483,12 @@ void content_mapnode_special(bool repeat)
 	f->damage_per_second = 40;
 	f->setAllTextures("campfire_stones.png");
 	f->setTexture(1, "campfire_logs.png");
-	f->setTexture(2, "campfire_embers.png");
 #ifndef SERVER
-	f->animation_length = 1.0;
+	f->animation_length = 2.0;
+	f->setTextureFlags(2, MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
 	f->setTextureFlags(3, MATERIAL_FLAG_ANIMATION_VERTICAL_FRAMES);
 #endif
+	f->setTexture(2, "campfire_embers.png");
 	f->setTexture(3, "campfire_flame.png");
 	content_nodebox_roofcollide(f);
 	f->setInventoryTexture("campfire_inv.png");
