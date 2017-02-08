@@ -240,6 +240,7 @@ void content_mapnode_init(bool repeat)
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->hardness = 0.6;
 	lists::add("creative",i);
@@ -378,6 +379,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBRICK)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	crafting::setBrickRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBRICK);
@@ -395,6 +397,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBLOCK)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	crafting::setBlockRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBLOCK);
@@ -559,6 +562,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 30;
 	f->extra_dug_item_min_level = 3;
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	lists::add("creative",i);
@@ -578,6 +582,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 30;
 	f->extra_dug_item_min_level = 3;
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	lists::add("creative",i);
@@ -2272,6 +2277,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONE)+" 1";
+	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	crafting::setBlockRecipe(CONTENT_COBBLE,CONTENT_ROUGHSTONE);
@@ -2773,9 +2779,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square(f);
-    f->setInventoryTextureNodeBox(i,"wood.png",
-									"wood.png",
-									"wood.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_SQUARE_BASE;
@@ -2783,10 +2787,8 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30/4;
-	f->cook_result = std::string("CraftItem2 ")+
-					 itos(CONTENT_CRAFTITEM_ASH)+" 1";
-	crafting::setCol3Recipe(CONTENT_WOOD,
-							CONTENT_WOOD_COLUMN_SQUARE);
+	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
+	crafting::setCol3Recipe(CONTENT_WOOD,CONTENT_WOOD_COLUMN_SQUARE);
 	lists::add("cooking",i);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -2797,8 +2799,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2815,8 +2816,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2840,9 +2840,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square(f);
-    f->setInventoryTextureNodeBox(i,"junglewood.png",
-									"junglewood.png",
-									"junglewood.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_SQUARE_BASE;
@@ -2850,10 +2848,8 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30/4;
-	f->cook_result = std::string("CraftItem2 ")+
-					 itos(CONTENT_CRAFTITEM_ASH)+" 1";
-	crafting::setCol3Recipe(CONTENT_JUNGLEWOOD,
-							CONTENT_JUNGLEWOOD_COLUMN_SQUARE);
+	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
+	crafting::setCol3Recipe(CONTENT_JUNGLEWOOD,CONTENT_JUNGLEWOOD_COLUMN_SQUARE);
 	lists::add("cooking",i);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -2864,8 +2860,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2882,8 +2877,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2907,9 +2901,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square(f);
-    f->setInventoryTextureNodeBox(i,"pine.jpg",
-									"pine.jpg",
-									"pine.jpg");
+	f->setInventoryTextureNodeBox(i,"pine.jpg","pine.jpg","pine.jpg");
 	f->type = CMT_WOOD;
 	f->hardness = 0.5;
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_SQUARE_BASE;
@@ -2917,10 +2909,8 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30/4;
-	f->cook_result = std::string("CraftItem2 ")+
-					 itos(CONTENT_CRAFTITEM_ASH)+" 1";
-	crafting::setCol3Recipe(CONTENT_WOOD_PINE,
-							CONTENT_WOOD_PINE_COLUMN_SQUARE);
+	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
+	crafting::setCol3Recipe(CONTENT_WOOD_PINE,CONTENT_WOOD_PINE_COLUMN_SQUARE);
 	lists::add("cooking",i);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
@@ -2931,8 +2921,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2949,8 +2938,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2974,15 +2962,12 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square(f);
-    f->setInventoryTextureNodeBox(i,"roughstone.png",
-									"roughstone.png",
-									"roughstone.png");
+	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
-	crafting::setCol3Recipe(CONTENT_ROUGHSTONE,
-							CONTENT_ROUGHSTONE_COLUMN_SQUARE);
+	crafting::setCol3Recipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_COLUMN_SQUARE);
 	lists::add("craftguide",i);
 	lists::add("creative",i);
 
@@ -2992,8 +2977,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -3008,8 +2992,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3025,8 +3008,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3042,8 +3024,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-	              itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3058,8 +3039,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-	              itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3075,8 +3055,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3092,8 +3071,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3108,8 +3086,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3125,8 +3102,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-	              itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3142,8 +3118,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")
-				  +itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3158,8 +3133,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")
-				  +itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3175,8 +3149,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 4";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3192,8 +3165,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 4";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3208,8 +3180,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_SAND)+" 4";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3272,8 +3243,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3291,8 +3261,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3309,8 +3278,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3328,8 +3296,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3347,8 +3314,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3365,8 +3331,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLEWOOD_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3384,8 +3349,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3403,8 +3367,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3421,8 +3384,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_PINE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3440,8 +3402,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3457,8 +3418,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3473,8 +3433,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-				  itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_COLUMN_SQUARE)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
