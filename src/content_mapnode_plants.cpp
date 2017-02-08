@@ -1158,4 +1158,64 @@ void content_mapnode_plants(bool repeat)
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	lists::add("creative",i);
+
+	i = CONTENT_BUSH_BLUEBERRY;
+	f = &content_features(i);
+	f->description = wgettext("Blueberry Bush");
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_PLANTGROWTH;
+	f->draw_type = CDT_BUSHLIKE;
+	f->ondig_gives_inventory = true;
+	f->setAllTextures("bush_blueberry.png");
+	f->setAllMetaTextures("bush_blueberry_berry.png");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
+	f->setAllMetaTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllMetaTextureFlags(0);
+#endif
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/16;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->type = CMT_PLANT;
+	f->hardness = 0.15;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+	f->onpunch_gives_inventory = true;
+	f->special_alternate_node = CONTENT_CRAFTITEM_BLUEBERRY;
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new BushNodeMetadata();
+	lists::add("creative",i);
+
+	i = CONTENT_BUSH_RASPBERRY;
+	f = &content_features(i);
+	f->description = wgettext("Raspberry Bush");
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_PLANTGROWTH;
+	f->draw_type = CDT_BUSHLIKE;
+	f->ondig_gives_inventory = true;
+	f->setAllTextures("bush_raspberry.png");
+	f->setAllMetaTextures("bush_raspberry_berry.png");
+#ifndef SERVER
+	f->setAllTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllTextureFlags(0);
+	f->setAllMetaTextureTypes(MATERIAL_ALPHA_SIMPLE);
+	f->setAllMetaTextureFlags(0);
+#endif
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/16;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->type = CMT_PLANT;
+	f->hardness = 0.15;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+	f->onpunch_gives_inventory = true;
+	f->special_alternate_node = CONTENT_CRAFTITEM_RASPBERRY;
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new BushNodeMetadata();
+	lists::add("creative",i);
 }

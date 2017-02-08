@@ -668,6 +668,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			meshgen_campfirelike(data,p,n,selected);
 			break;
 		case CDT_BUSHLIKE:
+			meshgen_bushlike(data,p,n,selected);
 			break;
 		default:;
 		}

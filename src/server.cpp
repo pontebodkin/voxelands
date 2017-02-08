@@ -2538,6 +2538,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			0: start digging
 		*/
 		if (action == 0) {
+			NodeMetadata *meta;
 			player->updateAnim(PLAYERANIM_DIG,selected_content);
 			if (!wielded_tool_features.has_punch_effect)
 				return;
@@ -2552,7 +2553,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					)
 				)
 			) {
-				NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
+				meta = m_env.getMap().getNodeMetadata(p_under);
 				if ((getPlayerPrivs(player) & PRIV_SERVER) == 0 && !wielded_tool_features.has_super_unlock_effect) {
 					// non-admins can't unlock other players things
 					if (meta && meta->getOwner() != player->getName()) {
@@ -2629,6 +2630,29 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					client->SetBlockNotSent(blockpos);
 				}
 			}else if (
+				selected_node_features.onpunch_gives_inventory
+				&& (meta = m_env.getMap().getNodeMetadata(p_under))
+				&& (meta->getInventory())
+				&& (meta->getInventory()->getList("main"))
+				&& (meta->getInventory()->getList("main")->getUsedSlots() > 0)
+			) {
+				Inventory *inv = meta->getInventory();
+				if (inv) {
+					InventoryList *list = inv->getList("main");
+					if (list) {
+						u16 max = list->getSize();
+						for (u16 i=0; i<max; i++) {
+							InventoryItem *itm = list->changeItem(i,NULL);
+							if (!itm)
+								continue;
+							player->inventory.addItem("main", itm);
+						}
+						// Send inventory
+						UpdateCrafting(player->peer_id);
+						SendInventory(player->peer_id);
+					}
+				}
+			}else if (
 				selected_node_features.onpunch_replace_node != CONTENT_IGNORE
 				&& !wielded_tool_features.has_rotate_effect
 			) {
@@ -2637,7 +2661,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				core::list<u16> far_players;
 				core::map<v3s16, MapBlock*> modified_blocks;
 
-				NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
+				meta = m_env.getMap().getNodeMetadata(p_under);
 				NodeMetadata *ometa = NULL;
 				std::string owner;
 				if (meta) {
@@ -2769,7 +2793,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (wielded_tool_features.has_fire_effect) {
 					if (borderstone_locked)
 						return;
-					NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
+					meta = m_env.getMap().getNodeMetadata(p_under);
 					if (meta && !meta->getEnergy()) {
 						v3s16 pp = floatToInt(player->getPosition(),BS);
 						meta->energise(ENERGY_MAX,pp,pp,p_under);
@@ -2837,7 +2861,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					}
 				}
 			}else if (selected_content == CONTENT_INCINERATOR) {
-				NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
+				meta = m_env.getMap().getNodeMetadata(p_under);
 				if (!meta)
 					return;
 				InventoryList *ilist = meta->getInventory()->getList("fuel");

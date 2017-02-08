@@ -696,6 +696,27 @@ private:
 	Inventory *m_inventory;
 };
 
+class BushNodeMetadata : public NodeMetadata
+{
+public:
+	BushNodeMetadata();
+	~BushNodeMetadata();
+
+	virtual u16 typeId() const;
+	virtual NodeMetadata* clone();
+	static NodeMetadata* create(std::istream &is);
+	virtual void serializeBody(std::ostream &os);
+	virtual Inventory* getInventory() {return m_inventory;}
+	virtual void inventoryModified();
+	virtual bool step(float dtime, v3s16 pos, ServerEnvironment *env);
+
+	u16 berryCount();
+
+private:
+	Inventory *m_inventory;
+	u16 m_days_since_growth;
+};
+
 class CircuitNodeMetadata : public NodeMetadata
 {
 public:

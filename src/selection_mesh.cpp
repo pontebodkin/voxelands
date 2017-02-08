@@ -301,6 +301,7 @@ void SelectionMesh::generate(MeshMakeData *data)
 			meshgen_campfirelike(data,p,n,selected);
 			break;
 		case CDT_BUSHLIKE:
+			meshgen_bushlike(data,p,n,selected);
 			break;
 		default:;
 		}

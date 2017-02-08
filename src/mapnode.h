@@ -408,6 +408,10 @@ struct ContentFeatures
 	content_t onpunch_replace_node;
 	// whether onpunch replace node works within borderstone
 	bool onpunch_replace_respects_borderstone;
+	// whether onpunch gives inventory
+	bool onpunch_gives_inventory;
+	// whether onpunch puts inventory (adds wielded item to inventory)
+	bool onpunch_puts_inventory;
 
 	// when placed against a wall, this node should be placed instead
 	content_t wallmount_alternate_node;
@@ -575,6 +579,8 @@ struct ContentFeatures
 		ondig_special_tool_append = "";
 		onpunch_replace_node = CONTENT_IGNORE;
 		onpunch_replace_respects_borderstone = false;
+		onpunch_gives_inventory = false;
+		onpunch_puts_inventory = false;
 		wallmount_alternate_node = CONTENT_IGNORE;
 		floormount_alternate_node = CONTENT_IGNORE;
 		roofmount_alternate_node = CONTENT_IGNORE;

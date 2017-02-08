@@ -776,10 +776,14 @@ void content_craftitem_init()
 	f->description = wgettext("Oerkki Dust");
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_HOME; // teleports player to default home location
-	u16 recipe[9] = {CONTENT_CRAFTITEM_RUBY, CONTENT_CRAFTITEM_TURQUOISE, CONTENT_CRAFTITEM_AMETHYST,
-		CONTENT_CRAFTITEM_SAPPHIRE, CONTENT_CRAFTITEM_SUNSTONE, CONTENT_CRAFTITEM_QUARTZ,
-		CONTENT_IGNORE, CONTENT_IGNORE, CONTENT_IGNORE};
-	crafting::setShapelessRecipe(recipe , i, 2);
+	{
+		u16 recipe[9] = {
+			CONTENT_CRAFTITEM_RUBY,		CONTENT_CRAFTITEM_TURQUOISE,	CONTENT_CRAFTITEM_AMETHYST,
+			CONTENT_CRAFTITEM_SAPPHIRE,	CONTENT_CRAFTITEM_SUNSTONE,	CONTENT_CRAFTITEM_QUARTZ,
+			CONTENT_IGNORE,			CONTENT_IGNORE,			CONTENT_IGNORE
+		};
+		crafting::setShapelessRecipe(recipe, i, 2);
+	}
 	lists::add("craftguide",i);
 	lists::add("creative",i);
 
@@ -1591,5 +1595,29 @@ void content_craftitem_init()
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_OERKKI_DUST_SPACE,1);
 	}
 	lists::add("craftguide",i);
+	lists::add("creative",i);
+
+	i = CONTENT_CRAFTITEM_BLUEBERRY;
+	f = &g_content_craftitem_features[i];
+	f->content = CONTENT_CRAFTITEM_BLUEBERRY;
+	f->texture = "harvested_blueberry.png";
+	f->name = "blueberry";
+	f->description = wgettext("Blueberries");
+	f->consumable = true;
+	f->sound_use = "use-eat";
+	f->hunger_effect = 10;
+	f->health_effect = 10;
+	lists::add("creative",i);
+
+	i = CONTENT_CRAFTITEM_RASPBERRY;
+	f = &g_content_craftitem_features[i];
+	f->content = CONTENT_CRAFTITEM_RASPBERRY;
+	f->texture = "harvested_raspberry.png";
+	f->name = "raspberry";
+	f->description = wgettext("Raspberries");
+	f->consumable = true;
+	f->sound_use = "use-eat";
+	f->hunger_effect = 10;
+	f->health_effect = 10;
 	lists::add("creative",i);
 }

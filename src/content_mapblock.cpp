@@ -6494,6 +6494,152 @@ void meshgen_campfirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode 
 	}
 }
 
+void meshgen_bushlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+{
+	static const v3s16 join_dirs[6] = {
+		v3s16( 1, 0, 0),
+		v3s16( 0, 0, 1),
+		v3s16(-1, 0, 0),
+		v3s16( 0, 0,-1),
+		v3s16( 0, 1, 0)
+	};
+	int connections[4][2] = {
+		{1,3},
+		{2,0},
+		{3,1},
+		{0,2}
+	};
+	bool joins[5];
+
+	TileSpec leaf_tile;
+	TileSpec berry_tile;
+	ContentFeatures *f;
+	ContentFeatures *nf;
+
+	f = &content_features(n.getContent());
+
+	leaf_tile = f->tiles[0];
+	berry_tile = f->meta_tiles[0];
+
+	v3f pos = intToFloat(p,BS);
+
+	for (int j=0; j<4; j++) {
+		v3s16 n2p = data->m_blockpos_nodes + p + join_dirs[j];
+		MapNode n2 = data->m_vmanip.getNodeRO(n2p);
+		nf = &content_features(n2.getContent());
+		joins[j] = (nf->draw_type == CDT_BUSHLIKE);
+	}
+
+	NodeMetadata *meta = data->m_env->getMap().getNodeMetadataClone(p+data->m_blockpos_nodes);
+	bool show_berries = false;
+	if (meta) {
+		if (((BushNodeMetadata*)meta)->berryCount() > 0)
+			show_berries = true;
+		delete meta;
+	}
+
+	u16 indices[] = {0,1,2,2,3,0};
+
+	for (int j=0; j<4; j++) {
+		float fz = 0.375;
+		float nz = -0.375;
+		float jn = 0.375;
+		float x0 = 0.125;
+		float x1 = 0.875;
+		if (joins[connections[j][0]]) {
+			fz = 0.5;
+			x1 = 1.0;
+		}
+		if (joins[connections[j][1]]) {
+			nz = -0.5;
+			x0 = 0.0;
+		}
+		if (joins[j])
+			jn = 0.499;
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(jn*data->m_BS,-0.5 *data->m_BS,nz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0, 1.0),
+			video::S3DVertex(jn*data->m_BS,-0.5 *data->m_BS,fz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1, 1.0),
+			video::S3DVertex(jn*data->m_BS, 0.25*data->m_BS,fz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1, 0.25),
+			video::S3DVertex(jn*data->m_BS, 0.25*data->m_BS,nz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0, 0.25),
+		};
+		video::S3DVertex bvertices[4] = {
+			video::S3DVertex((jn+0.001)*data->m_BS,-0.5 *data->m_BS,nz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0, 1.0),
+			video::S3DVertex((jn+0.001)*data->m_BS,-0.5 *data->m_BS,fz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1, 1.0),
+			video::S3DVertex((jn+0.001)*data->m_BS, 0.25*data->m_BS,fz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1, 0.25),
+			video::S3DVertex((jn+0.001)*data->m_BS, 0.25*data->m_BS,nz*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0, 0.25),
+		};
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos.rotateXZBy(90*j);
+			bvertices[i].Pos.rotateXZBy(90*j);
+		}
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,join_dirs[0],4,vertices);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+			vertices[i].TCoords *= leaf_tile.texture.size;
+			vertices[i].TCoords += leaf_tile.texture.pos;
+			bvertices[i].Pos += pos;
+			bvertices[i].TCoords *= berry_tile.texture.size;
+			bvertices[i].TCoords += berry_tile.texture.pos;
+		}
+
+		data->append(leaf_tile, vertices, 4, indices, 6, colours);
+		if (show_berries)
+			data->append(berry_tile, bvertices, 4, indices, 6, colours);
+	}
+	{
+		float x_min = -0.375;
+		float x_max = 0.375;
+		float z_min = -0.375;
+		float z_max = 0.375;
+		float x0 = 0.125;
+		float x1 = 0.875;
+		float y0 = 0.125;
+		float y1 = 0.875;
+		if (joins[0]) {
+			x_max = 0.5;
+			x1 = 1.0;
+		}
+		if (joins[1]) {
+			z_max = 0.5;
+			y0 = 0.0;
+		}
+		if (joins[2]) {
+			x_min = -0.5;
+			x0 = 0.0;
+		}
+		if (joins[3]) {
+			z_min = -0.5;
+			y1 = 1.0;
+		}
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(x_max*data->m_BS, 0.25*data->m_BS,z_min*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1,y1),
+			video::S3DVertex(x_min*data->m_BS, 0.25*data->m_BS,z_min*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0,y1),
+			video::S3DVertex(x_min*data->m_BS, 0.25*data->m_BS,z_max*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x0,y0),
+			video::S3DVertex(x_max*data->m_BS, 0.25*data->m_BS,z_max*data->m_BS, 0,0,0, video::SColor(255,255,255,255), x1,y0),
+		};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,join_dirs[0],4,vertices);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+			vertices[i].TCoords *= leaf_tile.texture.size;
+			vertices[i].TCoords += leaf_tile.texture.pos;
+		}
+
+		data->append(leaf_tile, vertices, 4, indices, 6, colours);
+	}
+}
+
 void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 {
 	SelectedNode selected;
@@ -6552,11 +6698,14 @@ void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n)
 	}
 	if (meshgen_farface(data,p,n,v3s16(0,1,0))) {
 		TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected,NULL);
+		float h = 0.5;
+		if (content_features(n.getContent()).liquid_type == LIQUID_SOURCE)
+			h = 0.375;
 		video::S3DVertex vertices[4] = {
-			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
-			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
-			video::S3DVertex(-0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0()),
-			video::S3DVertex( 0.5*data->m_BS, 0.5*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0())
+			video::S3DVertex( 0.5*data->m_BS, h*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, h*data->m_BS,-0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y1()),
+			video::S3DVertex(-0.5*data->m_BS, h*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x0(), tile.texture.y0()),
+			video::S3DVertex( 0.5*data->m_BS, h*data->m_BS, 0.5*data->m_BS, 0,0,0, video::SColor(255,255,255,255), tile.texture.x1(), tile.texture.y0())
 		};
 
 		u16 indices[6] = {0,1,2,2,3,0};

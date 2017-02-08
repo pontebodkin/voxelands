@@ -2160,6 +2160,18 @@ void make_block(BlockMakeData *data)
 						if (vmanip.m_area.contains(p))
 							vmanip.m_data[vmanip.m_area.index(p)] = MapNode(CONTENT_WILDGRASS_SHORT);
 					}
+				// bushes on clay
+				}else if (n->getContent() == CONTENT_CLAY) {
+					if (y > WATER_LEVEL+5) {
+						p.Y++;
+						if (vmanip.m_area.contains(p)) {
+							if (is_jungle == false) {
+								vmanip.m_data[vmanip.m_area.index(p)] = MapNode(CONTENT_BUSH_BLUEBERRY);
+							}else{
+								vmanip.m_data[vmanip.m_area.index(p)] = MapNode(CONTENT_BUSH_RASPBERRY);
+							}
+						}
+					}
 				}
 			}
 		}

@@ -3750,6 +3750,97 @@ std::string ForgeNodeMetadata::getDrawSpecString(Player *player)
 }
 
 /*
+	BushNodeMetadata
+*/
+
+// Prototype
+BushNodeMetadata proto_BushNodeMetadata;
+
+BushNodeMetadata::BushNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_inventory = new Inventory();
+	m_inventory->addList("main", 1);
+
+	m_days_since_growth = 0;
+}
+BushNodeMetadata::~BushNodeMetadata()
+{
+}
+u16 BushNodeMetadata::typeId() const
+{
+	return CONTENT_BUSH_RASPBERRY;
+}
+NodeMetadata* BushNodeMetadata::clone()
+{
+	BushNodeMetadata *d = new BushNodeMetadata();
+	*d->m_inventory = *m_inventory;
+	d->m_days_since_growth = m_days_since_growth;
+	return d;
+}
+NodeMetadata* BushNodeMetadata::create(std::istream &is)
+{
+	BushNodeMetadata *d = new BushNodeMetadata();
+
+	d->m_inventory->deSerialize(is);
+
+	return d;
+}
+void BushNodeMetadata::serializeBody(std::ostream &os)
+{
+	m_inventory->serialize(os);
+}
+void BushNodeMetadata::inventoryModified()
+{
+	infostream<<"Bush inventory modification callback"<<std::endl;
+}
+bool BushNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+{
+	if (berryCount() > 8)
+		return false;
+	if (env->getSeason() != ENV_SEASON_SPRING)
+		return false;
+	u32 day = env->getTime();
+	if (day-m_days_since_growth < 10) {
+		return true;
+	}
+
+	InventoryList *list = m_inventory->getList("main");
+	if (!list)
+		return true;
+
+	InventoryItem *item;
+
+	MapNode n = env->getMap().getNodeNoEx(pos);
+	content_t berry = content_features(n.getContent()).special_alternate_node;
+	if (berry == CONTENT_IGNORE)
+		return false;
+
+	item = new CraftItem(berry,2,0);
+
+	item = list->addItem(item);
+	if (item)
+		delete item;
+
+	m_days_since_growth = day;
+
+	return true;
+}
+u16 BushNodeMetadata::berryCount()
+{
+	InventoryList *list = m_inventory->getList("main");
+	if (!list)
+		return 0;
+
+	InventoryItem *item = list->getItem(0);
+	if (!item)
+		return 0;
+
+	return item->getCount();
+}
+
+/*
 	CircuitNodeMetadata
 */
 

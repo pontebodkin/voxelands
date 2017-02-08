@@ -54,6 +54,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 void meshgen_flaglike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_melonlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_campfirelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
+void meshgen_bushlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected);
 void meshgen_farnode(MeshMakeData *data, v3s16 p, MapNode &n);
 
 #endif
