@@ -993,7 +993,7 @@ void Server::start(unsigned short port)
 
 	// Announce game server to api server
 	if (g_settings->getBool("api_announce")) {
-		std::string url("/announce.cgi");
+		std::string url("/announce");
 		std::string post("");
 		std::string pre("");
 		std::string sn = g_settings->get("server_name");
