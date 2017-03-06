@@ -824,7 +824,7 @@ int main(int argc, char *argv[])
 
 	// Create user data directory
 	fs::CreateDir(porting::path_userdata);
-        
+
 #if defined(__FreeBSD__) || defined(linux)
 	// Create user config directory
         fs::CreateDir(porting::path_configdata);
@@ -1120,7 +1120,7 @@ int main(int argc, char *argv[])
 	gui::IGUISkin* skin = guienv->getSkin();
 #if USE_FREETYPE
 	u16 font_size = g_settings->getU16("font_size");
-	gui::IGUIFont* font = gui::CGUITTFont::createTTFont(guienv, getPath("font","liberationsans.ttf",false).c_str(), font_size, true, true, 1, 128);
+	gui::IGUIFont* font = gui::CGUITTFont::createTTFont(guienv, getPath("font","unifont.ttf",false).c_str(), font_size, true, true, 1, 128);
 #else
 	gui::IGUIFont* font = guienv->getFont(getTexturePath("fontlucida.png").c_str());
 #endif
