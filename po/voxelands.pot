@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: voxelands\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-06 21:22+1000\n"
+"POT-Creation-Date: 2017-03-13 15:20+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4528,8 +4528,8 @@ msgstr ""
 msgid "Attack"
 msgstr ""
 
-#: src/hud.cpp:650 src/keycode.cpp:258
-msgid "Space"
+#: src/hud.cpp:650
+msgid "Vacuum of Space"
 msgstr ""
 
 #: src/hud.cpp:658
@@ -4725,6 +4725,10 @@ msgstr ""
 
 #: src/keycode.cpp:257
 msgid "Mode Change"
+msgstr ""
+
+#: src/keycode.cpp:258
+msgid "Space"
 msgstr ""
 
 #: src/keycode.cpp:259

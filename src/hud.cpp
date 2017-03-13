@@ -647,7 +647,7 @@ void hud_draw(
 				gettext("Exposure"),
 				gettext("Cold"),
 				gettext("Attack"),
-				gettext("Space"),
+				gettext("Vacuum of Space"),
 				gettext("Hunger"),
 				gettext("Air"),
 				gettext("Lava"),
