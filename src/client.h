@@ -38,6 +38,8 @@
 #include "utility.h" // For IntervalLimiter
 #include "sound.h"
 
+#include "list.h"
+
 struct MeshMakeData;
 
 class ClientNotReadyException : public BaseException
@@ -50,6 +52,8 @@ public:
 
 struct QueuedMeshUpdate
 {
+	struct QueuedMeshUpdate *prev;
+	struct QueuedMeshUpdate *next;
 	v3s16 p;
 	MeshMakeData *data;
 	bool ack_block_to_server;
@@ -80,11 +84,13 @@ public:
 	u32 size()
 	{
 		JMutexAutoLock lock(m_mutex);
-		return m_queue.size();
+		if (m_queue == NULL)
+			return 0;
+		return list_count(&m_queue);
 	}
 
 private:
-	core::list<QueuedMeshUpdate*> m_queue;
+	QueuedMeshUpdate* m_queue;
 	JMutex m_mutex;
 };
 

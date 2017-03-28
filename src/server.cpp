@@ -4858,15 +4858,15 @@ core::list<PlayerInfo> Server::getPlayerInfo()
 
 	core::list<PlayerInfo> list;
 
-	core::list<Player*> players = m_env.getPlayers();
+	array_t *players = m_env.getPlayers();
 
-	core::list<Player*>::Iterator i;
-	for(i = players.begin();
-			i != players.end(); i++)
-	{
+	Player *player;
+	uint32_t i;
+	for (i=0; i<players->length; i++) {
+		player = (Player*)array_get_ptr(players,i);
+		if (!player)
+			continue;
 		PlayerInfo info;
-
-		Player *player = *i;
 
 		try{
 			// Copy info from connection to info struct
@@ -5004,19 +5004,23 @@ void Server::SendPlayerInfo(float dtime)
 	os.write((char*)buf, 2);
 
 	// Get connected players
-	core::list<Player*> players = m_env.getPlayers(true);
+	array_t *players = m_env.getPlayers(true);
 
 	// players ignore their own data, so don't bother sending for one player
-	if (players.size() < 2)
+	if (players->length < 2)
 		return;
 
 	// Write player count
-	u16 playercount = players.size();
+	u16 playercount = players->length;
 	writeU16(buf, playercount);
 	os.write((char*)buf, 2);
 
-	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-		ServerRemotePlayer *player = (ServerRemotePlayer*)(*i);
+	ServerRemotePlayer *player;
+	uint32_t i;
+	for (i=0; i<players->length; i++) {
+		player = (ServerRemotePlayer*)array_get_ptr(players,i);
+		if (!player)
+			continue;
 
 		writeU16(os, player->peer_id);
 		writeV3F1000(os, player->getPosition());
@@ -5026,6 +5030,8 @@ void Server::SendPlayerInfo(float dtime)
 		writeU8(os, player->animation_id);
 		writeU16(os, player->pointed_id);
 	}
+
+	array_free(players,1);
 
 	// Make data buffer
 	std::string s = os.str();
@@ -5039,17 +5045,21 @@ void Server::SendPlayerData()
 	DSTACK(__FUNCTION_NAME);
 
 	// Get connected players
-	core::list<Player*> players = m_env.getPlayers(true);
+	array_t *players = m_env.getPlayers(true);
 
 	std::ostringstream os(std::ios_base::binary);
 	writeU16(os, TOCLIENT_PLAYERDATA);
-	writeU16(os,(u16)players.size());
+	writeU16(os,(u16)players->length);
 	// this is the number of serialized strings sent below
 	writeU16(os,1);
 	char name[PLAYERNAME_SIZE];
 
-	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-		Player *player = *i;
+	Player *player;
+	uint32_t i;
+	for (i=0; i<players->length; i++) {
+		player = (Player*)array_get_ptr(players,i);
+		if (!player)
+			continue;
 
 		writeU16(os, player->peer_id);
 		memset(name, 0, PLAYERNAME_SIZE);
@@ -5058,6 +5068,8 @@ void Server::SendPlayerData()
 		os<<serializeString(player->getCharDef());
 		// serialized strings can be added here
 	}
+
+	array_free(players,1);
 
 	std::string s = os.str();
 	SharedBuffer<u8> data((u8*)s.c_str(), s.size());
@@ -5127,15 +5139,21 @@ void Server::SendPlayerItems()
 	DSTACK(__FUNCTION_NAME);
 
 	std::ostringstream os(std::ios_base::binary);
-	core::list<Player *> players = m_env.getPlayers(true);
+	array_t *players = m_env.getPlayers(true);
 
 	writeU16(os, TOCLIENT_PLAYERITEMS);
-	writeU16(os, players.size());
+	writeU16(os, players->length);
 	writeU16(os, 8);
-	for (core::list<Player *>::Iterator i = players.begin(); i != players.end(); i++) {
-		Player *p = *i;
-		writeU16(os, p->peer_id);
-		InventoryItem *item = (InventoryItem*)p->getWieldItem();
+
+	Player *player;
+	uint32_t i;
+	for (i=0; i<players->length; i++) {
+		player = (Player*)array_get_ptr(players,i);
+		if (!player)
+			continue;
+
+		writeU16(os, player->peer_id);
+		InventoryItem *item = (InventoryItem*)player->getWieldItem();
 		if (item == NULL) {
 			writeU16(os,CONTENT_IGNORE);
 		}else{
@@ -5143,7 +5161,7 @@ void Server::SendPlayerItems()
 		}
 		const char* list[7] = {"hat","shirt","pants","boots","decorative","jacket","belt"};
 		for (int j=0; j<7; j++) {
-			InventoryList *l = p->inventory.getList(list[j]);
+			InventoryList *l = player->inventory.getList(list[j]);
 			if (l == NULL)
 				continue;
 			InventoryItem *itm = l->getItem(0);
@@ -5154,6 +5172,8 @@ void Server::SendPlayerItems()
 			writeU16(os,itm->getContent());
 		}
 	}
+
+	array_free(players,1);
 
 	// Make data buffer
 	std::string s = os.str();

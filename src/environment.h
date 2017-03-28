@@ -48,6 +48,8 @@
 #include "utility.h"
 #include "activeobject.h"
 
+#include "array.h"
+
 class Server;
 class ServerActiveObject;
 
@@ -142,8 +144,8 @@ public:
 	Player * getPlayer(const char *name);
 	Player * getRandomConnectedPlayer();
 	Player * getNearestConnectedPlayer(v3f pos);
-	core::list<Player*> getPlayers();
-	core::list<Player*> getPlayers(bool ignore_disconnected);
+	array_t *getPlayers();
+	array_t *getPlayers(bool ignore_disconnected);
 	void printPlayers(std::ostream &o);
 	virtual bool propogateEnergy(u8 level, v3s16 powersrc, v3s16 signalsrc, v3s16 pos, core::map<v3s16,MapBlock*> &modified_blocks) {return false;};
 
@@ -216,7 +218,7 @@ public:
 
 protected:
 	// peer_ids in here should be unique, except that there may be many 0s
-	core::list<Player*> m_players;
+	array_t *m_players;
 	u32 m_time;
 	// Time of day in milli-hours (0-23999); determines day and night
 	u32 m_time_of_day;

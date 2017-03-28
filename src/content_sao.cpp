@@ -32,6 +32,8 @@
 #include "nodemetadata.h"
 #include "mapblock.h"
 
+#include "array.h"
+
 core::map<u16, ServerActiveObject::Factory> ServerActiveObject::m_types;
 
 /* Some helper functions */
@@ -218,14 +220,19 @@ void MobSAO::step(float dtime, bool send_recommended)
 	/* don't do anything if there's no nearby player */
 	if (m_disturbing_player == "") {
 		float distance = 40*BS;
-		core::list<Player*> players = m_env->getPlayers(true);
-		for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-			Player *player = *i;
+		array_t *players = m_env->getPlayers(true);
+		Player *player;
+		uint32_t i;
+		for (i=0; i<players->length; i++) {
+			player = (Player*)array_get_ptr(players,i);
+			if (!player)
+				continue;
 			v3f playerpos = player->getPosition();
 			f32 dist = m_base_position.getDistanceFrom(playerpos);
 			if (dist < distance)
 				distance = dist;
 		}
+		array_free(players,1);
 		if (distance > 32*BS) {
 			/* kill of anything that shouldn't be on its own */
 			if (
@@ -292,9 +299,13 @@ void MobSAO::step(float dtime, bool send_recommended)
 			) {
 				m_disturbing_player = "";
 				// Check connected players
-				core::list<Player*> players = m_env->getPlayers(true);
-				for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-					Player *player = *i;
+				array_t *players = m_env->getPlayers(true);
+				Player *player;
+				uint32_t i;
+				for (i=0; i<players->length; i++) {
+					player = (Player*)array_get_ptr(players,i);
+					if (!player)
+						continue;
 					v3f playerpos = player->getPosition();
 					f32 dist = m_base_position.getDistanceFrom(playerpos);
 					if (dist < BS*16) {
@@ -309,6 +320,7 @@ void MobSAO::step(float dtime, bool send_recommended)
 						}
 					}
 				}
+				array_free(players,1);
 			}
 		}
 		if (m_disturbing_player != "") {

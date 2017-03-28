@@ -153,6 +153,7 @@ GUICharDefMenu::~GUICharDefMenu()
 
 void GUICharDefMenu::removeChildren()
 {
+	/* irrlicht internal */
 	const core::list<gui::IGUIElement*> &children = getChildren();
 	core::list<gui::IGUIElement*> children_copy;
 	for (core::list<gui::IGUIElement*>::ConstIterator i = children.begin(); i != children.end(); i++) {

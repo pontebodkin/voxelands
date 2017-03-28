@@ -444,8 +444,8 @@ public:
 	bool userExists(const char *name) {return m_authmanager.exists(name);}
 
 	Player *getPlayer(std::string name) {return m_env.getPlayer(name.c_str());}
-	core::list<Player*> getPlayers() {return m_env.getPlayers();}
-	core::list<Player*> getPlayers(bool ign_disconnected) {return m_env.getPlayers(ign_disconnected);}
+	array_t *getPlayers() {return m_env.getPlayers();}
+	array_t *getPlayers(bool ign_disconnected) {return m_env.getPlayers(ign_disconnected);}
 
 	uint64_t getPlayerPrivs(Player *player);
 

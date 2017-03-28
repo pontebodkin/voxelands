@@ -41,6 +41,8 @@
 #include "server.h"
 #include "client.h"
 
+#include "nvp.h"
+
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
 Environment::Environment():
@@ -50,16 +52,23 @@ Environment::Environment():
 	m_time_of_day_speed(0),
 	m_time_counter(0)
 {
+	m_players = array_create(ARRAY_TYPE_PTR);
 }
 
 Environment::~Environment()
 {
 	// Deallocate players
-	for(core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		delete (*i);
+	Player *player;
+	uint32_t i;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
+		array_set_ptr(m_players,NULL,i);
+		delete player;
 	}
+
+	array_free(m_players,1);
 }
 
 void Environment::addPlayer(Player *player)
@@ -76,36 +85,41 @@ void Environment::addPlayer(Player *player)
 	// Name has to be unique.
 	if (getPlayer(player->getName()) != NULL)
 		return;
-	// Add.
-	m_players.push_back(player);
+
+	array_insert_ptr(m_players,player);
 }
 
 void Environment::removePlayer(u16 peer_id)
 {
 	DSTACK(__FUNCTION_NAME);
-re_search:
-	for(core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
-		if(player->peer_id != peer_id)
-			continue;
+	Player *player;
+	uint32_t i;
+	int k;
 
-		delete player;
-		m_players.erase(i);
-		// See if there is an another one
-		// (shouldn't be, but just to be sure)
-		goto re_search;
-	}
+	do {
+		k = 0;
+		for (i=0; i<m_players->length; i++) {
+			player = (Player*)array_get_ptr(m_players,i);
+			if (!player)
+				continue;
+			if (player->peer_id != peer_id)
+				continue;
+			array_set_ptr(m_players,NULL,i);
+			delete player;
+			k = 1;
+		}
+	} while (k > 0);
 }
 
 Player * Environment::getPlayer(u16 peer_id)
 {
-	for(core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
-		if(player->peer_id == peer_id)
+	Player *player;
+	uint32_t i;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
+		if (player->peer_id == peer_id)
 			return player;
 	}
 	return NULL;
@@ -113,11 +127,13 @@ Player * Environment::getPlayer(u16 peer_id)
 
 Player * Environment::getPlayer(const char *name)
 {
-	for(core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
-		if(strcmp(player->getName(), name) == 0)
+	Player *player;
+	uint32_t i;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
+		if (!strcmp(player->getName(), name))
 			return player;
 	}
 	return NULL;
@@ -125,36 +141,26 @@ Player * Environment::getPlayer(const char *name)
 
 Player * Environment::getRandomConnectedPlayer()
 {
-	core::list<Player*> connected_players = getPlayers(true);
-	u32 chosen_one = myrand() % connected_players.size();
-	u32 j = 0;
-	for(core::list<Player*>::Iterator
-			i = connected_players.begin();
-			i != connected_players.end(); i++)
-	{
-		if(j == chosen_one)
-		{
-			Player *player = *i;
-			return player;
-		}
-		j++;
-	}
-	return NULL;
+	array_t *connected_players = getPlayers(true);
+	uint32_t i = myrand() % connected_players->length;
+	Player *r = (Player*)array_get_ptr(connected_players,i);
+	array_free(connected_players,1);
+	return r;
 }
 
 Player * Environment::getNearestConnectedPlayer(v3f pos)
 {
-	core::list<Player*> connected_players = getPlayers(true);
-	f32 nearest_d = 0;
+	array_t *connected_players = getPlayers(true);
+	float nearest_d = 0;
 	Player *nearest_player = NULL;
-	for(core::list<Player*>::Iterator
-			i = connected_players.begin();
-			i != connected_players.end(); i++)
-	{
-		Player *player = *i;
-		f32 d = player->getPosition().getDistanceFrom(pos);
-		if(d < nearest_d || nearest_player == NULL)
-		{
+	Player *player;
+	uint32_t i;
+	for (i=0; i<connected_players->length; i++) {
+		player = (Player*)array_get_ptr(connected_players,i);
+		if (!player)
+			continue;
+		float d = player->getPosition().getDistanceFrom(pos);
+		if (d < nearest_d || nearest_player == NULL) {
 			nearest_d = d;
 			nearest_player = player;
 		}
@@ -162,28 +168,28 @@ Player * Environment::getNearestConnectedPlayer(v3f pos)
 	return nearest_player;
 }
 
-core::list<Player*> Environment::getPlayers()
+array_t *Environment::getPlayers()
 {
 	return m_players;
 }
 
-core::list<Player*> Environment::getPlayers(bool ignore_disconnected)
+array_t *Environment::getPlayers(bool ignore_disconnected)
 {
-	core::list<Player*> newlist;
-	for(core::list<Player*>::Iterator
-			i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
+	array_t *newlist;
+	uint32_t i;
+	Player *player;
 
-		if(ignore_disconnected)
-		{
-			// Ignore disconnected players
-			if(player->peer_id == 0)
-				continue;
-		}
+	newlist = array_create(ARRAY_TYPE_PTR);
 
-		newlist.push_back(player);
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
+
+		if (ignore_disconnected && player->peer_id == 0)
+			continue;
+
+		array_push_ptr(newlist,player);
 	}
 	return newlist;
 }
@@ -191,10 +197,12 @@ core::list<Player*> Environment::getPlayers(bool ignore_disconnected)
 void Environment::printPlayers(std::ostream &o)
 {
 	o<<"Players in environment:"<<std::endl;
-	for(core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
+	uint32_t i;
+	Player *player;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
 		o<<"Player peer_id="<<player->peer_id<<std::endl;
 	}
 }
@@ -327,11 +335,13 @@ void ServerEnvironment::serializePlayers(const std::string &savedir)
 {
 	std::string players_path = savedir + "/players";
 	fs::CreateDir(players_path);
+	Player *player;
+	uint32_t i;
 
-	core::map<Player*, bool> saved_players;
+	nvp_t *saved_players = NULL;
 
 	std::vector<fs::DirListNode> player_files = fs::GetDirListing(players_path);
-	for (u32 i=0; i<player_files.size(); i++) {
+	for (i=0; i<player_files.size(); i++) {
 		if (player_files[i].dir)
 			continue;
 
@@ -354,7 +364,7 @@ void ServerEnvironment::serializePlayers(const std::string &savedir)
 
 		// Search for the player
 		std::string playername = testplayer.getName();
-		Player *player = getPlayer(playername.c_str());
+		player = getPlayer(playername.c_str());
 		if (player == NULL) {
 			fs::RecursiveDelete(path);
 			continue;
@@ -371,13 +381,15 @@ void ServerEnvironment::serializePlayers(const std::string &savedir)
 				continue;
 			}
 			player->serialize(os);
-			saved_players.insert(player, true);
+			nvp_set(&saved_players, (char*)player->getName(), (char*)player->getName(), player);
 		}
 	}
 
-	for (core::list<Player*>::Iterator i = m_players.begin(); i != m_players.end(); i++) {
-		Player *player = *i;
-		if (saved_players.find(player) != NULL)
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
+		if (nvp_get(&saved_players, (char*)player->getName()) != NULL)
 			continue;
 		std::string playername = player->getName();
 		// Don't save unnamed player
@@ -412,11 +424,12 @@ void ServerEnvironment::serializePlayers(const std::string &savedir)
 				continue;
 			}
 			player->serialize(os);
-			saved_players.insert(player, true);
+			nvp_set(&saved_players, (char*)player->getName(), (char*)player->getName(), player);
 		}
 	}
 
-	//infostream<<"Saved "<<saved_players.size()<<" players."<<std::endl;
+	nvp_free(&saved_players,0);
+
 }
 
 void ServerEnvironment::deSerializePlayers(const std::string &savedir)
@@ -1041,8 +1054,12 @@ void ServerEnvironment::step(float dtime)
 	{
 		ScopeProfiler sp(g_profiler, "SEnv: handle players avg", SPT_AVG);
 		int pc = 0;
-		for (core::list<Player*>::Iterator i = m_players.begin(); i != m_players.end(); i++) {
-			Player *player = *i;
+		Player *player;
+		uint32_t i;
+		for (i=0; i<m_players->length; i++) {
+			player = (Player*)array_get_ptr(m_players,i);
+			if (!player)
+				continue;
 
 			// Ignore disconnected players
 			if (player->peer_id == 0)
@@ -1113,8 +1130,12 @@ void ServerEnvironment::step(float dtime)
 				}
 				// wake up
 				addEnvEvent(ENV_EVENT_WAKE,v3f(0,0,0),"");
-				for (core::list<Player*>::Iterator i = m_players.begin(); i != m_players.end(); i++) {
-					Player *player = *i;
+				Player *player;
+				uint32_t i;
+				for (i=0; i<m_players->length; i++) {
+					player = (Player*)array_get_ptr(m_players,i);
+					if (!player)
+						continue;
 
 					// Ignore disconnected players
 					if (player->peer_id == 0)
@@ -1131,8 +1152,12 @@ void ServerEnvironment::step(float dtime)
 		}else if (m_players_sleeping) {
 			// wake up
 			addEnvEvent(ENV_EVENT_WAKE,v3f(0,0,0),"");
-			for (core::list<Player*>::Iterator i = m_players.begin(); i != m_players.end(); i++) {
-				Player *player = *i;
+			Player *player;
+			uint32_t i;
+			for (i=0; i<m_players->length; i++) {
+				player = (Player*)array_get_ptr(m_players,i);
+				if (!player)
+					continue;
 
 				// Ignore disconnected players
 				if (player->peer_id == 0)
@@ -4106,8 +4131,12 @@ void ClientEnvironment::step(float dtime)
 	/*
 		Stuff that can be done in an arbitarily large dtime
 	*/
-	for (core::list<Player*>::Iterator i = m_players.begin(); i != m_players.end(); i++) {
-		Player *player = *i;
+	Player *player;
+	uint32_t i;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
 		v3f playerpos = player->getPosition();
 
 		/*
@@ -4455,10 +4484,12 @@ void ClientEnvironment::updateObjectsCameraOffset(v3s16 camera_offset)
 		obj->updateCameraOffset(camera_offset);
 	}
 
-	for (core::list<Player*>::Iterator i = m_players.begin();
-			i != m_players.end(); i++)
-	{
-		Player *player = *i;
+	Player *player;
+	uint32_t i;
+	for (i=0; i<m_players->length; i++) {
+		player = (Player*)array_get_ptr(m_players,i);
+		if (!player)
+			continue;
 		if (!player->isLocal())
 			((RemotePlayer*)player)->updateCameraOffset(camera_offset);
 	}

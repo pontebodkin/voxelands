@@ -164,6 +164,11 @@ configure_file(
 )
 
 set(common_SRCS
+	array.c
+	list.c
+	nvp.c
+	crypto.c
+	crypto_base64.c
 	log.cpp
 	content_sao.cpp
 	mapgen.cpp

@@ -45,6 +45,8 @@
 #include "content_craftitem.h"
 #include "content_mob.h"
 
+#include "array.h"
+
 /*
 	QueuedMeshUpdate
 */
@@ -58,7 +60,7 @@ QueuedMeshUpdate::QueuedMeshUpdate():
 
 QueuedMeshUpdate::~QueuedMeshUpdate()
 {
-	if(data)
+	if (data)
 		delete data;
 }
 
@@ -68,18 +70,18 @@ QueuedMeshUpdate::~QueuedMeshUpdate()
 
 MeshUpdateQueue::MeshUpdateQueue()
 {
+	m_queue = NULL;
 	m_mutex.Init();
 }
 
 MeshUpdateQueue::~MeshUpdateQueue()
 {
+	QueuedMeshUpdate *i;
 	JMutexAutoLock lock(m_mutex);
 
-	core::list<QueuedMeshUpdate*>::Iterator i;
-	for(i=m_queue.begin(); i!=m_queue.end(); i++)
-	{
-		QueuedMeshUpdate *q = *i;
-		delete q;
+	while (m_queue != NULL) {
+		i = (QueuedMeshUpdate*)list_pull(&m_queue);
+		delete i;
 	}
 }
 
@@ -98,9 +100,8 @@ void MeshUpdateQueue::addBlock(v3s16 p, MeshMakeData *data, bool ack_block_to_se
 		Find if block is already in queue.
 		If it is, update the data and quit.
 	*/
-	core::list<QueuedMeshUpdate*>::Iterator i;
-	for (i=m_queue.begin(); i!=m_queue.end(); i++) {
-		QueuedMeshUpdate *q = *i;
+	QueuedMeshUpdate* q = m_queue;
+	while (q) {
 		if (q->p == p) {
 			if (q->data && data->m_refresh_only) {
 				q->data->m_daynight_ratio = data->m_daynight_ratio;
@@ -114,16 +115,18 @@ void MeshUpdateQueue::addBlock(v3s16 p, MeshMakeData *data, bool ack_block_to_se
 				q->ack_block_to_server = true;
 			return;
 		}
+		q = q->next;
 	}
 
 	/*
 		Add the block
 	*/
-	QueuedMeshUpdate *q = new QueuedMeshUpdate;
+	q = new QueuedMeshUpdate;
 	q->p = p;
 	q->data = data;
 	q->ack_block_to_server = ack_block_to_server;
-	m_queue.push_back(q);
+
+	m_queue = (QueuedMeshUpdate*)list_push(&m_queue,q);
 }
 
 // Returned pointer must be deleted
@@ -132,12 +135,7 @@ QueuedMeshUpdate * MeshUpdateQueue::pop()
 {
 	JMutexAutoLock lock(m_mutex);
 
-	core::list<QueuedMeshUpdate*>::Iterator i = m_queue.begin();
-	if(i == m_queue.end())
-		return NULL;
-	QueuedMeshUpdate *q = *i;
-	m_queue.erase(i);
-	return q;
+	return (QueuedMeshUpdate*)list_pull(&m_queue);
 }
 
 /*
@@ -927,11 +925,13 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			u16 field_count = readU16(is);
 
 			// peer_ids
-			core::list<u16> players_alive;
+			array_t players_alive;
+			array_init(&players_alive,ARRAY_TYPE_INT);
 			for (u16 i=0; i<player_count; i++) {
 				u16 peer_id = readU16(is);
 
-				players_alive.push_back(peer_id);
+				array_push_int(&players_alive,peer_id);
+
 				is.read(pname,PLAYERNAME_SIZE);
 				pname[PLAYERNAME_SIZE-1] = '\0';
 				chardef = deSerializeString(is);
@@ -965,30 +965,25 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 				Remove those players from the environment that
 				weren't listed by the server.
 			*/
-			core::list<Player*> players = m_env.getPlayers();
-			core::list<Player*>::Iterator ip;
-			for (ip=players.begin(); ip!=players.end(); ip++) {
+			array_t *players = m_env.getPlayers();
+			Player *player;
+			uint32_t i;
+			for (i=0; i<players->length; i++) {
+				player = (Player*)array_get_ptr(players,i);
+				if (!player)
+					continue;
 				// Ignore local player
-				if ((*ip)->isLocal())
+				if (player->isLocal())
 					continue;
 
 				// Warn about a special case
-				if ((*ip)->peer_id == 0)
+				if (player->peer_id == 0)
 					infostream<<"Client: Removing dead player with id=0"<<std::endl;
 
-				bool is_alive = false;
-				core::list<u16>::Iterator i;
-				for (i=players_alive.begin(); i!=players_alive.end(); i++) {
-					if ((*ip)->peer_id == *i) {
-						is_alive = true;
-						break;
-					}
-				}
-				if (is_alive)
+				if (array_find_int(&players_alive,player->peer_id) > -1)
 					continue;
-				infostream<<"Removing dead player "<<(*ip)->peer_id
-						<<std::endl;
-				m_env.removePlayer((*ip)->peer_id);
+				infostream<<"Removing dead player "<<player->peer_id<<std::endl;
+				m_env.removePlayer(player->peer_id);
 			}
 		} //envlock
 	}

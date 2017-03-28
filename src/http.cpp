@@ -211,18 +211,20 @@ int HTTPRemoteClient::handlePlayer()
 	/* player list */
 	std::string u1 = m_recv_headers.getUrl(1);
 	if (u1 == "" || u1.substr(0,5) == "page-") {
-		core::list<Player*> players = m_server->getGameServer()->getPlayers();
+		array_t *players = m_server->getGameServer()->getPlayers();
+		Player *player;
+		uint32_t i;
 		std::string html("<h1>Players</h1>\n");
 		std::string pagination("");
 		int player_skip = 0;
-		if (players.size() > 50) {
+		if (players->length > 50) {
 			int current_page = 1;
 			if (u1.substr(0,5) == "page-") {
 				current_page = mystoi(u1.substr(5));
 				if (current_page < 1)
 					current_page = 1;
 			}
-			int total_pages = (players.size()/50)+1;
+			int total_pages = (players->length/50)+1;
 			if (total_pages < 1)
 				total_pages = 1;
 			if (current_page > total_pages)
@@ -240,12 +242,14 @@ int HTTPRemoteClient::handlePlayer()
 		}
 		html += pagination;
 		int p = 0;
-		for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++,p++) {
+		for (i=0; i<players->length; i++,p++) {
 			if (p < player_skip)
 				continue;
 			if (p > player_skip+50)
 				break;
-			Player *player = *i;
+			player = (Player*)array_get_ptr(players,i);
+			if (!player)
+				continue;
 			html += http_player_interface(player,m_server,false);
 		}
 		html += pagination;
@@ -331,15 +335,20 @@ int HTTPRemoteClient::handleAPI()
 		send((char*)txt.c_str());
 		return 1;
 	}else if (u1 == "players") {
-		core::list<Player*> players = m_server->getGameServer()->getPlayers(true);
-		std::string txt = itos(players.size())+"\n";
+		array_t *players = m_server->getGameServer()->getPlayers(true);
+		std::string txt = itos(players->length)+"\n";
 		int c = 0;
-		for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-			Player *player = *i;
+		Player *player;
+		uint32_t i;
+		for (i=0; i<players->length; i++) {
+			player = (Player*)array_get_ptr(players,i);
+			if (!player)
+				continue;
 			if (c++)
 				txt += ", ";
 			txt += player->getName();
 		}
+		array_free(players,1);
 		send((char*)txt.c_str());
 		return 1;
 	}else if (u1 == "public") {
@@ -365,9 +374,13 @@ int HTTPRemoteClient::handleIndex()
 	html += "</h2><p><strong>Version: </strong>";
 	html += VERSION_STRING;
 	html += "<br /><strong><a href=\"/player\" class=\"secret\">Players</a>: </strong>";
-	core::list<Player*> players = m_server->getGameServer()->getPlayers(true);
-	for (core::list<Player*>::Iterator i = players.begin(); i != players.end(); i++) {
-		Player *player = *i;
+	array_t *players = m_server->getGameServer()->getPlayers(true);
+	Player *player;
+	uint32_t i;
+	for (i=0; i<players->length; i++) {
+		player = (Player*)array_get_ptr(players,i);
+		if (!player)
+			continue;
 		if (c++)
 			html += ", ";
 		html += "<a href=\"/player/";
@@ -376,6 +389,7 @@ int HTTPRemoteClient::handleIndex()
 		html += player->getName();
 		html += "</a>";
 	}
+	array_free(players,1);
 	html += "</div>";
 	sendHTML((char*)html.c_str());
 	return 1;
