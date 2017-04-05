@@ -94,12 +94,10 @@ content_t InventoryItem::info(std::istream &is, u16 *count, u16 *wear, u16 *data
 		if (material > MAX_CONTENT)
 			throw SerializationError("Too large material number");
 		c = material;
-	}else if(name == "CraftItem") {
+	}else if(name == "CraftItem") { /* deprecated */
 		std::string subname;
 		std::getline(is, subname, ' ');
 		is>>(*count);
-		CraftItem itm(subname, *count, 0);
-		c = itm.getContent();
 	}else if(name == "CraftItem2") {
 		u16 material;
 		is>>material;
@@ -309,14 +307,14 @@ video::ITexture * CraftItem::getImage() const
 	if(g_texturesource == NULL)
 		return NULL;
 
-	std::string name = content_craftitem_features(m_content).texture;
-	std::string base = content_craftitem_features(m_content).overlay_base;
+	std::string name = content_craftitem_features(m_content)->texture;
+	std::string base = content_craftitem_features(m_content)->overlay_base;
 
 	std::ostringstream os;
 	os<<name;
 
 	if (base != "") {
-		if (content_craftitem_features(m_content).param_type == CPT_ENCHANTMENT) {
+		if (content_craftitem_features(m_content)->param_type == CPT_ENCHANTMENT) {
 			EnchantmentInfo info;
 			u16 data = m_data;
 			// TODO: adding more than 2 overlays messes up alpha
@@ -333,12 +331,12 @@ video::ITexture * CraftItem::getImage() const
 #endif
 std::wstring CraftItem::getGuiName()
 {
-	return content_craftitem_features(m_content).description;
+	return content_craftitem_features(m_content)->description;
 }
 std::wstring CraftItem::getGuiText()
 {
 	std::wstring txt(L"  ");
-	CraftItemFeatures *f = &content_craftitem_features(m_content);
+	CraftItemFeatures *f = content_craftitem_features(m_content);
 	txt += f->description;
 	if (f->consumable || f->cook_result != CONTENT_IGNORE || f->fuel_time != 0.0)
 		txt += L"\n";
@@ -388,7 +386,7 @@ std::wstring CraftItem::getGuiText()
 		txt += narrow_to_wide(buff);
 	}
 	if (m_data > 0) {
-		if (content_craftitem_features(m_content).param_type == CPT_ENCHANTMENT) {
+		if (content_craftitem_features(m_content)->param_type == CPT_ENCHANTMENT) {
 			EnchantmentInfo info;
 			u16 data = m_data;
 			txt += L"\n";
@@ -406,8 +404,8 @@ std::wstring CraftItem::getGuiText()
 
 ServerActiveObject* CraftItem::createSAO(ServerEnvironment *env, u16 id, v3f pos)
 {
-	content_t drop = content_craftitem_features(m_content).drop_item;
-	if (content_craftitem_features(m_content).param_type == CPT_DROP && m_data != 0)
+	content_t drop = content_craftitem_features(m_content)->drop_item;
+	if (content_craftitem_features(m_content)->param_type == CPT_DROP && m_data != 0)
 		drop = m_data;
 	// Special cases
 	if ((drop&CONTENT_MOB_MASK) == CONTENT_MOB_MASK) {
@@ -424,7 +422,7 @@ ServerActiveObject* CraftItem::createSAO(ServerEnvironment *env, u16 id, v3f pos
 u16 CraftItem::getDropCount() const
 {
 	// Special cases
-	s16 dc = content_craftitem_features(m_content).drop_count;
+	s16 dc = content_craftitem_features(m_content)->drop_count;
 	if(dc != -1)
 		return dc;
 	// Default
@@ -433,7 +431,7 @@ u16 CraftItem::getDropCount() const
 
 bool CraftItem::isCookable(CookType type) const
 {
-	CraftItemFeatures *f = &content_craftitem_features(m_content);
+	CraftItemFeatures *f = content_craftitem_features(m_content);
 	if (!f)
 		return false;
 	if (type != f->cook_type && f->cook_type != COOK_ANY)
@@ -445,48 +443,48 @@ bool CraftItem::isCookable(CookType type) const
 
 InventoryItem *CraftItem::createCookResult() const
 {
-	return InventoryItem::create(content_craftitem_features(m_content).cook_result,1,1,0);
+	return InventoryItem::create(content_craftitem_features(m_content)->cook_result,1,1,0);
 }
 
 bool CraftItem::isFuel() const
 {
-	return (content_craftitem_features(m_content).fuel_time != 0.0);
+	return (content_craftitem_features(m_content)->fuel_time != 0.0);
 }
 
 float CraftItem::getFuelTime() const
 {
-	return content_craftitem_features(m_content).fuel_time;
+	return content_craftitem_features(m_content)->fuel_time;
 }
 
 bool CraftItem::use(ServerEnvironment *env, Player *player)
 {
 	u16 count = getCount();
 	bool used = false;
-	CraftItemFeatures f = content_craftitem_features(m_content);
-	if (f.consumable) {
-		if (f.hunger_effect && (f.health_effect < 1 || player->hunger < 100)) {
-			if (player->hunger + f.hunger_effect > 100) {
+	CraftItemFeatures *f = content_craftitem_features(m_content);
+	if (f->consumable) {
+		if (f->hunger_effect && (f->health_effect < 1 || player->hunger < 100)) {
+			if (player->hunger + f->hunger_effect > 100) {
 				player->hunger = 100;
 			}else{
-				player->hunger += f.hunger_effect;
+				player->hunger += f->hunger_effect;
 			}
 			used = true;
 		}
-		if (f.health_effect < 0 || (!used && f.health_effect > 0)) {
-			player->addHealth(f.health_effect);
+		if (f->health_effect < 0 || (!used && f->health_effect > 0)) {
+			player->addHealth(f->health_effect);
 			used = true;
 		}
-		if (f.cold_effect) {
-			player->cold_effect = f.cold_effect;
+		if (f->cold_effect) {
+			player->cold_effect = f->cold_effect;
 			used = true;
 		}
-		if (f.energy_effect) {
-			player->energy_effect = f.energy_effect;
+		if (f->energy_effect) {
+			player->energy_effect = f->energy_effect;
 			used = true;
 		}
 	}
-	if (f.onuse_replace_item != CONTENT_IGNORE) {
-		m_content = f.onuse_replace_item;
+	if (f->onuse_replace_item != CONTENT_IGNORE) {
+		m_content = f->onuse_replace_item;
 	}else if (used) {
 		count--;
 		if (count < 1)
@@ -670,7 +668,7 @@ video::ITexture *ClothesItem::getImage() const
 std::wstring ClothesItem::getGuiText()
 {
 	std::wstring txt(L"  ");
-	ClothesItemFeatures *f = &content_clothesitem_features(m_content);
+	ClothesItemFeatures *f = content_clothesitem_features(m_content);
 	txt += f->description;
 	if (f->armour > 0.0 || f->warmth > 0.0 || f->vacuum > 0.0 || f->suffocate > 0.0 || f->durability > 0.0 || f->effect > 1.0)
 		txt += L"\n";

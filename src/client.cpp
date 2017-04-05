@@ -1623,7 +1623,7 @@ void Client::useItem()
 		std::string snd("");
 		content_t w = item->getContent();
 		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-			snd = content_craftitem_features(w).sound_use;
+			snd = content_craftitem_features(w)->sound_use;
 		if (snd != "")
 			g_sound->playSound(snd,false);
 	}

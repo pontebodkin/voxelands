@@ -306,7 +306,7 @@ public:
 			i = l->getItem(0);
 			if (i == NULL)
 				return 0;
-			return content_clothesitem_features(i->getContent()).armour;
+			return content_clothesitem_features(i->getContent())->armour;
 			break;
 		case DAMAGE_AIR:
 			l = inventory.getList("hat");
@@ -315,7 +315,7 @@ public:
 			i = l->getItem(0);
 			if (i == NULL)
 				return 0;
-			return content_clothesitem_features(i->getContent()).suffocate;
+			return content_clothesitem_features(i->getContent())->suffocate;
 			break;
 		default:;
 		}
@@ -362,13 +362,13 @@ public:
 			case DAMAGE_FIRE:
 			case DAMAGE_ATTACK:
 			case DAMAGE_CACTUS:
-				v += content_clothesitem_features(i->getContent()).armour;
+				v += content_clothesitem_features(i->getContent())->armour;
 				break;
 			case DAMAGE_COLD:
-				v += content_clothesitem_features(i->getContent()).warmth;
+				v += content_clothesitem_features(i->getContent())->warmth;
 				break;
 			case DAMAGE_SPACE:
-				v += content_clothesitem_features(i->getContent()).vacuum;
+				v += content_clothesitem_features(i->getContent())->vacuum;
 				break;
 			default:;
 			}

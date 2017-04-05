@@ -246,17 +246,10 @@ private:
 class CraftItem : public InventoryItem
 {
 public:
-	CraftItem(std::string subname, u16 count, u16 data):
-		InventoryItem(count,data)
-	{
-		m_subname = content_craftitem_features(subname).name;
-		m_content = content_craftitem_features(subname).content;
-	}
 	CraftItem(content_t content, u16 count, u16 data):
 		InventoryItem(count,data)
 	{
-		m_subname = content_craftitem_features(content).name;
-		m_content = content_craftitem_features(content).content;
+		m_content = content_craftitem_features(content)->content;
 	}
 	/*
 		Implementation interface
@@ -308,7 +301,7 @@ public:
 	}
 	u16 freeSpace() const
 	{
-		if (!content_craftitem_features(m_content).stackable)
+		if (!content_craftitem_features(m_content)->stackable)
 			return 0;
 		if (m_count > QUANTITY_ITEM_MAX_COUNT)
 			return 0;
@@ -325,16 +318,6 @@ public:
 	float getFuelTime() const;
 
 	bool use(ServerEnvironment *env, Player *player);
-
-	/*
-		Special methods
-	*/
-	std::string getSubName()
-	{
-		return m_subname;
-	}
-private:
-	std::string m_subname;
 };
 
 class ToolItem : public InventoryItem
@@ -439,7 +422,7 @@ public:
 		InventoryItem(1,data)
 	{
 		m_wear = wear;
-		m_content = content_clothesitem_features(content).content;
+		m_content = content_clothesitem_features(content)->content;
 	}
 	/*
 		Implementation interface
@@ -464,7 +447,7 @@ public:
 	}
 #ifndef SERVER
 	std::string getBasename() const {
-		return content_clothesitem_features(m_content).texture;
+		return content_clothesitem_features(m_content)->texture;
 	}
 
 	video::ITexture * getImage() const;
@@ -479,7 +462,7 @@ public:
 #endif
 	std::wstring getGuiName()
 	{
-		return content_clothesitem_features(m_content).description;
+		return content_clothesitem_features(m_content)->description;
 	}
 	std::wstring getGuiText();
 	std::string getText()

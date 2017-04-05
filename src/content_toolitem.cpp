@@ -292,8 +292,8 @@ void content_toolitem_init()
 		r[4] = CONTENT_CRAFTITEM_JUNGLE_PLANK;
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STONEPICK;
 	f = &g_content_toolitem_features[i];
@@ -306,8 +306,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 2;
 	crafting::setPickRecipe(CONTENT_ROUGHSTONE,CONTENT_TOOLITEM_STONEPICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_FLINTPICK;
 	f = &g_content_toolitem_features[i];
@@ -320,8 +320,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.75;
 	f->diginfo.level = 2;
 	crafting::setPickRecipe(CONTENT_CRAFTITEM_FLINT,CONTENT_TOOLITEM_FLINTPICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELPICK;
 	f = &g_content_toolitem_features[i];
@@ -334,8 +334,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setPickRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELPICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_RAW_PICK;
 	f = &g_content_toolitem_features[i];
@@ -348,8 +348,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.75;
 	f->diginfo.level = 4;
 	crafting::setPickRecipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_TOOLITEM_MITHRIL_RAW_PICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_UNBOUND_PICK;
 	f = &g_content_toolitem_features[i];
@@ -362,8 +362,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.6;
 	f->diginfo.level = 5;
 	crafting::setPickRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_TOOLITEM_MITHRIL_UNBOUND_PICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_PICK;
 	f = &g_content_toolitem_features[i];
@@ -378,7 +378,7 @@ void content_toolitem_init()
 	f->diginfo.level = 5;
 	f->has_punch_effect = false;
 	crafting::setPickRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_TOOLITEM_MITHRIL_PICK);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 	i = CONTENT_TOOLITEM_CREATIVEPICK;
 	f = &g_content_toolitem_features[i];
@@ -391,8 +391,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.1;
 	f->diginfo.level = 4;
 	f->has_punch_effect = false;
-	lists::add("player-creative",i);
-	lists::add("creative",i);
+	content_list_add("player-creative",i,1,0);
+	content_list_add("creative",i,1,0);
 
 /* SHOVELS */
 
@@ -407,8 +407,8 @@ void content_toolitem_init()
 	f->diginfo.time = 3.0;
 	f->diginfo.level = 1;
 	crafting::set1over1Recipe(CONTENT_ROCK,CONTENT_CRAFTITEM_STICK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STONESHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -421,8 +421,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 1;
 	crafting::setShovelRecipe(CONTENT_ROUGHSTONE,CONTENT_TOOLITEM_STONESHOVEL);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_FLINTSHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -435,8 +435,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.75;
 	f->diginfo.level = 2;
 	crafting::setShovelRecipe(CONTENT_CRAFTITEM_FLINT,CONTENT_TOOLITEM_FLINTSHOVEL);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELSHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -449,8 +449,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setShovelRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSHOVEL);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_RAW_SHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -463,8 +463,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.75;
 	f->diginfo.level = 4;
 	crafting::setShovelRecipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_TOOLITEM_MITHRIL_RAW_SHOVEL);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_UNBOUND_SHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -477,8 +477,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.6;
 	f->diginfo.level = 5;
 	crafting::setShovelRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_TOOLITEM_MITHRIL_UNBOUND_SHOVEL);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_SHOVEL;
 	f = &g_content_toolitem_features[i];
@@ -492,7 +492,7 @@ void content_toolitem_init()
 	f->diginfo.time = 0.4;
 	f->diginfo.level = 5;
 	crafting::setShovelRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_TOOLITEM_MITHRIL_SHOVEL);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 /* AXES */
 
@@ -517,8 +517,8 @@ void content_toolitem_init()
 		r[0] = CONTENT_IGNORE; r[2] = CONTENT_ROCK;
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STONEAXE;
 	f = &g_content_toolitem_features[i];
@@ -531,8 +531,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 1;
 	crafting::setAxeRecipe(CONTENT_ROUGHSTONE,CONTENT_TOOLITEM_STONEAXE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_FLINTAXE;
 	f = &g_content_toolitem_features[i];
@@ -545,8 +545,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.75;
 	f->diginfo.level = 2;
 	crafting::setAxeRecipe(CONTENT_CRAFTITEM_FLINT,CONTENT_TOOLITEM_FLINTAXE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELAXE;
 	f = &g_content_toolitem_features[i];
@@ -559,8 +559,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setAxeRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELAXE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_RAW_AXE;
 	f = &g_content_toolitem_features[i];
@@ -573,8 +573,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.75;
 	f->diginfo.level = 4;
 	crafting::setAxeRecipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_TOOLITEM_MITHRIL_RAW_AXE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_UNBOUND_AXE;
 	f = &g_content_toolitem_features[i];
@@ -587,8 +587,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.6;
 	f->diginfo.level = 5;
 	crafting::setAxeRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_TOOLITEM_MITHRIL_UNBOUND_AXE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_AXE;
 	f = &g_content_toolitem_features[i];
@@ -602,7 +602,7 @@ void content_toolitem_init()
 	f->diginfo.time = 0.4;
 	f->diginfo.level = 5;
 	crafting::setAxeRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_TOOLITEM_MITHRIL_AXE);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 /* WEAPONS - CLUBS, BOWS */
 
@@ -618,8 +618,8 @@ void content_toolitem_init()
 	f->diginfo.level = 1;
 	crafting::setCol1Recipe(CONTENT_CRAFTITEM_WOOD_PLANK,i);
 	crafting::setCol1Recipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_BOW;
 	f = &g_content_toolitem_features[i];
@@ -640,8 +640,8 @@ void content_toolitem_init()
 		};
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 /* SPEARS */
 
@@ -656,8 +656,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 1;
 	crafting::setSpearRecipe(CONTENT_ROUGHSTONE,CONTENT_TOOLITEM_STONESPEAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_FLINTSPEAR;
 	f = &g_content_toolitem_features[i];
@@ -670,8 +670,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.75;
 	f->diginfo.level = 2;
 	crafting::setSpearRecipe(CONTENT_CRAFTITEM_FLINT,CONTENT_TOOLITEM_FLINTSPEAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELSPEAR;
 	f = &g_content_toolitem_features[i];
@@ -684,8 +684,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setSpearRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSPEAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_RAW_SPEAR;
 	f = &g_content_toolitem_features[i];
@@ -698,8 +698,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.75;
 	f->diginfo.level = 4;
 	crafting::setSpearRecipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_TOOLITEM_MITHRIL_RAW_SPEAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_UNBOUND_SPEAR;
 	f = &g_content_toolitem_features[i];
@@ -712,8 +712,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.6;
 	f->diginfo.level = 5;
 	crafting::setSpearRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_TOOLITEM_MITHRIL_UNBOUND_SPEAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_SPEAR;
 	f = &g_content_toolitem_features[i];
@@ -727,7 +727,7 @@ void content_toolitem_init()
 	f->diginfo.time = 0.4;
 	f->diginfo.level = 5;
 	crafting::setSpearRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_TOOLITEM_MITHRIL_SPEAR);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 /* SWORDS */
 
@@ -742,8 +742,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 1;
 	crafting::setSwordRecipe(CONTENT_ROUGHSTONE,CONTENT_TOOLITEM_STONESWORD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELSWORD;
 	f = &g_content_toolitem_features[i];
@@ -756,8 +756,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setSwordRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSWORD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_RAW_SWORD;
 	f = &g_content_toolitem_features[i];
@@ -770,8 +770,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.75;
 	f->diginfo.level = 4;
 	crafting::setSwordRecipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_TOOLITEM_MITHRIL_RAW_SWORD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_UNBOUND_SWORD;
 	f = &g_content_toolitem_features[i];
@@ -784,8 +784,8 @@ void content_toolitem_init()
 	f->diginfo.time = 0.6;
 	f->diginfo.level = 5;
 	crafting::setSwordRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_TOOLITEM_MITHRIL_UNBOUND_SWORD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_SWORD;
 	f = &g_content_toolitem_features[i];
@@ -799,7 +799,7 @@ void content_toolitem_init()
 	f->diginfo.time = 0.4;
 	f->diginfo.level = 5;
 	crafting::setSwordRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_TOOLITEM_MITHRIL_SWORD);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 /* SHEARS */
 
@@ -814,8 +814,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 2;
 	crafting::setShearsRecipe(CONTENT_CRAFTITEM_FLINT,CONTENT_TOOLITEM_FLINTSHEARS);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELSHEARS;
 	f = &g_content_toolitem_features[i];
@@ -828,8 +828,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 2;
 	crafting::setShearsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSHEARS);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 /* BUCKETS */
 
@@ -847,8 +847,8 @@ void content_toolitem_init()
 	f->damaging_nodes_diggable = false;
 	crafting::setURecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_TOOLITEM_WBUCKET);
 	crafting::setURecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_TOOLITEM_WBUCKET);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_TINBUCKET;
 	f = &g_content_toolitem_features[i];
@@ -863,8 +863,8 @@ void content_toolitem_init()
 	f->diginfo.level = 2;
 	f->damaging_nodes_diggable = false;
 	crafting::setURecipe(CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_TOOLITEM_TINBUCKET);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELBUCKET;
 	f = &g_content_toolitem_features[i];
@@ -878,8 +878,8 @@ void content_toolitem_init()
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setURecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELBUCKET);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_WBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
@@ -890,7 +890,7 @@ void content_toolitem_init()
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_WBUCKET;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_TINBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
@@ -901,7 +901,7 @@ void content_toolitem_init()
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_TINBUCKET;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELBUCKET_WATER;
 	f = &g_content_toolitem_features[i];
@@ -912,7 +912,7 @@ void content_toolitem_init()
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_STEELBUCKET_LAVA;
 	f = &g_content_toolitem_features[i];
@@ -924,7 +924,7 @@ void content_toolitem_init()
 	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
 	f->fuel_time = 80;
 	f->type = TT_SPECIAL;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 /* SPECIAL TOOLS */
 
@@ -939,8 +939,8 @@ void content_toolitem_init()
 	f->diginfo.level = 3;
 	f->has_fire_effect = true;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FLINT,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_FIRESTARTER);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_CROWBAR;
 	f = &g_content_toolitem_features[i];
@@ -952,8 +952,8 @@ void content_toolitem_init()
 	f->diginfo.level = 3;
 	f->has_rotate_effect = true;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_CROWBAR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_KEY;
 	f = &g_content_toolitem_features[i];
@@ -965,7 +965,7 @@ void content_toolitem_init()
 	f->diginfo.level = 4;
 	f->has_unlock_effect = true;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_GOLD_INGOT,CONTENT_TOOLITEM_KEY);
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_KEY;
 	f = &g_content_toolitem_features[i];
@@ -1004,5 +1004,5 @@ void content_toolitem_init()
 		};
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 }

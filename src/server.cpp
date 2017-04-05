@@ -2084,7 +2084,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		if (item == NULL)
 			return;
 
-		content_t thrown = content_craftitem_features(item->getContent()).thrown_item;
+		content_t thrown = content_craftitem_features(item->getContent())->thrown_item;
 		// We can throw it, right?
 		if (thrown == CONTENT_IGNORE) {
 			// it may be a tool that throws something else
@@ -2097,7 +2097,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (!item)
 				return;
 			// We can throw it, right?
-			thrown = content_craftitem_features(item->getContent()).shot_item;
+			thrown = content_craftitem_features(item->getContent())->shot_item;
 			if (thrown == CONTENT_IGNORE)
 				return;
 			if (g_settings->getBool("tool_wear")) {
@@ -2506,7 +2506,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		if (wielditem)
 			wieldcontent = wielditem->getContent();
 		ToolItemFeatures wielded_tool_features = content_toolitem_features(wieldcontent);
-		CraftItemFeatures wielded_craft_features = content_craftitem_features(wieldcontent);
+		CraftItemFeatures *wielded_craft_features = content_craftitem_features(wieldcontent);
 		ContentFeatures &wielded_material_features = content_features(wieldcontent);
 
 		bool selected_node_exists = false;
@@ -3953,8 +3953,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					client->SetBlocksNotSent(modified_blocks);
 				}
 			}else if (
-				wielded_craft_features.drop_item != CONTENT_IGNORE
-				&& (wielded_craft_features.drop_item&CONTENT_MOB_MASK) != CONTENT_MOB_MASK
+				wielded_craft_features->drop_item != CONTENT_IGNORE
+				&& (wielded_craft_features->drop_item&CONTENT_MOB_MASK) != CONTENT_MOB_MASK
 			) {
 				if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
 					infostream<<"Not allowing player to drop item: "
@@ -3964,7 +3964,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				MapNode n = m_env.getMap().getNodeNoEx(p_over);
 				if (n.getContent() != CONTENT_AIR)
 					return;
-				n.setContent(content_craftitem_features(item->getContent()).drop_item);
+				n.setContent(content_craftitem_features(item->getContent())->drop_item);
 				core::list<u16> far_players;
 				sendAddNode(p_over, n, 0, &far_players, 30);
 				if (g_settings->getBool("infinite_inventory") == false) {
@@ -4015,7 +4015,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			}else if (
 				(
 					wielded_tool_features.param_type == CPT_DROP
-					|| wielded_craft_features.param_type == CPT_DROP
+					|| wielded_craft_features->param_type == CPT_DROP
 				)
 				&& wielditem->getData() != 0
 			) {
@@ -4089,8 +4089,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						SendInventory(peer_id);
 					}
 				}
-			}else if (wielded_craft_features.teleports > -2) {
-				s8 dest = wielded_craft_features.teleports;
+			}else if (wielded_craft_features->teleports > -2) {
+				s8 dest = wielded_craft_features->teleports;
 				/*
 					If in creative mode, item dropping is disabled unless
 					player has build privileges
@@ -4170,8 +4170,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				ServerActiveObject *obj = NULL;
 				/* createSAO will drop all craft items, we may not want that */
 				if (
-					wielded_craft_features.content == wieldcontent
-					&& wielded_craft_features.drop_item == CONTENT_IGNORE
+					wielded_craft_features->content == wieldcontent
+					&& wielded_craft_features->drop_item == CONTENT_IGNORE
 				) {
 					InventoryItem *ditem = InventoryItem::create(wieldcontent,item->getDropCount());
 					obj = ditem->createSAO(&m_env, 0, pos);
@@ -4296,7 +4296,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (l) {
 				ClothesItem *i = (ClothesItem*)l->getItem(0);
 				if (i) {
-					bonus = content_clothesitem_features(i->getContent()).effect;
+					bonus = content_clothesitem_features(i->getContent())->effect;
 				}
 			}
 		}
@@ -4310,8 +4310,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (i == NULL)
 				continue;
 			u16 w = wear;
-			if (content_clothesitem_features(i->getContent()).durability > 1)
-				w /= content_clothesitem_features(i->getContent()).durability;
+			if (content_clothesitem_features(i->getContent())->durability > 1)
+				w /= content_clothesitem_features(i->getContent())->durability;
 			if (w < 15)
 				w = 15;
 			if (bonus > 0.0) {

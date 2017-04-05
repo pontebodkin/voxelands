@@ -188,7 +188,7 @@ set(common_SRCS
 	content_mapnode_special.cpp
 	content_mapnode_plants.cpp
 	content_mapnode_util.cpp
-	content_list.cpp
+	content_list.c
 	content_nodebox.cpp
 	intl.cpp
 	auth.cpp

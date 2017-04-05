@@ -121,7 +121,7 @@ static int s_base64_decode_triple(unsigned char quadruple[4], unsigned char *res
 }
 
 /* encode an array of bytes using base64 */
-int base64_lencode(char *source, size_t sourcelen, char *target, size_t targetlen)
+int base64_lencode(const char* source, size_t sourcelen, char *target, size_t targetlen)
 {
 	/* check if the result will fit in the target buffer */
 	if ((sourcelen+2)/3*4 > targetlen-1)
@@ -155,7 +155,7 @@ int base64_lencode(char *source, size_t sourcelen, char *target, size_t targetle
 }
 
 /* decode base64 encoded data */
-size_t base64_ldecode(char *source, char *target, size_t targetlen)
+size_t base64_ldecode(const char* source, char *target, size_t targetlen)
 {
 	char *src, *tmpptr;
 	char quadruple[4], tmpresult[3];

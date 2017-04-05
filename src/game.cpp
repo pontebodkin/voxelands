@@ -1550,7 +1550,7 @@ void the_game(
 		}else if (
 			wield
 			&& (
-				content_craftitem_features(wield->getContent()).thrown_item != CONTENT_IGNORE
+				content_craftitem_features(wield->getContent())->thrown_item != CONTENT_IGNORE
 				|| (
 					content_toolitem_features(wield->getContent()).thrown_item != CONTENT_IGNORE
 					&& (ilist = client.getLocalPlayer()->inventory.getList("main")) != NULL

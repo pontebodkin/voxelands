@@ -86,8 +86,8 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_WOOD_HATCH,CONTENT_WOOD_HATCH,CONTENT_WOOD_DOOR_LT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_DOOR_LB;
 	f = &content_features(i);
@@ -145,8 +145,8 @@ void content_mapnode_door(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_STEEL_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_DOOR_LT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_DOOR_LB;
 	f = &content_features(i);
@@ -206,8 +206,8 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_GLASS_PANE,CONTENT_GLASS_PANE,CONTENT_GLASS_DOOR_LT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_WOOD_W_DOOR_LB;
 	f = &content_features(i);
@@ -266,8 +266,8 @@ void content_mapnode_door(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_WOOD_W_HATCH,CONTENT_WOOD_HATCH,CONTENT_WOOD_W_DOOR_LT);
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_WOOD_DOOR_LT,CONTENT_WOOD_W_DOOR_LT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_W_DOOR_LB;
 	f = &content_features(i);
@@ -328,8 +328,8 @@ void content_mapnode_door(bool repeat)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_STEEL_W_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_DOOR_LT);
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_DOOR_LT,CONTENT_STEEL_W_DOOR_LT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// right doors
 	i = CONTENT_WOOD_DOOR_RB;
@@ -385,7 +385,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_DOOR_RB;
 	f = &content_features(i);
@@ -446,7 +446,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_DOOR_RB;
 	f = &content_features(i);
@@ -503,7 +503,7 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_WOOD_W_DOOR_RB;
 	f = &content_features(i);
@@ -560,7 +560,7 @@ void content_mapnode_door(bool repeat)
 	f->hardness = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_W_DOOR_RB;
 	f = &content_features(i);
@@ -621,8 +621,8 @@ void content_mapnode_door(bool repeat)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1To1Recipe(CONTENT_STEEL_W_DOOR_LT,CONTENT_STEEL_W_DOOR_RT);
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_DOOR_RT,CONTENT_STEEL_W_DOOR_RT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// open doors
 	i = CONTENT_WOOD_DOOR_LB_OPEN;
@@ -1195,8 +1195,8 @@ void content_mapnode_door(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD_HATCH);
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_WOOD_HATCH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_HATCH;
 	f = &content_features(i);
@@ -1221,8 +1221,8 @@ void content_mapnode_door(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL_HATCH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_WOOD_W_HATCH;
 	f = &content_features(i);
@@ -1249,8 +1249,8 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_WOOD_HATCH,CONTENT_WOOD_W_HATCH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_W_HATCH;
 	f = &content_features(i);
@@ -1278,8 +1278,8 @@ void content_mapnode_door(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_HATCH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// gates
 	i = CONTENT_WOOD_GATE;
@@ -1311,8 +1311,8 @@ void content_mapnode_door(bool repeat)
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_JUNGLEWOOD,CONTENT_WOOD_GATE);
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_JUNGLEWOOD,CONTENT_WOOD_GATE);
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_WOOD,CONTENT_WOOD_GATE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL_GATE;
 	f = &content_features(i);
@@ -1341,8 +1341,8 @@ void content_mapnode_door(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL,CONTENT_STEEL_GATE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// open hatches
 	i = CONTENT_WOOD_HATCH_OPEN;

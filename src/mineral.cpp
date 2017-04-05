@@ -40,7 +40,7 @@ CraftItem *getDiggedMineralItem(u8 mineral, Player *player, InventoryItem *tool)
 	if (m.dug_item == CONTENT_IGNORE)
 		return NULL;
 
-	if (content_craftitem_features(m.dug_item).content == CONTENT_IGNORE)
+	if (content_craftitem_features(m.dug_item)->content == CONTENT_IGNORE)
 		return NULL;
 
 	if (!tool && m.min_level > 0)

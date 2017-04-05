@@ -47,8 +47,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_COBBLE_STAIR;
 	f = &content_features(i);
@@ -65,8 +65,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_COBBLE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_COBBLE,CONTENT_COBBLE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_MOSSYCOBBLE_STAIR;
 	f = &content_features(i);
@@ -83,8 +83,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_MOSSYCOBBLE,CONTENT_MOSSYCOBBLE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STONE_STAIR;
 	f = &content_features(i);
@@ -102,8 +102,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_STONE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_STONE,CONTENT_STONE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_WOOD_STAIR;
 	f = &content_features(i);
@@ -122,8 +122,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_WOOD,CONTENT_WOOD_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_JUNGLE_STAIR;
 	f = &content_features(i);
@@ -142,8 +142,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_JUNGLE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_JUNGLEWOOD,CONTENT_JUNGLE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_BRICK_STAIR;
 	f = &content_features(i);
@@ -165,8 +165,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_BRICK_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_BRICK,CONTENT_BRICK_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SANDSTONE_STAIR;
 	f = &content_features(i);
@@ -183,8 +183,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_SANDSTONE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_LIMESTONE_STAIR;
 	f = &content_features(i);
@@ -201,8 +201,8 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_LIMESTONE_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setStairRecipe(CONTENT_LIMESTONE,CONTENT_LIMESTONE_STAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// upside down stairs
 	i = CONTENT_ROUGHSTONE_STAIR_UD;
@@ -348,9 +348,9 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_LIMESTONE_STAIR_CORNER_UD;
 	f->onpunch_replace_respects_borderstone = true;
 	f->suffocation_per_second = 0;
-	
+
 	// Stairs' corners
-	
+
 	i = CONTENT_ROUGHSTONE_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -367,8 +367,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_COBBLE_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -385,8 +385,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_INNER_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_MOSSYCOBBLE_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -403,8 +403,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_STONE_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -517,9 +517,9 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_INNER_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
-	
+
 	// Upside down stairs' corners
-	
+
 	i = CONTENT_ROUGHSTONE_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -536,8 +536,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER_UD;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_COBBLE_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -553,8 +553,8 @@ void content_mapnode_stair(bool repeat)
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_INNER_STAIR_CORNER_UD;
-	f->onpunch_replace_respects_borderstone = true;	
-	
+	f->onpunch_replace_respects_borderstone = true;
+
 	i = CONTENT_MOSSYCOBBLE_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -571,7 +571,7 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER_UD;
 	f->onpunch_replace_respects_borderstone = true;
-	
+
 	i = CONTENT_STONE_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -683,7 +683,7 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 
 	// Inner stairs' corners
-	
+
 	i = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -700,7 +700,7 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_STAIR;
 	f->onpunch_replace_respects_borderstone = true;
-	
+
 	i = CONTENT_COBBLE_INNER_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -717,8 +717,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_STAIR;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -735,7 +735,7 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_STAIR;
 	f->onpunch_replace_respects_borderstone = true;
-	
+
 	i = CONTENT_STONE_INNER_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -847,9 +847,9 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_STAIR;
 	f->onpunch_replace_respects_borderstone = true;
-	
+
 	// Upside down inner stairs' corners
-	
+
 	i = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -866,8 +866,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_STAIR_UD;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_COBBLE_INNER_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -884,8 +884,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_STAIR_UD;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -902,8 +902,8 @@ void content_mapnode_stair(bool repeat)
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_STAIR_UD;
 	f->onpunch_replace_respects_borderstone = true;
-	
-	
+
+
 	i = CONTENT_STONE_INNER_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;

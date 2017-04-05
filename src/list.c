@@ -38,6 +38,7 @@ int list_count(void *list)
 	ref_t *l = *((ref_t**)list);
 
 	while (l) {
+		c++;
 		l = l->next;
 	}
 

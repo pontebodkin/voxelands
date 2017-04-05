@@ -51,8 +51,8 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_carpet(f);
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new CircuitNodeMetadata();
-	lists::add("creative",i);
-	lists::add("decrafting",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("decrafting",i,1,0);
 
 	i = CONTENT_CIRCUIT_COPPERWIRE;
 	f = &content_features(i);
@@ -82,8 +82,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setShapelessRecipe(r,CONTENT_CIRCUIT_COPPERWIRE,10);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_REACTOR;
 	f = &content_features(i);
@@ -104,8 +104,8 @@ void content_mapnode_circuit(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new SourceNodeMetadata();
 	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_CRAFTITEM_QUARTZ,CONTENT_CIRCUIT_REACTOR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_SOLARPANEL;
 	f = &content_features(i);
@@ -134,8 +134,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_CIRCUIT_SOLARPANEL,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_WATERWHEEL;
 	f = &content_features(i);
@@ -166,8 +166,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_CIRCUIT_WATERWHEEL,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_SWITCH;
 	f = &content_features(i);
@@ -201,8 +201,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_SWITCH,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_BUTTON;
 	f = &content_features(i);
@@ -232,8 +232,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_BUTTON,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_PRESSUREPLATE_STONE;
 	f = &content_features(i);
@@ -260,8 +260,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_PRESSUREPLATE_STONE,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_PRESSUREPLATE_WOOD;
 	f = &content_features(i);
@@ -288,8 +288,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_PRESSUREPLATE_WOOD,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_NOTGATE;
 	f = &content_features(i);
@@ -319,8 +319,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_NOTGATE,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_REPEATER;
 	f = &content_features(i);
@@ -350,8 +350,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_REPEATER,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_LAMP;
 	f = &content_features(i);
@@ -400,8 +400,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_LAMP_OFF,4);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// regular piston
 	i = CONTENT_CIRCUIT_PISTON_OFF;
@@ -435,8 +435,8 @@ void content_mapnode_circuit(bool repeat)
 		};
 		crafting::setRecipe(recipe,CONTENT_CIRCUIT_PISTON_OFF,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_PISTON;
 	f = &content_features(i);
@@ -634,8 +634,8 @@ void content_mapnode_circuit(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_RESIN,CONTENT_CIRCUIT_PISTON_OFF,CONTENT_CIRCUIT_STICKYPISTON_OFF);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CIRCUIT_STICKYPISTON;
 	f = &content_features(i);

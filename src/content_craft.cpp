@@ -38,6 +38,8 @@
 #include <algorithm>
 #include <set>
 
+#include "list.h"
+
 namespace crafting {
 
 std::vector<CraftDef> shaped_recipes;
@@ -882,7 +884,7 @@ FoundReverseRecipe getReverseRecipe(InventoryItem *iitem, int index)
 }
 
 //how to update an ingredient list given a range of new craft items
-void addToIngredientList(std::vector<lists::ListData> results, uint32_t begin, std::vector<content_t>& ingredient_list)
+void addToIngredientList(std::vector<listdata_t> results, uint32_t begin, std::vector<content_t>& ingredient_list)
 {
 	using namespace std;
 
@@ -890,9 +892,9 @@ void addToIngredientList(std::vector<lists::ListData> results, uint32_t begin, s
 	set<content_t> ingredients (ingredient_list.begin(), ingredient_list.end());
 
 	//go through the result list
-	for (std::vector<lists::ListData>::iterator it = results.begin()+begin; it != results.end(); ++it) {
+	for (std::vector<listdata_t>::iterator it = results.begin()+begin; it != results.end(); ++it) {
 
-		lists::ListData d = *it;
+		listdata_t d = *it;
 		//make a temporary inventory item for the result
 		InventoryItem *result = InventoryItem::create(d.content, 1, 0, d.data);
 
@@ -926,6 +928,8 @@ void addToIngredientList(std::vector<lists::ListData> results, uint32_t begin, s
 
 std::vector<content_t>& getCraftGuideIngredientList()
 {
+	contentlist_t *cl;
+	uint32_t list_size;
 	using namespace std;
 
 	//the ingredient list, and the number of items that were in the craftguide list at the last check
@@ -933,16 +937,21 @@ std::vector<content_t>& getCraftGuideIngredientList()
 	static uint32_t last_craftguide_count = 0;
 
 	//get the craftguide list
-	const vector<lists::ListData>& craft_list = lists::get("craftguide");
+	cl = content_list_get("craftguide");
+	if (!cl)
+		return ingredient_list;
+
+	list_size = list_count(&cl->data);
 
 	//check if more items need to be added
-	if (craft_list.size() > last_craftguide_count) {
+	if (list_size > last_craftguide_count) {
 
 		//if so, add the new stuff
-		addToIngredientList(craft_list, last_craftguide_count, ingredient_list);
+		/* TODO: basically everything for reverse lookup */
+		//addToIngredientList(craft_list, last_craftguide_count, ingredient_list);
 
 		//and update the craftguide count
-		last_craftguide_count = craft_list.size();
+		last_craftguide_count = list_size;
 	}
 
 	//return the list
@@ -951,9 +960,15 @@ std::vector<content_t>& getCraftGuideIngredientList()
 
 void giveCreative(Player *player)
 {
-	std::vector<lists::ListData> &creativeinv = lists::get("player-creative");
+	contentlist_t *cl;
+	listdata_t *ld;
+	InventoryList *l;
 
-	InventoryList *l = player->inventory.getList("main");
+	cl = content_list_get("player-creative");
+	if (!cl)
+		return;
+
+	l = player->inventory.getList("main");
 
 	// if the player doesn't have a creative chest, reset their inventory
 	if (!l || l->findItem(CONTENT_CREATIVE_CHEST,NULL) != NULL)
@@ -963,8 +978,10 @@ void giveCreative(Player *player)
 	player->setClothesGiven(false);
 	player->resetInventory();
 
-	for(u8 i=0; i<creativeinv.size(); i++) {
-		player->inventory.addItem("main", InventoryItem::create(creativeinv[i].content,creativeinv[i].count,0,creativeinv[i].data));
+	ld = cl->data;
+	while (ld) {
+		player->inventory.addItem("main", InventoryItem::create(ld->content,ld->count,0,ld->data));
+		ld = ld->next;
 	}
 }
 

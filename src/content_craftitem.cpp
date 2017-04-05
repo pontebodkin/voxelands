@@ -28,208 +28,213 @@
 #include "content_craft.h"
 #include "content_mob.h"
 #include "content_list.h"
-#include <map>
 #include "intl.h"
 #include "player.h"
 
-std::map<content_t,struct CraftItemFeatures> g_content_craftitem_features;
+struct CraftItemFeatures g_content_craftitem_features[4096];
 
-CraftItemFeatures & content_craftitem_features(content_t i)
+CraftItemFeatures *content_craftitem_features(content_t i)
 {
+	uint32_t j;
 	if ((i&CONTENT_CRAFTITEM_MASK) != CONTENT_CRAFTITEM_MASK)
-		return g_content_craftitem_features[CONTENT_IGNORE];
+		return &g_content_craftitem_features[0];
 
-	// convert deprecated items to new
-	if (i == (CONTENT_CRAFTITEM_MASK | 0x2D)) // rotten fruit
-		i = CONTENT_CRAFTITEM_MUSH;
-	if (i == (CONTENT_CRAFTITEM_MASK | 0x15)) // scorched stuff
-		i = CONTENT_CRAFTITEM_ASH;
+	j = (i&~CONTENT_CRAFTITEM_MASK);
+	if (j > 4095)
+		return &g_content_craftitem_features[0];
 
-	std::map<content_t,struct CraftItemFeatures>::iterator it = g_content_craftitem_features.find(i);
-	if (it == g_content_craftitem_features.end())
-		return g_content_craftitem_features[CONTENT_IGNORE];
-	return it->second;
-}
-
-CraftItemFeatures & content_craftitem_features(std::string subname)
-{
-	// convert deprecated items to new
-	if (subname == "scorched_stuff")
-		return content_craftitem_features(CONTENT_CRAFTITEM_ASH);
-	if (subname == "rotten_fruit")
-		return content_craftitem_features(CONTENT_CRAFTITEM_MUSH);
-
-	for (std::map<content_t,struct CraftItemFeatures>::iterator i = g_content_craftitem_features.begin(); i!=g_content_craftitem_features.end(); i++) {
-		if (i->second.name == subname)
-			return i->second;
-	}
-	return g_content_craftitem_features[CONTENT_IGNORE];
+	return &g_content_craftitem_features[j];
 }
 
 void content_craftitem_init()
 {
-	g_content_craftitem_features.clear();
-
 	content_t i;
 	CraftItemFeatures *f = NULL;
+	int k;
+
+	for (k=0; k<4096; k++) {
+		g_content_craftitem_features[k].content = CONTENT_IGNORE;
+		g_content_craftitem_features[k].texture = "unknown_item.png";
+		g_content_craftitem_features[k].overlay_base = "";
+		g_content_craftitem_features[k].name = "";
+		g_content_craftitem_features[k].description = L"";
+		g_content_craftitem_features[k].cook_result = CONTENT_IGNORE;
+		g_content_craftitem_features[k].cook_type = COOK_ANY;
+		g_content_craftitem_features[k].fuel_time = 0.0;
+		g_content_craftitem_features[k].stackable = true;
+		g_content_craftitem_features[k].consumable = false;
+		g_content_craftitem_features[k].hunger_effect = 0;
+		g_content_craftitem_features[k].health_effect = 0;
+		g_content_craftitem_features[k].cold_effect = 0;
+		g_content_craftitem_features[k].energy_effect = 0;
+		g_content_craftitem_features[k].drop_count = -1;
+		g_content_craftitem_features[k].teleports = -2;
+		g_content_craftitem_features[k].param_type = CPT_NONE;
+		g_content_craftitem_features[k].drop_item = CONTENT_IGNORE;
+		g_content_craftitem_features[k].thrown_item = CONTENT_IGNORE;
+		g_content_craftitem_features[k].shot_item = CONTENT_IGNORE;
+		g_content_craftitem_features[k].onuse_replace_item = CONTENT_IGNORE;
+		g_content_craftitem_features[k].enchanted_item = CONTENT_IGNORE;
+		g_content_craftitem_features[k].sound_use = "";
+	}
 
 	i = CONTENT_CRAFTITEM_PAPER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_PAPER;
 	f->texture = "paper.png";
 	f->name = "paper";
 	f->description = wgettext("Paper");
 	crafting::setRow3Recipe(CONTENT_PAPYRUS,CONTENT_CRAFTITEM_PAPER);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CHARCOAL;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CHARCOAL;
 	f->texture = "lump_of_charcoal.png";
 	f->name = "lump_of_charcoal";
 	f->description = wgettext("Charcoal Lump");
 	f->fuel_time = 40;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COAL;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COAL;
 	f->texture = "lump_of_coal.png";
 	f->name = "lump_of_coal";
 	f->description = wgettext("Coal Lump");
 	f->fuel_time = 40;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_IRON;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_IRON;
 	f->texture = "lump_of_iron.png";
 	f->name = "lump_of_iron";
 	f->description = wgettext("Iron Lump");
 	f->cook_result = CONTENT_CRAFTITEM_STEEL_INGOT;
 	f->cook_type = COOK_FURNACE;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CLAY;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CLAY;
 	f->texture = "lump_of_clay.png";
 	f->name = "lump_of_clay";
 	f->description = wgettext("Clay Lump");
 	f->cook_result = CONTENT_CRAFTITEM_CLAY_BRICK;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TIN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_TIN;
 	f->texture = "lump_of_tin.png";
 	f->name = "lump_of_tin";
 	f->description = wgettext("Tin Lump");
 	f->cook_result = CONTENT_CRAFTITEM_TIN_INGOT;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COPPER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COPPER;
 	f->texture = "lump_of_copper.png";
 	f->name = "lump_of_copper";
 	f->description = wgettext("Copper Lump");
 	f->cook_result = CONTENT_CRAFTITEM_COPPER_INGOT;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SILVER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_SILVER;
 	f->texture = "lump_of_silver.png";
 	f->name = "lump_of_silver";
 	f->description = wgettext("Silver Lump");
 	f->cook_result = CONTENT_CRAFTITEM_SILVER_INGOT;
 	f->cook_type = COOK_FURNACE;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GOLD;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_GOLD;
 	f->texture = "lump_of_gold.png";
 	f->name = "lump_of_gold";
 	f->description = wgettext("Gold Lump");
 	f->cook_result = CONTENT_CRAFTITEM_GOLD_INGOT;
 	f->cook_type = COOK_FURNACE;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_QUARTZ;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_QUARTZ;
 	f->texture = "lump_of_quartz.png";
 	f->name = "lump_of_quartz";
 	f->description = wgettext("Quartz Crystal");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TIN_INGOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_TIN_INGOT;
 	f->texture = "tin_ingot.png";
 	f->name = "tin_ingot";
 	f->description = wgettext("Tin Ingot");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COPPER_INGOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COPPER_INGOT;
 	f->texture = "copper_ingot.png";
 	f->name = "copper_ingot";
 	f->description = wgettext("Copper Ingot");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SILVER_INGOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_SILVER_INGOT;
 	f->texture = "silver_ingot.png";
 	f->name = "silver_ingot";
 	f->description = wgettext("Silver Ingot");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GOLD_INGOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_GOLD_INGOT;
 	f->texture = "gold_ingot.png";
 	f->name = "gold_ingot";
 	f->description = wgettext("Gold Ingot");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FLINT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FLINT;
 	f->texture = "lump_of_flint.png";
 	f->name = "lump_of_flint";
 	f->description = wgettext("Flint");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_STEEL_INGOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_STEEL_INGOT;
 	f->texture = "steel_ingot.png";
 	f->name = "steel_ingot";
 	f->description = wgettext("Steel Ingot");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CLAY_BRICK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CLAY_BRICK;
 	f->texture = "clay_brick.png";
 	f->name = "clay_brick";
 	f->description = wgettext("Brick");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_RAT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_RAT;
 	f->texture = "rat.png";
 	f->name = "rat";
@@ -237,11 +242,11 @@ void content_craftitem_init()
 	f->cook_result = CONTENT_CRAFTITEM_COOKED_RAT;
 	f->drop_count = 1;
 	f->drop_item = CONTENT_MOB_RAT;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COOKED_RAT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COOKED_RAT;
 	f->texture = "cooked_rat.png";
 	f->name = "cooked_rat";
@@ -251,21 +256,21 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 40;
 	f->health_effect = 20;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FIREFLY;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FIREFLY;
 	f->texture = "firefly.png";
 	f->name = "firefly";
 	f->description = wgettext("Firefly");
 	f->drop_count = 1;
 	f->drop_item = CONTENT_MOB_FIREFLY;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_APPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_APPLE;
 	f->texture = "apple.png^[forcesingle";
 	f->name = "apple";
@@ -274,10 +279,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 15;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_APPLE_IRON;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_APPLE_IRON;
 	f->texture = "apple_iron.png";
 	f->name = "apple_iron";
@@ -294,121 +299,121 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(recipe,CONTENT_CRAFTITEM_APPLE_IRON,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_BLUE;
 	f->texture = "dye_blue.png";
 	f->name = "dye_blue";
 	f->description = wgettext("Blue Dye");
 	crafting::set1To2Recipe(CONTENT_FLOWER_TULIP,CONTENT_CRAFTITEM_DYE_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_GREEN;
 	f->texture = "dye_green.png";
 	f->name = "dye_green";
 	f->description = wgettext("Green Dye");
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_DYE_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_ORANGE;
 	f->texture = "dye_orange.png";
 	f->name = "dye_orange";
 	f->description = wgettext("Orange Dye");
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_DYE_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_PURPLE;
 	f->texture = "dye_purple.png";
 	f->name = "dye_purple";
 	f->description = wgettext("Purple Dye");
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_DYE_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_RED;
 	f->texture = "dye_red.png";
 	f->name = "dye_red";
 	f->description = wgettext("Red Dye");
 	crafting::set1To2Recipe(CONTENT_FLOWER_ROSE,CONTENT_CRAFTITEM_DYE_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_YELLOW;
 	f->texture = "dye_yellow.png";
 	f->name = "dye_yellow";
 	f->description = wgettext("Yellow Dye");
 	crafting::set1To2Recipe(CONTENT_CACTUS_BLOSSOM,CONTENT_CRAFTITEM_DYE_YELLOW);
 	crafting::set1To2Recipe(CONTENT_FLOWER_DAFFODIL,CONTENT_CRAFTITEM_DYE_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_WHITE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_WHITE;
 	f->texture = "dye_white.png";
 	f->name = "dye_white";
 	f->description = wgettext("White Dye");
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_APPLE_BLOSSOM,CONTENT_CRAFTITEM_DYE_WHITE);
 	crafting::set2Any3Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_DYE_WHITE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DYE_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DYE_BLACK;
 	f->texture = "dye_black.png";
 	f->name = "dye_black";
 	f->description = wgettext("Black Dye");
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_CRAFTITEM_COAL,CONTENT_CRAFTITEM_DYE_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_QUARTZ_DUST;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_QUARTZ_DUST;
 	f->texture = "quartz_dust.png";
 	f->name = "quartz_dust";
 	f->description = wgettext("Quartz Dust");
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_QUARTZ,CONTENT_CRAFTITEM_QUARTZ_DUST);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SALTPETER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_SALTPETER;
 	f->texture = "saltpeter.png";
 	f->name = "saltpeter";
 	f->description = wgettext("Saltpeter");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GUNPOWDER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_GUNPOWDER;
 	f->texture = "gunpowder.png";
 	f->name = "gunpowder";
 	f->description = wgettext("Gun Powder");
 	crafting::set1Any3Recipe(CONTENT_CRAFTITEM_CHARCOAL,CONTENT_CRAFTITEM_FLINT,CONTENT_CRAFTITEM_SALTPETER,CONTENT_CRAFTITEM_GUNPOWDER);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SNOW_BALL;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_SNOW_BALL;
 	f->texture = "snow_ball.png";
 	f->name = "snow_ball";
@@ -416,7 +421,7 @@ void content_craftitem_init()
 	f->thrown_item = CONTENT_MOB_SNOWBALL;
 
 	i = CONTENT_CRAFTITEM_STICK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_STICK;
 	f->texture = "stick.png";
 	f->name = "Stick";
@@ -429,11 +434,11 @@ void content_craftitem_init()
 	crafting::set1To2Recipe(CONTENT_APPLE_LEAVES,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_JUNGLELEAVES,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_CONIFER_LEAVES,CONTENT_CRAFTITEM_STICK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_PINE_PLANK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_PINE_PLANK;
 	f->texture = "pine_plank.png";
 	f->name = "pine_plank";
@@ -441,11 +446,11 @@ void content_craftitem_init()
 	f->fuel_time = 30/16;
 	crafting::set1To4Recipe(CONTENT_WOOD_PINE,CONTENT_CRAFTITEM_PINE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_CONIFER_TREE,CONTENT_CRAFTITEM_PINE_PLANK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_WOOD_PLANK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_WOOD_PLANK;
 	f->texture = "wood_plank.png";
 	f->name = "wood_plank";
@@ -454,11 +459,11 @@ void content_craftitem_init()
 	crafting::set1To4Recipe(CONTENT_WOOD,CONTENT_CRAFTITEM_WOOD_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_TREE,CONTENT_CRAFTITEM_WOOD_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_APPLE_TREE,CONTENT_CRAFTITEM_WOOD_PLANK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_JUNGLE_PLANK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_JUNGLE_PLANK;
 	f->texture = "jungle_plank.png";
 	f->name = "jungle_plank";
@@ -466,11 +471,11 @@ void content_craftitem_init()
 	f->fuel_time = 30/16;
 	crafting::set1To4Recipe(CONTENT_JUNGLEWOOD,CONTENT_CRAFTITEM_JUNGLE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_JUNGLETREE,CONTENT_CRAFTITEM_JUNGLE_PLANK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TNT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_TNT;
 	f->texture = "tnt_stick.png";
 	f->name = "tnt_stick";
@@ -483,19 +488,19 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(recipe,CONTENT_CRAFTITEM_TNT,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_ASH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_ASH;
 	f->texture = "lump_of_ash.png";
 	f->name = "lump_of_ash";
 	f->description = wgettext("Ash");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_APPLE_BLOSSOM;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_APPLE_BLOSSOM;
 	f->texture = "apple_blossom.png";
 	f->name = "apple_blossom";
@@ -505,10 +510,10 @@ void content_craftitem_init()
 	f->hunger_effect = 10;
 	f->health_effect = 5;
 	f->fuel_time = 30/16;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CACTUS_FRUIT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CACTUS_FRUIT;
 	f->texture = "cactus_fruit.png^[forcesingle";
 	f->name = "cactus_fruit";
@@ -517,10 +522,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 15;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MUSH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MUSH;
 	f->texture = "mush.png";
 	f->name = "mush";
@@ -529,10 +534,10 @@ void content_craftitem_init()
 	f->consumable = true;
 	f->sound_use = "use-eat";
 	f->health_effect = -5;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_PUMPKINSLICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_PUMPKINSLICE;
 	f->texture = "pumpkin_slice.png";
 	f->name = "pumpkin_slice";
@@ -542,11 +547,11 @@ void content_craftitem_init()
 	f->hunger_effect = 30;
 	f->health_effect = 15;
 	crafting::set1To2Recipe(CONTENT_FARM_PUMPKIN,CONTENT_CRAFTITEM_PUMPKINSLICE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE;
 	f->texture = "pumpkin_pie_slice.png";
 	f->name = "pumpkin_pie_slice";
@@ -555,10 +560,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 60;
 	f->health_effect = 30;
-	lists::add("craftguide",i);
+	content_list_add("craftguide",i,1,0);
 
 	i = CONTENT_CRAFTITEM_APPLE_PIE_SLICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_APPLE_PIE_SLICE;
 	f->texture = "apple_pie_slice.png";
 	f->name = "apple_pie_slice";
@@ -567,10 +572,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 60;
 	f->health_effect = 30;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MELONSLICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MELONSLICE;
 	f->texture = "melon_slice.png";
 	f->name = "melon_slice";
@@ -580,11 +585,11 @@ void content_craftitem_init()
 	f->hunger_effect = 40;
 	f->health_effect = 20;
 	crafting::set1To2Recipe(CONTENT_FARM_MELON,CONTENT_CRAFTITEM_MELONSLICE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_WHEAT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_WHEAT;
 	f->texture = "harvested_wheat.png";
 	f->name = "harvested_wheat";
@@ -593,10 +598,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 10;
 	f->health_effect = 5;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FLOUR;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FLOUR;
 	f->texture = "flour.png";
 	f->name = "flour";
@@ -606,11 +611,11 @@ void content_craftitem_init()
 	f->hunger_effect = 10;
 	f->health_effect = 5;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_WHEAT,CONTENT_CRAFTITEM_WHEAT,CONTENT_CRAFTITEM_FLOUR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_DOUGH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_DOUGH;
 	f->texture = "dough.png";
 	f->name = "dough";
@@ -621,12 +626,12 @@ void content_craftitem_init()
 	f->hunger_effect = 20;
 	f->health_effect = 10;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FLOUR,CONTENT_CRAFTITEM_FLOUR,CONTENT_CRAFTITEM_DOUGH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_BREAD;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_BREAD;
 	f->texture = "bread.png";
 	f->name = "bread";
@@ -635,10 +640,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 50;
 	f->health_effect = 20;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_POTATO;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_POTATO;
 	f->texture = "harvested_potato.png";
 	f->name = "harvested_potato";
@@ -648,21 +653,21 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 15;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_STARCH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_STARCH;
 	f->texture = "potato_starch.png";
 	f->name = "potato_starch";
 	f->description = wgettext("Potato Starch");
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_POTATO,CONTENT_CRAFTITEM_POTATO,CONTENT_CRAFTITEM_STARCH);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_ROASTPOTATO;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_ROASTPOTATO;
 	f->texture = "roast_potato.png";
 	f->name = "roast_potato";
@@ -671,10 +676,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 60;
 	f->health_effect = 30;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CARROT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CARROT;
 	f->texture = "harvested_carrot.png";
 	f->name = "harvested_carrot";
@@ -683,10 +688,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 20;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CARROT_CAKE_RAW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CARROT_CAKE_RAW;
 	f->texture = "carrot_cake_raw.png";
 	f->name = "carrot_cake_raw";
@@ -697,11 +702,11 @@ void content_craftitem_init()
 	f->hunger_effect = 30;
 	f->health_effect = 20;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_CARROT,CONTENT_CRAFTITEM_DOUGH,CONTENT_CRAFTITEM_CARROT_CAKE_RAW);
-	lists::add("craftguide",i);
-	lists::add("cooking",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CARROT_CAKE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CARROT_CAKE;
 	f->texture = "carrot_cake.png";
 	f->name = "carrot_cake";
@@ -710,10 +715,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 60;
 	f->health_effect = 30;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_BEETROOT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_BEETROOT;
 	f->texture = "harvested_beetroot.png";
 	f->name = "harvested_beetroot";
@@ -722,10 +727,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 15;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GRAPE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_GRAPE;
 	f->texture = "harvested_grape.png";
 	f->name = "harvested_grape";
@@ -734,20 +739,20 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 30;
 	f->health_effect = 20;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_STRING;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_STRING;
 	f->texture = "string.png";
 	f->name = "string";
 	f->description = wgettext("String");
 	crafting::set1To4Recipe(CONTENT_COTTON,CONTENT_CRAFTITEM_STRING);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MITHRILDUST;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MITHRILDUST;
 	f->texture = "mithril_dust.png";
 	f->name = "mese_dust";
@@ -755,21 +760,21 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->drop_item = CONTENT_CIRCUIT_MITHRILWIRE;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_CRAFTITEM_MITHRILDUST);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_RESIN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_RESIN;
 	f->texture = "resin.png";
 	f->name = "lump_of_resin";
 	f->description = wgettext("Resin");
 	f->drop_count = 1;
-	lists::add("cooking",i);
-	lists::add("creative",i);
+	content_list_add("cooking",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_OERKKI_DUST;
 	f->texture = "oerkki_dust.png";
 	f->name = "oerkki_dust";
@@ -784,11 +789,11 @@ void content_craftitem_init()
 		};
 		crafting::setShapelessRecipe(recipe, i, 2);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FISH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FISH;
 	f->texture = "fish.png";
 	f->name = "fish";
@@ -800,11 +805,11 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 5;
 	f->health_effect = -5;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COOKED_FISH;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COOKED_FISH;
 	f->texture = "cooked_fish.png";
 	f->name = "cooked_fish";
@@ -814,11 +819,11 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 40;
 	f->health_effect = 30;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MEAT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MEAT;
 	f->texture = "meat.png";
 	f->name = "meat";
@@ -828,11 +833,11 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 5;
 	f->health_effect = -5;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COOKED_MEAT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COOKED_MEAT;
 	f->texture = "cooked_meat.png";
 	f->name = "cooked_meat";
@@ -842,11 +847,11 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 50;
 	f->health_effect = 30;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET;
 	f->texture = "cotton_sheet.png";
 	f->name = "cotton_sheet";
@@ -859,81 +864,81 @@ void content_craftitem_init()
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_COTTON_SHEET_RED,CONTENT_CRAFTITEM_COTTON_SHEET);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,CONTENT_CRAFTITEM_COTTON_SHEET);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,CONTENT_CRAFTITEM_COTTON_SHEET);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_BLUE;
 	f->texture = "cotton_sheet_blue.png";
 	f->name = "cotton_sheet_blue";
 	f->description = wgettext("Blue Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_COTTON_SHEET_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_GREEN;
 	f->texture = "cotton_sheet_green.png";
 	f->name = "cotton_sheet_green";
 	f->description = wgettext("Green Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_COTTON_SHEET_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE;
 	f->texture = "cotton_sheet_orange.png";
 	f->name = "cotton_sheet_orange";
 	f->description = wgettext("Orange Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE;
 	f->texture = "cotton_sheet_purple.png";
 	f->name = "cotton_sheet_purple";
 	f->description = wgettext("Purple Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_RED;
 	f->texture = "cotton_sheet_red.png";
 	f->name = "cotton_sheet_red";
 	f->description = wgettext("Red Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_COTTON_SHEET_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW;
 	f->texture = "cotton_sheet_yellow.png";
 	f->name = "cotton_sheet_yellow";
 	f->description = wgettext("Yellow Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COTTON_SHEET_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COTTON_SHEET_BLACK;
 	f->texture = "cotton_sheet_black.png";
 	f->name = "cotton_sheet_black";
 	f->description = wgettext("Black Cotton Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_COTTON_SHEET_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET;
 	f->texture = "canvas_sheet.png";
 	f->name = "canvas_sheet";
@@ -946,286 +951,286 @@ void content_craftitem_init()
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_CANVAS_SHEET_RED,CONTENT_CRAFTITEM_CANVAS_SHEET);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW,CONTENT_CRAFTITEM_CANVAS_SHEET);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK,CONTENT_CRAFTITEM_CANVAS_SHEET);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE;
 	f->texture = "canvas_sheet_blue.png";
 	f->name = "canvas_sheet_blue";
 	f->description = wgettext("Blue Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN;
 	f->texture = "canvas_sheet_green.png";
 	f->name = "canvas_sheet_green";
 	f->description = wgettext("Green Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE;
 	f->texture = "canvas_sheet_orange.png";
 	f->name = "canvas_sheet_orange";
 	f->description = wgettext("Orange Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE;
 	f->texture = "canvas_sheet_purple.png";
 	f->name = "canvas_sheet_purple";
 	f->description = wgettext("Purple Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_RED;
 	f->texture = "canvas_sheet_red.png";
 	f->name = "canvas_sheet_red";
 	f->description = wgettext("Red Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_CANVAS_SHEET_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW;
 	f->texture = "canvas_sheet_yellow.png";
 	f->name = "canvas_sheet_yellow";
 	f->description = wgettext("Yellow Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK;
 	f->texture = "canvas_sheet_black.png";
 	f->name = "canvas_sheet_black";
 	f->description = wgettext("Black Canvas Sheet");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR;
 	f->texture = "fur.png";
 	f->name = "fur";
 	f->description = wgettext("Fur");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_WHITE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_WHITE;
 	f->texture = "fur_white.png";
 	f->name = "fur_white";
 	f->description = wgettext("White Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_CRAFTITEM_FUR_WHITE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_FUR_WHITE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_BLUE;
 	f->texture = "fur_blue.png";
 	f->name = "fur_blue";
 	f->description = wgettext("Blue Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_FUR_BLUE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_FUR_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_GREEN;
 	f->texture = "fur_green.png";
 	f->name = "fur_green";
 	f->description = wgettext("Green Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_FUR_GREEN);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_FUR_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_ORANGE;
 	f->texture = "fur_orange.png";
 	f->name = "fur_orange";
 	f->description = wgettext("Orange Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_FUR_ORANGE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_FUR_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_PURPLE;
 	f->texture = "fur_purple.png";
 	f->name = "fur_purple";
 	f->description = wgettext("Purple Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_FUR_PURPLE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_FUR_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_RED;
 	f->texture = "fur_red.png";
 	f->name = "fur_red";
 	f->description = wgettext("Red Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_FUR_RED);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_FUR_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_YELLOW;
 	f->texture = "fur_yellow.png";
 	f->name = "fur_yellow";
 	f->description = wgettext("Yellow Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_FUR_YELLOW);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_FUR_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FUR_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FUR_BLACK;
 	f->texture = "fur_black.png";
 	f->name = "fur_black";
 	f->description = wgettext("Black Fur");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR_WHITE,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_FUR_BLACK);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_FUR_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER;
 	f->texture = "leather.png";
 	f->name = "leather";
 	f->description = wgettext("Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_ASH,CONTENT_CRAFTITEM_LEATHER);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FUR,CONTENT_CRAFTITEM_MUSH,CONTENT_CRAFTITEM_LEATHER);
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_WHITE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_WHITE;
 	f->texture = "leather_white.png";
 	f->name = "leather_white";
 	f->description = wgettext("White Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_CRAFTITEM_LEATHER_WHITE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_STARCH,CONTENT_CRAFTITEM_LEATHER_WHITE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_BLUE;
 	f->texture = "leather_blue.png";
 	f->name = "leather_blue";
 	f->description = wgettext("Blue Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_LEATHER_BLUE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_LEATHER_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_GREEN;
 	f->texture = "leather_green.png";
 	f->name = "leather_green";
 	f->description = wgettext("Green Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_LEATHER_GREEN);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_LEATHER_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_ORANGE;
 	f->texture = "leather_orange.png";
 	f->name = "leather_orange";
 	f->description = wgettext("Orange Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_LEATHER_ORANGE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_LEATHER_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_PURPLE;
 	f->texture = "leather_purple.png";
 	f->name = "leather_purple";
 	f->description = wgettext("Purple Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_LEATHER_PURPLE);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_LEATHER_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_RED;
 	f->texture = "leather_red.png";
 	f->name = "leather_red";
 	f->description = wgettext("Red Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_LEATHER_RED);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_LEATHER_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_YELLOW;
 	f->texture = "leather_yellow.png";
 	f->name = "leather_yellow";
 	f->description = wgettext("Yellow Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_LEATHER_YELLOW);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_LEATHER_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_LEATHER_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_LEATHER_BLACK;
 	f->texture = "leather_black.png";
 	f->name = "leather_black";
 	f->description = wgettext("Black Leather");
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_LEATHER_BLACK);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_LEATHER,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_LEATHER_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_ARROW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_ARROW;
 	f->texture = "arrow.png";
 	f->name = "arrow";
 	f->description = wgettext("Arrow");
 	f->shot_item = CONTENT_MOB_ARROW;
 	crafting::set1over4Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_STICK,CONTENT_CRAFTITEM_ARROW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_FERTILIZER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_FERTILIZER;
 	f->texture = "fertilizer_item.png";
 	f->name = "fertilizer";
@@ -1233,11 +1238,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->drop_item = CONTENT_FERTILIZER;
 	crafting::set2Any2Recipe(CONTENT_CRAFTITEM_MUSH,CONTENT_CRAFTITEM_ASH,CONTENT_CRAFTITEM_FERTILIZER);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_WHITE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_white.png";
 	f->name = "oerkki_dust_white";
@@ -1245,11 +1250,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_WHITE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_CRAFTITEM_OERKKI_DUST_WHITE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_BLUE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_blue.png";
 	f->name = "oerkki_dust_blue";
@@ -1257,11 +1262,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_BLUE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CRAFTITEM_OERKKI_DUST_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_GREEN;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_green.png";
 	f->name = "oerkki_dust_green";
@@ -1269,11 +1274,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_GREEN;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CRAFTITEM_OERKKI_DUST_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_ORANGE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_orange.png";
 	f->name = "oerkki_dust_orange";
@@ -1281,11 +1286,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_ORANGE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CRAFTITEM_OERKKI_DUST_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_PURPLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_purple.png";
 	f->name = "oerkki_dust_purple";
@@ -1293,11 +1298,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_PURPLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CRAFTITEM_OERKKI_DUST_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_RED;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_red.png";
 	f->name = "oerkki_dust_red";
@@ -1305,11 +1310,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_RED;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_RED,CONTENT_CRAFTITEM_OERKKI_DUST_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_YELLOW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_yellow.png";
 	f->name = "oerkki_dust_yellow";
@@ -1317,11 +1322,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_YELLOW;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CRAFTITEM_OERKKI_DUST_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_BLACK;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "oerkki_dust_black.png";
 	f->name = "oerkki_dust_black";
@@ -1329,11 +1334,11 @@ void content_craftitem_init()
 	f->drop_count = 1;
 	f->teleports = PLAYERFLAG_BLACK;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CRAFTITEM_OERKKI_DUST_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GLASS_BOTTLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "glass_bottle.png";
 	f->name = "glass_bottle";
@@ -1347,11 +1352,11 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_GLASS_BOTTLE,5);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GRAPE_JUICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "drink_grape.png^glass_bottle.png";
 	f->name = "grape_juice";
@@ -1365,11 +1370,11 @@ void content_craftitem_init()
 	f->energy_effect = 30;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_GRAPE,CONTENT_CRAFTITEM_GLASS_BOTTLE,CONTENT_CRAFTITEM_GRAPE_JUICE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_APPLE_JUICE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "drink_apple.png^glass_bottle.png";
 	f->name = "apple_juice";
@@ -1383,11 +1388,11 @@ void content_craftitem_init()
 	f->energy_effect = 10;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_APPLE,CONTENT_CRAFTITEM_GLASS_BOTTLE,CONTENT_CRAFTITEM_APPLE_JUICE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TEA_LEAVES;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "tea_leaves.png";
 	f->name = "tea_leaves";
@@ -1397,10 +1402,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 5;
 	f->health_effect = 10;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TEA;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "steel_bottle.png^tea_bag.png";
 	f->name = "tea_drink";
@@ -1415,11 +1420,11 @@ void content_craftitem_init()
 	f->energy_effect = 10;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_TEA_LEAVES,CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER,CONTENT_CRAFTITEM_TEA);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COFFEE_BEANS;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "coffee_beans.png";
 	f->name = "coffee_beans";
@@ -1430,10 +1435,10 @@ void content_craftitem_init()
 	f->hunger_effect = 10;
 	f->health_effect = 15;
 	f->energy_effect = 30;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COFFEE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "steel_bottle.png^coffee_bean.png";
 	f->name = "coffee_drink";
@@ -1448,11 +1453,11 @@ void content_craftitem_init()
 	f->energy_effect = 300;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COFFEE_BEANS,CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER,CONTENT_CRAFTITEM_COFFEE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_STEEL_BOTTLE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "steel_bottle.png";
 	f->name = "steel_bottle";
@@ -1466,11 +1471,11 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_STEEL_BOTTLE,5);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_GLASS_BOTTLE_WATER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "drink_water.png^glass_bottle.png";
 	f->name = "water_drink";
@@ -1482,10 +1487,10 @@ void content_craftitem_init()
 	f->hunger_effect = 5;
 	f->health_effect = 5;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "steel_bottle.png^water_droplet.png";
 	f->name = "hotwater_drink";
@@ -1498,88 +1503,88 @@ void content_craftitem_init()
 	f->health_effect = 8;
 	f->cold_effect = 5;
 	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MITHRIL_RAW;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MITHRIL_RAW;
 	f->texture = "mithril_raw.png";
 	f->name = "mithril_raw";
 	f->description = wgettext("Raw Mithril");
 	f->cook_result = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;
 	f->cook_type = COOK_FURNACE;
-	lists::add("creative",i);
-	lists::add("cooking",i);
+	content_list_add("creative",i,1,0);
+	content_list_add("cooking",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;
 	f->texture = "mithril_unbound.png";
 	f->name = "mithril_unbound";
 	f->enchanted_item = CONTENT_CRAFTITEM_MITHRIL;
 	f->description = wgettext("Unbound Mithril");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MITHRIL;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_MITHRIL;
 	f->texture = "mithril_unbound.png";
 	f->name = "mithril_bound";
 	f->param_type = CPT_ENCHANTMENT;
 	f->description = wgettext("Mithril");
 	f->overlay_base = "ingot_overlay";
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_RUBY;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "lump_of_ruby.png";
 	f->name = "lump_of_ruby";
 	f->description = wgettext("Ruby");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_TURQUOISE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "lump_of_turquoise.png";
 	f->name = "lump_of_turquiose";
 	f->description = wgettext("Turquiose");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_AMETHYST;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "lump_of_amethyst.png";
 	f->name = "lump_of_amethyst";
 	f->description = wgettext("Amethyst");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SAPPHIRE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "lump_of_sapphire.png";
 	f->name = "lump_of_sapphire";
 	f->description = wgettext("Sapphire");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SUNSTONE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "lump_of_sunstone.png";
 	f->name = "lump_of_sunstone";
 	f->description = wgettext("Sunstone");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_SALT;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
 	f->texture = "salt.png";
 	f->name = "salt_dust";
 	f->description = wgettext("Salt");
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_OERKKI_DUST_SPACE;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_OERKKI_DUST_SPACE;
 	f->texture = "oerkki_dust_space.png";
 	f->name = "oerkki_dust_space";
@@ -1594,11 +1599,11 @@ void content_craftitem_init()
 		};
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_OERKKI_DUST_SPACE,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_BLUEBERRY;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_BLUEBERRY;
 	f->texture = "harvested_blueberry.png";
 	f->name = "blueberry";
@@ -1607,10 +1612,10 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 10;
 	f->health_effect = 10;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_RASPBERRY;
-	f = &g_content_craftitem_features[i];
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_RASPBERRY;
 	f->texture = "harvested_raspberry.png";
 	f->name = "raspberry";
@@ -1619,5 +1624,5 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 10;
 	f->health_effect = 10;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 }

@@ -1,29 +1,47 @@
 #ifndef _CONTENT_LIST_H
 #define _CONTENT_LIST_H
 
-#include <vector>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "array.h"
+
 #include <stdint.h>
 
-namespace lists {
+#ifndef _HAVE_CONTENT_TYPE
+#define _HAVE_CONTENT_TYPE
+typedef uint16_t content_t;
+#endif
 
-struct ListData {
+#ifndef _HAVE_LISTDATA_TYPE
+#define _HAVE_LISTDATA_TYPE
+typedef struct listdata_s {
+	struct listdata_s *prev;
+	struct listdata_s *next;
 	content_t content;
 	uint16_t count;
 	uint16_t data;
+} listdata_t;
+#endif
 
-	ListData()
-	{}
+#ifndef _HAVE_CONTENTLIST_TYPE
+#define _HAVE_CONTENTLIST_TYPE
+typedef struct contentlist_s {
+	struct contentlist_s *prev;
+	struct contentlist_s *next;
+	char* name;
+	uint32_t h;
+	uint32_t count;
+	listdata_t *data;
+} contentlist_t;
+#endif
 
-	ListData(content_t c, uint16_t cc, uint16_t cd):
-		content(c),
-		count(cc),
-		data(cd)
-	{}
-};
+void content_list_add(const char* name, content_t c, uint16_t count, uint16_t data);
+contentlist_t *content_list_get(const char* name);
 
-void add(std::string name, content_t c, uint16_t count=1, uint16_t data=0);
-std::vector<ListData> &get(std::string name);
-
-};
+#ifdef __cplusplus
+}
+#endif
 
 #endif

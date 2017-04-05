@@ -7,9 +7,9 @@ extern "C" {
 
 #include <stdint.h>
 
-uint32_t hash(char* str);
-char* base64_encode(char* str);
-char* base64_decode(char* str);
+uint32_t hash(const char* str);
+char* base64_encode(const char* str);
+char* base64_decode(const char* str);
 
 #ifdef __cplusplus
 }

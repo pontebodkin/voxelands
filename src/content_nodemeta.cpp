@@ -37,6 +37,8 @@
 #include "enchantment.h"
 #include <algorithm>
 
+#include "list.h"
+
 /*
 	SignNodeMetadata
 */
@@ -738,16 +740,26 @@ NodeMetadata* CreativeChestNodeMetadata::create(std::istream &is)
 }
 NodeMetadata* CreativeChestNodeMetadata::clone()
 {
+	contentlist_t *cl;
+	listdata_t *ld;
 	CreativeChestNodeMetadata *d = new CreativeChestNodeMetadata();
+
 	*d->m_inventory = *m_inventory;
 	InventoryList *l = d->m_inventory->getList("0");
 	InventoryItem *t;
 	l->clearItems();
-	std::vector<lists::ListData> &list = lists::get("creative");
-	for (u16 i=0; i<list.size() && i < 32; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
+
+	cl = content_list_get("creative");
+	if (!cl)
+		return d;
+
+	ld = cl->data;
+	while (ld) {
+		t = InventoryItem::create(ld->content,ld->count,0,ld->data);
 		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return d;
 }
 void CreativeChestNodeMetadata::serializeBody(std::ostream &os)
@@ -765,47 +777,74 @@ bool CreativeChestNodeMetadata::nodeRemovalDisabled()
 }
 bool CreativeChestNodeMetadata::receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player)
 {
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size = 0;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
 	if (fields["prev"] == "" && fields["next"] == "")
 		return false;
-	std::vector<lists::ListData> &list = lists::get("creative");
+
+	cl = content_list_get("creative");
+	if (!cl)
+		return false;
+
+	list_size = list_count(&cl->data);
+
 	if (fields["prev"] != "") {
 		if (m_page > 0) {
 			m_page--;
 		}else{
-			m_page = list.size()/32;
+			m_page = list_size/32;
 		}
 	}
 	if (fields["next"] != "")
 		m_page++;
 	if (m_page < 0)
 		m_page = 0;
-	if (m_page > (list.size()/32))
+	if (m_page > (list_size/32))
 		m_page = 0;
 	InventoryList *l = m_inventory->getList("0");
 	InventoryItem *t;
 	l->clearItems();
-	u16 start = m_page*32;
-	u16 end = start+32;
-	if (end > list.size())
-		end = list.size();
-	for (u16 i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		l->addItem(t);
+
+	start = m_page*32;
+	end = start+32;
+
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			l->addItem(t);
+		}
+		ld = ld->next;
 	}
+
 	return true;
 }
 std::string CreativeChestNodeMetadata::getDrawSpecString(Player *player)
 {
-	wchar_t buff[256];
-	std::vector<lists::ListData> &list = lists::get("creative");
-	swprintf(buff, 256, wgettext("Page %d of %d"),(int)(m_page+1),(int)((list.size()/32)+1));
+	char buff[256];
+	contentlist_t *cl;
+	uint32_t list_size = 0;
+
+	cl = content_list_get("creative");
+	if (cl)
+		list_size = list_count(&cl->data);
+
+	snprintf(buff,256,gettext("Page %d of %d"),(int)(m_page+1),(int)((list_size/32)+1));
 	std::string spec("size[8,10]");
 		spec += "list[current_name;0;0,0.5;8,4;]";
 		spec += "button[0.25,5;2.5,0.75;prev;";
 		spec += wide_to_narrow(wgettext("<< Previous Page"));
 		spec += "]";
 		spec += "label[3.5,5;";
-		spec += wide_to_narrow(buff);
+		spec += buff;
 		spec += "]";
 		spec += "button[6,5;2.5,0.75;next;";
 		spec += wide_to_narrow(wgettext("Next Page >>"));
@@ -1932,27 +1971,51 @@ u16 CraftGuideNodeMetadata::typeId() const
 }
 NodeMetadata* CraftGuideNodeMetadata::clone()
 {
-	CraftGuideNodeMetadata *d = new CraftGuideNodeMetadata();
-	*d->m_inventory = *m_inventory;
-	d->m_page = m_page;
-	InventoryList *l = d->m_inventory->getList("list");
+	contentlist_t *cl;
+	listdata_t *ld;
+	InventoryList *l;
 	InventoryItem *t;
 	content_t *r;
+	uint32_t list_size = 0;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+	CraftGuideNodeMetadata *d = new CraftGuideNodeMetadata();
+
+	*d->m_inventory = *m_inventory;
+	d->m_page = m_page;
+
+	l = d->m_inventory->getList("list");
 	l->clearItems();
-	std::vector<lists::ListData> &list = lists::get("craftguide");
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		r = crafting::getRecipe(t);
-		if (!r) {
-			delete t;
-			continue;
+
+	cl = content_list_get("craftguide");
+
+	if (!cl)
+		return d;
+
+	list_size = list_count(&cl->data);
+
+	start = m_page*40;
+	end = start+40;
+
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = crafting::getRecipe(t);
+			if (!r) {
+				delete t;
+				ld = ld->next;
+				continue;
+			}
+			l->addItem(t);
 		}
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return d;
 }
 NodeMetadata* CraftGuideNodeMetadata::create(std::istream &is)
@@ -2010,37 +2073,71 @@ bool CraftGuideNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env
 }
 bool CraftGuideNodeMetadata::import(NodeMetadata *meta)
 {
+	contentlist_t *cl;
+	listdata_t *ld;
+	InventoryList *l;
+	InventoryItem *t;
+	content_t *r;
+	uint32_t list_size = 0;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
 	if (meta->typeId() == CONTENT_BOOK)
 		m_page = ((ClosedBookNodeMetadata*)meta)->getPage();
 
 	if (m_page < 0)
 		m_page = 0;
-	std::vector<lists::ListData> &list = lists::get("craftguide");
-	if (m_page > (list.size()/40))
-		m_page = list.size()/40;
-	InventoryList *l = m_inventory->getList("list");
-	InventoryItem *t;
-	content_t *r;
+
+	cl = content_list_get("craftguide");
+
+	if (!cl)
+		return false;
+
+	list_size = list_count(&cl->data);
+
+	if (m_page > (list_size/40))
+		m_page = list_size/40;
+
+	start = m_page*40;
+	end = start+40;
+
+	l = m_inventory->getList("list");
 	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		r = crafting::getRecipe(t);
-		if (!r) {
-			delete t;
-			continue;
+
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = crafting::getRecipe(t);
+			if (!r) {
+				delete t;
+				ld = ld->next;
+				continue;
+			}
+			l->addItem(t);
 		}
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return true;
 }
 bool CraftGuideNodeMetadata::receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player)
 {
-	InventoryList *l = m_inventory->getList("list");
+	InventoryList *l;
 	InventoryItem *t;
+	contentlist_t *cl;
+	listdata_t *ld;
+	content_t *r;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
+	l = m_inventory->getList("list");
 	if (fields["rprev"] != "" || fields["rnext"] != "") {
 		l = m_inventory->getList("result");
 		t = l->getItem(0);
@@ -2060,33 +2157,48 @@ bool CraftGuideNodeMetadata::receiveFields(std::string formname, std::map<std::s
 	}
 	if (fields["prev"] == "" && fields["next"] == "")
 		return false;
-	std::vector<lists::ListData> &list = lists::get("craftguide");
+
+	cl = content_list_get("craftguide");
+
+	if (!cl)
+		return false;
+
+	list_size = list_count(&cl->data);
+
 	if (fields["prev"] != "") {
 		if (m_page > 0) {
 			m_page--;
 		}else{
-			m_page = list.size()/40;
+			m_page = list_size/40;
 		}
 	}
 	if (fields["next"] != "")
 		m_page++;
-	if (m_page > (list.size()/40))
+	if (m_page > (list_size/40))
 		m_page = 0;
-	content_t *r;
+
 	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		r = crafting::getRecipe(t);
-		if (!r) {
-			delete t;
-			continue;
+
+	start = m_page*40;
+	end = start+40;
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = crafting::getRecipe(t);
+			if (!r) {
+				delete t;
+				ld = ld->next;
+				continue;
+			}
+			l->addItem(t);
 		}
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return true;
 }
 std::string CraftGuideNodeMetadata::getDrawSpecString(Player *player)
@@ -2095,14 +2207,20 @@ std::string CraftGuideNodeMetadata::getDrawSpecString(Player *player)
 	InventoryItem *q = l->getItem(0);
 	int tr = 0;
 	int rc = 0;
-	std::vector<lists::ListData> &list = lists::get("craftguide");
+	char buff[256];
+	uint32_t list_size = 0;
+	contentlist_t *cl;
+
+	cl = content_list_get("craftguide");
+	if (cl)
+		list_size = list_count(&cl->data);
+
 	if (q && q->getContent() != CONTENT_IGNORE) {
 		tr = crafting::getResultCount(q);
 		rc = crafting::getRecipeCount(q);
 	}
 
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Page %d of %d"), (int)(m_page+1), (int)((list.size()/40)+1));
+	snprintf(buff,256,gettext("Page %d of %d"),(int)(m_page+1),(int)((list_size/40)+1));
 
 	std::string spec("size[8,10]");
 	spec +=	"label[0.5,0.75;";
@@ -2133,7 +2251,7 @@ std::string CraftGuideNodeMetadata::getDrawSpecString(Player *player)
 	spec += wide_to_narrow(wgettext("<< Previous Page"));
 	spec += "]";
 	spec +=	"label[3.5,4.5;";
-	spec += wide_to_narrow(buff);
+	spec += buff;
 	spec += "]";
 	spec +=	"button[6,4.5;2.5,0.75;next;";
 	spec += wide_to_narrow(wgettext("Next Page >>"));
@@ -2449,28 +2567,52 @@ u16 CookBookNodeMetadata::typeId() const
 }
 NodeMetadata* CookBookNodeMetadata::clone()
 {
+	InventoryList *l;
+	InventoryItem *t;
+	InventoryItem *r;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
 	CookBookNodeMetadata *d = new CookBookNodeMetadata();
 	*d->m_inventory = *m_inventory;
 	d->m_page = m_page;
-	InventoryList *l = d->m_inventory->getList("list");
-	InventoryItem *t;
+
+	l = d->m_inventory->getList("list");
 	l->clearItems();
-	std::vector<lists::ListData> &list = lists::get("cooking");
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		InventoryItem *cookresult = t->createCookResult();
-		if (!cookresult || cookresult->getContent() == CONTENT_IGNORE) {
-			delete t;
-			delete cookresult;
-			continue;
+
+	cl = content_list_get("cooking");
+	if (!cl)
+		return d;
+
+	list_size = list_count(&cl->data);
+
+	start = m_page*40;
+	end = start+40;
+
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = t->createCookResult();
+			if (!r || r->getContent() == CONTENT_IGNORE) {
+				delete t;
+				delete r;
+				ld = ld->next;
+				continue;
+			}
+			delete r;
+			l->addItem(t);
 		}
-		delete cookresult;
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return d;
 }
 NodeMetadata* CookBookNodeMetadata::create(std::istream &is)
@@ -2512,76 +2654,130 @@ bool CookBookNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 }
 bool CookBookNodeMetadata::import(NodeMetadata *meta)
 {
+	InventoryList *l;
+	InventoryItem *t;
+	InventoryItem *r;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
 	if (meta->typeId() == CONTENT_BOOK)
 		m_page = ((ClosedBookNodeMetadata*)meta)->getPage();
 
 	if (m_page < 0)
 		m_page = 0;
-	std::vector<lists::ListData> &list = lists::get("cooking");
-	if (m_page > (list.size()/40))
-		m_page = list.size()/40;
-	InventoryList *l = m_inventory->getList("list");
-	InventoryItem *t;
+
+	cl = content_list_get("cooking");
+	if (!cl)
+			return true;
+
+	list_size = list_count(&cl->data);
+
+	if (m_page > (list_size/40))
+		m_page = list_size/40;
+
+	l = m_inventory->getList("list");
 	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		InventoryItem *cookresult = t->createCookResult();
-		if (!cookresult || cookresult->getContent() == CONTENT_IGNORE) {
-			delete t;
-			delete cookresult;
-			continue;
+
+	start = m_page*40;
+	end = start+40;
+
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = t->createCookResult();
+			if (!r || r->getContent() == CONTENT_IGNORE) {
+				delete t;
+				delete r;
+				ld = ld->next;
+				continue;
+			}
+			delete r;
+			l->addItem(t);
 		}
-		delete cookresult;
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return true;
 }
 bool CookBookNodeMetadata::receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player)
 {
+	InventoryList *l;
+	InventoryItem *t;
+	InventoryItem *r;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+
 	if (fields["prev"] == "" && fields["next"] == "")
 		return false;
-	std::vector<lists::ListData> &list = lists::get("cooking");
+
+	cl = content_list_get("cooking");
+	if (!cl)
+		return false;
+
+	list_size = list_count(&cl->data);
+
 	if (fields["prev"] != "") {
 		if (m_page > 0) {
 			m_page--;
 		}else{
-			m_page = list.size()/40;
+			m_page = list_size/40;
 		}
 	}
 	if (fields["next"] != "")
 		m_page++;
-	if (m_page > (list.size()/40))
+	if (m_page > (list_size/40))
 		m_page = 0;
-	InventoryList *l = m_inventory->getList("list");
-	InventoryItem *t;
+
+	l = m_inventory->getList("list");
 	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		t = InventoryItem::create(list[i].content,list[i].count,0,list[i].data);
-		InventoryItem *cookresult = t->createCookResult();
-		if (!cookresult || cookresult->getContent() == CONTENT_IGNORE) {
-			delete t;
-			delete cookresult;
-			continue;
+
+	start = m_page*40;
+	end = start+40;
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			r = t->createCookResult();
+			if (!r || r->getContent() == CONTENT_IGNORE) {
+				delete t;
+				delete r;
+				ld = ld->next;
+				continue;
+			}
+			delete r;
+			l->addItem(t);
 		}
-		delete cookresult;
-		l->addItem(t);
+		ld = ld->next;
 	}
+
 	return true;
 }
 std::string CookBookNodeMetadata::getDrawSpecString(Player *player)
 {
-	std::vector<lists::ListData> &list = lists::get("cooking");
+	char buff[256];
+	contentlist_t *cl;
+	uint32_t list_size = 0;
 
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Page %d of %d"), (int)(m_page+1), (int)((list.size()/40)+1));
+	cl = content_list_get("cooking");
+	if (cl)
+		list_size = list_count(&cl->data);
+
+	snprintf(buff,256,gettext("Page %d of %d"),(int)(m_page+1),(int)((list_size/40)+1));
 
 	std::string spec("size[8,9]");
 	spec +=	"label[0.5,0.75;";
@@ -2593,7 +2789,7 @@ std::string CookBookNodeMetadata::getDrawSpecString(Player *player)
 	spec += wide_to_narrow(wgettext("<< Previous Page"));
 	spec += "]";
 	spec +=	"label[3.5,3.5;";
-	spec += wide_to_narrow(buff);
+	spec += buff;
 	spec += "]";
 	spec +=	"button[6,3.5;2.5,0.75;next;";
 	spec += wide_to_narrow(wgettext("Next Page >>"));
@@ -2631,30 +2827,53 @@ u16 DeCraftNodeMetadata::typeId() const
 }
 NodeMetadata* DeCraftNodeMetadata::clone()
 {
+	InventoryList *l;
+	InventoryItem *t;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+	ContentFeatures *f;
+
 	DeCraftNodeMetadata *d = new DeCraftNodeMetadata();
 	*d->m_inventory = *m_inventory;
 	d->m_page = m_page;
-	InventoryList *l = d->m_inventory->getList("list");
-	InventoryItem *t;
-	l->clearItems();
-	std::vector<lists::ListData> &list = lists::get("decrafting");
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		if ((list[i].content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
-			continue;
-		if (content_features(list[i].content).dug_item == "" && content_features(list[i].content).extra_dug_item == "")
-			continue;
 
-		t = new MaterialItem(list[i].content,1,list[i].data);
-		l->addItem(t);
+	l = d->m_inventory->getList("list");
+	l->clearItems();
+
+	cl = content_list_get("decrafting");
+	if (!cl)
+		return d;
+
+	list_size = list_count(&cl->data);
+
+	start = m_page*40;
+	end = start+40;
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			if ((ld->content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
+				continue;
+			f = &content_features(ld->content);
+			if (!f || (f->dug_item == "" && f->extra_dug_item == ""))
+				continue;
+
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			l->addItem(t);
+		}
+		ld = ld->next;
 	}
+
 	return d;
 }
 NodeMetadata* DeCraftNodeMetadata::create(std::istream &is)
@@ -2723,79 +2942,133 @@ bool DeCraftNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 }
 bool DeCraftNodeMetadata::import(NodeMetadata *meta)
 {
+	InventoryList *l;
+	InventoryItem *t;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+	ContentFeatures *f;
+
 	if (meta->typeId() == CONTENT_BOOK)
 		m_page = ((ClosedBookNodeMetadata*)meta)->getPage();
 
 	if (m_page < 0)
 		m_page = 0;
-	std::vector<lists::ListData> &list = lists::get("decrafting");
-	if (m_page > (list.size()/40))
-		m_page = list.size()/40;
-	InventoryList *l = m_inventory->getList("list");
-	InventoryItem *t;
-	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		if ((list[i].content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
-			continue;
-		if (content_features(list[i].content).dug_item == "" && content_features(list[i].content).extra_dug_item == "")
-			continue;
 
-		t = new MaterialItem(list[i].content,1,list[i].data);
-		l->addItem(t);
+	l = m_inventory->getList("list");
+	l->clearItems();
+
+	cl = content_list_get("decrafting");
+	if (!cl)
+		return true;
+
+	list_size = list_count(&cl->data);
+
+	if (m_page > (list_size/40))
+		m_page = list_size/40;
+
+	start = m_page*40;
+	end = start+40;
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			if ((ld->content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
+				continue;
+			f = &content_features(ld->content);
+			if (!f || (f->dug_item == "" && f->extra_dug_item == ""))
+				continue;
+
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			l->addItem(t);
+		}
+		ld = ld->next;
 	}
+
 	return true;
 }
 bool DeCraftNodeMetadata::receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player)
 {
+	InventoryList *l;
+	InventoryItem *t;
+	contentlist_t *cl;
+	listdata_t *ld;
+	uint32_t list_size;
+	uint32_t start;
+	uint32_t end;
+	uint32_t i;
+	ContentFeatures *f;
+
 	if (fields["prev"] == "" && fields["next"] == "")
 		return false;
-	std::vector<lists::ListData> &list = lists::get("decrafting");
+
+	cl = content_list_get("decrafting");
+	if (!cl)
+		return false;
+
+	list_size = list_count(&cl->data);
+
 	if (fields["prev"] != "") {
 		if (m_page > 0) {
 			m_page--;
 		}else{
-			m_page = list.size()/40;
+			m_page = list_size/40;
 		}
 	}
 	if (fields["next"] != "")
 		m_page++;
-	if (m_page > (list.size()/40))
+	if (m_page > (list_size/40))
 		m_page = 0;
-	InventoryList *l = m_inventory->getList("list");
-	InventoryItem *t;
-	l->clearItems();
-	u16 start = m_page*40;
-	u16 end = start+40;
-	if (end > list.size())
-		end = list.size();
-	for (int i=start; i<end; i++) {
-		if ((list[i].content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
-			continue;
-		if ((list[i].content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
-			continue;
-		if (content_features(list[i].content).dug_item == "" && content_features(list[i].content).extra_dug_item == "")
-			continue;
 
-		t = new MaterialItem(list[i].content,1,list[i].data);
-		l->addItem(t);
+	l = m_inventory->getList("list");
+	l->clearItems();
+
+	start = m_page*40;
+	end = start+40;
+	if (end > list_size)
+		end = list_size;
+
+	ld = cl->data;
+	for (i=0; ld && i<end; i++) {
+		if (i >= start) {
+			if ((ld->content&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
+				continue;
+			if ((ld->content&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
+				continue;
+			f = &content_features(ld->content);
+			if (!f || (f->dug_item == "" && f->extra_dug_item == ""))
+				continue;
+
+			t = InventoryItem::create(ld->content,ld->count,0,ld->data);
+			l->addItem(t);
+		}
+		ld = ld->next;
 	}
+
 	return true;
 }
 std::string DeCraftNodeMetadata::getDrawSpecString(Player *player)
 {
-	std::vector<lists::ListData> &list = lists::get("decrafting");
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Page %d of %d"), (int)(m_page+1), (int)((list.size()/40)+1));
+	char buff[256];
+	contentlist_t *cl;
+	uint32_t list_size = 0;
+
+	cl = content_list_get("decrafting");
+	if (cl)
+		list_size = list_count(&cl->data);
+
+	snprintf(buff,256,gettext("Page %d of %d"),(int)(m_page+1),(int)((list_size/40)+1));
 
 	std::string spec("size[8,9]");
 	spec +=	"label[0.5,0.75;";
@@ -2814,7 +3087,7 @@ std::string DeCraftNodeMetadata::getDrawSpecString(Player *player)
 	spec += wide_to_narrow(wgettext("<< Previous Page"));
 	spec += "]";
 	spec +=	"label[3.5,3.5;";
-	spec += wide_to_narrow(buff);
+	spec += buff;
 	spec += "]";
 	spec +=	"button[6,3.5;2.5,0.75;next;";
 	spec += wide_to_narrow(wgettext("Next Page >>"));

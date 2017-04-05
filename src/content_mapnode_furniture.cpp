@@ -64,8 +64,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_BOOKSHELF,1);
 	}
 	f->pressure_type = CST_SOLID;
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_BOOKSHELF_JUNGLE;
@@ -101,8 +101,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_BOOKSHELF_JUNGLE,1);
 	}
 	f->pressure_type = CST_SOLID;
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_BOOKSHELF_PINE;
@@ -138,8 +138,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_BOOKSHELF_PINE,1);
 	}
 	f->pressure_type = CST_SOLID;
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE;
@@ -262,8 +262,8 @@ void content_mapnode_furniture(bool repeat)
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR_RED,CONTENT_CRAFTITEM_STARCH,CONTENT_COUCH_CHAIR);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR_YELLOW,CONTENT_CRAFTITEM_STARCH,CONTENT_COUCH_CHAIR);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR_BLACK,CONTENT_CRAFTITEM_STARCH,CONTENT_COUCH_CHAIR);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_BLUE;
@@ -380,8 +380,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_blue.png", "cotton_blue.png", "cotton_blue.png");
 	crafting::setVRecipe(CONTENT_COTTON_BLUE,CONTENT_COUCH_CHAIR_BLUE,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_COUCH_CHAIR_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_GREEN;
@@ -498,8 +498,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_green.png", "cotton_green.png", "cotton_green.png");
 	crafting::setVRecipe(CONTENT_COTTON_GREEN,CONTENT_COUCH_CHAIR_GREEN,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_COUCH_CHAIR_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_ORANGE;
@@ -616,8 +616,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_orange.png", "cotton_orange.png", "cotton_orange.png");
 	crafting::setVRecipe(CONTENT_COTTON_ORANGE,CONTENT_COUCH_CHAIR_ORANGE,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_COUCH_CHAIR_ORANGE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_PURPLE;
@@ -734,8 +734,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_purple.png", "cotton_purple.png", "cotton_purple.png");
 	crafting::setVRecipe(CONTENT_COTTON_PURPLE,CONTENT_COUCH_CHAIR_PURPLE,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_COUCH_CHAIR_PURPLE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_RED;
@@ -852,8 +852,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_red.png", "cotton_red.png", "cotton_red.png");
 	crafting::setVRecipe(CONTENT_COTTON_RED,CONTENT_COUCH_CHAIR_RED,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_RED,CONTENT_COUCH_CHAIR_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_YELLOW;
@@ -970,8 +970,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_yellow.png", "cotton_yellow.png", "cotton_yellow.png");
 	crafting::setVRecipe(CONTENT_COTTON_YELLOW,CONTENT_COUCH_CHAIR_YELLOW,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_COUCH_CHAIR_YELLOW);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COUCH_CENTRE_BLACK;
@@ -1088,8 +1088,8 @@ void content_mapnode_furniture(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cotton_black.png", "cotton_black.png", "cotton_black.png");
 	crafting::setVRecipe(CONTENT_COTTON_BLACK,CONTENT_COUCH_CHAIR_BLACK,2);
 	crafting::set1Any2Recipe(CONTENT_COUCH_CHAIR,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_COUCH_CHAIR_BLACK);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_CHAIR;
@@ -1121,8 +1121,8 @@ void content_mapnode_furniture(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_CHAIR,2);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_CHAIR_CENTRE;
@@ -1266,8 +1266,8 @@ void content_mapnode_furniture(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_TABLE,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_BED_HEAD;
@@ -1296,8 +1296,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON,CONTENT_BED_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1355,8 +1355,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_BLUE,CONTENT_BED_BLUE_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1414,8 +1414,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_GREEN,CONTENT_BED_GREEN_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1473,8 +1473,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_ORANGE,CONTENT_BED_ORANGE_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1532,8 +1532,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_PURPLE,CONTENT_BED_PURPLE_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1591,8 +1591,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_RED,CONTENT_BED_RED_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1650,8 +1650,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_YELLOW,CONTENT_BED_YELLOW_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1709,8 +1709,8 @@ void content_mapnode_furniture(bool repeat)
 	f->hardness = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_BLACK,CONTENT_BED_BLACK_HEAD);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BedNodeMetadata();
@@ -1770,8 +1770,8 @@ void content_mapnode_furniture(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_BED_CAMP_HEAD,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new CampBedNodeMetadata();
@@ -1829,8 +1829,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_PAINTING_WHITE,1);
 	}
 	crafting::set1Any2Recipe(CONTENT_PAINTING_CANVAS,CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_PAINTING_WHITE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_PAINTING_RED;
@@ -1863,8 +1863,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_PAINTING_RED,1);
 	}
 	crafting::set1Any2Recipe(CONTENT_PAINTING_CANVAS,CONTENT_CRAFTITEM_DYE_RED,CONTENT_PAINTING_RED);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_PAINTING_GREEN;
@@ -1897,8 +1897,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_PAINTING_GREEN,1);
 	}
 	crafting::set1Any2Recipe(CONTENT_PAINTING_CANVAS,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_PAINTING_GREEN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_PAINTING_BLUE;
@@ -1931,8 +1931,8 @@ void content_mapnode_furniture(bool repeat)
 		crafting::setRecipe(r,CONTENT_PAINTING_BLUE,1);
 	}
 	crafting::set1Any2Recipe(CONTENT_PAINTING_CANVAS,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_PAINTING_BLUE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_PAINTING_CANVAS;
@@ -1968,8 +1968,8 @@ void content_mapnode_furniture(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_PAINTING_CANVAS,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_CLOCK;
@@ -2003,7 +2003,7 @@ void content_mapnode_furniture(bool repeat)
 		};
 		crafting::setRecipe(r,CONTENT_CLOCK,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 	f->suffocation_per_second = 0;
 }

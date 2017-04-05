@@ -22,31 +22,45 @@
 #include "content_craft.h"
 #include "content_list.h"
 #include "content_mapnode.h"
-#include <map>
 #include "intl.h"
 
-std::map<content_t,struct ClothesItemFeatures> g_content_clothesitem_features;
+struct ClothesItemFeatures g_content_clothesitem_features[4096];
 
-ClothesItemFeatures & content_clothesitem_features(content_t i)
+ClothesItemFeatures *content_clothesitem_features(content_t i)
 {
+	uint32_t j;
 	if ((i&CONTENT_CLOTHESITEM_MASK) != CONTENT_CLOTHESITEM_MASK)
-		return g_content_clothesitem_features[CONTENT_IGNORE];
+		return &g_content_clothesitem_features[0];
 
-	std::map<content_t,struct ClothesItemFeatures>::iterator it = g_content_clothesitem_features.find(i);
-	if (it == g_content_clothesitem_features.end())
-		return g_content_clothesitem_features[CONTENT_IGNORE];
-	return it->second;
+	j = (i&~CONTENT_CLOTHESITEM_MASK);
+	if (j > 4095)
+		return &g_content_clothesitem_features[0];
+
+	return &g_content_clothesitem_features[j];
 }
 
 void content_clothesitem_init()
 {
-	g_content_clothesitem_features.clear();
-
 	content_t i;
 	ClothesItemFeatures *f = NULL;
+	int k;
+
+	for (k=0; k<4096; k++) {
+		g_content_clothesitem_features[k].content = CONTENT_IGNORE;
+		g_content_clothesitem_features[k].texture = std::string("unknown_item.png");
+		g_content_clothesitem_features[k].overlay_texture = std::string("");
+		g_content_clothesitem_features[k].description = std::wstring(L"");
+		g_content_clothesitem_features[k].type = CT_NONE;
+		g_content_clothesitem_features[k].armour = 0.;
+		g_content_clothesitem_features[k].warmth = 0.;
+		g_content_clothesitem_features[k].vacuum = 0.;
+		g_content_clothesitem_features[k].suffocate = 0.;
+		g_content_clothesitem_features[k].durability = 5;
+		g_content_clothesitem_features[k].effect = 1.;
+	}
 
 	i = CONTENT_CLOTHESITEM_SPACESUIT_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->texture = "clothes_pants_space.png";
 	f->overlay_texture = "clothes_player_pants_space.png";
@@ -64,11 +78,11 @@ void content_clothesitem_init()
 		};
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_SPACESUIT_SHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->texture = "clothes_shirt_space.png";
 	f->overlay_texture = "clothes_player_shirt_space.png";
@@ -86,11 +100,11 @@ void content_clothesitem_init()
 		};
 		crafting::setRecipe(r,i,1);
 	}
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_SPACESUIT_HELMET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->texture = "clothes_helmet_space.png";
 	f->overlay_texture = "clothes_player_helmet_space.png";
@@ -102,11 +116,11 @@ void content_clothesitem_init()
 	f->suffocate = 1.0;
 	f->durability = 20;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_SPACESUIT_BOOTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->texture = "clothes_boots_space.png";
 	f->overlay_texture = "clothes_player_boots_space.png";
@@ -117,12 +131,12 @@ void content_clothesitem_init()
 	f->vacuum = 1.0;
 	f->durability = 20;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// cotton t-shirts
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_white.png";
@@ -132,11 +146,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_blue.png";
@@ -146,11 +160,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_green.png";
@@ -160,11 +174,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_orange.png";
@@ -174,11 +188,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_purple.png";
@@ -188,11 +202,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_red.png";
@@ -202,11 +216,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_yellow.png";
@@ -216,11 +230,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TSHIRT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_black.png";
@@ -230,12 +244,12 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setTShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// cotton shirts
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_white.png";
@@ -245,11 +259,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_blue.png";
@@ -259,11 +273,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_green.png";
@@ -273,11 +287,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_orange.png";
@@ -287,11 +301,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_purple.png";
@@ -301,11 +315,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_red.png";
@@ -315,11 +329,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_yellow.png";
@@ -329,11 +343,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHIRT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_black.png";
@@ -343,12 +357,12 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// cotton shorts
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_white.png";
@@ -359,11 +373,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_blue.png";
@@ -374,11 +388,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_green.png";
@@ -389,11 +403,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_orange.png";
@@ -404,11 +418,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_purple.png";
@@ -419,11 +433,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_red.png";
@@ -434,11 +448,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_yellow.png";
@@ -449,11 +463,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_SHORTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_black.png";
@@ -464,12 +478,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 4;
 	crafting::setShortsRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// cotton hats
 	i = CONTENT_CLOTHESITEM_COTTON_HAT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_white.png";
@@ -479,11 +493,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_blue.png";
@@ -493,11 +507,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_green.png";
@@ -507,11 +521,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_orange.png";
@@ -521,11 +535,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_purple.png";
@@ -535,11 +549,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_red.png";
@@ -549,11 +563,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_yellow.png";
@@ -563,11 +577,11 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_HAT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_black.png";
@@ -577,12 +591,12 @@ void content_clothesitem_init()
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// cotton ties
 	i = CONTENT_CLOTHESITEM_COTTON_TIE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_white.png";
@@ -592,11 +606,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET,CONTENT_CRAFTITEM_COTTON_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_blue.png";
@@ -606,11 +620,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,CONTENT_CRAFTITEM_COTTON_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_green.png";
@@ -620,11 +634,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,CONTENT_CRAFTITEM_COTTON_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_orange.png";
@@ -634,11 +648,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,CONTENT_CRAFTITEM_COTTON_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_purple.png";
@@ -648,11 +662,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,CONTENT_CRAFTITEM_COTTON_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_red.png";
@@ -662,11 +676,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_RED,CONTENT_CRAFTITEM_COTTON_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_yellow.png";
@@ -676,11 +690,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,CONTENT_CRAFTITEM_COTTON_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COTTON_TIE_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_black.png";
@@ -690,12 +704,12 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,CONTENT_CRAFTITEM_COTTON_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// canvas shirt
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_white.png";
@@ -706,11 +720,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_blue.png";
@@ -721,11 +735,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_green.png";
@@ -736,11 +750,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_orange.png";
@@ -751,11 +765,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_purple.png";
@@ -766,11 +780,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_red.png";
@@ -781,11 +795,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_yellow.png";
@@ -796,11 +810,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHIRT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_black.png";
@@ -811,12 +825,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// canvas pants / jeans
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_white.png";
@@ -827,11 +841,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_blue.png";
@@ -842,11 +856,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_green.png";
@@ -857,11 +871,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_orange.png";
@@ -872,11 +886,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_purple.png";
@@ -887,11 +901,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_red.png";
@@ -902,11 +916,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_yellow.png";
@@ -917,11 +931,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_PANTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_black.png";
@@ -932,12 +946,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// canvas shoes
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_white.png";
@@ -947,11 +961,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_blue.png";
@@ -961,11 +975,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_green.png";
@@ -975,11 +989,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_orange.png";
@@ -989,11 +1003,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_purple.png";
@@ -1003,11 +1017,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_red.png";
@@ -1017,11 +1031,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_yellow.png";
@@ -1031,11 +1045,11 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_SHOES_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_black.png";
@@ -1045,12 +1059,12 @@ void content_clothesitem_init()
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// canvas belt
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_white.png";
@@ -1060,11 +1074,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_blue.png";
@@ -1074,11 +1088,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_green.png";
@@ -1088,11 +1102,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_orange.png";
@@ -1102,11 +1116,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_purple.png";
@@ -1116,11 +1130,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_red.png";
@@ -1130,11 +1144,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_yellow.png";
@@ -1144,11 +1158,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_CANVAS_BELT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_black.png";
@@ -1158,12 +1172,12 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_CANVAS_SHEET_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather shirts
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_brown.png";
@@ -1174,11 +1188,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_white.png";
@@ -1189,11 +1203,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_blue.png";
@@ -1204,11 +1218,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_green.png";
@@ -1219,11 +1233,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_orange.png";
@@ -1234,11 +1248,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_purple.png";
@@ -1249,11 +1263,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_red.png";
@@ -1264,11 +1278,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_yellow.png";
@@ -1279,11 +1293,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_JACKET_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_black.png";
@@ -1294,12 +1308,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather pants
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_brown.png";
@@ -1310,11 +1324,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_white.png";
@@ -1325,11 +1339,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_blue.png";
@@ -1340,11 +1354,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_green.png";
@@ -1355,11 +1369,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_orange.png";
@@ -1370,11 +1384,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_purple.png";
@@ -1385,11 +1399,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_red.png";
@@ -1400,11 +1414,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_yellow.png";
@@ -1415,11 +1429,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_PANTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_black.png";
@@ -1430,12 +1444,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather hats
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_brown.png";
@@ -1445,11 +1459,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_white.png";
@@ -1459,11 +1473,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_blue.png";
@@ -1473,11 +1487,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_green.png";
@@ -1487,11 +1501,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_orange.png";
@@ -1501,11 +1515,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_purple.png";
@@ -1515,11 +1529,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_red.png";
@@ -1529,11 +1543,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_yellow.png";
@@ -1543,11 +1557,11 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HAT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_black.png";
@@ -1557,12 +1571,12 @@ void content_clothesitem_init()
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather helmets
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_brown.png";
@@ -1573,11 +1587,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_white.png";
@@ -1588,11 +1602,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_blue.png";
@@ -1603,11 +1617,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_green.png";
@@ -1618,11 +1632,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_orange.png";
@@ -1633,11 +1647,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_purple.png";
@@ -1648,11 +1662,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_red.png";
@@ -1663,11 +1677,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_yellow.png";
@@ -1678,11 +1692,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_HELMET_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_black.png";
@@ -1693,12 +1707,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setHelmetRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather shoes
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_brown.png";
@@ -1709,11 +1723,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_white.png";
@@ -1724,11 +1738,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_blue.png";
@@ -1739,11 +1753,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_green.png";
@@ -1754,11 +1768,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_orange.png";
@@ -1769,11 +1783,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_purple.png";
@@ -1784,11 +1798,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_red.png";
@@ -1799,11 +1813,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_yellow.png";
@@ -1814,11 +1828,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_SHOES_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_black.png";
@@ -1829,12 +1843,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather boots
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_brown.png";
@@ -1845,11 +1859,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_white.png";
@@ -1860,11 +1874,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_blue.png";
@@ -1875,11 +1889,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_green.png";
@@ -1890,11 +1904,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_orange.png";
@@ -1905,11 +1919,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_purple.png";
@@ -1920,11 +1934,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_red.png";
@@ -1935,11 +1949,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_yellow.png";
@@ -1950,11 +1964,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BOOTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_black.png";
@@ -1965,12 +1979,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 8;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// leather belt
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_brown.png";
@@ -1981,11 +1995,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_white.png";
@@ -1996,11 +2010,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_blue.png";
@@ -2011,11 +2025,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_green.png";
@@ -2026,11 +2040,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_orange.png";
@@ -2041,11 +2055,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_purple.png";
@@ -2056,11 +2070,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_red.png";
@@ -2071,11 +2085,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_yellow.png";
@@ -2086,11 +2100,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_LEATHER_BELT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_black.png";
@@ -2101,12 +2115,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 6;
 	crafting::setRow1Recipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// fur jackets
 	i = CONTENT_CLOTHESITEM_FUR_JACKET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_brown.png";
@@ -2117,11 +2131,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_white.png";
@@ -2132,11 +2146,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_blue.png";
@@ -2147,11 +2161,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_green.png";
@@ -2162,11 +2176,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_orange.png";
@@ -2177,11 +2191,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_purple.png";
@@ -2192,11 +2206,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_red.png";
@@ -2207,11 +2221,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_yellow.png";
@@ -2222,11 +2236,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_JACKET_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_black.png";
@@ -2237,12 +2251,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_FUR_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// fur pants
 	i = CONTENT_CLOTHESITEM_FUR_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_brown.png";
@@ -2253,11 +2267,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_white.png";
@@ -2268,11 +2282,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_blue.png";
@@ -2283,11 +2297,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_green.png";
@@ -2298,11 +2312,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_orange.png";
@@ -2313,11 +2327,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_purple.png";
@@ -2328,11 +2342,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_red.png";
@@ -2343,11 +2357,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_yellow.png";
@@ -2358,11 +2372,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_PANTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_black.png";
@@ -2373,12 +2387,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_FUR_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// fur hats
 	i = CONTENT_CLOTHESITEM_FUR_HAT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_brown.png";
@@ -2389,11 +2403,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_white.png";
@@ -2404,11 +2418,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_blue.png";
@@ -2419,11 +2433,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_green.png";
@@ -2434,11 +2448,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_orange.png";
@@ -2449,11 +2463,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_purple.png";
@@ -2464,11 +2478,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_red.png";
@@ -2479,11 +2493,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_yellow.png";
@@ -2494,11 +2508,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_HAT_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_black.png";
@@ -2509,12 +2523,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_FUR_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// fur shoes
 	i = CONTENT_CLOTHESITEM_FUR_SHOES;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_brown.png";
@@ -2524,11 +2538,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_white.png";
@@ -2538,11 +2552,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_blue.png";
@@ -2552,11 +2566,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_green.png";
@@ -2566,11 +2580,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_orange.png";
@@ -2580,11 +2594,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_purple.png";
@@ -2594,11 +2608,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_red.png";
@@ -2608,11 +2622,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_yellow.png";
@@ -2622,11 +2636,11 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_SHOES_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_black.png";
@@ -2636,12 +2650,12 @@ void content_clothesitem_init()
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
 	crafting::setShoesRecipe(CONTENT_CRAFTITEM_FUR_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// fur boots
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_brown.png";
@@ -2652,11 +2666,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_WHITE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_white.png";
@@ -2667,11 +2681,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_WHITE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_BLUE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_blue.png";
@@ -2682,11 +2696,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_BLUE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_GREEN;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_green.png";
@@ -2697,11 +2711,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_GREEN,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_ORANGE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_orange.png";
@@ -2712,11 +2726,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_ORANGE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_PURPLE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_purple.png";
@@ -2727,11 +2741,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_PURPLE,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_RED;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_red.png";
@@ -2742,11 +2756,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_RED,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_YELLOW;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_yellow.png";
@@ -2757,11 +2771,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_YELLOW,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_FUR_BOOTS_BLACK;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_black.png";
@@ -2772,12 +2786,12 @@ void content_clothesitem_init()
 	f->vacuum = 0.05;
 	f->durability = 6;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_FUR_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// necklaces / medallions
 	i = CONTENT_CLOTHESITEM_LEATHER_NECKLACE;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_necklace_leather.png";
@@ -2796,11 +2810,11 @@ void content_clothesitem_init()
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_LEATHER_RED,i);
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_LEATHER_YELLOW,i);
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_LEATHER_BLACK,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_GOLD_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_gold.png";
@@ -2812,11 +2826,11 @@ void content_clothesitem_init()
 	f->effect = 1.8;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_GOLD_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COPPER_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_copper.png";
@@ -2828,11 +2842,11 @@ void content_clothesitem_init()
 	f->effect = 1.4;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_COPPER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_SILVER_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_silver.png";
@@ -2844,11 +2858,11 @@ void content_clothesitem_init()
 	f->effect = 2.0;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_SILVER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_TIN_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_tin.png";
@@ -2860,11 +2874,11 @@ void content_clothesitem_init()
 	f->effect = 1.2;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_TIN_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_IRON_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_iron.png";
@@ -2876,11 +2890,11 @@ void content_clothesitem_init()
 	f->effect = 1.6;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_STEEL_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_QUARTZ_MEDALLION;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_quartz.png";
@@ -2892,12 +2906,12 @@ void content_clothesitem_init()
 	f->effect = 2.2;
 	f->durability = 8;
 	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_QUARTZ,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// armour
 	i = CONTENT_CLOTHESITEM_STEEL_HELMET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_steel.png";
@@ -2908,11 +2922,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 10;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_STEEL_SHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_shirt_steel.png";
@@ -2923,11 +2937,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 10;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_STEEL_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_steel.png";
@@ -2938,11 +2952,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 10;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_STEEL_BOOTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_steel.png";
@@ -2953,11 +2967,11 @@ void content_clothesitem_init()
 	f->vacuum = 0.1;
 	f->durability = 10;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COPPER_HELMET;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_copper.png";
@@ -2967,11 +2981,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setHatRecipe(CONTENT_CRAFTITEM_COPPER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COPPER_SHIRT;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
 	f->texture = "clothes_shirt_copper.png";
@@ -2981,11 +2995,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setShirtRecipe(CONTENT_CRAFTITEM_COPPER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COPPER_PANTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_copper.png";
@@ -2995,11 +3009,11 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setPantsRecipe(CONTENT_CRAFTITEM_COPPER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLOTHESITEM_COPPER_BOOTS;
-	f = &g_content_clothesitem_features[i];
+	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_copper.png";
@@ -3009,6 +3023,6 @@ void content_clothesitem_init()
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
 	crafting::setBootsRecipe(CONTENT_CRAFTITEM_COPPER_INGOT,i);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 }

@@ -45,7 +45,10 @@
 		0x000...0x07f: param2 is fully usable
 		0x800...0xfff: param2 lower 4 bytes are free
 */
+#ifndef _HAVE_CONTENT_TYPE
+#define _HAVE_CONTENT_TYPE
 typedef u16 content_t;
+#endif
 #define MAX_CONTENT 0xfff
 
 /*

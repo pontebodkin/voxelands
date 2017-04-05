@@ -105,8 +105,7 @@ struct CraftItemFeatures {
 };
 
 void content_craftitem_init();
-CraftItemFeatures & content_craftitem_features(content_t i);
-CraftItemFeatures & content_craftitem_features(std::string subname);
+CraftItemFeatures *content_craftitem_features(content_t i);
 
 #define CONTENT_CRAFTITEM_PAPER (CONTENT_CRAFTITEM_MASK | 0x01)
 #define CONTENT_CRAFTITEM_CHARCOAL (CONTENT_CRAFTITEM_MASK | 0x03)

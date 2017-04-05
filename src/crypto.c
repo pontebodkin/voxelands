@@ -23,10 +23,10 @@
 #include <string.h>
 
 /* defined in base64.c */
-int base64_lencode(char *source, size_t sourcelen, char *target, size_t targetlen);
-size_t base64_ldecode(char *source, char *target, size_t targetlen);
+int base64_lencode(const char* source, size_t sourcelen, char *target, size_t targetlen);
+size_t base64_ldecode(const char* source, char *target, size_t targetlen);
 
-uint32_t hash(char *str_param)
+uint32_t hash(const char *str_param)
 {
 	uint32_t hval = 0;
 	uint32_t g;
@@ -46,7 +46,7 @@ uint32_t hash(char *str_param)
 }
 
 /* base64 encode a string */
-char* base64_encode(char* str)
+char* base64_encode(const char* str)
 {
 	int sl;
 	int tl;
@@ -72,7 +72,7 @@ char* base64_encode(char* str)
 }
 
 /* decode a base64 string */
-char* base64_decode(char* str)
+char* base64_decode(const char* str)
 {
 	int sl;
 	int tl;

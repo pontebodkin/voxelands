@@ -47,8 +47,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_COBBLE_SLAB;
 	f = &content_features(i);
@@ -65,8 +65,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_COBBLE,CONTENT_COBBLE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_MOSSYCOBBLE_SLAB;
 	f = &content_features(i);
@@ -83,8 +83,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.8;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_MOSSYCOBBLE,CONTENT_MOSSYCOBBLE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STONE_SLAB;
 	f = &content_features(i);
@@ -100,8 +100,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_STONE,CONTENT_STONE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_WOOD_SLAB;
 	f = &content_features(i);
@@ -119,8 +119,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.75;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_WOOD,CONTENT_WOOD_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_JUNGLE_SLAB;
 	f = &content_features(i);
@@ -138,8 +138,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_JUNGLEWOOD,CONTENT_JUNGLE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_BRICK_SLAB;
 	f = &content_features(i);
@@ -159,8 +159,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_BRICK,CONTENT_BRICK_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SANDSTONE_SLAB;
 	f = &content_features(i);
@@ -176,8 +176,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_SLAB;
 	f = &content_features(i);
@@ -201,8 +201,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_BLUE_SLAB;
 	f = &content_features(i);
@@ -227,8 +227,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_BLUE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_GLASS_BLUE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_GREEN_SLAB;
 	f = &content_features(i);
@@ -253,8 +253,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_GREEN_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_GLASS_GREEN_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_ORANGE_SLAB;
 	f = &content_features(i);
@@ -279,8 +279,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_ORANGE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_GLASS_ORANGE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_PURPLE_SLAB;
 	f = &content_features(i);
@@ -305,8 +305,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_PURPLE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_GLASS_PURPLE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_RED_SLAB;
 	f = &content_features(i);
@@ -331,8 +331,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_RED_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_RED,CONTENT_GLASS_RED_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_YELLOW_SLAB;
 	f = &content_features(i);
@@ -357,8 +357,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_YELLOW_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_GLASS_YELLOW_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_BLACK_SLAB;
 	f = &content_features(i);
@@ -383,8 +383,8 @@ void content_mapnode_slab(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_BLACK_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_GLASS_BLACK_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_LIMESTONE_SLAB;
 	f = &content_features(i);
@@ -401,8 +401,8 @@ void content_mapnode_slab(bool repeat)
 	f->hardness = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_LIMESTONE,CONTENT_LIMESTONE_SLAB);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	// upside down slabs
 	i = CONTENT_ROUGHSTONE_SLAB_UD;

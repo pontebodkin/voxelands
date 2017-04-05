@@ -43,7 +43,7 @@ void content_mapnode_farm(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
-	lists::add("decrafting",i);
+	content_list_add("decrafting",i,1,0);
 
 	i = CONTENT_FERTILIZER;
 	f = &content_features(i);
@@ -81,8 +81,8 @@ void content_mapnode_farm(bool repeat)
 	f->suffocation_per_second = 0;
 	crafting::set5Recipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_TRELLIS);
 	crafting::set5Recipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_TRELLIS);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_WHEAT;
 	f = &content_features(i);
@@ -102,7 +102,7 @@ void content_mapnode_farm(bool repeat)
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_MELON;
 	f = &content_features(i);
@@ -123,8 +123,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_MELONSLICE,CONTENT_SEEDS_MELON);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_PUMPKIN;
 	f = &content_features(i);
@@ -145,8 +145,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_PUMPKINSLICE,CONTENT_SEEDS_PUMPKIN);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_POTATO;
 	f = &content_features(i);
@@ -167,8 +167,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_POTATO,CONTENT_SEEDS_POTATO);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_CARROT;
 	f = &content_features(i);
@@ -189,8 +189,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_CARROT,CONTENT_SEEDS_CARROT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_BEETROOT;
 	f = &content_features(i);
@@ -211,8 +211,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_BEETROOT,CONTENT_SEEDS_BEETROOT);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_GRAPE;
 	f = &content_features(i);
@@ -233,8 +233,8 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_GRAPE,CONTENT_SEEDS_GRAPE);
-	lists::add("craftguide",i);
-	lists::add("creative",i);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SEEDS_COTTON;
 	f = &content_features(i);
@@ -254,7 +254,7 @@ void content_mapnode_farm(bool repeat)
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
-	lists::add("creative",i);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_FARM_WHEAT;
 	f = &content_features(i);
@@ -310,7 +310,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_count = 1;
 	f->type = CMT_PLANT;
 	f->hardness = 0.4;
-	lists::add("creative", i);
+	content_list_add("creative",i,1,0);
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_FARM_PUMPKIN_JACK;
@@ -346,8 +346,8 @@ void content_mapnode_farm(bool repeat)
 	f->hardness = 0.4;
 	f->light_source = LIGHT_MAX-1;
 	crafting::set1Any2Recipe(CONTENT_TORCH,CONTENT_FARM_PUMPKIN,CONTENT_FARM_PUMPKIN_JACK);
-	lists::add("creative", i);
-	lists::add("craftguide", i);
+	content_list_add("creative",i,1,0);
+	content_list_add("craftguide",i,1,0);
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_FARM_POTATO;

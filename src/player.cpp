@@ -129,6 +129,7 @@ void Player::checkInventory()
 	// this allows only the correct clothing type in a player's
 	// relevant clothing slot
 	{
+		int i;
 		InventoryList *h = inventory.getList("hat");
 		InventoryList *j = inventory.getList("jacket");
 		InventoryList *s = inventory.getList("shirt");
@@ -150,34 +151,30 @@ void Player::checkInventory()
 		p->clearAllowed();
 		b->setStackable(false);
 		b->clearAllowed();
-		for (
-			std::map<content_t,struct ClothesItemFeatures>::iterator i = g_content_clothesitem_features.begin();
-			i != g_content_clothesitem_features.end();
-			i++
-		) {
-			ClothesItemFeatures c = i->second;
-			switch (c.type) {
+		for (i=0; i<4096; i++) {
+			ClothesItemFeatures *c = content_clothesitem_features(i|CONTENT_CLOTHESITEM_MASK);
+			switch (c->type) {
 			case CT_HAT:
-				h->addAllowed(c.content);
+				h->addAllowed(c->content);
 				break;
 			case CT_JACKET:
-				j->addAllowed(c.content);
+				j->addAllowed(c->content);
 				break;
 			case CT_SHIRT:
-				s->addAllowed(c.content);
+				s->addAllowed(c->content);
 				break;
 			case CT_DECORATIVE:
 			case CT_MEDALLION:
-				d->addAllowed(c.content);
+				d->addAllowed(c->content);
 				break;
 			case CT_BELT:
-				t->addAllowed(c.content);
+				t->addAllowed(c->content);
 				break;
 			case CT_PANTS:
-				p->addAllowed(c.content);
+				p->addAllowed(c->content);
 				break;
 			case CT_BOOTS:
-				b->addAllowed(c.content);
+				b->addAllowed(c->content);
 				break;
 			default:;
 			}
@@ -752,7 +749,7 @@ video::ITexture* RemotePlayer::getTexture()
 		InventoryItem *i = l->getItem(0);
 		if (i == NULL)
 			continue;
-		clothes[j] = content_clothesitem_features(i->getContent()).overlay_texture;
+		clothes[j] = content_clothesitem_features(i->getContent())->overlay_texture;
 	}
 
 	std::string tex = "";
@@ -1210,7 +1207,7 @@ video::ITexture* LocalPlayer::getTexture()
 		InventoryItem *i = l->getItem(0);
 		if (i == NULL)
 			continue;
-		clothes[j] = content_clothesitem_features(i->getContent()).overlay_texture;
+		clothes[j] = content_clothesitem_features(i->getContent())->overlay_texture;
 	}
 
 	std::string tex = "";

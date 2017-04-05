@@ -1445,11 +1445,11 @@ bool MobSAO::rightClick(Player *player)
 	content_t c = item->getContent();
 	if ((c&CONTENT_CRAFTITEM_MASK) != CONTENT_CRAFTITEM_MASK)
 		return false;
-	CraftItemFeatures f = content_craftitem_features(c);
-	if (f.content != c)
+	CraftItemFeatures *f = content_craftitem_features(c);
+	if (f->content != c)
 		return false;
 	// and edible
-	if (!f.consumable || !f.hunger_effect)
+	if (!f->consumable || !f->hunger_effect)
 		return false;
 	// feed the mob
 	// after this always return true as inventory has been modified

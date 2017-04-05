@@ -24,7 +24,6 @@
 #define CONTENT_CLOTHESITEM_HEADER
 
 #include "mapnode.h"
-#include <map>
 
 #define CONTENT_CLOTHESITEM_MASK 0x1000
 
@@ -78,10 +77,10 @@ struct ClothesItemFeatures {
 	{}
 };
 
-extern std::map<content_t,struct ClothesItemFeatures> g_content_clothesitem_features;
+extern struct ClothesItemFeatures g_content_clothesitem_features[4096];
 // For getting the default properties, set id=CONTENT_IGNORE
 void content_clothesitem_init();
-ClothesItemFeatures & content_clothesitem_features(content_t i);
+ClothesItemFeatures *content_clothesitem_features(content_t i);
 
 // fur was the first clothing added, they keep their original ids but are
 // actually defined below along with the other (newer) fur item. also

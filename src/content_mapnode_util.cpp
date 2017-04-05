@@ -47,7 +47,7 @@ void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMateri
 	}
 	content_nodebox_knob(features);
 	features->setInventoryTextureNodeBox(nodeid,texture,texture,texture);
-	lists::add("craftguide",nodeid);
-	lists::add("creative",nodeid);
+	content_list_add("craftguide",nodeid,1,0);
+	content_list_add("creative",nodeid,1,0);
 }
 
