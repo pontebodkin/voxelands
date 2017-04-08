@@ -28,14 +28,26 @@
 
 #include "inventory.h"
 
-class Player;
-class Server;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-struct CraftDef {
+#ifndef _HAVE_ITEM_TYPE
+#define _HAVE_ITEM_TYPE
+typedef struct item_s {
+	content_t content;
+	uint16_t count;
+	uint16_t data;
+} item_t;
+#endif
+
+#ifndef _HAVE_CRAFTDEF_TYPE
+#define _HAVE_CRAFTDEF_TYPE
+typedef struct craftdef_s {
 	content_t recipe[9];
-	content_t result;
-	u16 result_count;
+	item_t result;
 	uint64_t privs;
+	uint16_t level;
 
 	bool operator==(InventoryItem * const *items)
 	{
@@ -121,7 +133,8 @@ struct CraftDef {
 		}
 		return true;
 	}
-};
+} craftdef_t;
+#endif
 
 struct CraftDefShapeless {
 	content_t recipe[9];
@@ -309,6 +322,9 @@ namespace crafting {
 	void giveInitial(Player *player);
 };
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
