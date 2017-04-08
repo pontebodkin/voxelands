@@ -3,6 +3,17 @@ Voxelands changelog
 This should contain all the major changes.
 For minor stuff, refer to the commit log of the repository.
 
+1704.00: (release 2017-04-08)
+ - new dirt dig sound
+ - switch to unifont
+ - make server announcing work again
+ - add blueberry/raspberry bushes
+ - add campfire
+ - add node texture animation
+
+1608.00 (release ???)
+ - release was Menched
+
 1604.00: (release 2016-04-30)
  - fix typo picked up by translators
  - fix that water/plant meshgen bug
