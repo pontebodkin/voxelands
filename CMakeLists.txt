@@ -119,11 +119,7 @@ add_subdirectory(src)
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The Fun-Focused Free Software Voxel World Game")
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
-<<<<<<< 760b39dab09e6d20dcdc09c555b8eae86ed6ce3c
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
-=======
-set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MINOR})
->>>>>>> redo the automatic next version number
 set(CPACK_PACKAGE_VENDOR "darkrose")
 set(CPACK_PACKAGE_CONTACT "Lisa 'darkrose' Milne <lisa@ltmnet.com>")
 
