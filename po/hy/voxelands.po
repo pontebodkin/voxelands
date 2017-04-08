@@ -3,2295 +3,2296 @@
 # This file is distributed under the same license as the voxelands package.
 # 
 # Translators:
-# Roman M. Yagodin <roman.yagodin@gmail.com>, 2014-2017
+# Վահե Գրիգորյան <vahe@keemail.me>, 2017
+# Վահե Գրիգորյան <vahe@keemail.me>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-13 15:20+1000\n"
-"PO-Revision-Date: 2017-03-20 16:49+0000\n"
-"Last-Translator: Roman M. Yagodin <roman.yagodin@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/voxelands/voxelands/language/ru/)\n"
+"PO-Revision-Date: 2017-03-24 15:16+0000\n"
+"Last-Translator: Վահե Գրիգորյան <vahe@keemail.me>\n"
+"Language-Team: Armenian (http://www.transifex.com/voxelands/voxelands/language/hy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: hy\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
 msgid "White Skin"
-msgstr "Белая кожа"
+msgstr "Սպիտակ Մաշկ"
 
 #: src/character_creator.cpp:56
 msgid "Red Skin"
-msgstr "Красная кожа"
+msgstr "Կարմիր Մաշկ"
 
 #: src/character_creator.cpp:57
 msgid "Green Skin"
-msgstr "Зеленая кожа"
+msgstr "Կանաչ Մաշկ"
 
 #: src/character_creator.cpp:58
 msgid "Fair Skin"
-msgstr "Светлая кожа"
+msgstr "Պայծառ Մաշկ"
 
 #: src/character_creator.cpp:59
 msgid "Tanned Skin"
-msgstr "Загорелая кожа"
+msgstr "Թուխ Մաշկ"
 
 #: src/character_creator.cpp:60
 msgid "Dark Skin"
-msgstr "Темная кожа"
+msgstr "Մուգ Մաշկ "
 
 #: src/character_creator.cpp:61
 msgid "Black Skin"
-msgstr "Черная кожа"
+msgstr "Սև Մաշկ"
 
 #: src/character_creator.cpp:63
 msgid "Human Face"
-msgstr "Человеческое лицо"
+msgstr "Մարդու Դեմք"
 
 #: src/character_creator.cpp:64
 msgid "Elven Face"
-msgstr "Лицо эльфа"
+msgstr "Էլֆի Դեմք"
 
 #: src/character_creator.cpp:65
 msgid "Dwarven Face"
-msgstr "Лицо гнома"
+msgstr "Գնոմի Դեմք"
 
 #: src/character_creator.cpp:66
 msgid "Alien Face"
-msgstr "Лицо пришельца"
+msgstr "ՈՒրիշ Դեմք"
 
 #: src/character_creator.cpp:68
 msgid "White Hair"
-msgstr "Белые волосы"
+msgstr "Սպիտակ Մազեր"
 
 #: src/character_creator.cpp:69
 msgid "Blue Hair"
-msgstr "Голубые волосы"
+msgstr "Կապույտ Մազեր"
 
 #: src/character_creator.cpp:70
 msgid "Green Hair"
-msgstr "Зеленые волосы"
+msgstr "Կանաչ Մազեր"
 
 #: src/character_creator.cpp:71
 msgid "Orange Hair"
-msgstr "Оранжевые волосы"
+msgstr "Նարնջագույն Մազեր"
 
 #: src/character_creator.cpp:72
 msgid "Brown Hair"
-msgstr "Коричневые волосы"
+msgstr "Շագանակագույն Մազեր"
 
 #: src/character_creator.cpp:73
 msgid "Purple Hair"
-msgstr "Фиолетовые волосы"
+msgstr "Մանուշակագույն Մազեր"
 
 #: src/character_creator.cpp:74
 msgid "Red Hair"
-msgstr "Рыжие волосы"
+msgstr "Կարմրահերներ Մազեր"
 
 #: src/character_creator.cpp:75
 msgid "Blonde Hair"
-msgstr "Светлые волосы"
+msgstr "Խարտյաշ Մազեր"
 
 #: src/character_creator.cpp:76
 msgid "Black Hair"
-msgstr "Черные волосы"
+msgstr "Սև Մազեր"
 
 #: src/character_creator.cpp:78
 msgid "Short Hair"
-msgstr "Короткие волосы"
+msgstr "Կարճ Մազեր"
 
 #: src/character_creator.cpp:79
 msgid "Medium Hair"
-msgstr "Волосы средней длины"
+msgstr "Միջին Մազեր"
 
 #: src/character_creator.cpp:80
 msgid "Long Hair"
-msgstr "Длинные волосы"
+msgstr "Երկար Մազեր"
 
 #: src/character_creator.cpp:81
 msgid "Styled Hair"
-msgstr "Стильная прическа"
+msgstr "Հարդարած Մազեր"
 
 #: src/character_creator.cpp:83
 msgid "White Eyes"
-msgstr "Белые глаза"
+msgstr "Ճերմակ Աչքեր"
 
 #: src/character_creator.cpp:84
 msgid "Blue Eyes"
-msgstr "Голубые глаза"
+msgstr "Կապույտ Աչքեր"
 
 #: src/character_creator.cpp:85
 msgid "Green Eyes"
-msgstr "Зеленые глаза"
+msgstr "Կանաչ Աչքեր"
 
 #: src/character_creator.cpp:86
 msgid "Orange Eyes"
-msgstr "Оранжевые глаза"
+msgstr "Նարնջագույն Աչքեր"
 
 #: src/character_creator.cpp:87
 msgid "Brown Eyes"
-msgstr "Карие глаза"
+msgstr "Շագանակագույն Աչքեր "
 
 #: src/character_creator.cpp:88
 msgid "Purple Eyes"
-msgstr "Фиолетовые глаза"
+msgstr "Մանուշակագույն Աչքեր"
 
 #: src/character_creator.cpp:89
 msgid "Red Eyes"
-msgstr "Красные глаза"
+msgstr "Կարմիր Աչքեր"
 
 #: src/character_creator.cpp:90
 msgid "Yellow Eyes"
-msgstr "Желтые глаза"
+msgstr "Դեղին Աչքեր"
 
 #: src/character_creator.cpp:91
 msgid "Black Eyes"
-msgstr "Черные глаза"
+msgstr "Սև Աչքեր"
 
 #: src/character_creator.cpp:93
 msgid "White T-Shirt"
-msgstr "Белая футболка"
+msgstr "Սպիտակ Վերնաշապիկ"
 
 #: src/character_creator.cpp:94
 msgid "Blue T-Shirt"
-msgstr "Синяя футболка"
+msgstr "Կապույտ Վերնաշապիկ"
 
 #: src/character_creator.cpp:95
 msgid "Green T-Shirt"
-msgstr "Зеленая футболка"
+msgstr "Կանաչ Վերնաշապիկ"
 
 #: src/character_creator.cpp:96
 msgid "Orange T-Shirt"
-msgstr "Оранжевая футболка"
+msgstr "Նարնջագույն Վերնաշապիկ"
 
 #: src/character_creator.cpp:97
 msgid "Purple T-Shirt"
-msgstr "Фиолетовая футболка"
+msgstr "Մանուշակագույն Վերնաշապիկ"
 
 #: src/character_creator.cpp:98
 msgid "Red T-Shirt"
-msgstr "Красная футболка"
+msgstr "Կարմիր Վերնաշապիկ"
 
 #: src/character_creator.cpp:99
 msgid "Yellow T-Shirt"
-msgstr "Желтая футболка"
+msgstr "Դեղին Վերնաշապիկ"
 
 #: src/character_creator.cpp:100
 msgid "Black T-Shirt"
-msgstr "Черная футболка"
+msgstr "Սև Վերնաշապիկ"
 
 #: src/character_creator.cpp:102
 msgid "White Pants"
-msgstr "Белые штаны"
+msgstr "Սպիտակ Տաբատ"
 
 #: src/character_creator.cpp:103
 msgid "Blue Pants"
-msgstr "Синие штаны"
+msgstr "Կապույտ Տաբատ"
 
 #: src/character_creator.cpp:104
 msgid "Green Pants"
-msgstr "Зеленые штаны"
+msgstr "Կանաչ Տաբատ"
 
 #: src/character_creator.cpp:105
 msgid "Orange Pants"
-msgstr "Оранжевые штаны"
+msgstr "Նարնջագույն Տաբատ"
 
 #: src/character_creator.cpp:106
 msgid "Purple Pants"
-msgstr "Фиолетовые штаны"
+msgstr "Մուգ Տաբատ"
 
 #: src/character_creator.cpp:107
 msgid "Red Pants"
-msgstr "Красные штаны"
+msgstr "Կարմիր Տաբատ"
 
 #: src/character_creator.cpp:108
 msgid "Yellow Pants"
-msgstr "Желтые штаны"
+msgstr "Դեղին Տաբատ"
 
 #: src/character_creator.cpp:109
 msgid "Black Pants"
-msgstr "Черные штаны"
+msgstr "Սև Տաբատ"
 
 #: src/character_creator.cpp:111 src/content_clothesitem.cpp:1706
 msgid "Leather Shoes"
-msgstr "Кожаная обувь"
+msgstr "Կաշվե Կոշիկ"
 
 #: src/character_creator.cpp:112 src/content_clothesitem.cpp:2522
 msgid "Fur Shoes"
-msgstr "Меховая обувь"
+msgstr "Մորթյա Կոշիկ"
 
 #: src/character_creator.cpp:113 src/content_clothesitem.cpp:945
 msgid "Canvas Shoes"
-msgstr "Холщовая обувь"
+msgstr "Կտորից Կոշիկ"
 
 #: src/character_creator.cpp:202
 msgid ""
 "Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr "Здесь можно задать исходный внешний вид вашего персонажа. Так он будет выглядеть для других игроков в начале игры - например, при подключении к новому серверу. В процессе игры могут быть созданы другие предметы одежды - как защитные, так и декоративные.\nВы можете вернуться сюда из главного меню в любое время, чтобы изменить внешний вид вашего персонажа."
+msgstr "Հեյ, Ողջույն ։Ճ \nԱյստեղ դուք կարող եք ստեղծել ձեր կերպարը լռելյայն։  Նաև այլ խաղացողներ կարող են տեսնել ձեզ խաղում, երբ միանաք նոր սերվերի։ Դուք սկսում եք հագուստից՝  կարելի է ընտրել այստեղ։ Լրացուցիչ հագուստ, ինչպես պաշտպանական, այնպես էլ դեկորատիվ կարելի է Քրաֆթել խաղում։\nԿարելի է վերադառնալ հիմնական մենյու ցանկացած ժամանակ և փոխել  կերպարը։"
 
 #: src/character_creator.cpp:223
 msgid "Create Your Character"
-msgstr "Создайте персонаж"
+msgstr "Կառուցեք Ձեր Կերպարը"
 
 #: src/character_creator.cpp:230
 msgid "Male"
-msgstr "Мальчик"
+msgstr "Տղամարդ"
 
 #: src/character_creator.cpp:235
 msgid "Female"
-msgstr "Девочка"
+msgstr "Կին"
 
 #: src/character_creator.cpp:242
 msgid "Taller"
-msgstr "Выше"
+msgstr "Երկար"
 
 #: src/character_creator.cpp:247
 msgid "Shorter"
-msgstr "Ниже"
+msgstr "Կարճ"
 
 #: src/character_creator.cpp:254
 msgid "Wider"
-msgstr "Полнее"
+msgstr "Լայն"
 
 #: src/character_creator.cpp:259
 msgid "Thinner"
-msgstr "Худее"
+msgstr "Բարակ"
 
 #: src/character_creator.cpp:418
 msgid "Done"
-msgstr "Готово"
+msgstr "Ավարտել"
 
 #: src/character_creator.cpp:423 src/keycode.cpp:236
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Չեղարկել"
 
 #: src/content_clothesitem.cpp:53
 msgid "Space Suit Pants"
-msgstr "Низ космического скафандра"
+msgstr "Յուրահատուկ  Տաբատ"
 
 #: src/content_clothesitem.cpp:75
 msgid "Space Suit Shirt"
-msgstr "Верх космического скафандра"
+msgstr "Յուրահատուկ   վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:97
 msgid "Space Suit Helmet"
-msgstr "Космический шлем"
+msgstr "Յուրահատուկ   Սաղավարտ"
 
 #: src/content_clothesitem.cpp:113
 msgid "Space Suit Boots"
-msgstr "Космические ботинки"
+msgstr "Յուրահատուկ   Կոշիկներ"
 
 #: src/content_clothesitem.cpp:130
 msgid "Cotton T-Shirt"
-msgstr "Хлопковая футболка"
+msgstr "Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:144
 msgid "Blue Cotton T-Shirt"
-msgstr "Синяя хлопковая футболка"
+msgstr "Կապույտ Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:158
 msgid "Green Cotton T-Shirt"
-msgstr "Зеленая хлопковая футболка"
+msgstr "Կանաչ Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:172
 msgid "Orange Cotton Tshirt"
-msgstr "Оранжевая хлопковая футболка"
+msgstr "Նարնջագույն Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:186
 msgid "Purple Cotton T-Shirt"
-msgstr "Фиолетовая хлопковая футболка"
+msgstr "Մուգ Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:200
 msgid "Red Cotton T-Shirt"
-msgstr "Красная хлопковая футболка"
+msgstr "Կարմիր Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:214
 msgid "Yellow Cotton T-Shirt"
-msgstr "Желтая хлопковая футболка"
+msgstr "Դեղին Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:228
 msgid "Black Cotton T-Shirt"
-msgstr "Черная хлопковая футболка"
+msgstr "Սև Բամբակյա Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:243
 msgid "Cotton Shirt"
-msgstr "Хлопковая рубашка"
+msgstr "Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:257
 msgid "Blue Cotton Shirt"
-msgstr "Синяя хлопковая рубашка"
+msgstr "Կապույտ Բամբակյա Շապիկ "
 
 #: src/content_clothesitem.cpp:271
 msgid "Green Cotton Shirt"
-msgstr "Зеленая хлопковая рубашка"
+msgstr "Կանաչ Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:285
 msgid "Orange Cotton Shirt"
-msgstr "Оранжевая хлопковая рубашка"
+msgstr "Նարնջագույն Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:299
 msgid "Purple Cotton Shirt"
-msgstr "Фиолетовая хлопковая рубашка"
+msgstr "Մուգ Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:313
 msgid "Red Cotton Shirt"
-msgstr "Красная хлопковая рубашка"
+msgstr "Կարմիր Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:327
 msgid "Yellow Cotton Shirt"
-msgstr "Желтая хлопковая рубашка"
+msgstr "Դեղին  Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:341
 msgid "Black Cotton Shirt"
-msgstr "Черная хлопковая рубашка"
+msgstr "Սև Բամբակյա Շապիկ"
 
 #: src/content_clothesitem.cpp:356
 msgid "Cotton Shorts"
-msgstr "Хлопковые шорты"
+msgstr "Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:371
 msgid "Blue Cotton Shorts"
-msgstr "Синие хлопковые шорты"
+msgstr "Կապույտ  Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:386
 msgid "Green Cotton Shorts"
-msgstr "Зеленые хлопковые шорты"
+msgstr "Կանաչ Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:401
 msgid "Orange Cotton Shorts"
-msgstr "Оранжевые хлопковые шорты"
+msgstr "Նարնջագույն Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:416
 msgid "Purple Cotton Shorts"
-msgstr "Фиолетовые хлопковые шорты"
+msgstr "Մուգ Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:431
 msgid "Red Cotton Shorts"
-msgstr "Красные хлопковые шорты"
+msgstr "Կարմիր Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:446
 msgid "Yellow Cotton Shorts"
-msgstr "Желтые хлопковые шорты"
+msgstr "Դեղին Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:461
 msgid "Black Cotton Shorts"
-msgstr "Черные хлопковые шорты"
+msgstr "Սև Բամբակյա Տաբատ"
 
 #: src/content_clothesitem.cpp:477
 msgid "Cotton Hat"
-msgstr "Хлопковая шляпа"
+msgstr "Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:491
 msgid "Blue Cotton Hat"
-msgstr "Синяя хлопковая шляпа"
+msgstr "Կապույտ Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:505
 msgid "Green Cotton Hat"
-msgstr "Зеленая хлопковая шляпа"
+msgstr "Կանաչ Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:519
 msgid "Orange Cotton Hat"
-msgstr "Оранжевая хлопковая шляпа"
+msgstr "Նարնջագույն Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:533
 msgid "Purple Cotton Hat"
-msgstr "Фиолетовая хлопковая шляпа"
+msgstr "Մուգ Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:547
 msgid "Red Cotton Hat"
-msgstr "Красная хлопковая шляпа"
+msgstr "Կարմիր Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:561
 msgid "Yellow Cotton Hat"
-msgstr "Желтая хлопковая шляпа"
+msgstr "Դեղին Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:575
 msgid "Black Cotton Hat"
-msgstr "Черная хлопковая шляпа"
+msgstr "Սև Բամբակյա Գլխարկ"
 
 #: src/content_clothesitem.cpp:590
 msgid "Cotton Tie"
-msgstr "Хлопковый галстук"
+msgstr "Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:604
 msgid "Blue Cotton Tie"
-msgstr "Синий хлопковый галстук"
+msgstr "Կապույտ Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:618
 msgid "Green Cotton Tie"
-msgstr "Зеленый хлопковый галстук"
+msgstr "Կանաչ Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:632
 msgid "Orange Cotton Tie"
-msgstr "Оранжевый хлопковый галстук"
+msgstr "Նարնջագույն Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:646
 msgid "Purple Cotton Tie"
-msgstr "Фиолетовый хлопковый галстук"
+msgstr "Մուգ Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:660
 msgid "Red Cotton Tie"
-msgstr "Красный хлопковый галстук"
+msgstr "Կարմիր Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:674
 msgid "Yellow Cotton Tie"
-msgstr "Желтый хлопковый галстук"
+msgstr "Դեղին Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:688
 msgid "Black Cotton Tie"
-msgstr "Черный хлопковый галстук"
+msgstr "Սև Բամբակյա Փողկապ"
 
 #: src/content_clothesitem.cpp:703
 msgid "Canvas Shirt"
-msgstr "Холщовая рубашка"
+msgstr "Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:718
 msgid "Blue Canvas Shirt"
-msgstr "Синяя холщовая рубашка"
+msgstr "Կապույտ Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:733
 msgid "Green Canvas Shirt"
-msgstr "Зеленая холщовая рубашка"
+msgstr "Կանաչ Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:748
 msgid "Orange Canvas Shirt"
-msgstr "Оранжевая холщовая рубашка"
+msgstr "Նարնջագույն Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:763
 msgid "Purple Canvas Shirt"
-msgstr "Фиолетовая холщовая рубашка"
+msgstr "Մուգ Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:778
 msgid "Red Canvas Shirt"
-msgstr "Красная холщовая рубашка"
+msgstr "Կարմիր Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:793
 msgid "Yellow Canvas Shirt"
-msgstr "Желтая холщовая рубашка"
+msgstr "Դեղին Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:808
 msgid "Black Canvas Shirt"
-msgstr "Черная холщовая рубашка"
+msgstr "Սև Կտորից Վերնաշապիկ"
 
 #: src/content_clothesitem.cpp:824
 msgid "Canvas Pants"
-msgstr "Холщовые штаны"
+msgstr "Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:839
 msgid "Blue Canvas Pants"
-msgstr "Синие холщовые штаны"
+msgstr "Կապույտ Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:854
 msgid "Green Canvas Pants"
-msgstr "Зеленые холщовые штаны"
+msgstr "Կանաչ Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:869
 msgid "Orange Canvas Pants"
-msgstr "Оранжевые холщовые штаны"
+msgstr "Նարնջագույն Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:884
 msgid "Purple Canvas Pants"
-msgstr "Фиолетовые холщовые штаны"
+msgstr "Մուգ Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:899
 msgid "Red Canvas Pants"
-msgstr "Красные холщовые штаны"
+msgstr "Կարմիր Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:914
 msgid "Yellow Canvas Pants"
-msgstr "Желтые холщовые штаны"
+msgstr "Դեղին Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:929
 msgid "Black Canvas Pants"
-msgstr "Черные холщовые штаны"
+msgstr "Սև Կտորից Տաբատ"
 
 #: src/content_clothesitem.cpp:959
 msgid "Blue Canvas Shoes"
-msgstr "Синие холщовые туфли"
+msgstr "Կապույտ Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:973
 msgid "Green Canvas Shoes"
-msgstr "Зеленые холщовые туфли"
+msgstr "Կանաչ  Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:987
 msgid "Orange Canvas Shoes"
-msgstr "Оранжевые холщовые туфли"
+msgstr "Նարնջագույն Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:1001
 msgid "Purple Canvas Shoes"
-msgstr "Фиолетовые холщовые туфли"
+msgstr "Մուգ Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:1015
 msgid "Red Canvas Shoes"
-msgstr "Красные холщовые туфли"
+msgstr "Կարմիր Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:1029
 msgid "Yellow Canvas Shoes"
-msgstr "Желтые холщовые туфли"
+msgstr "Դեղին Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:1043
 msgid "Black Canvas Shoes"
-msgstr "Черные холщовые туфли"
+msgstr "Սև Կտորից Կոշիկ"
 
 #: src/content_clothesitem.cpp:1058
 msgid "Canvas Belt"
-msgstr "Холщовый пояс"
+msgstr "Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1072
 msgid "Blue Canvas Belt"
-msgstr "Синий холщовый пояс"
+msgstr "Կապույտ Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1086
 msgid "Green Canvas Belt"
-msgstr "Зеленый холщовый пояс"
+msgstr "Կանաչ Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1100
 msgid "Orange Canvas Belt"
-msgstr "Оранжевый холщовый пояс"
+msgstr "Նարնջագույն Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1114
 msgid "Purple Canvas Belt"
-msgstr "Фиолетовый холщовый пояс"
+msgstr "Մուգ Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1128
 msgid "Red Canvas Belt"
-msgstr "Красный холщовый пояс"
+msgstr "Կարմիր Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1142
 msgid "Yellow Canvas Belt"
-msgstr "Желтый холщовый пояс"
+msgstr "Դեղին Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1156
 msgid "Black Canvas Belt"
-msgstr "Черный холщовый пояс"
+msgstr "Սև Կտորից Գոտի"
 
 #: src/content_clothesitem.cpp:1171
 msgid "Leather Jacket"
-msgstr "Кожаная куртка"
+msgstr "Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1186
 msgid "White Leather Jacket"
-msgstr "Белая кожаная куртка"
+msgstr "Սպիտակ Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1201
 msgid "Blue Leather Jacket"
-msgstr "Синяя кожаная куртка"
+msgstr "Կապույտ Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1216
 msgid "Green Leather Jacket"
-msgstr "Зеленая кожаная куртка"
+msgstr "Կանաչ Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1231
 msgid "Orange Leather Jacket"
-msgstr "Оранжевая кожаная куртка"
+msgstr "Նարնջագույն Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1246
 msgid "Purple Leather Jacket"
-msgstr "Фиолетовая кожаная куртка"
+msgstr "Մուգ Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1261
 msgid "Red Leather Jacket"
-msgstr "Красная кожаная куртка"
+msgstr "Կարմիր Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1276
 msgid "Yellow Leather Jacket"
-msgstr "Желтая кожаная куртка"
+msgstr "Դեղին Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1291
 msgid "Black Leather Jacket"
-msgstr "Черная кожаная куртка"
+msgstr "Սև Կաշվե Բաճկոն"
 
 #: src/content_clothesitem.cpp:1307
 msgid "Leather Pants"
-msgstr "Кожаные штаны"
+msgstr "Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1322
 msgid "White Leather Pants"
-msgstr "Белые кожаные штаны"
+msgstr "Սպիտակ Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1337
 msgid "Blue Leather Pants"
-msgstr "Синие кожаные штаны"
+msgstr "Կապույտ Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1352
 msgid "Green Leather Pants"
-msgstr "Зеленые кожаные штаны"
+msgstr "Կանաչ Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1367
 msgid "Orange Leather Pants"
-msgstr "Оранжевые кожаные штаны"
+msgstr "Նարնջագույն Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1382
 msgid "Purple Leather Pants"
-msgstr "Фиолетовые кожаные штаны"
+msgstr "Մուգ Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1397
 msgid "Red Leather Pants"
-msgstr "Красные кожаные штаны"
+msgstr "Կարմիր Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1412
 msgid "Yellow Leather Pants"
-msgstr "Желтые кожаные штаны"
+msgstr "Դեղին Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1427
 msgid "Black Leather Pants"
-msgstr "Черные кожаные штаны"
+msgstr "Սև Կաշվե Տաբատ"
 
 #: src/content_clothesitem.cpp:1443
 msgid "Leather Hat"
-msgstr "Кожаная шапка"
+msgstr "Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1457
 msgid "White Leather Hat"
-msgstr "Белая кожаная шапка"
+msgstr "Սպիտակ Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1471
 msgid "Blue Leather Hat"
-msgstr "Синяя кожаная шапка"
+msgstr "Կապույտ Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1485
 msgid "Green Leather Hat"
-msgstr "Зеленая кожаная шапка"
+msgstr "Կանաչ Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1499
 msgid "Orange Leather Hat"
-msgstr "Оранжевая кожаная шапка"
+msgstr "Նարնջագույն Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1513
 msgid "Purple Leather Hat"
-msgstr "Фиолетовая кожаная шапка"
+msgstr "Մուգ Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1527
 msgid "Red Leather Hat"
-msgstr "Красная кожаная шапка"
+msgstr "Կարմիր Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1541
 msgid "Yellow Leather Hat"
-msgstr "Желтая кожаная шапка"
+msgstr "Դեղին Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1555
 msgid "Black Leather Hat"
-msgstr "Черная кожаная шапка"
+msgstr "Սև Կաշվե Գլխարկ"
 
 #: src/content_clothesitem.cpp:1570
 msgid "Leather Helmet"
-msgstr "Кожаный шлем"
+msgstr "Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1585
 msgid "White Leather Helmet"
-msgstr "Белый кожаный шлем"
+msgstr "Սպիտակ Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1600
 msgid "Blue Leather Helmet"
-msgstr "Синий кожаный шлем"
+msgstr "Կապույտ Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1615
 msgid "Green Leather Helmet"
-msgstr "Зеленый кожаный шлем"
+msgstr "Կանաչ Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1630
 msgid "Orange Leather Helmet"
-msgstr "Оранжевый кожаный шлем"
+msgstr "Նարնջագույն Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1645
 msgid "Purple Leather Helmet"
-msgstr "Фиолетовый кожаный шлем"
+msgstr "Մուգ Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1660
 msgid "Red Leather Helmet"
-msgstr "Красный кожаный шлем"
+msgstr "Կարմիր Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1675
 msgid "Yellow Leather Helmet"
-msgstr "Желтый кожаный шлем"
+msgstr "Դեղին Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1690
 msgid "Black Leather Helmet"
-msgstr "Черный кожаный шлем"
+msgstr "Սև Կաշվե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:1721
 msgid "White Leather Shoes"
-msgstr "Белые кожаные туфли"
+msgstr "Սպիտակ Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1736
 msgid "Blue Leather Shoes"
-msgstr "Синие кожаные туфли"
+msgstr "Կապույտ Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1751
 msgid "Green Leather Shoes"
-msgstr "Зеленые кожаные туфли"
+msgstr "Կանաչ Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1766
 msgid "Orange Leather Shoes"
-msgstr "Оранжевые кожаные туфли"
+msgstr "Նարնջագույն Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1781
 msgid "Purple Leather Shoes"
-msgstr "Фиолетовые кожаные туфли"
+msgstr "Մուգ Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1796
 msgid "Red Leather Shoes"
-msgstr "Красные кожаные туфли"
+msgstr "Կարմիր Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1811
 msgid "Yellow Leather Shoes"
-msgstr "Желтые кожаные туфли"
+msgstr "Դեղին Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1826
 msgid "Black Leather Shoes"
-msgstr "Черные кожаные туфли"
+msgstr "Սև Կաշվե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:1842
 msgid "Leather Boots"
-msgstr "Кожаные ботинки"
+msgstr "Կաշվե Երկարաճիտ կոշիկներ "
 
 #: src/content_clothesitem.cpp:1857
 msgid "White Leather Boots"
-msgstr "Белые кожаные ботинки"
+msgstr "Սպիտակ Կաշվե Երկարաճիտ կոշիկներ "
 
 #: src/content_clothesitem.cpp:1872
 msgid "Blue Leather Boots"
-msgstr "Синие кожаные ботинки"
+msgstr "Կապույտ Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1887
 msgid "Green Leather Boots"
-msgstr "Зеленые кожаные ботинки"
+msgstr "Կանաչ Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1902
 msgid "Orange Leather Boots"
-msgstr "Оранжевые кожаные ботинки"
+msgstr "Նարնջագույն Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1917
 msgid "Purple Leather Boots"
-msgstr "Фиолетовые кожаные ботинки"
+msgstr "Մուգ Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1932
 msgid "Red Leather Boots"
-msgstr "Красные кожаные ботинки"
+msgstr "Կարմիր Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1947
 msgid "Yellow Leather Boots"
-msgstr "Желтые кожаные ботинки"
+msgstr "Դեղին Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1962
 msgid "Black Leather Boots"
-msgstr "Черные кожаные ботинки"
+msgstr "Սև Կաշվե Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:1978
 msgid "Leather Belt"
-msgstr "Кожаный пояс"
+msgstr "Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:1993
 msgid "White Leather Belt"
-msgstr "Белый кожаный пояс"
+msgstr "Սպիտակ Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2008
 msgid "Blue Leather Belt"
-msgstr "Синий кожаный пояс"
+msgstr "Կապույտ Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2023
 msgid "Green Leather Belt"
-msgstr "Зеленый кожаный пояс"
+msgstr "Կանաչ Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2038
 msgid "Orange Leather Belt"
-msgstr "Оранжевый кожаный пояс"
+msgstr "Նարնջագույն Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2053
 msgid "Purple Leather Belt"
-msgstr "Фиолетовый кожаный пояс"
+msgstr "Մուգ Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2068
 msgid "Red Leather Belt"
-msgstr "Красный кожаный пояс"
+msgstr "Կարմիր Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2083
 msgid "Yellow Leather Belt"
-msgstr "Желтый кожаный пояс"
+msgstr "Դեղին Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2098
 msgid "Black Leather Belt"
-msgstr "Черный кожаный пояс"
+msgstr "Սև Կաշվե Գոտի"
 
 #: src/content_clothesitem.cpp:2114
 msgid "Fur Coat"
-msgstr "Меховое пальто"
+msgstr "Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2129
 msgid "White Fur Coat"
-msgstr "Белое меховое пальто"
+msgstr "Սպիտակ Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2144
 msgid "Blue Fur Coat"
-msgstr "Синее меховое пальто"
+msgstr "Կապույտ Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2159
 msgid "Green Fur Coat"
-msgstr "Зеленое меховое пальто"
+msgstr "Կանաչ Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2174
 msgid "Orange Fur Coat"
-msgstr "Оранжевое меховое пальто"
+msgstr "Նարնջագույն Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2189
 msgid "Purple Fur Coat"
-msgstr "Фиолетовое меховое пальто"
+msgstr "Մուգ Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2204
 msgid "Red Fur Coat"
-msgstr "Красное меховое пальто"
+msgstr "Կարմիր Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2219
 msgid "Yellow Fur Coat"
-msgstr "Желтое меховое пальто"
+msgstr "Դեղին Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2234
 msgid "Black Fur Coat"
-msgstr "Черное меховое пальто"
+msgstr "Սև Մորթյա Մուշտակ"
 
 #: src/content_clothesitem.cpp:2250
 msgid "Fur Pants"
-msgstr "Меховые штаны"
+msgstr "Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2265
 msgid "White Fur Pants"
-msgstr "Белые меховые штаны"
+msgstr "Սպիտակ Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2280
 msgid "Blue Fur Pants"
-msgstr "Синие меховые штаны"
+msgstr "Կապույտ Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2295
 msgid "Green Fur Pants"
-msgstr "Зеленые меховые штаны"
+msgstr "Կանաչ Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2310
 msgid "Orange Fur Pants"
-msgstr "Оранжевые меховые штаны"
+msgstr "Նարնջագույն Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2325
 msgid "Purple Fur Pants"
-msgstr "Фиолетовые меховые штаны"
+msgstr "Մուգ Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2340
 msgid "Red Fur Pants"
-msgstr "Красные меховые штаны"
+msgstr "Կարմիր Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2355
 msgid "Yellow Fur Pants"
-msgstr "Желтые меховые штаны"
+msgstr "Դեղին Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2370
 msgid "Black Fur Pants"
-msgstr "Черные меховые штаны"
+msgstr "Սև Մորթյա Տաբատ"
 
 #: src/content_clothesitem.cpp:2386
 msgid "Fur Hat"
-msgstr "Меховая шапка"
+msgstr "Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2401
 msgid "White Fur Hat"
-msgstr "Белая меховая шапка"
+msgstr "Սպիտակ Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2416
 msgid "Blue Fur Hat"
-msgstr "Синяя меховая шапка"
+msgstr "Կապույտ Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2431
 msgid "Green Fur Hat"
-msgstr "Зеленая меховая шапка"
+msgstr "Կանաչ Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2446
 msgid "Orange Fur Hat"
-msgstr "Оранжевая меховая шапка"
+msgstr "Նարնջագույն Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2461
 msgid "Purple Fur Hat"
-msgstr "Фиолетовая меховая шапка"
+msgstr "Մուգ Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2476
 msgid "Red Fur Hat"
-msgstr "Красная меховая шапка"
+msgstr "Կարմիր Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2491
 msgid "Yellow Fur Hat"
-msgstr "Желтая меховая шапка"
+msgstr "Դեղին Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2506
 msgid "Black Fur Hat"
-msgstr "Черная меховая шапка"
+msgstr "Սև Մորթուց Գլխարկ"
 
 #: src/content_clothesitem.cpp:2536
 msgid "White Fur Shoes"
-msgstr "Белые меховые туфли"
+msgstr "Սպիտակ Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2550
 msgid "Blue Fur Shoes"
-msgstr "Синие меховые туфли"
+msgstr "Կապույտ Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2564
 msgid "Green Fur Shoes"
-msgstr "Зеленые меховые туфли"
+msgstr "Կանաչ Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2578
 msgid "Orange Fur Shoes"
-msgstr "Оранжевые меховые туфли"
+msgstr "Նարնջագույն Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2592
 msgid "Purple Fur Shoes"
-msgstr "Фиолетовые меховые туфли"
+msgstr "Մուգ Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2606
 msgid "Red Fur Shoes"
-msgstr "Красные меховые туфли"
+msgstr "Կարմիր Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2620
 msgid "Yellow Fur Shoes"
-msgstr "Желтые меховые туфли"
+msgstr "Դեղին Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2634
 msgid "Black Fur Shoes"
-msgstr "Черные меховые туфли"
+msgstr "Սև Մորթյա Կոշիկ"
 
 #: src/content_clothesitem.cpp:2649
 msgid "Fur Boots"
-msgstr "Меховые ботинки"
+msgstr "Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2664
 msgid "White Fur Boots"
-msgstr "Белые меховые ботинки"
+msgstr "Սպիտակ Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2679
 msgid "Blue Fur Boots"
-msgstr "Синие меховые ботинки"
+msgstr "Կապույտ Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2694
 msgid "Green Fur Boots"
-msgstr "Зеленые меховые ботинки"
+msgstr "Կանաչ Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2709
 msgid "Orange Fur Boots"
-msgstr "Оранжевые меховые ботинки"
+msgstr "Նարնջագույն Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2724
 msgid "Purple Fur Boots"
-msgstr "Фиолетовые меховые ботинки"
+msgstr "Մուգ Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2739
 msgid "Red Fur Boots"
-msgstr "Красные меховые ботинки"
+msgstr "Կարմիր Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2754
 msgid "Yellow Fur Boots"
-msgstr "Желтые меховые ботинки"
+msgstr "Դեղին Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2769
 msgid "Black Fur Boots"
-msgstr "Черные меховые ботинки"
+msgstr "Սև Մորթուց Երկարաճիտ կոշիկներ"
 
 #: src/content_clothesitem.cpp:2785
 msgid "Leather Necklace"
-msgstr "Кожаное ожерелье"
+msgstr "Կաշվե Վզնոց"
 
 #: src/content_clothesitem.cpp:2808
 msgid "Gold Medallion"
-msgstr "Золотой медальон"
+msgstr "Ոսկուց Ժանյակ"
 
 #: src/content_clothesitem.cpp:2824
 msgid "Copper Medallion"
-msgstr "Медный медальон"
+msgstr "Պղնձե  Ժանյակ"
 
 #: src/content_clothesitem.cpp:2840
 msgid "Silver Medallion"
-msgstr "Серебрянный медальон"
+msgstr "Արծաթյա Ժանյակ"
 
 #: src/content_clothesitem.cpp:2856
 msgid "Tin Medallion"
-msgstr "Оловянный медальон"
+msgstr "Անագե Ժանյակ"
 
 #: src/content_clothesitem.cpp:2872
 msgid "Iron Medallion"
-msgstr "Железный медальон"
+msgstr "Իռոնե Ժանյակ"
 
 #: src/content_clothesitem.cpp:2888
 msgid "Quartz Medallion"
-msgstr "Кварцевый медальон"
+msgstr "Քվարցային Ժանյակ"
 
 #: src/content_clothesitem.cpp:2905
 msgid "Steel Helmet"
-msgstr "Стальной шлем"
+msgstr "Պողպատե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:2920
 msgid "Steel Chest Armour"
-msgstr "Стальная кираса"
+msgstr "Պողպատե Զրահ"
 
 #: src/content_clothesitem.cpp:2935
 msgid "Steel Pants"
-msgstr "Стальные штаны"
+msgstr "Պողպատե Տաբատ"
 
 #: src/content_clothesitem.cpp:2950
 msgid "Steel Boots"
-msgstr "Стальные ботинки"
+msgstr "Պողպատե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:2965
 msgid "Copper Helmet"
-msgstr "Медный шлем"
+msgstr "Պղնձե Սաղավարտ"
 
 #: src/content_clothesitem.cpp:2979
 msgid "Copper Chest Armour"
-msgstr "Медная кираса"
+msgstr "Պղնձե  Զրահ"
 
 #: src/content_clothesitem.cpp:2993
 msgid "Copper Pants"
-msgstr "Медные штаны"
+msgstr "Պղնձե Տաբատ"
 
 #: src/content_clothesitem.cpp:3007
 msgid "Copper Boots"
-msgstr "Медные ботинки"
+msgstr "Պղնձե Կոշիկներ"
 
 #: src/content_craftitem.cpp:81
 msgid "Paper"
-msgstr "Бумага"
+msgstr "Թուղթ"
 
 #: src/content_craftitem.cpp:91
 msgid "Charcoal Lump"
-msgstr "Древесный уголь"
+msgstr "Մի Կտոր Ածուխ"
 
 #: src/content_craftitem.cpp:100
 msgid "Coal Lump"
-msgstr "Каменный уголь"
+msgstr "Ածխի Մասնիկ"
 
 #: src/content_craftitem.cpp:109
 msgid "Iron Lump"
-msgstr "Железная руда"
+msgstr "Երկաթի Մասնիկ"
 
 #: src/content_craftitem.cpp:120
 msgid "Clay Lump"
-msgstr "Комок глины"
+msgstr "Կավե Գունդ"
 
 #: src/content_craftitem.cpp:130
 msgid "Tin Lump"
-msgstr "Оловянная руда"
+msgstr "Անագի Մասնիկ"
 
 #: src/content_craftitem.cpp:140
 msgid "Copper Lump"
-msgstr "Медная руда"
+msgstr "Պղինձի Մասնիկ"
 
 #: src/content_craftitem.cpp:150
 msgid "Silver Lump"
-msgstr "Серебрянная руда"
+msgstr "Արծաթի Մասնիկ"
 
 #: src/content_craftitem.cpp:161
 msgid "Gold Lump"
-msgstr "Золотая руда"
+msgstr "Ոսկու Մասնիկ"
 
 #: src/content_craftitem.cpp:172
 msgid "Quartz Crystal"
-msgstr "Кристал кварца"
+msgstr "Քվարցային Բյուրեղ"
 
 #: src/content_craftitem.cpp:180
 msgid "Tin Ingot"
-msgstr "Оловянный слиток"
+msgstr "Անագե Ձուլածո"
 
 #: src/content_craftitem.cpp:188
 msgid "Copper Ingot"
-msgstr "Медный слиток"
+msgstr "Պղնձի Ձուլածո"
 
 #: src/content_craftitem.cpp:196
 msgid "Silver Ingot"
-msgstr "Серебрянный слиток"
+msgstr "Արծաթե Ձուլածո"
 
 #: src/content_craftitem.cpp:204
 msgid "Gold Ingot"
-msgstr "Золотой слиток"
+msgstr "Ոսկու Ձուլածո"
 
 #: src/content_craftitem.cpp:212
 msgid "Flint"
-msgstr "Кремень"
+msgstr "Ֆլինթ"
 
 #: src/content_craftitem.cpp:220
 msgid "Steel Ingot"
-msgstr "Стальной слиток"
+msgstr "Պողպատե Ձուլածո"
 
 #: src/content_craftitem.cpp:228 src/content_mapnode.cpp:795
 msgid "Brick"
-msgstr "Кирпич"
+msgstr "Աղյուս"
 
 #: src/content_craftitem.cpp:236 src/content_mob.cpp:363
 msgid "Rat"
-msgstr "Крыса"
+msgstr "Առնետ"
 
 #: src/content_craftitem.cpp:248
 msgid "Cooked Rat"
-msgstr "Жареная крыса"
+msgstr "Եփած Առնետ"
 
 #: src/content_craftitem.cpp:262 src/content_mob.cpp:382
 msgid "Firefly"
-msgstr "Светлячок"
+msgstr "Լուսատիտիկ"
 
 #: src/content_craftitem.cpp:272 src/content_mapnode_plants.cpp:898
 msgid "Apple"
-msgstr "Яблоко"
+msgstr "Խնձոր"
 
 #: src/content_craftitem.cpp:284
 msgid "Iron Apple"
-msgstr "Железное яблоко"
+msgstr "Երկաթե Խնձոր"
 
 #: src/content_craftitem.cpp:305
 msgid "Blue Dye"
-msgstr "Синяя краска"
+msgstr "Կապույտ Երանգ"
 
 #: src/content_craftitem.cpp:315
 msgid "Green Dye"
-msgstr "Зеленая краска"
+msgstr "Կանաչ Երանգ"
 
 #: src/content_craftitem.cpp:325
 msgid "Orange Dye"
-msgstr "Оранжевая краска"
+msgstr "Նարնջագույն Երանգ"
 
 #: src/content_craftitem.cpp:335
 msgid "Purple Dye"
-msgstr "Фиолетовая краска"
+msgstr "Մանուշակագույն Երանգ"
 
 #: src/content_craftitem.cpp:345
 msgid "Red Dye"
-msgstr "Красная краска"
+msgstr "Կարմիր Երանգ"
 
 #: src/content_craftitem.cpp:355
 msgid "Yellow Dye"
-msgstr "Желтая краска"
+msgstr "Դեղին Երանգ"
 
 #: src/content_craftitem.cpp:366
 msgid "White Dye"
-msgstr "Белая краска"
+msgstr "Սպիտակ Երանգ"
 
 #: src/content_craftitem.cpp:377
 msgid "Black Dye"
-msgstr "Черная краска"
+msgstr "Սև Երանգ"
 
 #: src/content_craftitem.cpp:387
 msgid "Quartz Dust"
-msgstr "Кварцевая пыль"
+msgstr "Քվարցային Փոշի"
 
 #: src/content_craftitem.cpp:397
 msgid "Saltpeter"
-msgstr "Селитра"
+msgstr "Պարարտանյութ"
 
 #: src/content_craftitem.cpp:405
 msgid "Gun Powder"
-msgstr "Порох"
+msgstr "Ատրճանակի Փոշի"
 
 #: src/content_craftitem.cpp:415
 msgid "Snow Ball"
-msgstr "Снежок"
+msgstr "Ձնա Գնդիկ"
 
 #: src/content_craftitem.cpp:423
 msgid "Stick"
-msgstr "Палка"
+msgstr "Փայտ"
 
 #: src/content_craftitem.cpp:440
 msgid "Pine Plank"
-msgstr "Сосновая доска"
+msgstr "Սոճուց Տախտակ"
 
 #: src/content_craftitem.cpp:452
 msgid "Wood Plank"
-msgstr "Деревянная доска"
+msgstr "Փայտե Տախտակ"
 
 #: src/content_craftitem.cpp:465
 msgid "Jungle Wood Plank"
-msgstr "Пальмовая доска"
+msgstr "Անտառային Փայտե Տախտակ"
 
 #: src/content_craftitem.cpp:477
 msgid "TNT Stick"
-msgstr "Динамитная шашка"
+msgstr "Պայթուցիկ Տախտակ"
 
 #: src/content_craftitem.cpp:494
 msgid "Ash"
-msgstr "Пепел"
+msgstr "Վառոդ"
 
 #: src/content_craftitem.cpp:502
 msgid "Apple Blossoms"
-msgstr "Цветы яблони"
+msgstr "Ծաղկող Խնձորենի"
 
 #: src/content_craftitem.cpp:515 src/content_mapnode_plants.cpp:709
 msgid "Cactus Berry"
-msgstr "Плод кактуса"
+msgstr "Կակտուս Հատապտուղ"
 
 #: src/content_craftitem.cpp:528
 msgid "Mush"
-msgstr "Кашица"
+msgstr "Շիլա"
 
 #: src/content_craftitem.cpp:539
 msgid "Sliced Pumpkin"
-msgstr "Нарезанная тыква"
+msgstr "Դդումի Շերտեր"
 
 #: src/content_craftitem.cpp:553
 msgid "Pumpkin Pie Slice"
-msgstr "Кусок тыквенного пирога"
+msgstr "Դդումե կարկանդակի Շերտեր"
 
 #: src/content_craftitem.cpp:565
 msgid "Apple Pie Slice"
-msgstr "Кусок яблочного пирога"
+msgstr "Խնձորե Կարկանդակի Շերտեր"
 
 #: src/content_craftitem.cpp:577
 msgid "Sliced Melon"
-msgstr "Нарезанный арбуз"
+msgstr "Սեխի Շերտեր"
 
 #: src/content_craftitem.cpp:591 src/content_mapnode_farm.cpp:261
 msgid "Wheat"
-msgstr "Пшеница"
+msgstr "Ցորեն"
 
 #: src/content_craftitem.cpp:603
 msgid "Flour"
-msgstr "Мука"
+msgstr "Ալյուր"
 
 #: src/content_craftitem.cpp:617
 msgid "Dough"
-msgstr "Тесто"
+msgstr "Յուղ"
 
 #: src/content_craftitem.cpp:633
 msgid "Bread"
-msgstr "Хлеб"
+msgstr "Հաց"
 
 #: src/content_craftitem.cpp:645 src/content_mapnode_farm.cpp:355
 msgid "Potato"
-msgstr "Картошка"
+msgstr "Կարտոֆիլ"
 
 #: src/content_craftitem.cpp:659
 msgid "Potato Starch"
-msgstr "Картофельный крахмал"
+msgstr "Կարտոֆիլի Օսլա"
 
 #: src/content_craftitem.cpp:669
 msgid "Roast Potato"
-msgstr "Жареная картошка"
+msgstr "Տապակած Կարտոֆիլ"
 
 #: src/content_craftitem.cpp:681 src/content_mapnode_farm.cpp:375
 msgid "Carrot"
-msgstr "Морковь"
+msgstr "Գազար"
 
 #: src/content_craftitem.cpp:693
 msgid "Raw Carrot Cake"
-msgstr "Сырой морковный кекс"
+msgstr "Հում Գազարից Տորթ"
 
 #: src/content_craftitem.cpp:708
 msgid "Carrot Cake"
-msgstr "Морковный кекс"
+msgstr "Գազարից Տորթ"
 
 #: src/content_craftitem.cpp:720 src/content_mapnode_farm.cpp:395
 msgid "Beetroot"
-msgstr "Свекла"
+msgstr "Շաղգամ"
 
 #: src/content_craftitem.cpp:732
 msgid "Bunch of Grapes"
-msgstr "Виноград"
+msgstr "Խաղողի Ճիթ"
 
 #: src/content_craftitem.cpp:744
 msgid "String"
-msgstr "Веревка"
+msgstr "Տող"
 
 #: src/content_craftitem.cpp:754
 msgid "Mithril Dust"
-msgstr "Мифриловая пыль"
+msgstr "Միֆրայե Փոշի"
 
 #: src/content_craftitem.cpp:766
 msgid "Resin"
-msgstr "Смола"
+msgstr "Խեժ"
 
 #: src/content_craftitem.cpp:776
 msgid "Oerkki Dust"
-msgstr "Пыль Оэркки"
+msgstr "Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:795 src/content_mob.cpp:539
 msgid "Fish"
-msgstr "Рыба"
+msgstr "Ձուկ"
 
 #: src/content_craftitem.cpp:811
 msgid "Cooked Fish"
-msgstr "Жареная рыба"
+msgstr "Եփած Ձուկ"
 
 #: src/content_craftitem.cpp:825
 msgid "Meat"
-msgstr "Мясо"
+msgstr "Միս"
 
 #: src/content_craftitem.cpp:839
 msgid "Cooked Meat"
-msgstr "Жареное мясо"
+msgstr "Եփած Միս"
 
 #: src/content_craftitem.cpp:853
 msgid "Cotton Sheet"
-msgstr "Лист хлопка"
+msgstr "Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:870
 msgid "Blue Cotton Sheet"
-msgstr "Лист синего хлопка"
+msgstr "Կապույտ  Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:880
 msgid "Green Cotton Sheet"
-msgstr "Лист зеленого хлопка"
+msgstr "Կանաչ Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:890
 msgid "Orange Cotton Sheet"
-msgstr "Лист оранжевого хлопка"
+msgstr "Նարնջագույն Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:900
 msgid "Purple Cotton Sheet"
-msgstr "Лист фиолетового хлопка"
+msgstr "Մուգ Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:910
 msgid "Red Cotton Sheet"
-msgstr "Лист красного хлопка"
+msgstr "Կարմիր Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:920
 msgid "Yellow Cotton Sheet"
-msgstr "Лист желтого хлопка"
+msgstr "Դեղին Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:930
 msgid "Black Cotton Sheet"
-msgstr "Лист черного хлопка"
+msgstr "Սև Բամբակյա Թերթիկ"
 
 #: src/content_craftitem.cpp:940
 msgid "Canvas Sheet"
-msgstr "Лист холста"
+msgstr "Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:957
 msgid "Blue Canvas Sheet"
-msgstr "Лист синего холста"
+msgstr "կապույտ Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:967
 msgid "Green Canvas Sheet"
-msgstr "Лист зеленого холста"
+msgstr "Կանաչ Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:977
 msgid "Orange Canvas Sheet"
-msgstr "Лист оранжевого холста"
+msgstr "Նարնջագույն Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:987
 msgid "Purple Canvas Sheet"
-msgstr "Лист фиолетового холста"
+msgstr "Մուգ Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:997
 msgid "Red Canvas Sheet"
-msgstr "Лист красного холста"
+msgstr "Կարմիր Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:1007
 msgid "Yellow Canvas Sheet"
-msgstr "Лист желтого холста"
+msgstr "Դեղին Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:1017
 msgid "Black Canvas Sheet"
-msgstr "Лист черного холста"
+msgstr "Սև Կտավե թերթիկ"
 
 #: src/content_craftitem.cpp:1027
 msgid "Fur"
-msgstr "Мех"
+msgstr "Մորթի"
 
 #: src/content_craftitem.cpp:1035
 msgid "White Fur"
-msgstr "Белый мех"
+msgstr "Սպիտակ Մորթի"
 
 #: src/content_craftitem.cpp:1046
 msgid "Blue Fur"
-msgstr "Синий мех"
+msgstr "Կապույտ Մորթի"
 
 #: src/content_craftitem.cpp:1057
 msgid "Green Fur"
-msgstr "Зеленый мех"
+msgstr "Կանաչ Մորթի"
 
 #: src/content_craftitem.cpp:1068
 msgid "Orange Fur"
-msgstr "Оранжевый мех"
+msgstr "Նարնջագույն Մորթի"
 
 #: src/content_craftitem.cpp:1079
 msgid "Purple Fur"
-msgstr "Фиолетовый мех"
+msgstr "Մուգ Մորթի"
 
 #: src/content_craftitem.cpp:1090
 msgid "Red Fur"
-msgstr "Красный мех"
+msgstr "Կարմիր Մորթի"
 
 #: src/content_craftitem.cpp:1101
 msgid "Yellow Fur"
-msgstr "Желтый мех"
+msgstr "Դեղին Մորթի"
 
 #: src/content_craftitem.cpp:1112
 msgid "Black Fur"
-msgstr "Черный мех"
+msgstr "Սև Մորթի"
 
 #: src/content_craftitem.cpp:1123
 msgid "Leather"
-msgstr "Кожа"
+msgstr "Կաշի"
 
 #: src/content_craftitem.cpp:1133
 msgid "White Leather"
-msgstr "Белая кожа"
+msgstr "Սպիտակ Կաշի"
 
 #: src/content_craftitem.cpp:1144
 msgid "Blue Leather"
-msgstr "Синяя кожа"
+msgstr "Կապույտ Կաշի"
 
 #: src/content_craftitem.cpp:1155
 msgid "Green Leather"
-msgstr "Зеленая кожа"
+msgstr "Կանաչ Կաշի"
 
 #: src/content_craftitem.cpp:1166
 msgid "Orange Leather"
-msgstr "Оранжевая кожа"
+msgstr "Նարնջագույն Կաշի"
 
 #: src/content_craftitem.cpp:1177
 msgid "Purple Leather"
-msgstr "Фиолетовая кожа"
+msgstr "Մուգ Կաշի"
 
 #: src/content_craftitem.cpp:1188
 msgid "Red Leather"
-msgstr "Красная кожа"
+msgstr "Կարմիր Կաշի"
 
 #: src/content_craftitem.cpp:1199
 msgid "Yellow Leather"
-msgstr "Желтая кожа"
+msgstr "Դեղին Կաշի"
 
 #: src/content_craftitem.cpp:1210
 msgid "Black Leather"
-msgstr "Черная кожа"
+msgstr "Սև Կաշի"
 
 #: src/content_craftitem.cpp:1221 src/content_mob.cpp:719
 msgid "Arrow"
-msgstr "Стрела"
+msgstr "Սլաք"
 
 #: src/content_craftitem.cpp:1232 src/content_mapnode_farm.cpp:50
 msgid "Fertilizer"
-msgstr "Удобрение"
+msgstr "Պարարտանյութ"
 
 #: src/content_craftitem.cpp:1244
 msgid "White Oerkki Dust"
-msgstr "Белая пыль Оэркки"
+msgstr "Սպիտակ Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1256
 msgid "Blue Oerkki Dust"
-msgstr "Синяя пыль Оэркки"
+msgstr "Կապույտ Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1268
 msgid "Green Oerkki Dust"
-msgstr "Зеленая пыль Оэркки"
+msgstr "Կանաչ Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1280
 msgid "Orange Oerkki Dust"
-msgstr "Оранжевая пыль Оэркки"
+msgstr "Նարնջագույն Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1292
 msgid "Purple Oerkki Dust"
-msgstr "Фиолетовая пыль Оэркки"
+msgstr "Մուգ Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1304
 msgid "Red Oerkki Dust"
-msgstr "Красная пыль Оэркки"
+msgstr "Կարմիր Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1316
 msgid "Yellow Oerkki Dust"
-msgstr "Желтая пыль Оэркки"
+msgstr "Դեղին Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1328
 msgid "Black Oerkki Dust"
-msgstr "Черная пыль Оэркки"
+msgstr "Սև Ավազակի Փոշի"
 
 #: src/content_craftitem.cpp:1340
 msgid "Glass Bottle"
-msgstr "Стеклянная бутылка"
+msgstr "Ապակե Շիշ"
 
 #: src/content_craftitem.cpp:1358
 msgid "Grape Juice"
-msgstr "Виноградный сок"
+msgstr "Խաղողի Հյութ"
 
 #: src/content_craftitem.cpp:1376
 msgid "Apple Juice"
-msgstr "Яблочный сок"
+msgstr "Խնձորի Հյութ"
 
 #: src/content_craftitem.cpp:1394
 msgid "Tea Leaves"
-msgstr "Чайные листья"
+msgstr "Թեյի Տերևները"
 
 #: src/content_craftitem.cpp:1407
 msgid "Tea"
-msgstr "Чай"
+msgstr "Թեյ"
 
 #: src/content_craftitem.cpp:1426
 msgid "Roasted Coffee Beans"
-msgstr "Жареные зерна кофе"
+msgstr "Աղացած Սուրճ"
 
 #: src/content_craftitem.cpp:1440
 msgid "Coffee"
-msgstr "Кофе"
+msgstr "Սուրճ"
 
 #: src/content_craftitem.cpp:1459
 msgid "Steel Bottle"
-msgstr "Стальная бутылка"
+msgstr "Պողպատե Շիշ"
 
 #: src/content_craftitem.cpp:1477
 msgid "Bottle of Water"
-msgstr "Бутылка с водой"
+msgstr "Ջրի Շիշ"
 
 #: src/content_craftitem.cpp:1492
 msgid "Bottle of Hot Water"
-msgstr "Бутылка с горячей водой"
+msgstr "Տաք Ջուր Շշով"
 
 #: src/content_craftitem.cpp:1508
 msgid "Raw Mithril"
-msgstr "Сырой мифрил"
+msgstr "Վերամշակված Միֆրայ"
 
 #: src/content_craftitem.cpp:1520
 msgid "Unbound Mithril"
-msgstr "Свободный мифрил"
+msgstr "Չկպած Միֆրայ"
 
 #: src/content_craftitem.cpp:1529 src/mineral.cpp:142
 msgid "Mithril"
-msgstr "Мифрил"
+msgstr "Միֆրայ"
 
 #: src/content_craftitem.cpp:1538 src/mineral.cpp:149
 msgid "Ruby"
-msgstr "Рубин"
+msgstr "Ռուբին"
 
 #: src/content_craftitem.cpp:1546
 msgid "Turquiose"
-msgstr "Бирюза"
+msgstr "Փիրուզագույն"
 
 #: src/content_craftitem.cpp:1554 src/mineral.cpp:165
 msgid "Amethyst"
-msgstr "Аметист"
+msgstr "Ամետիս"
 
 #: src/content_craftitem.cpp:1562 src/mineral.cpp:173
 msgid "Sapphire"
-msgstr "Сапфир"
+msgstr "Սապֆիր"
 
 #: src/content_craftitem.cpp:1570 src/mineral.cpp:181
 msgid "Sunstone"
-msgstr "Янтарь"
+msgstr "Արևքար"
 
 #: src/content_craftitem.cpp:1578 src/mineral.cpp:189
 msgid "Salt"
-msgstr "Соль"
+msgstr "Աղ"
 
 #: src/content_craftitem.cpp:1586
 msgid "Space Dust"
-msgstr "Космическая пыль"
+msgstr "Տիեզերական Փոշի"
 
 #: src/content_craftitem.cpp:1605
 msgid "Blueberries"
-msgstr "Черника"
+msgstr "հապալաս"
 
 #: src/content_craftitem.cpp:1617
 msgid "Raspberries"
-msgstr "Малина"
+msgstr "Ազնվամորի"
 
 #: src/content_mapnode.cpp:219
 msgid "Stone"
-msgstr "Камень"
+msgstr "Քար"
 
 #: src/content_mapnode.cpp:234
 msgid "Limestone"
-msgstr "Известняк"
+msgstr "Կրաքար"
 
 #: src/content_mapnode.cpp:252
 msgid "Space Rock"
-msgstr "Космический камень"
+msgstr "Սփեյս-Ռոք"
 
 #: src/content_mapnode.cpp:265
 msgid "Marble"
-msgstr "Мрамор"
+msgstr "Մարմար"
 
 #: src/content_mapnode.cpp:276
 msgid "Rock"
-msgstr "Камешек"
+msgstr "Ռոք"
 
 #: src/content_mapnode.cpp:297
 msgid "Ice"
-msgstr "Лед"
+msgstr "Սառույց"
 
 #: src/content_mapnode.cpp:313
 msgid "Coal Block"
-msgstr "Блок каменного угля"
+msgstr "Ածխածնի կտոր"
 
 #: src/content_mapnode.cpp:330
 msgid "Charcoal Block"
-msgstr "Блок древесного угля"
+msgstr "Ածուխի Կտոր"
 
 #: src/content_mapnode.cpp:347
 msgid "Stone Brick"
-msgstr "Каменный кирпич"
+msgstr "Քարե Աղյուս"
 
 #: src/content_mapnode.cpp:361
 msgid "Stone Block"
-msgstr "Каменный блок"
+msgstr "Քարի Կտոր"
 
 #: src/content_mapnode.cpp:375
 msgid "Rough Stone Brick"
-msgstr "Кирпич грубого камня"
+msgstr "Կոպիտ Քարի Աղյուս"
 
 #: src/content_mapnode.cpp:393
 msgid "Rough Stone Block"
-msgstr "Блок грубого камня"
+msgstr "Կոպիտ Քարի Կտոր"
 
 #: src/content_mapnode.cpp:410 src/content_mapnode.cpp:443
 #: src/content_mapnode.cpp:457 src/content_mapnode.cpp:490
 msgid "Grass"
-msgstr "Трава"
+msgstr "Խոտ"
 
 #: src/content_mapnode.cpp:428 src/content_mapnode.cpp:475
 msgid "Growing Grass"
-msgstr "Растущая трава"
+msgstr "Աճեցնել Խոտ"
 
 #: src/content_mapnode.cpp:504
 msgid "Muddy Snow"
-msgstr "Грязный снег"
+msgstr "Հալչող Ձյուն"
 
 #: src/content_mapnode.cpp:520
 msgid "Mud"
-msgstr "Грязь"
+msgstr "Հող"
 
 #: src/content_mapnode.cpp:539
 msgid "Ash Block"
-msgstr "Блок пепла"
+msgstr "Մոխիրի Կտոր"
 
 #: src/content_mapnode.cpp:554
 msgid "Sand"
-msgstr "Песок"
+msgstr "Ավազ"
 
 #: src/content_mapnode.cpp:574
 msgid "Desert Sand"
-msgstr "Пустынный песок"
+msgstr "Անապատի Ավազի"
 
 #: src/content_mapnode.cpp:594
 msgid "Gravel"
-msgstr "Гравий"
+msgstr "Մանրախիճ"
 
 #: src/content_mapnode.cpp:611
 msgid "Sand Stone"
-msgstr "Песчаник"
+msgstr "Ավազե Քար"
 
 #: src/content_mapnode.cpp:626
 msgid "Sand Stone Bricks"
-msgstr "Кирпичи песчаника"
+msgstr "Ավազից Քարե Աղյուսներ"
 
 #: src/content_mapnode.cpp:641
 msgid "Sand Stone Blocks"
-msgstr "Блоки песчаника"
+msgstr "Ավազից Քարե Բլոկներ"
 
 #: src/content_mapnode.cpp:656
 msgid "Clay"
-msgstr "Глина"
+msgstr "Կավ"
 
 #: src/content_mapnode.cpp:676
 msgid "Blue Clay"
-msgstr "Синяя глина"
+msgstr "Կապույտ Կավ"
 
 #: src/content_mapnode.cpp:693
 msgid "Green Clay"
-msgstr "Зеленая глина"
+msgstr "Կանաչ Կավ"
 
 #: src/content_mapnode.cpp:710
 msgid "Orange Clay"
-msgstr "Оранжевая глина"
+msgstr "Նարնջագույն Կավ"
 
 #: src/content_mapnode.cpp:727
 msgid "Purple Clay"
-msgstr "Фиолетовая глина"
+msgstr "Մուգ Կավ"
 
 #: src/content_mapnode.cpp:744
 msgid "Red Clay"
-msgstr "Красная глина"
+msgstr "Կարմիր Կավ"
 
 #: src/content_mapnode.cpp:761
 msgid "Yellow Clay"
-msgstr "Желтая глина"
+msgstr "Դեղին Կավ"
 
 #: src/content_mapnode.cpp:778
 msgid "Black Clay"
-msgstr "Черная глина"
+msgstr "Սև Կավ"
 
 #: src/content_mapnode.cpp:814
 msgid "Terracotta"
-msgstr "Керамика"
+msgstr "Տեռռոկատից"
 
 #: src/content_mapnode.cpp:826
 msgid "Terracotta Brick"
-msgstr "Керамический кирпич"
+msgstr "Տեռռոկատից Աղյուս"
 
 #: src/content_mapnode.cpp:840
 msgid "Terracotta Block"
-msgstr "Блок керамики"
+msgstr "Սև տեռռոկատ"
 
 #: src/content_mapnode.cpp:854
 msgid "Terracotta Tile"
-msgstr "Керамическая плитка"
+msgstr "Տեռռոկատից Սալիկ"
 
 #: src/content_mapnode.cpp:873
 msgid "Glass"
-msgstr "Стекло"
+msgstr "Ապակի"
 
 #: src/content_mapnode.cpp:891
 msgid "Blue Glass"
-msgstr "Синее стекло"
+msgstr "Կապույտ Ապակի"
 
 #: src/content_mapnode.cpp:911
 msgid "Green Glass"
-msgstr "Зеленое стекло"
+msgstr "Կանաչ Ապակի"
 
 #: src/content_mapnode.cpp:931
 msgid "Orange Glass"
-msgstr "Оранжевое стекло"
+msgstr "Նարնջագույն"
 
 #: src/content_mapnode.cpp:951
 msgid "Purple Glass"
-msgstr "Фиолетовое стекло"
+msgstr "Մուգ Ապակի"
 
 #: src/content_mapnode.cpp:971
 msgid "Red Glass"
-msgstr "Красное стекло"
+msgstr "Կարմիր Ապակի"
 
 #: src/content_mapnode.cpp:991
 msgid "Yellow Glass"
-msgstr "Желтое стекло"
+msgstr "Դեղին Ապակի"
 
 #: src/content_mapnode.cpp:1011
 msgid "Black Glass"
-msgstr "Черное стекло"
+msgstr "Սև Ապակի"
 
 #: src/content_mapnode.cpp:1031
 msgid "Glass Pane"
-msgstr "Стеклянная панель"
+msgstr "Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1064
 msgid "Blue Glass Pane"
-msgstr "Панель синего стекла"
+msgstr "Կապույտ Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1098
 msgid "Green Glass Pane"
-msgstr "Панель зеленого стекла"
+msgstr "Կանաչ Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1132
 msgid "Orange Glass Pane"
-msgstr "Панель оранжевого стекла"
+msgstr "Նարնջագույն Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1166
 msgid "Purple Glass Pane"
-msgstr "Панель фиолетового стекла"
+msgstr "Մուգ Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1200
 msgid "Red Glass Pane"
-msgstr "Панель красного стекла"
+msgstr "Կարմիր Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1234
 msgid "Yellow Glass Pane"
-msgstr "Панель желтого стекла"
+msgstr "Դեղին Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1268
 msgid "Black Glass Pane"
-msgstr "Панель черного стекла"
+msgstr "Սև Ապակե Շրջանակ"
 
 #: src/content_mapnode.cpp:1302 src/content_mapnode_farm.cpp:329
 msgid "Glass Light"
-msgstr "Стеклянная лампа"
+msgstr "Լուսավոր Ապակի"
 
 #: src/content_mapnode.cpp:1323
 msgid "Wood"
-msgstr "Дерево"
+msgstr "Փայտ"
 
 #: src/content_mapnode.cpp:1349
 msgid "Jungle Wood"
-msgstr "Пальмовое дерево"
+msgstr "Անտառային Փայտ"
 
 #: src/content_mapnode.cpp:1374
 msgid "Pine"
-msgstr "Сосна"
+msgstr "Սոճի"
 
 #: src/content_mapnode.cpp:1399
 msgid "Sponge"
-msgstr "Губка"
+msgstr "Սպունգ"
 
 #: src/content_mapnode.cpp:1414
 msgid "Waterlogged Sponge"
-msgstr "Мокрая губка"
+msgstr "Ճահճացած Հողում Սպունգ"
 
 #: src/content_mapnode.cpp:1429
 msgid "Hay Bale"
-msgstr "Тюк сена"
+msgstr "Hay Bale"
 
 #: src/content_mapnode.cpp:1446
 msgid "Raw Apple Pie"
-msgstr "Сырой яблочный пирог"
+msgstr "Հում Խնձորի Կարկանդակ"
 
 #: src/content_mapnode.cpp:1474
 msgid "Apple Pie"
-msgstr "Яблочный пирог"
+msgstr "Խնձորի Կարկանդակ"
 
 #: src/content_mapnode.cpp:1565
 msgid "Raw Pumpkin Pie"
-msgstr "Сырой тыквенный пирог"
+msgstr "Հում Դդումի Կարկանդակ"
 
 #: src/content_mapnode.cpp:1593
 msgid "Pumpkin Pie"
-msgstr "Тыквенный пирог"
+msgstr "Դդմի Կարկանդակ"
 
 #: src/content_mapnode.cpp:1684 src/content_mapnode.cpp:1762
 msgid "Snow"
-msgstr "Снег"
+msgstr "Ձյուն"
 
 #: src/content_mapnode.cpp:1700
 msgid "Snowman"
-msgstr "Снеговик"
+msgstr "Ձնեմարդ"
 
 #: src/content_mapnode.cpp:1785 src/content_mapnode_farm.cpp:436
 msgid "Cotton"
-msgstr "Хлопок"
+msgstr "Բամբակ"
 
 #: src/content_mapnode.cpp:1816
 msgid "Blue Cotton"
-msgstr "Синий хлопок"
+msgstr "Կապույտ Բամբակ"
 
 #: src/content_mapnode.cpp:1833
 msgid "Green Cotton"
-msgstr "Зеленый хлопок"
+msgstr "Կանաչ Բամբակ"
 
 #: src/content_mapnode.cpp:1850
 msgid "Orange Cotton"
-msgstr "Оранжевый хлопок"
+msgstr "Նարնջագույն Բամբակ"
 
 #: src/content_mapnode.cpp:1867
 msgid "Purple Cotton"
-msgstr "Фиолетовый хлопок"
+msgstr "Մուգ Բամբակ"
 
 #: src/content_mapnode.cpp:1884
 msgid "Red Cotton"
-msgstr "Красный хлопок"
+msgstr "Կարմիր Բամբակ"
 
 #: src/content_mapnode.cpp:1901
 msgid "Yellow Cotton"
-msgstr "Желтый хлопок"
+msgstr "Դեղին Բամբակ"
 
 #: src/content_mapnode.cpp:1918
 msgid "Black Cotton"
-msgstr "Черный хлопок"
+msgstr "Սև Բամբակ"
 
 #: src/content_mapnode.cpp:1935
 msgid "Carpet"
-msgstr "Ковер"
+msgstr "Գորգ"
 
 #: src/content_mapnode.cpp:1957
 msgid "Blue Carpet"
-msgstr "Синий ковер"
+msgstr "Կապույտ Գորգ"
 
 #: src/content_mapnode.cpp:1980
 msgid "Green Carpet"
-msgstr "Зеленый ковер"
+msgstr "Կանաչ Գորգ"
 
 #: src/content_mapnode.cpp:2003
 msgid "Orange Carpet"
-msgstr "Оранжевый ковер"
+msgstr "Նարնջագույն Գորգ"
 
 #: src/content_mapnode.cpp:2026
 msgid "Purple Carpet"
-msgstr "Фиолетовый ковер"
+msgstr "Մուգ Գորգ"
 
 #: src/content_mapnode.cpp:2049
 msgid "Red Carpet"
-msgstr "Красный ковер"
+msgstr "Կարմիր Գորգ"
 
 #: src/content_mapnode.cpp:2072
 msgid "Yellow Carpet"
-msgstr "Желтый ковер"
+msgstr "Դեղին Գորգ"
 
 #: src/content_mapnode.cpp:2095
 msgid "Black Carpet"
-msgstr "Черный ковер"
+msgstr "Սև Գորգ"
 
 #: src/content_mapnode.cpp:2118 src/hud.cpp:652
 msgid "Air"
-msgstr "Воздух"
+msgstr "Օդային"
 
 #: src/content_mapnode.cpp:2133
 msgid "Vacuum"
-msgstr "Вакуум"
+msgstr "Վակում"
 
 #: src/content_mapnode.cpp:2149 src/content_mapnode.cpp:2179
 msgid "Water"
-msgstr "Вода"
+msgstr "Ջուր"
 
 #: src/content_mapnode.cpp:2210 src/content_mapnode.cpp:2239 src/hud.cpp:653
 msgid "Lava"
-msgstr "Лава"
+msgstr "Լավա"
 
 #: src/content_mapnode.cpp:2272
 msgid "Rough Stone"
-msgstr "Грубый камень"
+msgstr "Կոշտ Քար"
 
 #: src/content_mapnode.cpp:2290
 msgid "Cobble Stone"
-msgstr "Булыжник"
+msgstr "Սալաքար"
 
 #: src/content_mapnode.cpp:2306
 msgid "Mossy Cobble Stone"
-msgstr "Замшелый булыжник"
+msgstr "Թավշյա Սալաքար "
 
 #: src/content_mapnode.cpp:2319
 msgid "Steel Block"
-msgstr "Стальной блок"
+msgstr "Պողպատե Կտոր"
 
 #: src/content_mapnode.cpp:2336
 msgid "Mithril Block"
-msgstr "Блок мифрила"
+msgstr "Միֆրալից Արգելափ"
 
 #: src/content_mapnode.cpp:2352
 msgid "Stone Knob"
-msgstr "Каменная кнопка"
+msgstr "Քարե Գրիչ"
 
 #: src/content_mapnode.cpp:2353
 msgid "Rough Stone Knob"
-msgstr "Кнопка из грубого камня"
+msgstr "Կոշտ Քարե Գրիչ"
 
 #: src/content_mapnode.cpp:2354
 msgid "Sandstone Knob"
-msgstr "Кнопка из песчаника"
+msgstr "Գրիչ Ավազաքարից"
 
 #: src/content_mapnode.cpp:2355
 msgid "Wooden Knob"
-msgstr "Деревянная кнопка"
+msgstr "Փայտե Գրիչ"
 
 #: src/content_mapnode.cpp:2356
 msgid "Junglewood Knob"
-msgstr "Пальмовая кнопка"
+msgstr "Անտառափայտե Բռնակ"
 
 #: src/content_mapnode.cpp:2357
 msgid "Pine Knob"
-msgstr "Сосновая кнопка"
+msgstr "Սոճե Բռնակ"
 
 #: src/content_mapnode.cpp:2361
 msgid "Copper Block"
-msgstr "Блок меди"
+msgstr "Պղնձե Կտոր"
 
 #: src/content_mapnode.cpp:2378
 msgid "Gold Block"
-msgstr "Блок золота"
+msgstr "Ոսկու Կտոր"
 
 #: src/content_mapnode.cpp:2395
 msgid "Silver Block"
-msgstr "Блок серебра"
+msgstr "Արծաթի Կտոր"
 
 #: src/content_mapnode.cpp:2412
 msgid "Tin Block"
-msgstr "Блок олова"
+msgstr "Անագի Կտոր"
 
 #: src/content_mapnode.cpp:2429
 msgid "Quartz Block"
-msgstr "Блок кварца"
+msgstr "Քվարցի Կտոր"
 
 #: src/content_mapnode.cpp:2446
 msgid "Stone Tiles"
-msgstr "Каменные плитки"
+msgstr "Քարե Սալիկներ"
 
 #: src/content_mapnode.cpp:2466
 msgid "Wood Tiles"
-msgstr "Деревянные плитки"
+msgstr "Փայտե Սալիկներ"
 
 #: src/content_mapnode.cpp:2488
 msgid "Stone Column"
-msgstr "Каменная колонна"
+msgstr "Քարե Շարասյուն"
 
 #: src/content_mapnode.cpp:2545
 msgid "Limestone Column"
-msgstr "Известняковая колонна"
+msgstr "Կրաքարե Շարասյուն"
 
 #: src/content_mapnode.cpp:2602
 msgid "Marble Column"
-msgstr "Мраморная колонна"
+msgstr "Մարմարե Շարասյուն"
 
 #: src/content_mapnode.cpp:2659
 msgid "Sandstone Column"
-msgstr "Колонна из песчаника"
+msgstr "Ավազաքար Սյուներ"
 
 #: src/content_mapnode.cpp:2717
 msgid "Brick Column"
-msgstr "Кирпичная колонна"
+msgstr "Աղյուսե Շարասյուն"
 
 #: src/content_mapnode.cpp:2772
 msgid "Wood Column"
-msgstr "Деревянная колонна"
+msgstr "Փայտե Սյունակ"
 
 #: src/content_mapnode.cpp:2833
 msgid "Jungle Wood Column"
-msgstr "Пальмовая колонна"
+msgstr "Անտառային Փայտե Սյունակ"
 
 #: src/content_mapnode.cpp:2894
 msgid "Pine Wood Column"
-msgstr "Сосновая колонна"
+msgstr "Սոճե Փայտե Սունյակ"
 
 #: src/content_mapnode.cpp:2955
 msgid "Rough Stone Column"
-msgstr "Колонная грубого камня"
+msgstr "Կոպիտ Քարե Սունյակ"
 
 #: src/content_mapnode_circuit.cpp:36
 msgid "Mithril Wire"
-msgstr "Мифриловая проволока"
+msgstr "Միֆրայե Մետաղալարեր"
 
 #: src/content_mapnode_circuit.cpp:59
 msgid "Copper Wire"
-msgstr "Медный провод"
+msgstr "Պղնձե Մետաղալարեր"
 
 #: src/content_mapnode_circuit.cpp:90
 msgid "Reactor"
-msgstr "Реактор"
+msgstr "Ռեակտոր"
 
 #: src/content_mapnode_circuit.cpp:112
 msgid "Solar Panel"
-msgstr "Солнечная батарея"
+msgstr "Արևային Վահանակ"
 
 #: src/content_mapnode_circuit.cpp:142
 msgid "Water Wheel"
-msgstr "Водяное колесо"
+msgstr "Ջրային Անիվ"
 
 #: src/content_mapnode_circuit.cpp:174
 msgid "Switch"
-msgstr "Переключатель"
+msgstr "Անջատիչ"
 
 #: src/content_mapnode_circuit.cpp:209
 msgid "Button"
-msgstr "Кнопка"
+msgstr "Կոջակ"
 
 #: src/content_mapnode_circuit.cpp:240
 msgid "Stone Pressure Plate"
-msgstr "Каменная прижимная плита"
+msgstr "Քարե "
 
 #: src/content_mapnode_circuit.cpp:268
 msgid "Wood Pressure Plate"
-msgstr "Деревянная прижимная плита"
+msgstr "Մամլած Փայտանյութ"
 
 #: src/content_mapnode_circuit.cpp:296
 msgid "Not Gate"
-msgstr "Инвертор"
+msgstr "Դարպաս Չկա"
 
 #: src/content_mapnode_circuit.cpp:327
 msgid "Repeater"
-msgstr "Повторитель"
+msgstr "Ռեպիտոր"
 
 #: src/content_mapnode_circuit.cpp:358 src/content_mapnode_circuit.cpp:377
 msgid "Electric Lamp"
-msgstr "Лампочка"
+msgstr "Էլեկտրական Լամպ"
 
 #: src/content_mapnode_circuit.cpp:409 src/content_mapnode_circuit.cpp:443
 #: src/content_mapnode_circuit.cpp:493 src/content_mapnode_circuit.cpp:513
 #: src/content_mapnode_circuit.cpp:554 src/content_mapnode_circuit.cpp:574
 msgid "Piston"
-msgstr "Поршень"
+msgstr "Մխոց"
 
 #: src/content_mapnode_circuit.cpp:468 src/content_mapnode_circuit.cpp:534
 #: src/content_mapnode_circuit.cpp:595
 msgid "Piston Arm"
-msgstr "Шатун"
+msgstr "Ձեռքի Մխոց"
 
 #: src/content_mapnode_circuit.cpp:615 src/content_mapnode_circuit.cpp:642
 #: src/content_mapnode_circuit.cpp:692 src/content_mapnode_circuit.cpp:712
 #: src/content_mapnode_circuit.cpp:753 src/content_mapnode_circuit.cpp:773
 msgid "Sticky Piston"
-msgstr "Липкий поршень"
+msgstr "Կպչուն Մխոց"
 
 #: src/content_mapnode_circuit.cpp:667 src/content_mapnode_circuit.cpp:733
 #: src/content_mapnode_circuit.cpp:794
 msgid "Sticky Piston Arm"
-msgstr "Шатун липкого поршня"
+msgstr "Ձեռքի Կպչուն Մխոց"
 
 #: src/content_mapnode_door.cpp:38 src/content_mapnode_door.cpp:64
 #: src/content_mapnode_door.cpp:631 src/content_mapnode_door.cpp:656
 msgid "Wood Door"
-msgstr "Деревянная дверь"
+msgstr "Փայտե Դուռ"
 
 #: src/content_mapnode_door.cpp:95 src/content_mapnode_door.cpp:122
 #: src/content_mapnode_door.cpp:737 src/content_mapnode_door.cpp:763
 msgid "Steel Door"
-msgstr "Стальная дверь"
+msgstr "Պողպատե Դուռ"
 
 #: src/content_mapnode_door.cpp:154 src/content_mapnode_door.cpp:182
 #: src/content_mapnode_door.cpp:682 src/content_mapnode_door.cpp:709
 msgid "Glass Door"
-msgstr "Стеклянная дверь"
+msgstr "Ապակե Դուռ"
 
 #: src/content_mapnode_door.cpp:215 src/content_mapnode_door.cpp:242
 #: src/content_mapnode_door.cpp:790 src/content_mapnode_door.cpp:815
 msgid "Wood Windowed Door"
-msgstr "Деревянная дверь с окном"
+msgstr "Պայտե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:275 src/content_mapnode_door.cpp:303
 #: src/content_mapnode_door.cpp:841 src/content_mapnode_door.cpp:867
 msgid "Steel Windowed Door"
-msgstr "Стальная дверь с окном"
+msgstr "Երկաթե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:338 src/content_mapnode_door.cpp:364
 #: src/content_mapnode_door.cpp:895 src/content_mapnode_door.cpp:922
 msgid "Right Hanging Wood Door"
-msgstr "Правосторонняя деревянная дверь"
+msgstr "Աջ Կախված Փայտե Դուռ"
 
 #: src/content_mapnode_door.cpp:393 src/content_mapnode_door.cpp:422
 #: src/content_mapnode_door.cpp:950 src/content_mapnode_door.cpp:979
 msgid "Right Hanging Glass Door"
-msgstr "Правосторонняя стеклянная дверь"
+msgstr "Աջ Կախված Ապակե Դուռ"
 
 #: src/content_mapnode_door.cpp:454 src/content_mapnode_door.cpp:481
 #: src/content_mapnode_door.cpp:1008 src/content_mapnode_door.cpp:1036
 msgid "Right Hanging Steel Door"
-msgstr "Правосторонняя стальная дверь"
+msgstr "Աջ Կախված Պողպատե Դուռ"
 
 #: src/content_mapnode_door.cpp:511 src/content_mapnode_door.cpp:538
 #: src/content_mapnode_door.cpp:1065 src/content_mapnode_door.cpp:1092
 msgid "Right Hanging Wood Windowed Door"
-msgstr "Правосторонняя деревянная дверь с окном"
+msgstr "Աջ Կախված Փայտե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:568 src/content_mapnode_door.cpp:596
 #: src/content_mapnode_door.cpp:1120 src/content_mapnode_door.cpp:1148
 msgid "Right Hanging Steel Windowed Door"
-msgstr "Правосторонняя стальная дверь с окном"
+msgstr "Աջ Կախված Պողպատե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:1178 src/content_mapnode_door.cpp:1351
 #: src/content_mapnode_door.cpp:1406
 msgid "Wood Hatch"
-msgstr "Деревянный люк"
+msgstr "Փայտե Դիտահոր"
 
 #: src/content_mapnode_door.cpp:1204 src/content_mapnode_door.cpp:1378
 #: src/content_mapnode_door.cpp:1433
 msgid "Steel Hatch"
-msgstr "Стальной люк"
+msgstr "Պողպատե Դիտահոր"
 
 #: src/content_mapnode_door.cpp:1230
 msgid "Wood Windowed Hatch"
-msgstr "Деревянная решетка"
+msgstr "Փայտե Դիտահոր Պատուհանով"
 
 #: src/content_mapnode_door.cpp:1258
 msgid "Steel Windowed Hatch"
-msgstr "Стальная решетка"
+msgstr "Պողպատե Դիտահոր Պատուհանով"
 
 #: src/content_mapnode_door.cpp:1288 src/content_mapnode_door.cpp:1462
 msgid "Wood Gate"
-msgstr "Деревянные ворота"
+msgstr "Փայտե Դարպաս"
 
 #: src/content_mapnode_door.cpp:1320 src/content_mapnode_door.cpp:1487
 msgid "Steel Gate"
-msgstr "Стальные ворота"
+msgstr "Պողպատե Դարպաս"
 
 #: src/content_mapnode_farm.cpp:38
 msgid "Farm Dirt"
-msgstr "Чернозем"
+msgstr "Հողատարացք"
 
 #: src/content_mapnode_farm.cpp:67
 msgid "Trellis"
-msgstr "Решетка"
+msgstr "Ճաղավանդակ"
 
 #: src/content_mapnode_farm.cpp:89
 msgid "Wheat Seeds"
-msgstr "Зерна пшеницы"
+msgstr "Ցորենի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:109
 msgid "Melon Seeds"
-msgstr "Арбузные семечки"
+msgstr "Սեխի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:131
 msgid "Pumpkin Seeds"
-msgstr "Семена тыквы"
+msgstr "Դդումի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:153
 msgid "Potato Seeds"
-msgstr "Семена картошки"
+msgstr "Կարտոֆիլի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:175
 msgid "Carrot Seeds"
-msgstr "Семена моркови"
+msgstr "Գազարի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:197
 msgid "Beetroot Seeds"
-msgstr "Семена свеклы"
+msgstr "Շաղգամի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:219
 msgid "Grape Seeds"
-msgstr "Семена винограда"
+msgstr "Խաղողի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:241
 msgid "Cotton Seeds"
-msgstr "Семена хлопка"
+msgstr "Բամբակի Սերմեր"
 
 #: src/content_mapnode_farm.cpp:283
 msgid "Melon"
-msgstr "Арбуз"
+msgstr "Սեխ"
 
 #: src/content_mapnode_farm.cpp:300
 msgid "Pumpkin"
-msgstr "Тыква"
+msgstr "Դդում"
 
 #: src/content_mapnode_farm.cpp:319
 msgid "Jack' O Lantern"
-msgstr "Фонарь Джека"
+msgstr "Jack' O Lantern"
 
 #: src/content_mapnode_farm.cpp:415
 msgid "Grape"
-msgstr "Виноград"
+msgstr "Խաղող"
 
 #: src/content_mapnode_farm.cpp:459
 msgid "Trellis Grape"
-msgstr "Решетка для винограда"
+msgstr "Խաղոցի Ճաղավանդակ"
 
 #: src/content_mapnode_farm.cpp:483 src/content_mapnode_farm.cpp:501
 msgid "Dead Vine"
-msgstr "Сухая лиана"
+msgstr "Մեռած Վայն"
 
 #: src/content_mapnode_furniture.cpp:36
 msgid "Book Shelf"
-msgstr "Книжная полка"
+msgstr "Գրապահարան"
 
 #: src/content_mapnode_furniture.cpp:73
 msgid "Junglewood Book Shelf"
-msgstr "Пальмовая книжная полка"
+msgstr "Անտառափայտե Գրապահարան"
 
 #: src/content_mapnode_furniture.cpp:110
 msgid "Pine Book Shelf"
-msgstr "Сосновая книжная полка"
+msgstr "Սոճից Գրապահարան"
 
 #: src/content_mapnode_furniture.cpp:147 src/content_mapnode_furniture.cpp:166
 #: src/content_mapnode_furniture.cpp:185 src/content_mapnode_furniture.cpp:204
 #: src/content_mapnode_furniture.cpp:223 src/content_mapnode_furniture.cpp:242
 msgid "Couch"
-msgstr "Кушетка"
+msgstr "Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:271 src/content_mapnode_furniture.cpp:290
 #: src/content_mapnode_furniture.cpp:309 src/content_mapnode_furniture.cpp:328
 #: src/content_mapnode_furniture.cpp:347 src/content_mapnode_furniture.cpp:366
 msgid "Blue Couch"
-msgstr "Синяя кушетка"
+msgstr "Կապույտ Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:389 src/content_mapnode_furniture.cpp:408
 #: src/content_mapnode_furniture.cpp:427 src/content_mapnode_furniture.cpp:446
 #: src/content_mapnode_furniture.cpp:465 src/content_mapnode_furniture.cpp:484
 msgid "Green Couch"
-msgstr "Зеленая кушетка"
+msgstr "Կանաչ Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:507 src/content_mapnode_furniture.cpp:526
 #: src/content_mapnode_furniture.cpp:545 src/content_mapnode_furniture.cpp:564
 #: src/content_mapnode_furniture.cpp:583 src/content_mapnode_furniture.cpp:602
 msgid "Orange Couch"
-msgstr "Оранжевая кушетка"
+msgstr "Նարնջագույն Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:625 src/content_mapnode_furniture.cpp:644
 #: src/content_mapnode_furniture.cpp:663 src/content_mapnode_furniture.cpp:682
 #: src/content_mapnode_furniture.cpp:701 src/content_mapnode_furniture.cpp:720
 msgid "Purple Couch"
-msgstr "Фиолетовая кушетка"
+msgstr "Մուգ Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:743 src/content_mapnode_furniture.cpp:762
 #: src/content_mapnode_furniture.cpp:781 src/content_mapnode_furniture.cpp:800
 #: src/content_mapnode_furniture.cpp:819 src/content_mapnode_furniture.cpp:838
 msgid "Red Couch"
-msgstr "Красная кушетка"
+msgstr "Կարմիր Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:861 src/content_mapnode_furniture.cpp:880
 #: src/content_mapnode_furniture.cpp:899 src/content_mapnode_furniture.cpp:918
 #: src/content_mapnode_furniture.cpp:937 src/content_mapnode_furniture.cpp:956
 msgid "Yellow Couch"
-msgstr "Желтая кушетка"
+msgstr "Դեղին Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:979 src/content_mapnode_furniture.cpp:998
 #: src/content_mapnode_furniture.cpp:1017
@@ -2299,7 +2300,7 @@ msgstr "Желтая кушетка"
 #: src/content_mapnode_furniture.cpp:1055
 #: src/content_mapnode_furniture.cpp:1074
 msgid "Black Couch"
-msgstr "Черная кушетка"
+msgstr "Սև Բազմոց"
 
 #: src/content_mapnode_furniture.cpp:1097
 #: src/content_mapnode_furniture.cpp:1130
@@ -2308,1919 +2309,1915 @@ msgstr "Черная кушетка"
 #: src/content_mapnode_furniture.cpp:1199
 #: src/content_mapnode_furniture.cpp:1222
 msgid "Chair"
-msgstr "Стул"
+msgstr "Աթոռ"
 
 #: src/content_mapnode_furniture.cpp:1245
 msgid "Table"
-msgstr "Стол"
+msgstr "Սեղան"
 
 #: src/content_mapnode_furniture.cpp:1275
 #: src/content_mapnode_furniture.cpp:1307
 msgid "Bed"
-msgstr "Кровать"
+msgstr "Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1334
 #: src/content_mapnode_furniture.cpp:1366
 msgid "Blue Bed"
-msgstr "Синяя кровать"
+msgstr "Կապուտ Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1393
 #: src/content_mapnode_furniture.cpp:1425
 msgid "Green Bed"
-msgstr "Зеленая кровать"
+msgstr "Կանաչ Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1452
 #: src/content_mapnode_furniture.cpp:1484
 msgid "Orange Bed"
-msgstr "Оранжевая кровать"
+msgstr "Նարնջագույն Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1511
 #: src/content_mapnode_furniture.cpp:1543
 msgid "Purple Bed"
-msgstr "Фиолетовая кровать"
+msgstr "Մուգ Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1570
 #: src/content_mapnode_furniture.cpp:1602
 msgid "Red Bed"
-msgstr "Красная кровать"
+msgstr "Կարմիր Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1629
 #: src/content_mapnode_furniture.cpp:1661
 msgid "Yellow Bed"
-msgstr "Желтая кровать"
+msgstr "Դեղին Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1688
 #: src/content_mapnode_furniture.cpp:1720
 msgid "Black Bed"
-msgstr "Черная кровать"
+msgstr "Սև Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1747
 #: src/content_mapnode_furniture.cpp:1781
 msgid "Camp Bed"
-msgstr "Кровать"
+msgstr "Ճամբարային Մահճակալ"
 
 #: src/content_mapnode_furniture.cpp:1804
 msgid "Colorful Painting"
-msgstr "Цветная картина"
+msgstr "Գունագեղ Նկար"
 
 #: src/content_mapnode_furniture.cpp:1838
 msgid "Red Rose Painting"
-msgstr "Картина с красной розой"
+msgstr "Կարմիր Վարդ Նկար"
 
 #: src/content_mapnode_furniture.cpp:1872
 msgid "Field Painting"
-msgstr "Пейзаж"
+msgstr "Դաշտ Նկար"
 
 #: src/content_mapnode_furniture.cpp:1906
 msgid "Blue Flower Painting"
-msgstr "Картина с синим цветком"
+msgstr "Կապույտ Ծաղիկ Նկար"
 
 #: src/content_mapnode_furniture.cpp:1940
 msgid "Painting Canvas"
-msgstr "Холст для живописи"
+msgstr "Կտավե Նկար"
 
 #: src/content_mapnode_furniture.cpp:1977
 msgid "Clock"
-msgstr "Часы"
+msgstr "Ժամացույց"
 
 #: src/content_mapnode_plants.cpp:41
 msgid "Tree"
-msgstr "Дерево"
+msgstr "Ծառ"
 
 #: src/content_mapnode_plants.cpp:62
 msgid "Apple Tree"
-msgstr "Яблоня"
+msgstr "Խնձորի Ծառ"
 
 #: src/content_mapnode_plants.cpp:83
 msgid "Jungle Tree"
-msgstr "Пальма"
+msgstr "Անտառային Ծառ"
 
 #: src/content_mapnode_plants.cpp:103
 msgid "Conifer Tree"
-msgstr "Хвойное дерево"
+msgstr "Փշատերև Ծառ"
 
 #: src/content_mapnode_plants.cpp:124
 msgid "Young Tree"
-msgstr "Молодое дерево"
+msgstr "Երիտասարդ Ծառ"
 
 #: src/content_mapnode_plants.cpp:144
 msgid "Young Jungle Tree"
-msgstr "Молодая пальма"
+msgstr "Երիտասարդ Անտառային Ծառ"
 
 #: src/content_mapnode_plants.cpp:164
 msgid "Young Apple Tree"
-msgstr "Молодая яблоня"
+msgstr "Երիտասարդ Խնձորի Ծառ"
 
 #: src/content_mapnode_plants.cpp:184
 msgid "Young Conifer Tree"
-msgstr "Молодое хвойное дерево"
+msgstr "Երիտասարդ Փշատերև Ծառ"
 
 #: src/content_mapnode_plants.cpp:204
 msgid "Jungle Grass"
-msgstr "Папоротник"
+msgstr "Անտառային Խոտ"
 
 #: src/content_mapnode_plants.cpp:225
 msgid "Jungle Fern"
-msgstr "Тропический папоротник"
+msgstr "Անտառային Հողատարածք"
 
 #: src/content_mapnode_plants.cpp:246 src/content_mapnode_plants.cpp:278
 #: src/content_mapnode_plants.cpp:310 src/content_mapnode_plants.cpp:342
 msgid "Leaves"
-msgstr "Листья"
+msgstr "Տերևներ"
 
 #: src/content_mapnode_plants.cpp:374
 msgid "Apple Tree Leaves"
-msgstr "Листья яблони"
+msgstr "Խնձորի Ծառի Տերևներ"
 
 #: src/content_mapnode_plants.cpp:407
 msgid "Jungle Leaves"
-msgstr "Пальмовые листья"
+msgstr "Անտառային Տերևներ"
 
 #: src/content_mapnode_plants.cpp:439
 msgid "Conifer Leaves"
-msgstr "Хвоя"
+msgstr "Փշատերևներ"
 
 #: src/content_mapnode_plants.cpp:471 src/content_mapnode_plants.cpp:496
 #: src/content_mapnode_plants.cpp:521
 msgid "Trimmed Leaves"
-msgstr "Нарезанные листья"
+msgstr "Մանրախիճ"
 
 #: src/content_mapnode_plants.cpp:546
 msgid "Trimmed Apple Tree Leaves"
-msgstr "Нарезанные листья яблони"
+msgstr "Խնձորի Ծառի Խուզած Տեևներ"
 
 #: src/content_mapnode_plants.cpp:571
 msgid "Trimmed Jungle Leaves"
-msgstr "Нарезанные пальмовые листья"
+msgstr "Անտատային Խուզած Տերևներ"
 
 #: src/content_mapnode_plants.cpp:596
 msgid "Trimmed Conifer Leaves"
-msgstr "Нарезанная хвоя"
+msgstr "Փշատերևի Խուզած Տերևներ"
 
 #: src/content_mapnode_plants.cpp:621
 msgid "Apple Tree Blossom"
-msgstr "Цветы яблони"
+msgstr "Ծաղկող Խնձորենի"
 
 #: src/content_mapnode_plants.cpp:646
 msgid "Trimmed Apple Tree Blossom"
-msgstr "Нарезанные цветы яблони"
+msgstr "Խուզած Ծաղկող Խնձորենի"
 
 #: src/content_mapnode_plants.cpp:668
 msgid "Cactus Blossom"
-msgstr "Цветок кактуса"
+msgstr "Ծաղկող Կակտուս"
 
 #: src/content_mapnode_plants.cpp:688
 msgid "Cactus Flower"
-msgstr "Цветок кактуса"
+msgstr "Կակտուսի Ծաղիկ"
 
 #: src/content_mapnode_plants.cpp:729 src/hud.cpp:654
 msgid "Cactus"
-msgstr "Кактус"
+msgstr "Կակտուս"
 
 #: src/content_mapnode_plants.cpp:791
 msgid "Papyrus"
-msgstr "Папирус"
+msgstr "Պապիրուս"
 
 #: src/content_mapnode_plants.cpp:814
 msgid "Sapling"
-msgstr "Саженец"
+msgstr "Սածիլ"
 
 #: src/content_mapnode_plants.cpp:835
 msgid "Apple Tree Sapling"
-msgstr "Саженец яблони"
+msgstr "Խնձորի Ծառի Սածիլ"
 
 #: src/content_mapnode_plants.cpp:856
 msgid "Jungle Sapling"
-msgstr "Росток пальмы"
+msgstr "Անտառային Սածիլ"
 
 #: src/content_mapnode_plants.cpp:877
 msgid "Conifer Sapling"
-msgstr "Саженец сосны"
+msgstr "Փշատերևի Սածիլ"
 
 #: src/content_mapnode_plants.cpp:922 src/content_mapnode_plants.cpp:945
 msgid "Wild Grass"
-msgstr "Бурьян"
+msgstr "Վայրի Խոտ"
 
 #: src/content_mapnode_plants.cpp:967
 msgid "Dead Grass"
-msgstr "Сухая трава"
+msgstr "Չորացած Խոտ"
 
 #: src/content_mapnode_plants.cpp:989
 msgid "Flower Stem"
-msgstr "Стебель цветка"
+msgstr "Ծաղկի Ցողուն"
 
 #: src/content_mapnode_plants.cpp:1011
 msgid "Rose"
-msgstr "Роза"
+msgstr "Վարդ"
 
 #: src/content_mapnode_plants.cpp:1034
 msgid "Daffodil"
-msgstr "Бледно-желтый нарцис"
+msgstr "Նարցիս"
 
 #: src/content_mapnode_plants.cpp:1057
 msgid "Tulip"
-msgstr "Тюльпан"
+msgstr "Հատիկ"
 
 #: src/content_mapnode_plants.cpp:1080
 msgid "Tea Seeds"
-msgstr "Семена чая"
+msgstr "Թեյի Սերմեր"
 
 #: src/content_mapnode_plants.cpp:1099
 msgid "Tea Plant"
-msgstr "Чайное дерево"
+msgstr "Թեյի Պլանտացիա"
 
 #: src/content_mapnode_plants.cpp:1122
 msgid "Coffee Beans"
-msgstr "Зерна кофе"
+msgstr "Սուրճի Հատիկ"
 
 #: src/content_mapnode_plants.cpp:1142
 msgid "Coffee Plant"
-msgstr "Кофейное дерево"
+msgstr "Սուրճի Պլանտացիա"
 
 #: src/content_mapnode_plants.cpp:1164
 msgid "Blueberry Bush"
-msgstr "Куст черники"
+msgstr "Հապալասի Թուփ"
 
 #: src/content_mapnode_plants.cpp:1194
 msgid "Raspberry Bush"
-msgstr "Куст малины"
+msgstr "Ազնվամորու Թուփ"
 
 #: src/content_mapnode_slab.cpp:37
 msgid "Rough Stone Slab"
-msgstr "Плита грубого камня"
+msgstr "Կոպիտ Քարե Վառարան"
 
 #: src/content_mapnode_slab.cpp:55 src/content_mapnode_slab.cpp:424
 msgid "Cobble Stone Slab"
-msgstr "Булыжная плита"
+msgstr "Սալաքարե Վառարան"
 
 #: src/content_mapnode_slab.cpp:73
 msgid "Mossy Cobble Stone Slab"
-msgstr "Плита замшелого булыжника"
+msgstr "Թավշյա Սալաքարե Վառարան"
 
 #: src/content_mapnode_slab.cpp:91
 msgid "Stone Slab"
-msgstr "Каменная плита"
+msgstr "Կոպիտ Վառարան"
 
 #: src/content_mapnode_slab.cpp:108
 msgid "Wood Slab"
-msgstr "Деревянная плита"
+msgstr "Փայտյա Վառարան"
 
 #: src/content_mapnode_slab.cpp:127
 msgid "Jungle Wood Slab"
-msgstr "Пальмовая плита"
+msgstr "Անտառային Փայտյա Վառարան"
 
 #: src/content_mapnode_slab.cpp:146
 msgid "Brick Slab"
-msgstr "Кирпичная плита"
+msgstr "Աղյուսից Վառարան"
 
 #: src/content_mapnode_slab.cpp:167
 msgid "Sand Stone Slab"
-msgstr "Плита песчаника"
+msgstr "Ավազե Կոպիտ Վառարան"
 
 #: src/content_mapnode_slab.cpp:184 src/content_mapnode_slab.cpp:526
 msgid "Glass Slab"
-msgstr "Стеклянная плита"
+msgstr "Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:209 src/content_mapnode_slab.cpp:548
 msgid "Blue Glass Slab"
-msgstr "Плита синего стекла"
+msgstr "Կապույտ Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:235 src/content_mapnode_slab.cpp:570
 msgid "Green Glass Slab"
-msgstr "Плита зеленого стекла"
+msgstr "Կանաչ Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:261 src/content_mapnode_slab.cpp:592
 msgid "Orange Glass Slab"
-msgstr "Плита оранжевого стекла"
+msgstr "Նարնջագույն Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:287 src/content_mapnode_slab.cpp:614
 msgid "Purple Glass Slab"
-msgstr "Плита фиолетового стекла"
+msgstr "Մուգ Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:313 src/content_mapnode_slab.cpp:636
 msgid "Red Glass Slab"
-msgstr "Плита красного стекла"
+msgstr "Կարմիր Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:339 src/content_mapnode_slab.cpp:658
 msgid "Yellow Glass Slab"
-msgstr "Плита желтого стекла"
+msgstr "Դեղին Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:365 src/content_mapnode_slab.cpp:680
 msgid "Black Glass Slab"
-msgstr "Плита черного стекла"
+msgstr "Սև Ապակե Վառարան"
 
 #: src/content_mapnode_slab.cpp:391
 msgid "Limestone Slab"
-msgstr "Известняковая плита"
+msgstr "Կրաքարե Վառարան"
 
 #: src/content_mapnode_special.cpp:37
 msgid "Fence"
-msgstr "Ограда"
+msgstr "Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:65
 msgid "Steel Fence"
-msgstr "Стальная ограда"
+msgstr "Պողպատե Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:92
 msgid "Jungle Wood Fence"
-msgstr "Пальмовая ограда"
+msgstr "Անտառային Փայտից Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:120
 msgid "Pine Fence"
-msgstr "Сосновая ограда"
+msgstr "Սոճե Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:148
 msgid "Steel Bars"
-msgstr "Стальные прутья"
+msgstr "Երկաթե Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:176
 msgid "Rail"
-msgstr "Рельсы"
+msgstr "Երկաթգիծ"
 
 #: src/content_mapnode_special.cpp:208
 msgid "Terracotta Roof Tile"
-msgstr "Керамическая черепица"
+msgstr "Տեռռոկատից Տանիքի Սալիկ"
 
 #: src/content_mapnode_special.cpp:224
 msgid "Wood Roof Tile"
-msgstr "Деревянная черепица"
+msgstr "Փայտե Տանիքի Սալիկ"
 
 #: src/content_mapnode_special.cpp:241
 msgid "Asphalt Roof Tile"
-msgstr "Асфальтовая черепица"
+msgstr "Ասֆալտե Տանիքի Սալիկ"
 
 #: src/content_mapnode_special.cpp:264
 msgid "Stone Roof Tile"
-msgstr "Каменная черепица"
+msgstr "Քարե Տանիքի Սալիկ"
 
 #: src/content_mapnode_special.cpp:280
 msgid "Glass Roof Tile"
-msgstr "Стеклянная черепица"
+msgstr "Տանիքի Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:302
 msgid "Blue Glass Roof Tile"
-msgstr "Черепица синего стекла"
+msgstr "Տանիքի Կապույտ Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:325
 msgid "Green Glass Roof Tile"
-msgstr "Черепица зеленого стекла"
+msgstr "Տանիքի Կանաչ Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:348
 msgid "Orange Glass Roof Tile"
-msgstr "Черепица оранжевого стекла"
+msgstr "Տանիքի Նարնջագույն Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:371
 msgid "Purple Glass Roof Tile"
-msgstr "Черепица фиолетового стекла"
+msgstr "Տանիքի Մուգ Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:394
 msgid "Red Glass Roof Tile"
-msgstr "Черепица красного стекла"
+msgstr "Տանիքի Կարմիր Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:417
 msgid "Yellow Glass Roof Tile"
-msgstr "Черепица желтого стекла"
+msgstr "Տանիքի Դեղին Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:440
 msgid "Black Glass Roof Tile"
-msgstr "Черепица черного стекла"
+msgstr "Տանիքի Սև Ապակե Սալիկ"
 
 #: src/content_mapnode_special.cpp:463
 msgid "Thatch Roof Tile"
-msgstr "Соломенная черепица"
+msgstr "Ծղոտե Տանիքի Սալիկ"
 
 #: src/content_mapnode_special.cpp:481 src/content_mapnode_special.cpp:540
 #: src/content_mapnode_special.cpp:574
 msgid "Ladder"
-msgstr "Лестница"
+msgstr "Աստիճան"
 
 #: src/content_mapnode_special.cpp:608
 msgid "Border Stone"
-msgstr "Граничный камень"
+msgstr "Ճամփեզրի Քար"
 
 #: src/content_mapnode_special.cpp:635
 msgid "Book"
-msgstr "Книга"
+msgstr "Գիրք"
 
 #: src/content_mapnode_special.cpp:666
 msgid "Cook Book"
-msgstr "Использование печи"
+msgstr "Խոհարարական Գիրք"
 
 #: src/content_mapnode_special.cpp:697
 msgid "Decraft Book"
-msgstr "Книга по разборке"
+msgstr "Դաքրաֆթ Գիրք"
 
 #: src/content_mapnode_special.cpp:727 src/content_mapnode_special.cpp:916
 #: src/content_nodemeta.cpp:2928
 msgid "Diary"
-msgstr "Дневник"
+msgstr "Օրագիր"
 
 #: src/content_mapnode_special.cpp:758
 msgid "Craft Book"
-msgstr "Книга по сборке"
+msgstr "Քրաֆթ Կիրք"
 
 #: src/content_mapnode_special.cpp:797
 msgid "Reverse Craft Book"
-msgstr "Книга по разборке"
+msgstr "Հակառակ Քրաֆթ Գիրք"
 
 #: src/content_mapnode_special.cpp:834
 msgid "Guide"
-msgstr "Руководство"
+msgstr "Ղեկավարություն"
 
 #: src/content_mapnode_special.cpp:862 src/content_nodemeta.h:500
 msgid "Cooking Guide"
-msgstr "Руководство по использованию печи"
+msgstr "Ղեկավարության Ուղեցույց"
 
 #: src/content_mapnode_special.cpp:889 src/content_nodemeta.h:526
 msgid "Decrafting Guide"
-msgstr "Руководство по разборке"
+msgstr "Դեքրաֆթի Ղեկավարություն"
 
 #: src/content_mapnode_special.cpp:944 src/content_nodemeta.h:442
 msgid "Craft Guide"
-msgstr "Руководство по сборке"
+msgstr "Քրաֆթի Ղեկավարություն"
 
 #: src/content_mapnode_special.cpp:971 src/content_nodemeta.h:469
 msgid "Reverse Craft Guide"
-msgstr "Руководство по разборке"
+msgstr "Հակառակ Քրաֆթի Ղեկավարություն"
 
 #: src/content_mapnode_special.cpp:998 src/content_mapnode_special.cpp:1018
 #: src/hud.cpp:655
 msgid "Fire"
-msgstr "Огонь"
+msgstr "Կրակ"
 
 #: src/content_mapnode_special.cpp:1037
 msgid "Torch"
-msgstr "Факел"
+msgstr "Ջահ"
 
 #: src/content_mapnode_special.cpp:1064 src/content_mapnode_special.cpp:1090
 #: src/content_mapnode_special.cpp:1123
 msgid "Sign"
-msgstr "Табличка"
+msgstr "Նշան"
 
 #: src/content_mapnode_special.cpp:1151 src/content_mapnode_special.cpp:1181
 #: src/content_mapnode_special.cpp:1213
 msgid "Locking Sign"
-msgstr "Табличка с запором"
+msgstr "Կողպել Նշանը"
 
 #: src/content_mapnode_special.cpp:1242 src/content_nodemeta.cpp:485
 msgid "Chest"
-msgstr "Сундук"
+msgstr "Պահոց"
 
 #: src/content_mapnode_special.cpp:1266 src/content_nodemeta.cpp:760
 msgid "Creative Chest"
-msgstr "Сундук создателя"
+msgstr "Սեղծագործ Պահոց"
 
 #: src/content_mapnode_special.cpp:1287
 msgid "Locking Chest"
-msgstr "Сундук с запором"
+msgstr "Կողպած Պահոց"
 
 #: src/content_mapnode_special.cpp:1318
 msgid "Safe"
-msgstr "Сейф"
+msgstr "Անվտանգ"
 
 #: src/content_mapnode_special.cpp:1340 src/content_mapnode_special.cpp:1366
 msgid "Furnace"
-msgstr "Печь"
+msgstr "Վառարան"
 
 #: src/content_mapnode_special.cpp:1384 src/content_mapnode_special.cpp:1411
 msgid "Locking Furnace"
-msgstr "Печь с запором"
+msgstr "Կողպած Վառարան"
 
 #: src/content_mapnode_special.cpp:1429 src/content_mapnode_special.cpp:1454
 msgid "Incinerator"
-msgstr "Мусоросжигатель"
+msgstr "Աղբայրում"
 
 #: src/content_mapnode_special.cpp:1474
 msgid "Camp Fire"
-msgstr "Костер"
+msgstr "Խարույկ"
 
 #: src/content_mapnode_special.cpp:1516
 msgid "Nyan Cat"
-msgstr "Кошка Нян"
+msgstr "Նյան Կատու"
 
 #: src/content_mapnode_special.cpp:1530
 msgid "Rainbow"
-msgstr "Радуга"
+msgstr "Ծիածան"
 
 #: src/content_mapnode_special.cpp:1542
 msgid "Unbaked Flower Pot"
-msgstr "Необожженный цветочный горшок"
+msgstr "Չայրվող Ծաղկաման"
 
 #: src/content_mapnode_special.cpp:1563
 msgid "Flower Pot"
-msgstr "Цветочный горшок"
+msgstr "Ծաղկաման"
 
 #: src/content_mapnode_special.cpp:1580
 msgid "Cobblestone Wall"
-msgstr "Булыжная стена"
+msgstr "Սալաքարե Պատ"
 
 #: src/content_mapnode_special.cpp:1603
 msgid "Rough Stone Wall"
-msgstr "Стена грубого камня"
+msgstr "Կոպիտ Քարե Պատ"
 
 #: src/content_mapnode_special.cpp:1626
 msgid "Mossy Cobblestone Wall"
-msgstr "Стена замшелого булыжника"
+msgstr "Թավշյա Սալքարե Պատ"
 
 #: src/content_mapnode_special.cpp:1649
 msgid "Stone Wall"
-msgstr "Каменная стена"
+msgstr "Քարե Պատ"
 
 #: src/content_mapnode_special.cpp:1672
 msgid "Sand Stone Wall"
-msgstr "Стена песчаника"
+msgstr "Ավազաքարե Պատ"
 
 #: src/content_mapnode_special.cpp:1695
 msgid "Limestone Wall"
-msgstr "Известняковая стена"
+msgstr "Կրաքարե Պատ"
 
 #: src/content_mapnode_special.cpp:1718
 msgid "Marble Wall"
-msgstr "Мраморная стена"
+msgstr "Մարմարե Պատ"
 
 #: src/content_mapnode_special.cpp:1741 src/hud.cpp:656
 msgid "TNT"
-msgstr "Динамит"
+msgstr "TNT"
 
 #: src/content_mapnode_special.cpp:1761
 msgid "In-Progress explosion - how did you get this???"
-msgstr "Начат обратный отсчет до взрыва - где ты достал взрывчатку???"
+msgstr "Գործընթացում պայթյունի - որտեղի ՞ ց եք դուք դա վերցրել։"
 
 #: src/content_mapnode_special.cpp:1780 src/hud.cpp:657
 msgid "Steam"
-msgstr "Пар"
+msgstr "Զույգ"
 
 #: src/content_mapnode_special.cpp:1800
 msgid "Home Flag"
-msgstr "Домашний флаг"
+msgstr "Տան Դրոշ"
 
 #: src/content_mapnode_special.cpp:1845
 msgid "Blue Home Flag"
-msgstr "Синий домашний флаг"
+msgstr "Տան Կապույտ Դրոշ"
 
 #: src/content_mapnode_special.cpp:1869
 msgid "Green Home Flag"
-msgstr "Зеленый домашний флаг"
+msgstr "Տան Կանաչ Դրոշ"
 
 #: src/content_mapnode_special.cpp:1893
 msgid "Orange Home Flag"
-msgstr "Оранжевый домашний флаг"
+msgstr "Տան Նարնջագույն Դրոշ"
 
 #: src/content_mapnode_special.cpp:1917
 msgid "Purple Home Flag"
-msgstr "Фиолетовый домашний флаг"
+msgstr "Տան Մուգ Դրոշ"
 
 #: src/content_mapnode_special.cpp:1941
 msgid "Red Home Flag"
-msgstr "Красный домашний флаг"
+msgstr "Տան Կարմիր Դրոշ"
 
 #: src/content_mapnode_special.cpp:1965
 msgid "Yellow Home Flag"
-msgstr "Желтый домашний флаг"
+msgstr "Տան Դեղին Դրոշ"
 
 #: src/content_mapnode_special.cpp:1989
 msgid "Black Home Flag"
-msgstr "Черный домашний флаг"
+msgstr "Տան Սև Դրոշ"
 
 #: src/content_mapnode_special.cpp:2013
 msgid "Life Support System"
-msgstr "Система жизнеобеспечения"
+msgstr "Համակարգային Կենսապահովում"
 
 #: src/content_mapnode_special.cpp:2037
 msgid "Parcel"
-msgstr "Пакет"
+msgstr "Ծանրոց"
 
 #: src/content_mapnode_special.cpp:2062
 msgid "Cauldron"
-msgstr "Котел"
+msgstr "Կաթսա"
 
 #: src/content_mapnode_special.cpp:2082 src/content_nodemeta.cpp:3561
 msgid "Forge"
-msgstr "Кузница"
+msgstr "Ֆորջ"
 
 #: src/content_mapnode_special.cpp:2109
 msgid "Forge Fire"
-msgstr "Кузнечный огонь"
+msgstr "Կրակե Ֆորջ"
 
 #: src/content_mapnode_special.cpp:2128
 msgid "Scaffolding"
-msgstr "Строительные леса"
+msgstr "Լաստակներ"
 
 #: src/content_mapnode_stair.cpp:37
 msgid "Rough Stone Stair"
-msgstr "Ступенька грубого камня"
+msgstr "Կոպիտ Քարե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:55
 msgid "Cobble Stone Stair"
-msgstr "Булыжная ступенька"
+msgstr "Սալաքար Քար Աստիճան"
 
 #: src/content_mapnode_stair.cpp:73
 msgid "Mossy Cobble Stone Stair"
-msgstr "Ступенька замшелого булыжника"
+msgstr "Թավշյա Սալաքար Աստիճան"
 
 #: src/content_mapnode_stair.cpp:91
 msgid "Stone Stair"
-msgstr "Каменная ступенька"
+msgstr "Քարե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:110
 msgid "Wood Stair"
-msgstr "Деревянная ступенька"
+msgstr "Փայտե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:130
 msgid "Jungle Wood Stair"
-msgstr "Пальмовая ступенька"
+msgstr "Անտառային Փայտե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:150
 msgid "Brick Stair"
-msgstr "Кирпичная ступенька"
+msgstr "Աղյուսից Աստիճան"
 
 #: src/content_mapnode_stair.cpp:173
 msgid "Sand Stone Stair"
-msgstr "Ступенька песчаника"
+msgstr "Ավազաքարե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:191
 msgid "Limestone Stair"
-msgstr "Известняковая ступенька"
+msgstr "Կրաքարե Աստիճան"
 
 #: src/content_mob.cpp:401
 msgid "Oerkki"
-msgstr "Оэркки"
+msgstr "Oerkki"
 
 #: src/content_mob.cpp:422
 msgid "Dungeon Master"
-msgstr "Повелитель подземелья"
+msgstr "Բանտապետ"
 
 #: src/content_mob.cpp:443
 msgid "Fireball"
-msgstr "Огонек"
+msgstr "Հրեգունդ"
 
 #: src/content_mob.cpp:460
 msgid "Doe"
-msgstr "Лань"
+msgstr "Եղնիկ"
 
 #: src/content_mob.cpp:487 src/content_mob.cpp:516
 msgid "Stag"
-msgstr "Олень"
+msgstr "հավաքույթ"
 
 #: src/content_mob.cpp:565
 msgid "Shark"
-msgstr "Акула"
+msgstr "Շնաձուկ"
 
 #: src/content_mob.cpp:590
 msgid "Wolf"
-msgstr "Волк"
+msgstr "Գայլ"
 
 #: src/content_mob.cpp:618
 msgid "Tame Wolf"
-msgstr "Прирученный волк"
+msgstr "Ընտելացնել Գայլի"
 
 #: src/content_mob.cpp:644
 msgid "Sheep"
-msgstr "Овца"
+msgstr "Ոչխար"
 
 #: src/content_mob.cpp:676
 msgid "Sheared Sheep"
-msgstr "Стриженная овца"
+msgstr "Խուզած Ոչխար"
 
 #: src/content_mob.cpp:701
 msgid "Snowball"
-msgstr "Снежок"
+msgstr "Ձնագնդիկ"
 
 #: src/content_mob.cpp:737
 msgid "Grey Kitten"
-msgstr "Серая кошка"
+msgstr "Մոխրագույն Փիսիկ"
 
 #: src/content_mob.cpp:764
 msgid "White Kitten"
-msgstr "Белая кошка"
+msgstr "Սպիտակ Փիսիկ"
 
 #: src/content_mob.cpp:791
 msgid "Siamese Kitten"
-msgstr "Сиамская кошка"
+msgstr "Սիամական Փիսիկ"
 
 #: src/content_mob.cpp:818
 msgid "Ginger Kitten"
-msgstr "Рыжая кошка"
+msgstr "կարմրավուն Փիսիկ"
 
 #: src/content_nodemeta.cpp:76 src/content_nodemeta.cpp:139
 #: src/content_nodemeta.cpp:2912 src/content_nodemeta.cpp:3011
 msgid "Save"
-msgstr "Сохранить"
+msgstr "Պահպանել"
 
 #: src/content_nodemeta.cpp:186
 #, c-format
 msgid "%s's Home Flag"
-msgstr "Домашний флаг %s"
+msgstr "%s's Տան Դրոշ"
 
 #: src/content_nodemeta.cpp:270 src/content_nodemeta.cpp:283
 #: src/content_nodemeta.cpp:421 src/content_nodemeta.cpp:434
 msgid "You can't sleep yet."
-msgstr "Вы не можете спать сейчас."
+msgstr "Դու դեռ չեք կարող քնել։"
 
 #: src/content_nodemeta.cpp:274 src/content_nodemeta.cpp:425
 msgid "Go to sleep"
-msgstr "Прилечь поспать"
+msgstr "Գնալ քնելու"
 
 #: src/content_nodemeta.cpp:279 src/content_nodemeta.cpp:430
 msgid "Someone else is sleeping here."
-msgstr "Кто-то другой уже спит здесь."
+msgstr "Ինչ-որ մեկը դեռ քնած է այստեղ։"
 
 #: src/content_nodemeta.cpp:287 src/content_nodemeta.cpp:438
 msgid "Get out of bed"
-msgstr "Встать с кровати"
+msgstr "Վերկանալ Քնից"
 
 #: src/content_nodemeta.cpp:417
 msgid "This bed is too uncomfortable to sleep in."
-msgstr "Эта кровать слишком неудобная, чтобы спать на ней."
+msgstr "Այս մահճակալը չափազանց անհարմար է քնելու համար։"
 
 #: src/content_nodemeta.cpp:558
 #, c-format
 msgid "Locking Chest owned by '%s'"
-msgstr "Сундук с запором принадлежит '%s'"
+msgstr "Կողպած Պահոցը պատկանում է '%s'"
 
 #: src/content_nodemeta.cpp:632
 #, c-format
 msgid "Safe owned by '%s'"
-msgstr "Сейф принадлежит '%s'"
+msgstr "Անվտանգ պատկանում է '%s'"
 
 #: src/content_nodemeta.cpp:801 src/content_nodemeta.cpp:2105
 #: src/content_nodemeta.cpp:2392 src/content_nodemeta.cpp:2584
 #: src/content_nodemeta.cpp:2798
 #, c-format
 msgid "Page %d of %d"
-msgstr "Страница %d из %d"
+msgstr "Էջը %d ից %d"
 
 #: src/content_nodemeta.cpp:805 src/content_nodemeta.cpp:2133
 #: src/content_nodemeta.cpp:2411 src/content_nodemeta.cpp:2593
 #: src/content_nodemeta.cpp:2814
 msgid "<< Previous Page"
-msgstr "<< Пред. страница"
+msgstr "<< Նախորդ Էջ"
 
 #: src/content_nodemeta.cpp:811 src/content_nodemeta.cpp:2139
 #: src/content_nodemeta.cpp:2417 src/content_nodemeta.cpp:2599
 #: src/content_nodemeta.cpp:2820
 msgid "Next Page >>"
-msgstr "След. страница >>"
+msgstr "Հաջորդ Էջ >>"
 
 #: src/content_nodemeta.cpp:854
 #, c-format
 msgid "Border Stone owned by '%s'"
-msgstr "Граничный камень принадлежит '%s'"
+msgstr "Ճամփեզրի Քարը պատկանում է '%s'"
 
 #: src/content_nodemeta.cpp:929
 msgid "Furnace is overloaded"
-msgstr "Печь перегружена"
+msgstr "Վառարանը ծանրաբեռնված է"
 
 #: src/content_nodemeta.cpp:930
 msgid "Furnace is out of fuel"
-msgstr "В печи закончилось топливо"
+msgstr "Վառարանի վառելիք"
 
 #: src/content_nodemeta.cpp:932
 msgid "Furnace is inactive"
-msgstr "Печь работает"
+msgstr "Վառարանը ապակտիվ է"
 
 #: src/content_nodemeta.cpp:935
 msgid "Furnace is active"
-msgstr "Печь работает"
+msgstr "Վառարանը ակտիվ է"
 
 #: src/content_nodemeta.cpp:1194
 msgid "Locking Furnace is overloaded"
-msgstr "Печь с запором перегружена"
+msgstr "Կողպած Վառարան ծանրաբեռնված է"
 
 #: src/content_nodemeta.cpp:1195
 msgid "Locking Furnace is out of fuel"
-msgstr "В печи с запором закончилось топливо"
+msgstr "Կողպած Վառարան ծանրաբեռնված է"
 
 #: src/content_nodemeta.cpp:1197
 msgid "Locking Furnace is inactive"
-msgstr "Печь с запором выключена"
+msgstr "Կողխած Վառարանը ապակտիվ է"
 
 #: src/content_nodemeta.cpp:1200
 msgid "Locking Furnace is active"
-msgstr "Печь с запором работает"
+msgstr "Կողխած Վառարանը ակտիվ է"
 
 #: src/content_nodemeta.cpp:1458
 msgid "CampFire is overloaded"
-msgstr "Костер перегружен"
+msgstr "Խարույկը Ծանրաբեռնված է"
 
 #: src/content_nodemeta.cpp:1459
 msgid "CampFire is out of fuel"
-msgstr "В костре закончилось топливо"
+msgstr "Խարույկի վառելիք"
 
 #: src/content_nodemeta.cpp:1461
 msgid "CampFire is inactive"
-msgstr "Костер потух"
+msgstr "Խարույկը ապակտիվ է"
 
 #: src/content_nodemeta.cpp:1464
 msgid "CampFire is active"
-msgstr "Костер горит"
+msgstr "Խարույկը ակտիվ է"
 
 #: src/content_nodemeta.cpp:1703
 msgid "Armed Explosive: about to detonate"
-msgstr "Снаряженная взрывчатка: сейчас рванет"
+msgstr "Զինված Պայթուցիկ․ պայթեցնելու մասին։"
 
 #: src/content_nodemeta.cpp:1706
 #, c-format
 msgid "Armed Explosive: %d second till detonation"
 msgid_plural "Armed Explosive: %d seconds till detonation"
-msgstr[0] "Снаряженная взрывчатка: %d секунда до детонации"
-msgstr[1] "Снаряженная взрывчатка: %d секунды до детонации"
-msgstr[2] "Снаряженная взрывчатка: %d секунд до детонации"
-msgstr[3] "Снаряженная взрывчатка: %d секунд до детонации"
+msgstr[0] "Զինված Պայթուցիկ է: %d վայրկյան առաջ պայթեցում"
+msgstr[1] "Զինված Պայթուցիկ է: %d վայրկյան առաջ պայթեցում"
 
 #: src/content_nodemeta.cpp:1767 src/content_nodemeta.cpp:1772
 msgid "Incinerator is active"
-msgstr "Мусоросжигатель работает"
+msgstr "Աղբայրումը ակտիվ է"
 
 #: src/content_nodemeta.cpp:1774
 msgid "Incinerator is inactive"
-msgstr "Мусоросжигатель выключен"
+msgstr "Աղբայրումը ապակտիվ է"
 
 #: src/content_nodemeta.cpp:1866
 msgid "Add fuel, then punch to incinerate wielded item"
-msgstr "Добавьте топлива и затем ударьте предметом, который нужно сжечь"
+msgstr "Ավելացնել վառելիք, ապա հարվածել աղբայրման կետ"
 
 #: src/content_nodemeta.cpp:1869 src/content_nodemeta.cpp:3465
 msgid "Fuel"
-msgstr "Топливо"
+msgstr "Վառելիք"
 
 #: src/content_nodemeta.cpp:2109 src/content_nodemeta.cpp:2397
 msgid "Add item here to see recipe"
-msgstr "Поместите предмет сюда, чтобы увидеть рецепт"
+msgstr "Ավելացնել կետը տեսնել բաղադրությունը"
 
 #: src/content_nodemeta.cpp:2114 src/content_nodemeta.cpp:2402
 #, c-format
 msgid "Recipe %d of %d"
-msgstr "Рецепт %d из %d"
+msgstr "Բաղադրություն %d ից %d"
 
 #: src/content_nodemeta.cpp:2123
 msgid "Gives"
-msgstr "Дает"
+msgstr "Տալիս է"
 
 #: src/content_nodemeta.cpp:2588
 msgid "Add item here to see cook result"
-msgstr "Поместите предмет сюда, чтобы увидеть результат запекания"
+msgstr "Ավելացնել կետը տեսնել արդյունքը"
 
 #: src/content_nodemeta.cpp:2802
 msgid "Add item here to see dig result"
-msgstr "Поместите предмет сюда, чтобы увидеть результат разрушения"
+msgstr "Ավելացնել կետը տեսնել փորելու արդյունք"
 
 #: src/content_nodemeta.cpp:2806
 msgid "Dig Result"
-msgstr "Результат разрущения"
+msgstr "Քանդել Արդյունքը"
 
 #: src/content_nodemeta.cpp:2810
 msgid "Random Drop"
-msgstr "Выпадает случайно"
+msgstr "Պատահական Անկումից"
 
 #: src/content_nodemeta.cpp:2902 src/content_nodemeta.cpp:3001
 msgid "Title"
-msgstr "Название"
+msgstr "Անվանում"
 
 #: src/content_nodemeta.cpp:2907 src/content_nodemeta.cpp:3006
 msgid "Content"
-msgstr "Содержимое"
+msgstr "Բովանդակություն"
 
 #: src/content_nodemeta.cpp:3370
 msgid "Cauldron is active"
-msgstr "Котел включен"
+msgstr "Կաթսան ակտիվ է"
 
 #: src/content_nodemeta.cpp:3373
 msgid "Cauldron is hot"
-msgstr "Котел горячий"
+msgstr "Կաթսան տաք է"
 
 #: src/content_nodemeta.cpp:3375
 msgid "Cauldron is cool"
-msgstr "Котел холодный"
+msgstr "Կաթսան սառն է"
 
 #: src/content_nodemeta.cpp:3377
 msgid "Cauldron is empty"
-msgstr "Котел пуст"
+msgstr "Կատսան դատարկ է"
 
 #: src/content_nodemeta.cpp:3381
 msgid "Cauldron is inactive"
-msgstr "Котел выключен"
+msgstr "Կաթսան ապակտիվ է"
 
 #: src/content_nodemeta.cpp:3382
 msgid "Cauldron is out of fuel"
-msgstr "Котел без топлива"
+msgstr "Կաթսան ծանրաբեռնված է"
 
 #: src/content_nodemeta.cpp:3462
 msgid "Add fuel, then punch to add or remove water"
-msgstr "Добавьте топлива и затем ударьте для того, чтобы добавить или убрать воду"
+msgstr "Ավելացնել վառելիք, ապա դակիչ ավելացնել կամ հեռացնել ջուրը"
 
 #: src/content_nodemeta.cpp:3735
 msgid "Show Enchanting"
-msgstr "Окно зачарования"
+msgstr "Ցուցադրել Էնչայնթինգ"
 
 #: src/content_nodemeta.cpp:3742 src/game.cpp:209
 msgid "Show Crafting"
-msgstr "Окно сборки"
+msgstr "Ցուցադրել Քրաֆթինգ"
 
 #: src/content_toolitem.cpp:216
 msgid "Small Stone Pick"
-msgstr "Малая каменная кирка"
+msgstr "Փոքր Քար Սուր"
 
 #: src/content_toolitem.cpp:239
 msgid "Stone Pick"
-msgstr "Каменная кирка"
+msgstr "Քար Սուր"
 
 #: src/content_toolitem.cpp:253
 msgid "Flint Pick"
-msgstr "Кремневая кирка"
+msgstr "Ֆլինթե Սուր"
 
 #: src/content_toolitem.cpp:267
 msgid "Steel Pick"
-msgstr "Стальная кирка"
+msgstr "Պողպատե Սուր"
 
 #: src/content_toolitem.cpp:281
 msgid "Creative Pick"
-msgstr "Кирка создателя"
+msgstr "Սեղծագործ Սուր"
 
 #: src/content_toolitem.cpp:295
 msgid "Stone Trowel"
-msgstr "Каменный мастерок"
+msgstr "Քարե Մալա"
 
 #: src/content_toolitem.cpp:309
 msgid "Stone Shovel"
-msgstr "Каменная лопата"
+msgstr "Քարե Թիակ"
 
 #: src/content_toolitem.cpp:323
 msgid "Flint Shovel"
-msgstr "Кремневая лопата"
+msgstr "Ֆլինթ Թիակ"
 
 #: src/content_toolitem.cpp:337
 msgid "Steel Shovel"
-msgstr "Стальная лопата"
+msgstr "Պողպատե Թիակ"
 
 #: src/content_toolitem.cpp:351
 msgid "Small Stone Axe"
-msgstr "Малый каменный топор"
+msgstr "Փոքր Քարե Կացին"
 
 #: src/content_toolitem.cpp:375
 msgid "Stone Axe"
-msgstr "Каменный топор"
+msgstr "Քարե Կացին"
 
 #: src/content_toolitem.cpp:389
 msgid "Flint Axe"
-msgstr "Кремневый топор"
+msgstr "Թլինթ Կացին"
 
 #: src/content_toolitem.cpp:403
 msgid "Steel Axe"
-msgstr "Стальной топор"
+msgstr "Պողպատե Կացին"
 
 #: src/content_toolitem.cpp:417
 msgid "Wooden Club"
-msgstr "Деревянная дубина"
+msgstr "Փայտե Ակումբ"
 
 #: src/content_toolitem.cpp:432
 msgid "Stone Sword"
-msgstr "Каменный меч"
+msgstr "Քարե Սուր"
 
 #: src/content_toolitem.cpp:446
 msgid "Steel Sword"
-msgstr "Стальной меч"
+msgstr "Պողպատե Սուր"
 
 #: src/content_toolitem.cpp:460
 msgid "Flint Shears"
-msgstr "Кремневые ножницы"
+msgstr "Ֆլինթ Սուր"
 
 #: src/content_toolitem.cpp:474
 msgid "Steel Shears"
-msgstr "Стальные ножницы"
+msgstr "Պողպատե Մկրատ"
 
 #: src/content_toolitem.cpp:488
 msgid "Wooden Bucket"
-msgstr "Деревянное ведро"
+msgstr "Փայտե Շերեփ"
 
 #: src/content_toolitem.cpp:505
 msgid "Tin Bucket"
-msgstr "Цинковое ведро"
+msgstr "Անագե Դույլ"
 
 #: src/content_toolitem.cpp:521
 msgid "Wooden Bucket of Water"
-msgstr "Деревянное ведро воды"
+msgstr "Փայտյա ջրի դույլ"
 
 #: src/content_toolitem.cpp:532
 msgid "Tin Bucket of Water"
-msgstr "Цинковое ведро воды"
+msgstr "Անագե Ջրի Դույլ"
 
 #: src/content_toolitem.cpp:543
 msgid "Steel Bucket"
-msgstr "Стальное ведро"
+msgstr "Պողպատե Դույլ"
 
 #: src/content_toolitem.cpp:558
 msgid "Steel Bucket of Water"
-msgstr "Стальное ведро воды"
+msgstr "Պողպատե Ջրի Դույլ"
 
 #: src/content_toolitem.cpp:569
 msgid "Steel Bucket of Lava"
-msgstr "Стальное ведро лавы"
+msgstr "Պողպատե Լավայի Դույլ"
 
 #: src/content_toolitem.cpp:581
 msgid "Fire Starter"
-msgstr "Огниво"
+msgstr "Հրդեհը Մեկնարկեց"
 
 #: src/content_toolitem.cpp:595
 msgid "Crowbar"
-msgstr "Лом"
+msgstr "Լոմիկ"
 
 #: src/content_toolitem.cpp:608
 msgid "Key"
-msgstr "Ключ"
+msgstr "Բանալի"
 
 #: src/content_toolitem.cpp:620
 msgid "Stone Spear"
-msgstr "Каменное копье"
+msgstr "Քարե Աղեղ"
 
 #: src/content_toolitem.cpp:634
 msgid "Flint Spear"
-msgstr "Кремневое копье"
+msgstr "Ֆլինթ Աղեղ"
 
 #: src/content_toolitem.cpp:648
 msgid "Steel Spear"
-msgstr "Стальное копье"
+msgstr "Պողպատե Աղեղ"
 
 #: src/content_toolitem.cpp:662
 msgid "Bow"
-msgstr "Лук"
+msgstr "Սոխ"
 
 #: src/content_toolitem.cpp:682
 msgid "Raw Mithril Pick"
-msgstr "Кирка из сырого мифрила"
+msgstr "Անպատրաստ Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:696
 msgid "Raw Mithril Shovel"
-msgstr "Лопата из сырого мифрила"
+msgstr "Հում Միֆրայե Բահ"
 
 #: src/content_toolitem.cpp:710
 msgid "Raw Mithril Axe"
-msgstr "Топор из сырого мифрила"
+msgstr "Հում Միֆրայե Կացին"
 
 #: src/content_toolitem.cpp:724
 msgid "Raw Mithril Sword"
-msgstr "Меч из сырого мифрила"
+msgstr "Հում Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:738
 msgid "Raw Mithril Spear"
-msgstr "Копье из сырого мифрила"
+msgstr "Հում Միֆրայե Աղեղ"
 
 #: src/content_toolitem.cpp:752
 msgid "Unbound Mithril Pick"
-msgstr "Кирка из свободного мифрила"
+msgstr " Չկպած Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:766
 msgid "Unbound Mithril Shovel"
-msgstr "Лопата из свободного мифрила"
+msgstr "Չկպած Միֆրայե Բահ"
 
 #: src/content_toolitem.cpp:780
 msgid "Unbound Mithril Axe"
-msgstr "Топор из свободного мифрила"
+msgstr "Չկպած Միֆրայե Կացին"
 
 #: src/content_toolitem.cpp:794
 msgid "Unbound Mithril Sword"
-msgstr "Меч из свободного мифрила"
+msgstr "Չկպած Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:808
 msgid "Unbound Mithril Spear"
-msgstr "Копье из свободного мифрила"
+msgstr "Չկպած Միֆրայե Աղեղ"
 
 #: src/content_toolitem.cpp:822
 msgid "Mithril Pick"
-msgstr "Мифриловая кирка"
+msgstr "Անպատրաստ Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:837
 msgid "Mithril Shovel"
-msgstr "Мифриловая лопата"
+msgstr "Միֆրայե Բահ"
 
 #: src/content_toolitem.cpp:851
 msgid "Mithril Axe"
-msgstr "Мифриловый топор"
+msgstr "Միֆրայե Կացին"
 
 #: src/content_toolitem.cpp:865
 msgid "Mithril Sword"
-msgstr "Мифриловый меч"
+msgstr "Միֆրայե Սուր"
 
 #: src/content_toolitem.cpp:879
 msgid "Mithril Spear"
-msgstr "Мифриловое копье"
+msgstr "Միֆրայե Գեղարդ"
 
 #: src/content_toolitem.cpp:893
 msgid "Mob Spawner"
-msgstr "Призыватель существ"
+msgstr "Վանդակե Մոբ"
 
 #: src/content_toolitem.cpp:912
 msgid "Mithril Key"
-msgstr "Мифриловый ключ"
+msgstr "Միֆրայե Բանալի"
 
 #: src/game.cpp:210
 msgid "Clothes"
-msgstr "Одежда"
+msgstr "Հագուստ"
 
 #: src/game.cpp:211
 msgid "Hat/Helmet"
-msgstr "Шляпа/шлем"
+msgstr "Գլխարկ/Սաղավարտ"
 
 #: src/game.cpp:213
 msgid "Jacket"
-msgstr "Куртка"
+msgstr "Պիջակ"
 
 #: src/game.cpp:215
 msgid "Decorative"
-msgstr "Украшения"
+msgstr "Դեկորատիվ"
 
 #: src/game.cpp:217
 msgid "Shirt"
-msgstr "Рубашка"
+msgstr "Վերնաշապիկ"
 
 #: src/game.cpp:219
 msgid "Belt"
-msgstr "Пояс"
+msgstr "Գոտի"
 
 #: src/game.cpp:221
 msgid "Pants"
-msgstr "Штаны"
+msgstr "Տաբատ"
 
 #: src/game.cpp:223
 msgid "Boots"
-msgstr "Ботинки"
+msgstr "Կոշիկներ"
 
 #: src/game.cpp:230
 msgid "Drop to Ground"
-msgstr "На землю"
+msgstr "Ցած Գցել"
 
 #: src/game.cpp:232
 msgid "Change Clothing"
-msgstr "Сменить одежду"
+msgstr "Հագուստի Փոփոխություն"
 
 #: src/game.cpp:591
 msgid "Loading"
-msgstr "Загрузка"
+msgstr "Բեռնում"
 
 #: src/game.cpp:663
 msgid "Loading..."
-msgstr "Загрузка..."
+msgstr "Բեռնում․․․"
 
 #: src/game.cpp:672
 msgid "Creating server..."
-msgstr "Создаем сервер..."
+msgstr "Ստեղծվում է սերվեր..."
 
 #: src/game.cpp:683
 msgid "Creating client..."
-msgstr "Создаем клиент..."
+msgstr "Ստեղծվում է հաճախորդ..."
 
 #: src/game.cpp:688
 msgid "Resolving address..."
-msgstr "Определяем адрес..."
+msgstr "Որոշում հասցե..."
 
 #: src/game.cpp:699
 msgid "Couldn't resolve address"
-msgstr "Невозможно определить  адрес"
+msgstr "Չկարողացավ լուծել հասցեն"
 
 #: src/game.cpp:739
 #, c-format
 msgid "Connecting to server... (timeout in %d second)"
 msgid_plural "Connecting to server... (timeout in %d seconds)"
-msgstr[0] "Соединяемся с сервером... (таймаут %d секунда)"
-msgstr[1] "Соединяемся с сервером... (таймаут %d секунды)"
-msgstr[2] "Соединяемся с сервером... (таймаут %d секунд)"
-msgstr[3] "Соединяемся с сервером... (таймаут %d секунд)"
+msgstr[0] "Միացում սերվերին... (ավարտ %d վայրկյան)"
+msgstr[1] "Միացում սերվերին... (ավարտ %d վայրկյան)"
 
 #: src/game.cpp:768
 #, c-format
 msgid "Access denied. Reason: %ls"
-msgstr "Доступ запрещен. Причина: %ls"
+msgstr "Մերժել են մուտքը։ Պատճառը %ls"
 
 #: src/game.cpp:772
 msgid "Unable to Connect (port already in use?)."
-msgstr "Невозможно подключиться (порт уже используется?)."
+msgstr "Չի հաջողվում միանալ (պորտը արդեն օգտագործվու՞մ է)։"
 
 #: src/game.cpp:775
 msgid "Connection timed out."
-msgstr "Время ожидания соединения истекло."
+msgstr "Միացման ժամանակը ավարտվեց։"
 
 #: src/game.cpp:928
 msgid "Access denied. Reason: "
-msgstr "Доступ запрещен. Причина:"
+msgstr "Մերժել են մուտքը։ Պատճառը։"
 
 #: src/game.cpp:1162
 msgid "free_move disabled"
-msgstr "Режим полета отключен"
+msgstr "Թռիչքը անջատվեց"
 
 #: src/game.cpp:1166
 msgid "free_move enabled"
-msgstr "Режим полета включен"
+msgstr "Թռիչքը միացվեց"
 
 #: src/game.cpp:1178
 #, c-format
 msgid "Saved screenshot to '%s'"
-msgstr "Снимок экрана сохранен в '%s'"
+msgstr "Պահել Նկարը '%s' ֊ում"
 
 #: src/game.cpp:1190
 msgid "HUD shown"
-msgstr "Интерфейс показан"
+msgstr "HUD ցույց տալ"
 
 #: src/game.cpp:1192
 msgid "HUD hidden"
-msgstr "Интерфейс скрыт"
+msgstr "HUD թաքցնել"
 
 #: src/game.cpp:1198
 msgid "Chat shown"
-msgstr "Чат показан"
+msgstr "Տեսնել Զրույցը"
 
 #: src/game.cpp:1200
 msgid "Chat hidden"
-msgstr "Чат скрыт"
+msgstr "Թաքցնել Զրույցը"
 
 #: src/game.cpp:1206
 msgid "Fog disabled"
-msgstr "Туман выключен"
+msgstr "Մառախուղ անջատել"
 
 #: src/game.cpp:1208
 msgid "Fog enabled"
-msgstr "Туман включен"
+msgstr "Մառախուղ միացնել"
 
 #: src/game.cpp:1214
 msgid "Camera update disabled"
-msgstr "Обновление камеры отключено"
+msgstr "Տեսախցիկի թարմացումը անջատված է"
 
 #: src/game.cpp:1216
 msgid "Camera update enabled"
-msgstr "Обновление камеры включено"
+msgstr "Տեսախցիկի թարմացումը միացված է"
 
 #: src/game.cpp:1226
 msgid "Debug info shown"
-msgstr "Показана отладочная информация"
+msgstr "Ցույց տալ Debug տեղեկություն"
 
 #: src/game.cpp:1231
 msgid "Debug info and frametime graph hidden"
-msgstr "Отладочная информация и график производительности скрыты"
+msgstr "Debug տեղեկություններ և ժամանակացույցը թաքնված"
 
 #: src/game.cpp:1235
 msgid "Frametime graph shown"
-msgstr "Показан график производительности"
+msgstr "Ժամանակացույցը ցույց է տրված"
 
 #: src/game.cpp:1247
 #, c-format
 msgid "Profiler shown (page %d of %d)"
-msgstr "Показан профайлер (страница %d из %d)"
+msgstr "Պրոֆեյլեռ Ցուցադրում (Էջ %d ֊ից %d)"
 
 #: src/game.cpp:1251
 msgid "Profiler hidden"
-msgstr "Профайлер скрыт"
+msgstr "Պրոֆայլեռը թաքցնել"
 
 #: src/game.cpp:1259 src/game.cpp:1270
 #, c-format
 msgid "Minimum viewing range changed to %d"
-msgstr "Минимальная дальность обзора установлена в %d"
+msgstr "Նվազագույն հեռավորությունը վերանայման փոխվել է  %d"
 
 #: src/game.cpp:1339
 msgid "Enabled full viewing range"
-msgstr "Максимальная дальность обзора включена"
+msgstr "Ամբողջական դիտումը ներառված է"
 
 #: src/game.cpp:1343
 msgid "Disabled full viewing range"
-msgstr "Максимальная дальность обзора отключена"
+msgstr "Ամբողջական դիտումը ներառված չէ"
 
 #: src/game.cpp:1951
 msgid "Disconnected (Network Timeout)"
-msgstr "Отключен (таймаут сети)"
+msgstr "Անջատված (Ցանցի Սպասումը ավարտվեց)"
 
 #: src/game.cpp:2385
 msgid "Shutting down..."
-msgstr "Завершаем работу..."
+msgstr "Անջատում..."
 
 #: src/guiDeathScreen.cpp:97
 msgid "You died."
-msgstr "Вы умерли."
+msgstr "Դուք Մահացաք։"
 
 #: src/guiDeathScreen.cpp:102
 msgid "Respawn"
-msgstr "Возродиться"
+msgstr "Վերսկսել"
 
 #: src/guiFormSpecMenu.cpp:436
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr "Левый клик: переместить все, Правый клик: переместить один"
+msgstr "Ձախ կլիկ: տեղափոխել բոլոր իրերը, Աջ կլիկ։ տեղափոխել մեկ տարր"
 
 #: src/guiFormSpecMenu.cpp:458
 msgid "Write It"
-msgstr "Пишите"
+msgstr "Գրել"
 
 #: src/guiMainMenu.cpp:321
 msgid "Character Creator"
-msgstr "Создание персонажа"
+msgstr "Կերպարը Ստեղծող"
 
 #: src/guiMainMenu.cpp:327 src/guiMainMenu.cpp:388 src/guiMainMenu.cpp:430
 #: src/guiMainMenu.cpp:541
 msgid "Single Player"
-msgstr "Локальная игра"
+msgstr "Մեկ Խաղացող"
 
 #: src/guiMainMenu.cpp:333 src/guiMultiplayerMenu.cpp:161
 msgid "Multi Player"
-msgstr "Многопользовательская игра"
+msgstr "Շատ Խաղացողներ"
 
 #: src/guiMainMenu.cpp:339 src/guiPauseMenu.cpp:155
 msgid "Settings"
-msgstr "Настройки"
+msgstr "Կարգավորումներ"
 
 #: src/guiMainMenu.cpp:345
 msgid "Credits"
-msgstr "Благодарности"
+msgstr "Վարկային"
 
 #: src/guiMainMenu.cpp:351
 msgid "Quit"
-msgstr "Выйти"
+msgstr "Դուրս գալ"
 
 #: src/guiMainMenu.cpp:397 src/guiMainMenu.cpp:439 src/guiMainMenu.cpp:550
 msgid "Creative Mode"
-msgstr "Творческий режим"
+msgstr "Ստեղծագործ Ռեժիմ"
 
 #: src/guiMainMenu.cpp:398 src/guiMainMenu.cpp:440 src/guiMainMenu.cpp:551
 msgid "Adventure Mode"
-msgstr "Режим приключения"
+msgstr "Արկածային Ռեժիմ"
 
 #: src/guiMainMenu.cpp:399 src/guiMainMenu.cpp:441 src/guiMainMenu.cpp:552
 msgid "Survival Mode"
-msgstr "Режим выживания"
+msgstr "Գոյատևման Ռեժիմ"
 
 #: src/guiMainMenu.cpp:412 src/guiMainMenu.cpp:565
 msgid "Advanced Settings"
-msgstr "Расширенные настройки"
+msgstr "Լրացուցիչ Կարգավորումներ"
 
 #: src/guiMainMenu.cpp:418 src/guiMainMenu.cpp:460
 msgid "Map Options"
-msgstr "Настройки карты"
+msgstr "Քարտեզի Տարբերակներ"
 
 #: src/guiMainMenu.cpp:424 src/guiMainMenu.cpp:535 src/guiMainMenu.cpp:660
 msgid "Start Game"
-msgstr "Начать игру"
+msgstr "Սկսել Խաղը"
 
 #: src/guiMainMenu.cpp:454
 msgid "Hide Advanced Settings"
-msgstr "Скрыть расширенные настройки"
+msgstr "Թաքցնել Լրացուցիչ Կարգավորումները"
 
 #: src/guiMainMenu.cpp:465
 msgid "Creatures"
-msgstr "Существа"
+msgstr "Էակներ"
 
 #: src/guiMainMenu.cpp:472
 msgid "None"
-msgstr "Нет"
+msgstr "Ոչինչ"
 
 #: src/guiMainMenu.cpp:473
 msgid "Passive"
-msgstr "Пассивные"
+msgstr "Պասիվ"
 
 #: src/guiMainMenu.cpp:474
 msgid "Passive & Aggressive"
-msgstr "Пассивные и агрессивные"
+msgstr "Պասիվ Է և Ագրեսիվ"
 
 #: src/guiMainMenu.cpp:475
 msgid "Passive, Aggressive, & Destructive"
-msgstr "Пассивные, агрессивные и разрушители"
+msgstr "Պասիվ, Ագրեսիվ և Ապակառուցող"
 
 #: src/guiMainMenu.cpp:489
 msgid "Player Damage"
-msgstr "Повреждения"
+msgstr "Վնասվող Խաղացող"
 
 #: src/guiMainMenu.cpp:494
 msgid "Suffocation/Drowning"
-msgstr "Дыхание"
+msgstr "Շնչահեղձ/Ջրահեղձում"
 
 #: src/guiMainMenu.cpp:499 src/hud.cpp:651
 msgid "Hunger"
-msgstr "Голод"
+msgstr "Սոված"
 
 #: src/guiMainMenu.cpp:504
 msgid "Tool Wear"
-msgstr "Износ инструментов"
+msgstr "Կրել Գործիք"
 
 #: src/guiMainMenu.cpp:509
 msgid "Dangerous Fire"
-msgstr "Опасный огонь"
+msgstr "Վտանգավոր Հրդեհներ"
 
 #: src/guiMainMenu.cpp:514
 msgid "Infinite Inventory"
-msgstr "Бездонный инвентарь"
+msgstr "Անսահման Հաշվառում"
 
 #: src/guiMainMenu.cpp:519
 msgid "Initial Inventory"
-msgstr "Начальное снаряжение"
+msgstr "Առաջնային Հաշվառում"
 
 #: src/guiMainMenu.cpp:524
 msgid "Droppable Inventory"
-msgstr "Выбрасывать предметы"
+msgstr "Ապակենտրոնացված Հաշվառում"
 
 #: src/guiMainMenu.cpp:529
 msgid "Death drops Inventory"
-msgstr "Потеря предметов при смерти"
+msgstr "Մահ Ընկնելուց Հաշվառում"
 
 #: src/guiMainMenu.cpp:571
 msgid "Hide Map Options"
-msgstr "Скрыть настройки карты"
+msgstr "Թաքցնել Քարտեզի Հատկությունները"
 
 #: src/guiMainMenu.cpp:576
 msgid "Create New Map"
-msgstr "Создать новую карту"
+msgstr "Ստեղծել Նոր Քարտեզ"
 
 #: src/guiMainMenu.cpp:582
 msgid "Warning! Your old map will be deleted!"
-msgstr "Предупреждаем! Ваша старая карта будет удалена!"
+msgstr "Զգուշացու՛մ,  Ձեր հին քարտեզը կհեռացվի։"
 
 #: src/guiMainMenu.cpp:588
 msgid "Map Type"
-msgstr "Тип карты"
+msgstr "Քարտի Տեսակ"
 
 #: src/guiMainMenu.cpp:595
 msgid "Flat"
-msgstr "Совсем плоская"
+msgstr "Բնակարան"
 
 #: src/guiMainMenu.cpp:596
 msgid "Flatter"
-msgstr "Более плоская"
+msgstr "Անտառային"
 
 #: src/guiMainMenu.cpp:597
 msgid "Smoother"
-msgstr "Более гладкая"
+msgstr "Ավելի Հարթ"
 
 #: src/guiMainMenu.cpp:598
 msgid "Default"
-msgstr "По умолчанию"
+msgstr "Լռելյայն"
 
 #: src/guiMainMenu.cpp:599
 msgid "Hilly"
-msgstr "Холмы"
+msgstr "Հիլլի"
 
 #: src/guiMainMenu.cpp:600
 msgid "Mountains"
-msgstr "Горы"
+msgstr "Սարեր"
 
 #: src/guiMainMenu.cpp:601
 msgid "Crazy"
-msgstr "Безумная"
+msgstr "Խենթ"
 
 #: src/guiMainMenu.cpp:602
 msgid "Crazy Hills"
-msgstr "Безумно холмистая"
+msgstr "Խենթ Հիլզ"
 
 #: src/guiMainMenu.cpp:624
 msgid "Use Fixed Seed"
-msgstr "Свое зерно"
+msgstr "Օգտագործել Հաստատուն Սերմեր"
 
 #: src/guiMainMenu.cpp:630
 msgid "Map Seed"
-msgstr "Зерно"
+msgstr "Սերմերի Քարտեզում"
 
 #: src/guiMainMenu.cpp:647
 msgid "Clear Map"
-msgstr "Очистить карту"
+msgstr "Մաքրել Քարտեզը"
 
 #: src/guiMainMenu.cpp:652
 msgid "Warning! This will delete all construction from your map!"
-msgstr "Предупреждаем! Все сооружения на карте буду уничтожены!"
+msgstr "Զգուշացու՛մ,  Դա կհանգեցնի հեռացմանը ձեր քարտեզի բոլոր աշխատանքները"
 
 #: src/guiMainMenu.cpp:670
 msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr "Voxelands\nhttp://www.voxelands.com/\nОт Lisa 'darkrose' Milne <lisa@ltmnet.com> и сотоварищи."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nLisa 'darkrose' Milne <lisa@ltmnet.com> Ներդումով։"
 
 #: src/guiMainMenu.cpp:677
 msgid "Programmers"
-msgstr "Программирование"
+msgstr "Ծրագրավորողներ"
 
 #: src/guiMainMenu.cpp:680
 msgid "Artists and Modellers"
-msgstr "Графика"
+msgstr "Արվեստագետներ և Մոդելավորողներ"
 
 #: src/guiMainMenu.cpp:683
 msgid "Translators"
-msgstr "Локализация"
+msgstr "Թարգմանիչներ"
 
 #: src/guiMainMenu.cpp:686
 msgid "Documentation Writers"
-msgstr "Разработчики документации"
+msgstr "Փաստաթղթերի Գրողները"
 
 #: src/guiMainMenu.cpp:689
 msgid "Testers, Packagers, and Builders"
-msgstr "Тестирование, сборка и создание установочных пакетов"
+msgstr "Փորձասարք, Փոթեթներ և Շինարարներ"
 
 #: src/guiMainMenu.cpp:692
 msgid "Music and Sound Effects Composers"
-msgstr "Музыка и звуковые эффекты"
+msgstr "Երաժշտություն, Ձայնային Էֆեկտների և Կոմպոզիտորներ"
 
 #: src/guiMainMenu.cpp:695
 msgid "Other Contributers, and Special Thanks"
-msgstr "Другие участники, наши благодарности"
+msgstr "Այլ մասնակիցներին,  Հատուկ Շնորհակալություն"
 
 #: src/guiMainMenu.cpp:699
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
 "and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr " Основано на Minetest-C55, созданном Perttu Ahola <celeron55@gmail.com> \nи сотоварищи: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... и еще десятком-другим случайных прохожих."
+msgstr "Հիմնված է Minetest- \" C55  Perttu Ahola կողմից <celeron55@gmail.com>\nև հեղինակները:  PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... և ուրիշ տասնյակ պատահական մարդկանցով։"
 
 #: src/guiMessageMenu.cpp:112 src/guiPauseMenu.cpp:143
 msgid "Continue"
-msgstr "Продолжить"
+msgstr "Ավելին"
 
 #: src/guiMultiplayerMenu.cpp:135 src/guiSettingsMenu.cpp:320
 msgid "Main Menu"
-msgstr "Главное меню"
+msgstr "Գլխավոր Մենյու"
 
 #: src/guiMultiplayerMenu.cpp:142
 msgid "All Servers"
-msgstr "Все серверы"
+msgstr "Բոլոր Սերվերները"
 
 #: src/guiMultiplayerMenu.cpp:148
 msgid "Favourite Servers"
-msgstr "Избранные серверы"
+msgstr "Ընտրյալ Սերվերներ"
 
 #: src/guiMultiplayerMenu.cpp:154
 msgid "Custom Connect"
-msgstr "Другой сервер"
+msgstr "Օգտատիրական Միացում"
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
-msgstr "Другое соединение"
+msgstr "Այլ Միացում"
 
 #: src/guiMultiplayerMenu.cpp:176
 msgid "Address/Port"
-msgstr "Адрес/порт"
+msgstr "Հասցե/Պորտ"
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
-msgstr "Добавить в избранное"
+msgstr "Ավելացնել սիրելիների ցանկին"
 
 #: src/guiMultiplayerMenu.cpp:206 src/guiMultiplayerMenu.cpp:320
 msgid "Connect"
-msgstr "Подключиться"
+msgstr "Միացում"
 
 #: src/guiMultiplayerMenu.cpp:213
 msgid "Name/Password"
-msgstr "Имя/пароль"
+msgstr "Անուն/Գաղտնաբառ"
 
 #: src/guiMultiplayerMenu.cpp:240
 msgid "Join Server"
-msgstr "Подключиться к серверу"
+msgstr "Միանալ Սերվերին"
 
 #: src/guiMultiplayerMenu.cpp:262
 msgid "My Favourites"
-msgstr "Избранное"
+msgstr "Իմ Ընտրալները"
 
 #: src/guiMultiplayerMenu.cpp:265
 msgid "Server List"
-msgstr "Список серверов"
+msgstr "Սերվերների Ցուցակ"
 
 #: src/guiMultiplayerMenu.cpp:270
 msgid "Get New List"
-msgstr "Получить новый список"
+msgstr "Ստանալ Նոր Ցուցակ"
 
 #: src/guiMultiplayerMenu.cpp:307
 msgid "Remove from Favourites"
-msgstr "Убрать из избранного"
+msgstr "Հեռացնել Ընտրանուց"
 
 #: src/guiPasswordChange.cpp:105
 msgid "Old Password"
-msgstr "Старый пароль"
+msgstr "Հին Գաղտնաբառ"
 
 #: src/guiPasswordChange.cpp:123
 msgid "New Password"
-msgstr "Новый пароль"
+msgstr "Նոր Գաղտնաբառ"
 
 #: src/guiPasswordChange.cpp:140
 msgid "Confirm Password"
-msgstr "Подтверждение"
+msgstr "Գաղտնաբառի Հաստատում"
 
 #: src/guiPasswordChange.cpp:158
 msgid "Change"
-msgstr "Сменить"
+msgstr "Փոխել"
 
 #: src/guiPasswordChange.cpp:166
 msgid "Passwords do not match!"
-msgstr "Пароли не совпадают!"
+msgstr "Գաղտնաբառերը չե՛ն համընկնում։"
 
 #: src/guiPauseMenu.cpp:103
 msgid "Voxelands by darkrose and contributors"
-msgstr "Voxelands: от darkrose и сотоварищи"
+msgstr "Voxelands-ի darkrose֊ը  և ավանդատուներ"
 
 #: src/guiPauseMenu.cpp:149
 msgid "Change Password"
-msgstr "Сменить пароль"
+msgstr "Փոխել Գաղտնաբառը"
 
 #: src/guiPauseMenu.cpp:161
 msgid "Disconnect"
-msgstr "Отключиться"
+msgstr "Անջատել"
 
 #: src/guiSettingsMenu.cpp:71
 msgid "Forward"
-msgstr "Вперед"
+msgstr "Առաջ"
 
 #: src/guiSettingsMenu.cpp:72
 msgid "Backward"
-msgstr "Назад"
+msgstr "Հետ"
 
 #: src/guiSettingsMenu.cpp:73 src/keycode.cpp:263
 msgid "Left"
-msgstr "Налево"
+msgstr "Ձախ"
 
 #: src/guiSettingsMenu.cpp:74 src/keycode.cpp:265
 msgid "Right"
-msgstr "Направо"
+msgstr "Աջ"
 
 #: src/guiSettingsMenu.cpp:75
 msgid "Jump"
-msgstr "Прыжок"
+msgstr "Ցատկել"
 
 #: src/guiSettingsMenu.cpp:76
 msgid "Sneak"
-msgstr "Красться"
+msgstr "Ներթափանցել"
 
 #: src/guiSettingsMenu.cpp:77
 msgid "Inventory"
-msgstr "Инвентарь"
+msgstr "Հաշվառում"
 
 #: src/guiSettingsMenu.cpp:78
 msgid "Use Item"
-msgstr "Использовать"
+msgstr "Օգտագործել Նյութ"
 
 #: src/guiSettingsMenu.cpp:79
 msgid "Chat"
-msgstr "Чат"
+msgstr "Զրույց"
 
 #: src/guiSettingsMenu.cpp:80
 msgid "Command"
-msgstr "Команда"
+msgstr "Հրաման"
 
 #: src/guiSettingsMenu.cpp:81
 msgid "Range Select"
-msgstr "Макс. дальность обзора"
+msgstr "Շարքի Ընտրություն"
 
 #: src/guiSettingsMenu.cpp:82
 msgid "Toggle Fly"
-msgstr "Режим полета"
+msgstr "Թռչել Թումբլեռ"
 
 #: src/guiSettingsMenu.cpp:83 src/keycode.cpp:264
 msgid "Up"
-msgstr "Вверх"
+msgstr "Վեր"
 
 #: src/guiSettingsMenu.cpp:84 src/keycode.cpp:266
 msgid "Down"
-msgstr "Вниз"
+msgstr "Ներքև"
 
 #: src/guiSettingsMenu.cpp:85
 msgid "Run"
-msgstr "Быстрое перемещение"
+msgstr "Սկսել"
 
 #: src/guiSettingsMenu.cpp:86
 msgid "Examine/Open"
-msgstr "Проверить/открыть"
+msgstr "Ստուգել/Բացել"
 
 #: src/guiSettingsMenu.cpp:87
 msgid "Take Screenshot"
-msgstr "Снимок экрана"
+msgstr "Վերցնել Էկրանինկար"
 
 #: src/guiSettingsMenu.cpp:88
 msgid "Show/Hide HUD"
-msgstr "Вкл./откл. интерфейс"
+msgstr "Ցույց տալ/Թաքցնել HUD-ը"
 
 #: src/guiSettingsMenu.cpp:89
 msgid "Show/Hide Chat"
-msgstr "Показать/скрыть чат"
+msgstr "Ցույց տալ/Թաքցնել Զրույցը"
 
 #: src/guiSettingsMenu.cpp:90
 msgid "Toggle Fog"
-msgstr "Туман"
+msgstr "Թումբլեռ Մառախուղ"
 
 #: src/guiSettingsMenu.cpp:94
 msgid "Increase Viewing Range"
-msgstr "Увел. дальность обзора"
+msgstr "Տեսահորիզոնի Մեծացում"
 
 #: src/guiSettingsMenu.cpp:95
 msgid "Decrease Viewing Range"
-msgstr "Умен. дальность обзора"
+msgstr "Տեսահորիզոնի Փոքրացում"
 
 #: src/guiSettingsMenu.cpp:97
 msgid "Previous Item"
-msgstr "Пред. предмет"
+msgstr "Նախորդ Կետը"
 
 #: src/guiSettingsMenu.cpp:98
 msgid "Next Item"
-msgstr "След. предмет"
+msgstr "Հաջորդ Նյութ"
 
 #: src/guiSettingsMenu.cpp:327 src/guiSettingsMenu.cpp:354
 msgid "Controls"
-msgstr "Управление"
+msgstr "Կառավարումներ"
 
 #: src/guiSettingsMenu.cpp:333 src/guiSettingsMenu.cpp:385
 msgid "Graphics"
-msgstr "Графика"
+msgstr "Գրաֆիկա"
 
 #: src/guiSettingsMenu.cpp:339 src/guiSettingsMenu.cpp:484
 msgid "Video"
-msgstr "Видео"
+msgstr "Վիդեո"
 
 #: src/guiSettingsMenu.cpp:345 src/guiSettingsMenu.cpp:532
 msgid "Sound"
-msgstr "Звук"
+msgstr "ձայն"
 
 #: src/guiSettingsMenu.cpp:391
 msgid "Terrain Mesh Detail"
-msgstr "Качество ландшафта"
+msgstr "Ցանցի Տեղանքի Մանրամասներ"
 
 #: src/guiSettingsMenu.cpp:398 src/guiSettingsMenu.cpp:423
 #: src/guiSettingsMenu.cpp:448
 msgid "Low"
-msgstr "Низкое"
+msgstr "Ցածր"
 
 #: src/guiSettingsMenu.cpp:399 src/guiSettingsMenu.cpp:424
 #: src/guiSettingsMenu.cpp:449
 msgid "Medium"
-msgstr "Среднее"
+msgstr "Միջին"
 
 #: src/guiSettingsMenu.cpp:400 src/guiSettingsMenu.cpp:425
 #: src/guiSettingsMenu.cpp:450
 msgid "High"
-msgstr "Высокое"
+msgstr "Բարձր"
 
 #: src/guiSettingsMenu.cpp:416
 msgid "Texture Detail"
-msgstr "Качество текстур"
+msgstr "Տեքստուռայի Դետալներ"
 
 #: src/guiSettingsMenu.cpp:441
 msgid "Light Detail"
-msgstr "Качество освещения"
+msgstr "Լույսի Դետալներ"
 
 #: src/guiSettingsMenu.cpp:466
 msgid "Classic HUD"
-msgstr "Классический интерфейс"
+msgstr "Դասական HUD"
 
 #: src/guiSettingsMenu.cpp:471
 msgid "Wieldring Index"
-msgstr "Номер инструмента в кольце"
+msgstr "Ինդեքսի Տիրապետող"
 
 #: src/guiSettingsMenu.cpp:477 src/guiSettingsMenu.cpp:525
 msgid "Some settings cannot be changed in-game."
-msgstr "Некоторые настройки нельзя изменить в процессе игры."
+msgstr "Որոշ պարամետրեր չի կարող փոփոխվել խաղում։"
 
 #: src/guiSettingsMenu.cpp:490
 msgid "Fullscreen"
-msgstr "Полный экран"
+msgstr "Ամբողջ Էկրան"
 
 #: src/guiSettingsMenu.cpp:495
 msgid "Particles"
-msgstr "Эффекты частиц"
+msgstr "Մասնիկներ"
 
 #: src/guiSettingsMenu.cpp:500
 msgid "Mip-Mapping"
-msgstr "MIP-текстурирование"
+msgstr "Mip-Քարտեզագրում"
 
 #: src/guiSettingsMenu.cpp:505
 msgid "Bi-Linear Filtering"
-msgstr "Билинейная фильтрация"
+msgstr "Bi-Գծային Ֆիլտրացիա"
 
 #: src/guiSettingsMenu.cpp:510
 msgid "Tri-Linear Filtering"
-msgstr "Трилинейная фильтрация"
+msgstr "Tri-Գծային Ֆիլտրացիա"
 
 #: src/guiSettingsMenu.cpp:515
 msgid "Anisotropic Filtering"
-msgstr "Анизотропная фильтрация"
+msgstr "Anisotropic Զտիչ"
 
 #: src/guiSettingsMenu.cpp:520
 msgid "Enable Texture Animation"
-msgstr "Разрешить анимацию текстур"
+msgstr "Միացնել Հյուսվածքը Անիմացիայի"
 
 #: src/guiSettingsMenu.cpp:538
 msgid "Volume:"
-msgstr "Громкость:"
+msgstr "Ծավալը․"
 
 #: src/guiSettingsMenu.cpp:754
 msgid "press Key"
-msgstr "нажмите клавишу"
+msgstr "սեղմել Ստեղնը"
 
 #: src/hud.cpp:645
 msgid "Unknown"
-msgstr "Неизвестно"
+msgstr "Անհայտ"
 
 #: src/hud.cpp:646
 msgid "Fall"
-msgstr "Падение"
+msgstr "Ընկած"
 
 #: src/hud.cpp:647
 msgid "Exposure"
-msgstr "Погода"
+msgstr "Ցուցադրություն"
 
 #: src/hud.cpp:648
 msgid "Cold"
-msgstr "Холод"
+msgstr "Սառը"
 
 #: src/hud.cpp:649
 msgid "Attack"
-msgstr "Атака"
+msgstr "Հարձակում"
 
 #: src/hud.cpp:650
 msgid "Vacuum of Space"
-msgstr "Вакуум"
+msgstr "Անօդ Տարածություն"
 
 #: src/hud.cpp:658
 msgid "Poison"
-msgstr "Отравление"
+msgstr "Թույն"
 
 #: src/hud.cpp:842
 msgid "Summer"
-msgstr "Лето"
+msgstr "Ամառ"
 
 #: src/hud.cpp:845
 msgid "Autumn"
-msgstr "Осень"
+msgstr "Աշուն"
 
 #: src/hud.cpp:848
 msgid "Winter"
-msgstr "Зима"
+msgstr "Ձմեռ"
 
 #: src/hud.cpp:851
 msgid "Spring"
-msgstr "Весна"
+msgstr "Գարուն"
 
 #: src/hud.cpp:861
 #, c-format
 msgid "Day %u of Year %u"
-msgstr "День %u года %u"
+msgstr "Օր %u   Տարի %u"
 
 #: src/hud.cpp:885
 #, c-format
 msgid "Energy Boost: %d:%02d"
-msgstr "Энергия: %d:%02d"
+msgstr "Էներգիա: %d:%02d"
 
 #: src/hud.cpp:910
 #, c-format
 msgid "Cold Protection: %d:%02d"
-msgstr "Защита от холода: %d:%02d"
+msgstr "Ցրտի Պաշպանությունը: %d:%02d"
 
 #: src/inventory.cpp:238 src/inventory.cpp:582
 msgid "Contains: "
-msgstr "Содержит:"
+msgstr "Պարունակում է։"
 
 #: src/inventory.cpp:245 src/inventory.cpp:374
 msgid "Cookable: Yes"
-msgstr "Можно приготовить: Да"
+msgstr "Սարքվող է՞ : ԱՅՈ"
 
 #: src/inventory.cpp:250 src/inventory.cpp:379 src/inventory.cpp:557
 msgid "Fuel Burn Time: "
-msgstr "Время горения топлива:"
+msgstr "Վառելիքի Այրման Ժամանակ:"
 
 #: src/inventory.cpp:343
 msgid "Hunger: "
-msgstr "Голод:"
+msgstr "Սոված։"
 
 #: src/inventory.cpp:349
 msgid "Health: "
-msgstr "Здоровье:"
+msgstr "Առողջություն։"
 
 #: src/inventory.cpp:356
 msgid "Cold Protection: "
-msgstr "Защита от холода:"
+msgstr " Ցրտի Պաշպանությունը:"
 
 #: src/inventory.cpp:365
 msgid "Energy Boost: "
-msgstr "Энергия:"
+msgstr "Էներգիա:"
 
 #: src/inventory.cpp:546
 msgid "Strength: "
-msgstr "Сила:"
+msgstr "Ուժ:"
 
 #: src/inventory.cpp:549
 msgid "Speed: "
-msgstr "Скорость:"
+msgstr "Արագություն։"
 
 #: src/inventory.cpp:552
 msgid "Level: "
-msgstr "Уровень:"
+msgstr "Մակարդակ:"
 
 #: src/inventory.cpp:675
 msgid "Armour: "
-msgstr "Броня:"
+msgstr "Զրահ:"
 
 #: src/inventory.cpp:681
 msgid "Warmth: "
-msgstr "Температура:"
+msgstr "Ջերմություն:"
 
 #: src/inventory.cpp:687
 msgid "Pressure: "
-msgstr "Давление:"
+msgstr "Ճնշում:"
 
 #: src/inventory.cpp:693
 msgid "Suffocation: "
-msgstr "Дыхание:"
+msgstr "Շնչահեղձ։"
 
 #: src/inventory.cpp:699
 msgid "Durability: "
-msgstr "Износ:"
+msgstr "Դիմադրություն:"
 
 #: src/inventory.cpp:704
 msgid "Effect Boost: "
-msgstr "Эффект:"
+msgstr "Բարձրացնել Ազդեցություն:"
 
 #: src/keycode.cpp:232
 msgid "-"
@@ -4228,143 +4225,143 @@ msgstr "-"
 
 #: src/keycode.cpp:234
 msgid "Left Button"
-msgstr "Левая кнопка"
+msgstr "Ձախ Կոճակ"
 
 #: src/keycode.cpp:235
 msgid "Right Button"
-msgstr "Правая кнопка"
+msgstr "Աջ Կոճակ"
 
 #: src/keycode.cpp:237
 msgid "Middle Button"
-msgstr "Средняя кнопка"
+msgstr "Միջին Կոճակ"
 
 #: src/keycode.cpp:238
 msgid "X Button 1"
-msgstr "X кнопка 1"
+msgstr "X Կոջակ 1"
 
 #: src/keycode.cpp:239
 msgid "X Button 2"
-msgstr "X кнопка 2"
+msgstr "X Կոջակ 2"
 
 #: src/keycode.cpp:240
 msgid "Back"
-msgstr "Назад"
+msgstr "Հետ"
 
 #: src/keycode.cpp:241
 msgid "Tab"
-msgstr "Tab"
+msgstr "Թաբ"
 
 #: src/keycode.cpp:242
 msgid "Clear"
-msgstr "Очистить"
+msgstr "Հասկանալի է"
 
 #: src/keycode.cpp:243
 msgid "Return"
-msgstr "Ввод"
+msgstr "Վերադառնալ"
 
 #: src/keycode.cpp:244
 msgid "Shift"
-msgstr "Shift"
+msgstr "Տեղաշարժ"
 
 #: src/keycode.cpp:245
 msgid "Control"
-msgstr "Control"
+msgstr "Կառավարում"
 
 #: src/keycode.cpp:246
 msgid "Menu"
-msgstr "Меню"
+msgstr "Մենյու"
 
 #: src/keycode.cpp:247
 msgid "Pause"
-msgstr "Pause"
+msgstr "Դադար"
 
 #: src/keycode.cpp:248
 msgid "Capital"
-msgstr "Capital"
+msgstr "Կապիտալ"
 
 #: src/keycode.cpp:249
 msgid "Kana"
-msgstr "Кана"
+msgstr "Կանա"
 
 #: src/keycode.cpp:250
 msgid "Junja"
-msgstr "Юндзя"
+msgstr "Ջունջա"
 
 #: src/keycode.cpp:251
 msgid "Final"
-msgstr "Конечный"
+msgstr "Եզրափակիչ"
 
 #: src/keycode.cpp:252
 msgid "Kanji"
-msgstr "Кандзи"
+msgstr "Կանջի"
 
 #: src/keycode.cpp:253
 msgid "Escape"
-msgstr "Escape"
+msgstr "Փախուստ"
 
 #: src/keycode.cpp:254
 msgid "Convert"
-msgstr "Преобразованный"
+msgstr "Փոխարկել"
 
 #: src/keycode.cpp:255
 msgid "Nonconvert"
-msgstr "Непреобразованный"
+msgstr "Չփոխարկել"
 
 #: src/keycode.cpp:256
 msgid "Accept"
-msgstr "Принять"
+msgstr "Ընդունել"
 
 #: src/keycode.cpp:257
 msgid "Mode Change"
-msgstr "Изменение режима"
+msgstr "Ռեժիմի Փոփոխություն"
 
 #: src/keycode.cpp:258
 msgid "Space"
-msgstr "Пробел"
+msgstr "Space"
 
 #: src/keycode.cpp:259
 msgid "Prior"
-msgstr "Page Up"
+msgstr "Մինչև"
 
 #: src/keycode.cpp:260
 msgid "Next"
-msgstr "Page Down"
+msgstr "Հաջորդ"
 
 #: src/keycode.cpp:261
 msgid "End"
-msgstr "End"
+msgstr "Վերջ"
 
 #: src/keycode.cpp:262
 msgid "Home"
-msgstr "Home"
+msgstr "Տուն"
 
 #: src/keycode.cpp:267
 msgid "Select"
-msgstr "Выбрать"
+msgstr "Ընտրել"
 
 #: src/keycode.cpp:268
 msgid "Print"
-msgstr "Печать"
+msgstr "Տպել"
 
 #: src/keycode.cpp:269
 msgid "Execute"
-msgstr "Выполнить"
+msgstr "Կատարում"
 
 #: src/keycode.cpp:270
 msgid "Snapshot"
-msgstr "Снимок"
+msgstr "Նկարել"
 
 #: src/keycode.cpp:271
 msgid "Insert"
-msgstr "Insert"
+msgstr "Տեղադրել"
 
 #: src/keycode.cpp:272
 msgid "Delete"
-msgstr "Delete"
+msgstr "Ջնջել"
 
 #: src/keycode.cpp:273
 msgid "Help"
-msgstr "Справка"
+msgstr "Օգնություն"
 
 #: src/keycode.cpp:274
 msgid "0"
@@ -4512,23 +4509,23 @@ msgstr "Z"
 
 #: src/keycode.cpp:310
 msgid "Left Windows"
-msgstr "Левая Windows"
+msgstr "Ձախ Պատուհան"
 
 #: src/keycode.cpp:311
 msgid "Right Windows"
-msgstr "Правая Windows"
+msgstr "Աջ Պատուհան"
 
 #: src/keycode.cpp:312
 msgid "Apps"
-msgstr "Приложения"
+msgstr "Ծրագրեր"
 
 #: src/keycode.cpp:313
 msgid "Sleep"
-msgstr "Sleep"
+msgstr "Քուն"
 
 #: src/keycode.cpp:314
 msgid "Numpad 0"
-msgstr "Numpad 0"
+msgstr "Թվային ստեղն 0"
 
 #: src/keycode.cpp:315
 msgid "Numpad 1"
@@ -4536,55 +4533,55 @@ msgstr "Numpad 1"
 
 #: src/keycode.cpp:316
 msgid "Numpad 2"
-msgstr "Numpad 2"
+msgstr "Թվային ստեղն 2"
 
 #: src/keycode.cpp:317
 msgid "Numpad 3"
-msgstr "Numpad 3"
+msgstr "Թվային ստեղն 3"
 
 #: src/keycode.cpp:318
 msgid "Numpad 4"
-msgstr "Numpad 4"
+msgstr "Թվային ստեղն 4"
 
 #: src/keycode.cpp:319
 msgid "Numpad 5"
-msgstr "Numpad 5"
+msgstr "Թվային ստեղն 5"
 
 #: src/keycode.cpp:320
 msgid "Numpad 6"
-msgstr "Numpad 6"
+msgstr "Թվային ստեղն 6"
 
 #: src/keycode.cpp:321
 msgid "Numpad 7"
-msgstr "Numpad 7"
+msgstr "Թվային ստեղն 7"
 
 #: src/keycode.cpp:322
 msgid "Numpad 8"
-msgstr "Numpad 8"
+msgstr "Թվային ստեղն 8"
 
 #: src/keycode.cpp:323
 msgid "Numpad 9"
-msgstr "Numpad 9"
+msgstr "Թվային ստեղն 9"
 
 #: src/keycode.cpp:324
 msgid "Numpad *"
-msgstr "Numpad *"
+msgstr "Թվային ստեղն *"
 
 #: src/keycode.cpp:325
 msgid "Numpad +"
-msgstr "Numpad +"
+msgstr "Թվային ստեղն +"
 
 #: src/keycode.cpp:326 src/keycode.cpp:329
 msgid "Numpad /"
-msgstr "Numpad /"
+msgstr "Թվային ստեղն /"
 
 #: src/keycode.cpp:327
 msgid "Numpad -"
-msgstr "Numpad -"
+msgstr "Թվային ստեղն -"
 
 #: src/keycode.cpp:328
 msgid "Numpad ."
-msgstr "Numpad ."
+msgstr "Թվային ստեղն ."
 
 #: src/keycode.cpp:330
 msgid "F10"
@@ -4656,43 +4653,43 @@ msgstr "Scroll Lock"
 
 #: src/keycode.cpp:347
 msgid "Left Shift"
-msgstr "Левый Shift"
+msgstr "Ձախ Shift"
 
 #: src/keycode.cpp:348
 msgid "Right Shift"
-msgstr "Правый Shift"
+msgstr "Աջ Shift"
 
 #: src/keycode.cpp:349
 msgid "Left Control"
-msgstr "Левый Control"
+msgstr "Ձախ Control"
 
 #: src/keycode.cpp:350
 msgid "Right Control"
-msgstr "Правый Control"
+msgstr "Աջ Control"
 
 #: src/keycode.cpp:351
 msgid "Left Menu"
-msgstr "Левая кнопка Меню"
+msgstr "Ձախ Մենյու"
 
 #: src/keycode.cpp:352
 msgid "Right Menu"
-msgstr "Правая кнопка Меню"
+msgstr "Աջ Menu"
 
 #: src/keycode.cpp:353
 msgid "Plus"
-msgstr "Плюс"
+msgstr "Պլյուս"
 
 #: src/keycode.cpp:354
 msgid "Comma"
-msgstr "Запятая"
+msgstr "Գամմա"
 
 #: src/keycode.cpp:355
 msgid "Minus"
-msgstr "Минус"
+msgstr "Մինուս"
 
 #: src/keycode.cpp:356
 msgid "Period"
-msgstr "Точка"
+msgstr "Ժամանակահատված"
 
 #: src/keycode.cpp:357
 msgid "Attn"
@@ -4712,11 +4709,11 @@ msgstr "Erase OEF"
 
 #: src/keycode.cpp:361
 msgid "Play"
-msgstr "Play"
+msgstr "Խաղալ"
 
 #: src/keycode.cpp:362
 msgid "Zoom"
-msgstr "Zoom"
+msgstr "Խոշորացում"
 
 #: src/keycode.cpp:363
 msgid "PA1"
@@ -4728,76 +4725,76 @@ msgstr "OEM Clear"
 
 #: src/main.cpp:1135
 msgid "Setting Up UI"
-msgstr "Настраиваем интерфейс"
+msgstr "Խաղի Կարգավորում"
 
 #: src/main.cpp:1158
 msgid "Loading MapNodes"
-msgstr "Загружаем карту"
+msgstr "Քարտեզի Տեքստի Բեռնում"
 
 #: src/main.cpp:1160
 msgid "Loading Creatures"
-msgstr "Загружаем существ"
+msgstr "Էակների Բեռնում"
 
 #: src/main.cpp:1165
 msgid "Setting Up Sound"
-msgstr "Настраиваем звук"
+msgstr "Ձայնի Կարգավորում"
 
 #: src/mapnode.cpp:304
 msgid "Loading Base MapNodes"
-msgstr "Загружаем основные элементы"
+msgstr "Լռելյայն կագավորումներ "
 
 #: src/mapnode.cpp:308
 msgid "Loading Circuit MapNodes"
-msgstr "Загружаем электрические цепи"
+msgstr "Սխեմաների Բեռնում"
 
 #: src/mapnode.cpp:312
 msgid "Loading Plant MapNodes"
-msgstr "Загружаем растения"
+msgstr "Քարեզների Տեղանքի Բեռնում"
 
 #: src/mapnode.cpp:316
 msgid "Loading Farming MapNodes"
-msgstr "Загружаем фермерство"
+msgstr "Քարտեզների Ֆորմատների Բեռնում"
 
 #: src/mapnode.cpp:320
 msgid "Loading Decorative MapNodes"
-msgstr "Загружаем декоративные элементы"
+msgstr "Դեկորատիվ Քարտեզների Բեռնում "
 
 #: src/mapnode.cpp:324
 msgid "Loading Interactive MapNodes"
-msgstr "Загружаем интерактивные элементы"
+msgstr "Ինտերակտիվ Քարտեզների Բեռնում"
 
 #: src/mapnode.cpp:328
 msgid "Loading Special MapNodes"
-msgstr "Загружаем особые элементы"
+msgstr "Յուրահատուկ Քարտեզների Բեռնում"
 
 #: src/mineral.cpp:93
 msgid "Coal"
-msgstr "Уголь"
+msgstr "Ածուխ"
 
 #: src/mineral.cpp:99
 msgid "Iron"
-msgstr "Железо"
+msgstr "Երկաթյա"
 
 #: src/mineral.cpp:106
 msgid "Tin"
-msgstr "Олово"
+msgstr "Անագ"
 
 #: src/mineral.cpp:113
 msgid "Copper"
-msgstr "Медь"
+msgstr "Պղինձ"
 
 #: src/mineral.cpp:121
 msgid "Silver"
-msgstr "Серебро"
+msgstr "Արծաթ"
 
 #: src/mineral.cpp:128
 msgid "Gold"
-msgstr "Золото"
+msgstr "Ոսկի"
 
 #: src/mineral.cpp:135
 msgid "Quartz"
-msgstr "Кварц"
+msgstr "Քվարցային"
 
 #: src/mineral.cpp:157
 msgid "Turquoise"
-msgstr "Бирюза"
+msgstr "Փիրուզագույն"
