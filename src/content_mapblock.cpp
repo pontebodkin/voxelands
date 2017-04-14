@@ -35,6 +35,15 @@
 #include "sound.h"
 
 #ifndef SERVER
+
+// For all MSVC versions before Visual Studio 2013
+#if defined(_MSC_VER) && _MSC_VER < 1800
+	float roundf(float x)
+	{
+		return float((x < 0) ? (ceil((x) - 0.5)) : (floor((x) + 0.5)));
+	}
+#endif
+
 static const v3s16 corners[8] = {
 	v3s16(-1, 1, 1),
 	v3s16( 1, 1, 1),
