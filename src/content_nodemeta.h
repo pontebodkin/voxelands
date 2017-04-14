@@ -548,7 +548,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return narrow_to_wide(m_title);}
+	virtual std::wstring infoText() {return narrow_to_wide(m_title.c_str());}
 	virtual bool nodeRemovalDisabled();
 	virtual bool import(NodeMetadata *meta);
 	virtual bool receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player);
@@ -570,7 +570,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return narrow_to_wide(m_title);}
+	virtual std::wstring infoText() {return narrow_to_wide(m_title.c_str());}
 	virtual bool nodeRemovalDisabled();
 	virtual bool import(NodeMetadata *meta);
 	virtual bool receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player);
