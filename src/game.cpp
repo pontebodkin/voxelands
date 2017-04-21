@@ -1173,14 +1173,14 @@ void the_game(
 				snprintf(filename, 256, "%s" DIR_DELIM "screenshot_%u.png",
 						 g_settings->get("screenshot_path").c_str(),
 						 device->getTimer()->getRealTime());
-				if (driver->writeImageToFile(image, filename)) {
+				if (driver->writeImageToFile(image, io::path(filename))) {
 					wchar_t buff[512];
-					swprintf(buff,512,wgettext("Saved screenshot to '%s'"),filename);
-					infostream<<"Saved screenshot to '"<<filename<<"'"<<std::endl;
-					statustext = std::wstring(buff);
+					swprintf(buff, 512, wgettext("Saved screenshot to '%s'"), narrow_to_wide(filename));
+					infostream << "Saved screenshot to '" << filename << "'" << std::endl;
+					statustext = (wchar_t *)buff;
 					statustext_time = 0;
 				}else{
-					infostream<<"Failed to save screenshot '"<<filename<<"'"<<std::endl;
+					infostream << "Failed to save screenshot '" << filename << "'"<<std::endl;
 				}
 				image->drop();
 			}
@@ -2385,5 +2385,3 @@ void the_game(
 		drawLoadingScreen(device,wgettext("Shutting down..."));
 	}
 }
-
-
