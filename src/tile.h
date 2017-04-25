@@ -335,7 +335,7 @@ struct TileSpec
 		material.BackfaceCulling = (material_flags & MATERIAL_FLAG_BACKFACE_CULLING) ? true : false;
 	}
 
-	video::SMaterial getMaterial()
+	const video::SMaterial &getMaterial()
 	{
 		applyMaterialOptions(m_material);
 		m_material.setTexture(0, texture.atlas);

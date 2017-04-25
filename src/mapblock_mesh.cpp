@@ -478,21 +478,18 @@ void MapBlockMesh::animate(float time)
 	for (std::map<u32, AnimationData>::iterator it = m_animation_data.begin();
 				it != m_animation_data.end(); ++it) {
 
-		AnimationData temp_data = it->second;
-		const TileSpec &tile = temp_data.tile;
+		const TileSpec &tile = it->second.tile;
 
 		// Figure out current frame
 		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
 
 		// If frame doesn't change, skip
-		if (frame == temp_data.frame)
+		if (frame == it->second.frame)
 			continue;
 
-		temp_data.frame = frame;
+		m_animation_data[it->first].frame = frame;
 
-		m_animation_data[it->first] = temp_data;
-
-		 // Make sure we don't cause an overflow. Can get removed if future is no problems occuring
+		 // Make sure we don't cause an overflow. Can get removed in future if no problems occuring
 		if (it->first >= m_mesh->getMeshBufferCount()) {
 			errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
 			return;

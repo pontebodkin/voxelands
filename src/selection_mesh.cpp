@@ -163,19 +163,16 @@ void SelectionMesh::animate(float time)
 	for (std::map<u32, AnimationData>::iterator it = m_animation_data.begin();
 			it != m_animation_data.end(); ++it) {
 
-		AnimationData temp_data = it->second;
-		const TileSpec &tile = temp_data.tile;
+		const TileSpec &tile = it->second.tile;
 
 		// Figure out current frame
 		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
 
 		// If frame doesn't change, skip
-		if (frame == temp_data.frame)// || temp_data.frame < 0)
+		if (frame == it->second.frame)// || temp_data.frame < 0)
 			continue;
-
-		temp_data.frame = frame;
-
-		m_animation_data[it->first] = temp_data;
+		
+		m_animation_data[it->first].frame = frame;
 
 		// Make sure we don't cause an overflow. Can get removed if future is no problems occuring
 		if (it->first >= m_mesh->getMeshBufferCount()) {
