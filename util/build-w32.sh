@@ -5,15 +5,15 @@ export DIR=`pwd`
 
 # First, download and compile the cross-compiler
 if [ ! -e mxe ]; then
-	git clone -b master git://github.com/mxe/mxe.git
+	git clone -b master git://github.com/mxe/mxe.git || echo "Failed to download mxe.git.....exiting" && exit
 else
-	cd mxe && git pull
+	cd mxe && git pull || echo "Failed to update mxe.git.....exiting" && exit
 	cd $DIR
 fi
 
 cd mxe
-	git checkout master
-	make $MAKEFLAGS gcc
+	git checkout master || echo "Failed to checkout mxe.git/master....exiting" && exit
+	make $MAKEFLAGS gcc || echo "mxe failed to compile.....exiting" && exit
 cd $DIR
 
 # environment variables for cross-compiling
