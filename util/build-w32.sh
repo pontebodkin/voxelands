@@ -17,19 +17,20 @@ cd mxe
 cd $DIR
 
 # environment variables for cross-compiling
-export CC="$DIR/mxe/usr/bin/i686-pc-mingw32.static-gcc"
-export CXX="$DIR/mxe/usr/bin/i686-pc-mingw32.static-g++"
-export AR="$DIR/mxe/usr/bin/i686-pc-mingw32.static-ar"
-export C_INCLUDE_PATH="$DIR/mxe/usr/i686-pc-mingw32.static/include"
-export CMAKE_TOOLCHAIN="$DIR/mxe/usr/i686-pc-mingw32.static/share/cmake/mxe-conf.cmake"
+build=$(find "$DIR/mxe/usr/bin/" -type f | grep -i mingw32.static | sed s/static-.*/static/ | sed s/"^.*\/"// | sort -u | head -1)
+export CC="$DIR/mxe/usr/bin/$build-gcc"
+export CXX="$DIR/mxe/usr/bin/$build-g++"
+export AR="$DIR/mxe/usr/bin/$build-ar"
+export C_INCLUDE_PATH="$DIR/mxe/usr/$build/include"
+export CMAKE_TOOLCHAIN="$DIR/mxe/usr/$build/share/cmake/mxe-conf.cmake"
 export CFLAGS="-m32 -march=i686 -O2 -fomit-frame-pointer -fwrapv -fvisibility=hidden -Wformat-security -Wformat-nonliteral -Wpointer-arith -Winit-self -pipe"
 export CXXFLAGS="$CFLAGS"
 export LDFLAGS="-Wl,-O1 -Wl,--discard-all,--no-undefined,--sort-common"
 
 # cmake needs "windres.exe" exactly in the PATH.
 # can't figure out how to change it and it doesn't like aliases.
-ln -s $DIR/mxe/usr/bin/i686-pc-mingw32.static-windres $DIR/mxe/usr/bin/windres.exe
-ln -s $DIR/mxe/usr/bin/i686-pc-mingw32.static-windres $DIR/mxe/usr/bin/windres
+ln -s $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres.exe
+ln -s $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres
 export PATH="$DIR/mxe/usr/bin:$PATH"
 
 # Download the required libraries
