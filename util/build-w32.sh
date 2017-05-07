@@ -46,7 +46,7 @@ cd $DIR
 
 # Get the minetest-classic source
 if [ ! -e voxelands ]; then
-	git clone https://gitlab.com/voxelands/voxelands.git voxelands
+	git clone git://gitorious.org/minetest-classic/minetest-classic.git voxelands
 else
 	cd voxelands && git reset --hard
 	cd $DIR
