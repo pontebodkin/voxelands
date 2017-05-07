@@ -1398,21 +1398,13 @@ u16 MobSAO::punch(content_t punch_item, v3f dir, const std::string &playername)
 		}
 		sendPosition();
 
+		tooluse_t usage;
 
-		u16 amount = 2;
-		if (f.type == TT_SWORD) {
-			amount = 4*((f.hardness/100)+1);
-			wear = 65535/f.hardness;
-		}else if (f.type == TT_CLUB) {
-			amount = 2*((f.hardness/100)+1);
-			wear = 65535/f.hardness;
-		}else if (f.type == TT_SPEAR) {
-			amount = 3*((f.hardness/100)+1);
-			wear = 65535/f.hardness;
-		}else if (f.type == TT_AXE || f.type == TT_PICK) {
-			amount = ((f.hardness/200)+1);
+		if (!get_tool_use(&usage,m_content,0,punch_item,0)) {
+			if (usage.diggable)
+				doDamage(usage.data);
+			wear = usage.wear;
 		}
-		doDamage(amount);
 	}else if (m.punch_action == MPA_DIE) {
 		m_hp = 0;
 		m_removed = true;

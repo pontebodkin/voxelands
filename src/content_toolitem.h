@@ -18,6 +18,12 @@ enum ToolType {
 	TT_CLUB
 };
 
+typedef struct diginfo_s {
+	uint16_t uses;
+	float time;
+	uint8_t level;
+} diginfo_t;
+
 struct ToolItemFeatures {
 	content_t content;
 	std::string texture;
@@ -48,14 +54,10 @@ struct ToolItemFeatures {
 	bool has_rotate_effect;
 	// whether this tool can start fires
 	bool has_fire_effect;
+	// digging info for this tool
+	diginfo_t diginfo;
 	// the type of this tool
 	ToolType type;
-	// the hardness of this tool
-	f32 hardness;
-	// the dig time of this tool
-	f32 dig_time;
-	// the level of the tool, this affects the amount of minerals etc.
-	u8 level;
 	// the data value of this item
 	ContentParamType param_type;
 	// used for eg. bows throwing an arrow
@@ -83,55 +85,46 @@ struct ToolItemFeatures {
 		has_rotate_effect(false),
 		has_fire_effect(false),
 		type(TT_NONE),
-		hardness(0.),
-		dig_time(3.),
-		level(0),
 		param_type(CPT_NONE),
 		thrown_item(CONTENT_IGNORE),
 		onplace_replace_item(CONTENT_IGNORE),
 		onplace_node(CONTENT_IGNORE)
-	{}
-};
-struct DiggingProperties
-{
-	DiggingProperties():
-		diggable(false),
-		time(0.0),
-		wear(0)
 	{
+		diginfo.uses = 256;
+		diginfo.time = 4.0;
+		diginfo.level = 0;
 	}
-	DiggingProperties(bool a_diggable, float a_time, u16 a_wear):
-		diggable(a_diggable),
-		time(a_time),
-		wear(a_wear)
-	{
-	}
-	bool diggable;
-	// Digging time in seconds
-	float time;
-	// Caused wear
-	u16 wear;
 };
 
+typedef struct tooluse_s {
+	bool diggable;
+	// Digging time in seconds or hit damage
+	float data;
+	// Caused wear
+	uint16_t wear;
+	// delay till tool can be used again
+	float delay;
+} tooluse_t;
+
 // For getting the default properties, set toolid=CONTENT_IGNORE
-DiggingProperties getDiggingProperties(content_t material, u8 mineral, content_t toolid, u16 data=0);
+int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t toolid, uint16_t tooldata);
 std::string toolitem_overlay(content_t content, std::string ol);
 void content_toolitem_init();
 ToolItemFeatures & content_toolitem_features(content_t i);
 ToolItemFeatures & content_toolitem_features(std::string subname);
 
 #define CONTENT_TOOLITEM_SMALL_PICK (CONTENT_TOOLITEM_MASK | 0x01)
-#define CONTENT_TOOLITEM_STPICK (CONTENT_TOOLITEM_MASK | 0x02)
+#define CONTENT_TOOLITEM_STONEPICK (CONTENT_TOOLITEM_MASK | 0x02)
 #define CONTENT_TOOLITEM_STEELPICK (CONTENT_TOOLITEM_MASK | 0x03)
 #define CONTENT_TOOLITEM_CREATIVEPICK (CONTENT_TOOLITEM_MASK | 0x04)
 #define CONTENT_TOOLITEM_TROWEL (CONTENT_TOOLITEM_MASK | 0x05)
-#define CONTENT_TOOLITEM_STSHOVEL (CONTENT_TOOLITEM_MASK | 0x06)
+#define CONTENT_TOOLITEM_STONESHOVEL (CONTENT_TOOLITEM_MASK | 0x06)
 #define CONTENT_TOOLITEM_STEELSHOVEL (CONTENT_TOOLITEM_MASK | 0x07)
 #define CONTENT_TOOLITEM_SMALL_AXE (CONTENT_TOOLITEM_MASK | 0x08)
-#define CONTENT_TOOLITEM_STAXE (CONTENT_TOOLITEM_MASK | 0x09)
+#define CONTENT_TOOLITEM_STONEAXE (CONTENT_TOOLITEM_MASK | 0x09)
 #define CONTENT_TOOLITEM_STEELAXE (CONTENT_TOOLITEM_MASK | 0x0A)
 #define CONTENT_TOOLITEM_CLUB (CONTENT_TOOLITEM_MASK | 0x0B)
-#define CONTENT_TOOLITEM_STSWORD (CONTENT_TOOLITEM_MASK | 0x0C)
+#define CONTENT_TOOLITEM_STONESWORD (CONTENT_TOOLITEM_MASK | 0x0C)
 #define CONTENT_TOOLITEM_STEELSWORD (CONTENT_TOOLITEM_MASK | 0x0D)
 #define CONTENT_TOOLITEM_STEELSHEARS (CONTENT_TOOLITEM_MASK | 0x0E)
 #define CONTENT_TOOLITEM_WBUCKET (CONTENT_TOOLITEM_MASK | 0x0F)

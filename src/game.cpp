@@ -861,16 +861,11 @@ void the_game(
 
 	core::list<float> frametime_log;
 
-	float nodig_delay_counter = 0.0;
+	float action_delay_counter = 0.0;
 	float dig_time = 0.0;
 	v3s16 nodepos_old(-32768,-32768,-32768);
 
-	float use_delay_counter = 0.5;
-
 	float damage_flash_timer = 0;
-
-	const float object_hit_delay = 0.5;
-	float object_hit_delay_timer = 0.0;
 
 	bool invert_mouse = g_settings->getBool("invert_mouse");
 
@@ -1017,8 +1012,6 @@ void the_game(
 		lasttime = time;
 
 		/* Run timers */
-
-		object_hit_delay_timer -= dtime;
 
 		g_profiler->add("Elapsed time", dtime);
 		g_profiler->avg("FPS", 1./dtime);
@@ -1551,7 +1544,12 @@ void the_game(
 
 		InventoryItem *wield = (InventoryItem*)client.getLocalPlayer()->getWieldItem();
 		InventoryList *ilist;
-		if (
+
+		printf("action_delay_counter = %f\n",action_delay_counter);
+
+		if (action_delay_counter > 0.0) {
+			action_delay_counter -= dtime;
+		}else if (
 			wield
 			&& (
 				content_craftitem_features(wield->getContent()).thrown_item != CONTENT_IGNORE
@@ -1601,26 +1599,28 @@ void the_game(
 				infotext = narrow_to_wide(selected_active_object->infoText());
 
 				if (input->getLeftState()) {
-					bool do_punch = false;
-					bool do_punch_damage = false;
-					if (object_hit_delay_timer <= 0.0){
-						do_punch = true;
-						do_punch_damage = true;
-						object_hit_delay_timer = object_hit_delay;
+					tooluse_t usage;
+					content_t toolid = CONTENT_IGNORE;
+					u16 tooldata = 0;
+					InventoryList *mlist = local_inventory.getList("main");
+					if (mlist != NULL) {
+						InventoryItem *item = mlist->getItem(g_selected_item);
+						if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+							ToolItem *titem = (ToolItem*)item;
+							toolid = titem->getContent();
+							tooldata = titem->getData();
+						}
 					}
-					if (input->getLeftClicked()) {
-						do_punch = true;
-					}
-					if (do_punch) {
-						infostream<<"Left-clicked object"<<std::endl;
+
+					if (!get_tool_use(&usage,selected_active_object->getContent(),0,toolid,tooldata)) {
 						left_punch = true;
-					}
-					if (do_punch_damage) {
 						client.clickActiveObject(0, selected_active_object->getId(), g_selected_item);
+						action_delay_counter = usage.delay;
 					}
 				}else if (input->getRightClicked()) {
 					infostream<<"Right-clicked object"<<std::endl;
 					client.clickActiveObject(1, selected_active_object->getId(), g_selected_item);
+					action_delay_counter = 0.25;
 				}
 			}else{ // selected_object == NULL
 				/*
@@ -1671,93 +1671,80 @@ void the_game(
 					if (!highlight_selected_node)
 						hilightboxes.push_back(nodehilightbox);
 
-					if (nodig_delay_counter > 0.0) {
-						nodig_delay_counter -= dtime;
-					}else{
-						if (nodepos != nodepos_old) {
-							infostream<<"Pointing at ("<<nodepos.X<<","
-									<<nodepos.Y<<","<<nodepos.Z<<")"<<std::endl;
+					if (nodepos != nodepos_old) {
+						infostream<<"Pointing at ("<<nodepos.X<<","
+								<<nodepos.Y<<","<<nodepos.Z<<")"<<std::endl;
 
-							if (nodepos_old != v3s16(-32768,-32768,-32768)) {
-								dig_time = 0.0;
-								nodepos_old = v3s16(-32768,-32768,-32768);
+						if (nodepos_old != v3s16(-32768,-32768,-32768)) {
+							dig_time = 0.0;
+							nodepos_old = v3s16(-32768,-32768,-32768);
+						}
+					}
+
+					if (input->getLeftClicked() || (input->getLeftState() && nodepos != nodepos_old)) {
+						infostream<<"Started digging"<<std::endl;
+						client.groundAction(0, nodepos, neighbourpos, g_selected_item);
+					}
+					if (input->getLeftClicked())
+						selected_node_crack = 0;
+					if (input->getLeftState()) {
+						MapNode n = client.getNode(nodepos);
+
+						// Get tool name. Default is "" = bare hands
+						content_t toolid = CONTENT_IGNORE;
+						u16 tooldata = 0;
+						InventoryList *mlist = local_inventory.getList("main");
+						if (mlist != NULL) {
+							InventoryItem *item = mlist->getItem(g_selected_item);
+							if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+								ToolItem *titem = (ToolItem*)item;
+								toolid = titem->getContent();
+								tooldata = titem->getData();
 							}
 						}
 
-						if (input->getLeftClicked() || (input->getLeftState() && nodepos != nodepos_old)) {
-							infostream<<"Started digging"<<std::endl;
-							client.groundAction(0, nodepos, neighbourpos, g_selected_item);
-						}
-						if (input->getLeftClicked())
-							selected_node_crack = 0;
-						if (input->getLeftState()) {
-							MapNode n = client.getNode(nodepos);
+						// Get digging properties for material and tool
+						content_t material = n.getContent();
+						uint16_t mineral = n.getMineral();
+						tooluse_t usage;
 
-							// Get tool name. Default is "" = bare hands
-							content_t toolid = CONTENT_IGNORE;
-							u16 tooldata = 0;
-							InventoryList *mlist = local_inventory.getList("main");
-							if (mlist != NULL) {
-								InventoryItem *item = mlist->getItem(g_selected_item);
-								if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
-									ToolItem *titem = (ToolItem*)item;
-									toolid = titem->getContent();
-									tooldata = titem->getData();
-								}
-							}
+						if (get_tool_use(&usage,material,mineral,toolid,tooldata))
+							usage.diggable = false;
 
-							// Get digging properties for material and tool
-							content_t material = n.getContent();
-							u8 mineral = n.getMineral();
-							DiggingProperties prop = getDiggingProperties(material, mineral, toolid, tooldata);
+						float dig_time_complete = 0.0;
 
-							float dig_time_complete = 0.0;
+						if (!usage.diggable) {
+							dig_time_complete = 10000000.0;
+						}else{
+							dig_time_complete = usage.data;
+							if (enable_particles)
+								addPunchingParticles(smgr, player, nodepos, content_features(n).tiles);
 
-							if (prop.diggable == false) {
-								dig_time_complete = 10000000.0;
+							if (dig_time_complete >= 0.001) {
+								selected_node_crack = (u16)((float)CRACK_ANIMATION_LENGTH
+										* dig_time/dig_time_complete);
 							}else{
-								dig_time_complete = prop.time;
-								if (enable_particles)
-									addPunchingParticles(smgr, player, nodepos, content_features(n).tiles);
-
-								if (dig_time_complete >= 0.001) {
-									selected_node_crack = (u16)((float)CRACK_ANIMATION_LENGTH
-											* dig_time/dig_time_complete);
-								}else {
-									// This is for torches
-									selected_node_crack = CRACK_ANIMATION_LENGTH;
-								}
-
-								if (selected_node_crack >= CRACK_ANIMATION_LENGTH) {
-									infostream<<"Digging completed"<<std::endl;
-									client.groundAction(3, nodepos, neighbourpos, g_selected_item);
-									selected_node_crack = 0;
-									client.removeNode(nodepos);
-
-									if (enable_particles)
-										addDiggingParticles(smgr, player, nodepos, content_features(n).tiles);
-
-									dig_time = 0.0;
-
-									nodig_delay_counter = dig_time_complete
-											/ (float)CRACK_ANIMATION_LENGTH;
-
-									// We don't want a corresponding delay to
-									// very time consuming nodes
-									if (nodig_delay_counter > 0.5)
-										nodig_delay_counter = 0.5;
-									// We want a slight delay to very little
-									// time consuming nodes
-									float mindelay = 0.15;
-									if (nodig_delay_counter < mindelay)
-										nodig_delay_counter = mindelay;
-								}
+								selected_node_crack = CRACK_ANIMATION_LENGTH;
 							}
 
-							dig_time += dtime;
+							if (selected_node_crack >= CRACK_ANIMATION_LENGTH) {
+								infostream<<"Digging completed"<<std::endl;
+								client.groundAction(3, nodepos, neighbourpos, g_selected_item);
+								selected_node_crack = 0;
+								client.removeNode(nodepos);
 
-							camera.setDigging(0);  // left click animation
+								if (enable_particles)
+									addDiggingParticles(smgr, player, nodepos, content_features(n).tiles);
+
+								dig_time = 0.0;
+
+								action_delay_counter = usage.delay;
+							}
 						}
+
+						dig_time += dtime;
+
+						camera.setDigging(0);  // left click animation
 					}
 
 
@@ -1822,14 +1809,12 @@ void the_game(
 			} // selected_object == NULL
 		}
 
-		use_delay_counter -= dtime;
-
 		// this lets us hold down use to eat, and limits to 2 items per second
 		if (input->wasKeyDown(getKeySetting(VLKC_USE))) {
-			if (use_delay_counter <= 0.0) {
+			if (action_delay_counter <= 0.0) {
 				client.useItem();
 				/* TODO: this should come from content*_features */
-				use_delay_counter = 1.0;
+				action_delay_counter = 0.25;
 			}
 		}
 

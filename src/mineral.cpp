@@ -50,11 +50,11 @@ CraftItem *getDiggedMineralItem(u8 mineral, Player *player, InventoryItem *tool)
 	if (t->content == CONTENT_IGNORE && m.min_level > 0)
 		return NULL;
 
-	if (t->level < m.min_level)
+	if (t->diginfo.level < m.min_level)
 		return NULL;
 
 	u16 count = m.dug_count_min;
-	u16 count_max = t->level;
+	u16 count_max = t->diginfo.level;
 	u16 data = tool->getData();
 
 	if (data != 0) {

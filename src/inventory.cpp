@@ -543,14 +543,14 @@ std::wstring ToolItem::getGuiText()
 	ToolItemFeatures *f = &content_toolitem_features(m_content);
 	txt += f->description;
 	txt += L"\n\n";
-	txt += wgettext("Strength: ");
-	txt += ftows(f->hardness);
+	txt += wgettext("Uses: ");
+	txt += ftows(f->diginfo.uses);
 	txt += L"\n";
 	txt += wgettext("Speed: ");
-	txt += ftows(f->dig_time);
+	txt += ftows(f->diginfo.time);
 	txt += L"\n";
 	txt += wgettext("Level: ");
-	txt += itows(f->level);
+	txt += itows(f->diginfo.level);
 	if (f->fuel_time != 0.0) {
 		char buff[20];
 		txt += L"\n";

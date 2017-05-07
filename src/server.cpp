@@ -3287,21 +3287,27 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				InventoryList *mlist = player->inventory.getList("main");
 				if (mlist != NULL && g_settings->getBool("tool_wear")) {
 					InventoryItem *item = mlist->getItem(item_i);
-					if (item && (std::string)item->getName() == "ToolItem") {
+					if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
 						ToolItem *titem = (ToolItem*)item;
 						// Get digging properties for material and tool
-						DiggingProperties prop = getDiggingProperties(selected_content, mineral, titem->getContent(),titem->getData());
-
-						if (prop.diggable == false) {
+						tooluse_t usage;
+						if (get_tool_use(&usage,selected_content,mineral,titem->getContent(),titem->getData())) {
 							infostream<<"Server: WARNING: Player digged"
+								<<" with impossible material + tool"
+								<<" combination"<<std::endl;
+						}else{
+							if (!usage.diggable) {
+								infostream<<"Server: WARNING: Player digged"
 									<<" with impossible material + tool"
 									<<" combination"<<std::endl;
-						}
-
-						if (titem->addWear(prop.wear)) {
-							mlist->deleteItem(item_i);
-						}else{
-							mlist->addDiff(item_i,titem);
+							}
+							if (usage.wear) {
+								if (titem->addWear(usage.wear)) {
+									mlist->deleteItem(item_i);
+								}else{
+									mlist->addDiff(item_i,titem);
+								}
+							}
 						}
 					}
 				}
@@ -3336,7 +3342,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					&& selected_node_features.ondig_special_tool == wielded_tool_features.type
 					&& (
 						selected_node_features.liquid_type != LIQUID_NONE
-						|| wielded_tool_features.level > 1
+						|| wielded_tool_features.diginfo.level > 1
 					)
 				) {
 					if (selected_node_features.ondig_special_tool_append != "") {
@@ -3520,8 +3526,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					if (
 						extra_dug_s != ""
 						&& extra_rarity != 0
-						&& selected_node_features.extra_dug_item_min_level <= wielded_tool_features.level
-						&& selected_node_features.extra_dug_item_max_level >= wielded_tool_features.level
+						&& selected_node_features.extra_dug_item_min_level <= wielded_tool_features.diginfo.level
+						&& selected_node_features.extra_dug_item_max_level >= wielded_tool_features.diginfo.level
 						&& myrand_range(0,extra_rarity) == 0
 					) {
 						std::istringstream is(extra_dug_s, std::ios::binary);
