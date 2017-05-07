@@ -421,7 +421,13 @@ void hud_draw(
 			content_t type = item->getContent();
 			if ((type&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK || (type&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK) {
 				float w = item->getWear();
-				w = 100.0-((100.0/65535.0)*w);
+
+				if ((type&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK) {
+					w = 100.0-((100.0/65535.0)*w);
+				}else{
+					float wt = (float)content_toolitem_features(type).diginfo.uses;
+					w = ((100.0/wt)*w);
+				}
 				txt = itows(w);
 				txt += L"%";
 				{

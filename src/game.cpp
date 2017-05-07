@@ -1545,8 +1545,6 @@ void the_game(
 		InventoryItem *wield = (InventoryItem*)client.getLocalPlayer()->getWieldItem();
 		InventoryList *ilist;
 
-		printf("action_delay_counter = %f\n",action_delay_counter);
-
 		if (action_delay_counter > 0.0) {
 			action_delay_counter -= dtime;
 		}else if (

@@ -165,6 +165,11 @@ InventoryItem* InventoryItem::create(content_t c, u16 count, u16 wear, u16 data)
 	if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
 		return new CraftItem(c,count,data);
 	}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+		uint16_t w = content_toolitem_features(c).diginfo.uses;
+		if (!wear)
+			wear = w;
+		if (wear > w)
+			wear = w;
 		return new ToolItem(c,wear,data);
 	}else if ((c&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK) {
 		return new ClothesItem(c,wear,data);
@@ -526,12 +531,11 @@ video::ITexture *ToolItem::getImage() const
 		Calculate a progress value with sane amount of
 		maximum states
 	*/
-	u32 maxprogress = 30;
-	u32 toolprogress = (65535-m_wear)/(65535/maxprogress);
+	float wt = (float)content_toolitem_features(m_content).diginfo.uses;
+	float w = ((float)((20.0/wt)*(float)m_wear))/20.0;
 
-	float value_f = (float)toolprogress / (float)maxprogress;
 	std::ostringstream os;
-	os<<basename<<"^[progressbar"<<value_f;
+	os<<basename<<"^[progressbar"<<w;
 
 	return g_texturesource->getTextureRaw(os.str());
 }
@@ -544,7 +548,7 @@ std::wstring ToolItem::getGuiText()
 	txt += f->description;
 	txt += L"\n\n";
 	txt += wgettext("Uses: ");
-	txt += ftows(f->diginfo.uses);
+	txt += itows(m_wear);
 	txt += L"\n";
 	txt += wgettext("Speed: ");
 	txt += ftows(f->diginfo.time);

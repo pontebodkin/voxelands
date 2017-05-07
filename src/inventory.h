@@ -415,19 +415,16 @@ public:
 	{
 		return m_wear;
 	}
-	// Returns true if weared out
+	// Returns true if worn out
 	bool addWear(u16 add)
 	{
-		if(m_wear >= 65535 - add)
-		{
-			m_wear = 65535;
+		if (m_wear < add) {
+			m_wear = 0;
 			return true;
 		}
-		else
-		{
-			m_wear += add;
-			return false;
-		}
+
+		m_wear -= add;
+		return false;
 	}
 	virtual void setWear(u16 wear) {m_wear = wear;}
 private:
