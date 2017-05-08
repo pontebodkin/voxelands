@@ -186,7 +186,7 @@ std::wstring FlagNodeMetadata::infoText()
 {
 	wchar_t buff[256];
 	swprintf(buff, 256, wgettext("%s's Home Flag"), narrow_to_wide(m_owner).c_str());
-	return buff;
+	return std::wstring(buff);
 }
 
 /*
