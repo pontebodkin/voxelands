@@ -1168,7 +1168,7 @@ void the_game(
 						 device->getTimer()->getRealTime());
 				if (driver->writeImageToFile(image, io::path(filename))) {
 					wchar_t buff[512];
-					swprintf(buff, 512, wgettext("Saved screenshot to '%s'"), narrow_to_wide(filename));
+					swprintf(buff, 512, wgettext("Saved screenshot to '%s'"), narrow_to_wide(filename).c_str());
 					infostream << "Saved screenshot to '" << filename << "'" << std::endl;
 					statustext = (wchar_t *)buff;
 					statustext_time = 0;

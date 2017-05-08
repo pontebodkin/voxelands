@@ -183,7 +183,7 @@ void FlagNodeMetadata::serializeBody(std::ostream &os)
 std::wstring FlagNodeMetadata::infoText()
 {
 	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("%s's Home Flag"), narrow_to_wide(m_owner.c_str()));
+	swprintf(buff, 256, wgettext("%s's Home Flag"), narrow_to_wide(m_owner).c_str());
 	return buff;
 }
 
@@ -555,7 +555,7 @@ void LockingChestNodeMetadata::serializeBody(std::ostream &os)
 std::wstring LockingChestNodeMetadata::infoText()
 {
 	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Locking Chest owned by '%s'"), narrow_to_wide(m_owner.c_str()));
+	swprintf(buff, 256, wgettext("Locking Chest owned by '%s'"), narrow_to_wide(m_owner).c_str());
 	return buff;
 }
 bool LockingChestNodeMetadata::nodeRemovalDisabled()
@@ -629,7 +629,7 @@ void SafeNodeMetadata::serializeBody(std::ostream &os)
 std::wstring SafeNodeMetadata::infoText()
 {
 	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Safe owned by '%s'"), narrow_to_wide(m_owner.c_str()));
+	swprintf(buff, 256, wgettext("Safe owned by '%s'"), narrow_to_wide(m_owner).c_str());
 	return buff;
 }
 bool SafeNodeMetadata::nodeRemovalDisabled()
@@ -851,7 +851,7 @@ void BorderStoneNodeMetadata::serializeBody(std::ostream &os)
 std::wstring BorderStoneNodeMetadata::infoText()
 {
 	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Border Stone owned by '%s'"), narrow_to_wide(m_text.c_str()));
+	swprintf(buff, 256, wgettext("Border Stone owned by '%s'"), narrow_to_wide(m_text).c_str());
 	return buff;
 }
 
