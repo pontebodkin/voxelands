@@ -5,15 +5,15 @@ export DIR=`pwd`
 
 # First, download and compile the cross-compiler
 if [ ! -e mxe ]; then
-	git clone -b master git://github.com/mxe/mxe.git || (echo "Failed to download mxe.git.....exiting" && exit)
+	git clone -b master git://github.com/mxe/mxe.git || exit 1
 else
-	cd mxe && git pull || (echo "Failed to update mxe.git.....exiting" && exit)
+	cd mxe && git pull || exit 1
 	cd $DIR
 fi
 
 cd mxe
-	git checkout master || (echo "Failed to checkout mxe.git/master....exiting" && exit)
-	make $MAKEFLAGS gcc || (echo "mxe failed to compile.....exiting" && exit)
+	git checkout master || exit 1
+	make $MAKEFLAGS gcc || exit 1
 cd $DIR
 
 # environment variables for cross-compiling
@@ -29,13 +29,14 @@ export LDFLAGS="-Wl,-O1 -Wl,--discard-all,--no-undefined,--sort-common"
 
 # cmake needs "windres.exe" exactly in the PATH.
 # can't figure out how to change it and it doesn't like aliases.
-ln -s $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres.exe
-ln -s $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres
+ln -sfn $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres.exe
+ln -sfn $DIR/mxe/usr/bin/$build-windres $DIR/mxe/usr/bin/windres
+ln -sfn $DIR/mxe/usr/bin/$build-gcc $DIR/mxe/usr/bin/gcc
 export PATH="$DIR/mxe/usr/bin:$PATH"
 
 # Download the required libraries
 if [ ! -e irrlicht-1.8/ ]; then
-	wget http://downloads.sourceforge.net/irrlicht/irrlicht-1.8.zip
+	wget http://downloads.sourceforge.net/irrlicht/irrlicht-1.8.zip || exit 1
 	unzip irrlicht-1.8.zip || exit 1
 fi
 
@@ -45,27 +46,27 @@ make $MAKEFLAGS NDEBUG=1 win32 || exit 1
 cd $DIR
 
 # Get the minetest-classic source
-if [ ! -e voxelands ]; then
-	git clone https://gitlab.com/voxelands/voxelands.git voxelands
-else
-	cd voxelands && git reset --hard
-	cd $DIR
-	cd voxelands && git pull
-	cd $DIR
-fi
-
 BRANCH='master'
 if [ $# = '1' ]; then
 	export BRANCH=$1
 fi
-echo "Building branch: $BRANCH"
+if [ ! -e voxelands ]; then
+	git clone -b "$BRANCH" https://gitlab.com/voxelands/voxelands.git voxelands || exit 1
+else
+    cd voxelands
+    git reset --hard || exit 1
+    git pull || exit 1
+    git checkout $BRANCH || exit 1
+    cd $DIR
+fi
 
+
+echo "Building branch: $BRANCH"
 # Configure and build voxelands
 cd voxelands
-git checkout $BRANCH
 sed -i "s/[\\][\\]/\//g" src/winresource.rc # Fix nasty Windoze paths
-rm CMakeCache.txt
-cmake . -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN \
+rm -f CMakeCache.txt
+$build-cmake . -DCMAKE_TOOLCHAIN_FILE=$CMAKE_TOOLCHAIN \
 	-DCMAKE_INSTALL_PREFIX=/tmp \
 	-DCMAKE_C_FLAGS_RELEASE=-DNDEBUG -DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG \
 	-DBUILD_SERVER=1 \
@@ -95,6 +96,8 @@ cd $DIR
 
 # Keep the environment clean!
 rm $DIR/mxe/usr/bin/windres.exe
+rm $DIR/mxe/usr/bin/windres
+rm $DIR/mxe/usr/bin/gcc
 unset DIR
 unset CC
 unset CXX
@@ -104,3 +107,4 @@ unset CFLAGS
 unset CXXFLAGS
 unset CPPFLAGS
 unset MAKEFLAGS
+unset BRANCH
