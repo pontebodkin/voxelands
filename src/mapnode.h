@@ -326,7 +326,7 @@ struct ContentFeatures
 	bool rotate_tile_with_nodebox;
 	bool plantlike_tiled;
 	bool wield_nodebox;
-	std::wstring description;
+	char* description;
 	std::vector<NodeBox> nodeboxes;
 	std::vector<NodeBox> wield_nodeboxes;
 
@@ -534,7 +534,7 @@ struct ContentFeatures
 		rotate_tile_with_nodebox = false;
 		plantlike_tiled = false;
 		wield_nodebox = true;
-		description = std::wstring(L"");
+		description = (char*)"";
 		nodeboxes.clear();
 		nodeboxes.push_back(NodeBox(
 			-0.5*BS,

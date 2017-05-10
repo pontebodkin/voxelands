@@ -1381,7 +1381,7 @@ u16 MobSAO::punch(content_t punch_item, v3f dir, const std::string &playername)
 	u16 wear = 655;
 
 	actionstream<<playername<<" punches mob id="<<m_id
-			<<" with a \""<<wide_to_narrow(f.description)<<"\" at "
+			<<" with a \""<<f.description<<"\" at "
 			<<PP(m_base_position/BS)<<std::endl;
 
 	if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item))

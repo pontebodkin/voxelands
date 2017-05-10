@@ -34,7 +34,7 @@ void content_mapnode_stair(bool repeat)
 	// stairs
 	i = CONTENT_ROUGHSTONE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Rough Stone Stair");
+	f->description = gettext("Rough Stone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -52,7 +52,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_COBBLE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Cobble Stone Stair");
+	f->description = gettext("Cobble Stone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -70,7 +70,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_MOSSYCOBBLE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Mossy Cobble Stone Stair");
+	f->description = gettext("Mossy Cobble Stone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -88,7 +88,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_STONE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Stone Stair");
+	f->description = gettext("Stone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -107,7 +107,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_WOOD_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Wood Stair");
+	f->description = gettext("Wood Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_STAIRLIKE;
 	f->setAllTextures("wood.png");
@@ -127,7 +127,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_JUNGLE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Jungle Wood Stair");
+	f->description = gettext("Jungle Wood Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -147,7 +147,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_BRICK_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Brick Stair");
+	f->description = gettext("Brick Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("brick.png");
 	f->setTexture(0,"brick_stair_top.png");
@@ -170,7 +170,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_SANDSTONE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Sand Stone Stair");
+	f->description = gettext("Sand Stone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_STAIRLIKE;
@@ -188,7 +188,7 @@ void content_mapnode_stair(bool repeat)
 
 	i = CONTENT_LIMESTONE_STAIR;
 	f = &content_features(i);
-	f->description = wgettext("Limestone Stair");
+	f->description = gettext("Limestone Stair");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_STAIRLIKE;

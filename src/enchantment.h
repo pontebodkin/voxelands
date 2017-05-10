@@ -37,7 +37,7 @@ struct EnchantmentInfo {
 	uint8_t level;
 	uint16_t mask;
 	std::string overlay;
-	std::wstring name;
+	char* name;
 	content_t gem;
 };
 

@@ -164,11 +164,15 @@ configure_file(
 )
 
 set(common_SRCS
+	auth.c
 	array.c
 	list.c
 	nvp.c
 	crypto.c
 	crypto_base64.c
+	file.c
+	thread.c
+	path.c
 	log.cpp
 	content_sao.cpp
 	mapgen.cpp
@@ -190,8 +194,7 @@ set(common_SRCS
 	content_mapnode_util.cpp
 	content_list.c
 	content_nodebox.cpp
-	intl.cpp
-	auth.cpp
+	intl.c
 	collision.cpp
 	nodemetadata.cpp
 	serverobject.cpp
@@ -223,7 +226,6 @@ set(common_SRCS
 	base64.cpp
 	ban.cpp
 	http.cpp
-	path.cpp
 )
 
 # This gives us the icon
@@ -408,9 +410,9 @@ else()
 
 
 
-	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe")
+	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive")
 	set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
-	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb")
+	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive")
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${OPT_LDFLAGS} ${SAFETY_LDFLAGS}")

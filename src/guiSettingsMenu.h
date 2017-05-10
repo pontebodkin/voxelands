@@ -149,7 +149,7 @@ private:
 	void save();
 	bool resetMenu();
 
-	wchar_t* keynames[VLKC_MAX];
+	std::wstring keynames[VLKC_MAX];
 	s32 activeKey;
 	KeyPress keys[VLKC_MAX];
 };

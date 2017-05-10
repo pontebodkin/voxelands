@@ -47,11 +47,15 @@ void cmd_me(std::wostringstream &os,
 void cmd_privs(std::wostringstream &os,
 	ServerCommandContext *ctx)
 {
-	if(ctx->parms.size() == 1) {
-		// Show our own real privs, without any adjustments
-		// made for admin status
-		os<<L"-!- " + narrow_to_wide(privsToString(
-				ctx->server->getPlayerAuthPrivs(ctx->player->getName())));
+	char buff[256];
+	if (ctx->parms.size() == 1) {
+		/* Show our own real privs, without any adjustments made for admin status */
+		uint64_t privs = auth_getprivs((char*)ctx->player->getName());
+
+		if (auth_privs2str(privs,buff,256) < 0)
+			buff[0] = 0;
+
+		os<<L"-!- " + narrow_to_wide(buff);
 		return;
 	}
 
@@ -66,34 +70,36 @@ void cmd_privs(std::wostringstream &os,
 		return;
 	}
 
-	os<<L"-!- " + narrow_to_wide(privsToString(ctx->server->getPlayerAuthPrivs(tp->getName())));
+	uint64_t privs = auth_getprivs((char*)tp->getName());
+
+	if (auth_privs2str(privs,buff,256) < 0)
+		buff[0] = 0;
+
+	os<<L"-!- " + narrow_to_wide(buff);
 }
 
 void cmd_grantrevoke(std::wostringstream &os,
 	ServerCommandContext *ctx)
 {
-	if(ctx->parms.size() != 3)
-	{
+	char buff[256];
+	if (ctx->parms.size() != 3) {
 		os<<L"-!- Missing parameter";
 		return;
 	}
 
-	if((ctx->privs & PRIV_PRIVS) == 0)
-	{
+	if ((ctx->privs & PRIV_PRIVS) == 0) {
 		os<<L"-!- You don't have permission to do that";
 		return;
 	}
 
-	uint64_t newprivs = stringToPrivs(wide_to_narrow(ctx->parms[2]));
-	if(newprivs == PRIV_INVALID)
-	{
+	uint64_t newprivs = auth_str2privs(const_cast<char*>(wide_to_narrow(ctx->parms[2]).c_str()));
+	if (newprivs == PRIV_INVALID) {
 		os<<L"-!- Invalid privileges specified";
 		return;
 	}
 
 	Player *tp = ctx->env->getPlayer(wide_to_narrow(ctx->parms[1]).c_str());
-	if(tp == NULL)
-	{
+	if (tp == NULL) {
 		os<<L"-!- No such player";
 		return;
 	}
@@ -113,7 +119,7 @@ void cmd_grantrevoke(std::wostringstream &os,
 		msg += ctx->parms[2];
 		msg += L"\"";
 		ctx->server->notifyPlayer(playername.c_str(), msg);
-	} else {
+	}else{
 		privs &= ~newprivs;
 		actionstream<<ctx->player->getName()<<" revokes "
 				<<wide_to_narrow(ctx->parms[2])<<" from "
@@ -130,7 +136,11 @@ void cmd_grantrevoke(std::wostringstream &os,
 	ctx->server->setPlayerAuthPrivs(playername, privs);
 
 	os<<L"-!- Privileges change to ";
-	os<<narrow_to_wide(privsToString(privs));
+	if (auth_privs2str(privs,buff,256) < 0) {
+		os<<L"???";
+	}else{
+		os<<narrow_to_wide(buff);
+	}
 }
 
 void cmd_time(std::wostringstream &os,

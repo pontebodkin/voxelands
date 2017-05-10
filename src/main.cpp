@@ -76,6 +76,7 @@
 #include "path.h"
 #include "gui_colours.h"
 #include "character_creator.h"
+#include "thread.h"
 #if USE_FREETYPE
 #include "xCGUITTFont.h"
 #endif
@@ -669,11 +670,19 @@ void SpeedTests()
 
 void drawMenuBackground(video::IVideoDriver* driver)
 {
+	char buff[1024];
 	core::dimension2d<u32> screensize = driver->getScreenSize();
 
-	video::ITexture *mud = driver->getTexture(getTexturePath("mud.png").c_str());
-	video::ITexture *stone = driver->getTexture(getTexturePath("stone.png").c_str());
-	video::ITexture *grass = driver->getTexture(getTexturePath("grass_side.png").c_str());
+	video::ITexture *mud = NULL;
+	video::ITexture *stone = NULL;
+	video::ITexture *grass = NULL;
+
+	if (path_get((char*)"texture",(char*)"mud.png",1,buff,1024))
+		mud = driver->getTexture(buff);
+	if (path_get((char*)"texture",(char*)"stone.png",1,buff,1024))
+		stone = driver->getTexture(buff);
+	if (path_get((char*)"texture",(char*)"grass_side.png",1,buff,1024))
+		grass = driver->getTexture(buff);
 	if (mud && stone && grass) {
 		video::ITexture *texture;
 		s32 texturesize = 128;
@@ -829,7 +838,8 @@ int main(int argc, char *argv[])
 	// Create user config directory
         fs::CreateDir(porting::path_configdata);
 #endif
-	init_gettext();
+
+	intl_init();
 
 	// Initialize debug streams
 #ifdef RUN_IN_PLACE
@@ -858,6 +868,9 @@ int main(int argc, char *argv[])
 	/*
 		Basic initialization
 	*/
+
+	thread_init();
+	path_init();
 
 	// Initialize default settings
 	set_default_settings(g_settings);
@@ -1118,12 +1131,18 @@ int main(int argc, char *argv[])
 
 	guienv = device->getGUIEnvironment();
 	gui::IGUISkin* skin = guienv->getSkin();
+	gui::IGUIFont* font = NULL;
+	{
+		char buff[1024];
 #if USE_FREETYPE
-	u16 font_size = g_settings->getU16("font_size");
-	gui::IGUIFont* font = gui::CGUITTFont::createTTFont(guienv, getPath("font","unifont.ttf",false).c_str(), font_size, true, true, 1, 128);
+		u16 font_size = g_settings->getU16("font_size");
+		if (path_get((char*)"font",(char*)"unifont.ttf",1,buff,1024))
+			font = gui::CGUITTFont::createTTFont(guienv, buff, font_size, true, true, 1, 128);
 #else
-	gui::IGUIFont* font = guienv->getFont(getTexturePath("fontlucida.png").c_str());
+		if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
+			font = guienv->getFont(buff);
 #endif
+	}
 	if (font) {
 		skin->setFont(font);
 	}else{
@@ -1132,7 +1151,7 @@ int main(int argc, char *argv[])
 	// If font was not found, this will get us one
 	font = skin->getFont();
 	assert(font);
-	drawLoadingScreen(device,wgettext("Setting Up UI"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Setting Up UI")));
 
 	u32 text_height = font->getDimension(L"Hello, world!").Height;
 	infostream<<"text_height="<<text_height<<std::endl;
@@ -1155,14 +1174,14 @@ int main(int argc, char *argv[])
 		Preload some textures and stuff
 	*/
 
-	drawLoadingScreen(device,wgettext("Loading MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading MapNodes")));
 	init_mapnode(device); // Second call with g_texturesource set
-	drawLoadingScreen(device,wgettext("Loading Creatures"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Creatures")));
 	content_mob_init();
 	// preloading this reduces some hud flicker
 	g_texturesource->getTextureId("crack.png");
 
-	drawLoadingScreen(device,wgettext("Setting Up Sound"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Setting Up Sound")));
 
 #if USE_AUDIO == 1
 	sound = createSoundManager();

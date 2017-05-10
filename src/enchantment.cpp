@@ -54,7 +54,7 @@ static void enchantment_init()
 		f->level = 0;
 		f->mask = 0;
 		f->overlay = "";
-		f->name = L"";
+		f->name = (char*)"";
 		f->gem = CONTENT_IGNORE;
 	}
 
@@ -63,7 +63,7 @@ static void enchantment_init()
 	f->type = i;
 	f->mask = (1<<(i-1));
 	f->overlay = "flame";
-	f->name = L"Ignis";
+	f->name = (char*)"Ignis";
 	f->gem = CONTENT_CRAFTITEM_SUNSTONE;
 
 	i = ENCHANTMENT_DONTBREAK;
@@ -71,7 +71,7 @@ static void enchantment_init()
 	f->type = i;
 	f->mask = (1<<(i-1));
 	f->overlay = "dontbreak";
-	f->name = L"Indomitus";
+	f->name = (char*)"Indomitus";
 	f->gem = CONTENT_CRAFTITEM_SAPPHIRE;
 
 	i = ENCHANTMENT_MORE;
@@ -79,7 +79,7 @@ static void enchantment_init()
 	f->type = i;
 	f->mask = (1<<(i-1));
 	f->overlay = "more";
-	f->name = L"Amplius";
+	f->name = (char*)"Amplius";
 	f->gem = CONTENT_CRAFTITEM_TURQUOISE;
 
 	i = ENCHANTMENT_FAST;
@@ -87,7 +87,7 @@ static void enchantment_init()
 	f->type = i;
 	f->mask = (1<<(i-1));
 	f->overlay = "fast";
-	f->name = L"Velox";
+	f->name = (char*)"Velox";
 	f->gem = CONTENT_CRAFTITEM_AMETHYST;
 
 	i = ENCHANTMENT_LONGLASTING;
@@ -95,7 +95,7 @@ static void enchantment_init()
 	f->type = i;
 	f->mask = (1<<(i-1));
 	f->overlay = "longlast";
-	f->name = L"Aeterna";
+	f->name = (char*)"Aeterna";
 	f->gem = CONTENT_CRAFTITEM_RUBY;
 
 	enchantment_isinit = 1;

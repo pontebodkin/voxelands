@@ -16,12 +16,16 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
+#include "file.h"
+#include "crypto.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <ctype.h>
+#include <locale.h>
+
 #ifdef _WIN32
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -559,19 +563,19 @@ char* intl_nlookup(intl_t *intl, char* s1, char* s2, int n)
 }
 
 /* initialise an intl_t by loading in an mo file */
-int intl_init(intl_t *intl, const char* file)
+int intl_load(intl_t *intl, char* file)
 {
 	char fbuff[2048];
 	char lbuff[128];
-	FILE *f;
-	int length;
+	file_t *f;
 	uint32_t magic;
 	char* head;
 	char* p;
 	char* e;
-	std::string path;
 
-	intl_getlang(lbuff,128);
+	strcpy(lbuff,"translation-");
+
+	intl_getlang(lbuff+12,116);
 
 	intl->mo_data = NULL;
 	intl->str_count = 0;
@@ -582,46 +586,29 @@ int intl_init(intl_t *intl, const char* file)
 	intl->plurals = 1;
 	intl->plural = NULL;
 
-	path = std::string("translation-")+lbuff;
-	path = getPath(path.c_str(),file,true);
-	if (path == "") {
+	f = file_load(lbuff,file);
+	if (!f) {
 		char* u = strchr(lbuff,'_');
 		if (!u)
 			return 1;
 		*u = 0;
 
-		path = std::string("translation-")+lbuff;
-		path = getPath(path.c_str(),file,true);
-		if (path == "")
-			return 1;
+		f = file_load(lbuff,file);
+		if (!f)
+			return 2;
 	}
 
-	f = fopen(path.c_str(), "rb");
-	if (!f)
-		return 2;
-
-	fseek(f, 0, SEEK_END);
-	length = ftell(f);
-	fseek(f, 0, SEEK_SET);
-
-	if (length < 24) {
-		fclose(f);
+	if (f->len < 24) {
+		file_free(f);
 		return 3;
 	}
 
-	intl->mo_data = malloc(length);
-	if (!intl->mo_data) {
-		fclose(f);
-		return 4;
-	}
+	intl->mo_data = f->data;
+	f->data = NULL;
+	f->len = 0;
+	f->size = 0;
 
-	if (length != (int)fread(intl->mo_data, 1, length, f)) {
-		fclose(f);
-		free(intl->mo_data);
-		intl->mo_data = NULL;
-		return 5;
-	}
-	fclose(f);
+	file_free(f);
 
 	magic = ((uint32_t*)intl->mo_data)[0];
 
@@ -701,45 +688,13 @@ char* ngettext(const char* s1, const char* s2, int n)
 	return intl_nlookup(&intl,(char*)s1,(char*)s2,n);
 }
 
-wchar_t *mb2wc(const char *src)
-{
-#ifdef _WIN32
-	static wchar_t *w = (wchar_t*)L"";
-	int ol = MultiByteToWideChar(CP_UTF8, 0, src, -1, NULL, 0);
-	if (!ol)
-		return w;
-	wchar_t *buff = new wchar_t[ol];
-	if (!MultiByteToWideChar(CP_UTF8, 0, src, -1, buff, ol))
-		return w;
-	return buff;
-#else
-	int l = strlen(src)+1;
-	wchar_t *buff = new wchar_t[l];
-	mbstate_t state;
-	memset(&state, '\0', sizeof (state));
-	size_t n = mbsrtowcs(buff, &src, l, &state);
-	buff[n] = L'\0';
-	return buff;
-#endif
-}
-
-wchar_t* wgettext(const char *str)
-{
-	return mb2wc(intl_lookup(&intl,(char*)str,NULL));
-}
-
-wchar_t* wngettext(const char *str1, const char *str2, int n)
-{
-	return mb2wc(intl_nlookup(&intl,(char*)str1,(char*)str2,n));
-}
-
-void init_gettext()
+void intl_init()
 {
 #ifndef _WIN32
 	setlocale(LC_MESSAGES, "");
 	setlocale(LC_CTYPE, "");
 #endif
-	intl_init(&intl,"voxelands.mo");
+	intl_load(&intl,"voxelands.mo");
 #ifndef SERVER
 	init_KeyNamesLang();
 #endif

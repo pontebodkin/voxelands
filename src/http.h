@@ -29,6 +29,7 @@
 #include "server.h"
 #include "player.h"
 #include <map>
+#include "auth.h"
 
 class HTTPServer;
 
@@ -145,7 +146,12 @@ public:
 	void start(u16 port);
 	void stop();
 	void step();
-	std::string getPlayerPrivs(std::string name) {return privsToString(m_server->getPlayerAuthPrivs(name));}
+	std::string getPlayerPrivs(std::string name) {
+		char buff[256];
+		if (auth_privs2str(m_server->getPlayerAuthPrivs(name),buff,256) < 0)
+			return std::string("");
+		return std::string(buff);
+	}
 	Server *getGameServer() {return m_server;}
 private:
 	TCPSocket *m_socket;

@@ -283,10 +283,8 @@ void init_mapnode()
 		Don't touch CONTENT_IGNORE or CONTENT_AIR.
 	*/
 	for (u16 i=0; i <= MAX_CONTENT; i++) {
-		char buf[10];
-		sprintf(buf,"0x%.4X",i);
 		ContentFeatures *f = &g_content_features[i];
-		f->description = narrow_to_wide(std::string(buf));
+		f->description = (char*)"???";
 		if (i == CONTENT_IGNORE || i == CONTENT_AIR)
 			continue;
 		f->draw_type = CDT_CUBELIKE;
@@ -301,31 +299,31 @@ void init_mapnode()
 		Initialize mapnode content
 	*/
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Base MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Base MapNodes")));
 #endif
 	content_mapnode_init(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Circuit MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Circuit MapNodes")));
 #endif
 	content_mapnode_circuit(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Plant MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Plant MapNodes")));
 #endif
 	content_mapnode_plants(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Farming MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Farming MapNodes")));
 #endif
 	content_mapnode_farm(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Decorative MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Decorative MapNodes")));
 #endif
 	content_mapnode_furniture(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Interactive MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Interactive MapNodes")));
 #endif
 	content_mapnode_door(repeat);
 #ifndef SERVER
-	drawLoadingScreen(device,wgettext("Loading Special MapNodes"));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading Special MapNodes")));
 #endif
 	content_mapnode_stair(repeat);
 	content_mapnode_slab(repeat);

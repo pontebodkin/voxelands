@@ -419,29 +419,21 @@ public:
 
 	uint64_t getPlayerAuthPrivs(const std::string &name)
 	{
-		try{
-			return m_authmanager.getPrivs(name);
-		}
-		catch(AuthNotFoundException &e)
-		{
-			dstream<<"WARNING: Auth not found for "<<name<<std::endl;
-			return 0;
-		}
+		return auth_getprivs(const_cast<char*>(name.c_str()));
 	}
 
 	void setPlayerAuthPrivs(const std::string &name, uint64_t privs)
 	{
-		try{
-			return m_authmanager.setPrivs(name, privs);
-		}
-		catch(AuthNotFoundException &e)
-		{
-			dstream<<"WARNING: Auth not found for "<<name<<std::endl;
-		}
+		auth_setprivs(const_cast<char*>(name.c_str()),privs);
 	}
-	void setPlayerPassword(const char *name, const char *password) {m_authmanager.setPassword(name,password);}
+	void setPlayerPassword(const char *name, const char *password)
+	{
+		auth_setpwd(const_cast<char*>(name),const_cast<char*>(password));
+	}
 	void addUser(const char *name, const char *password);
-	bool userExists(const char *name) {return m_authmanager.exists(name);}
+	bool userExists(const char *name) {
+		return auth_exists(const_cast<char*>(name));
+	}
 
 	Player *getPlayer(std::string name) {return m_env.getPlayer(name.c_str());}
 	array_t *getPlayers() {return m_env.getPlayers();}
@@ -608,9 +600,6 @@ private:
 	JMutex m_con_mutex;
 	// Connected clients (behind the con mutex)
 	core::map<u16, RemoteClient*> m_clients;
-
-	// User authentication
-	AuthManager m_authmanager;
 
 	// Bann checking
 	BanManager m_banmanager;

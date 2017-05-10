@@ -100,7 +100,7 @@ void GUIPauseMenu::regenerateGui(v2u32 screensize)
 			max_texture_size = driver->getMaxTextureSize();
 		}
 
-		gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Voxelands by darkrose and contributors"), rect, false, true, this, 259);
+		gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Voxelands by darkrose and contributors")).c_str(), rect, false, true, this, 259);
 		t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 	}
 	{
@@ -140,25 +140,25 @@ void GUIPauseMenu::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 180, btn_height);
 		rect = rect + v2s32(size.X/2-180/2, btn_y);
-		Environment->addButton(rect, this, 256, wgettext("Continue"));
+		Environment->addButton(rect, this, 256, narrow_to_wide(gettext("Continue")).c_str());
 	}
 	btn_y += btn_height + btn_gap;
 	{
 		core::rect<s32> rect(0, 0, 180, btn_height);
 		rect = rect + v2s32(size.X/2-180/2, btn_y);
-		Environment->addButton(rect, this, 261, wgettext("Change Password"));
+		Environment->addButton(rect, this, 261, narrow_to_wide(gettext("Change Password")).c_str());
 	}
 	btn_y += btn_height + btn_gap;
 	{
 		core::rect<s32> rect(0, 0, 180, btn_height);
 		rect = rect + v2s32(size.X/2-180/2, btn_y);
-		Environment->addButton(rect, this, 265, wgettext("Settings"));
+		Environment->addButton(rect, this, 265, narrow_to_wide(gettext("Settings")).c_str());
 	}
 	btn_y += btn_height + btn_gap;
 	{
 		core::rect<s32> rect(0, 0, 180, btn_height);
 		rect = rect + v2s32(size.X/2-180/2, btn_y);
-		Environment->addButton(rect, this, 260, wgettext("Disconnect"));
+		Environment->addButton(rect, this, 260, narrow_to_wide(gettext("Disconnect")).c_str());
 	}
 }
 

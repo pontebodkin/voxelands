@@ -406,6 +406,9 @@ v3f Player::getScale()
 //M:10:10:fair:blue:brown:medium:human:green:blue:leather
 void Player::getSkin(std::vector<std::string> &parts)
 {
+	char buff[1024];
+	char buf[256];
+
 	if (m_character == "")
 		m_character = std::string(PLAYER_DEFAULT_CHARDEF);
 	Strfnd f(m_character);
@@ -421,24 +424,30 @@ void Player::getSkin(std::vector<std::string> &parts)
 
 	if (gender != "M" && gender != "F")
 		gender = "M";
-	if (getPath("skin",std::string("skintone_")+skintone+"_"+gender+".png",true) == "")
+
+	snprintf(buf,256,"skintone_%s_%s.png",skintone.c_str(),gender.c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		skintone = "fair";
-	if (getPath("skin",std::string("eyes_")+eyes+".png",true) == "")
+
+	snprintf(buf,256,"eyes_%s.png",eyes.c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		eyes = "blue";
-	if (hairtone == "" || hair == "" || getPath("skin",std::string("hair_")+hair+"_"+hairtone+"_"+gender+".png",true) == "") {
+
+	snprintf(buf,256,"hair_%s_%s_%s.png",hair.c_str(),hairtone.c_str(),gender.c_str());
+	if (hairtone == "" || hair == "" || !path_get((char*)"skin",buf,1,buff,1024)) {
 		hairtone = "brown";
 		hair = "medium";
 	}
-	if (getPath("skin",std::string("face_")+face+gender+".png",true) == "")
+
+	snprintf(buf,256,"face_%s%s.png",face.c_str(),gender.c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		face = "human";
 
-	//parts.push_back(std::string("skins")+DIR_DELIM+"skintone_"+skintone+"_"+gender+".png");
-
-	parts.push_back(std::string("skins")+DIR_DELIM+"skintone_"+skintone+".png");
-	parts.push_back(std::string("skins")+DIR_DELIM+"gender_"+gender+".png");
-	parts.push_back(std::string("skins")+DIR_DELIM+"face_"+face+"_"+skintone+"_"+gender+".png");
-	parts.push_back(std::string("skins")+DIR_DELIM+"eyes_"+eyes+".png");
-	parts.push_back(std::string("skins")+DIR_DELIM+"hair_"+hair+"_"+hairtone+"_"+gender+".png");
+	parts.push_back(std::string("skins/")+"skintone_"+skintone+".png");
+	parts.push_back(std::string("skins/")+"gender_"+gender+".png");
+	parts.push_back(std::string("skins/")+"face_"+face+"_"+skintone+"_"+gender+".png");
+	parts.push_back(std::string("skins/")+"eyes_"+eyes+".png");
+	parts.push_back(std::string("skins/")+"hair_"+hair+"_"+hairtone+"_"+gender+".png");
 }
 
 /*
@@ -578,12 +587,14 @@ RemotePlayer::RemotePlayer(
 		m_node = mgr->addAnimatedMeshSceneNode(mesh,this);
 
 		if (m_node) {
+			char buff[1024];
 			m_node->setFrameLoop(0,79);
 			m_node->setScale(Player::getScale());
 			setMeshColor(m_node->getMesh(), video::SColor(255,255,255,255));
 
 			// Set material flags and texture
-			m_node->setMaterialTexture(0, driver->getTexture(getTexturePath("character.png").c_str()));
+			if (path_get((char*)"texture",(char*)"character.png",1,buff,1024))
+				m_node->setMaterialTexture(0, driver->getTexture(buff));
 			video::SMaterial& material = m_node->getMaterial(0);
 			material.setFlag(video::EMF_LIGHTING, false);
 			material.setFlag(video::EMF_BILINEAR_FILTER, false);

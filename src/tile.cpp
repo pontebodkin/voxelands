@@ -1051,27 +1051,24 @@ video::IImage* generate_image_from_scratch(std::string name,
 bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 		IrrlichtDevice *device)
 {
+	char buff[1024];
 	video::IVideoDriver* driver = device->getVideoDriver();
 	assert(driver);
 	if (part_of_name == "")
 		return baseimg;
 
 	// Stuff starting with [ are special commands
-	if(part_of_name[0] != '[')
-	{
+	if (part_of_name[0] != '[') {
 		// A normal texture; load it from a file
-		std::string path = getTexturePath(part_of_name.c_str());
-		/*infostream<<"generate_image(): Loading path \""<<path
-				<<"\""<<std::endl;*/
 
-		video::IImage *image = driver->createImageFromFile(path.c_str());
+		video::IImage *image = NULL;
+		if (path_get((char*)"texture",const_cast<char*>(part_of_name.c_str()),1,buff,1024))
+			image = driver->createImageFromFile(buff);
 
-		if(image == NULL)
-		{
+		if (image == NULL) {
 			if (part_of_name != "") {
 				infostream<<"generate_image(): Could not load image \""
-				<<part_of_name<<"\" from path \""<<path<<"\""
-						<<" while building texture"<<std::endl;
+				<<part_of_name<<"\" while building texture"<<std::endl;
 
 				infostream<<"generate_image(): Creating a dummy"
 				<<" image for \""<<part_of_name<<"\""<<std::endl;
@@ -1144,7 +1141,9 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 				It is an image with a number of cracking stages
 				horizontally tiled.
 			*/
-			video::IImage *img_crack = driver->createImageFromFile(getTexturePath("crack.png").c_str());
+			video::IImage *img_crack = NULL;
+			if (path_get((char*)"texture",(char*)"crack.png",1,buff,1024))
+				img_crack = driver->createImageFromFile(buff);
 
 			if (!img_crack)
 				return true;
@@ -1188,27 +1187,26 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 				infostream<<"Adding \""<<filename
 						<<"\" to combined ("<<x<<","<<y<<")"
 						<<std::endl;
-				video::IImage *img = driver->createImageFromFile(
-						getTexturePath(filename.c_str()).c_str());
-				if(img)
-				{
-					core::dimension2d<u32> dim = img->getDimension();
-					infostream<<"Size "<<dim.Width
-							<<"x"<<dim.Height<<std::endl;
-					core::position2d<s32> pos_base(x, y);
-					video::IImage *img2 =
-							driver->createImage(video::ECF_A8R8G8B8, dim);
-					img->copyTo(img2);
-					img->drop();
-					img2->copyToWithAlpha(baseimg, pos_base,
-							core::rect<s32>(v2s32(0,0), dim),
-							video::SColor(255,255,255,255),
-							NULL);
-					img2->drop();
-				}
-				else
-				{
-					infostream<<"img==NULL"<<std::endl;
+
+				if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
+					video::IImage *img = driver->createImageFromFile(buff);
+					if (img) {
+						core::dimension2d<u32> dim = img->getDimension();
+						infostream<<"Size "<<dim.Width
+								<<"x"<<dim.Height<<std::endl;
+						core::position2d<s32> pos_base(x, y);
+						video::IImage *img2 =
+								driver->createImage(video::ECF_A8R8G8B8, dim);
+						img->copyTo(img2);
+						img->drop();
+						img2->copyToWithAlpha(baseimg, pos_base,
+								core::rect<s32>(v2s32(0,0), dim),
+								video::SColor(255,255,255,255),
+								NULL);
+						img2->drop();
+					}else{
+						infostream<<"img==NULL"<<std::endl;
+					}
 				}
 			}
 		}
@@ -1248,34 +1246,33 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 
 			std::string filename = part_of_name.substr(9);
 
-			std::string path = getTexturePath(filename.c_str());
+			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
 
-			infostream<<"generate_image(): Loading path \""<<path
-					<<"\""<<std::endl;
+				infostream<<"generate_image(): Loading path \""<<buff
+						<<"\""<<std::endl;
 
-			video::IImage *image = driver->createImageFromFile(path.c_str());
+				video::IImage *image = driver->createImageFromFile(buff);
 
-			if (image == NULL) {
-				infostream<<"generate_image(): Loading path \""
-						<<path<<"\" failed"<<std::endl;
-			}
-			else
-			{
-				core::dimension2d<u32> dim = image->getDimension();
-				baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+				if (image == NULL) {
+					infostream<<"generate_image(): Loading path \""
+							<<buff<<"\" failed"<<std::endl;
+				}else{
+					core::dimension2d<u32> dim = image->getDimension();
+					baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
 
-				// Set alpha to full
-				for(u32 y=0; y<dim.Height; y++)
-				for(u32 x=0; x<dim.Width; x++)
-				{
-					video::SColor c = image->getPixel(x,y);
-					c.setAlpha(255);
-					image->setPixel(x,y,c);
+					// Set alpha to full
+					for(u32 y=0; y<dim.Height; y++)
+					for(u32 x=0; x<dim.Width; x++)
+					{
+						video::SColor c = image->getPixel(x,y);
+						c.setAlpha(255);
+						image->setPixel(x,y,c);
+					}
+					// Blit
+					image->copyTo(baseimg);
+
+					image->drop();
 				}
-				// Blit
-				image->copyTo(baseimg);
-
-				image->drop();
 			}
 		}
 		/*
@@ -1298,39 +1295,36 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			u32 b1 = mystoi(sf.next(":"));
 			std::string filename = sf.next("");
 
-			std::string path = getTexturePath(filename.c_str());
+			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
 
-			infostream<<"generate_image(): Loading path \""<<path
-					<<"\""<<std::endl;
+				infostream<<"generate_image(): Loading path \""<<buff<<"\""<<std::endl;
 
-			video::IImage *image = driver->createImageFromFile(path.c_str());
+				video::IImage *image = driver->createImageFromFile(buff);
 
-			if(image == NULL)
-			{
-				infostream<<"generate_image(): Loading path \""
-						<<path<<"\" failed"<<std::endl;
-			}
-			else
-			{
-				core::dimension2d<u32> dim = image->getDimension();
-				baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+				if (image == NULL) {
+					infostream<<"generate_image(): Loading path \""
+							<<buff<<"\" failed"<<std::endl;
+				}else{
+					core::dimension2d<u32> dim = image->getDimension();
+					baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
 
-				// Blit
-				image->copyTo(baseimg);
+					// Blit
+					image->copyTo(baseimg);
 
-				image->drop();
+					image->drop();
 
-				for(u32 y=0; y<dim.Height; y++)
-				for(u32 x=0; x<dim.Width; x++)
-				{
-					video::SColor c = baseimg->getPixel(x,y);
-					u32 r = c.getRed();
-					u32 g = c.getGreen();
-					u32 b = c.getBlue();
-					if(!(r == r1 && g == g1 && b == b1))
-						continue;
-					c.setAlpha(0);
-					baseimg->setPixel(x,y,c);
+					for(u32 y=0; y<dim.Height; y++)
+					for(u32 x=0; x<dim.Width; x++)
+					{
+						video::SColor c = baseimg->getPixel(x,y);
+						u32 r = c.getRed();
+						u32 g = c.getGreen();
+						u32 b = c.getBlue();
+						if(!(r == r1 && g == g1 && b == b1))
+							continue;
+						c.setAlpha(0);
+						baseimg->setPixel(x,y,c);
+					}
 				}
 			}
 		}
@@ -1357,40 +1351,37 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			u32 b2 = mystoi(sf.next(":"));
 			std::string filename = sf.next("");
 
-			std::string path = getTexturePath(filename.c_str());
+			if (path_get((char*)"texture",const_cast<char*>(filename.c_str()),1,buff,1024)) {
 
-			infostream<<"generate_image(): Loading path \""<<path
-					<<"\""<<std::endl;
+				infostream<<"generate_image(): Loading path \""<<buff<<"\""<<std::endl;
 
-			video::IImage *image = driver->createImageFromFile(path.c_str());
+				video::IImage *image = driver->createImageFromFile(buff);
 
-			if(image == NULL)
-			{
-				infostream<<"generate_image(): Loading path \""
-						<<path<<"\" failed"<<std::endl;
-			}
-			else
-			{
-				core::dimension2d<u32> dim = image->getDimension();
-				baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
+				if (image == NULL) {
+					infostream<<"generate_image(): Loading path \""
+							<<buff<<"\" failed"<<std::endl;
+				}else{
+					core::dimension2d<u32> dim = image->getDimension();
+					baseimg = driver->createImage(video::ECF_A8R8G8B8, dim);
 
-				// Blit
-				image->copyTo(baseimg);
+					// Blit
+					image->copyTo(baseimg);
 
-				image->drop();
+					image->drop();
 
-				for(u32 y=0; y<dim.Height; y++)
-				for(u32 x=0; x<dim.Width; x++)
-				{
-					video::SColor c = baseimg->getPixel(x,y);
-					u32 r = c.getRed();
-					u32 g = c.getGreen();
-					u32 b = c.getBlue();
-					if(!(r == r1 && g == g1 && b == b1) &&
-					   !(r == r2 && g == g2 && b == b2))
-						continue;
-					c.setAlpha(0);
-					baseimg->setPixel(x,y,c);
+					for(u32 y=0; y<dim.Height; y++)
+					for(u32 x=0; x<dim.Width; x++)
+					{
+						video::SColor c = baseimg->getPixel(x,y);
+						u32 r = c.getRed();
+						u32 g = c.getGreen();
+						u32 b = c.getBlue();
+						if(!(r == r1 && g == g1 && b == b1) &&
+						   !(r == r2 && g == g2 && b == b2))
+							continue;
+						c.setAlpha(0);
+						baseimg->setPixel(x,y,c);
+					}
 				}
 			}
 		}
@@ -1807,7 +1798,8 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 #if USE_FREETYPE
 			tex_font = gui::CGUITTFont::createTTFont(guienv, getPath("font","unifont.ttf",false).c_str(),10);
 #else
-			tex_font = guienv->getFont(getTexturePath("fontlucida.png").c_str());
+			if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
+				tex_font = guienv->getFont(buff);
 #endif
 			if (tex_font)
 				skin->setFont(tex_font);
@@ -1883,28 +1875,27 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			float X = mystof(sf.next(","));
 			float Y = mystof(sf.next(","));
 			std::string path = sf.end();
-			path = getTexturePath(path.c_str());
-			video::IImage *image = driver->createImageFromFile(path.c_str());
+			if (path_get((char*)"texture",const_cast<char*>(path.c_str()),1,buff,1024)) {
+				video::IImage *image = driver->createImageFromFile(buff);
 
-			if (baseimg == NULL) {
-				errorstream << "generateImagePart(): baseimg == NULL "
-						<< "for part_of_name=\"" << part_of_name
-						<< "\", cancelling." << std::endl;
-				return false;
+				if (baseimg == NULL) {
+					errorstream << "generateImagePart(): baseimg == NULL "
+							<< "for part_of_name=\"" << part_of_name
+							<< "\", cancelling." << std::endl;
+					return false;
+				}
+				if (image == NULL) {
+					errorstream << "generateImagePart(): image == NULL "
+							<< "for part_of_name=\"" << part_of_name
+							<< "\", cancelling." << std::endl;
+					return false;
+				}
+				float p[4] = {x,y,X,Y};
+				alpha_blit(device,baseimg,image,p,p,part_of_name);
+				// Drop image
+				image->drop();
 			}
-			if (image == NULL) {
-				errorstream << "generateImagePart(): image == NULL "
-						<< "for part_of_name=\"" << part_of_name
-						<< "\", cancelling." << std::endl;
-				return false;
-			}
-			float p[4] = {x,y,X,Y};
-			alpha_blit(device,baseimg,image,p,p,part_of_name);
-			// Drop image
-			image->drop();
-		}
-		else
-		{
+		}else{
 			infostream<<"generate_image(): Invalid "
 					" modification: \""<<part_of_name<<"\""<<std::endl;
 		}

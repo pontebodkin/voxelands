@@ -860,7 +860,6 @@ Server::Server(
 	):
 	m_env(new ServerMap(mapsavedir), this),
 	m_con(PROTOCOL_ID, 512, CONNECTION_TIMEOUT, this),
-	m_authmanager(mapsavedir+DIR_DELIM+"auth.txt"),
 	m_banmanager(mapsavedir+DIR_DELIM+"ipban.txt"),
 	m_thread(this),
 	m_emergethread(this),
@@ -871,6 +870,9 @@ Server::Server(
 	m_shutdown_requested(false),
 	m_ignore_map_edit_events(false)
 {
+
+	auth_init((char*)"auth.txt");
+
 	m_liquid_transform_timer = 0.0;
 	m_print_info_timer = 0.0;
 	m_objectdata_timer = 0.0;
@@ -1632,8 +1634,7 @@ void Server::AsyncRunStep()
 			ScopeProfiler sp(g_profiler, "Server: saving stuff");
 
 			// Auth stuff
-			if(m_authmanager.isModified())
-				m_authmanager.save();
+			auth_save();
 
 			//Bann stuff
 			if(m_banmanager.isModified())
@@ -1854,30 +1855,31 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			return;
 		}
 
-		if (g_settings->getBool("disallow_unknown_users") &&
- 			!m_authmanager.exists(playername)) {
+		if (g_settings->getBool("disallow_unknown_users") && !auth_exists(playername)) {
 			infostream<<"Server: unknown player "<<playername
 				<<" was blocked"<<std::endl;
 			SendAccessDenied(m_con, peer_id, L"No unknown players allowed.");
 			return;
 		}
 
-		std::string checkpwd;
-		if (m_authmanager.exists(playername)) {
-			checkpwd = m_authmanager.getPassword(playername);
+		char checkpwd[64];
+		if (auth_exists(playername)) {
+			if (auth_getpwd(playername,checkpwd))
+				checkpwd[0] = 0;
 		}else{
-			checkpwd = g_settings->get("default_password");
-			if (checkpwd.length() > 0) {
-				checkpwd = translatePassword(playername,narrow_to_wide(checkpwd));
+			std::string defaultpwd = g_settings->get("default_password");
+			if (defaultpwd.length() > 0) {
+				defaultpwd = translatePassword(playername,narrow_to_wide(defaultpwd));
+				strcpy(checkpwd,defaultpwd.c_str());
 			}else{
-				checkpwd = password;
+				strcpy(checkpwd,password);
 			}
 		}
 
 		/*infostream<<"Server: Client gave password '"<<password
 				<<"', the correct one is '"<<checkpwd<<"'"<<std::endl;*/
 
-		if (password != checkpwd) {
+		if (strcmp(password,checkpwd)) {
 			infostream<<"Server: peer_id="<<peer_id
 					<<": supplied invalid password for "
 					<<playername<<std::endl;
@@ -1886,19 +1888,23 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		}
 
 		// Add player to auth manager
-		if (m_authmanager.exists(playername) == false) {
+		if (!auth_exists(playername)) {
 			infostream<<"Server: adding player "<<playername<<" to auth manager"<<std::endl;
-			m_authmanager.add(playername);
-			m_authmanager.setPassword(playername, checkpwd);
-			m_authmanager.setPrivs(playername, stringToPrivs(g_settings->get("default_privs")));
-			m_authmanager.save();
+			uint64_t privs;
+
+			privs = auth_str2privs(const_cast<char*>(g_settings->get("default_privs").c_str()));
+
+			auth_add(playername);
+			auth_setpwd(playername,checkpwd);
+			auth_setprivs(playername,privs);
+			auth_save();
 		}
 
 		// Enforce user limit.
 		// Don't enforce for users that have some admin right
 		if (
 			m_clients.size() >= g_settings->getU16("max_users")
-			&& (m_authmanager.getPrivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
+			&& (auth_getprivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
 			&& playername != g_settings->get("name")
 		) {
 			SendAccessDenied(m_con, peer_id, L"Too many users.");
@@ -4669,18 +4675,16 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		std::string playername = player->getName();
 
-		if(m_authmanager.exists(playername) == false)
-		{
+		if (!auth_exists(const_cast<char*>(playername.c_str()))) {
 			infostream<<"Server: playername not found in authmanager"<<std::endl;
 			// Wrong old password supplied!!
 			SendChatMessage(peer_id, L"playername not found in authmanager");
 			return;
 		}
 
-		std::string checkpwd = m_authmanager.getPassword(playername);
+		char checkpwd[64];
 
-		if(oldpwd != checkpwd)
-		{
+		if (auth_getpwd(const_cast<char*>(playername.c_str()),checkpwd) || oldpwd != checkpwd) {
 			infostream<<"Server: invalid old password"<<std::endl;
 			// Wrong old password supplied!!
 			SendChatMessage(peer_id, L"Invalid old password supplied. Password NOT changed.");
@@ -4689,7 +4693,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		actionstream<<player->getName()<<" changes password"<<std::endl;
 
-		m_authmanager.setPassword(playername, newpwd);
+		auth_setpwd(const_cast<char*>(playername.c_str()),const_cast<char*>(newpwd.c_str()));
 
 		infostream<<"Server: password change successful for "<<playername
 				<<std::endl;
@@ -5877,15 +5881,17 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 		Create a new player
 	*/
 	{
+		uint64_t privs;
+
+		privs = auth_str2privs(const_cast<char*>(g_settings->get("default_privs").c_str()));
+
 		player = new ServerRemotePlayer();
-		//player->peer_id = c.peer_id;
-		//player->peer_id = PEER_ID_INEXISTENT;
 		player->peer_id = peer_id;
 		player->updateName(name);
-		m_authmanager.add(name);
-		m_authmanager.setPassword(name, password);
-		m_authmanager.setPrivs(name,
-				stringToPrivs(g_settings->get("default_privs")));
+
+		auth_add((char*)name);
+		auth_setpwd((char*)name,(char*)password);
+		auth_setprivs((char*)name,privs);
 
 		/*
 			Set player position
@@ -6055,9 +6061,9 @@ void Server::handlePeerChanges()
 
 void Server::addUser(const char *name, const char *password)
 {
-	m_authmanager.add(name);
-	m_authmanager.setPassword(name, password);
-	m_authmanager.save();
+	auth_add((char*)name);
+	auth_setpwd((char*)name,(char*)password);
+	auth_save();
 }
 
 uint64_t Server::getPlayerPrivs(Player *player)

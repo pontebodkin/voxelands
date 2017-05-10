@@ -46,7 +46,7 @@ struct ClothesItemFeatures {
 	// overlaid on the player texture so it can be seen as worn
 	std::string overlay_texture;
 	// tooltip used in inventory
-	std::wstring description;
+	char* description;
 	// the type of this clothing
 	ClothesType type;
 	// the strength as armour
@@ -61,20 +61,6 @@ struct ClothesItemFeatures {
 	u8 durability;
 	// for medallions, how much the affect durability of other items
 	f32 effect;
-
-	ClothesItemFeatures():
-		content(CONTENT_IGNORE),
-		texture("unknown_item.png"),
-		overlay_texture(""),
-		description(L""),
-		type(CT_NONE),
-		armour(0.),
-		warmth(0.),
-		vacuum(0.),
-		suffocate(0.),
-		durability(5),
-		effect(1.)
-	{}
 };
 
 extern struct ClothesItemFeatures g_content_clothesitem_features[4096];

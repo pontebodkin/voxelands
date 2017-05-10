@@ -439,7 +439,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return wgettext("Craft Guide");}
+	virtual std::wstring infoText() {return narrow_to_wide(gettext("Craft Guide"));}
 	virtual Inventory* getInventory() {return m_inventory;}
 	virtual bool nodeRemovalDisabled();
 	virtual void inventoryModified();
@@ -466,7 +466,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return wgettext("Reverse Craft Guide");}
+	virtual std::wstring infoText() {return narrow_to_wide(gettext("Reverse Craft Guide"));}
 	virtual Inventory* getInventory() {return m_inventory;}
 	virtual bool nodeRemovalDisabled();
 	virtual void inventoryModified();
@@ -497,7 +497,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return wgettext("Cooking Guide");}
+	virtual std::wstring infoText() {return narrow_to_wide(gettext("Cooking Guide"));}
 	virtual Inventory* getInventory() {return m_inventory;}
 	virtual bool nodeRemovalDisabled();
 	virtual void inventoryModified();
@@ -523,7 +523,7 @@ public:
 	NodeMetadata* clone();
 	static NodeMetadata* create(std::istream &is);
 	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText() {return wgettext("Decrafting Guide");}
+	virtual std::wstring infoText() {return narrow_to_wide(gettext("Decrafting Guide"));}
 	virtual Inventory* getInventory() {return m_inventory;}
 	virtual bool nodeRemovalDisabled();
 	virtual void inventoryModified();

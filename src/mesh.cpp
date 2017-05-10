@@ -160,15 +160,17 @@ scene::IAnimatedMesh* createCubeMesh(v3f scale)
 #ifndef SERVER
 scene::IAnimatedMesh* createModelMesh(scene::ISceneManager* smgr, std::string model, bool unique)
 {
-	std::string model_path = getModelPath(model);
-	scene::IAnimatedMesh* mesh = smgr->getMesh(model_path.c_str());
+	char buff[1024];
+	if (!path_get((char*)"model",const_cast<char*>(model.c_str()),1,buff,1024))
+		return 0;
+	scene::IAnimatedMesh* mesh = smgr->getMesh(buff);
 	if (mesh && !unique)
 		return mesh;
 #if (IRRLICHT_VERSION_MAJOR >= 1 && IRRLICHT_VERSION_MINOR >= 8) || IRRLICHT_VERSION_MAJOR >= 2
 	// irrlicht 1.8+ we just manually load the mesh
 	scene::IMeshLoader *loader;
 	u32 lc = smgr->getMeshLoaderCount();
-	io::IReadFile* file = smgr->getFileSystem()->createAndOpenFile(model_path.c_str());
+	io::IReadFile* file = smgr->getFileSystem()->createAndOpenFile(buff);
 	if (!file)
 		return 0;
 	for (u32 i=0; i<lc; i++) {

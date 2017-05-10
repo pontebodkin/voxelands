@@ -36,7 +36,7 @@ struct CraftItemFeatures {
 	// the old 'subname'
 	std::string name;
 	// tooltip used in inventory
-	std::wstring description;
+	char* description;
 	// the result of cooking this item
 	content_t cook_result;
 	// what type of cooking device this item needs
@@ -76,32 +76,6 @@ struct CraftItemFeatures {
 	content_t enchanted_item;
 	// sound played when item is used
 	std::string sound_use;
-
-	CraftItemFeatures():
-		content(CONTENT_IGNORE),
-		texture("unknown_item.png"),
-		overlay_base(""),
-		name(""),
-		description(L""),
-		cook_result(CONTENT_IGNORE),
-		cook_type(COOK_ANY),
-		fuel_time(0.0),
-		stackable(true),
-		consumable(false),
-		hunger_effect(0),
-		health_effect(0),
-		cold_effect(0),
-		energy_effect(0),
-		drop_count(-1),
-		teleports(-2),
-		param_type(CPT_NONE),
-		drop_item(CONTENT_IGNORE),
-		thrown_item(CONTENT_IGNORE),
-		shot_item(CONTENT_IGNORE),
-		onuse_replace_item(CONTENT_IGNORE),
-		enchanted_item(CONTENT_IGNORE),
-		sound_use("")
-	{}
 };
 
 void content_craftitem_init();

@@ -183,7 +183,7 @@ void mob_spawn(v3s16 pos, content_t mob, ServerEnvironment *env)
 		return;
 
 	v3f p = intToFloat(pos+v3s16(0,1,0), BS);
-	actionstream<<"A "<<wide_to_narrow(m.description)<<" ("<<m.content<<") mob spawns at "<<PP(floatToInt(p,BS))<<std::endl;
+	actionstream<<"A "<<m.description<<" ("<<m.content<<") mob spawns at "<<PP(floatToInt(p,BS))<<std::endl;
 	ServerActiveObject *obj = new MobSAO(env, 0, p, m.content);
 	u16 id = env->addActiveObject(obj);
 	if (!id) {
@@ -360,7 +360,7 @@ void content_mob_init()
 	i = CONTENT_MOB_RAT;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Rat");
+	f->description = gettext("Rat");
 	f->level = MOB_PASSIVE;
 	f->model = "rat.x";
 	f->setTexture("mob_rat.png");
@@ -379,7 +379,7 @@ void content_mob_init()
 	i = CONTENT_MOB_FIREFLY;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Firefly");
+	f->description = gettext("Firefly");
 	f->level = MOB_PASSIVE;
 	f->model_scale = v3f(0.5,0.5,0.5);
 	f->setTexture("mob_firefly.png");
@@ -398,7 +398,7 @@ void content_mob_init()
 	i = CONTENT_MOB_OERKKI;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Oerkki");
+	f->description = gettext("Oerkki");
 	f->level = MOB_AGGRESSIVE;
 	f->model = "oerkki.x";
 	f->model_scale = v3f(4,4,4);
@@ -419,7 +419,7 @@ void content_mob_init()
 	i = CONTENT_MOB_DUNGEON_MASTER;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Dungeon Master");
+	f->description = gettext("Dungeon Master");
 	f->level = MOB_DESTRUCTIVE;
 	f->model = "dungeon_master.b3d";
 	f->model_rotation = v3f(0,-90,0);
@@ -440,7 +440,7 @@ void content_mob_init()
 	i = CONTENT_MOB_FIREBALL;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Fireball");
+	f->description = gettext("Fireball");
 	f->level = MOB_DESTRUCTIVE;
 	f->setTexture("mob_fireball.png");
 	f->punch_action = MPA_IGNORE;
@@ -457,7 +457,7 @@ void content_mob_init()
 	i = CONTENT_MOB_DOE;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Doe");
+	f->description = gettext("Doe");
 	f->level = MOB_PASSIVE;
 	f->hp = 30;
 	f->model = "doe.x";
@@ -484,7 +484,7 @@ void content_mob_init()
 	i = CONTENT_MOB_STAG;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Stag");
+	f->description = gettext("Stag");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 40;
 	f->model = "stag.x";
@@ -513,7 +513,7 @@ void content_mob_init()
 	i = CONTENT_MOB_TAMESTAG;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Stag");
+	f->description = gettext("Stag");
 	f->level = MOB_PASSIVE;
 	f->hp = 40;
 	f->model = "stag.b3d";
@@ -536,7 +536,7 @@ void content_mob_init()
 	i = CONTENT_MOB_FISH;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Fish");
+	f->description = gettext("Fish");
 	f->level = MOB_PASSIVE;
 	f->model = "fish.b3d";
 	f->model_rotation = v3f(0,-90,0);
@@ -562,7 +562,7 @@ void content_mob_init()
 	i = CONTENT_MOB_SHARK;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Shark");
+	f->description = gettext("Shark");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 40;
 	f->model = "shark.b3d";
@@ -587,7 +587,7 @@ void content_mob_init()
 	i = CONTENT_MOB_WOLF;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Wolf");
+	f->description = gettext("Wolf");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 40;
 	f->model = "wolf.b3d";
@@ -615,7 +615,7 @@ void content_mob_init()
 	i = CONTENT_MOB_TAMEWOLF;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Tame Wolf");
+	f->description = gettext("Tame Wolf");
 	f->level = MOB_PASSIVE;
 	f->hp = 40;
 	f->model = "wolf.b3d";
@@ -641,7 +641,7 @@ void content_mob_init()
 	i = CONTENT_MOB_SHEEP;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Sheep");
+	f->description = gettext("Sheep");
 	f->level = MOB_PASSIVE;
 	f->hp = 30;
 	f->model = "sheep.b3d";
@@ -673,7 +673,7 @@ void content_mob_init()
 	i = CONTENT_MOB_SHEARED_SHEEP;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Sheared Sheep");
+	f->description = gettext("Sheared Sheep");
 	f->level = MOB_PASSIVE;
 	f->hp = 30;
 	f->model = "sheared_sheep.b3d";
@@ -698,7 +698,7 @@ void content_mob_init()
 	i = CONTENT_MOB_SNOWBALL;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Snowball");
+	f->description = gettext("Snowball");
 	f->level = MOB_AGGRESSIVE;
 	f->setTexture("snow_ball.png");
 	f->model_offset = v3f(0,0.2,0);
@@ -716,7 +716,7 @@ void content_mob_init()
 	i = CONTENT_MOB_ARROW;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Arrow");
+	f->description = gettext("Arrow");
 	f->level = MOB_AGGRESSIVE;
 	f->setTexture("mob_arrow.png");
 	f->texture_display = MDT_EXTRUDED;
@@ -734,7 +734,7 @@ void content_mob_init()
 	i = CONTENT_MOB_GREY_KITTY;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Grey Kitten");
+	f->description = gettext("Grey Kitten");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 30;
 	f->model = "kitty.b3d";
@@ -761,7 +761,7 @@ void content_mob_init()
 	i = CONTENT_MOB_WHITE_KITTY;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("White Kitten");
+	f->description = gettext("White Kitten");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 30;
 	f->model = "kitty.b3d";
@@ -788,7 +788,7 @@ void content_mob_init()
 	i = CONTENT_MOB_SIAMESE_KITTY;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Siamese Kitten");
+	f->description = gettext("Siamese Kitten");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 30;
 	f->model = "kitty.b3d";
@@ -815,7 +815,7 @@ void content_mob_init()
 	i = CONTENT_MOB_GINGER_KITTY;
 	f = &g_content_mob_features[i&~CONTENT_MOB_MASK];
 	f->content = i;
-	f->description = wgettext("Ginger Kitten");
+	f->description = gettext("Ginger Kitten");
 	f->level = MOB_AGGRESSIVE;
 	f->hp = 30;
 	f->model = "kitty.b3d";

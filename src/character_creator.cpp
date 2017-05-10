@@ -52,65 +52,65 @@ GUICharDefMenu::GUICharDefMenu(
 
 	fetchPlayerSkin();
 
-	m_skintone_types["white"] = wgettext("White Skin");
-	m_skintone_types["red"] = wgettext("Red Skin");
-	m_skintone_types["green"] = wgettext("Green Skin");
-	m_skintone_types["fair"] = wgettext("Fair Skin");
-	m_skintone_types["tanned"] = wgettext("Tanned Skin");
-	m_skintone_types["dark"] = wgettext("Dark Skin");
-	m_skintone_types["black"] = wgettext("Black Skin");
+	m_skintone_types["white"] = narrow_to_wide(gettext("White Skin"));
+	m_skintone_types["red"] = narrow_to_wide(gettext("Red Skin"));
+	m_skintone_types["green"] = narrow_to_wide(gettext("Green Skin"));
+	m_skintone_types["fair"] = narrow_to_wide(gettext("Fair Skin"));
+	m_skintone_types["tanned"] = narrow_to_wide(gettext("Tanned Skin"));
+	m_skintone_types["dark"] = narrow_to_wide(gettext("Dark Skin"));
+	m_skintone_types["black"] = narrow_to_wide(gettext("Black Skin"));
 
-	m_face_types["human"] = wgettext("Human Face");
-	m_face_types["elven"] = wgettext("Elven Face");
-	m_face_types["dwarven"] = wgettext("Dwarven Face");
-	m_face_types["alien"] = wgettext("Alien Face");
+	m_face_types["human"] = narrow_to_wide(gettext("Human Face"));
+	m_face_types["elven"] = narrow_to_wide(gettext("Elven Face"));
+	m_face_types["dwarven"] = narrow_to_wide(gettext("Dwarven Face"));
+	m_face_types["alien"] = narrow_to_wide(gettext("Alien Face"));
 
-	m_hairtone_types["white"] = wgettext("White Hair");
-	m_hairtone_types["blue"] = wgettext("Blue Hair");
-	m_hairtone_types["green"] = wgettext("Green Hair");
-	m_hairtone_types["orange"] = wgettext("Orange Hair");
-	m_hairtone_types["brown"] = wgettext("Brown Hair");
-	m_hairtone_types["purple"] = wgettext("Purple Hair");
-	m_hairtone_types["red"] = wgettext("Red Hair");
-	m_hairtone_types["blonde"] = wgettext("Blonde Hair");
-	m_hairtone_types["black"] = wgettext("Black Hair");
+	m_hairtone_types["white"] = narrow_to_wide(gettext("White Hair"));
+	m_hairtone_types["blue"] = narrow_to_wide(gettext("Blue Hair"));
+	m_hairtone_types["green"] = narrow_to_wide(gettext("Green Hair"));
+	m_hairtone_types["orange"] = narrow_to_wide(gettext("Orange Hair"));
+	m_hairtone_types["brown"] = narrow_to_wide(gettext("Brown Hair"));
+	m_hairtone_types["purple"] = narrow_to_wide(gettext("Purple Hair"));
+	m_hairtone_types["red"] = narrow_to_wide(gettext("Red Hair"));
+	m_hairtone_types["blonde"] = narrow_to_wide(gettext("Blonde Hair"));
+	m_hairtone_types["black"] = narrow_to_wide(gettext("Black Hair"));
 
-	m_hair_types["short"] = wgettext("Short Hair");
-	m_hair_types["medium"] = wgettext("Medium Hair");
-	m_hair_types["long"] = wgettext("Long Hair");
-	m_hair_types["special"] = wgettext("Styled Hair");
+	m_hair_types["short"] = narrow_to_wide(gettext("Short Hair"));
+	m_hair_types["medium"] = narrow_to_wide(gettext("Medium Hair"));
+	m_hair_types["long"] = narrow_to_wide(gettext("Long Hair"));
+	m_hair_types["special"] = narrow_to_wide(gettext("Styled Hair"));
 
-	m_eyes_types["white"] = wgettext("White Eyes");
-	m_eyes_types["blue"] = wgettext("Blue Eyes");
-	m_eyes_types["green"] = wgettext("Green Eyes");
-	m_eyes_types["orange"] = wgettext("Orange Eyes");
-	m_eyes_types["brown"] = wgettext("Brown Eyes");
-	m_eyes_types["purple"] = wgettext("Purple Eyes");
-	m_eyes_types["red"] = wgettext("Red Eyes");
-	m_eyes_types["yellow"] = wgettext("Yellow Eyes");
-	m_eyes_types["black"] = wgettext("Black Eyes");
+	m_eyes_types["white"] = narrow_to_wide(gettext("White Eyes"));
+	m_eyes_types["blue"] = narrow_to_wide(gettext("Blue Eyes"));
+	m_eyes_types["green"] = narrow_to_wide(gettext("Green Eyes"));
+	m_eyes_types["orange"] = narrow_to_wide(gettext("Orange Eyes"));
+	m_eyes_types["brown"] = narrow_to_wide(gettext("Brown Eyes"));
+	m_eyes_types["purple"] = narrow_to_wide(gettext("Purple Eyes"));
+	m_eyes_types["red"] = narrow_to_wide(gettext("Red Eyes"));
+	m_eyes_types["yellow"] = narrow_to_wide(gettext("Yellow Eyes"));
+	m_eyes_types["black"] = narrow_to_wide(gettext("Black Eyes"));
 
-	m_shirt_types["white"] = wgettext("White T-Shirt");
-	m_shirt_types["blue"] = wgettext("Blue T-Shirt");
-	m_shirt_types["green"] = wgettext("Green T-Shirt");
-	m_shirt_types["orange"] = wgettext("Orange T-Shirt");
-	m_shirt_types["purple"] = wgettext("Purple T-Shirt");
-	m_shirt_types["red"] = wgettext("Red T-Shirt");
-	m_shirt_types["yellow"] = wgettext("Yellow T-Shirt");
-	m_shirt_types["black"] = wgettext("Black T-Shirt");
+	m_shirt_types["white"] = narrow_to_wide(gettext("White T-Shirt"));
+	m_shirt_types["blue"] = narrow_to_wide(gettext("Blue T-Shirt"));
+	m_shirt_types["green"] = narrow_to_wide(gettext("Green T-Shirt"));
+	m_shirt_types["orange"] = narrow_to_wide(gettext("Orange T-Shirt"));
+	m_shirt_types["purple"] = narrow_to_wide(gettext("Purple T-Shirt"));
+	m_shirt_types["red"] = narrow_to_wide(gettext("Red T-Shirt"));
+	m_shirt_types["yellow"] = narrow_to_wide(gettext("Yellow T-Shirt"));
+	m_shirt_types["black"] = narrow_to_wide(gettext("Black T-Shirt"));
 
-	m_pants_types["white"] = wgettext("White Pants");
-	m_pants_types["blue"] = wgettext("Blue Pants");
-	m_pants_types["green"] = wgettext("Green Pants");
-	m_pants_types["orange"] = wgettext("Orange Pants");
-	m_pants_types["purple"] = wgettext("Purple Pants");
-	m_pants_types["red"] = wgettext("Red Pants");
-	m_pants_types["yellow"] = wgettext("Yellow Pants");
-	m_pants_types["black"] = wgettext("Black Pants");
+	m_pants_types["white"] = narrow_to_wide(gettext("White Pants"));
+	m_pants_types["blue"] = narrow_to_wide(gettext("Blue Pants"));
+	m_pants_types["green"] = narrow_to_wide(gettext("Green Pants"));
+	m_pants_types["orange"] = narrow_to_wide(gettext("Orange Pants"));
+	m_pants_types["purple"] = narrow_to_wide(gettext("Purple Pants"));
+	m_pants_types["red"] = narrow_to_wide(gettext("Red Pants"));
+	m_pants_types["yellow"] = narrow_to_wide(gettext("Yellow Pants"));
+	m_pants_types["black"] = narrow_to_wide(gettext("Black Pants"));
 
-	m_shoes_types["leather"] = wgettext("Leather Shoes");
-	m_shoes_types["fur"] = wgettext("Fur Shoes");
-	m_shoes_types["canvas"] = wgettext("Canvas Shoes");
+	m_shoes_types["leather"] = narrow_to_wide(gettext("Leather Shoes"));
+	m_shoes_types["fur"] = narrow_to_wide(gettext("Fur Shoes"));
+	m_shoes_types["canvas"] = narrow_to_wide(gettext("Canvas Shoes"));
 
 	scene::ISceneManager* smgr = device->getSceneManager();
 
@@ -199,7 +199,7 @@ void GUICharDefMenu::regenerateGui(v2u32 screensize)
 		core::rect<s32> rect(0, 0, 230, 300);
 		rect += leftside + v2s32(10, 220);
 		gui::IGUIStaticText *t = Environment->addStaticText(
-			wgettext(
+			narrow_to_wide(gettext(
 				"Here you can create your default character,"
 				" this is how other players will see you in-game."
 				" When you join a new server you will start with"
@@ -208,7 +208,7 @@ void GUICharDefMenu::regenerateGui(v2u32 screensize)
 				" can be crafted in-game.\n"
 				"You can return here from the main menu anytime to"
 				" change your character."
-			),
+			)).c_str(),
 			rect,
 			false,
 			true,
@@ -221,43 +221,43 @@ void GUICharDefMenu::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 250, 20);
 		rect += rightside + v2s32(0, 20);
-		gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Create Your Character"), rect, false, true, this, -1);
+		gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Create Your Character")).c_str(), rect, false, true, this, -1);
 		t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 	}
 	// gender
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(15, 50);
-		Environment->addButton(rect, this, GUI_ID_CD_MALE_BUTTON, wgettext("Male"));
+		Environment->addButton(rect, this, GUI_ID_CD_MALE_BUTTON, narrow_to_wide(gettext("Male")).c_str());
 	}
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(130, 50);
-		Environment->addButton(rect, this, GUI_ID_CD_FEMALE_BUTTON, wgettext("Female"));
+		Environment->addButton(rect, this, GUI_ID_CD_FEMALE_BUTTON, narrow_to_wide(gettext("Female")).c_str());
 	}
 
 	// Yscale
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(15, 95);
-		Environment->addButton(rect, this, GUI_ID_CD_TALLER_BUTTON, wgettext("Taller"));
+		Environment->addButton(rect, this, GUI_ID_CD_TALLER_BUTTON, narrow_to_wide(gettext("Taller")).c_str());
 	}
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(15, 130);
-		Environment->addButton(rect, this, GUI_ID_CD_SHORTER_BUTTON, wgettext("Shorter"));
+		Environment->addButton(rect, this, GUI_ID_CD_SHORTER_BUTTON, narrow_to_wide(gettext("Shorter")).c_str());
 	}
 
 	// XZscale
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(130, 95);
-		Environment->addButton(rect, this, GUI_ID_CD_WIDER_BUTTON, wgettext("Wider"));
+		Environment->addButton(rect, this, GUI_ID_CD_WIDER_BUTTON, narrow_to_wide(gettext("Wider")).c_str());
 	}
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(130, 130);
-		Environment->addButton(rect, this, GUI_ID_CD_THINNER_BUTTON, wgettext("Thinner"));
+		Environment->addButton(rect, this, GUI_ID_CD_THINNER_BUTTON, narrow_to_wide(gettext("Thinner")).c_str());
 	}
 
 	// skintone
@@ -416,17 +416,18 @@ void GUICharDefMenu::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(15, 460);
-		Environment->addButton(rect, this, GUI_ID_CD_SAVE_BUTTON, wgettext("Done"));
+		Environment->addButton(rect, this, GUI_ID_CD_SAVE_BUTTON, narrow_to_wide(gettext("Done")).c_str());
 	}
 	{
 		core::rect<s32> rect(0, 0, 105, 30);
 		rect += rightside + v2s32(130, 460);
-		Environment->addButton(rect, this, GUI_ID_CD_QUIT_BUTTON, wgettext("Cancel"));
+		Environment->addButton(rect, this, GUI_ID_CD_QUIT_BUTTON, narrow_to_wide(gettext("Cancel")).c_str());
 	}
 }
 
 void GUICharDefMenu::drawMenu()
 {
+	char buff[1024];
 	gui::IGUISkin* skin = Environment->getSkin();
 	if (!skin)
 		return;
@@ -452,18 +453,20 @@ void GUICharDefMenu::drawMenu()
 	driver->draw2DRectangle(right, GUI_BG_TOP, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
 	driver->draw2DRectangleOutline(right, GUI_BORDER);
 
-	video::ITexture *texture = driver->getTexture(getTexturePath("menulogo.png").c_str());
-	if (texture != 0) {
-		const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
-		core::rect<s32> logo(
-			AbsoluteRect.UpperLeftCorner.X+25,
-			AbsoluteRect.UpperLeftCorner.Y,
-			AbsoluteRect.UpperLeftCorner.X+225,
-			AbsoluteRect.UpperLeftCorner.Y+200
-		);
-		const video::SColor color(255,255,255,255);
-		const video::SColor colors[] = {color,color,color,color};
-		driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+	if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
+		video::ITexture *texture = driver->getTexture(buff);
+		if (texture != 0) {
+			const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
+			core::rect<s32> logo(
+				AbsoluteRect.UpperLeftCorner.X+25,
+				AbsoluteRect.UpperLeftCorner.Y,
+				AbsoluteRect.UpperLeftCorner.X+225,
+				AbsoluteRect.UpperLeftCorner.Y+200
+			);
+			const video::SColor color(255,255,255,255);
+			const video::SColor colors[] = {color,color,color,color};
+			driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+		}
 	}
 
 	gui::IGUIElement::draw();
@@ -789,13 +792,13 @@ std::string GUICharDefMenu::getPlayerSkin()
 {
 	std::string tex = "";
 
-	tex += std::string("skins")+DIR_DELIM+"skintone_"+m_parts["skintone"]+".png";
-	tex += std::string("^skins")+DIR_DELIM+"gender_"+m_parts["gender"]+".png";
-	tex += std::string("^skins")+DIR_DELIM+"face_"+m_parts["face"]+"_"+m_parts["skintone"]+"_"+m_parts["gender"]+".png";
-	tex += std::string("^skins")+DIR_DELIM+"eyes_"+m_parts["eyes"]+".png";
+	tex += std::string("skins/")+"skintone_"+m_parts["skintone"]+".png";
+	tex += std::string("^skins/")+"gender_"+m_parts["gender"]+".png";
+	tex += std::string("^skins/")+"face_"+m_parts["face"]+"_"+m_parts["skintone"]+"_"+m_parts["gender"]+".png";
+	tex += std::string("^skins/")+"eyes_"+m_parts["eyes"]+".png";
 	tex += std::string("^clothes_player_pants_canvas_")+m_parts["pants"]+".png";
 	tex += std::string("^clothes_player_tshirt_cotton_")+m_parts["shirt"]+".png";
-	tex += std::string("^skins")+DIR_DELIM+"hair_"+m_parts["hair"]+"_"+m_parts["hairtone"]+"_"+m_parts["gender"]+".png";
+	tex += std::string("^skins/")+"hair_"+m_parts["hair"]+"_"+m_parts["hairtone"]+"_"+m_parts["gender"]+".png";
 	std::string c = "brown";
 	if (m_parts["shoes"] == "canvas")
 		c = "black";
@@ -808,6 +811,8 @@ std::string GUICharDefMenu::getPlayerSkin()
 //M:10:10:fair:blue:brown:medium:normal:green:blue:leather
 void GUICharDefMenu::fetchPlayerSkin()
 {
+	char buff[1024];
+	char buf[256];
 	std::string chardef = std::string(PLAYER_DEFAULT_CHARDEF);
 	if (g_settings->exists("character_definition"))
 		chardef = g_settings->get("character_definition");
@@ -842,29 +847,43 @@ void GUICharDefMenu::fetchPlayerSkin()
 		m_xz_scale = 1.1;
 	m_parts["XZscale"] = ftos(m_xz_scale*10.);
 
-	if (getPath("skin",std::string("skintone_")+m_parts["skintone"]+"_"+m_parts["gender"]+".png",true) == "")
+	snprintf(buf,256,"skintone_%s_%s.png",m_parts["skintone"].c_str(),m_parts["gender"].c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		m_parts["skintone"] = "fair";
-	if (getPath("skin",std::string("eyes_")+m_parts["eyes"]+".png",true) == "")
+
+
+	snprintf(buf,256,"eyes_%s.png",m_parts["eyes"].c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		m_parts["eyes"] = "blue";
+
+	snprintf(buf,256,"hair_%s_%s_%s.png",m_parts["hair"].c_str(),m_parts["hairtone"].c_str(),m_parts["gender"].c_str());
 	if (
 		m_parts["hairtone"] == ""
 		|| m_parts["hair"] == ""
-		|| getPath("skin",std::string("hair_")+m_parts["hair"]+"_"+m_parts["hairtone"]+"_"+m_parts["gender"]+".png",true) == ""
+		|| !path_get((char*)"skin",buf,1,buff,1024)
 	) {
 		m_parts["hairtone"] = "brown";
 		m_parts["hair"] = "medium";
 	}
-	if (getPath("skin",std::string("face_")+m_parts["face"]+"_"+m_parts["gender"]+".png",true) == "")
+
+	snprintf(buf,256,"face_%s_%s.png",m_parts["face"].c_str(),m_parts["gender"].c_str());
+	if (!path_get((char*)"skin",buf,1,buff,1024))
 		m_parts["face"] = "human";
 
-	if (getPath("texture",std::string("clothes_player_tshirt_cotton_")+m_parts["shirt"]+".png",true) == "")
+	snprintf(buf,256,"clothes_player_tshirt_cotton_%s.png",m_parts["shirt"].c_str());
+	if (!path_get((char*)"texture",buf,1,buff,1024))
 		m_parts["shirt"] = "green";
-	if (getPath("texture",std::string("clothes_player_pants_canvas_")+m_parts["pants"]+".png",true) == "")
+
+	snprintf(buf,256,"clothes_player_pants_canvas_%s.png",m_parts["pants"].c_str());
+	if (!path_get((char*)"texture",buf,1,buff,1024))
 		m_parts["pants"] = "blue";
+
 	std::string c = "brown";
 	if (m_parts["shoes"] == "canvas")
 		c = "black";
-	if (getPath("texture",std::string("clothes_player_shoes_")+m_parts["shoes"]+"_"+c+".png",true) == "")
+
+	snprintf(buf,256,"clothes_player_shoes_%s_%s.png",m_parts["shoes"].c_str(),c.c_str());
+	if (!path_get((char*)"texture",buf,1,buff,1024))
 		m_parts["shoes"] = "leather";
 }
 

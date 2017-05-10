@@ -94,12 +94,12 @@ void GUIDeathScreen::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 400, 50);
 		rect = rect + v2s32(size.X/2-400/2, size.Y/2-50/2-25);
-		Environment->addStaticText(wgettext("You died."), rect, false, true, this, 256);
+		Environment->addStaticText(narrow_to_wide(gettext("You died.")).c_str(), rect, false, true, this, 256);
 	}
 	{
 		core::rect<s32> rect(0, 0, 140, 30);
 		rect = rect + v2s32(size.X/2-140/2, size.Y/2-30/2+25);
-		gui::IGUIElement *e = Environment->addButton(rect, this, 257, wgettext("Respawn"));
+		gui::IGUIElement *e = Environment->addButton(rect, this, 257, narrow_to_wide(gettext("Respawn")).c_str());
 		Environment->setFocus(e);
 	}
 }

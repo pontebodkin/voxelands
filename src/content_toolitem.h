@@ -30,7 +30,7 @@ struct ToolItemFeatures {
 	// the old 'subname'
 	std::string name;
 	// tooltip used in inventory
-	std::wstring description;
+	char* description;
 	// the result of cooking this item
 	std::string cook_result;
 	// what type of cooking device this item needs
@@ -71,7 +71,6 @@ struct ToolItemFeatures {
 		content(CONTENT_IGNORE),
 		texture("unknown_item.png"),
 		name(""),
-		description(L""),
 		cook_result(""),
 		cook_type(COOK_ANY),
 		fuel_time(0.0),
@@ -90,6 +89,7 @@ struct ToolItemFeatures {
 		onplace_replace_item(CONTENT_IGNORE),
 		onplace_node(CONTENT_IGNORE)
 	{
+		description = (char*)"";
 		diginfo.uses = 256;
 		diginfo.time = 4.0;
 		diginfo.level = 0;

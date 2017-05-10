@@ -75,7 +75,7 @@ std::string SignNodeMetadata::getDrawSpecString(Player *player)
 	spec += m_text;
 	spec += "]";
 	spec += "button_exit[1.25,2;3,1;save;";
-	spec += wide_to_narrow(wgettext("Save"));
+	spec += gettext("Save");
 	spec += "]";
 	return spec;
 }
@@ -138,7 +138,7 @@ std::string LockingSignNodeMetadata::getDrawSpecString(Player *player)
 	spec += m_text;
 	spec += "]";
 	spec += "button_exit[1.25,2;3,1;save;";
-	spec += wide_to_narrow(wgettext("Save"));
+	spec += gettext("Save");
 	spec += "]";
 	return spec;
 }
@@ -184,9 +184,9 @@ void FlagNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring FlagNodeMetadata::infoText()
 {
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("%s's Home Flag"), narrow_to_wide(m_owner).c_str());
-	return std::wstring(buff);
+	char buff[256];
+	snprintf(buff, 256, gettext("%s's Home Flag"), m_owner.c_str());
+	return narrow_to_wide(buff);
 }
 
 /*
@@ -269,24 +269,24 @@ std::string BedNodeMetadata::getDrawSpecString(Player *player)
 	if (m_owner == "") {
 		if (m_nope) {
 			spec += "label[1.25,1;";
-			spec += wide_to_narrow(wgettext("You can't sleep yet."));
+			spec += gettext("You can't sleep yet.");;
 			spec += "]";
 		}else{
 			spec += "button[1.25,1;3,1;sleep;";
-			spec += wide_to_narrow(wgettext("Go to sleep"));
+			spec += gettext("Go to sleep");;
 			spec += "]";
 		}
 	}else if (m_owner != player->getName()) {
 		spec += "label[1.25,1;";
-		spec += wide_to_narrow(wgettext("Someone else is sleeping here."));
+		spec += gettext("Someone else is sleeping here.");;
 		spec += "]";
 	}else if (m_nope) {
 		spec += "label[1.25,1;";
-		spec += wide_to_narrow(wgettext("You can't sleep yet."));
+		spec += gettext("You can't sleep yet.");;
 		spec += "]";
 	}else{
 		spec += "button_exit[1.25,1;3,1;wake;";
-		spec += wide_to_narrow(wgettext("Get out of bed"));
+		spec += gettext("Get out of bed");;
 		spec += "]";
 	}
 	return spec;
@@ -416,28 +416,28 @@ std::string CampBedNodeMetadata::getDrawSpecString(Player *player)
 	if (m_owner == "") {
 		if (m_used) {
 			spec += "label[1.25,1;";
-			spec += wide_to_narrow(wgettext("This bed is too uncomfortable to sleep in."));
+			spec += gettext("This bed is too uncomfortable to sleep in.");;
 			spec += "]";
 		}else if (m_nope) {
 			spec += "label[1.25,1;";
-			spec += wide_to_narrow(wgettext("You can't sleep yet."));
+			spec += gettext("You can't sleep yet.");;
 			spec += "]";
 		}else{
 			spec += "button[1.25,1;3,1;sleep;";
-			spec += wide_to_narrow(wgettext("Go to sleep"));
+			spec += gettext("Go to sleep");;
 			spec += "]";
 		}
 	}else if (m_owner != player->getName()) {
 		spec += "label[1.25,1;";
-		spec += wide_to_narrow(wgettext("Someone else is sleeping here."));
+		spec += gettext("Someone else is sleeping here.");;
 		spec += "]";
 	}else if (m_nope) {
 		spec += "label[1.25,1;";
-		spec += wide_to_narrow(wgettext("You can't sleep yet."));
+		spec += gettext("You can't sleep yet.");;
 		spec += "]";
 	}else{
 		spec += "button_exit[1.25,1;3,1;wake;";
-		spec += wide_to_narrow(wgettext("Get out of bed"));
+		spec += gettext("Get out of bed");;
 		spec += "]";
 	}
 	return spec;
@@ -484,7 +484,7 @@ void ChestNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring ChestNodeMetadata::infoText()
 {
-	return wgettext("Chest");
+	return narrow_to_wide(gettext("Chest"));
 }
 bool ChestNodeMetadata::nodeRemovalDisabled()
 {
@@ -556,9 +556,9 @@ void LockingChestNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring LockingChestNodeMetadata::infoText()
 {
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Locking Chest owned by '%s'"), narrow_to_wide(m_owner).c_str());
-	return buff;
+	char buff[256];
+	snprintf(buff, 256, gettext("Locking Chest owned by '%s'"), m_owner.c_str());
+	return narrow_to_wide(buff);
 }
 bool LockingChestNodeMetadata::nodeRemovalDisabled()
 {
@@ -630,9 +630,9 @@ void SafeNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring SafeNodeMetadata::infoText()
 {
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Safe owned by '%s'"), narrow_to_wide(m_owner).c_str());
-	return buff;
+	char buff[256];
+	snprintf(buff, 256, gettext("Safe owned by '%s'"), m_owner.c_str());
+	return narrow_to_wide(buff);
 }
 bool SafeNodeMetadata::nodeRemovalDisabled()
 {
@@ -769,7 +769,7 @@ void CreativeChestNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring CreativeChestNodeMetadata::infoText()
 {
-	return wgettext("Creative Chest");
+	return narrow_to_wide(gettext("Creative Chest"));
 }
 bool CreativeChestNodeMetadata::nodeRemovalDisabled()
 {
@@ -841,13 +841,13 @@ std::string CreativeChestNodeMetadata::getDrawSpecString(Player *player)
 	std::string spec("size[8,10]");
 		spec += "list[current_name;0;0,0.5;8,4;]";
 		spec += "button[0.25,5;2.5,0.75;prev;";
-		spec += wide_to_narrow(wgettext("<< Previous Page"));
+		spec += gettext("<< Previous Page");;
 		spec += "]";
 		spec += "label[3.5,5;";
 		spec += buff;
 		spec += "]";
 		spec += "button[6,5;2.5,0.75;next;";
-		spec += wide_to_narrow(wgettext("Next Page >>"));
+		spec += gettext("Next Page >>");;
 		spec += "]";
 		spec += "list[current_player;main;0,6;8,4;]";
 
@@ -889,9 +889,9 @@ void BorderStoneNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring BorderStoneNodeMetadata::infoText()
 {
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Border Stone owned by '%s'"), narrow_to_wide(m_text).c_str());
-	return buff;
+	char buff[256];
+	snprintf(buff, 256, gettext("Border Stone owned by '%s'"), m_text.c_str());
+	return narrow_to_wide(buff);
 }
 
 /*
@@ -965,13 +965,13 @@ std::wstring FurnaceNodeMetadata::infoText()
 		if (src_item && src_item->isCookable(COOK_FURNACE)) {
 			InventoryList *dst_list = m_inventory->getList("dst");
 			if(!dst_list->roomForCookedItem(src_item))
-				return wgettext("Furnace is overloaded");
-			return wgettext("Furnace is out of fuel");
+				return narrow_to_wide(gettext("Furnace is overloaded"));
+			return narrow_to_wide(gettext("Furnace is out of fuel"));
 		}else{
-			return wgettext("Furnace is inactive");
+			return narrow_to_wide(gettext("Furnace is inactive"));
 		}
 	}else{
-		std::wstring s = wgettext("Furnace is active");
+		std::wstring s = narrow_to_wide(gettext("Furnace is active"));
 		// Do this so it doesn't always show (0%) for weak fuel
 		if (m_fuel_totaltime > 3) {
 			s += L" (";
@@ -1218,10 +1218,16 @@ void LockingFurnaceNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring LockingFurnaceNodeMetadata::infoText()
 {
-	//return "Furnace";
+	char buff[256];
+	char* s;
+	char e[128];
 	std::string ostr = m_owner;
+
+	e[0] = 0;
+
 	if (m_inv_owner != "")
 		ostr += ","+m_inv_owner;
+
 	if (m_fuel_time >= m_fuel_totaltime) {
 		const InventoryList *src_list = m_inventory->getList("src");
 		assert(src_list);
@@ -1229,22 +1235,25 @@ std::wstring LockingFurnaceNodeMetadata::infoText()
 
 		if(src_item && src_item->isCookable(COOK_FURNACE)) {
 			InventoryList *dst_list = m_inventory->getList("dst");
-			if (!dst_list->roomForCookedItem(src_item))
-				return wgettext("Locking Furnace is overloaded")+std::wstring(L" (")+narrow_to_wide(ostr)+L")";
-			return wgettext("Locking Furnace is out of fuel")+std::wstring(L" (")+narrow_to_wide(ostr)+L")";
+			if (!dst_list->roomForCookedItem(src_item)) {
+				s = gettext("Locking Furnace is overloaded");
+			}else{
+				s = gettext("Locking Furnace is out of fuel");
+			}
 		}else{
-			return wgettext("Locking Furnace is inactive")+std::wstring(L" (")+narrow_to_wide(ostr)+L")";
+			s = gettext("Locking Furnace is inactive");
 		}
 	}else{
-		std::wstring s = wgettext("Locking Furnace is active")+std::wstring(L" (")+narrow_to_wide(ostr)+L")";
+		s = gettext("Locking Furnace is active");
 		// Do this so it doesn't always show (0%) for weak fuel
 		if (m_fuel_totaltime > 3) {
-			s += L" (";
-			s += itows(m_fuel_time/m_fuel_totaltime*100);
-			s += L"%)";
+			uint32_t tt = m_fuel_time/m_fuel_totaltime*100;
+			snprintf(e,128, " (%d%%)",tt);
 		}
-		return s;
 	}
+
+	snprintf(buff,256,"%s (%s)%s",s,ostr.c_str(),e);
+	return narrow_to_wide(buff);
 }
 bool LockingFurnaceNodeMetadata::nodeRemovalDisabled()
 {
@@ -1485,7 +1494,11 @@ void CampFireNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring CampFireNodeMetadata::infoText()
 {
-	//return "CampFire";
+	char buff[256];
+	char* s;
+	char e[128];
+	e[0] = 0;
+
 	if (m_fuel_time >= m_fuel_totaltime) {
 		const InventoryList *src_list = m_inventory->getList("src");
 		assert(src_list);
@@ -1493,22 +1506,25 @@ std::wstring CampFireNodeMetadata::infoText()
 
 		if (src_item && src_item->isCookable(COOK_FIRE)) {
 			InventoryList *dst_list = m_inventory->getList("dst");
-			if(!dst_list->roomForCookedItem(src_item))
-				return wgettext("CampFire is overloaded");
-			return wgettext("CampFire is out of fuel");
+			if(!dst_list->roomForCookedItem(src_item)) {
+				s = gettext("CampFire is overloaded");
+			}else{
+				s = gettext("CampFire is out of fuel");
+			}
 		}else{
-			return wgettext("CampFire is inactive");
+			s = gettext("CampFire is inactive");
 		}
 	}else{
-		std::wstring s = wgettext("CampFire is active");
+		s = gettext("CampFire is active");
 		// Do this so it doesn't always show (0%) for weak fuel
 		if (m_fuel_totaltime > 3) {
-			s += L" (";
-			s += itows(m_fuel_time/m_fuel_totaltime*100);
-			s += L"%)";
+			uint32_t tt = m_fuel_time/m_fuel_totaltime*100;
+			snprintf(e,128, " (%d%%)",tt);
 		}
-		return s;
 	}
+
+	snprintf(buff,256,"%s%s",s,e);
+	return narrow_to_wide(buff);
 }
 bool CampFireNodeMetadata::nodeRemovalDisabled()
 {
@@ -1734,16 +1750,16 @@ void TNTNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring TNTNodeMetadata::infoText()
 {
+	char buff[256];
 	if (!m_armed)
 		return L"";
 
 	int s = (int)ceil(m_time);
 	if (s < 1)
-		return wgettext("Armed Explosive: about to detonate");
+		return narrow_to_wide(gettext("Armed Explosive: about to detonate"));
 
-	wchar_t buff[512];
-	swprintf(buff, 512, wngettext("Armed Explosive: %d second till detonation","Armed Explosive: %d seconds till detonation",s),s);
-	return buff;
+	snprintf(buff, 256, ngettext("Armed Explosive: %d second till detonation","Armed Explosive: %d seconds till detonation",s),s);
+	return narrow_to_wide(buff);
 }
 
 /*
@@ -1803,14 +1819,14 @@ void IncineratorNodeMetadata::serializeBody(std::ostream &os)
 std::wstring IncineratorNodeMetadata::infoText()
 {
 	if (m_fuel_time < m_fuel_totaltime)
-		return wgettext("Incinerator is active");
+		return narrow_to_wide(gettext("Incinerator is active"));
 	InventoryList *fuel_list = m_inventory->getList("fuel");
 	if (fuel_list) {
 		InventoryItem *fuel_item = fuel_list->getItem(0);
 		if (fuel_item && fuel_item->isFuel())
-			return wgettext("Incinerator is active");
+			return narrow_to_wide(gettext("Incinerator is active"));
 	}
-	return wgettext("Incinerator is inactive");
+	return narrow_to_wide(gettext("Incinerator is inactive"));
 }
 bool IncineratorNodeMetadata::nodeRemovalDisabled()
 {
@@ -1902,10 +1918,10 @@ std::string IncineratorNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,7]");
 	spec += "label[1,0.5;";
-	spec += wide_to_narrow(wgettext("Add fuel, then punch to incinerate wielded item"));
+	spec += gettext("Add fuel, then punch to incinerate wielded item");;
 	spec += "]";
 	spec += "label[3,1.5;";
-	spec += wide_to_narrow(wgettext("Fuel"));
+	spec += gettext("Fuel");;
 	spec += "]";
 	spec += "list[current_name;fuel;4,1;1,1;]";
 	spec += "ring[4,1;1;#FF0000;";
@@ -2224,21 +2240,21 @@ std::string CraftGuideNodeMetadata::getDrawSpecString(Player *player)
 
 	std::string spec("size[8,10]");
 	spec +=	"label[0.5,0.75;";
-	spec += wide_to_narrow(wgettext("Add item here to see recipe"));
+	spec += gettext("Add item here to see recipe");;
 	spec += "]";
 	spec +=	"list[current_name;result;2,1;1,1;]";
 	if (rc > 1) {
-		wchar_t rbuff[256];
-		swprintf(rbuff, 256, wgettext("Recipe %d of %d"), (int)(m_recipe+1),rc);
+		char rbuff[256];
+		snprintf(rbuff, 256, gettext("Recipe %d of %d"), (int)(m_recipe+1),rc);
 		spec += "button[2.5,3.5;1,0.75;rprev;<<]";
 		spec += "label[3.5,3.5;";
-		spec += wide_to_narrow(rbuff);
+		spec += rbuff;
 		spec += "]";
 		spec += "button[5.5,3.5;1,0.75;rnext;>>]";
 	}
 	if (q && tr) {
 		spec += "label[1,1.5;";
-		spec += wide_to_narrow(wgettext("Gives"));
+		spec += gettext("Gives");;
 		spec += " ";
 		spec += itos(tr);
 		// this overflows into the craft grid... but could be cool
@@ -2248,13 +2264,13 @@ std::string CraftGuideNodeMetadata::getDrawSpecString(Player *player)
 	}
 	spec +=	"list[current_name;recipe;4,0;3,3;]";
 	spec +=	"button[0.25,4.5;2.5,0.75;prev;";
-	spec += wide_to_narrow(wgettext("<< Previous Page"));
+	spec += gettext("<< Previous Page");;
 	spec += "]";
 	spec +=	"label[3.5,4.5;";
 	spec += buff;
 	spec += "]";
 	spec +=	"button[6,4.5;2.5,0.75;next;";
-	spec += wide_to_narrow(wgettext("Next Page >>"));
+	spec += gettext("Next Page >>");;
 	spec += "]";
 	spec +=	"list[current_name;list;0,5;8,5;]";
 	return spec;
@@ -2506,33 +2522,33 @@ std::string ReverseCraftGuideNodeMetadata::getDrawSpecString(Player *player)
 	if (ingredient_list.size()%40) ++page_count;
 
 	//write the page count string
-	wchar_t buff[256];
-	swprintf(buff, 256, wgettext("Page %d of %d"), (int)(m_page+1), page_count);
+	char buff[256];
+	snprintf(buff, 256, gettext("Page %d of %d"), (int)(m_page+1), page_count);
 
 	//build the formspec
 	string spec("size[8,10]");
 	spec +=	"label[0.5,0.75;";
-	spec += wide_to_narrow(wgettext("Add item here to see recipe"));
+	spec += gettext("Add item here to see recipe");;
 	spec += "]";
 	spec +=	"list[current_name;item;2,1;1,1;]";
 	if (recipe_count > 1) {
-		wchar_t rbuff[256];
-		swprintf(rbuff, 256, wgettext("Recipe %d of %d"), (int)(m_recipe+1), recipe_count);
+		char rbuff[256];
+		snprintf(rbuff, 256, gettext("Recipe %d of %d"), (int)(m_recipe+1), recipe_count);
 		spec += "button[2.5,3.5;1,0.75;rprev;<<]";
 		spec += "label[3.5,3.5;";
-		spec += wide_to_narrow(rbuff);
+		spec += rbuff;
 		spec += "]";
 		spec += "button[5.5,3.5;1,0.75;rnext;>>]";
 	}
 	spec +=	"list[current_name;recipe;4,0;3,3;]";
 	spec +=	"button[0.25,4.5;2.5,0.75;prev;";
-	spec += wide_to_narrow(wgettext("<< Previous Page"));
+	spec += gettext("<< Previous Page");;
 	spec += "]";
 	spec +=	"label[3.5,4.5;";
-	spec += wide_to_narrow(buff);
+	spec += buff;
 	spec += "]";
 	spec +=	"button[6,4.5;2.5,0.75;next;";
-	spec += wide_to_narrow(wgettext("Next Page >>"));
+	spec += gettext("Next Page >>");;
 	spec += "]";
 	spec += "list[current_name;result;7,0;1,1;]";
 	spec +=	"list[current_name;list;0,5;8,5;]";
@@ -2781,18 +2797,18 @@ std::string CookBookNodeMetadata::getDrawSpecString(Player *player)
 
 	std::string spec("size[8,9]");
 	spec +=	"label[0.5,0.75;";
-	spec += wide_to_narrow(wgettext("Add item here to see cook result"));
+	spec += gettext("Add item here to see cook result");;
 	spec += "]";
 	spec +=	"list[current_name;result;2,1;1,1;]";
 	spec +=	"list[current_name;recipe;4,1;1,1;]";
 	spec +=	"button[0.25,3.5;2.5,0.75;prev;";
-	spec += wide_to_narrow(wgettext("<< Previous Page"));
+	spec += gettext("<< Previous Page");;
 	spec += "]";
 	spec +=	"label[3.5,3.5;";
 	spec += buff;
 	spec += "]";
 	spec +=	"button[6,3.5;2.5,0.75;next;";
-	spec += wide_to_narrow(wgettext("Next Page >>"));
+	spec += gettext("Next Page >>");;
 	spec += "]";
 	spec +=	"list[current_name;list;0,4;8,5;]";
 	return spec;
@@ -3072,25 +3088,25 @@ std::string DeCraftNodeMetadata::getDrawSpecString(Player *player)
 
 	std::string spec("size[8,9]");
 	spec +=	"label[0.5,0.75;";
-	spec += wide_to_narrow(wgettext("Add item here to see dig result"));
+	spec += gettext("Add item here to see dig result");;
 	spec += "]";
 	spec +=	"list[current_name;result;2,1;1,1;]";
 	spec +=	"label[5,1;";
-	spec += wide_to_narrow(wgettext("Dig Result"));
+	spec += gettext("Dig Result");;
 	spec += "]";
 	spec +=	"list[current_name;recipe;6.5,0.5;1,1;]";
 	spec +=	"label[5,2;";
-	spec += wide_to_narrow(wgettext("Random Drop"));
+	spec += gettext("Random Drop");;
 	spec += "]";
 	spec +=	"list[current_name;random;6.5,1.5;1,1;]";
 	spec +=	"button[0.25,3.5;2.5,0.75;prev;";
-	spec += wide_to_narrow(wgettext("<< Previous Page"));
+	spec += gettext("<< Previous Page");;
 	spec += "]";
 	spec +=	"label[3.5,3.5;";
 	spec += buff;
 	spec += "]";
 	spec +=	"button[6,3.5;2.5,0.75;next;";
-	spec += wide_to_narrow(wgettext("Next Page >>"));
+	spec += gettext("Next Page >>");;
 	spec += "]";
 	spec +=	"list[current_name;list;0,4;8,5;]";
 	return spec;
@@ -3172,17 +3188,17 @@ std::string BookNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[6,6]");
 	spec += "field[1,1;5,1;title;";
-	spec += wide_to_narrow(wgettext("Title"));
+	spec += gettext("Title");;
 	spec += ";";
 	spec += m_title;
 	spec += "]";
 	spec += "field[1,2;5,2;content;";
-	spec += wide_to_narrow(wgettext("Content"));
+	spec += gettext("Content");;
 	spec += ";";
 	spec += m_content;
 	spec += "]";
 	spec += "button_exit[2,5;3,1;submit;";
-	spec += wide_to_narrow(wgettext("Save"));
+	spec += gettext("Save");;
 	spec += "]";
 	return spec;
 }
@@ -3271,17 +3287,17 @@ std::string DiaryNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[6,6]");
 	spec += "field[1,1;5,1;title;";
-	spec += wide_to_narrow(wgettext("Title"));
+	spec += gettext("Title");;
 	spec += ";";
 	spec += m_title;
 	spec += "]";
 	spec += "field[1,2;5,2;content;";
-	spec += wide_to_narrow(wgettext("Content"));
+	spec += gettext("Content");;
 	spec += ";";
 	spec += m_content;
 	spec += "]";
 	spec += "button_exit[2,5;3,1;submit;";
-	spec += wide_to_narrow(wgettext("Save"));
+	spec += gettext("Save");;
 	spec += "]";
 	return spec;
 }
@@ -3640,19 +3656,19 @@ void CauldronNodeMetadata::serializeBody(std::ostream &os)
 std::wstring CauldronNodeMetadata::infoText()
 {
 	if (m_fuel_time)
-		return wgettext("Cauldron is active");
+		return narrow_to_wide(gettext("Cauldron is active"));
 	if (m_water_level) {
 		if (m_water_hot)
-			return wgettext("Cauldron is hot");
+			return narrow_to_wide(gettext("Cauldron is hot"));
 		if (m_water_heated)
-			return wgettext("Cauldron is cool");
+			return narrow_to_wide(gettext("Cauldron is cool"));
 	}else{
-		return wgettext("Cauldron is empty");
+		return narrow_to_wide(gettext("Cauldron is empty"));
 	}
 	InventoryList *list = m_inventory->getList("fuel");
 	if (list && list->getUsedSlots() > 0)
-		return wgettext("Cauldron is inactive");
-	return wgettext("Cauldron is out of fuel");
+		return narrow_to_wide(gettext("Cauldron is inactive"));
+	return narrow_to_wide(gettext("Cauldron is out of fuel"));
 }
 bool CauldronNodeMetadata::nodeRemovalDisabled()
 {
@@ -3732,10 +3748,10 @@ std::string CauldronNodeMetadata::getDrawSpecString(Player *player)
 	std::string spec("size[8,7]");
 
 	spec += "label[1,0.5;";
-	spec += wide_to_narrow(wgettext("Add fuel, then punch to add or remove water"));
+	spec += gettext("Add fuel, then punch to add or remove water");;
 	spec += "]";
 	spec += "label[3.5,1.5;";
-	spec += wide_to_narrow(wgettext("Fuel"));
+	spec += gettext("Fuel");;
 	spec += "]";
 	spec += "list[current_name;fuel;4,1;1,1;]";
 	spec += "list[current_player;main;0,3;8,4;]";
@@ -3831,7 +3847,7 @@ void ForgeNodeMetadata::serializeBody(std::ostream &os)
 }
 std::wstring ForgeNodeMetadata::infoText()
 {
-	return wgettext("Forge");
+	return narrow_to_wide(gettext("Forge"));
 }
 void ForgeNodeMetadata::inventoryModified()
 {
@@ -4005,14 +4021,14 @@ std::string ForgeNodeMetadata::getDrawSpecString(Player *player)
 		spec += "list[current_name;craft;2,0;3,3;]";
 		spec += "list[current_name;craftresult;6,1;1,1;]";
 		spec += "button[3,3.2;3,1;enchant;";
-		spec += wide_to_narrow(wgettext("Show Enchanting"));
+		spec += gettext("Show Enchanting");;
 		spec += "]";
 	}else{
 		spec += "list[current_name;mithril;1,1;1,1;ingot_bg.png]";
 		spec += "list[current_name;gem;3,1;1,1;gem_bg.png]";
 		spec += "list[current_name;craftresult;6,1;1,1;]";
 		spec += "button[3,3.2;3,1;craft;";
-		spec += wide_to_narrow(wgettext("Show Crafting"));
+		spec += gettext("Show Crafting");;
 		spec += "]";
 	}
 

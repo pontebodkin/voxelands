@@ -35,6 +35,7 @@
 #include "sha1.h"
 #include "path.h"
 #include "config.h"
+#include "file.h"
 
 /* interface builders, these just keep some code below clean */
 static std::string http_player_interface(Player *player, HTTPServer *server, bool full)
@@ -268,10 +269,13 @@ int HTTPRemoteClient::handlePlayer()
 /* handle /texture/<file> url's */
 int HTTPRemoteClient::handleTexture()
 {
-	std::string file = getPath("texture",m_recv_headers.getUrl(1),true);
-	if (file == "")
+	char buff[1024];
+
+	if (!path_get((char*)"texture",const_cast<char*>(m_recv_headers.getUrl(1).c_str()),1,buff,1024))
 		return handleSpecial("404 Not Found");
+
 	m_send_headers.setHeader("Content-Type","image/png");
+	std::string file(buff);
 	sendFile(file);
 	return 1;
 }
@@ -418,54 +422,37 @@ void HTTPRemoteClient::send(char* data)
 /* send html data to a remote http client */
 void HTTPRemoteClient::sendHTML(char* data)
 {
-	FILE *h;
-	FILE *f;
-	int l[4];
-	char* b;
-	std::string file = getPath("html","header.html",true);
-	h = fopen(file.c_str(),"r");
-	file = getPath("html","footer.html",true);
-	f = fopen(file.c_str(),"r");
+	int l;
+	file_t *head;
+	file_t *foot;
 
-	if (h) {
-		fseek(h,0,SEEK_END);
-		l[0] = ftell(h);
-		fseek(h,0,SEEK_SET);
-	}else{
-		l[0] = 0;
-	}
-	l[1] = strlen(data);
-	if (f) {
-		fseek(f,0,SEEK_END);
-		l[2] = ftell(f);
-		fseek(f,0,SEEK_SET);
-	}else{
-		l[2] = 0;
-	}
+	head = file_load((char*)"html",(char*)"header.html");
+	foot = file_load((char*)"html",(char*)"footer.html");
 
-	if (l[0] > l[2]) {
-		b = new char[l[0]];
-	}else{
-		b = new char[l[2]];
-	}
+	l = 0;
 
-	l[3] = l[0]+l[1]+l[2];
+	if (head)
+		l += head->len;
+	if (foot)
+		l += foot->len;
+
+	l += strlen(data);
+
 	m_send_headers.setHeader("Content-Type","text/html");
-	m_send_headers.setLength(l[3]);
+	m_send_headers.setLength(l);
 	sendHeaders();
-	if (h) {
-		l[3] = fread(b,1,l[0],h);
-		m_socket->Send(b,l[3]);
-		fclose(h);
-	}
-	m_socket->Send(data,l[1]);
-	if (f) {
-		l[3] = fread(b,1,l[2],f);
-		m_socket->Send(b,l[3]);
-		fclose(f);
-	}
 
-	delete b;
+	l = strlen(data);
+
+	if (head) {
+		m_socket->Send(head->data,head->len);
+		file_free(head);
+	}
+	m_socket->Send(data,l);
+	if (foot) {
+		m_socket->Send(foot->data,foot->len);
+		file_free(foot);
+	}
 }
 
 /* send a file to a remote http client */

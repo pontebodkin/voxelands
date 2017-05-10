@@ -47,6 +47,7 @@ Sky::Sky(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id):
 		m_skycolor_bright_f(1,0,0,0),
 		m_cloudcolor_bright_f(1,1,1,1)
 {
+	char buff[1024];
 	setAutomaticCulling(scene::EAC_OFF);
 	Box.MaxEdge.set(0,0,0);
 	Box.MinEdge.set(0,0,0);
@@ -68,11 +69,13 @@ Sky::Sky(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id):
 	m_materials[1].MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 
 	m_materials[2] = mat;
-	m_materials[2].setTexture(0, mgr->getVideoDriver()->getTexture(getTexturePath("sun.png").c_str()));
+	if (path_get((char*)"texture",(char*)"sun.png",1,buff,1024))
+		m_materials[2].setTexture(0, mgr->getVideoDriver()->getTexture(buff));
 	m_materials[2].MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 
 	m_materials[3] = mat;
-	m_materials[3].setTexture(0, mgr->getVideoDriver()->getTexture(getTexturePath("moon.png").c_str()));
+	if (path_get((char*)"texture",(char*)"moon.png",1,buff,1024))
+		m_materials[3].setTexture(0, mgr->getVideoDriver()->getTexture(buff));
 	m_materials[3].MaterialType = video::EMT_TRANSPARENT_ALPHA_CHANNEL;
 
 	for (u32 i=0; i<SKY_STAR_COUNT; i++) {

@@ -373,7 +373,7 @@ public:
 #endif
 	std::wstring getGuiName()
 	{
-		return content_toolitem_features(m_content).description;
+		return narrow_to_wide(content_toolitem_features(m_content).description);
 	}
 	std::wstring getGuiText();
 	std::string getText()
@@ -462,7 +462,7 @@ public:
 #endif
 	std::wstring getGuiName()
 	{
-		return content_clothesitem_features(m_content)->description;
+		return narrow_to_wide(content_clothesitem_features(m_content)->description);
 	}
 	std::wstring getGuiText();
 	std::string getText()

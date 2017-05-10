@@ -3636,25 +3636,28 @@ void ClientMap::renderPostFx()
 	if (m_client->getServerSuffocation()) {
 		u16 a = m_client->getAir();
 		if (a < 50) {
+			char buff[1024];
 			u8 c = 255-(a*5);
 			const video::SColor color(c,255,255,255);
 			const video::SColor colors[] = {color,color,color,color};
-			std::string tex = getTexturePath("low_air.png");
-			video::IVideoDriver* driver = SceneManager->getVideoDriver();
-			v2u32 ss = driver->getScreenSize();
-			video::ITexture *texture = driver->getTexture(tex.c_str());
-			core::rect<s32> rect(0,0,ss.X,ss.Y);
-			driver->draw2DImage(
-				texture,
-				rect,
-				core::rect<s32>(
-					core::position2d<s32>(0,0),
-					core::dimension2di(texture->getOriginalSize())
-				),
-				NULL,
-				colors,
-				true
-			);
+
+			if (path_get((char*)"texture",(char*)"low_air.png",1,buff,1024)) {
+				video::IVideoDriver* driver = SceneManager->getVideoDriver();
+				v2u32 ss = driver->getScreenSize();
+				video::ITexture *texture = driver->getTexture(buff);
+				core::rect<s32> rect(0,0,ss.X,ss.Y);
+				driver->draw2DImage(
+					texture,
+					rect,
+					core::rect<s32>(
+						core::position2d<s32>(0,0),
+						core::dimension2di(texture->getOriginalSize())
+					),
+					NULL,
+					colors,
+					true
+				);
+			}
 		}
 	}
 }

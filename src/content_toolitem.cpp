@@ -277,7 +277,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_smallpick.png";
 	f->name = "WPick";
-	f->description = wgettext("Small Stone Pick");
+	f->description = gettext("Small Stone Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 32;
 	f->diginfo.time = 3.0;
@@ -300,7 +300,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_stonepick.png";
 	f->name = "STPick";
-	f->description = wgettext("Stone Pick");
+	f->description = gettext("Stone Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
@@ -314,7 +314,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_flintpick.png";
 	f->name = "FPick";
-	f->description = wgettext("Flint Pick");
+	f->description = gettext("Flint Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.75;
@@ -328,7 +328,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelpick.png";
 	f->name = "SteelPick";
-	f->description = wgettext("Steel Pick");
+	f->description = gettext("Steel Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -342,7 +342,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_raw_pick.png";
 	f->name = "mithril_raw_pick";
-	f->description = wgettext("Raw Mithril Pick");
+	f->description = gettext("Raw Mithril Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 512;
 	f->diginfo.time = 0.75;
@@ -356,7 +356,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_pick.png";
 	f->name = "mithril_unbound_pick";
-	f->description = wgettext("Unbound Mithril Pick");
+	f->description = gettext("Unbound Mithril Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 1024;
 	f->diginfo.time = 0.6;
@@ -370,7 +370,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_pick.png";
 	f->name = "mithril_pick";
-	f->description = wgettext("Mithril Pick");
+	f->description = gettext("Mithril Pick");
 	f->type = TT_PICK;
 	f->param_type = CPT_ENCHANTMENT;
 	f->diginfo.uses = 2048;
@@ -385,7 +385,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_creativepick.png";
 	f->name = "MesePick";
-	f->description = wgettext("Creative Pick");
+	f->description = gettext("Creative Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 1000;
 	f->diginfo.time = 0.1;
@@ -401,7 +401,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_trowel.png";
 	f->name = "WShovel";
-	f->description = wgettext("Stone Trowel");
+	f->description = gettext("Stone Trowel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 32;
 	f->diginfo.time = 3.0;
@@ -415,7 +415,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_stoneshovel.png";
 	f->name = "STShovel";
-	f->description = wgettext("Stone Shovel");
+	f->description = gettext("Stone Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
@@ -429,7 +429,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_flintshovel.png";
 	f->name = "FShovel";
-	f->description = wgettext("Flint Shovel");
+	f->description = gettext("Flint Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.75;
@@ -443,7 +443,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelshovel.png";
 	f->name = "SteelShovel";
-	f->description = wgettext("Steel Shovel");
+	f->description = gettext("Steel Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -457,7 +457,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_raw_shovel.png";
 	f->name = "mithril_raw_shovel";
-	f->description = wgettext("Raw Mithril Shovel");
+	f->description = gettext("Raw Mithril Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 512;
 	f->diginfo.time = 0.75;
@@ -471,7 +471,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_shovel.png";
 	f->name = "mithril_unbound_shovel";
-	f->description = wgettext("Unbound Mithril Shovel");
+	f->description = gettext("Unbound Mithril Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 1024;
 	f->diginfo.time = 0.6;
@@ -485,7 +485,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_shovel.png";
 	f->name = "mithril_shovel";
-	f->description = wgettext("Mithril Shovel");
+	f->description = gettext("Mithril Shovel");
 	f->type = TT_SHOVEL;
 	f->param_type = CPT_ENCHANTMENT;
 	f->diginfo.uses = 2048;
@@ -501,7 +501,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_smallaxe.png";
 	f->name = "WAxe";
-	f->description = wgettext("Small Stone Axe");
+	f->description = gettext("Small Stone Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 32;
 	f->diginfo.time = 3.0;
@@ -525,7 +525,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_stoneaxe.png";
 	f->name = "STAxe";
-	f->description = wgettext("Stone Axe");
+	f->description = gettext("Stone Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
@@ -539,7 +539,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_flintaxe.png";
 	f->name = "FAxe";
-	f->description = wgettext("Flint Axe");
+	f->description = gettext("Flint Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.75;
@@ -553,7 +553,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelaxe.png";
 	f->name = "SteelAxe";
-	f->description = wgettext("Steel Axe");
+	f->description = gettext("Steel Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -567,7 +567,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_raw_axe.png";
 	f->name = "mithril_raw_axe";
-	f->description = wgettext("Raw Mithril Axe");
+	f->description = gettext("Raw Mithril Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 512;
 	f->diginfo.time = 0.75;
@@ -581,7 +581,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_axe.png";
 	f->name = "mithril_unbound_axe";
-	f->description = wgettext("Unbound Mithril Axe");
+	f->description = gettext("Unbound Mithril Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 1024;
 	f->diginfo.time = 0.6;
@@ -595,7 +595,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_axe.png";
 	f->name = "mithril_axe";
-	f->description = wgettext("Mithril Axe");
+	f->description = gettext("Mithril Axe");
 	f->type = TT_AXE;
 	f->param_type = CPT_ENCHANTMENT;
 	f->diginfo.uses = 2048;
@@ -611,7 +611,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_woodclub.png";
 	f->name = "WSword";
-	f->description = wgettext("Wooden Club");
+	f->description = gettext("Wooden Club");
 	f->type = TT_CLUB;
 	f->diginfo.uses = 32;
 	f->diginfo.time = 3.0;
@@ -626,7 +626,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_bow.png";
 	f->name = "bow";
-	f->description = wgettext("Bow");
+	f->description = gettext("Bow");
 	f->type = TT_SPECIAL;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -650,7 +650,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_stonespear.png";
 	f->name = "stone_spear";
-	f->description = wgettext("Stone Spear");
+	f->description = gettext("Stone Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
@@ -664,7 +664,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_flintspear.png";
 	f->name = "flint_spear";
-	f->description = wgettext("Flint Spear");
+	f->description = gettext("Flint Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.75;
@@ -678,7 +678,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelspear.png";
 	f->name = "steel_spear";
-	f->description = wgettext("Steel Spear");
+	f->description = gettext("Steel Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -692,7 +692,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_raw_spear.png";
 	f->name = "mithril_raw_spear";
-	f->description = wgettext("Raw Mithril Spear");
+	f->description = gettext("Raw Mithril Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 512;
 	f->diginfo.time = 0.75;
@@ -706,7 +706,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_spear.png";
 	f->name = "mithril_unbound_spear";
-	f->description = wgettext("Unbound Mithril Spear");
+	f->description = gettext("Unbound Mithril Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 1024;
 	f->diginfo.time = 0.6;
@@ -720,7 +720,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_spear.png";
 	f->name = "mithril_spear";
-	f->description = wgettext("Mithril Spear");
+	f->description = gettext("Mithril Spear");
 	f->type = TT_SPEAR;
 	f->param_type = CPT_ENCHANTMENT;
 	f->diginfo.uses = 2048;
@@ -736,7 +736,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_stonesword.png";
 	f->name = "STSword";
-	f->description = wgettext("Stone Sword");
+	f->description = gettext("Stone Sword");
 	f->type = TT_SWORD;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
@@ -750,7 +750,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelsword.png";
 	f->name = "SteelSword";
-	f->description = wgettext("Steel Sword");
+	f->description = gettext("Steel Sword");
 	f->type = TT_SWORD;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -764,7 +764,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_raw_sword.png";
 	f->name = "mithril_raw_sword";
-	f->description = wgettext("Raw Mithril Sword");
+	f->description = gettext("Raw Mithril Sword");
 	f->type = TT_SWORD;
 	f->diginfo.uses = 512;
 	f->diginfo.time = 0.75;
@@ -778,7 +778,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_sword.png";
 	f->name = "mithril_unbound_sword";
-	f->description = wgettext("Unbound Mithril Sword");
+	f->description = gettext("Unbound Mithril Sword");
 	f->type = TT_SWORD;
 	f->diginfo.uses = 1024;
 	f->diginfo.time = 0.6;
@@ -792,7 +792,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_sword.png";
 	f->name = "mithril_sword";
-	f->description = wgettext("Mithril Sword");
+	f->description = gettext("Mithril Sword");
 	f->type = TT_SWORD;
 	f->param_type = CPT_ENCHANTMENT;
 	f->diginfo.uses = 2048;
@@ -808,7 +808,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_flintshears.png";
 	f->name = "FShears";
-	f->description = wgettext("Flint Shears");
+	f->description = gettext("Flint Shears");
 	f->type = TT_SHEAR;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.5;
@@ -822,7 +822,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelshears.png";
 	f->name = "Shears";
-	f->description = wgettext("Steel Shears");
+	f->description = gettext("Steel Shears");
 	f->type = TT_SHEAR;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
@@ -838,7 +838,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_woodbucket.png";
 	f->name = "WBucket";
-	f->description = wgettext("Wooden Bucket");
+	f->description = gettext("Wooden Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
 	f->diginfo.uses = 64;
@@ -855,7 +855,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_tinbucket.png";
 	f->name = "TinBucket";
-	f->description = wgettext("Tin Bucket");
+	f->description = gettext("Tin Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
 	f->diginfo.uses = 128;
@@ -871,7 +871,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelbucket.png";
 	f->name = "SteelBucket";
-	f->description = wgettext("Steel Bucket");
+	f->description = gettext("Steel Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
 	f->diginfo.uses = 256;
@@ -886,7 +886,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_woodbucket.png^bucket_water.png";
 	f->name = "WBucket_water";
-	f->description = wgettext("Wooden Bucket of Water");
+	f->description = gettext("Wooden Bucket of Water");
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_WBUCKET;
@@ -897,7 +897,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_tinbucket.png^bucket_water.png";
 	f->name = "TinBucket_water";
-	f->description = wgettext("Tin Bucket of Water");
+	f->description = gettext("Tin Bucket of Water");
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_TINBUCKET;
@@ -908,7 +908,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelbucket.png^bucket_water.png";
 	f->name = "SteelBucket_water";
-	f->description = wgettext("Steel Bucket of Water");
+	f->description = gettext("Steel Bucket of Water");
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
@@ -919,7 +919,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_steelbucket.png^bucket_lava.png";
 	f->name = "SteelBucket_lava";
-	f->description = wgettext("Steel Bucket of Lava");
+	f->description = gettext("Steel Bucket of Lava");
 	f->onplace_node = CONTENT_LAVASOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
 	f->fuel_time = 80;
@@ -933,7 +933,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_fire_starter.png";
 	f->name = "FireStarter";
-	f->description = wgettext("Fire Starter");
+	f->description = gettext("Fire Starter");
 	f->liquids_pointable = true;
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 3;
@@ -947,7 +947,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "crowbar.png";
 	f->name = "crowbar";
-	f->description = wgettext("Crowbar");
+	f->description = gettext("Crowbar");
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 3;
 	f->has_rotate_effect = true;
@@ -960,7 +960,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_key.png";
 	f->name = "key";
-	f->description = wgettext("Key");
+	f->description = gettext("Key");
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 4;
 	f->has_unlock_effect = true;
@@ -972,7 +972,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mithril_key.png";
 	f->name = "mithrilkey";
-	f->description = wgettext("Mithril Key");
+	f->description = gettext("Mithril Key");
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 5;
 	f->has_unlock_effect = true;
@@ -992,7 +992,7 @@ void content_toolitem_init()
 	f->content = i;
 	f->texture = "tool_mob_spawner.png";
 	f->name = "mob_spawner";
-	f->description = wgettext("Mob Spawner");
+	f->description = gettext("Mob Spawner");
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 4;
 	f->param_type = CPT_DROP;

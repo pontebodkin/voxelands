@@ -563,6 +563,7 @@ void getPointedNode(Client *client, v3f player_position,
 */
 void drawLoadingScreen(irr::IrrlichtDevice* device, const std::wstring msg)
 {
+	char buff[1024];
 	if (device == NULL)
 		return;
 	device->run();
@@ -575,20 +576,23 @@ void drawLoadingScreen(irr::IrrlichtDevice* device, const std::wstring msg)
 
 	driver->beginScene(true, true, video::SColor(255,0,0,0));
 
-	video::ITexture *logotexture = driver->getTexture(getTexturePath("menulogo.png").c_str());
-	if (logotexture) {
-		core::rect<s32> rect(x-100,y-150,x+100,y+50);
-		driver->draw2DImage(logotexture, rect,
-			core::rect<s32>(core::position2d<s32>(0,0),
-			core::dimension2di(logotexture->getSize())),
-			NULL, NULL, true);
+
+	if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
+		video::ITexture *logotexture = driver->getTexture(buff);
+		if (logotexture) {
+			core::rect<s32> rect(x-100,y-150,x+100,y+50);
+			driver->draw2DImage(logotexture, rect,
+				core::rect<s32>(core::position2d<s32>(0,0),
+				core::dimension2di(logotexture->getSize())),
+				NULL, NULL, true);
+		}
 	}
 	if (guienv) {
 		std::wstring m;
 		if (msg != L"") {
 			m = msg;
 		}else{
-			m = wgettext("Loading");
+			m = narrow_to_wide(gettext("Loading"));
 		}
 		core::dimension2d<u32> textsize = guienv->getSkin()->getFont()->getDimension(m.c_str());
 		core::rect<s32> rect(x-(textsize.Width/2), y+50, x+textsize.Width, y+50+textsize.Height);
@@ -660,7 +664,7 @@ void the_game(
 		Draw "Loading" screen
 	*/
 	//draw_load_screen(L"Loading...", driver, font);
-	drawLoadingScreen(device,wgettext("Loading..."));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Loading...")));
 
 	/*
 		Create server.
@@ -669,7 +673,7 @@ void the_game(
 	SharedPtr<Server> server;
 	if(address == ""){
 		//draw_load_screen(L"Creating server...", driver, font);
-		drawLoadingScreen(device,wgettext("Creating server..."));
+		drawLoadingScreen(device,narrow_to_wide(gettext("Creating server...")));
 		infostream<<"Creating server"<<std::endl;
 		server = new Server(map_dir, configpath);
 		server->start(port);
@@ -680,12 +684,12 @@ void the_game(
 	*/
 
 	//draw_load_screen(L"Creating client...", driver, font);
-	drawLoadingScreen(device,wgettext("Creating client..."));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Creating client...")));
 	infostream<<"Creating client"<<std::endl;
 	MapDrawControl draw_control;
 	Client client(device, playername.c_str(), password, draw_control, sound);
 
-	drawLoadingScreen(device,wgettext("Resolving address..."));
+	drawLoadingScreen(device,narrow_to_wide(gettext("Resolving address...")));
 	Address connect_address(0,0,0,0, port);
 	try{
 		if(address == "")
@@ -696,7 +700,7 @@ void the_game(
 	catch(ResolveError &e)
 	{
 		errorstream<<"Couldn't resolve address"<<std::endl;
-		error_message = wgettext("Couldn't resolve address");
+		error_message = narrow_to_wide(gettext("Couldn't resolve address"));
 		return;
 	}
 
@@ -730,12 +734,12 @@ void the_game(
 				break;
 			}
 
-			wchar_t buff[512];
+			char buff[512];
 			int tot = (10.0 - time_counter + 1.0);
-			swprintf(
+			snprintf(
 				buff,
 				512,
-				wngettext(
+				ngettext(
 					"Connecting to server... (timeout in %d second)",
 					"Connecting to server... (timeout in %d seconds)",
 					tot
@@ -743,7 +747,7 @@ void the_game(
 				tot
 			);
 			//draw_load_screen(ss.str(), driver, font);
-			drawLoadingScreen(device, (wchar_t *)buff);
+			drawLoadingScreen(device, narrow_to_wide(buff).c_str());
 			// Update client and server
 			client.step(0.1);
 
@@ -764,15 +768,15 @@ void the_game(
 
 	if (could_connect == false) {
 		if (client.accessDenied()) {
-			wchar_t buff[512];
-			swprintf(buff,512,wgettext("Access denied. Reason: %ls"),client.accessDeniedReason().c_str());
-			error_message = std::wstring(buff);
-			errorstream<<wide_to_narrow(error_message)<<std::endl;
+			char buff[512];
+			snprintf(buff,512,gettext("Access denied. Reason: %s"),wide_to_narrow(client.accessDeniedReason()).c_str());
+			error_message = narrow_to_wide(buff);
+			errorstream<<buff<<std::endl;
 		}else if (server != NULL) {
-			error_message = wgettext("Unable to Connect (port already in use?).");
+			error_message = narrow_to_wide(gettext("Unable to Connect (port already in use?)."));
 			errorstream<<"Timed out."<<std::endl;
 		}else{
-			error_message = wgettext("Connection timed out.");
+			error_message = narrow_to_wide(gettext("Connection timed out."));
 			errorstream<<"Timed out."<<std::endl;
 		}
 		return;
@@ -920,7 +924,7 @@ void the_game(
 		//std::cerr<<"frame"<<std::endl;
 
 		if (client.accessDenied()) {
-			error_message = wgettext("Access denied. Reason: ")
+			error_message = narrow_to_wide(gettext("Access denied. Reason: "))
 					+client.accessDeniedReason();
 			errorstream<<wide_to_narrow(error_message)<<std::endl;
 			break;
@@ -1152,11 +1156,11 @@ void the_game(
 		}else if(input->wasKeyDown(getKeySetting(VLKC_FREEMOVE))) {
 			if (free_move) {
 				free_move = false;
-				statustext = wgettext("free_move disabled");
+				statustext = narrow_to_wide(gettext("free_move disabled"));
 				statustext_time = 0;
 			}else{
 				free_move = true;
-				statustext = wgettext("free_move enabled");
+				statustext = narrow_to_wide(gettext("free_move enabled"));
 				statustext_time = 0;
 			}
 		}else if(input->wasKeyDown(getKeySetting(VLKC_SCREENSHOT))) {
@@ -1167,10 +1171,10 @@ void the_game(
 						 g_settings->get("screenshot_path").c_str(),
 						 device->getTimer()->getRealTime());
 				if (driver->writeImageToFile(image, io::path(filename))) {
-					wchar_t buff[512];
-					swprintf(buff, 512, wgettext("Saved screenshot to '%s'"), narrow_to_wide(filename).c_str());
+					char buff[512];
+					snprintf(buff, 512, gettext("Saved screenshot to '%s'"), filename);
 					infostream << "Saved screenshot to '" << filename << "'" << std::endl;
-					statustext = (wchar_t *)buff;
+					statustext = narrow_to_wide(buff);
 					statustext_time = 0;
 				}else{
 					infostream << "Failed to save screenshot '" << filename << "'"<<std::endl;
@@ -1180,33 +1184,33 @@ void the_game(
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_HUD))) {
 			show_hud = !show_hud;
 			if (show_hud) {
-				statustext = wgettext("HUD shown");
+				statustext = narrow_to_wide(gettext("HUD shown"));
 			}else{
-				statustext = wgettext("HUD hidden");
+				statustext = narrow_to_wide(gettext("HUD hidden"));
 			}
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_CHAT))) {
 			show_chat = !show_chat;
 			if (show_chat) {
-				statustext = wgettext("Chat shown");
+				statustext = narrow_to_wide(gettext("Chat shown"));
 			}else{
-				statustext = wgettext("Chat hidden");
+				statustext = narrow_to_wide(gettext("Chat hidden"));
 			}
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_FOG))) {
 			force_fog_off = !force_fog_off;
 			if (force_fog_off) {
-				statustext = wgettext("Fog disabled");
+				statustext = narrow_to_wide(gettext("Fog disabled"));
 			}else{
-				statustext = wgettext("Fog enabled");
+				statustext = narrow_to_wide(gettext("Fog enabled"));
 			}
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_CAMERA))) {
 			disable_camera_update = !disable_camera_update;
 			if (disable_camera_update) {
-				statustext = wgettext("Camera update disabled");
+				statustext = narrow_to_wide(gettext("Camera update disabled"));
 			}else{
-				statustext = wgettext("Camera update enabled");
+				statustext = narrow_to_wide(gettext("Camera update enabled"));
 			}
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_DEBUG))) {
@@ -1216,16 +1220,16 @@ void the_game(
 			if (!show_debug) {
 				show_debug = true;
 				show_debug_frametime = false;
-				statustext = wgettext("Debug info shown");
+				statustext = narrow_to_wide(gettext("Debug info shown"));
 				statustext_time = 0;
 			}else if (show_debug_frametime) {
 				show_debug = false;
 				show_debug_frametime = false;
-				statustext = wgettext("Debug info and frametime graph hidden");
+				statustext = narrow_to_wide(gettext("Debug info and frametime graph hidden"));
 				statustext_time = 0;
 			}else{
 				show_debug_frametime = true;
-				statustext = wgettext("Frametime graph shown");
+				statustext = narrow_to_wide(gettext("Frametime graph shown"));
 				statustext_time = 0;
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_PROFILER))) {
@@ -1236,21 +1240,21 @@ void the_game(
 					show_profiler, show_profiler_max);
 
 			if (show_profiler != 0) {
-				wchar_t buff[512];
-				swprintf(buff,512,wgettext("Profiler shown (page %d of %d)"),show_profiler,show_profiler_max);
-				statustext = std::wstring(buff);
+				char buff[512];
+				snprintf(buff,512,gettext("Profiler shown (page %d of %d)"),show_profiler,show_profiler_max);
+				statustext = narrow_to_wide(buff);
 				statustext_time = 0;
 			}else{
-				statustext = wgettext("Profiler hidden");
+				statustext = narrow_to_wide(gettext("Profiler hidden"));
 				statustext_time = 0;
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_PLUS))) {
 			s16 range = g_settings->getS16("viewing_range_nodes_min");
 			s16 range_new = range + 10;
 			g_settings->set("viewing_range_nodes_min", itos(range_new));
-			wchar_t buff[512];
-			swprintf(buff,512,wgettext("Minimum viewing range changed to %d"),range_new);
-			statustext = std::wstring(buff);
+			char buff[512];
+			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range_new);
+			statustext = narrow_to_wide(buff);
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_MINUS))) {
 			s16 range = g_settings->getS16("viewing_range_nodes_min");
@@ -1259,9 +1263,9 @@ void the_game(
 				range_new = range;
 			g_settings->set("viewing_range_nodes_min",
 					itos(range_new));
-			wchar_t buff[512];
-			swprintf(buff,512,wgettext("Minimum viewing range changed to %d"),range_new);
-			statustext = std::wstring(buff);
+			char buff[512];
+			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range_new);
+			statustext = narrow_to_wide(buff);
 			statustext_time = 0;
 		}
 
@@ -1329,11 +1333,11 @@ void the_game(
 			draw_control.range_all = !draw_control.range_all;
 			if (draw_control.range_all) {
 				infostream<<"Enabled full viewing range"<<std::endl;
-				statustext = wgettext("Enabled full viewing range");
+				statustext = narrow_to_wide(gettext("Enabled full viewing range"));
 				statustext_time = 0;
 			}else{
 				infostream<<"Disabled full viewing range"<<std::endl;
-				statustext = wgettext("Disabled full viewing range");
+				statustext = narrow_to_wide(gettext("Disabled full viewing range"));
 				statustext_time = 0;
 			}
 		}
@@ -1931,7 +1935,7 @@ void the_game(
 
 		float client_rtt = client.getRTT();
 		if (client_rtt < -1000) {
-			error_message = wgettext("Disconnected (Network Timeout)");
+			error_message = narrow_to_wide(gettext("Disconnected (Network Timeout)"));
 			break;
 		}
 
@@ -2365,6 +2369,6 @@ void the_game(
 		generator and other stuff quits
 	*/
 	{
-		drawLoadingScreen(device,wgettext("Shutting down..."));
+		drawLoadingScreen(device,narrow_to_wide(gettext("Shutting down...")).c_str());
 	}
 }

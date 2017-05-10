@@ -68,34 +68,34 @@ GUISettingsMenu::GUISettingsMenu(
 	m_data.volume = g_settings->getFloat("sound_volume");
 	m_data.texture_animation = g_settings->getBool("enable_animated_textures");
 
-	keynames[VLKC_FORWARD] = wgettext("Forward");
-	keynames[VLKC_BACKWARD] = wgettext("Backward");
-	keynames[VLKC_LEFT] = wgettext("Left");
-	keynames[VLKC_RIGHT] = wgettext("Right");
-	keynames[VLKC_JUMP] = wgettext("Jump");
-	keynames[VLKC_SNEAK] = wgettext("Sneak");
-	keynames[VLKC_INVENTORY] = wgettext("Inventory");
-	keynames[VLKC_USE] = wgettext("Use Item");
-	keynames[VLKC_CHAT] = wgettext("Chat");
-	keynames[VLKC_COMMAND] = wgettext("Command");
-	keynames[VLKC_RANGE] = wgettext("Range Select");
-	keynames[VLKC_FREEMOVE] = wgettext("Toggle Fly");
-	keynames[VLKC_UP] = wgettext("Up");
-	keynames[VLKC_DOWN] = wgettext("Down");
-	keynames[VLKC_RUN] = wgettext("Run");
-	keynames[VLKC_EXAMINE] = wgettext("Examine/Open");
-	keynames[VLKC_SCREENSHOT] = wgettext("Take Screenshot");
-	keynames[VLKC_TOGGLE_HUD] = wgettext("Show/Hide HUD");
-	keynames[VLKC_TOGGLE_CHAT] = wgettext("Show/Hide Chat");
-	keynames[VLKC_TOGGLE_FOG] = wgettext("Toggle Fog");
-	keynames[VLKC_TOGGLE_CAMERA] = NULL;
-	keynames[VLKC_TOGGLE_DEBUG] = NULL;
-	keynames[VLKC_TOGGLE_PROFILER] = NULL;
-	keynames[VLKC_RANGE_PLUS] = wgettext("Increase Viewing Range");
-	keynames[VLKC_RANGE_MINUS] = wgettext("Decrease Viewing Range");
-	keynames[VLKC_PRINT_DEBUG] = NULL;
-	keynames[VLKC_SELECT_PREV] = wgettext("Previous Item");
-	keynames[VLKC_SELECT_NEXT] = wgettext("Next Item");
+	keynames[VLKC_FORWARD] = narrow_to_wide(gettext("Forward"));
+	keynames[VLKC_BACKWARD] = narrow_to_wide(gettext("Backward"));
+	keynames[VLKC_LEFT] = narrow_to_wide(gettext("Left"));
+	keynames[VLKC_RIGHT] = narrow_to_wide(gettext("Right"));
+	keynames[VLKC_JUMP] = narrow_to_wide(gettext("Jump"));
+	keynames[VLKC_SNEAK] = narrow_to_wide(gettext("Sneak"));
+	keynames[VLKC_INVENTORY] = narrow_to_wide(gettext("Inventory"));
+	keynames[VLKC_USE] = narrow_to_wide(gettext("Use Item"));
+	keynames[VLKC_CHAT] = narrow_to_wide(gettext("Chat"));
+	keynames[VLKC_COMMAND] = narrow_to_wide(gettext("Command"));
+	keynames[VLKC_RANGE] = narrow_to_wide(gettext("Range Select"));
+	keynames[VLKC_FREEMOVE] = narrow_to_wide(gettext("Toggle Fly"));
+	keynames[VLKC_UP] = narrow_to_wide(gettext("Up"));
+	keynames[VLKC_DOWN] = narrow_to_wide(gettext("Down"));
+	keynames[VLKC_RUN] = narrow_to_wide(gettext("Run"));
+	keynames[VLKC_EXAMINE] = narrow_to_wide(gettext("Examine/Open"));
+	keynames[VLKC_SCREENSHOT] = narrow_to_wide(gettext("Take Screenshot"));
+	keynames[VLKC_TOGGLE_HUD] = narrow_to_wide(gettext("Show/Hide HUD"));
+	keynames[VLKC_TOGGLE_CHAT] = narrow_to_wide(gettext("Show/Hide Chat"));
+	keynames[VLKC_TOGGLE_FOG] = narrow_to_wide(gettext("Toggle Fog"));
+	keynames[VLKC_TOGGLE_CAMERA] = L"";
+	keynames[VLKC_TOGGLE_DEBUG] = L"";
+	keynames[VLKC_TOGGLE_PROFILER] = L"";
+	keynames[VLKC_RANGE_PLUS] = narrow_to_wide(gettext("Increase Viewing Range"));
+	keynames[VLKC_RANGE_MINUS] = narrow_to_wide(gettext("Decrease Viewing Range"));
+	keynames[VLKC_PRINT_DEBUG] = L"";
+	keynames[VLKC_SELECT_PREV] = narrow_to_wide(gettext("Previous Item"));
+	keynames[VLKC_SELECT_NEXT] = narrow_to_wide(gettext("Next Item"));
 }
 
 GUISettingsMenu::~GUISettingsMenu()
@@ -317,32 +317,32 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 200, 40);
 		rect += v2s32(25, 200);
-		Environment->addButton(rect, this, GUI_ID_TAB_MAINMENU, wgettext("Main Menu"));
+		Environment->addButton(rect, this, GUI_ID_TAB_MAINMENU, narrow_to_wide(gettext("Main Menu")).c_str());
 	}
 
 	// Controls Settings button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 260);
-		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_CONTROLS, wgettext("Controls"));
+		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_CONTROLS, narrow_to_wide(gettext("Controls")).c_str());
 	}
 	// Graphics Settings button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 305);
-		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_GRAPHICS, wgettext("Graphics"));
+		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_GRAPHICS, narrow_to_wide(gettext("Graphics")).c_str());
 	}
 	// Video Settings button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 350);
-		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_VIDEO, wgettext("Video"));
+		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_VIDEO, narrow_to_wide(gettext("Video")).c_str());
 	}
 	// Sound Settings button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 395);
-		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_SOUND, wgettext("Sound"));
+		Environment->addButton(rect, this, GUI_ID_TAB_SETTINGS_SOUND, narrow_to_wide(gettext("Sound")).c_str());
 	}
 
 	v2s32 topleft_content(250, 0);
@@ -351,19 +351,19 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Controls"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Controls")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 
 		v2s32 offset(0, 40);
 
 		for (int i=0; i<VLKC_MAX; i++) {
-			if (keynames[i] == NULL)
+			if (keynames[i] == L"")
 				continue;
 			{
 				core::rect < s32 > rect(0, 0, 150, 20);
 				rect += topleft_content + offset;
-				gui::IGUIStaticText *t = Environment->addStaticText(keynames[i], rect, false, true, this, -1);
+				gui::IGUIStaticText *t = Environment->addStaticText(keynames[i].c_str(), rect, false, true, this, -1);
 				t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
 			}
 
@@ -382,22 +382,22 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Graphics"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Graphics")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 125, 20);
 			rect += topleft_content + v2s32(40, 60);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Terrain Mesh Detail"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Terrain Mesh Detail")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 240, 25);
 			rect += topleft_content + v2s32(175, 55);
 			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_MESH_DETAIL_COMBO);
-			u32 ld = c->addItem(wgettext("Low"),GUI_ID_MESH_DETAIL_LOW);
-			u32 md = c->addItem(wgettext("Medium"),GUI_ID_MESH_DETAIL_MEDIUM);
-			u32 hd = c->addItem(wgettext("High"),GUI_ID_MESH_DETAIL_HIGH);
+			u32 ld = c->addItem(narrow_to_wide(gettext("Low")).c_str(),GUI_ID_MESH_DETAIL_LOW);
+			u32 md = c->addItem(narrow_to_wide(gettext("Medium")).c_str(),GUI_ID_MESH_DETAIL_MEDIUM);
+			u32 hd = c->addItem(narrow_to_wide(gettext("High")).c_str(),GUI_ID_MESH_DETAIL_HIGH);
 			switch (mesh_detail) {
 			case 1:
 				c->setSelected(ld);
@@ -413,16 +413,16 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 125, 20);
 			rect += topleft_content + v2s32(40, 90);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Texture Detail"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Texture Detail")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 240, 25);
 			rect += topleft_content + v2s32(175, 85);
 			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_TEXTURE_DETAIL_COMBO);
-			u32 ld = c->addItem(wgettext("Low"),GUI_ID_TEXTURE_DETAIL_LOW);
-			u32 md = c->addItem(wgettext("Medium"),GUI_ID_TEXTURE_DETAIL_MEDIUM);
-			u32 hd = c->addItem(wgettext("High"),GUI_ID_TEXTURE_DETAIL_HIGH);
+			u32 ld = c->addItem(narrow_to_wide(gettext("Low")).c_str(),GUI_ID_TEXTURE_DETAIL_LOW);
+			u32 md = c->addItem(narrow_to_wide(gettext("Medium")).c_str(),GUI_ID_TEXTURE_DETAIL_MEDIUM);
+			u32 hd = c->addItem(narrow_to_wide(gettext("High")).c_str(),GUI_ID_TEXTURE_DETAIL_HIGH);
 			switch (texture_detail) {
 			case 1:
 				c->setSelected(ld);
@@ -438,16 +438,16 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 125, 20);
 			rect += topleft_content + v2s32(40, 120);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Light Detail"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Light Detail")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_LOWERRIGHT, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 240, 25);
 			rect += topleft_content + v2s32(175, 115);
 			gui::IGUIComboBox *c = Environment->addComboBox(rect, this, GUI_ID_LIGHT_DETAIL_COMBO);
-			u32 ld = c->addItem(wgettext("Low"),GUI_ID_LIGHT_DETAIL_LOW);
-			u32 md = c->addItem(wgettext("Medium"),GUI_ID_LIGHT_DETAIL_MEDIUM);
-			u32 hd = c->addItem(wgettext("High"),GUI_ID_LIGHT_DETAIL_HIGH);
+			u32 ld = c->addItem(narrow_to_wide(gettext("Low")).c_str(),GUI_ID_LIGHT_DETAIL_LOW);
+			u32 md = c->addItem(narrow_to_wide(gettext("Medium")).c_str(),GUI_ID_LIGHT_DETAIL_MEDIUM);
+			u32 hd = c->addItem(narrow_to_wide(gettext("High")).c_str(),GUI_ID_LIGHT_DETAIL_HIGH);
 			switch (light_detail) {
 			case 1:
 				c->setSelected(ld);
@@ -463,79 +463,79 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 160);
-			Environment->addCheckBox(hotbar, rect, this, GUI_ID_HOTBAR_CB, wgettext("Classic HUD"));
+			Environment->addCheckBox(hotbar, rect, this, GUI_ID_HOTBAR_CB, narrow_to_wide(gettext("Classic HUD")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(290, 160);
-			gui::IGUICheckBox *c = Environment->addCheckBox(wield_index, rect, this, GUI_ID_WIELDINDEX_CB, wgettext("Wieldring Index"));
+			gui::IGUICheckBox *c = Environment->addCheckBox(wield_index, rect, this, GUI_ID_WIELDINDEX_CB, narrow_to_wide(gettext("Wieldring Index")).c_str());
 			c->setEnabled(!hotbar);
 		}
 		if (m_is_ingame) {
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 220);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Some settings cannot be changed in-game."), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Some settings cannot be changed in-game.")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 	}else if (m_data.selected_tab == TAB_SETTINGS_VIDEO) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Video"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Video")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 60);
-			Environment->addCheckBox(fullscreen, rect, this, GUI_ID_FULLSCREEN_CB, wgettext("Fullscreen"));
+			Environment->addCheckBox(fullscreen, rect, this, GUI_ID_FULLSCREEN_CB, narrow_to_wide(gettext("Fullscreen")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 90);
-			Environment->addCheckBox(particles, rect, this, GUI_ID_PARTICLES_CB, wgettext("Particles"));
+			Environment->addCheckBox(particles, rect, this, GUI_ID_PARTICLES_CB, narrow_to_wide(gettext("Particles")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 120);
-			Environment->addCheckBox(mipmap, rect, this, GUI_ID_MIPMAP_CB, wgettext("Mip-Mapping"));
+			Environment->addCheckBox(mipmap, rect, this, GUI_ID_MIPMAP_CB, narrow_to_wide(gettext("Mip-Mapping")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 150);
-			Environment->addCheckBox(bilinear, rect, this, GUI_ID_BILINEAR_CB, wgettext("Bi-Linear Filtering"));
+			Environment->addCheckBox(bilinear, rect, this, GUI_ID_BILINEAR_CB, narrow_to_wide(gettext("Bi-Linear Filtering")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 180);
-			Environment->addCheckBox(trilinear, rect, this, GUI_ID_TRILINEAR_CB, wgettext("Tri-Linear Filtering"));
+			Environment->addCheckBox(trilinear, rect, this, GUI_ID_TRILINEAR_CB, narrow_to_wide(gettext("Tri-Linear Filtering")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 210);
-			Environment->addCheckBox(anisotropic, rect, this, GUI_ID_ANISOTROPIC_CB, wgettext("Anisotropic Filtering"));
+			Environment->addCheckBox(anisotropic, rect, this, GUI_ID_ANISOTROPIC_CB, narrow_to_wide(gettext("Anisotropic Filtering")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 30);
 			rect += topleft_content + v2s32(80, 240);
-			Environment->addCheckBox(texture_animation, rect, this, GUI_ID_TEXTUREANIM_CB, wgettext("Enable Texture Animation"));
+			Environment->addCheckBox(texture_animation, rect, this, GUI_ID_TEXTUREANIM_CB, narrow_to_wide(gettext("Enable Texture Animation")).c_str());
 		}
 		if (m_is_ingame) {
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 280);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Some settings cannot be changed in-game."), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Some settings cannot be changed in-game.")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 	}else if (m_data.selected_tab == TAB_SETTINGS_SOUND) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Sound"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Sound")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 15);
 			rect += topleft_content + v2s32(80, 60);
-			Environment->addStaticText(wgettext("Volume:"), rect, false, false, this, -1);
+			Environment->addStaticText(narrow_to_wide(gettext("Volume:")).c_str(), rect, false, false, this, -1);
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 15);
@@ -553,6 +553,7 @@ void GUISettingsMenu::drawMenu()
 	video::IVideoDriver* driver = Environment->getVideoDriver();
 
 	{
+		char buff[1024];
 		core::rect<s32> left(
 			AbsoluteRect.UpperLeftCorner.X,
 			AbsoluteRect.UpperLeftCorner.Y,
@@ -567,18 +568,21 @@ void GUISettingsMenu::drawMenu()
 		);
 		driver->draw2DRectangle(left, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
 		driver->draw2DRectangle(right, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, &AbsoluteClippingRect);
-		video::ITexture *texture = driver->getTexture(getTexturePath("menulogo.png").c_str());
-		if (texture != 0) {
-			const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
-			core::rect<s32> logo(
-				AbsoluteRect.UpperLeftCorner.X+25,
-				AbsoluteRect.UpperLeftCorner.Y,
-				AbsoluteRect.UpperLeftCorner.X+225,
-				AbsoluteRect.UpperLeftCorner.Y+200
-			);
-			const video::SColor color(255,255,255,255);
-			const video::SColor colors[] = {color,color,color,color};
-			driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+
+		if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
+			video::ITexture *texture = driver->getTexture(buff);
+			if (texture != 0) {
+				const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
+				core::rect<s32> logo(
+					AbsoluteRect.UpperLeftCorner.X+25,
+					AbsoluteRect.UpperLeftCorner.Y,
+					AbsoluteRect.UpperLeftCorner.X+225,
+					AbsoluteRect.UpperLeftCorner.Y+200
+				);
+				const video::SColor color(255,255,255,255);
+				const video::SColor colors[] = {color,color,color,color};
+				driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+			}
 		}
 	}
 
@@ -710,7 +714,7 @@ bool GUISettingsMenu::resetMenu()
 		gui::IGUIElement *e = getElementFromId(activeKey);
 		if (e != NULL && e->getType() == gui::EGUIET_BUTTON) {
 			e->setEnabled(true);
-			e->setText(keynames[activeKey-GUI_ID_KEYSETTINGS_BASE]);
+			e->setText(keynames[activeKey-GUI_ID_KEYSETTINGS_BASE].c_str());
 		}
 		activeKey = -1;
 		return false;
@@ -751,7 +755,7 @@ bool GUISettingsMenu::OnEvent(const SEvent& event)
 				activeKey = id;
 				gui::IGUIElement *e = getElementFromId(id);
 				if (e != NULL && e->getType() == gui::EGUIET_BUTTON) {
-					e->setText(wgettext("press Key"));
+					e->setText(narrow_to_wide(gettext("press Key")).c_str());
 					e->setEnabled(false);
 					return true;
 				}

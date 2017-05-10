@@ -109,7 +109,7 @@ void GUIMessageMenu::regenerateGui(v2u32 screensize)
 		rect = rect + v2s32(size.X/2-140/2, size.Y/2-30/2+25);
 		gui::IGUIElement *e =
 		Environment->addButton(rect, this, 257,
-			wgettext("Continue"));
+			narrow_to_wide(gettext("Continue")).c_str());
 		Environment->setFocus(e);
 	}
 }

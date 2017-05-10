@@ -132,33 +132,33 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 200, 40);
 		rect += v2s32(25, 200);
-		Environment->addButton(rect, this, GUI_ID_TAB_MP_MAINMENU, wgettext("Main Menu"));
+		Environment->addButton(rect, this, GUI_ID_TAB_MP_MAINMENU, narrow_to_wide(gettext("Main Menu")).c_str());
 	}
 
 	// Dynamic List button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 260);
-		Environment->addButton(rect, this, GUI_ID_TAB_MP_LIST, wgettext("All Servers"));
+		Environment->addButton(rect, this, GUI_ID_TAB_MP_LIST, narrow_to_wide(gettext("All Servers")).c_str());
 	}
 	// Favourites List button
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 305);
-		Environment->addButton(rect, this, GUI_ID_TAB_MP_FAVOURITES, wgettext("Favourite Servers"));
+		Environment->addButton(rect, this, GUI_ID_TAB_MP_FAVOURITES, narrow_to_wide(gettext("Favourite Servers")).c_str());
 	}
 	// Custom Connect button (the old multiplayer menu)
 	{
 		core::rect<s32> rect(0, 0, 180, 40);
 		rect += v2s32(35, 350);
-		Environment->addButton(rect, this, GUI_ID_TAB_MP_CUSTOM, wgettext("Custom Connect"));
+		Environment->addButton(rect, this, GUI_ID_TAB_MP_CUSTOM, narrow_to_wide(gettext("Custom Connect")).c_str());
 	}
 
 	v2s32 topleft_content(250, 0);
 	{
 		core::rect<s32> rect(0, 0, 550, 20);
 		rect += topleft_content + v2s32(0, 10);
-		gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Multi Player"), rect, false, true, this, -1);
+		gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Multi Player")).c_str(), rect, false, true, this, -1);
 		t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 	}
 
@@ -166,14 +166,14 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
 			rect += topleft_content + v2s32(0, 30);
-			gui::IGUIStaticText *t = Environment->addStaticText(wgettext("Custom Connection"), rect, false, true, this, -1);
+			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Custom Connection")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
 		// Address + port
 		{
 			core::rect<s32> rect(0, 0, 110, 20);
 			rect += topleft_content + v2s32(120, 60);
-			Environment->addStaticText(wgettext("Address/Port"), rect, false, true, this, -1);
+			Environment->addStaticText(narrow_to_wide(gettext("Address/Port")).c_str(), rect, false, true, this, -1);
 		}
 		{
 			if (text_address == L"")
@@ -198,19 +198,19 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 180, 30);
 			rect += topleft_content + v2s32(80, 160);
-			Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, wgettext("Add to Favourites"));
+			Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, narrow_to_wide(gettext("Add to Favourites")).c_str());
 		}
 		{
 			core::rect<s32> rect(0, 0, 180, 30);
 			rect += topleft_content + v2s32(270, 160);
-			Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
+			Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, narrow_to_wide(gettext("Connect")).c_str());
 		}
 	}else if (m_data.selected_tab == TAB_MP_CONNECT) {
 		// Nickname + password
 		{
 			core::rect<s32> rect(0, 0, 110, 20);
 			rect += topleft_content + v2s32(120, 60);
-			Environment->addStaticText(wgettext("Name/Password"), rect, false, true, this, -1);
+			Environment->addStaticText(narrow_to_wide(gettext("Name/Password")).c_str(), rect, false, true, this, -1);
 		}
 		{
 			core::rect<s32> rect(0, 0, 230, 30);
@@ -237,7 +237,7 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 180, 30);
 			rect += topleft_content + v2s32(160, 160);
-			Environment->addButton(rect, this, GUI_ID_START_BUTTON, wgettext("Join Server"));
+			Environment->addButton(rect, this, GUI_ID_START_BUTTON, narrow_to_wide(gettext("Join Server")).c_str());
 		}
 		}
 	}else{
@@ -259,15 +259,15 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 		}
 
 		if (m_data.selected_tab == TAB_MP_FAVOURITES) {
-			header->setText(wgettext("My Favourites"));
+			header->setText(narrow_to_wide(gettext("My Favourites")).c_str());
 			list = &m_data.favourites;
 		}else{
-			header->setText(wgettext("Server List"));
+			header->setText(narrow_to_wide(gettext("Server List")).c_str());
 			list = &m_data.servers;
 			{
 				core::rect<s32> rect(0, 0, 180, 25);
 				rect += topleft_content + v2s32(270, 260);
-				Environment->addButton(rect, this, GUI_ID_REFRESH_BUTTON, wgettext("Get New List"));
+				Environment->addButton(rect, this, GUI_ID_REFRESH_BUTTON, narrow_to_wide(gettext("Get New List")).c_str());
 			}
 		}
 
@@ -304,20 +304,20 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 					{
 						core::rect<s32> rect(0, 0, 180, 30);
 						rect += topleft_content + v2s32(80, 390);
-						Environment->addButton(rect, this, GUI_ID_REMFAV_BUTTON, wgettext("Remove from Favourites"));
+						Environment->addButton(rect, this, GUI_ID_REMFAV_BUTTON, narrow_to_wide(gettext("Remove from Favourites")).c_str());
 					}
 				}else{
 					{
 						core::rect<s32> rect(0, 0, 180, 30);
 						rect += topleft_content + v2s32(80, 390);
-						Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, wgettext("Add to Favourites"));
+						Environment->addButton(rect, this, GUI_ID_ADDFAV_BUTTON, narrow_to_wide(gettext("Add to Favourites")).c_str());
 					}
 				}
 
 				{
 					core::rect<s32> rect(0, 0, 180, 30);
 					rect += topleft_content + v2s32(270, 390);
-					Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, wgettext("Connect"));
+					Environment->addButton(rect, this, GUI_ID_CONNECT_BUTTON, narrow_to_wide(gettext("Connect")).c_str());
 				}
 			}
 		}
@@ -329,6 +329,7 @@ void GUIMultiplayerMenu::drawMenu()
 	video::IVideoDriver* driver = Environment->getVideoDriver();
 
 	{
+		char buff[1024];
 		core::rect<s32> left(
 			AbsoluteRect.UpperLeftCorner.X,
 			AbsoluteRect.UpperLeftCorner.Y,
@@ -343,18 +344,21 @@ void GUIMultiplayerMenu::drawMenu()
 		);
 		driver->draw2DRectangle(left, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
 		driver->draw2DRectangle(right, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, &AbsoluteClippingRect);
-		video::ITexture *texture = driver->getTexture(getTexturePath("menulogo.png").c_str());
-		if (texture != 0) {
-			const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
-			core::rect<s32> logo(
-				AbsoluteRect.UpperLeftCorner.X+25,
-				AbsoluteRect.UpperLeftCorner.Y,
-				AbsoluteRect.UpperLeftCorner.X+225,
-				AbsoluteRect.UpperLeftCorner.Y+200
-			);
-			const video::SColor color(255,255,255,255);
-			const video::SColor colors[] = {color,color,color,color};
-			driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+
+		if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
+			video::ITexture *texture = driver->getTexture(buff);
+			if (texture != 0) {
+				const core::dimension2d<u32>& img_origsize = texture->getOriginalSize();
+				core::rect<s32> logo(
+					AbsoluteRect.UpperLeftCorner.X+25,
+					AbsoluteRect.UpperLeftCorner.Y,
+					AbsoluteRect.UpperLeftCorner.X+225,
+					AbsoluteRect.UpperLeftCorner.Y+200
+				);
+				const video::SColor color(255,255,255,255);
+				const video::SColor colors[] = {color,color,color,color};
+				driver->draw2DImage(texture, logo, core::rect<s32>(core::position2d<s32>(0,0),img_origsize), NULL, colors, true);
+			}
 		}
 	}
 
@@ -597,12 +601,15 @@ bool GUIMultiplayerMenu::OnEvent(const SEvent& event)
 
 bool GUIMultiplayerMenu::fetchServers()
 {
+	char buff[1024];
 	char* u = const_cast<char*>("/list");
 	std::string data = http_request(NULL,u);
-	std::string path = getPath("","servers.txt",false);
+
+	if (!path_get((char*)"config",(char*)"servers.txt",0,buff,1024))
+		return false;
 
 	std::ofstream f;
-	f.open(path.c_str());
+	f.open(buff);
 	if (!f.is_open())
 		return false;
 
@@ -613,13 +620,13 @@ bool GUIMultiplayerMenu::fetchServers()
 }
 bool GUIMultiplayerMenu::loadServers()
 {
-	std::string path = getPath("","servers.txt",true);
-	if (path != "")
-		parseFile(path,m_data.servers);
+	char buff[1024];
 
-	path = getPath("","favourites.txt",true);
-	if (path != "")
-		parseFile(path,m_data.favourites);
+	if (path_get((char*)"config",(char*)"servers.txt",0,buff,1024))
+		parseFile(buff,m_data.servers);
+
+	if (path_get((char*)"config",(char*)"favourites.txt",0,buff,1024))
+		parseFile(buff,m_data.favourites);
 
 	if (m_data.favourites.size()) {
 		for (
@@ -653,9 +660,12 @@ bool GUIMultiplayerMenu::loadServers()
 }
 bool GUIMultiplayerMenu::saveFavourites()
 {
-	std::string path = getPath("","favourites.txt",false);
+	char buff[1024];
+	if (!path_get((char*)"config",(char*)"favourites.txt",0,buff,1024))
+		return false;
+
 	std::ofstream f;
-	f.open(path.c_str());
+	f.open(buff);
 	if (!f.is_open())
 		return false;
 

@@ -498,10 +498,10 @@ public:
 
 	bool loadSound(const std::string &name, const std::string &filepath, float gain)
 	{
-		std::string path = getPath("sound",filepath,true);
-		if (path == "")
+		char buff[1024];
+		if (!path_get((char*)"sound",const_cast<char*>(filepath.c_str()),1,buff,1024))
 			return false;
-		SoundBuffer *buf = loadOggFile(path);
+		SoundBuffer *buf = loadOggFile(buff);
 		if (buf == NULL)
 			return false;
 		buf->gain = gain;

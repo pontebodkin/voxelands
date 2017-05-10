@@ -49,7 +49,7 @@ void content_clothesitem_init()
 		g_content_clothesitem_features[k].content = CONTENT_IGNORE;
 		g_content_clothesitem_features[k].texture = std::string("unknown_item.png");
 		g_content_clothesitem_features[k].overlay_texture = std::string("");
-		g_content_clothesitem_features[k].description = std::wstring(L"");
+		g_content_clothesitem_features[k].description = (char*)"";
 		g_content_clothesitem_features[k].type = CT_NONE;
 		g_content_clothesitem_features[k].armour = 0.;
 		g_content_clothesitem_features[k].warmth = 0.;
@@ -64,7 +64,7 @@ void content_clothesitem_init()
 	f->content = i;
 	f->texture = "clothes_pants_space.png";
 	f->overlay_texture = "clothes_player_pants_space.png";
-	f->description = wgettext("Space Suit Pants");
+	f->description = gettext("Space Suit Pants");
 	f->type = CT_PANTS;
 	f->armour = 0.10;
 	f->warmth = 0.20;
@@ -86,7 +86,7 @@ void content_clothesitem_init()
 	f->content = i;
 	f->texture = "clothes_shirt_space.png";
 	f->overlay_texture = "clothes_player_shirt_space.png";
-	f->description = wgettext("Space Suit Shirt");
+	f->description = gettext("Space Suit Shirt");
 	f->type = CT_JACKET;
 	f->armour = 0.10;
 	f->warmth = 0.20;
@@ -108,7 +108,7 @@ void content_clothesitem_init()
 	f->content = i;
 	f->texture = "clothes_helmet_space.png";
 	f->overlay_texture = "clothes_player_helmet_space.png";
-	f->description = wgettext("Space Suit Helmet");
+	f->description = gettext("Space Suit Helmet");
 	f->type = CT_HAT;
 	f->armour = 0.05;
 	f->warmth = 0.15;
@@ -124,7 +124,7 @@ void content_clothesitem_init()
 	f->content = i;
 	f->texture = "clothes_boots_space.png";
 	f->overlay_texture = "clothes_player_boots_space.png";
-	f->description = wgettext("Space Suit Boots");
+	f->description = gettext("Space Suit Boots");
 	f->type = CT_BOOTS;
 	f->armour = 0.05;
 	f->warmth = 0.20;
@@ -141,7 +141,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_white.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_white.png";
-	f->description = wgettext("Cotton T-Shirt");
+	f->description = gettext("Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -155,7 +155,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_blue.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_blue.png";
-	f->description = wgettext("Blue Cotton T-Shirt");
+	f->description = gettext("Blue Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -169,7 +169,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_green.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_green.png";
-	f->description = wgettext("Green Cotton T-Shirt");
+	f->description = gettext("Green Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -183,7 +183,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_orange.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_orange.png";
-	f->description = wgettext("Orange Cotton Tshirt");
+	f->description = gettext("Orange Cotton Tshirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -197,7 +197,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_purple.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_purple.png";
-	f->description = wgettext("Purple Cotton T-Shirt");
+	f->description = gettext("Purple Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -211,7 +211,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_red.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_red.png";
-	f->description = wgettext("Red Cotton T-Shirt");
+	f->description = gettext("Red Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -225,7 +225,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_yellow.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_yellow.png";
-	f->description = wgettext("Yellow Cotton T-Shirt");
+	f->description = gettext("Yellow Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -239,7 +239,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_tshirt_cotton_black.png";
 	f->overlay_texture = "clothes_player_tshirt_cotton_black.png";
-	f->description = wgettext("Black Cotton T-Shirt");
+	f->description = gettext("Black Cotton T-Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -254,7 +254,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_white.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_white.png";
-	f->description = wgettext("Cotton Shirt");
+	f->description = gettext("Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -268,7 +268,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_blue.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_blue.png";
-	f->description = wgettext("Blue Cotton Shirt");
+	f->description = gettext("Blue Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -282,7 +282,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_green.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_green.png";
-	f->description = wgettext("Green Cotton Shirt");
+	f->description = gettext("Green Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -296,7 +296,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_orange.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_orange.png";
-	f->description = wgettext("Orange Cotton Shirt");
+	f->description = gettext("Orange Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -310,7 +310,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_purple.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_purple.png";
-	f->description = wgettext("Purple Cotton Shirt");
+	f->description = gettext("Purple Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -324,7 +324,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_red.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_red.png";
-	f->description = wgettext("Red Cotton Shirt");
+	f->description = gettext("Red Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -338,7 +338,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_yellow.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_yellow.png";
-	f->description = wgettext("Yellow Cotton Shirt");
+	f->description = gettext("Yellow Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -352,7 +352,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_cotton_black.png";
 	f->overlay_texture = "clothes_player_shirt_cotton_black.png";
-	f->description = wgettext("Black Cotton Shirt");
+	f->description = gettext("Black Cotton Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -367,7 +367,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_white.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_white.png";
-	f->description = wgettext("Cotton Shorts");
+	f->description = gettext("Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -382,7 +382,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_blue.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_blue.png";
-	f->description = wgettext("Blue Cotton Shorts");
+	f->description = gettext("Blue Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -397,7 +397,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_green.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_green.png";
-	f->description = wgettext("Green Cotton Shorts");
+	f->description = gettext("Green Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -412,7 +412,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_orange.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_orange.png";
-	f->description = wgettext("Orange Cotton Shorts");
+	f->description = gettext("Orange Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -427,7 +427,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_purple.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_purple.png";
-	f->description = wgettext("Purple Cotton Shorts");
+	f->description = gettext("Purple Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -442,7 +442,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_red.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_red.png";
-	f->description = wgettext("Red Cotton Shorts");
+	f->description = gettext("Red Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -457,7 +457,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_yellow.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_yellow.png";
-	f->description = wgettext("Yellow Cotton Shorts");
+	f->description = gettext("Yellow Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -472,7 +472,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_shorts_cotton_black.png";
 	f->overlay_texture = "clothes_player_shorts_cotton_black.png";
-	f->description = wgettext("Black Cotton Shorts");
+	f->description = gettext("Black Cotton Shorts");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -488,7 +488,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_white.png";
 	f->overlay_texture = "clothes_player_hat_cotton_white.png";
-	f->description = wgettext("Cotton Hat");
+	f->description = gettext("Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -502,7 +502,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_blue.png";
 	f->overlay_texture = "clothes_player_hat_cotton_blue.png";
-	f->description = wgettext("Blue Cotton Hat");
+	f->description = gettext("Blue Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -516,7 +516,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_green.png";
 	f->overlay_texture = "clothes_player_hat_cotton_green.png";
-	f->description = wgettext("Green Cotton Hat");
+	f->description = gettext("Green Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -530,7 +530,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_orange.png";
 	f->overlay_texture = "clothes_player_hat_cotton_orange.png";
-	f->description = wgettext("Orange Cotton Hat");
+	f->description = gettext("Orange Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -544,7 +544,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_purple.png";
 	f->overlay_texture = "clothes_player_hat_cotton_purple.png";
-	f->description = wgettext("Purple Cotton Hat");
+	f->description = gettext("Purple Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -558,7 +558,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_red.png";
 	f->overlay_texture = "clothes_player_hat_cotton_red.png";
-	f->description = wgettext("Red Cotton Hat");
+	f->description = gettext("Red Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -572,7 +572,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_yellow.png";
 	f->overlay_texture = "clothes_player_hat_cotton_yellow.png";
-	f->description = wgettext("Yellow Cotton Hat");
+	f->description = gettext("Yellow Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -586,7 +586,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_cotton_black.png";
 	f->overlay_texture = "clothes_player_hat_cotton_black.png";
-	f->description = wgettext("Black Cotton Hat");
+	f->description = gettext("Black Cotton Hat");
 	f->armour = 0.0;
 	f->warmth = 0.05;
 	f->vacuum = 0.0;
@@ -601,7 +601,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_white.png";
 	f->overlay_texture = "clothes_player_tie_cotton_white.png";
-	f->description = wgettext("Cotton Tie");
+	f->description = gettext("Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -615,7 +615,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_blue.png";
 	f->overlay_texture = "clothes_player_tie_cotton_blue.png";
-	f->description = wgettext("Blue Cotton Tie");
+	f->description = gettext("Blue Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -629,7 +629,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_green.png";
 	f->overlay_texture = "clothes_player_tie_cotton_green.png";
-	f->description = wgettext("Green Cotton Tie");
+	f->description = gettext("Green Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -643,7 +643,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_orange.png";
 	f->overlay_texture = "clothes_player_tie_cotton_orange.png";
-	f->description = wgettext("Orange Cotton Tie");
+	f->description = gettext("Orange Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -657,7 +657,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_purple.png";
 	f->overlay_texture = "clothes_player_tie_cotton_purple.png";
-	f->description = wgettext("Purple Cotton Tie");
+	f->description = gettext("Purple Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -671,7 +671,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_red.png";
 	f->overlay_texture = "clothes_player_tie_cotton_red.png";
-	f->description = wgettext("Red Cotton Tie");
+	f->description = gettext("Red Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -685,7 +685,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_yellow.png";
 	f->overlay_texture = "clothes_player_tie_cotton_yellow.png";
-	f->description = wgettext("Yellow Cotton Tie");
+	f->description = gettext("Yellow Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -699,7 +699,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_tie_cotton_black.png";
 	f->overlay_texture = "clothes_player_tie_cotton_black.png";
-	f->description = wgettext("Black Cotton Tie");
+	f->description = gettext("Black Cotton Tie");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -714,7 +714,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_white.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_white.png";
-	f->description = wgettext("Canvas Shirt");
+	f->description = gettext("Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -729,7 +729,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_blue.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_blue.png";
-	f->description = wgettext("Blue Canvas Shirt");
+	f->description = gettext("Blue Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -744,7 +744,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_green.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_green.png";
-	f->description = wgettext("Green Canvas Shirt");
+	f->description = gettext("Green Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -759,7 +759,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_orange.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_orange.png";
-	f->description = wgettext("Orange Canvas Shirt");
+	f->description = gettext("Orange Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -774,7 +774,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_purple.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_purple.png";
-	f->description = wgettext("Purple Canvas Shirt");
+	f->description = gettext("Purple Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -789,7 +789,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_red.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_red.png";
-	f->description = wgettext("Red Canvas Shirt");
+	f->description = gettext("Red Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -804,7 +804,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_yellow.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_yellow.png";
-	f->description = wgettext("Yellow Canvas Shirt");
+	f->description = gettext("Yellow Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -819,7 +819,7 @@ void content_clothesitem_init()
 	f->type = CT_SHIRT;
 	f->texture = "clothes_shirt_canvas_black.png";
 	f->overlay_texture = "clothes_player_shirt_canvas_black.png";
-	f->description = wgettext("Black Canvas Shirt");
+	f->description = gettext("Black Canvas Shirt");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -835,7 +835,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_white.png";
 	f->overlay_texture = "clothes_player_pants_canvas_white.png";
-	f->description = wgettext("Canvas Pants");
+	f->description = gettext("Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -850,7 +850,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_blue.png";
 	f->overlay_texture = "clothes_player_pants_canvas_blue.png";
-	f->description = wgettext("Blue Canvas Pants");
+	f->description = gettext("Blue Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -865,7 +865,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_green.png";
 	f->overlay_texture = "clothes_player_pants_canvas_green.png";
-	f->description = wgettext("Green Canvas Pants");
+	f->description = gettext("Green Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -880,7 +880,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_orange.png";
 	f->overlay_texture = "clothes_player_pants_canvas_orange.png";
-	f->description = wgettext("Orange Canvas Pants");
+	f->description = gettext("Orange Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -895,7 +895,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_purple.png";
 	f->overlay_texture = "clothes_player_pants_canvas_purple.png";
-	f->description = wgettext("Purple Canvas Pants");
+	f->description = gettext("Purple Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -910,7 +910,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_red.png";
 	f->overlay_texture = "clothes_player_pants_canvas_red.png";
-	f->description = wgettext("Red Canvas Pants");
+	f->description = gettext("Red Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -925,7 +925,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_yellow.png";
 	f->overlay_texture = "clothes_player_pants_canvas_yellow.png";
-	f->description = wgettext("Yellow Canvas Pants");
+	f->description = gettext("Yellow Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -940,7 +940,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_canvas_black.png";
 	f->overlay_texture = "clothes_player_pants_canvas_black.png";
-	f->description = wgettext("Black Canvas Pants");
+	f->description = gettext("Black Canvas Pants");
 	f->armour = 0.0;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -956,7 +956,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_white.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_white.png";
-	f->description = wgettext("Canvas Shoes");
+	f->description = gettext("Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -970,7 +970,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_blue.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_blue.png";
-	f->description = wgettext("Blue Canvas Shoes");
+	f->description = gettext("Blue Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -984,7 +984,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_green.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_green.png";
-	f->description = wgettext("Green Canvas Shoes");
+	f->description = gettext("Green Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -998,7 +998,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_orange.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_orange.png";
-	f->description = wgettext("Orange Canvas Shoes");
+	f->description = gettext("Orange Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -1012,7 +1012,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_purple.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_purple.png";
-	f->description = wgettext("Purple Canvas Shoes");
+	f->description = gettext("Purple Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -1026,7 +1026,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_red.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_red.png";
-	f->description = wgettext("Red Canvas Shoes");
+	f->description = gettext("Red Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -1040,7 +1040,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_yellow.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_yellow.png";
-	f->description = wgettext("Yellow Canvas Shoes");
+	f->description = gettext("Yellow Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -1054,7 +1054,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_canvas_black.png";
 	f->overlay_texture = "clothes_player_shoes_canvas_black.png";
-	f->description = wgettext("Black Canvas Shoes");
+	f->description = gettext("Black Canvas Shoes");
 	f->armour = 0.05;
 	f->warmth = 0.45;
 	f->vacuum = 0.0;
@@ -1069,7 +1069,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_white.png";
 	f->overlay_texture = "clothes_player_belt_canvas_white.png";
-	f->description = wgettext("Canvas Belt");
+	f->description = gettext("Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1083,7 +1083,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_blue.png";
 	f->overlay_texture = "clothes_player_belt_canvas_blue.png";
-	f->description = wgettext("Blue Canvas Belt");
+	f->description = gettext("Blue Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1097,7 +1097,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_green.png";
 	f->overlay_texture = "clothes_player_belt_canvas_green.png";
-	f->description = wgettext("Green Canvas Belt");
+	f->description = gettext("Green Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1111,7 +1111,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_orange.png";
 	f->overlay_texture = "clothes_player_belt_canvas_orange.png";
-	f->description = wgettext("Orange Canvas Belt");
+	f->description = gettext("Orange Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1125,7 +1125,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_purple.png";
 	f->overlay_texture = "clothes_player_belt_canvas_purple.png";
-	f->description = wgettext("Purple Canvas Belt");
+	f->description = gettext("Purple Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1139,7 +1139,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_red.png";
 	f->overlay_texture = "clothes_player_belt_canvas_red.png";
-	f->description = wgettext("Red Canvas Belt");
+	f->description = gettext("Red Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1153,7 +1153,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_yellow.png";
 	f->overlay_texture = "clothes_player_belt_canvas_yellow.png";
-	f->description = wgettext("Yellow Canvas Belt");
+	f->description = gettext("Yellow Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1167,7 +1167,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_canvas_black.png";
 	f->overlay_texture = "clothes_player_belt_canvas_black.png";
-	f->description = wgettext("Black Canvas Belt");
+	f->description = gettext("Black Canvas Belt");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -1182,7 +1182,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_brown.png";
 	f->overlay_texture = "clothes_player_jacket_leather_brown.png";
-	f->description = wgettext("Leather Jacket");
+	f->description = gettext("Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1197,7 +1197,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_white.png";
 	f->overlay_texture = "clothes_player_jacket_leather_white.png";
-	f->description = wgettext("White Leather Jacket");
+	f->description = gettext("White Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1212,7 +1212,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_blue.png";
 	f->overlay_texture = "clothes_player_jacket_leather_blue.png";
-	f->description = wgettext("Blue Leather Jacket");
+	f->description = gettext("Blue Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1227,7 +1227,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_green.png";
 	f->overlay_texture = "clothes_player_jacket_leather_green.png";
-	f->description = wgettext("Green Leather Jacket");
+	f->description = gettext("Green Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1242,7 +1242,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_orange.png";
 	f->overlay_texture = "clothes_player_jacket_leather_orange.png";
-	f->description = wgettext("Orange Leather Jacket");
+	f->description = gettext("Orange Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1257,7 +1257,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_purple.png";
 	f->overlay_texture = "clothes_player_jacket_leather_purple.png";
-	f->description = wgettext("Purple Leather Jacket");
+	f->description = gettext("Purple Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1272,7 +1272,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_red.png";
 	f->overlay_texture = "clothes_player_jacket_leather_red.png";
-	f->description = wgettext("Red Leather Jacket");
+	f->description = gettext("Red Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1287,7 +1287,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_yellow.png";
 	f->overlay_texture = "clothes_player_jacket_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Jacket");
+	f->description = gettext("Yellow Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1302,7 +1302,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_leather_black.png";
 	f->overlay_texture = "clothes_player_jacket_leather_black.png";
-	f->description = wgettext("Black Leather Jacket");
+	f->description = gettext("Black Leather Jacket");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1318,7 +1318,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_brown.png";
 	f->overlay_texture = "clothes_player_pants_leather_brown.png";
-	f->description = wgettext("Leather Pants");
+	f->description = gettext("Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1333,7 +1333,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_white.png";
 	f->overlay_texture = "clothes_player_pants_leather_white.png";
-	f->description = wgettext("White Leather Pants");
+	f->description = gettext("White Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1348,7 +1348,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_blue.png";
 	f->overlay_texture = "clothes_player_pants_leather_blue.png";
-	f->description = wgettext("Blue Leather Pants");
+	f->description = gettext("Blue Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1363,7 +1363,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_green.png";
 	f->overlay_texture = "clothes_player_pants_leather_green.png";
-	f->description = wgettext("Green Leather Pants");
+	f->description = gettext("Green Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1378,7 +1378,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_orange.png";
 	f->overlay_texture = "clothes_player_pants_leather_orange.png";
-	f->description = wgettext("Orange Leather Pants");
+	f->description = gettext("Orange Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1393,7 +1393,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_purple.png";
 	f->overlay_texture = "clothes_player_pants_leather_purple.png";
-	f->description = wgettext("Purple Leather Pants");
+	f->description = gettext("Purple Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1408,7 +1408,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_red.png";
 	f->overlay_texture = "clothes_player_pants_leather_red.png";
-	f->description = wgettext("Red Leather Pants");
+	f->description = gettext("Red Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1423,7 +1423,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_yellow.png";
 	f->overlay_texture = "clothes_player_pants_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Pants");
+	f->description = gettext("Yellow Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1438,7 +1438,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_leather_black.png";
 	f->overlay_texture = "clothes_player_pants_leather_black.png";
-	f->description = wgettext("Black Leather Pants");
+	f->description = gettext("Black Leather Pants");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1454,7 +1454,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_brown.png";
 	f->overlay_texture = "clothes_player_hat_leather_brown.png";
-	f->description = wgettext("Leather Hat");
+	f->description = gettext("Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1468,7 +1468,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_white.png";
 	f->overlay_texture = "clothes_player_hat_leather_white.png";
-	f->description = wgettext("White Leather Hat");
+	f->description = gettext("White Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1482,7 +1482,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_blue.png";
 	f->overlay_texture = "clothes_player_hat_leather_blue.png";
-	f->description = wgettext("Blue Leather Hat");
+	f->description = gettext("Blue Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1496,7 +1496,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_green.png";
 	f->overlay_texture = "clothes_player_hat_leather_green.png";
-	f->description = wgettext("Green Leather Hat");
+	f->description = gettext("Green Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 1.0;
 	f->vacuum = 0.1;
@@ -1510,7 +1510,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_orange.png";
 	f->overlay_texture = "clothes_player_hat_leather_orange.png";
-	f->description = wgettext("Orange Leather Hat");
+	f->description = gettext("Orange Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1524,7 +1524,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_purple.png";
 	f->overlay_texture = "clothes_player_hat_leather_purple.png";
-	f->description = wgettext("Purple Leather Hat");
+	f->description = gettext("Purple Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1538,7 +1538,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_red.png";
 	f->overlay_texture = "clothes_player_hat_leather_red.png";
-	f->description = wgettext("Red Leather Hat");
+	f->description = gettext("Red Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1552,7 +1552,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_yellow.png";
 	f->overlay_texture = "clothes_player_hat_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Hat");
+	f->description = gettext("Yellow Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1566,7 +1566,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_leather_black.png";
 	f->overlay_texture = "clothes_player_hat_leather_black.png";
-	f->description = wgettext("Black Leather Hat");
+	f->description = gettext("Black Leather Hat");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1581,7 +1581,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_brown.png";
 	f->overlay_texture = "clothes_player_helmet_leather_brown.png";
-	f->description = wgettext("Leather Helmet");
+	f->description = gettext("Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1596,7 +1596,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_white.png";
 	f->overlay_texture = "clothes_player_helmet_leather_white.png";
-	f->description = wgettext("White Leather Helmet");
+	f->description = gettext("White Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1611,7 +1611,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_blue.png";
 	f->overlay_texture = "clothes_player_helmet_leather_blue.png";
-	f->description = wgettext("Blue Leather Helmet");
+	f->description = gettext("Blue Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1626,7 +1626,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_green.png";
 	f->overlay_texture = "clothes_player_helmet_leather_green.png";
-	f->description = wgettext("Green Leather Helmet");
+	f->description = gettext("Green Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1641,7 +1641,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_orange.png";
 	f->overlay_texture = "clothes_player_helmet_leather_orange.png";
-	f->description = wgettext("Orange Leather Helmet");
+	f->description = gettext("Orange Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1656,7 +1656,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_purple.png";
 	f->overlay_texture = "clothes_player_helmet_leather_purple.png";
-	f->description = wgettext("Purple Leather Helmet");
+	f->description = gettext("Purple Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1671,7 +1671,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_red.png";
 	f->overlay_texture = "clothes_player_helmet_leather_red.png";
-	f->description = wgettext("Red Leather Helmet");
+	f->description = gettext("Red Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1686,7 +1686,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_yellow.png";
 	f->overlay_texture = "clothes_player_helmet_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Helmet");
+	f->description = gettext("Yellow Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1701,7 +1701,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_leather_black.png";
 	f->overlay_texture = "clothes_player_helmet_leather_black.png";
-	f->description = wgettext("Black Leather Helmet");
+	f->description = gettext("Black Leather Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1717,7 +1717,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_brown.png";
 	f->overlay_texture = "clothes_player_shoes_leather_brown.png";
-	f->description = wgettext("Leather Shoes");
+	f->description = gettext("Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1732,7 +1732,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_white.png";
 	f->overlay_texture = "clothes_player_shoes_leather_white.png";
-	f->description = wgettext("White Leather Shoes");
+	f->description = gettext("White Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1747,7 +1747,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_blue.png";
 	f->overlay_texture = "clothes_player_shoes_leather_blue.png";
-	f->description = wgettext("Blue Leather Shoes");
+	f->description = gettext("Blue Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1762,7 +1762,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_green.png";
 	f->overlay_texture = "clothes_player_shoes_leather_green.png";
-	f->description = wgettext("Green Leather Shoes");
+	f->description = gettext("Green Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1777,7 +1777,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_orange.png";
 	f->overlay_texture = "clothes_player_shoes_leather_orange.png";
-	f->description = wgettext("Orange Leather Shoes");
+	f->description = gettext("Orange Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1792,7 +1792,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_purple.png";
 	f->overlay_texture = "clothes_player_shoes_leather_purple.png";
-	f->description = wgettext("Purple Leather Shoes");
+	f->description = gettext("Purple Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1807,7 +1807,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_red.png";
 	f->overlay_texture = "clothes_player_shoes_leather_red.png";
-	f->description = wgettext("Red Leather Shoes");
+	f->description = gettext("Red Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1822,7 +1822,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_yellow.png";
 	f->overlay_texture = "clothes_player_shoes_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Shoes");
+	f->description = gettext("Yellow Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1837,7 +1837,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_leather_black.png";
 	f->overlay_texture = "clothes_player_shoes_leather_black.png";
-	f->description = wgettext("Black Leather Shoes");
+	f->description = gettext("Black Leather Shoes");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1853,7 +1853,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_brown.png";
 	f->overlay_texture = "clothes_player_boots_leather_brown.png";
-	f->description = wgettext("Leather Boots");
+	f->description = gettext("Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1868,7 +1868,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_white.png";
 	f->overlay_texture = "clothes_player_boots_leather_white.png";
-	f->description = wgettext("White Leather Boots");
+	f->description = gettext("White Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1883,7 +1883,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_blue.png";
 	f->overlay_texture = "clothes_player_boots_leather_blue.png";
-	f->description = wgettext("Blue Leather Boots");
+	f->description = gettext("Blue Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1898,7 +1898,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_green.png";
 	f->overlay_texture = "clothes_player_boots_leather_green.png";
-	f->description = wgettext("Green Leather Boots");
+	f->description = gettext("Green Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1913,7 +1913,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_orange.png";
 	f->overlay_texture = "clothes_player_boots_leather_orange.png";
-	f->description = wgettext("Orange Leather Boots");
+	f->description = gettext("Orange Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1928,7 +1928,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_purple.png";
 	f->overlay_texture = "clothes_player_boots_leather_purple.png";
-	f->description = wgettext("Purple Leather Boots");
+	f->description = gettext("Purple Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1943,7 +1943,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_red.png";
 	f->overlay_texture = "clothes_player_boots_leather_red.png";
-	f->description = wgettext("Red Leather Boots");
+	f->description = gettext("Red Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1958,7 +1958,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_yellow.png";
 	f->overlay_texture = "clothes_player_boots_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Boots");
+	f->description = gettext("Yellow Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1973,7 +1973,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_leather_black.png";
 	f->overlay_texture = "clothes_player_boots_leather_black.png";
-	f->description = wgettext("Black Leather Boots");
+	f->description = gettext("Black Leather Boots");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -1989,7 +1989,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_brown.png";
 	f->overlay_texture = "clothes_player_belt_leather_brown.png";
-	f->description = wgettext("Leather Belt");
+	f->description = gettext("Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2004,7 +2004,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_white.png";
 	f->overlay_texture = "clothes_player_belt_leather_white.png";
-	f->description = wgettext("White Leather Belt");
+	f->description = gettext("White Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2019,7 +2019,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_blue.png";
 	f->overlay_texture = "clothes_player_belt_leather_blue.png";
-	f->description = wgettext("Blue Leather Belt");
+	f->description = gettext("Blue Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2034,7 +2034,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_green.png";
 	f->overlay_texture = "clothes_player_belt_leather_green.png";
-	f->description = wgettext("Green Leather Belt");
+	f->description = gettext("Green Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2049,7 +2049,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_orange.png";
 	f->overlay_texture = "clothes_player_belt_leather_orange.png";
-	f->description = wgettext("Orange Leather Belt");
+	f->description = gettext("Orange Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2064,7 +2064,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_purple.png";
 	f->overlay_texture = "clothes_player_belt_leather_purple.png";
-	f->description = wgettext("Purple Leather Belt");
+	f->description = gettext("Purple Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2079,7 +2079,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_red.png";
 	f->overlay_texture = "clothes_player_belt_leather_red.png";
-	f->description = wgettext("Red Leather Belt");
+	f->description = gettext("Red Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2094,7 +2094,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_yellow.png";
 	f->overlay_texture = "clothes_player_belt_leather_yellow.png";
-	f->description = wgettext("Yellow Leather Belt");
+	f->description = gettext("Yellow Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2109,7 +2109,7 @@ void content_clothesitem_init()
 	f->type = CT_BELT;
 	f->texture = "clothes_belt_leather_black.png";
 	f->overlay_texture = "clothes_player_belt_leather_black.png";
-	f->description = wgettext("Black Leather Belt");
+	f->description = gettext("Black Leather Belt");
 	f->armour = 1.0;
 	f->warmth = 0.6;
 	f->vacuum = 0.1;
@@ -2125,7 +2125,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_brown.png";
 	f->overlay_texture = "clothes_player_jacket_fur_brown.png";
-	f->description = wgettext("Fur Coat");
+	f->description = gettext("Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2140,7 +2140,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_white.png";
 	f->overlay_texture = "clothes_player_jacket_fur_white.png";
-	f->description = wgettext("White Fur Coat");
+	f->description = gettext("White Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2155,7 +2155,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_blue.png";
 	f->overlay_texture = "clothes_player_jacket_fur_blue.png";
-	f->description = wgettext("Blue Fur Coat");
+	f->description = gettext("Blue Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2170,7 +2170,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_green.png";
 	f->overlay_texture = "clothes_player_jacket_fur_green.png";
-	f->description = wgettext("Green Fur Coat");
+	f->description = gettext("Green Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2185,7 +2185,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_orange.png";
 	f->overlay_texture = "clothes_player_jacket_fur_orange.png";
-	f->description = wgettext("Orange Fur Coat");
+	f->description = gettext("Orange Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2200,7 +2200,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_purple.png";
 	f->overlay_texture = "clothes_player_jacket_fur_purple.png";
-	f->description = wgettext("Purple Fur Coat");
+	f->description = gettext("Purple Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2215,7 +2215,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_red.png";
 	f->overlay_texture = "clothes_player_jacket_fur_red.png";
-	f->description = wgettext("Red Fur Coat");
+	f->description = gettext("Red Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2230,7 +2230,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_yellow.png";
 	f->overlay_texture = "clothes_player_jacket_fur_yellow.png";
-	f->description = wgettext("Yellow Fur Coat");
+	f->description = gettext("Yellow Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2245,7 +2245,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_jacket_fur_black.png";
 	f->overlay_texture = "clothes_player_jacket_fur_black.png";
-	f->description = wgettext("Black Fur Coat");
+	f->description = gettext("Black Fur Coat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2261,7 +2261,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_brown.png";
 	f->overlay_texture = "clothes_player_pants_fur_brown.png";
-	f->description = wgettext("Fur Pants");
+	f->description = gettext("Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2276,7 +2276,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_white.png";
 	f->overlay_texture = "clothes_player_pants_fur_white.png";
-	f->description = wgettext("White Fur Pants");
+	f->description = gettext("White Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2291,7 +2291,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_blue.png";
 	f->overlay_texture = "clothes_player_pants_fur_blue.png";
-	f->description = wgettext("Blue Fur Pants");
+	f->description = gettext("Blue Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2306,7 +2306,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_green.png";
 	f->overlay_texture = "clothes_player_pants_fur_green.png";
-	f->description = wgettext("Green Fur Pants");
+	f->description = gettext("Green Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2321,7 +2321,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_orange.png";
 	f->overlay_texture = "clothes_player_pants_fur_orange.png";
-	f->description = wgettext("Orange Fur Pants");
+	f->description = gettext("Orange Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2336,7 +2336,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_purple.png";
 	f->overlay_texture = "clothes_player_pants_fur_purple.png";
-	f->description = wgettext("Purple Fur Pants");
+	f->description = gettext("Purple Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2351,7 +2351,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_red.png";
 	f->overlay_texture = "clothes_player_pants_fur_red.png";
-	f->description = wgettext("Red Fur Pants");
+	f->description = gettext("Red Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2366,7 +2366,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_yellow.png";
 	f->overlay_texture = "clothes_player_pants_fur_yellow.png";
-	f->description = wgettext("Yellow Fur Pants");
+	f->description = gettext("Yellow Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2381,7 +2381,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_fur_black.png";
 	f->overlay_texture = "clothes_player_pants_fur_black.png";
-	f->description = wgettext("Black Fur Pants");
+	f->description = gettext("Black Fur Pants");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2397,7 +2397,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_brown.png";
 	f->overlay_texture = "clothes_player_hat_fur_brown.png";
-	f->description = wgettext("Fur Hat");
+	f->description = gettext("Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2412,7 +2412,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_white.png";
 	f->overlay_texture = "clothes_player_hat_fur_white.png";
-	f->description = wgettext("White Fur Hat");
+	f->description = gettext("White Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2427,7 +2427,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_blue.png";
 	f->overlay_texture = "clothes_player_hat_fur_blue.png";
-	f->description = wgettext("Blue Fur Hat");
+	f->description = gettext("Blue Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2442,7 +2442,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_green.png";
 	f->overlay_texture = "clothes_player_hat_fur_green.png";
-	f->description = wgettext("Green Fur Hat");
+	f->description = gettext("Green Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2457,7 +2457,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_orange.png";
 	f->overlay_texture = "clothes_player_hat_fur_orange.png";
-	f->description = wgettext("Orange Fur Hat");
+	f->description = gettext("Orange Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2472,7 +2472,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_purple.png";
 	f->overlay_texture = "clothes_player_hat_fur_purple.png";
-	f->description = wgettext("Purple Fur Hat");
+	f->description = gettext("Purple Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2487,7 +2487,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_red.png";
 	f->overlay_texture = "clothes_player_hat_fur_red.png";
-	f->description = wgettext("Red Fur Hat");
+	f->description = gettext("Red Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2502,7 +2502,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_yellow.png";
 	f->overlay_texture = "clothes_player_hat_fur_yellow.png";
-	f->description = wgettext("Yellow Fur Hat");
+	f->description = gettext("Yellow Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2517,7 +2517,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_hat_fur_black.png";
 	f->overlay_texture = "clothes_player_hat_fur_black.png";
-	f->description = wgettext("Black Fur Hat");
+	f->description = gettext("Black Fur Hat");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2533,7 +2533,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_brown.png";
 	f->overlay_texture = "clothes_player_shoes_fur_brown.png";
-	f->description = wgettext("Fur Shoes");
+	f->description = gettext("Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2547,7 +2547,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_white.png";
 	f->overlay_texture = "clothes_player_shoes_fur_white.png";
-	f->description = wgettext("White Fur Shoes");
+	f->description = gettext("White Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2561,7 +2561,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_blue.png";
 	f->overlay_texture = "clothes_player_shoes_fur_blue.png";
-	f->description = wgettext("Blue Fur Shoes");
+	f->description = gettext("Blue Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2575,7 +2575,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_green.png";
 	f->overlay_texture = "clothes_player_shoes_fur_green.png";
-	f->description = wgettext("Green Fur Shoes");
+	f->description = gettext("Green Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2589,7 +2589,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_orange.png";
 	f->overlay_texture = "clothes_player_shoes_fur_orange.png";
-	f->description = wgettext("Orange Fur Shoes");
+	f->description = gettext("Orange Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2603,7 +2603,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_purple.png";
 	f->overlay_texture = "clothes_player_shoes_fur_purple.png";
-	f->description = wgettext("Purple Fur Shoes");
+	f->description = gettext("Purple Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2617,7 +2617,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_red.png";
 	f->overlay_texture = "clothes_player_shoes_fur_red.png";
-	f->description = wgettext("Red Fur Shoes");
+	f->description = gettext("Red Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2631,7 +2631,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_yellow.png";
 	f->overlay_texture = "clothes_player_shoes_fur_yellow.png";
-	f->description = wgettext("Yellow Fur Shoes");
+	f->description = gettext("Yellow Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2645,7 +2645,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_shoes_fur_black.png";
 	f->overlay_texture = "clothes_player_shoes_fur_black.png";
-	f->description = wgettext("Black Fur Shoes");
+	f->description = gettext("Black Fur Shoes");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2660,7 +2660,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_brown.png";
 	f->overlay_texture = "clothes_player_boots_fur_brown.png";
-	f->description = wgettext("Fur Boots");
+	f->description = gettext("Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2675,7 +2675,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_white.png";
 	f->overlay_texture = "clothes_player_boots_fur_white.png";
-	f->description = wgettext("White Fur Boots");
+	f->description = gettext("White Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2690,7 +2690,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_blue.png";
 	f->overlay_texture = "clothes_player_boots_fur_blue.png";
-	f->description = wgettext("Blue Fur Boots");
+	f->description = gettext("Blue Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2705,7 +2705,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_green.png";
 	f->overlay_texture = "clothes_player_boots_fur_green.png";
-	f->description = wgettext("Green Fur Boots");
+	f->description = gettext("Green Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2720,7 +2720,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_orange.png";
 	f->overlay_texture = "clothes_player_boots_fur_orange.png";
-	f->description = wgettext("Orange Fur Boots");
+	f->description = gettext("Orange Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2735,7 +2735,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_purple.png";
 	f->overlay_texture = "clothes_player_boots_fur_purple.png";
-	f->description = wgettext("Purple Fur Boots");
+	f->description = gettext("Purple Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2750,7 +2750,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_red.png";
 	f->overlay_texture = "clothes_player_boots_fur_red.png";
-	f->description = wgettext("Red Fur Boots");
+	f->description = gettext("Red Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2765,7 +2765,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_yellow.png";
 	f->overlay_texture = "clothes_player_boots_fur_yellow.png";
-	f->description = wgettext("Yellow Fur Boots");
+	f->description = gettext("Yellow Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2780,7 +2780,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_fur_black.png";
 	f->overlay_texture = "clothes_player_boots_fur_black.png";
-	f->description = wgettext("Black Fur Boots");
+	f->description = gettext("Black Fur Boots");
 	f->armour = 0.4;
 	f->warmth = 1.0;
 	f->vacuum = 0.05;
@@ -2796,7 +2796,7 @@ void content_clothesitem_init()
 	f->type = CT_DECORATIVE;
 	f->texture = "clothes_necklace_leather.png";
 	f->overlay_texture = "clothes_player_necklace_leather.png";
-	f->description = wgettext("Leather Necklace");
+	f->description = gettext("Leather Necklace");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2819,7 +2819,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_gold.png";
 	f->overlay_texture = "clothes_player_medallion_gold.png";
-	f->description = wgettext("Gold Medallion");
+	f->description = gettext("Gold Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2835,7 +2835,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_copper.png";
 	f->overlay_texture = "clothes_player_medallion_copper.png";
-	f->description = wgettext("Copper Medallion");
+	f->description = gettext("Copper Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2851,7 +2851,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_silver.png";
 	f->overlay_texture = "clothes_player_medallion_silver.png";
-	f->description = wgettext("Silver Medallion");
+	f->description = gettext("Silver Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2867,7 +2867,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_tin.png";
 	f->overlay_texture = "clothes_player_medallion_tin.png";
-	f->description = wgettext("Tin Medallion");
+	f->description = gettext("Tin Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2883,7 +2883,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_iron.png";
 	f->overlay_texture = "clothes_player_medallion_iron.png";
-	f->description = wgettext("Iron Medallion");
+	f->description = gettext("Iron Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2899,7 +2899,7 @@ void content_clothesitem_init()
 	f->type = CT_MEDALLION;
 	f->texture = "clothes_medallion_quartz.png";
 	f->overlay_texture = "clothes_player_medallion_quartz.png";
-	f->description = wgettext("Quartz Medallion");
+	f->description = gettext("Quartz Medallion");
 	f->armour = 0.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2916,7 +2916,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_steel.png";
 	f->overlay_texture = "clothes_player_helmet_steel.png";
-	f->description = wgettext("Steel Helmet");
+	f->description = gettext("Steel Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
@@ -2931,7 +2931,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_shirt_steel.png";
 	f->overlay_texture = "clothes_player_shirt_steel.png";
-	f->description = wgettext("Steel Chest Armour");
+	f->description = gettext("Steel Chest Armour");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
@@ -2946,7 +2946,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_steel.png";
 	f->overlay_texture = "clothes_player_pants_steel.png";
-	f->description = wgettext("Steel Pants");
+	f->description = gettext("Steel Pants");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
@@ -2961,7 +2961,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_steel.png";
 	f->overlay_texture = "clothes_player_boots_steel.png";
-	f->description = wgettext("Steel Boots");
+	f->description = gettext("Steel Boots");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
@@ -2976,7 +2976,7 @@ void content_clothesitem_init()
 	f->type = CT_HAT;
 	f->texture = "clothes_helmet_copper.png";
 	f->overlay_texture = "clothes_player_helmet_copper.png";
-	f->description = wgettext("Copper Helmet");
+	f->description = gettext("Copper Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -2990,7 +2990,7 @@ void content_clothesitem_init()
 	f->type = CT_JACKET;
 	f->texture = "clothes_shirt_copper.png";
 	f->overlay_texture = "clothes_player_shirt_copper.png";
-	f->description = wgettext("Copper Chest Armour");
+	f->description = gettext("Copper Chest Armour");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -3004,7 +3004,7 @@ void content_clothesitem_init()
 	f->type = CT_PANTS;
 	f->texture = "clothes_pants_copper.png";
 	f->overlay_texture = "clothes_player_pants_copper.png";
-	f->description = wgettext("Copper Pants");
+	f->description = gettext("Copper Pants");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;
@@ -3018,7 +3018,7 @@ void content_clothesitem_init()
 	f->type = CT_BOOTS;
 	f->texture = "clothes_boots_copper.png";
 	f->overlay_texture = "clothes_player_boots_copper.png";
-	f->description = wgettext("Copper Boots");
+	f->description = gettext("Copper Boots");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.0;

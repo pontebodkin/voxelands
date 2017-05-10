@@ -102,7 +102,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 110, 20);
 		rect += topleft_client + v2s32(35, ypos+6);
-		Environment->addStaticText(wgettext("Old Password"), rect, false, true, this, -1);
+		Environment->addStaticText(narrow_to_wide(gettext("Old Password")).c_str(), rect, false, true, this, -1);
 	}
 	{
 		core::rect<s32> rect(0, 0, 230, 30);
@@ -120,7 +120,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 110, 20);
 		rect += topleft_client + v2s32(35, ypos+6);
-		Environment->addStaticText(wgettext("New Password"), rect, false, true, this, -1);
+		Environment->addStaticText(narrow_to_wide(gettext("New Password")).c_str(), rect, false, true, this, -1);
 	}
 	{
 		core::rect<s32> rect(0, 0, 230, 30);
@@ -137,7 +137,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 110, 20);
 		rect += topleft_client + v2s32(35, ypos+6);
-		Environment->addStaticText(wgettext("Confirm Password"), rect, false, true, this, -1);
+		Environment->addStaticText(narrow_to_wide(gettext("Confirm Password")).c_str(), rect, false, true, this, -1);
 	}
 	{
 		core::rect<s32> rect(0, 0, 230, 30);
@@ -155,7 +155,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 	{
 		core::rect<s32> rect(0, 0, 140, 30);
 		rect = rect + v2s32(size.X/2-140/2, ypos);
-		Environment->addButton(rect, this, ID_change, wgettext("Change"));
+		Environment->addButton(rect, this, ID_change, narrow_to_wide(gettext("Change")).c_str());
 	}
 
 	ypos += 50;
@@ -163,7 +163,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 		core::rect<s32> rect(0, 0, 300, 20);
 		rect += topleft_client + v2s32(35, ypos);
 		IGUIElement *e =
-		Environment->addStaticText(wgettext("Passwords do not match!"), rect, false, true, this, ID_message);
+		Environment->addStaticText(narrow_to_wide(gettext("Passwords do not match!")).c_str(), rect, false, true, this, ID_message);
 		e->setVisible(false);
 	}
 

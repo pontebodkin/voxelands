@@ -30,6 +30,15 @@
 #include "intl.h"
 #include "environment.h"
 
+video::ITexture *getTexture(video::IVideoDriver *driver, const char* tex)
+{
+	char buff[1024];
+	if (!path_get((char*)"texture",const_cast<char*>(tex),1,buff,1024))
+		return NULL;
+
+	return driver->getTexture(buff);
+}
+
 void draw_image(
 	video::IVideoDriver *driver,
 	video::ITexture *texture,
@@ -117,7 +126,7 @@ void draw_progress_ring(
 {
 	if (!value)
 		return;
-	video::ITexture *texture = driver->getTexture(getTexturePath("progress_ring.png").c_str());
+	video::ITexture *texture = getTexture(driver,"progress_ring.png");
 	core::rect<s32> rect(pos.X-radius,pos.Y-radius,pos.X+radius,pos.Y+radius);
 	if (value >= 25) {
 		if (value >= 50) {
@@ -324,7 +333,7 @@ void hud_draw_old(
 	for (s32 k=0; k<3; k++) {
 		if (barData[k].count == 10 && !barData[k].show_full)
 			continue;
-		video::ITexture *texture = driver->getTexture(getTexturePath(barData[k].texture).c_str());
+		video::ITexture *texture = getTexture(driver,barData[k].texture);
 		v2s32 p = pos + bar_base;
 		for (s32 i=0; i<barData[k].count; i++) {
 			const video::SColor color(255,255,255,255);
@@ -396,7 +405,7 @@ void hud_draw(
 	// background
 	{
 		const video::SColor color(255,255,255,255);
-		video::ITexture *texture = driver->getTexture(getTexturePath("ringbg.png").c_str());
+		video::ITexture *texture = getTexture(driver,"ringbg.png");
 		core::rect<s32> rect(screensize.X-165,screensize.Y-165,screensize.X-19,screensize.Y-19);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 	}
@@ -455,7 +464,7 @@ void hud_draw(
 				txt = itows(item->getCount());
 			}
 		}else{
-			texture = driver->getTexture(getTexturePath("wieldhand.png").c_str());
+			texture = getTexture(driver,"wieldhand.png");
 		}
 
 		draw_image(driver,texture,color,rect,NULL,NULL);
@@ -570,7 +579,7 @@ void hud_draw(
 			}
 		}
 		const video::SColor color(255,255,255,255);
-		video::ITexture *texture = driver->getTexture(getTexturePath(states[state]).c_str());
+		video::ITexture *texture = getTexture(driver,states[state]);
 		core::rect<s32> rect(screensize.X-51,screensize.Y-186,screensize.X-19,screensize.Y-154);
 
 		draw_image(driver,texture,color,rect,NULL,NULL);
@@ -604,7 +613,7 @@ void hud_draw(
 				b = c;
 			}
 			const video::SColor color(220,r,0,b);
-			video::ITexture *texture = driver->getTexture(getTexturePath("heart.png").c_str());
+			video::ITexture *texture = getTexture(driver,"heart.png");
 			core::rect<s32> rect(60,screensize.Y-108,108,screensize.Y-60);
 			draw_image(driver,texture,color,rect,NULL,NULL);
 		}
@@ -640,7 +649,7 @@ void hud_draw(
 				if ((damage_pos&a) == a)
 					c = 0;
 				const video::SColor color(255,255,c,c);
-				video::ITexture *texture = driver->getTexture(getTexturePath(image[i]).c_str());
+				video::ITexture *texture = getTexture(driver,image[i]);
 				core::rect<s32> rect(10,screensize.Y-172,42,screensize.Y-108);
 				draw_image(driver,texture,color,rect,NULL,NULL);
 			}
@@ -681,7 +690,7 @@ void hud_draw(
 	if (have_suffocation && air < 100) {
 		int c = 55+(air*2);
 		const video::SColor color(255,255,c,c);
-		video::ITexture *texture = driver->getTexture(getTexturePath("bubble.png").c_str());
+		video::ITexture *texture = getTexture(driver,"bubble.png");
 		core::rect<s32> rect(100,screensize.Y-68,132,screensize.Y-36);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 
@@ -702,7 +711,7 @@ void hud_draw(
 	if (have_hunger) {
 		int c = 55+(hunger*2);
 		const video::SColor color(255,255,c,c);
-		video::ITexture *texture = driver->getTexture(getTexturePath("harvested_carrot.png").c_str());
+		video::ITexture *texture = getTexture(driver,"harvested_carrot.png");
 		core::rect<s32> rect(36,screensize.Y-68,68,screensize.Y-36);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 
@@ -726,13 +735,12 @@ void hud_draw(
 		if (crosshair > 2)
 			gb = 0;
 		const video::SColor color(220,255,gb,gb);
-		std::string tex("");
+		video::ITexture *texture;
 		if (crosshair == 1) {
-			tex = getTexturePath("crosshair_unfocused.png");
+			texture = getTexture(driver,"crosshair_unfocused.png");
 		}else{
-			tex = getTexturePath("crosshair_focused.png");
+			texture = getTexture(driver,"crosshair_focused.png");
 		}
-		video::ITexture *texture = driver->getTexture(tex.c_str());
 		core::rect<s32> rect((screensize.X/2)-16,(screensize.Y/2)-16,(screensize.X/2)+16,(screensize.Y/2)+16);
 		draw_image(driver,texture,color,rect,NULL,NULL);
 	}
@@ -746,7 +754,7 @@ void hud_draw(
 		txt += L",";
 		txt += itows(pos.Z);
 		txt += L") '";
-		txt += f->description;
+		txt += narrow_to_wide(f->description);
 		txt += L"' light=";
 		if (f->light_propagates || f->sunlight_propagates) {
 			txt += L"true ";
@@ -891,7 +899,7 @@ void hud_draw(
 			sprintf(buff,gettext("Energy Boost: %d:%02d"),m,s);
 
 			const video::SColor color(255,255,255,255);
-			video::ITexture *texture = driver->getTexture(getTexturePath("energy.png").c_str());
+			video::ITexture *texture = getTexture(driver,"energy.png");
 
 			core::rect<s32> rect(x_off+132,screensize.Y-36,x_off+164,screensize.Y-4);
 			draw_image(driver,texture,color,rect,NULL,NULL);
@@ -916,7 +924,7 @@ void hud_draw(
 			sprintf(buff,gettext("Cold Protection: %d:%02d"),m,s);
 
 			const video::SColor color(255,255,255,255);
-			video::ITexture *texture = driver->getTexture(getTexturePath("flame.png").c_str());
+			video::ITexture *texture = getTexture(driver,"flame.png");
 
 			core::rect<s32> rect(x_off+132,screensize.Y-36,x_off+164,screensize.Y-4);
 			draw_image(driver,texture,color,rect,NULL,NULL);

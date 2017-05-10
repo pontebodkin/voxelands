@@ -46,7 +46,7 @@
 #define MINERAL_SALT 14
 
 struct MineralFeatures {
-	std::wstring description;
+	char* description;
 	std::string texture;
 	// the dug item
 	content_t dug_item;
@@ -57,13 +57,14 @@ struct MineralFeatures {
 	u8 min_level;
 
 	MineralFeatures():
-		description(L""),
 		texture(""),
 		dug_item(CONTENT_IGNORE),
 		dug_count_min(1),
 		dug_count_max(5),
 		min_level(1)
-	{}
+	{
+		description = (char*)"";
+	}
 };
 
 /*

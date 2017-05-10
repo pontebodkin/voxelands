@@ -227,37 +227,40 @@ video::ITexture * MaterialItem::getImage() const
 #endif
 std::wstring MaterialItem::getGuiName()
 {
+	char buff[256];
 	if (m_data == 0 || content_features(m_content).param_type != CPT_MINERAL)
-		return content_features(m_content).description;
-	return content_features(m_content).description+L" - "+mineral_features(m_data).description;
+		return narrow_to_wide(content_features(m_content).description);
+
+	snprintf(buff,256,"%s - %s",content_features(m_content).description,mineral_features(m_data).description);
+	return narrow_to_wide(buff);
 }
 std::wstring MaterialItem::getGuiText()
 {
-	std::wstring txt(L"  ");
+	std::string txt("  ");
 	ContentFeatures *f = &content_features(m_content);
 	txt += f->description;
 	if (m_data != 0 && content_features(m_content).param_type == CPT_MINERAL) {
-		txt += L"\n";
-		txt += wgettext("Contains: ");
+		txt += "\n";
+		txt += gettext("Contains: ");
 		txt += mineral_features(m_data).description;
 	}
 	if (f->cook_result != "" || f->fuel_time != 0.0)
-		txt += L"\n";
+		txt += "\n";
 	if (f->cook_result != "") {
-		txt += L"\n";
-		txt += wgettext("Cookable: Yes");
+		txt += "\n";
+		txt += gettext("Cookable: Yes");
 	}
 	if (f->fuel_time != 0.0) {
 		char buff[20];
-		txt += L"\n";
-		txt += wgettext("Fuel Burn Time: ");
-		txt += itows((int)f->fuel_time/60);
-		txt += L":";
+		txt += "\n";
+		txt += gettext("Fuel Burn Time: ");
+		txt += itos((int)f->fuel_time/60);
+		txt += ":";
 		sprintf(buff,"%02d",(int)f->fuel_time%60);
-		txt += narrow_to_wide(buff);
+		txt += buff;
 	}
 
-	return txt;
+	return narrow_to_wide(txt);
 }
 
 bool MaterialItem::isCookable(CookType type) const
@@ -331,75 +334,75 @@ video::ITexture * CraftItem::getImage() const
 #endif
 std::wstring CraftItem::getGuiName()
 {
-	return content_craftitem_features(m_content)->description;
+	return narrow_to_wide(content_craftitem_features(m_content)->description);
 }
 std::wstring CraftItem::getGuiText()
 {
-	std::wstring txt(L"  ");
+	std::string txt("  ");
 	CraftItemFeatures *f = content_craftitem_features(m_content);
 	txt += f->description;
 	if (f->consumable || f->cook_result != CONTENT_IGNORE || f->fuel_time != 0.0)
-		txt += L"\n";
+		txt += "\n";
 	if (f->consumable) {
 		if (f->hunger_effect) {
-			txt += L"\n";
-			txt += wgettext("Hunger: ");
-			txt += itows(f->hunger_effect*5);
-			txt += L"%";
+			txt += "\n";
+			txt += gettext("Hunger: ");
+			txt += itos(f->hunger_effect*5);
+			txt += "%";
 		}
 		if (f->health_effect) {
-			txt += L"\n";
-			txt += wgettext("Health: ");
-			txt += itows(f->health_effect*5);
-			txt += L"%";
+			txt += "\n";
+			txt += gettext("Health: ");
+			txt += itos(f->health_effect*5);
+			txt += "%";
 		}
 		if (f->cold_effect) {
 			char buff[20];
-			txt += L"\n";
-			txt += wgettext("Cold Protection: ");
-			txt += itows(f->cold_effect/60);
-			txt += L":";
+			txt += "\n";
+			txt += gettext("Cold Protection: ");
+			txt += itos(f->cold_effect/60);
+			txt += ":";
 			sprintf(buff,"%02d",f->cold_effect%60);
-			txt += narrow_to_wide(buff);
+			txt += buff;
 		}
 		if (f->energy_effect) {
 			char buff[20];
-			txt += L"\n";
-			txt += wgettext("Energy Boost: ");
-			txt += itows(f->energy_effect/60);
-			txt += L":";
+			txt += "\n";
+			txt += gettext("Energy Boost: ");
+			txt += itos(f->energy_effect/60);
+			txt += ":";
 			sprintf(buff,"%02d",f->energy_effect%60);
-			txt += narrow_to_wide(buff);
+			txt += buff;
 		}
 	}
 	if (f->cook_result != CONTENT_IGNORE) {
-		txt += L"\n";
-		txt += wgettext("Cookable: Yes");
+		txt += "\n";
+		txt += gettext("Cookable: Yes");
 	}
 	if (f->fuel_time != 0.0) {
 		char buff[20];
-		txt += L"\n";
-		txt += wgettext("Fuel Burn Time: ");
-		txt += itows((int)f->fuel_time/60);
-		txt += L":";
+		txt += "\n";
+		txt += gettext("Fuel Burn Time: ");
+		txt += itos((int)f->fuel_time/60);
+		txt += ":";
 		sprintf(buff,"%02d",(int)f->fuel_time%60);
-		txt += narrow_to_wide(buff);
+		txt += buff;
 	}
 	if (m_data > 0) {
 		if (content_craftitem_features(m_content)->param_type == CPT_ENCHANTMENT) {
 			EnchantmentInfo info;
 			u16 data = m_data;
-			txt += L"\n";
+			txt += "\n";
 			while (enchantment_get(&data,&info)) {
-				txt += L"\n";
+				txt += "\n";
 				txt += info.name;
-				txt += L" ";
-				txt += itows(info.level);
+				txt += " ";
+				txt += itos(info.level);
 			}
 		}
 	}
 
-	return txt;
+	return narrow_to_wide(txt);
 }
 
 ServerActiveObject* CraftItem::createSAO(ServerEnvironment *env, u16 id, v3f pos)
@@ -541,26 +544,26 @@ video::ITexture *ToolItem::getImage() const
 
 std::wstring ToolItem::getGuiText()
 {
-	std::wstring txt(L"  ");
+	std::string txt("  ");
 	ToolItemFeatures *f = &content_toolitem_features(m_content);
 	txt += f->description;
-	txt += L"\n\n";
-	txt += wgettext("Uses: ");
-	txt += itows(m_wear);
-	txt += L"\n";
-	txt += wgettext("Speed: ");
-	txt += ftows(f->diginfo.time);
-	txt += L"\n";
-	txt += wgettext("Level: ");
-	txt += itows(f->diginfo.level);
+	txt += "\n\n";
+	txt += gettext("Uses: ");
+	txt += itos(m_wear);
+	txt += "\n";
+	txt += gettext("Speed: ");
+	txt += ftos(f->diginfo.time);
+	txt += "\n";
+	txt += gettext("Level: ");
+	txt += itos(f->diginfo.level);
 	if (f->fuel_time != 0.0) {
 		char buff[20];
-		txt += L"\n";
-		txt += wgettext("Fuel Burn Time: ");
-		txt += itows((int)f->fuel_time/60);
-		txt += L":";
+		txt += "\n";
+		txt += gettext("Fuel Burn Time: ");
+		txt += itos((int)f->fuel_time/60);
+		txt += ":";
 		sprintf(buff,"%02d",(int)f->fuel_time%60);
-		txt += narrow_to_wide(buff);
+		txt += buff;
 	}
 	if (m_data > 0) {
 		switch (content_toolitem_features(m_content).param_type) {
@@ -568,20 +571,20 @@ std::wstring ToolItem::getGuiText()
 		{
 			EnchantmentInfo info;
 			u16 data = m_data;
-			txt += L"\n";
+			txt += "\n";
 			while (enchantment_get(&data,&info)) {
-				txt += L"\n";
+				txt += "\n";
 				txt += info.name;
-				txt += L" ";
-				txt += itows(info.level);
+				txt += " ";
+				txt += itos(info.level);
 			}
 			break;
 		}
 		case CPT_DROP:
 		{
 			if ((m_data&CONTENT_MOB_MASK) == CONTENT_MOB_MASK) {
-				txt += L"\n";
-				txt += wgettext("Contains: ");
+				txt += "\n";
+				txt += gettext("Contains: ");
 				txt += content_mob_features(m_data).description;
 			}
 			break;
@@ -590,7 +593,7 @@ std::wstring ToolItem::getGuiText()
 		}
 	}
 
-	return txt;
+	return narrow_to_wide(txt);
 }
 
 bool ToolItem::isCookable(CookType type) const
@@ -667,48 +670,48 @@ video::ITexture *ClothesItem::getImage() const
 
 std::wstring ClothesItem::getGuiText()
 {
-	std::wstring txt(L"  ");
+	std::string txt("  ");
 	ClothesItemFeatures *f = content_clothesitem_features(m_content);
 	txt += f->description;
 	if (f->armour > 0.0 || f->warmth > 0.0 || f->vacuum > 0.0 || f->suffocate > 0.0 || f->durability > 0.0 || f->effect > 1.0)
-		txt += L"\n";
+		txt += "\n";
 	if (f->armour > 0.0) {
-		txt += L"\n";
-		txt += wgettext("Armour: ");
-		txt += itows(f->armour*100.0);
-		txt += L"%";
+		txt += "\n";
+		txt += gettext("Armour: ");
+		txt += itos(f->armour*100.0);
+		txt += "%";
 	}
 	if (f->warmth > 0.0) {
-		txt += L"\n";
-		txt += wgettext("Warmth: ");
-		txt += itows(f->warmth*100.0);
-		txt += L"%";
+		txt += "\n";
+		txt += gettext("Warmth: ");
+		txt += itos(f->warmth*100.0);
+		txt += "%";
 	}
 	if (f->vacuum > 0.0) {
-		txt += L"\n";
-		txt += wgettext("Pressure: ");
-		txt += itows(f->vacuum*100.0);
-		txt += L"%";
+		txt += "\n";
+		txt += gettext("Pressure: ");
+		txt += itos(f->vacuum*100.0);
+		txt += "%";
 	}
 	if (f->suffocate > 0.0) {
-		txt += L"\n";
-		txt += wgettext("Suffocation: ");
-		txt += itows(f->suffocate*100.0);
-		txt += L"%";
+		txt += "\n";
+		txt += gettext("Suffocation: ");
+		txt += itos(f->suffocate*100.0);
+		txt += "%";
 	}
 	if (f->durability > 0.0) {
-		txt += L"\n";
-		txt += wgettext("Durability: ");
-		txt += itows(f->durability);
+		txt += "\n";
+		txt += gettext("Durability: ");
+		txt += itos(f->durability);
 	}
 	if (f->effect != 1.0) {
-		txt += L"\n";
-		txt += wgettext("Effect Boost: ");
-		txt += itows(f->effect*100.0);
-		txt += L"%";
+		txt += "\n";
+		txt += gettext("Effect Boost: ");
+		txt += itos(f->effect*100.0);
+		txt += "%";
 	}
 
-	return txt;
+	return narrow_to_wide(txt);
 }
 
 /*

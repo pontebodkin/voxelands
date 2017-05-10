@@ -19,10 +19,10 @@
 #define WATER_VISC 1
 #define LAVA_VISC 7
 
-void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMaterialType material_type, const char* texture, const std::wstring desc)
+void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMaterialType material_type, const char* texture, char* desc)
 {
 	ContentFeatures *features = &content_features(nodeid);
-	features->description = std::wstring(desc);
+	features->description = desc;
 	features->setAllTextures(texture);
 	features->param_type = CPT_LIGHT;
 	features->param2_type = CPT_FACEDIR_WALLMOUNT;

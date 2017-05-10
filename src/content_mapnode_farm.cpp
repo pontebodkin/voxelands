@@ -35,7 +35,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_DIRT;
 	f = &content_features(i);
-	f->description = wgettext("Farm Dirt");
+	f->description = gettext("Farm Dirt");
 	f->setAllTextures("dirt.png");
 	f->setInventoryTextureCube("dirt.png","dirt.png","dirt.png");
 	f->draw_type = CDT_CUBELIKE;
@@ -47,7 +47,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FERTILIZER;
 	f = &content_features(i);
-	f->description = wgettext("Fertilizer");
+	f->description = gettext("Fertilizer");
 	f->setAllTextures("fertilizer.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
@@ -64,7 +64,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_TRELLIS;
 	f = &content_features(i);
-	f->description = wgettext("Trellis");
+	f->description = gettext("Trellis");
 	f->setAllTextures("trellis.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
@@ -86,7 +86,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_WHEAT;
 	f = &content_features(i);
-	f->description = wgettext("Wheat Seeds");
+	f->description = gettext("Wheat Seeds");
 	f->setAllTextures("farm_seeds_wheat.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -106,7 +106,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_MELON;
 	f = &content_features(i);
-	f->description = wgettext("Melon Seeds");
+	f->description = gettext("Melon Seeds");
 	f->setAllTextures("farm_seeds_melon.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -128,7 +128,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_PUMPKIN;
 	f = &content_features(i);
-	f->description = wgettext("Pumpkin Seeds");
+	f->description = gettext("Pumpkin Seeds");
 	f->setAllTextures("farm_seeds_pumpkin.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -150,7 +150,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_POTATO;
 	f = &content_features(i);
-	f->description = wgettext("Potato Seeds");
+	f->description = gettext("Potato Seeds");
 	f->setAllTextures("farm_seeds_potato.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -172,7 +172,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_CARROT;
 	f = &content_features(i);
-	f->description = wgettext("Carrot Seeds");
+	f->description = gettext("Carrot Seeds");
 	f->setAllTextures("farm_seeds_carrot.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -194,7 +194,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_BEETROOT;
 	f = &content_features(i);
-	f->description = wgettext("Beetroot Seeds");
+	f->description = gettext("Beetroot Seeds");
 	f->setAllTextures("farm_seeds_beetroot.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -216,7 +216,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_GRAPE;
 	f = &content_features(i);
-	f->description = wgettext("Grape Seeds");
+	f->description = gettext("Grape Seeds");
 	f->setAllTextures("farm_seeds_grape.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -238,7 +238,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_SEEDS_COTTON;
 	f = &content_features(i);
-	f->description = wgettext("Cotton Seeds");
+	f->description = gettext("Cotton Seeds");
 	f->setAllTextures("farm_seeds_cotton.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -258,7 +258,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_WHEAT;
 	f = &content_features(i);
-	f->description = wgettext("Wheat");
+	f->description = gettext("Wheat");
 	f->setAllTextures("farm_wheat.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -280,7 +280,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_MELON;
 	f = &content_features(i);
-	f->description = wgettext("Melon");
+	f->description = gettext("Melon");
 	f->setAllTextures("farm_melon.png");
 	f->setTexture(0,"farm_melon_top.png");
 	f->setTexture(1,"farm_melon_top.png");
@@ -297,7 +297,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_PUMPKIN;
 	f = &content_features(i);
-	f->description = wgettext("Pumpkin");
+	f->description = gettext("Pumpkin");
 	f->setAllTextures("farm_pumpkin.png");
 	f->setTexture(0,"farm_pumpkin_top.png");
 	f->setTexture(1,"farm_pumpkin_top.png");
@@ -316,7 +316,7 @@ void content_mapnode_farm(bool repeat)
 	i = CONTENT_FARM_PUMPKIN_JACK;
 	f = &content_features(i);
 	if (g_settings->getBool("enable_supernatural")) {
-		f->description = wgettext("Jack' O Lantern");
+		f->description = gettext("Jack' O Lantern");
 		f->setAllTextures("farm_pumpkin.png");
 		f->setTexture(0,"farm_pumpkin_top.png");
 		f->setTexture(1,"farm_pumpkin_top.png");
@@ -326,7 +326,7 @@ void content_mapnode_farm(bool repeat)
 		content_nodebox_jackolantern(f);
 		f->setInventoryTextureNodeBox(i,"farm_pumpkin_top.png","farm_pumpkin_jack.png","farm_pumpkin.png");
 	}else{
-		f->description = wgettext("Glass Light");
+		f->description = gettext("Glass Light");
 		f->light_propagates = true;
 		f->sunlight_propagates = true;
 		f->param_type = CPT_LIGHT;
@@ -352,7 +352,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_POTATO;
 	f = &content_features(i);
-	f->description = wgettext("Potato");
+	f->description = gettext("Potato");
 	f->setAllTextures("farm_potato.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -372,7 +372,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_CARROT;
 	f = &content_features(i);
-	f->description = wgettext("Carrot");
+	f->description = gettext("Carrot");
 	f->setAllTextures("farm_carrot.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -392,7 +392,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_BEETROOT;
 	f = &content_features(i);
-	f->description = wgettext("Beetroot");
+	f->description = gettext("Beetroot");
 	f->setAllTextures("farm_beetroot.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -412,7 +412,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_GRAPEVINE;
 	f = &content_features(i);
-	f->description = wgettext("Grape");
+	f->description = gettext("Grape");
 	f->setAllTextures("farm_grapevine.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -433,7 +433,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_COTTON;
 	f = &content_features(i);
-	f->description = wgettext("Cotton");
+	f->description = gettext("Cotton");
 	f->setAllTextures("farm_cotton.png");
 	f->draw_type = CDT_PLANTLIKE;
 	f->param_type = CPT_LIGHT;
@@ -456,7 +456,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_TRELLIS_GRAPE;
 	f = &content_features(i);
-	f->description = wgettext("Trellis Grape");
+	f->description = gettext("Trellis Grape");
 	f->setAllTextures("farm_grapevine.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
@@ -480,7 +480,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_DEAD_VINE;
 	f = &content_features(i);
-	f->description = wgettext("Dead Vine");
+	f->description = gettext("Dead Vine");
 	f->setAllTextures("dead_vine.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;
@@ -498,7 +498,7 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_TRELLIS_DEAD_VINE;
 	f = &content_features(i);
-	f->description = wgettext("Dead Vine");
+	f->description = gettext("Dead Vine");
 	f->setAllTextures("dead_vine.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_PLANTLIKE;

@@ -388,6 +388,7 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 			Environment->addButton(rect, this, spec.fid, spec.flabel.c_str());
 			m_fields.push_back(spec);
 		}else if (type == "image_button" || type == "image_button_exit") {
+			char buff[1024];
 			v2s32 pos;
 			pos.X = mystof(f.next(",")) * (float)spacing.X;
 			pos.Y = mystof(f.next(";")) * (float)spacing.Y;
@@ -413,11 +414,13 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 			if (type == "image_button_exit")
 				spec.is_exit = true;
 
-			video::ITexture *texture = Environment->getVideoDriver()->getTexture(getTexturePath(fimage).c_str());
 			gui::IGUIButton *e = Environment->addButton(rect, this, spec.fid, spec.flabel.c_str());
-			e->setImage(texture);
-			e->setPressedImage(texture);
-			e->setScaleImage(true);
+			if (path_get((char*)"texture",const_cast<char*>(fimage.c_str()),1,buff,1024)) {
+				video::ITexture *texture = Environment->getVideoDriver()->getTexture(buff);
+				e->setImage(texture);
+				e->setPressedImage(texture);
+				e->setScaleImage(true);
+			}
 
 			m_fields.push_back(spec);
 		}else{
@@ -433,8 +436,7 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 		core::rect<s32> rect(0, 0, size.X-padding.X*2, helptext_h);
 		rect = rect + v2s32(size.X/2 - rect.getWidth()/2,
 				size.Y-rect.getHeight()-5);
-		const wchar_t *text = wgettext("Left click: Move all items, Right click: Move single item");
-		Environment->addStaticText(text, rect, false, true, this, 256);
+		Environment->addStaticText(narrow_to_wide(gettext("Left click: Move all items, Right click: Move single item")).c_str(), rect, false, true, this, 256);
 	}
 	// If there's fields, add a Proceed button
 	if (m_fields.size() && bp_set != 2) {
@@ -455,7 +457,7 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 
 			v2s32 size = DesiredRect.getSize();
 			rect = core::rect<s32>(size.X/2-70, pos.Y, (size.X/2-70)+140, pos.Y+25);
-			Environment->addButton(rect, this, 257, wgettext("Write It"));
+			Environment->addButton(rect, this, 257, narrow_to_wide(gettext("Write It")).c_str());
 		}
 	}
 	// Add tooltip
@@ -514,8 +516,11 @@ void GUIFormSpecMenu::drawList(const ListDrawSpec &s, int phase)
 	InventoryList *ilist = inv->getList(s.listname);
 
 	video::ITexture *bg_texture = NULL;
-	if (s.background != "")
-		bg_texture = driver->getTexture(getTexturePath(s.background).c_str());
+	if (s.background != "") {
+		char buff[1024];
+		if (path_get((char*)"texture",const_cast<char*>(s.background.c_str()),1,buff,1024))
+			bg_texture = driver->getTexture(buff);
+	}
 
 	core::rect<s32> imgrect(0,0,imgsize.X,imgsize.Y);
 
@@ -621,7 +626,10 @@ void GUIFormSpecMenu::drawMenu()
 
 	for (u32 i=0; i<m_images.size(); i++) {
 		const ImageDrawSpec &spec = m_images[i];
-		video::ITexture *texture = driver->getTexture(getTexturePath(spec.name).c_str());
+		char buff[1024];
+		video::ITexture *texture = NULL;
+		if (path_get((char*)"texture",const_cast<char*>(spec.name.c_str()),1,buff,1024))
+			texture = driver->getTexture(buff);
 		// Image size on screen
 		core::rect<s32> imgrect(0, 0, spec.geom.X, spec.geom.Y);
 		// Image rectangle on screen
