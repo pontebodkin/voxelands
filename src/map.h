@@ -322,10 +322,7 @@ protected:
 class ServerMap : public Map
 {
 public:
-	/*
-		savedir: directory to which map data should be saved
-	*/
-	ServerMap(std::string savedir);
+	ServerMap();
 	~ServerMap();
 
 	s32 mapType() const
@@ -428,7 +425,6 @@ private:
 	uint64_t m_seed;
 	MapGenType m_type;
 
-	std::string m_savedir;
 	bool m_map_saving_enabled;
 
 	/*

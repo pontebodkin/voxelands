@@ -166,6 +166,7 @@ configure_file(
 set(common_SRCS
 	auth.c
 	array.c
+	ban.c
 	list.c
 	nvp.c
 	crypto.c
@@ -224,7 +225,6 @@ set(common_SRCS
 	test.cpp
 	sha1.cpp
 	base64.cpp
-	ban.cpp
 	http.cpp
 )
 

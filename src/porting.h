@@ -68,40 +68,6 @@ void signal_handler_init(void);
 bool * signal_handler_killstatus(void);
 
 /*
-	Path of static data directory.
-*/
-extern std::string path_data;
-
-/*
-	Get full path of stuff in data directory.
-	Example: "stone.png" -> "../data/textures/stone.png"
-*/
-
-
-extern std::string path_configdata;
-
-/*
-	Directory for storing user config. Examples:
-	Windows: "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
-	Linux: "~/.config/<PROJECT_NAME>"
-	Mac: "~/Library/Application Support/<PROJECT_NAME>"
- */
-extern std::string path_userdata;
-
-/*
-	Directory for storing user data. Examples:
-	Windows: "C:\Documents and Settings\user\Application Data\<PROJECT_NAME>"
-	Linux: "~/.local/share/<PROJECT_NAME>"
-	Mac: "~/Library/Application Support/<PROJECT_NAME>"
-*/
-std::string getDataPath(const char *subpath);
-
-/*
-	Initialize path_data and path_userdata.
-*/
-void initializePaths(char* argv0);
-
-/*
 	Resolution is 10-20ms.
 	Remember to check for overflows.
 	Overflow can occur at any value higher than 10000000.

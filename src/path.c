@@ -136,8 +136,15 @@ static char* path_set(char* base, char* rel, char* buff, int size)
 	int l;
 	char path[2048];
 
+	if (!base && !rel)
+		return NULL;
+
 	if (base) {
-		l = snprintf(path,2048,"%s/%s",base,rel);
+		if (rel) {
+			l = snprintf(path,2048,"%s/%s",base,rel);
+		}else{
+			l = snprintf(path,2048,"%s",base);
+		}
 	}else{
 		l = snprintf(path,2048,"%s",rel);
 	}
@@ -195,6 +202,7 @@ static int dir_create(char* path)
 		return 1;
 	}
 
+	errno = 0;
 	if ((dir_create(up) == 1) && (errno != EEXIST))
 		goto out;
 
@@ -251,6 +259,7 @@ int path_init()
 	}else{
 		path.data_user = path_set(path.cwd,"data",NULL,0);
 	}
+	path_create(NULL,path.data_user);
 
 	path.config = getenv("XDG_CONFIG_HOME");
 	if (path.config) {
@@ -260,6 +269,7 @@ int path_init()
 	}else{
 		path.config = strdup(path.cwd);
 	}
+	path_create(NULL,path.config);
 #else
 	/* TODO: windows, and mac? */
 #endif
@@ -392,10 +402,10 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 {
 	char rel_path[1024];
 
-	if (!file)
+	if (!file && !type)
 		return NULL;
 
-	if (file[0] == '/') {
+	if (file && file[0] == '/') {
 		return path_set(NULL,file,buff,size);
 	}else if (!type) {
 		strcpy(rel_path,file);
@@ -403,6 +413,25 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 		if (path.world && (!must_exist || path_check(path.world,file)))
 			return path_set(path.world,file,buff,size);
 		return NULL;
+	}else if (!strcmp(type,"player")) {
+		int ck;
+		if (!path.world)
+			return NULL;
+		ck = path_check(path.world,"players");
+		if (!ck) {
+		}
+
+		if (ck != 2)
+			return NULL;
+
+		if (file) {
+			if (snprintf(rel_path,1024,"players/%s",file) >= 1024)
+				return NULL;
+		}else{
+			strcpy(rel_path,"players");
+		}
+
+		return path_set(path.world,rel_path,buff,size);
 	}else if (!strcmp(type,"worlds")) {
 		char* base = path.data_user;
 		if (!base)
@@ -413,8 +442,12 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 			base = path.cwd;
 		if (!base)
 			return NULL;
-		if (snprintf(rel_path,1024,"worlds/%s",file) >= 1024)
-			return NULL;
+		if (file) {
+			if (snprintf(rel_path,1024,"worlds/%s",file) >= 1024)
+				return NULL;
+		}else{
+			strcpy(rel_path,"worlds");
+		}
 		if (!must_exist || path_check(base,rel_path) == 2)
 			return path_set(base,rel_path,buff,size);
 		return NULL;
@@ -432,6 +465,8 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 	}else if (!strcmp(type,"config")) {
 		if (path.config && (!must_exist || path_check(path.config,file)))
 			return path_set(path.config,file,buff,size);
+		return NULL;
+	}else if (!file) {
 		return NULL;
 	}else if (!strcmp(type,"model")) {
 		snprintf(rel_path,1024,"models/%s",file);

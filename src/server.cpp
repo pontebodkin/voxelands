@@ -52,6 +52,7 @@
 #include "sound.h"
 #include "http.h"
 #include "enchantment.h"
+#include "path.h"
 
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
@@ -854,24 +855,19 @@ u32 PIChecksum(core::list<PlayerInfo> &l)
 	Server
 */
 
-Server::Server(
-		std::string mapsavedir,
-		std::string configpath
-	):
-	m_env(new ServerMap(mapsavedir), this),
+Server::Server():
+	m_env(new ServerMap(), this),
 	m_con(PROTOCOL_ID, 512, CONNECTION_TIMEOUT, this),
-	m_banmanager(mapsavedir+DIR_DELIM+"ipban.txt"),
 	m_thread(this),
 	m_emergethread(this),
 	m_time_of_day_send_timer(0),
 	m_uptime(0),
-	m_mapsavedir(mapsavedir),
-	m_configpath(configpath),
 	m_shutdown_requested(false),
 	m_ignore_map_edit_events(false)
 {
 
 	auth_init((char*)"auth.txt");
+	ban_init((char*)"ipban.txt");
 
 	m_liquid_transform_timer = 0.0;
 	m_print_info_timer = 0.0;
@@ -888,15 +884,12 @@ Server::Server(
 	// Register us to receive map edit events
 	m_env.getMap().addEventReceiver(this);
 
-	// If file exists, load environment metadata
-	if (fs::PathExists(m_mapsavedir+DIR_DELIM+"env_meta.txt")) {
-		infostream<<"Server: Loading environment metadata"<<std::endl;
-		m_env.loadMeta(m_mapsavedir);
-	}
+	infostream<<"Server: Loading environment metadata"<<std::endl;
+	m_env.loadMeta();
 
 	// Load players
 	infostream<<"Server: Loading players"<<std::endl;
-	m_env.deSerializePlayers(m_mapsavedir);
+	m_env.deSerializePlayers();
 }
 
 Server::~Server()
@@ -939,13 +932,13 @@ Server::~Server()
 			Save players
 		*/
 		infostream<<"Server: Saving players"<<std::endl;
-		m_env.serializePlayers(m_mapsavedir);
+		m_env.serializePlayers();
 
 		/*
 			Save environment metadata
 		*/
 		infostream<<"Server: Saving environment metadata"<<std::endl;
-		m_env.saveMeta(m_mapsavedir);
+		m_env.saveMeta();
 	}
 
 	/*
@@ -975,6 +968,9 @@ Server::~Server()
 			delete i.getNode()->getValue();
 		}
 	}
+
+	ban_exit();
+	auth_exit();
 }
 
 void Server::start(unsigned short port)
@@ -1637,8 +1633,7 @@ void Server::AsyncRunStep()
 			auth_save();
 
 			//Bann stuff
-			if(m_banmanager.isModified())
-				m_banmanager.save();
+			ban_save();
 
 			// Map
 			JMutexAutoLock lock(m_env_mutex);
@@ -1661,10 +1656,10 @@ void Server::AsyncRunStep()
 			}*/
 
 			// Save players
-			m_env.serializePlayers(m_mapsavedir);
+			m_env.serializePlayers();
 
 			// Save environment metadata
-			m_env.saveMeta(m_mapsavedir);
+			m_env.saveMeta();
 		}
 	}
 }
@@ -1721,11 +1716,14 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		Address address = m_con.GetPeerAddress(peer_id);
 
 		// drop player if is ip is banned
-		if(m_banmanager.isIpBanned(address.serializeString())){
+		std::string add = address.serializeString();
+		if (ban_ipbanned(const_cast<char*>(add.c_str()))) {
+			char* name = ban_ip2name(const_cast<char*>(add.c_str()));
+			if (!name)
+				name = (char*)"???";
 			SendAccessDenied(m_con, peer_id,
 					L"Your ip is banned. Banned name was "
-					+narrow_to_wide(m_banmanager.getBanName(
-						address.serializeString())));
+					+narrow_to_wide(name));
 			m_con.DeletePeer(peer_id);
 			return;
 		}
@@ -5785,8 +5783,9 @@ std::wstring Server::getStatusString()
 // Saves g_settings to configpath given at initialization
 void Server::saveConfig()
 {
-	if(m_configpath != "")
-		g_settings->updateConfigFile(m_configpath.c_str());
+	char buff[1024];
+	if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
+		g_settings->updateConfigFile(buff);
 }
 
 void Server::notifyPlayer(const char *name, const std::wstring msg)

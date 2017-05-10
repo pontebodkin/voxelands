@@ -81,6 +81,8 @@
 #include "content_toolitem.h"
 #include "content_mob.h"
 #include "http.h"
+#include "thread.h"
+#include "path.h"
 
 /*
 	Settings.
@@ -172,19 +174,17 @@ int main(int argc, char *argv[])
 	porting::signal_handler_init();
 	bool &kill = *porting::signal_handler_killstatus();
 
-	// Initialize porting::path_data and porting::path_userdata
-	porting::initializePaths(argv[0]);
 
-	// Create user data directory
-	fs::CreateDir(porting::path_userdata);
+	thread_init();
+	path_init();
 
 	// Initialize debug streams
-#ifdef RUN_IN_PLACE
-	std::string debugfile = DEBUGFILE;
-#else
-	std::string debugfile = porting::path_userdata+DIR_DELIM+DEBUGFILE;
-#endif
-	debugstreams_init(disable_stderr, debugfile.c_str());
+	{
+		char buff[1024];
+		if (!path_get(NULL,(char*)"debug.txt",0,buff,1024))
+			return 1;
+		debugstreams_init(disable_stderr, buff);
+	}
 	// Initialize debug stacks
 	debug_stacks_init();
 
@@ -269,39 +269,10 @@ int main(int argc, char *argv[])
 		Read config file
 	*/
 
-	// Path of configuration file in use
-	std::string configpath = "";
-
-	if(cmd_args.exists("config"))
 	{
-		bool r = g_settings->readConfigFile(cmd_args.get("config").c_str());
-		if(r == false)
-		{
-			errorstream<<"Could not read configuration from \""
-					<<cmd_args.get("config")<<"\""<<std::endl;
-			return 1;
-		}
-		configpath = cmd_args.get("config");
-	}
-	else
-	{
-		core::array<std::string> filenames;
-		filenames.push_back(porting::path_userdata +
-				DIR_DELIM + "voxelands.conf");
-#ifdef RUN_IN_PLACE
-		filenames.push_back(porting::path_userdata +
-				DIR_DELIM + ".." + DIR_DELIM + "voxelands.conf");
-#endif
-
-		for(u32 i=0; i<filenames.size(); i++)
-		{
-			bool r = g_settings->readConfigFile(filenames[i].c_str());
-			if(r)
-			{
-				configpath = filenames[i];
-				break;
-			}
-		}
+		char buff[1024];
+		if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
+			g_settings->readConfigFile(buff);
 	}
 
 	// Initialize random seed
@@ -345,29 +316,20 @@ int main(int argc, char *argv[])
 
 	// Port?
 	u16 port = 30000;
-	if(cmd_args.exists("port") && cmd_args.getU16("port") != 0)
-	{
+	if (cmd_args.exists("port") && cmd_args.getU16("port") != 0) {
 		port = cmd_args.getU16("port");
-	}
-	else if(g_settings->exists("port") && g_settings->getU16("port") != 0)
-	{
+	}else if (g_settings->exists("port") && g_settings->getU16("port") != 0) {
 		port = g_settings->getU16("port");
-	}
-	else
-	{
+	}else{
 		dstream<<"Please specify port (in config or on command line)"
 				<<std::endl;
 	}
 
-	// Figure out path to map
-	std::string map_dir = porting::path_userdata+DIR_DELIM+"world";
-	if(cmd_args.exists("map-dir"))
-		map_dir = cmd_args.get("map-dir");
-	else if(g_settings->exists("map-dir"))
-		map_dir = g_settings->get("map-dir");
+	/* TODO: configise this */
+	path_world_setter((char*)"default");
 
 	// Create server
-	Server server(map_dir.c_str(), configpath);
+	Server server;
 	server.start(port);
 	HTTPServer http_server(server);
 	if (g_settings->getBool("enable_http"))

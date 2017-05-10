@@ -45,6 +45,7 @@
 #include "profiler.h"
 #include "inventory.h"
 #include "enchantment.h"
+#include "path.h"
 
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
@@ -1682,7 +1683,7 @@ void Map::nodeMetadataStep(float dtime, core::map<v3s16, MapBlock*> &changed_blo
 	ServerMap
 */
 
-ServerMap::ServerMap(std::string savedir):
+ServerMap::ServerMap():
 	Map(dout_server),
 	m_seed(0),
 	m_map_metadata_changed(true),
@@ -1733,23 +1734,25 @@ ServerMap::ServerMap(std::string savedir):
 		Try to load map; if not found, create a new one.
 	*/
 
-	m_savedir = savedir;
 	m_map_saving_enabled = false;
 
-	try
-	{
+	try{
 		// If directory exists, check contents and load if possible
-		if(fs::PathExists(m_savedir))
-		{
+		char buff[1024];
+		if (path_get((char*)"world",NULL,1,buff,1024)) {
 			// If directory is empty, it is safe to save into it.
-			if(fs::GetDirListing(m_savedir).size() == 0)
-			{
+			char b[1024];
+			if (
+				!path_get((char*)"world",(char*)"map_meta.txt",1,b,1024)
+				&& !path_get((char*)"world",(char*)"map.sqlite",1,b,1024)
+				&& !path_get((char*)"world",(char*)"auth.txt",1,b,1024)
+				&& !path_get((char*)"world",(char*)"ipban.txt",1,b,1024)
+				&& !path_get((char*)"world",(char*)"env_meta.txt",1,b,1024)
+			) {
 				infostream<<"Server: Empty save directory is valid."
 						<<std::endl;
 				m_map_saving_enabled = true;
-			}
-			else
-			{
+			}else{
 				try{
 					// Load map metadata (seed, type, chunksize)
 					loadMapMeta();
@@ -1761,24 +1764,8 @@ ServerMap::ServerMap(std::string savedir):
 					//m_chunksize = 0;
 				}
 
-				/*try{
-					// Load chunk metadata
-					loadChunkMeta();
-				}
-				catch(FileNotGoodException &e){
-					infostream<<"WARNING: Could not load chunk metadata."
-							<<" Disabling chunk-based generator."
-							<<std::endl;
-					m_chunksize = 0;
-				}*/
-
-				/*infostream<<"Server: Successfully loaded chunk "
-						"metadata and sector (0,0) from "<<savedir<<
-						", assuming valid save directory."
-						<<std::endl;*/
-
 				infostream<<"Server: Successfully loaded map "
-						<<"and chunk metadata from "<<savedir
+						<<"and chunk metadata from "<<buff
 						<<", assuming valid save directory."
 						<<std::endl;
 
@@ -1786,16 +1773,14 @@ ServerMap::ServerMap(std::string savedir):
 				// Map loaded, not creating new one
 				return;
 			}
-		}
 		// If directory doesn't exist, it is safe to save to it
-		else{
+		}else{
 			m_map_saving_enabled = true;
 		}
 	}
 	catch(std::exception &e)
 	{
-		infostream<<"WARNING: Server: Failed to load map from "<<savedir
-				<<", exception: "<<e.what()<<std::endl;
+		infostream<<"WARNING: Server: Failed to load map, exception: "<<e.what()<<std::endl;
 		infostream<<"Please remove the map or fix it."<<std::endl;
 		infostream<<"WARNING: Map saving will be disabled."<<std::endl;
 	}
@@ -1813,23 +1798,18 @@ ServerMap::~ServerMap()
 {
 	infostream<<__FUNCTION_NAME<<std::endl;
 
-	try
-	{
-		if(m_map_saving_enabled)
-		{
+	try{
+		if (m_map_saving_enabled) {
 			// Save only changed parts
 			save(true);
-			infostream<<"Server: saved map to "<<m_savedir<<std::endl;
-		}
-		else
-		{
+			infostream<<"Server: saved map"<<std::endl;
+		}else{
 			infostream<<"Server: map not saved"<<std::endl;
 		}
 	}
 	catch(std::exception &e)
 	{
-		infostream<<"Server: Failed to save map to "<<m_savedir
-				<<", exception: "<<e.what()<<std::endl;
+		infostream<<"Server: Failed to save map, exception: "<<e.what()<<std::endl;
 	}
 
 	/*
@@ -2332,7 +2312,7 @@ void ServerMap::verifyDatabase() {
 		return;
 
 	{
-		std::string dbp = m_savedir + DIR_DELIM + "map.sqlite";
+		char buff[1024];
 		bool needs_create = false;
 		int d;
 
@@ -2340,12 +2320,16 @@ void ServerMap::verifyDatabase() {
 			Open the database connection
 		*/
 
-		createDirs(m_savedir);
+		if (!path_get((char*)"world",(char*)"map.sqlite",0,buff,1024))
+			throw FileNotGoodException("map.sqlite: Cannot find database file path");
 
-		if(!fs::PathExists(dbp))
+		if (path_create((char*)"world",NULL))
+			throw FileNotGoodException("map.sqlite: Cannot create database file path");
+
+		if (!path_exists(buff))
 			needs_create = true;
 
-		d = sqlite3_open_v2(dbp.c_str(), &m_database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
+		d = sqlite3_open_v2(buff, &m_database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
 		if(d != SQLITE_OK) {
 			infostream<<"WARNING: Database failed to open: "<<sqlite3_errmsg(m_database)<<std::endl;
 			throw FileNotGoodException("map.sqlite: Cannot open database file");
@@ -2388,28 +2372,6 @@ void ServerMap::createDirs(std::string path)
 		m_dout<<DTIME<<"ServerMap: Failed to create directory "
 				<<"\""<<path<<"\""<<std::endl;
 		throw BaseException("ServerMap failed to create directory");
-	}
-}
-
-std::string ServerMap::getSectorDir(v2s16 pos, int layout)
-{
-	char cc[9];
-	switch(layout)
-	{
-		case 1:
-			snprintf(cc, 9, "%.4x%.4x",
-				(unsigned int)pos.X&0xffff,
-				(unsigned int)pos.Y&0xffff);
-
-			return m_savedir + DIR_DELIM + "sectors" + DIR_DELIM + cc;
-		case 2:
-			snprintf(cc, 9, "%.3x" DIR_DELIM "%.3x",
-				(unsigned int)pos.X&0xfff,
-				(unsigned int)pos.Y&0xfff);
-
-			return m_savedir + DIR_DELIM + "sectors2" + DIR_DELIM + cc;
-		default:
-			assert(false);
 	}
 }
 
@@ -2568,14 +2530,17 @@ void ServerMap::saveMapMeta()
 			<<"seed="<<m_seed
 			<<std::endl;
 
-	createDirs(m_savedir);
-
-	std::string fullpath = m_savedir + DIR_DELIM + "map_meta.txt";
-	std::ofstream os(fullpath.c_str(), std::ios_base::binary);
-	if(os.good() == false)
-	{
+	char buff[1024];
+	if (!path_get((char*)"world",(char*)"map_meta.txt",0,buff,1024)) {
 		infostream<<"ERROR: ServerMap::saveMapMeta(): "
-				<<"could not open"<<fullpath<<std::endl;
+				<<"could not find map_meta.txt"<<std::endl;
+		throw FileNotGoodException("Cannot find chunk metadata");
+	}
+
+	std::ofstream os(buff, std::ios_base::binary);
+	if (os.good() == false) {
+		infostream<<"ERROR: ServerMap::saveMapMeta(): "
+				<<"could not open map_meta.txt"<<std::endl;
 		throw FileNotGoodException("Cannot open chunk metadata");
 	}
 
@@ -2618,14 +2583,19 @@ void ServerMap::loadMapMeta()
 {
 	DSTACK(__FUNCTION_NAME);
 
-	infostream<<"ServerMap::loadMapMeta(): Loading map metadata"
-			<<std::endl;
+	infostream<<"ServerMap::loadMapMeta(): Loading map metadata"<<std::endl;
 
-	std::string fullpath = m_savedir + DIR_DELIM + "map_meta.txt";
-	std::ifstream is(fullpath.c_str(), std::ios_base::binary);
+	char buff[1024];
+	if (!path_get((char*)"world",(char*)"map_meta.txt",0,buff,1024)) {
+		infostream<<"ERROR: ServerMap::saveMapMeta(): "
+				<<"could not find map_meta.txt"<<std::endl;
+		throw FileNotGoodException("Cannot find chunk metadata");
+	}
+
+	std::ifstream is(buff, std::ios_base::binary);
 	if (is.good() == false) {
 		infostream<<"ERROR: ServerMap::loadMapMeta(): "
-				<<"could not open"<<fullpath<<std::endl;
+				<<"could not open map_meta.txt"<<std::endl;
 		throw FileNotGoodException("Cannot open map metadata");
 	}
 

@@ -288,14 +288,14 @@ public:
 	/*
 		Save players
 	*/
-	void serializePlayers(const std::string &savedir);
-	void deSerializePlayers(const std::string &savedir);
+	void serializePlayers();
+	void deSerializePlayers();
 
 	/*
 		Save and load time of day and game timer
 	*/
-	void saveMeta(const std::string &savedir);
-	void loadMeta(const std::string &savedir);
+	void saveMeta();
+	void loadMeta();
 
 	/*
 		External ActiveObject interface

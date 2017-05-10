@@ -363,10 +363,7 @@ public:
 		NOTE: Every public method should be thread-safe
 	*/
 
-	Server(
-		std::string mapsavedir,
-		std::string configpath
-	);
+	Server();
 	~Server();
 	void start(unsigned short port);
 	void stop();
@@ -446,19 +443,21 @@ public:
 
 	void setIpBanned(const std::string &ip, const std::string &name)
 	{
-		m_banmanager.add(ip, name);
+		ban_add(const_cast<char*>(ip.c_str()),const_cast<char*>(name.c_str()));
 		return;
 	}
 
 	void unsetIpBanned(const std::string &ip_or_name)
 	{
-		m_banmanager.remove(ip_or_name);
+		ban_remove(const_cast<char*>(ip_or_name.c_str()));
 		return;
 	}
 
 	std::string getBanDescription(const std::string &ip_or_name)
 	{
-		return m_banmanager.getBanDescription(ip_or_name);
+		char buff[256];
+		ban_description(const_cast<char*>(ip_or_name.c_str()),buff,256);
+		return std::string(buff);
 	}
 
 	Address getPeerAddress(u16 peer_id)
@@ -601,9 +600,6 @@ private:
 	// Connected clients (behind the con mutex)
 	core::map<u16, RemoteClient*> m_clients;
 
-	// Bann checking
-	BanManager m_banmanager;
-
 	/*
 		Threads
 	*/
@@ -650,12 +646,6 @@ private:
 	/*
 		Random stuff
 	*/
-
-	// Map directory
-	std::string m_mapsavedir;
-
-	// Configuration path ("" = no configuration file)
-	std::string m_configpath;
 
 	bool m_shutdown_requested;
 

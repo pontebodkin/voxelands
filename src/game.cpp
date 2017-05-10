@@ -637,13 +637,11 @@ void the_game(
 	InputHandler *input,
 	IrrlichtDevice *device,
 	gui::IGUIFont* font,
-	std::string map_dir,
 	std::string playername,
 	std::string password,
 	std::string address,
 	u16 port,
 	std::wstring &error_message,
-	std::string configpath,
 	ISoundManager *sound
 )
 {
@@ -675,7 +673,7 @@ void the_game(
 		//draw_load_screen(L"Creating server...", driver, font);
 		drawLoadingScreen(device,narrow_to_wide(gettext("Creating server...")));
 		infostream<<"Creating server"<<std::endl;
-		server = new Server(map_dir, configpath);
+		server = new Server();
 		server->start(port);
 	}
 

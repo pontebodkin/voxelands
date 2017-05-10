@@ -828,26 +828,17 @@ int main(int argc, char *argv[])
 	porting::signal_handler_init();
 	bool &kill = *porting::signal_handler_killstatus();
 
-	// Initialize porting::path_data, porting::path_userdata and porting::userconfig
-	porting::initializePaths(argv[0]);
-
-	// Create user data directory
-	fs::CreateDir(porting::path_userdata);
-
-#if defined(__FreeBSD__) || defined(linux)
-	// Create user config directory
-        fs::CreateDir(porting::path_configdata);
-#endif
-
+	thread_init();
+	path_init();
 	intl_init();
 
 	// Initialize debug streams
-#ifdef RUN_IN_PLACE
-	std::string debugfile = DEBUGFILE;
-#else
-	std::string debugfile = porting::path_userdata+DIR_DELIM+DEBUGFILE;
-#endif
-	debugstreams_init(disable_stderr, debugfile.c_str());
+	{
+		char buff[1024];
+		if (!path_get(NULL,(char*)"debug.txt",0,buff,1024))
+			return 1;
+		debugstreams_init(disable_stderr, buff);
+	}
 	// Initialize debug stacks
 	debug_stacks_init();
 
@@ -869,9 +860,6 @@ int main(int argc, char *argv[])
 		Basic initialization
 	*/
 
-	thread_init();
-	path_init();
-
 	// Initialize default settings
 	set_default_settings(g_settings);
 
@@ -883,37 +871,10 @@ int main(int argc, char *argv[])
 		Read config file
 	*/
 
-	// Path of configuration file in use
-	std::string configpath = "";
-
-	if (cmd_args.exists("config")) {
-		bool r = g_settings->readConfigFile(cmd_args.get("config").c_str());
-		if (r == false) {
-			errorstream<<"Could not read configuration from \""
-					<<cmd_args.get("config")<<"\""<<std::endl;
-			return 1;
-		}
-		configpath = cmd_args.get("config");
-	}else{
-		core::array<std::string> filenames;
-		filenames.push_back(porting::path_configdata +
-				DIR_DELIM + "voxelands.conf");
-#ifdef RUN_IN_PLACE
-		filenames.push_back(porting::path_configdata +
-				DIR_DELIM + ".." + DIR_DELIM + "voxelands.conf");
-#endif
-
-		for (u32 i=0; i<filenames.size(); i++) {
-			bool r = g_settings->readConfigFile(filenames[i].c_str());
-			if (r) {
-				configpath = filenames[i];
-				break;
-			}
-		}
-
-		// If no path found, use the first one (menu creates the file)
-		if (configpath == "")
-			configpath = filenames[0];
+	{
+		char buff[1024];
+		if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
+			g_settings->readConfigFile(buff);
 	}
 
 	// Initialize random seed
@@ -970,13 +931,8 @@ int main(int argc, char *argv[])
 	if (port == 0)
 		port = 30000;
 
-	// Map directory
-	std::string map_dir = porting::path_userdata+DIR_DELIM+"world";
-	if (cmd_args.exists("map-dir")) {
-		map_dir = cmd_args.get("map-dir");
-	}else if (g_settings->exists("map-dir")) {
-		map_dir = g_settings->get("map-dir");
-	}
+	/* TODO: configise this */
+	path_world_setter((char*)"default");
 
 	// Run dedicated server if asked to
 	if (cmd_args.getFlag("server")) {
@@ -986,7 +942,7 @@ int main(int argc, char *argv[])
 		g_timegetter = new SimpleTimeGetter();
 
 		// Create server
-		Server server(map_dir.c_str(), configpath);
+		Server server;
 		server.start(port);
 
 		// Run server
@@ -1341,8 +1297,7 @@ int main(int argc, char *argv[])
 
 				// Delete map if requested
 				if (menudata.delete_map) {
-					bool r = fs::RecursiveDeleteContent(map_dir);
-					if(r == false) {
+					if (path_remove((char*)"world",NULL)) {
 						error_message = L"Map deletion failed";
 						continue;
 					}
@@ -1350,9 +1305,7 @@ int main(int argc, char *argv[])
 						g_settings->set("fixed_map_seed",wide_to_narrow(menudata.fixed_seed));
 					g_settings->set("mapgen_type",menudata.map_type);
 				}else if (menudata.clear_map) {
-					std::string map_file = map_dir+DIR_DELIM+"map.sqlite";
-					bool r = fs::RecursiveDelete(map_file);
-					if(r == false) {
+					if (path_remove((char*)"world",(char*)"map.sqlite")) {
 						error_message = L"Map clearing failed";
 						continue;
 					}
@@ -1385,8 +1338,11 @@ int main(int argc, char *argv[])
 				g_settings->set("address", address);
 				g_settings->set("port", itos(port));
 				// Update configuration file
-				if (configpath != "")
-					g_settings->updateConfigFile(configpath.c_str());
+				{
+					char buff[1024];
+					if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
+						g_settings->updateConfigFile(buff);
+				}
 
 				// Continue to game
 				break;
@@ -1447,13 +1403,11 @@ int main(int argc, char *argv[])
 				input,
 				device,
 				font,
-				map_dir,
 				playername,
 				password,
 				address,
 				port,
 				error_message,
-				configpath,
 				sound
 			);
 
