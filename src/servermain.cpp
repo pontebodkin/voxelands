@@ -69,7 +69,6 @@
 #include "porting.h"
 #include "config.h"
 #include "mineral.h"
-#include "filesys.h"
 #include "defaultsettings.h"
 #include "settings.h"
 #include "profiler.h"

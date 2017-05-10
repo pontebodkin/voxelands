@@ -210,7 +210,6 @@ set(common_SRCS
 	debug.cpp
 	serialization.cpp
 	light.cpp
-	filesys.cpp
 	connection.cpp
 	environment.cpp
 	plantgrowth.cpp

@@ -24,7 +24,6 @@
 ************************************************************************/
 
 #include "environment.h"
-#include "filesys.h"
 #include "porting.h"
 #include "collision.h"
 #include "content_mapnode.h"

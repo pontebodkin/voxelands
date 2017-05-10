@@ -35,7 +35,6 @@
 #include "mineral.h"
 #include "config.h"
 #include "servercommand.h"
-#include "filesys.h"
 #include "content_object.h"
 #include "content_mapnode.h"
 #include "content_craft.h"

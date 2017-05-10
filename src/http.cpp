@@ -23,7 +23,6 @@
 #include "http.h"
 #include "main.h"
 #include "settings.h"
-#include "filesys.h"
 #include "debug.h"
 #include <stdio.h>
 #include <iostream>

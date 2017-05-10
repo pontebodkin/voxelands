@@ -46,7 +46,6 @@
 #include "mainmenumanager.h"
 #include "intl.h"
 #include "log.h"
-#include "filesys.h"
 #include "path.h"
 #include "sound.h"
 #ifndef SERVER
@@ -1164,20 +1163,24 @@ void the_game(
 		}else if(input->wasKeyDown(getKeySetting(VLKC_SCREENSHOT))) {
 			irr::video::IImage* const image = driver->createScreenShot();
 			if (image) {
-				irr::c8 filename[256];
-				snprintf(filename, 256, "%s" DIR_DELIM "screenshot_%u.png",
-						 g_settings->get("screenshot_path").c_str(),
-						 device->getTimer()->getRealTime());
-				if (driver->writeImageToFile(image, io::path(filename))) {
-					char buff[512];
-					snprintf(buff, 512, gettext("Saved screenshot to '%s'"), filename);
-					infostream << "Saved screenshot to '" << filename << "'" << std::endl;
-					statustext = narrow_to_wide(buff);
-					statustext_time = 0;
+				char fn[256];
+				char path[1024];
+				if (snprintf(fn,256,"screenshot_%u.png", device->getTimer()->getRealTime()) >= 256) {
+							infostream << "Failed to save screenshot"<<std::endl;
 				}else{
-					infostream << "Failed to save screenshot '" << filename << "'"<<std::endl;
+					if (path_get((char*)"screenshot",fn,0,path,1024)) {
+						if (driver->writeImageToFile(image, io::path(path))) {
+							char buff[512];
+							snprintf(buff, 512, gettext("Saved screenshot to '%s'"), path);
+							infostream << "Saved screenshot to '" << fn << "'" << std::endl;
+							statustext = narrow_to_wide(buff);
+							statustext_time = 0;
+						}else{
+							infostream << "Failed to save screenshot '" << fn << "'"<<std::endl;
+						}
+						image->drop();
+					}
 				}
-				image->drop();
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_HUD))) {
 			show_hud = !show_hud;

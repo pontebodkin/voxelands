@@ -27,7 +27,6 @@
 #include "debug.h"
 #include "main.h" // for g_settings
 #include "game.h"
-#include "filesys.h"
 #include "utility.h"
 #include "settings.h"
 #include "mesh.h"

@@ -30,7 +30,6 @@
 #ifndef SERVER
 #include "client.h"
 #endif
-#include "filesys.h"
 #include "utility.h"
 #include "voxel.h"
 #include "porting.h"
@@ -2365,65 +2364,6 @@ sqlite3_int64 ServerMap::getBlockAsInteger(const v3s16 pos) {
 		(sqlite3_int64)pos.Y*4096 + (sqlite3_int64)pos.X;
 }
 
-void ServerMap::createDirs(std::string path)
-{
-	if(fs::CreateAllDirs(path) == false)
-	{
-		m_dout<<DTIME<<"ServerMap: Failed to create directory "
-				<<"\""<<path<<"\""<<std::endl;
-		throw BaseException("ServerMap failed to create directory");
-	}
-}
-
-v2s16 ServerMap::getSectorPos(std::string dirname)
-{
-	unsigned int x, y;
-	int r;
-	size_t spos = dirname.rfind(DIR_DELIM_C) + 1;
-	assert(spos != std::string::npos);
-	if(dirname.size() - spos == 8)
-	{
-		// Old layout
-		r = sscanf(dirname.substr(spos).c_str(), "%4x%4x", &x, &y);
-	}
-	else if(dirname.size() - spos == 3)
-	{
-		// New layout
-		r = sscanf(dirname.substr(spos-4).c_str(), "%3x" DIR_DELIM "%3x", &x, &y);
-		// Sign-extend the 12 bit values up to 16 bits...
-		if(x&0x800) x|=0xF000;
-		if(y&0x800) y|=0xF000;
-	}
-	else
-	{
-		assert(false);
-	}
-	assert(r == 2);
-	v2s16 pos((s16)x, (s16)y);
-	return pos;
-}
-
-v3s16 ServerMap::getBlockPos(std::string sectordir, std::string blockfile)
-{
-	v2s16 p2d = getSectorPos(sectordir);
-
-	if(blockfile.size() != 4){
-		throw InvalidFilenameException("Invalid block filename");
-	}
-	unsigned int y;
-	int r = sscanf(blockfile.c_str(), "%4x", &y);
-	if(r != 1)
-		throw InvalidFilenameException("Invalid block filename");
-	return v3s16(p2d.X, y, p2d.Y);
-}
-
-std::string ServerMap::getBlockFilename(v3s16 p)
-{
-	char cc[5];
-	snprintf(cc, 5, "%.4x", (unsigned int)p.Y&0xffff);
-	return cc;
-}
-
 void ServerMap::save(bool only_changed)
 {
 	DSTACK(__FUNCTION_NAME);
@@ -2703,85 +2643,6 @@ void ServerMap::saveBlock(MapBlock *block)
 
 	// We just wrote it to the disk so clear modified flag
 	block->resetModified();
-}
-
-void ServerMap::loadBlock(std::string sectordir, std::string blockfile, MapSector *sector, bool save_after_load)
-{
-	DSTACK(__FUNCTION_NAME);
-
-	std::string fullpath = sectordir+DIR_DELIM+blockfile;
-	try{
-
-		std::ifstream is(fullpath.c_str(), std::ios_base::binary);
-		if(is.good() == false)
-			throw FileNotGoodException("Cannot open block file");
-
-		v3s16 p3d = getBlockPos(sectordir, blockfile);
-		v2s16 p2d(p3d.X, p3d.Z);
-
-		assert(sector->getPos() == p2d);
-
-		u8 version = SER_FMT_VER_INVALID;
-		is.read((char*)&version, 1);
-
-		if(is.fail())
-			throw SerializationError("ServerMap::loadBlock(): Failed"
-					" to read MapBlock version");
-
-		/*u32 block_size = MapBlock::serializedLength(version);
-		SharedBuffer<u8> data(block_size);
-		is.read((char*)*data, block_size);*/
-
-		// This will always return a sector because we're the server
-		//MapSector *sector = emergeSector(p2d);
-
-		MapBlock *block = NULL;
-		bool created_new = false;
-		block = sector->getBlockNoCreateNoEx(p3d.Y);
-		if(block == NULL)
-		{
-			block = sector->createBlankBlockNoInsert(p3d.Y);
-			created_new = true;
-		}
-
-		// Read basic data
-		block->deSerialize(is, version);
-
-		// Read extra data stored on disk
-		block->deSerializeDiskExtra(is, version);
-
-		// If it's a new block, insert it to the map
-		if(created_new)
-			sector->insertBlock(block);
-
-		/*
-			Save blocks loaded in old format in new format
-		*/
-
-		if(version < SER_FMT_VER_HIGHEST || save_after_load)
-		{
-			saveBlock(block);
-
-			// Should be in database now, so delete the old file
-			fs::RecursiveDelete(fullpath);
-		}
-
-		// We just loaded it from the disk, so it's up-to-date.
-		block->resetModified();
-
-	}
-	catch(SerializationError &e)
-	{
-		infostream<<"WARNING: Invalid block data on disk "
-				<<"fullpath="<<fullpath
-				<<" (SerializationError). "
-				<<"what()="<<e.what()
-				<<std::endl;
-				//" Ignoring. A new one will be generated.
-		assert(0);
-
-		// TODO: Backup file; name is in fullpath.
-	}
 }
 
 void ServerMap::loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load)

@@ -55,7 +55,6 @@
 #include "porting.h"
 #include "gettime.h"
 #include "guiMessageMenu.h"
-#include "filesys.h"
 #include "config.h"
 #include "guiMainMenu.h"
 #include "mineral.h"

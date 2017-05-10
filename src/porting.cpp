@@ -32,7 +32,6 @@
 #include "porting.h"
 #include "config.h"
 #include "debug.h"
-#include "filesys.h"
 #include "player.h"
 #include "errno.h"
 

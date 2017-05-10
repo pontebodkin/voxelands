@@ -370,18 +370,6 @@ public:
 	s16 findGroundLevel(v2s16 p2d);
 
 	/*
-		Misc. helper functions for fiddling with directory and file
-		names when saving
-	*/
-	void createDirs(std::string path);
-	// returns something like "map/sectors/xxxxxxxx"
-	std::string getSectorDir(v2s16 pos, int layout = 2);
-	// dirname: final directory name
-	v2s16 getSectorPos(std::string dirname);
-	v3s16 getBlockPos(std::string sectordir, std::string blockfile);
-	static std::string getBlockFilename(v3s16 p);
-
-	/*
 		Database functions
 	*/
 	// Create the database structure
@@ -406,8 +394,6 @@ public:
 	void loadMapMeta();
 
 	void saveBlock(MapBlock *block);
-	// This will generate a sector with getSector if not found.
-	void loadBlock(std::string sectordir, std::string blockfile, MapSector *sector, bool save_after_load=false);
 	MapBlock* loadBlock(v3s16 p);
 	// Database version
 	void loadBlock(std::string *blob, v3s16 p3d, MapSector *sector, bool save_after_load=false);
