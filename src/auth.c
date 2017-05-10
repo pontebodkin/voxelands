@@ -129,7 +129,7 @@ int auth_init(char* file)
 			return -1;
 	}
 
-	path = path_get("game",file,0,NULL,0);
+	path = path_get("world",file,0,NULL,0);
 	if (!path)
 		return -1;
 
@@ -158,17 +158,22 @@ int auth_init(char* file)
 /* free auth memory, reset auth struct */
 void auth_exit()
 {
+	if (!auth.mutex)
+		return;
+
 	if (auth.modified)
 		auth_save();
 
-	mutex_free(auth.mutex);
+	if (auth.mutex)
+		mutex_free(auth.mutex);
 	auth.mutex = NULL;
 
 	if (auth.file)
 		free(auth.file);
 	auth.file = NULL;
 
-	nvp_free(&auth.data,1);
+	if (auth.data)
+		nvp_free(&auth.data,1);
 	auth.data = NULL;
 
 	auth.modified = 0;
@@ -193,7 +198,7 @@ void auth_load()
 		return;
 	}
 
-	while (file_readline(f,line,512)) {
+	while (file_readline(f,line,512) > 0) {
 
 		n = line;
 		p = strchr(n,':');

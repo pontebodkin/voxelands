@@ -51,7 +51,7 @@ int ban_init(char* file)
 			return -1;
 	}
 
-	path = path_get("game",file,0,NULL,0);
+	path = path_get("world",file,0,NULL,0);
 	if (!path)
 		return -1;
 
@@ -80,6 +80,9 @@ int ban_init(char* file)
 /* free ban memory, reset ban struct */
 void ban_exit()
 {
+	if (!ban.mutex)
+		return;
+
 	if (ban.modified)
 		ban_save();
 
@@ -112,7 +115,7 @@ void ban_load()
 		return;
 	}
 
-	while (file_readline(f,line,512)) {
+	while (file_readline(f,line,512) > 0) {
 
 		p = line;
 		n = strchr(p,'|');
