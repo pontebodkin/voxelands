@@ -23,6 +23,7 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
 
 #include "client.h"
 #include "utility.h"
@@ -35,7 +36,6 @@
 #include "mapsector.h"
 #include "mapblock_mesh.h"
 #include "mapblock.h"
-#include "settings.h"
 #include "profiler.h"
 #include "log.h"
 #include "http.h"
@@ -201,7 +201,6 @@ void * MeshUpdateThread::Thread()
 
 Client::Client(
 		IrrlichtDevice *device,
-		const char *playername,
 		std::string password,
 		MapDrawControl &control,
 		ISoundManager *sound):
@@ -257,7 +256,12 @@ Client::Client(
 
 		Player *player = new LocalPlayer();
 
-		player->updateName(playername);
+		char* v = config_get("client.name");
+		if (v) {
+			player->updateName(v);
+		}else{
+			player->updateName(porting::getUser().c_str());
+		}
 
 		m_env.addPlayer(player);
 
@@ -415,9 +419,11 @@ void Client::step(float dtime)
 	if (m_map_timer_and_unload_interval.step(dtime, map_timer_and_unload_dtime)) {
 		ScopeProfiler sp(g_profiler, "Client: map timer and unload");
 		core::list<v3s16> deleted_blocks;
-		m_env.getMap().timerUpdate(map_timer_and_unload_dtime,
-				g_settings->getFloat("client_unload_unused_data_timeout"),
-				&deleted_blocks);
+		m_env.getMap().timerUpdate(
+			map_timer_and_unload_dtime,
+			config_get_float("client.chunk.timeout"),
+			&deleted_blocks
+		);
 
 		/*if(deleted_blocks.size() > 0)
 			infostream<<"Client: Unloaded "<<deleted_blocks.size()
@@ -750,9 +756,11 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 
 		{
 			// Reply to server
+			char *v;
 			std::string chardef = std::string(PLAYER_DEFAULT_CHARDEF);
-			if (g_settings->exists("character_definition"))
-				chardef = g_settings->get("character_definition");
+			v = config_get("client.character");
+			if (v)
+				chardef = v;
 
 			std::ostringstream os(std::ios_base::binary);
 			u8 buf[12];
@@ -1730,10 +1738,11 @@ void Client::sendInventoryAction(InventoryAction *a)
 	Send(0, data, true);
 }
 
-void Client::sendChatMessage(const std::wstring &message)
+void Client::sendChatMessage(const std::wstring &msg)
 {
-	std::ostringstream os(std::ios_base::binary);
 	u8 buf[12];
+	std::ostringstream os(std::ios_base::binary);
+	std::string message = wide_to_narrow(msg);
 
 	// Write command
 	writeU16(buf, TOSERVER_CHAT_MESSAGE);
@@ -1743,13 +1752,8 @@ void Client::sendChatMessage(const std::wstring &message)
 	writeU16(buf, message.size());
 	os.write((char*)buf, 2);
 
-	// Write string
-	for(u32 i=0; i<message.size(); i++)
-	{
-		u16 w = message[i];
-		writeU16(buf, w);
-		os.write((char*)buf, 2);
-	}
+	// write string
+	os.write(message.c_str(),message.size());
 
 	// Make data buffer
 	std::string s = os.str();

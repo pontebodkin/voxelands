@@ -389,8 +389,6 @@ public:
 
 	void listAllLoadableBlocks(core::list<v3s16> &dst);
 
-	// Saves map seed and possibly other stuff
-	void saveMapMeta();
 	void loadMapMeta();
 
 	void saveBlock(MapBlock *block);
@@ -401,8 +399,6 @@ public:
 	// For debug printing
 	virtual void PrintInfo(std::ostream &out);
 
-	bool isSavingEnabled(){ return m_map_saving_enabled; }
-
 	uint64_t getSeed(){ return m_seed; }
 	MapGenType getType() {return m_type;}
 
@@ -410,14 +406,6 @@ private:
 	// Seed used for all kinds of randomness
 	uint64_t m_seed;
 	MapGenType m_type;
-
-	bool m_map_saving_enabled;
-
-	/*
-		Metadata is re-written on disk only if this is true.
-		This is reset to false when written on disk.
-	*/
-	bool m_map_metadata_changed;
 
 	/*
 		SQLite database and statements

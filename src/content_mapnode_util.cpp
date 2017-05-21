@@ -4,7 +4,6 @@
 #include "content_mapnode.h"
 #include "mapnode.h"
 #include "content_nodemeta.h"
-#include "settings.h"
 #include "content_craftitem.h"
 #include "content_toolitem.h"
 #include "content_craft.h"

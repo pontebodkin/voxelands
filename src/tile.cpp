@@ -23,12 +23,13 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "tile.h"
 #include "debug.h"
 #include "main.h" // for g_settings
 #include "game.h"
 #include "utility.h"
-#include "settings.h"
 #include "mesh.h"
 #include "hex.h"
 #include <ICameraSceneNode.h>
@@ -57,10 +58,8 @@ TextureSource::TextureSource(IrrlichtDevice *device):
 	m_name_to_id[""] = 0;
 
 	// Build main texture atlas
-	if(g_settings->getBool("enable_texture_atlas"))
+	if (config_get_bool("client.graphics.texture.atlas"))
 		buildMainAtlas();
-	else
-		infostream<<"Not building texture atlas."<<std::endl;
 }
 
 TextureSource::~TextureSource()

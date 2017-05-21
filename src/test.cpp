@@ -38,7 +38,6 @@
 #include "porting.h"
 #include "content_mapnode.h"
 #include "mapsector.h"
-#include "settings.h"
 #include "log.h"
 
 /*
@@ -67,38 +66,6 @@ struct TestUtilities
 		assert(is_yes("YeS") == true);
 		assert(is_yes("") == false);
 		assert(is_yes("FAlse") == false);
-	}
-};
-
-struct TestSettings
-{
-	void Run()
-	{
-		Settings s;
-		// Test reading of settings
-		s.parseConfigLine("leet = 1337");
-		s.parseConfigLine("leetleet = 13371337");
-		s.parseConfigLine("leetleet_neg = -13371337");
-		s.parseConfigLine("floaty_thing = 1.1");
-		s.parseConfigLine("stringy_thing = asd /( ¤%&(/\" BLÖÄRP");
-		s.parseConfigLine("coord = (1, 2, 4.5)");
-		assert(s.getS32("leet") == 1337);
-		assert(s.getS16("leetleet") == 32767);
-		assert(s.getS16("leetleet_neg") == -32768);
-		// Not sure if 1.1 is an exact value as a float, but doesn't matter
-		assert(fabs(s.getFloat("floaty_thing") - 1.1) < 0.001);
-		assert(s.get("stringy_thing") == "asd /( ¤%&(/\" BLÖÄRP");
-		assert(fabs(s.getV3F("coord").X - 1.0) < 0.001);
-		assert(fabs(s.getV3F("coord").Y - 2.0) < 0.001);
-		assert(fabs(s.getV3F("coord").Z - 4.5) < 0.001);
-		// Test the setting of settings too
-		s.setFloat("floaty_thing_2", 1.2);
-		s.setV3F("coord2", v3f(1, 2, 3.3));
-		assert(s.get("floaty_thing_2").substr(0,3) == "1.2");
-		assert(fabs(s.getFloat("floaty_thing_2") - 1.2) < 0.001);
-		assert(fabs(s.getV3F("coord2").X - 1.0) < 0.001);
-		assert(fabs(s.getV3F("coord2").Y - 2.0) < 0.001);
-		assert(fabs(s.getV3F("coord2").Z - 3.3) < 0.001);
 	}
 };
 
@@ -1154,7 +1121,6 @@ void run_tests()
 	DSTACK(__FUNCTION_NAME);
 	infostream<<"run_tests() started"<<std::endl;
 	TEST(TestUtilities);
-	TEST(TestSettings);
 	TEST(TestCompress);
 	TEST(TestMapNode);
 	TEST(TestVoxelManipulator);

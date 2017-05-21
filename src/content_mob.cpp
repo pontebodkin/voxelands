@@ -19,13 +19,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
 #include "serverobject.h"
 #include "content_sao.h"
 #include "content_mob.h"
 #include "content_list.h"
 #include "content_craftitem.h"
 #include "main.h"
-#include "settings.h"
 #include "environment.h"
 #include "map.h"
 #include "profiler.h"
@@ -158,11 +158,11 @@ bool content_mob_spawn(ServerEnvironment *env, v3s16 pos, u32 active_object_coun
 		return false;
 
 	v3f p = intToFloat(pos+v3s16(0,1,0), BS);
-	actionstream<<"A mob of type "<<m.content<<" spawns at "<<PP(floatToInt(p,BS))<<std::endl;
+	vlprintf(CN_ACTION,"spawning mob (%u) at (%f,%f,%f)",m.content,pos.X,pos.Y+1,pos.Z);
 	ServerActiveObject *obj = new MobSAO(env, 0, p, m.content);
 	u16 id = env->addActiveObject(obj);
 	if (!id) {
-		actionstream<<"A mob of type "<<m.content<<" didn't spawn at "<<PP(floatToInt(p,BS))<<std::endl;
+		vlprintf(CN_ACTION,"I lied, it didn't spawn");
 		return false;
 	}
 
@@ -179,15 +179,15 @@ void mob_spawn(v3s16 pos, content_t mob, ServerEnvironment *env)
 
 	if (m.content == CONTENT_IGNORE)
 		return;
-	if (!g_settings->getBool("enable_mob_spawning"))
+	if (!config_get_bool("world.game.mob.spawn.natural"))
 		return;
 
 	v3f p = intToFloat(pos+v3s16(0,1,0), BS);
-	actionstream<<"A "<<m.description<<" ("<<m.content<<") mob spawns at "<<PP(floatToInt(p,BS))<<std::endl;
+	vlprintf(CN_ACTION,"spawning mob (%u) at (%f,%f,%f)",m.content,pos.X,pos.Y+1,pos.Z);
 	ServerActiveObject *obj = new MobSAO(env, 0, p, m.content);
 	u16 id = env->addActiveObject(obj);
 	if (!id) {
-		actionstream<<"A mob of type "<<m.content<<" didn't spawn at "<<PP(floatToInt(p,BS))<<std::endl;
+		vlprintf(CN_ACTION,"I lied, it didn't spawn");
 		return;
 	}
 
@@ -275,7 +275,7 @@ void mob_spawn_passive(v3s16 pos, bool water, ServerEnvironment *env)
 void mob_spawn_hostile(v3s16 pos, bool water, ServerEnvironment *env)
 {
 	std::vector<content_t> can;
-	u8 level = mobLevelI(g_settings->get("max_mob_level"));
+	u8 level = mobLevelI(config_get("world.game.mob.spawn.level"));
 	if (level < MOB_AGGRESSIVE)
 		return;
 	for (u16 i=0; i<CONTENT_MOB_COUNT; i++) {

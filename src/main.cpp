@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #ifdef NDEBUG
 	// Disable unit tests
 	#define ENABLE_TESTS 0
@@ -61,9 +63,7 @@
 #include "game.h"
 #include "keycode.h"
 #include "tile.h"
-#include "defaultsettings.h"
 #include "intl.h"
-#include "settings.h"
 #include "profiler.h"
 #include "log.h"
 // for the init functions
@@ -82,13 +82,6 @@
 
 // This makes textures
 ITextureSource *g_texturesource = NULL;
-
-/*
-	Settings.
-	These are loaded from the config file.
-*/
-GameSettings main_settings;
-GameSettings *g_settings = &main_settings;
 
 // Global profiler
 Profiler main_profiler;
@@ -770,59 +763,10 @@ int main(int argc, char *argv[])
 	log_register_thread("main");
 
 	/*
-		Parse command line
-	*/
-
-	// List all allowed options
-	core::map<std::string, ValueSpec> allowed_options;
-	allowed_options.insert("help", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("server", ValueSpec(VALUETYPE_FLAG,
-			"Run server directly"));
-	allowed_options.insert("config", ValueSpec(VALUETYPE_STRING,
-			"Load configuration from specified file"));
-	allowed_options.insert("port", ValueSpec(VALUETYPE_STRING));
-	allowed_options.insert("address", ValueSpec(VALUETYPE_STRING));
-	allowed_options.insert("random-input", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("disable-unittests", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("enable-unittests", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("map-dir", ValueSpec(VALUETYPE_STRING));
-#ifdef _WIN32
-	allowed_options.insert("dstream-on-stderr", ValueSpec(VALUETYPE_FLAG));
-#endif
-	allowed_options.insert("speedtests", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("info-on-stderr", ValueSpec(VALUETYPE_FLAG));
-
-	Settings cmd_args;
-
-	bool ret = cmd_args.parseCommandLine(argc, argv, allowed_options);
-
-	if (ret == false || cmd_args.getFlag("help")) {
-		dstream<<"Allowed options:"<<std::endl;
-		for (core::map<std::string, ValueSpec>::Iterator i = allowed_options.getIterator(); i.atEnd() == false; i++) {
-			dstream<<"  --"<<i.getNode()->getKey();
-			if(i.getNode()->getValue().type != VALUETYPE_FLAG)
-				dstream<<" <value>";
-			dstream<<std::endl;
-
-			if (i.getNode()->getValue().help != NULL)
-				dstream<<"      "<<i.getNode()->getValue().help<<std::endl;
-		}
-
-		return cmd_args.getFlag("help") ? 0 : 1;
-	}
-
-	/*
 		Low-level initialization
 	*/
 
 	bool disable_stderr = false;
-#ifdef _WIN32
-	if (cmd_args.getFlag("dstream-on-stderr") == false)
-		disable_stderr = true;
-#endif
-
-	if (cmd_args.getFlag("info-on-stderr"))
-		log_add_output(&main_stderr_log_out, LMT_INFO);
 
 	porting::signal_handler_init();
 	bool &kill = *porting::signal_handler_killstatus();
@@ -830,6 +774,8 @@ int main(int argc, char *argv[])
 	thread_init();
 	path_init();
 	intl_init();
+	command_init();
+	config_init(argc,argv);
 
 	// Initialize debug streams
 	{
@@ -855,26 +801,9 @@ int main(int argc, char *argv[])
 			<<", "<<BUILD_INFO
 			<<std::endl;
 
-	/*
-		Basic initialization
-	*/
-
-	// Initialize default settings
-	set_default_settings(g_settings);
-
 	// Initialize sockets
 	sockets_init();
 	atexit(sockets_cleanup);
-
-	/*
-		Read config file
-	*/
-
-	{
-		char buff[1024];
-		if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
-			g_settings->readConfigFile(buff);
-	}
 
 	// Initialize random seed
 	srand(time(0));
@@ -900,41 +829,14 @@ int main(int argc, char *argv[])
 	ISoundManager *sound = NULL;
 
 	/*
-		Run unit tests
-	*/
-
-	if (
-		(ENABLE_TESTS && cmd_args.getFlag("disable-unittests") == false)
-		|| cmd_args.getFlag("enable-unittests") == true
-	)
-		run_tests();
-
-	/*for(s16 y=-100; y<100; y++)
-	for(s16 x=-100; x<100; x++)
-	{
-		std::cout<<noise2d_gradient((double)x/10,(double)y/10, 32415)<<std::endl;
-	}
-	return 0;*/
-
-	/*
 		Game parameters
 	*/
-
-	// Port
-	u16 port = 30000;
-	if (cmd_args.exists("port")) {
-		port = cmd_args.getU16("port");
-	}else if (g_settings->exists("port")) {
-		port = g_settings->getU16("port");
-	}
-	if (port == 0)
-		port = 30000;
 
 	/* TODO: configise this */
 	path_world_setter((char*)"default");
 
 	// Run dedicated server if asked to
-	if (cmd_args.getFlag("server")) {
+	if (config_get_bool("server")) {
 		DSTACK("Dedicated server branch");
 
 		// Create time getter
@@ -942,7 +844,7 @@ int main(int argc, char *argv[])
 
 		// Create server
 		Server server;
-		server.start(port);
+		server.start();
 
 		// Run server
 		dedicated_server_loop(server, kill);
@@ -950,60 +852,32 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-
-	/*
-		More parameters
-	*/
-
-	// Address to connect to
-	std::string address = "";
-
-	if (cmd_args.exists("address")) {
-		address = cmd_args.get("address");
-	}else{
-		address = g_settings->get("address");
-	}
-
-	std::string playername = g_settings->get("name");
-
 	/*
 		Device initialization
 	*/
 
 	// Resolution selection
 
-	bool fullscreen = g_settings->getBool("fullscreen");
-	u16 screenW = g_settings->getU16("screenW");
-	u16 screenH = g_settings->getU16("screenH");
+	bool fullscreen = config_get_bool("client.video.fullscreen");
+	u16 screenW = config_get_int("client.video.size.width");
+	u16 screenH = config_get_int("client.video.size.height");
+
+	vlprintf(CN_INFO,"size %dx%d",screenW,screenH);
 
 	// bpp, fsaa, vsync
 
-	bool vsync = g_settings->getBool("vsync");
-	u16 bits = g_settings->getU16("fullscreen_bpp");
-	u16 fsaa = g_settings->getU16("fsaa");
+	bool vsync = config_get_bool("client.video.vsync");
+	u16 bits = config_get_int("client.video.fullscreen.bpp");
+	u16 fsaa = config_get_int("client.video.fullscreen.fsaa");
 
 	// Determine driver
 
-	video::E_DRIVER_TYPE driverType;
+	video::E_DRIVER_TYPE driverType = video::EDT_OPENGL;
 
-	std::string driverstring = g_settings->get("video_driver");
-
-	if (driverstring == "null") {
-		driverType = video::EDT_NULL;
-	}else if (driverstring == "software") {
-		driverType = video::EDT_SOFTWARE;
-	}else if (driverstring == "burningsvideo") {
-		driverType = video::EDT_BURNINGSVIDEO;
-	}else if (driverstring == "direct3d8") {
-		driverType = video::EDT_DIRECT3D8;
-	}else if (driverstring == "direct3d9") {
-		driverType = video::EDT_DIRECT3D9;
-	}else if (driverstring == "opengl") {
-		driverType = video::EDT_OPENGL;
-	}else{
-		errorstream<<"WARNING: Invalid video_driver specified; defaulting "
-				"to opengl"<<std::endl;
-		driverType = video::EDT_OPENGL;
+	{
+		char* v = config_get("client.video.driver");
+		if (v && !strcmp(v,"d3d9"))
+			driverType = video::EDT_DIRECT3D9;
 	}
 
 	/*
@@ -1021,14 +895,9 @@ int main(int argc, char *argv[])
 	params.Stencilbuffer = false;
 	params.Vsync         = vsync;
 	params.EventReceiver = &receiver;
-	params.HighPrecisionFPU = g_settings->getBool("high_precision_fpu");
+	params.HighPrecisionFPU = config_get_bool("client.video.hpfpu");
 
 	IrrlichtDevice * device = createDeviceEx(params);
-
-	//IrrlichtDevice *device;
-	//device = createDevice(driverType,
-			//core::dimension2d<u32>(screenW, screenH),
-			//16, fullscreen, false, false, &receiver);
 
 	if (device == 0)
 		return 1; // could not create selected driver.
@@ -1042,14 +911,8 @@ int main(int argc, char *argv[])
 	// Disable mipmaps (because some of them look ugly)
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 
-	/*
-		This changes the minimum allowed number of vertices in a VBO.
-		Default is 500.
-	*/
-	//driver->setMinHardwareBufferVertexCount(50);
-
 	// Set the window caption
-	device->setWindowCaption(L"Voxelands [Main Menu]");
+	device->setWindowCaption(L"Voxelands");
 
 	// Create time getter
 	g_timegetter = new IrrlichtTimeGetter(device);
@@ -1062,25 +925,9 @@ int main(int argc, char *argv[])
 
 	drawLoadingScreen(device,L"");
 
-	/*
-		Speed tests (done after irrlicht is loaded to get timer)
-	*/
-	if (cmd_args.getFlag("speedtests")) {
-		dstream<<"Running speed tests"<<std::endl;
-		SpeedTests();
-		return 0;
-	}
-
 	device->setResizable(true);
 
-	bool random_input = g_settings->getBool("random_input")
-			|| cmd_args.getFlag("random-input");
-	InputHandler *input = NULL;
-	if (random_input) {
-		input = new RandomInputHandler();
-	}else{
-		input = new RealInputHandler(device, &receiver);
-	}
+	InputHandler *input = new RealInputHandler(device, &receiver);
 
 	scene::ISceneManager* smgr = device->getSceneManager();
 
@@ -1090,11 +937,14 @@ int main(int argc, char *argv[])
 	{
 		char buff[1024];
 #if USE_FREETYPE
-		u16 font_size = g_settings->getU16("font_size");
-		if (path_get((char*)"font",(char*)"unifont.ttf",1,buff,1024))
+		uint16_t font_size = config_get_int("client.ui.font.size");
+		char* v = config_get("client.ui.font");
+		if (!v)
+			v = "unifont.ttf";
+		if (path_get("font",v,1,buff,1024))
 			font = gui::CGUITTFont::createTTFont(guienv, buff, font_size, true, true, 1, 128);
 #else
-		if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
+		if (path_get("texture","fontlucida.png",1,buff,1024))
 			font = guienv->getFont(buff);
 #endif
 	}
@@ -1157,7 +1007,12 @@ int main(int argc, char *argv[])
 	std::string password;
 
 	// if there's no chardef then put the player directly into the character creator
-	bool character_creator = !g_settings->exists("character_definition");
+	bool character_creator = true;
+	{
+		char* v = config_get("client.character");
+		if (v && v[0])
+			character_creator = false;
+	}
 
 	/*
 		Menu-game loop
@@ -1192,33 +1047,36 @@ int main(int argc, char *argv[])
 				smgr->clear();
 
 				// Initialize menu data
+				std::string playername = "";
+				{
+					char* v = config_get("client.name");
+					if (v)
+						playername = std::string(v);
+				}
 				if (playername == "")
 					playername = porting::getUser();
 				MainMenuData menudata;
-				menudata.address = narrow_to_wide(address);
+				menudata.address = L"";
 				menudata.name = narrow_to_wide(playername);
-				menudata.port = narrow_to_wide(itos(port));
-				menudata.game_mode = narrow_to_wide(g_settings->get("game_mode"));
-				menudata.max_mob_level = narrow_to_wide(g_settings->get("max_mob_level"));
-				menudata.initial_inventory = g_settings->getBool("initial_inventory");
-				menudata.infinite_inventory = g_settings->getBool("infinite_inventory");
-				menudata.droppable_inventory = g_settings->getBool("droppable_inventory");
-				menudata.death_drops_inventory = g_settings->getBool("death_drops_inv");
-				menudata.enable_damage = g_settings->getBool("enable_damage");
-				menudata.suffocation = g_settings->getBool("enable_suffocation");
-				menudata.hunger = g_settings->getBool("enable_hunger");
-				menudata.tool_wear = g_settings->getBool("tool_wear");
-				menudata.unsafe_fire = g_settings->getBool("unsafe_fire");
+				menudata.port = L"";
+				menudata.game_mode = narrow_to_wide(bridge_config_get("world.game.mode"));
+				menudata.max_mob_level = narrow_to_wide(bridge_config_get("world.game.mob.spawn.level"));
+				menudata.initial_inventory = config_get_bool("world.player.inventory.starter");
+				menudata.infinite_inventory = config_get_bool("world.player.inventory.creative");
+				menudata.droppable_inventory = config_get_bool("world.player.inventory.droppable");
+				menudata.death_drops_inventory = config_get_bool("world.player.inventory.keep");
+				menudata.enable_damage = config_get_bool("world.player.damage");
+				menudata.suffocation = config_get_bool("world.player.suffocation");
+				menudata.hunger = config_get_bool("world.player.hunger");
+				menudata.tool_wear = config_get_bool("world.player.tool.wear");
+				menudata.unsafe_fire = config_get_bool("world.game.environment.fire.spread");
 				menudata.delete_map = false;
 				menudata.clear_map = false;
 				menudata.use_fixed_seed = false;
-				if (g_settings->exists("fixed_map_seed")) {
-					menudata.fixed_seed = narrow_to_wide(g_settings->get("fixed_map_seed"));
-					if (menudata.fixed_seed != L"")
-						menudata.use_fixed_seed = true;
-				}
-				if (g_settings->exists("mapgen_type"))
-					menudata.map_type = g_settings->get("mapgen_type");
+				menudata.fixed_seed = narrow_to_wide(bridge_config_get("world.seed"));
+				if (menudata.fixed_seed != L"")
+					menudata.use_fixed_seed = true;
+				menudata.map_type = config_get("world.map.type");
 
 				GUIMainMenu *menu = new GUIMainMenu(
 					guienv,
@@ -1301,8 +1159,8 @@ int main(int argc, char *argv[])
 						continue;
 					}
 					if (menudata.use_fixed_seed)
-						g_settings->set("fixed_map_seed",wide_to_narrow(menudata.fixed_seed));
-					g_settings->set("mapgen_type",menudata.map_type);
+						config_set("world.map.seed",(char*)wide_to_narrow(menudata.fixed_seed).c_str());
+					config_set("world.map_type",(char*)menudata.map_type.c_str());
 				}else if (menudata.clear_map) {
 					if (path_remove((char*)"world",(char*)"map.sqlite")) {
 						error_message = L"Map clearing failed";
@@ -1310,38 +1168,31 @@ int main(int argc, char *argv[])
 					}
 				}
 
-				playername = wide_to_narrow(menudata.name);
-
 				password = translatePassword(playername, menudata.password);
 
 				//infostream<<"Main: password hash: '"<<password<<"'"<<std::endl;
 
-				address = wide_to_narrow(menudata.address);
+				config_set("world.server.address",(char*)wide_to_narrow(menudata.address).c_str());
 				int newport = mywstoi(menudata.port);
 				if (newport != 0)
-					port = newport;
-				g_settings->set("game_mode", wide_to_narrow(menudata.game_mode));
-				g_settings->set("max_mob_level", wide_to_narrow(menudata.max_mob_level));
-				g_settings->set("initial_inventory", itos(menudata.initial_inventory));
-				g_settings->set("infinite_inventory", itos(menudata.infinite_inventory));
-				g_settings->set("droppable_inventory", itos(menudata.droppable_inventory));
-				g_settings->set("death_drops_inv", itos(menudata.death_drops_inventory));
-				g_settings->set("enable_damage", itos(menudata.enable_damage));
-				g_settings->set("enable_suffocation", itos(menudata.suffocation));
-				g_settings->set("enable_hunger", itos(menudata.hunger));
-				g_settings->set("tool_wear", itos(menudata.tool_wear));
-				g_settings->set("unsafe_fire", itos(menudata.unsafe_fire));
+					config_set_int("world.server.port",newport);
+				config_set("world.game.mode", (char*)wide_to_narrow(menudata.game_mode).c_str());
+				config_set("world.game.mob.spawn.level", (char*)wide_to_narrow(menudata.max_mob_level).c_str());
+				config_set_int("world.player.inventory.starter", menudata.initial_inventory);
+				config_set_int("world.player.inventory.creative", menudata.infinite_inventory);
+				config_set_int("world.player.inventory.droppable", menudata.droppable_inventory);
+				config_set_int("world.player.inventory.keep", menudata.death_drops_inventory);
+				config_set_int("world.player.damage", menudata.enable_damage);
+				config_set_int("world.player.suffocation", menudata.suffocation);
+				config_set_int("world.player.hunger", menudata.hunger);
+				config_set_int("world.player.tool.wear", menudata.tool_wear);
+				config_set_int("world.game.environment.fire.spread", menudata.unsafe_fire);
 
 				// Save settings
-				g_settings->set("name", playername);
-				g_settings->set("address", address);
-				g_settings->set("port", itos(port));
-				// Update configuration file
-				{
-					char buff[1024];
-					if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
-						g_settings->updateConfigFile(buff);
-				}
+				config_set("client.name", (char*)wide_to_narrow(menudata.name).c_str());
+				config_set("world.admin.name",(char*)wide_to_narrow(menudata.name).c_str());
+
+				config_save(NULL,NULL,NULL);
 
 				// Continue to game
 				break;
@@ -1398,14 +1249,10 @@ int main(int argc, char *argv[])
 			*/
 			the_game(
 				kill,
-				random_input,
 				input,
 				device,
 				font,
-				playername,
 				password,
-				address,
-				port,
 				error_message,
 				sound
 			);

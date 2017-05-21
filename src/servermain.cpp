@@ -23,11 +23,7 @@
 * for Voxelands.
 ************************************************************************/
 
-/*
-=============================== NOTES ==============================
-
-
-*/
+#include "common.h"
 
 #ifndef SERVER
 	#ifdef _WIN32
@@ -69,8 +65,6 @@
 #include "porting.h"
 #include "config.h"
 #include "mineral.h"
-#include "defaultsettings.h"
-#include "settings.h"
 #include "profiler.h"
 #include "log.h"
 // for the init functions
@@ -82,13 +76,6 @@
 #include "http.h"
 #include "thread.h"
 #include "path.h"
-
-/*
-	Settings.
-	These are loaded from the config file.
-*/
-GameSettings main_settings;
-GameSettings *g_settings = &main_settings;
 
 // Global profiler
 Profiler main_profiler;
@@ -173,9 +160,11 @@ int main(int argc, char *argv[])
 	porting::signal_handler_init();
 	bool &kill = *porting::signal_handler_killstatus();
 
-
 	thread_init();
 	path_init();
+
+	command_init();
+	config_init(argc,argv);
 
 	// Initialize debug streams
 	{
@@ -205,74 +194,12 @@ int main(int argc, char *argv[])
 	{
 
 	/*
-		Parse command line
-	*/
-
-	// List all allowed options
-	core::map<std::string, ValueSpec> allowed_options;
-	allowed_options.insert("help", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("config", ValueSpec(VALUETYPE_STRING,
-			"Load configuration from specified file"));
-	allowed_options.insert("port", ValueSpec(VALUETYPE_STRING));
-	allowed_options.insert("disable-unittests", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("enable-unittests", ValueSpec(VALUETYPE_FLAG));
-	allowed_options.insert("map-dir", ValueSpec(VALUETYPE_STRING));
-	allowed_options.insert("info-on-stderr", ValueSpec(VALUETYPE_FLAG));
-
-	Settings cmd_args;
-
-	bool ret = cmd_args.parseCommandLine(argc, argv, allowed_options);
-
-	if(ret == false || cmd_args.getFlag("help"))
-	{
-		dstream<<"Allowed options:"<<std::endl;
-		for(core::map<std::string, ValueSpec>::Iterator
-				i = allowed_options.getIterator();
-				i.atEnd() == false; i++)
-		{
-			dstream<<"  --"<<i.getNode()->getKey();
-			if(i.getNode()->getValue().type == VALUETYPE_FLAG)
-			{
-			}
-			else
-			{
-				dstream<<" <value>";
-			}
-			dstream<<std::endl;
-
-			if(i.getNode()->getValue().help != NULL)
-			{
-				dstream<<"      "<<i.getNode()->getValue().help
-						<<std::endl;
-			}
-		}
-
-		return cmd_args.getFlag("help") ? 0 : 1;
-	}
-
-	if(cmd_args.getFlag("info-on-stderr"))
-		log_add_output(&main_stderr_log_out, LMT_INFO);
-
-	/*
 		Basic initialization
 	*/
-
-	// Initialize default settings
-	set_default_settings(g_settings);
 
 	// Initialize sockets
 	sockets_init();
 	atexit(sockets_cleanup);
-
-	/*
-		Read config file
-	*/
-
-	{
-		char buff[1024];
-		if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
-			g_settings->readConfigFile(buff);
-	}
 
 	// Initialize random seed
 	srand(time(0));
@@ -287,15 +214,6 @@ int main(int argc, char *argv[])
 	content_mob_init();
 	init_mapnode();
 	init_mineral();
-
-	/*
-		Run unit tests
-	*/
-	if((ENABLE_TESTS && cmd_args.getFlag("disable-unittests") == false)
-			|| cmd_args.getFlag("enable-unittests") == true)
-	{
-		run_tests();
-	}
 
 	/*
 		Check parameters
@@ -313,26 +231,15 @@ int main(int argc, char *argv[])
 
 	std::cout<<std::endl;
 
-	// Port?
-	u16 port = 30000;
-	if (cmd_args.exists("port") && cmd_args.getU16("port") != 0) {
-		port = cmd_args.getU16("port");
-	}else if (g_settings->exists("port") && g_settings->getU16("port") != 0) {
-		port = g_settings->getU16("port");
-	}else{
-		dstream<<"Please specify port (in config or on command line)"
-				<<std::endl;
-	}
-
 	/* TODO: configise this */
 	path_world_setter((char*)"default");
 
 	// Create server
 	Server server;
-	server.start(port);
+	server.start();
 	HTTPServer http_server(server);
-	if (g_settings->getBool("enable_http"))
-		http_server.start(port);
+	if (config_get_bool("server.net.http"))
+		http_server.start();
 
 	// Run server
 	dedicated_server_loop(server, kill);

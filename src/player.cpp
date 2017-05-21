@@ -23,6 +23,9 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+#include "nvp.h"
+
 #include "player.h"
 #include "map.h"
 #include "connection.h"
@@ -32,7 +35,6 @@
 #include "common_irrlicht.h"
 #include "mesh.h"
 #endif
-#include "settings.h"
 #include "path.h"
 #include "content_clothesitem.h"
 
@@ -207,31 +209,62 @@ void Player::accelerate(v3f target_speed, f32 max_increase)
 void Player::serialize(std::ostream &os)
 {
 	// Utilize a Settings object for storing values
-	Settings args;
-	args.setS32("version", 1);
-	args.set("name", m_name);
-	args.setFloat("pitch", m_pitch);
-	args.setFloat("yaw", m_yaw);
-	args.setV3F("position", m_position);
-	args.setBool("craftresult_is_preview", craftresult_is_preview);
-	args.setS32("health", health);
-	args.setS32("air", air);
-	args.setS32("hunger", hunger);
-	if (m_hashome)
-		args.setV3F("home",m_home);
-	const char* flags[8] = {"white","blue","green","orange","purple","red","yellow","black"};
-	for (u16 i=0; i<8; i++) {
-		std::string n("flag_");
-		n += flags[i];
+	char* flags[8] = {
+		"flag_white",
+		"flag_blue",
+		"flag_green",
+		"flag_orange",
+		"flag_purple",
+		"flag_red",
+		"flag_yellow",
+		"flag_black"
+	};
+	nvp_t *list = NULL;
+	char buff[1024];
+	int i;
+	v3_t v;
+
+	nvp_set(&list,"version","1",NULL);
+	nvp_set(&list,"name",m_name,NULL);
+	nvp_set_float(&list,"pitch",m_pitch);
+	nvp_set_float(&list,"yaw",m_yaw);
+	v.x = m_position.X;
+	v.y = m_position.Y;
+	v.z = m_position.Z;
+	nvp_set_v3t(&list,"position",&v);
+	nvp_set_int(&list,"craftresult_is_preview",craftresult_is_preview);
+	nvp_set_int(&list,"health",health);
+	nvp_set_int(&list,"air",air);
+	nvp_set_int(&list,"hunger",hunger);
+	if (m_hashome) {
+		/* home */
+		v.x = m_home.X;
+		v.y = m_home.Y;
+		v.z = m_home.Z;
+		nvp_set_v3t(&list,"home",&v);
+	}
+	for (i=0; i<8; i++) {
 		if (!m_hasflag[i])
 			continue;
-		args.setV3F(n,m_flag[i]);
+		/* flags */
+		v.x = m_flag[i].X;
+		v.y = m_flag[i].Y;
+		v.z = m_flag[i].Z;
+		nvp_set_v3t(&list,flags[i],&v);
 	}
 	if (m_given_clothes)
-		args.set("clothes_given","true");
-	args.setFloat("wake_timeout",wake_timeout);
+		nvp_set(&list,"clothes_given","true",NULL);
+	nvp_set_float(&list,"wake_timeout",wake_timeout);
 
-	args.writeLines(os);
+	if (nvp_to_str(&list,buff,1024) < 1) {
+		vlprintf(CN_DEBUG,"failed to serialise player data");
+		nvp_free(&list,0);
+		return;
+	}
+
+	nvp_free(&list,0);
+
+	os << buff;
 
 	os<<"PlayerArgsEnd\n";
 
@@ -240,7 +273,20 @@ void Player::serialize(std::ostream &os)
 
 void Player::deSerialize(std::istream &is)
 {
-	Settings args;
+	nvp_t *list = NULL;
+	std::string conf;
+	char* val;
+	v3_t v;
+	char* flags[8] = {
+		"flag_white",
+		"flag_blue",
+		"flag_green",
+		"flag_orange",
+		"flag_purple",
+		"flag_red",
+		"flag_yellow",
+		"flag_black"
+	};
 
 	for (;;) {
 		if (is.eof())
@@ -250,77 +296,84 @@ void Player::deSerialize(std::istream &is)
 		std::string trimmedline = trim(line);
 		if (trimmedline == "PlayerArgsEnd")
 			break;
-		args.parseConfigLine(line);
+		conf += line + "\n";
 	}
 
-	//args.getS32("version");
-	std::string name = args.get("name");
-	updateName(name.c_str());
-	m_pitch = args.getFloat("pitch");
-	m_yaw = args.getFloat("yaw");
-	m_position = args.getV3F("position");
-	if (args.exists("craftresult_is_preview")) {
-		craftresult_is_preview = args.getBool("craftresult_is_preview");
+	nvp_from_str(&list,(char*)conf.c_str());
+
+	val = nvp_get_str(&list,"name");
+	if (!val)
+		val = "Unknown";
+	updateName(val);
+
+	m_pitch = nvp_get_float(&list,"pitch");
+	m_yaw = nvp_get_float(&list,"yaw");
+	val = nvp_get_str(&list,"position");
+	if (val) {
+		if (!str_tov3t(val,&v))
+			m_position = v3f(v.x,v.y,v.z);
+	}
+	if (nvp_get(&list,"craftresult_is_preview")) {
+		craftresult_is_preview = nvp_get_bool(&list,"craftresult_is_preview");
 	}else{
 		craftresult_is_preview = true;
 	}
-	if (args.exists("health")) {
-		health = args.getS32("health");
-		if (args.exists("air")) {
-			air = args.getS32("air");
+	if (nvp_get(&list,"health")) {
+		health = nvp_get_int(&list,"health");
+		if (nvp_get(&list,"air")) {
+			air = nvp_get_int(&list,"air");
 		}else{
 			air = 100;
 		}
-		if (args.exists("hunger")) {
-			hunger = args.getS32("hunger");
+		if (nvp_get(&list,"hunger")) {
+			hunger = nvp_get_int(&list,"hunger");
 		}else{
 			hunger = 100;
 		}
-	}else if (args.exists("hp")) {
-		health = 5*args.getS32("hp");
-		if (args.exists("air")) {
-			air = 5*args.getS32("air");
+	}else if (nvp_get(&list,"hp")) {
+		health = 5*nvp_get_int(&list,"hp");
+		if (nvp_get(&list,"air")) {
+			air = 5*nvp_get_int(&list,"air");
 		}else{
 			air = 100;
 		}
-		if (args.exists("hunger")) {
-			hunger = 5*args.getS32("hunger");
+		if (nvp_get(&list,"hunger")) {
+			hunger = 5*nvp_get_int(&list,"hunger");
 		}else{
 			hunger = 100;
 		}
 	}else{
 		health = 100;
 	}
-	if (args.exists("home")) {
-		m_home = args.getV3F("home");
-		m_hashome = true;
-	}else{
-		m_hashome = false;
+	m_hashome = false;
+	val = nvp_get_str(&list,"home");
+	if (val) {
+		if (!str_tov3t(val,&v)) {
+			m_home = v3f(v.x,v.y,v.z);
+			m_hashome = true;
+		}
 	}
-	const char* flags[8] = {"white","blue","green","orange","purple","red","yellow","black"};
 	for (u16 i=0; i<8; i++) {
-		std::string n("flag_");
-		n += flags[i];
-		m_hasflag[i] = args.exists(n);
-		if (!m_hasflag[i])
+		m_hasflag[i] = false;
+		if (!nvp_get(&list,flags[i]))
 			continue;
-		m_flag[i] = args.getV3F(n);
+
+		val = nvp_get_str(&list,flags[i]);
+		if (val) {
+			if (!str_tov3t(val,&v))
+				m_flag[i] = v3f(v.x,v.y,v.z);
+		}
+
 		if (!m_hashome) {
 			m_home = m_flag[i];
 			m_hashome = true;
 		}
+		m_hasflag[i] = true;
 	}
-	if (args.exists("clothes_given")) {
-		m_given_clothes = args.getBool("clothes_given");
-	}else{
-		m_given_clothes = false;
-	}
+	m_given_clothes = nvp_get_bool(&list,"clothes_given");
+	wake_timeout = nvp_get_float(&list,"wake_timeout");
 
-	if (args.exists("wake_timeout")) {
-		wake_timeout = args.getFloat("wake_timeout");
-	}else{
-		wake_timeout = 0.0;
-	}
+	nvp_free(&list,0);
 
 	inventory.deSerialize(is);
 	checkInventory();
@@ -801,8 +854,14 @@ LocalPlayer::LocalPlayer():
 	m_ignore_energy(false),
 	m_low_energy_effect(0)
 {
+	char* v;
 	m_energy = 10.0;
-	m_character = g_settings->get("character_definition");
+
+	v = config_get("client.character");
+	if (!v)
+		v = PLAYER_DEFAULT_CHARDEF;
+
+	m_character = v;
 }
 
 LocalPlayer::~LocalPlayer()

@@ -143,7 +143,7 @@ class HTTPServer
 public:
 	HTTPServer(Server &server);
 	~HTTPServer();
-	void start(u16 port);
+	void start();
 	void stop();
 	void step();
 	std::string getPlayerPrivs(std::string name) {

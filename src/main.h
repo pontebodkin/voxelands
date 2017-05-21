@@ -26,10 +26,6 @@
 #ifndef MAIN_HEADER
 #define MAIN_HEADER
 
-// Settings
-class GameSettings;
-extern GameSettings *g_settings;
-
 // This makes and maps textures
 class ITextureSource;
 extern ITextureSource *g_texturesource;

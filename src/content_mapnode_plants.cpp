@@ -27,7 +27,6 @@
 #include "content_list.h"
 #include "content_craft.h"
 #include "content_nodemeta.h"
-#include "settings.h"
 #include "intl.h"
 
 void content_mapnode_plants(bool repeat)

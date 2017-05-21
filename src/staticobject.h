@@ -30,7 +30,6 @@
 #include <string>
 #include <sstream>
 #include "utility.h"
-#include "settings.h"
 #include "main.h"
 #include <list>
 
@@ -101,7 +100,6 @@ public:
 	}
 	void deSerialize(std::istream &is)
 	{
-		bool drop = g_settings->getBool("onload_ignore_objects");
 		char buf[12];
 		// version
 		is.read(buf, 1);
@@ -112,8 +110,6 @@ public:
 		for (u16 i=0; i<count; i++) {
 			StaticObject s_obj;
 			s_obj.deSerialize(is, version);
-			if (!drop)
-				m_objects.push_back(s_obj);
 		}
 	}
 

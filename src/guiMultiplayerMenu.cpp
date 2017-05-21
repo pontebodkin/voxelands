@@ -32,7 +32,6 @@
 #include <IGUIListBox.h>
 #include <IGUIFont.h>
 #include <IGUIScrollBar.h>
-#include "settings.h"
 #include "gui_colours.h"
 #include "http.h"
 

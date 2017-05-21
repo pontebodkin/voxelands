@@ -25,7 +25,6 @@
 #include "content_craft.h"
 #include "content_craftitem.h"
 #include "content_nodemeta.h"
-#include "settings.h"
 #include "intl.h"
 
 void content_mapnode_farm(bool repeat)
@@ -315,30 +314,18 @@ void content_mapnode_farm(bool repeat)
 
 	i = CONTENT_FARM_PUMPKIN_JACK;
 	f = &content_features(i);
-	if (g_settings->getBool("enable_supernatural")) {
-		f->description = gettext("Jack' O Lantern");
-		f->setAllTextures("farm_pumpkin.png");
-		f->setTexture(0,"farm_pumpkin_top.png");
-		f->setTexture(1,"farm_pumpkin_top.png");
-		f->setTexture(5, "farm_pumpkin_jack.png"); // Z-
-		f->setInventoryTextureCube("farm_pumpkin_top.png","farm_pumpkin_jack.png","farm_pumpkin.png");
-		f->draw_type = CDT_NODEBOX;
-		content_nodebox_jackolantern(f);
-		f->setInventoryTextureNodeBox(i,"farm_pumpkin_top.png","farm_pumpkin_jack.png","farm_pumpkin.png");
-	}else{
-		f->description = gettext("Glass Light");
-		f->light_propagates = true;
-		f->sunlight_propagates = true;
-		f->param_type = CPT_LIGHT;
-		f->draw_type = CDT_GLASSLIKE;
-		f->is_ground_content = true;
-		f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-		f->setAllTextures("glasslight.png");
+	f->description = gettext("Glass Light");
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_GLASSLIKE;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->setAllTextures("glasslight.png");
 #ifndef SERVER
-		f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
+	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-		f->setInventoryTextureCube("glasslight.png", "glasslight.png", "glasslight.png");
-	}
+	f->setInventoryTextureCube("glasslight.png", "glasslight.png", "glasslight.png");
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";

@@ -17,6 +17,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
 #include "list.h"
 #include "nvp.h"
 #include "crypto.h"
@@ -24,6 +25,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 /* comparison functions:
  * return 0 to insert
@@ -167,4 +169,145 @@ void nvp_set_float(nvp_t **list, char* name, float value)
 	char str[20];
 	sprintf(str,"%f",value);
 	nvp_set(list,name,str,NULL);
+}
+
+/* set a name/value pair to a float value */
+void nvp_set_v3t(nvp_t **list, char* name, v3_t *value)
+{
+	char str[128];
+	sprintf(str,"(%f,%f,%f)",value->x,value->y,value->z);
+	nvp_set(list,name,str,NULL);
+}
+
+/* parse a name=value string to an nvp list */
+void nvp_from_str(nvp_t **list, char* str)
+{
+	char name[512];
+	char value[512];
+	uint8_t is_str = 0;
+	uint8_t is_value = 0;
+	int i;
+	int o = 0;
+
+	if (!str)
+		return;
+
+	for (i=0; str[i]; i++) {
+		if (str[i] == '\r')
+			continue;
+		if (str[i] == '\n') {
+			if (!is_value) {
+				o = 0;
+				continue;
+			}
+			is_value = 0;
+			is_str = 0;
+			value[o] = 0;
+			o = 0;
+			nvp_set(list,name,value,NULL);
+			continue;
+		}else if (is_value) {
+			if (!o) {
+				if (isspace(str[i]))
+					continue;
+				if (str[i] == '"') {
+					is_str = 1;
+					continue;
+				}
+			}
+
+			if (is_str) {
+				if (str[i] == '\\') {
+					i++;
+					if (!str[i] || str[i] == '\n') {
+						is_value = 0;
+						is_str = 0;
+						value[o] = 0;
+						o = 0;
+						nvp_set(list,name,value,NULL);
+						continue;
+					}
+				}else if (str[i] == '"') {
+					is_value = 0;
+					is_str = 0;
+					value[o] = 0;
+					o = 0;
+					nvp_set(list,name,value,NULL);
+					continue;
+				}
+			}
+
+			if (o < 511)
+				value[o++] = str[i];
+			continue;
+		}else if (str[i] == '=') {
+			name[o] = 0;
+			o = 0;
+			is_value = 1;
+			continue;
+		}
+
+		if (isspace(str[i]))
+			continue;
+
+		if (o < 511)
+			name[o++] = str[i];
+	}
+}
+
+/* write an nvp list to a name=value string */
+int nvp_to_str(nvp_t **list, char* buff, int size)
+{
+	nvp_t *n;
+	int r = 0;
+	int ns;
+	int vs;
+	int i;
+
+	if (!size)
+		return -1;
+
+	if (!list || !*list) {
+		buff[0] = 0;
+		return 0;
+	}
+
+	n = *list;
+
+	while (n) {
+		if (!n->name || !n->value) {
+			n = n->next;
+			continue;
+		}
+
+		ns = strlen(n->name);
+		vs = strlen(n->value);
+
+		if (ns+(vs*2)+6 > size-(r+1))
+			return -2;
+
+		for (i=0; i<ns; i++) {
+			buff[r++] = n->name[i];
+		}
+
+		buff[r++] = ' ';
+		buff[r++] = '=';
+		buff[r++] = ' ';
+		buff[r++] = '"';
+
+		for (i=0; i<vs; i++) {
+			if (n->value[i] == '"' || n->value[i] == '\\')
+				buff[r++] = '\\';
+			buff[r++] = n->value[i];
+		}
+
+		buff[r++] = '"';
+		buff[r++] = '\n';
+
+		n = n->next;
+	}
+
+	buff[r] = 0;
+
+	return r;
 }

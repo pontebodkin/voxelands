@@ -167,13 +167,21 @@ set(common_SRCS
 	auth.c
 	array.c
 	ban.c
+	command.c
+	intl.c
 	list.c
+	log.c
 	nvp.c
+	config.c
+	config_default.c
 	crypto.c
 	crypto_base64.c
 	file.c
 	thread.c
 	path.c
+	string.c
+	bridge_temp.cpp
+	servercommand.c
 	log.cpp
 	content_sao.cpp
 	mapgen.cpp
@@ -195,7 +203,6 @@ set(common_SRCS
 	content_mapnode_util.cpp
 	content_list.c
 	content_nodebox.cpp
-	intl.c
 	collision.cpp
 	nodemetadata.cpp
 	serverobject.cpp
@@ -203,7 +210,6 @@ set(common_SRCS
 	mineral.cpp
 	enchantment.cpp
 	porting.cpp
-	defaultsettings.cpp
 	mapnode.cpp
 	voxel.cpp
 	inventory.cpp
@@ -214,7 +220,6 @@ set(common_SRCS
 	environment.cpp
 	plantgrowth.cpp
 	server.cpp
-	servercommand.cpp
 	socket.cpp
 	mapblock.cpp
 	mapsector.cpp
@@ -409,9 +414,9 @@ else()
 
 
 
-	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive")
+	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive -Wno-write-strings")
 	set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
-	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive")
+	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive -Wno-write-strings")
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${OPT_LDFLAGS} ${SAFETY_LDFLAGS}")

@@ -19,10 +19,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
+
 #include "socket.h"
 #include "http.h"
 #include "main.h"
-#include "settings.h"
 #include "debug.h"
 #include <stdio.h>
 #include <iostream>
@@ -108,11 +109,15 @@ HTTPServer::~HTTPServer()
 }
 
 /* start the server running */
-void HTTPServer::start(u16 port)
+void HTTPServer::start()
 {
 	DSTACK(__FUNCTION_NAME);
 	// Stop thread if already running
 	m_thread.stop();
+
+	uint16_t port = config_get_int("world.server.port");
+	if (!port)
+		port = 30000;
 
 	m_socket = new TCPSocket();
 	m_socket->setTimeoutMs(30);
@@ -288,54 +293,90 @@ int HTTPRemoteClient::handleMap()
 /* handle /api/xxx url's */
 int HTTPRemoteClient::handleAPI()
 {
+	char* v;
 
 	std::string u1 = m_recv_headers.getUrl(1);
 
 	if (u1 == "summary" || u1 == "") {
 		std::string txt(VERSION_STRING);
 		txt += "\n";
-		std::string n = g_settings->get("server_name");
-		if (n == "")
-			n = g_settings->get("server_address");
-		txt += n+"\n";
-		txt += g_settings->get("motd")+"\n";
-		txt += g_settings->get("server_address")+"\n";
-		txt += g_settings->get("port")+"\n";
-		txt += g_settings->get("game_mode")+"\n";
-		if (g_settings->get("default_password") == "") {
-			txt += "public\n";
-		}else{
+
+		v = config_get("world.server.name");
+		if (!v || !v[0])
+			v = "Voxelands Server";
+		txt += v;
+		txt += "\n";
+
+		v = config_get("world.game.motd");
+		if (!v)
+			v = "";
+		txt += v;
+		txt += "\n";
+
+		v = config_get("world.server.address");
+		if (!v)
+			v = "127.0.0.1";
+		txt += v;
+		txt += "\n";
+
+		v = config_get("world.server.port");
+		if (!v)
+			v = "";
+		txt += v;
+		txt += "\n";
+
+		v = config_get("world.game.mode");
+		if (!v)
+			v = "";
+		txt += v;
+		txt += "\n";
+
+		v = config_get("world.server.client.default.password");
+		if (v || config_get_bool("world.server.client.private")) {
 			txt += "private\n";
+		}else{
+			txt += "public\n";
 		}
-		txt += g_settings->get("default_privs")+"\n";
+
+		v = config_get("world.server.client.default.privs");
+		if (!v)
+			v = "";
+		txt += v;
+		txt += "\n";
+
 		txt += "summary,motd,mode,name,players,public,version,privs,features";
 		send((char*)txt.c_str());
 		return 1;
 	}else if (u1 == "motd") {
-		std::string txt = g_settings->get("motd");
-		send((char*)txt.c_str());
+		v = config_get("world.game.motd");
+		if (!v)
+			v = "";
+		send(v);
 		return 1;
 	}else if (u1 == "mode") {
-		std::string txt = g_settings->get("game_mode");
-		send((char*)txt.c_str());
+		v = config_get("world.game.mode");
+		if (!v)
+			v = "";
+		send(v);
 		return 1;
 	}else if (u1 == "name") {
-		std::string txt = g_settings->get("server_name");
-		if (txt == "")
-			txt = g_settings->get("server_address");
-		send((char*)txt.c_str());
+		v = config_get("world.server.name");
+		if (!v || !v[0])
+			v = "Voxelands Server";
+		send(v);
 		return 1;
 	}else if (u1 == "features") {
-		std::string txt = "summary,motd,mode,name,players,public,version,privs,features";
-		send((char*)txt.c_str());
+		v = "summary,motd,mode,name,players,public,version,privs,features";
+		send(v);
 		return 1;
 	}else if (u1 == "version") {
-		std::string txt = VERSION_STRING;
-		send((char*)txt.c_str());
+		send(VERSION_STRING);
 		return 1;
 	}else if (u1 == "privs") {
-		std::string txt = g_settings->get("default_privs");
-		send((char*)txt.c_str());
+		v = config_get("world.server.client.default.privs");
+		if (!v)
+			v = "";
+		send(v);
 		return 1;
 	}else if (u1 == "players") {
 		array_t *players = m_server->getGameServer()->getPlayers(true);
@@ -355,25 +396,30 @@ int HTTPRemoteClient::handleAPI()
 		send((char*)txt.c_str());
 		return 1;
 	}else if (u1 == "public") {
-		if (g_settings->get("default_password") == "") {
-			send((char*)"public");
+		v = config_get("world.server.client.default.password");
+		if (v || config_get_bool("world.server.client.private")) {
+			send("private");
 		}else{
-			send((char*)"private");
+			send("public");
 		}
 		return 1;
 	}
 
 	setResponse("404 Not Found");
-	send((char*)"404 Not Found");
+	send("404 Not Found");
 	return 1;
 }
 
 /* handle / url's */
 int HTTPRemoteClient::handleIndex()
 {
+	char* v;
 	int c = 0;
+
 	std::string html("<div class=\"panel\"><h2>");
-	html += g_settings->get("motd");
+	v = config_get("world.game.motd");
+	if (v)
+		html += v;
 	html += "</h2><p><strong>Version: </strong>";
 	html += VERSION_STRING;
 	html += "<br /><strong><a href=\"/player\" class=\"secret\">Players</a>: </strong>";
@@ -538,10 +584,9 @@ std::string http_request(char* host, char* url, char* post, int port)
 
 	addr.setPort(port);
 	if (!host || !host[0]) {
-		h = g_settings->get("api_server");
-		if (h == "")
+		host = config_get("global.api.announce");
+		if (!host || !host[0])
 			return "";
-		host = (char*)h.c_str();
 	}
 
 	addr.Resolve(host);

@@ -23,11 +23,12 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "content_cao.h"
 #include "content_mob.h"
 #include "path.h"
 #include "environment.h"
-#include "settings.h"
 #include "mesh.h"
 #include <ICameraSceneNode.h>
 #include "sound.h"
@@ -98,9 +99,9 @@ void MobCAO::addToScene(scene::ISceneManager *smgr)
 			node->setFrameLoop(s,e);
 			node->setScale(m.model_scale);
 			setMeshColor(node->getMesh(), video::SColor(255,255,255,255));
-			bool use_trilinear_filter = g_settings->getBool("trilinear_filter");
-			bool use_bilinear_filter = g_settings->getBool("bilinear_filter");
-			bool use_anisotropic_filter = g_settings->getBool("anisotropic_filter");
+			bool use_trilinear_filter = config_get_bool("client.video.trilinear");
+			bool use_bilinear_filter = config_get_bool("client.video.bilinear");
+			bool use_anisotropic_filter = config_get_bool("client.video.anisotropic");
 
 			// Set material flags and texture
 			if (path_get((char*)"texture",const_cast<char*>(m.texture.c_str()),1,buff,1024))
@@ -122,9 +123,9 @@ void MobCAO::addToScene(scene::ISceneManager *smgr)
 		updateNodePos();
 	}else if (m.texture != "") {
 		char buff[1024];
-		bool use_trilinear_filter = g_settings->getBool("trilinear_filter");
-		bool use_bilinear_filter = g_settings->getBool("bilinear_filter");
-		bool use_anisotropic_filter = g_settings->getBool("anisotropic_filter");
+		bool use_trilinear_filter = config_get_bool("client.video.trilinear");
+		bool use_bilinear_filter = config_get_bool("client.video.bilinear");
+		bool use_anisotropic_filter = config_get_bool("client.video.anisotropic");
 		scene::IBillboardSceneNode *bill = smgr->addBillboardSceneNode(NULL, v2f(1, 1), v3f(0,0,0), -1);
 		if (path_get((char*)"texture",const_cast<char*>(m.texture.c_str()),1,buff,1024))
 			bill->setMaterialTexture( 0, driver->getTexture(buff));
@@ -238,12 +239,8 @@ void MobCAO::step(float dtime, ClientEnvironment *env)
 	/* Run timers */
 	m_player_hit_timer -= dtime;
 
-	if (m_damage_visual_timer >= 0) {
+	if (m_damage_visual_timer >= 0)
 		m_damage_visual_timer -= dtime;
-		if (m_damage_visual_timer <= 0) {
-			infostream<<"id="<<m_id<<" damage visual ended"<<std::endl;
-		}
-	}
 
 	m_walking_unset_timer += dtime;
 	if (m_walking_unset_timer >= 1.0) {

@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "environment.h"
 #include "porting.h"
 #include "collision.h"
@@ -34,7 +36,6 @@
 #include "content_sao.h"
 #include "content_mob.h"
 #include "plantgrowth.h"
-#include "settings.h"
 #include "log.h"
 #include "profiler.h"
 #include "server.h"
@@ -506,75 +507,56 @@ void ServerEnvironment::deSerializePlayers()
 
 void ServerEnvironment::saveMeta()
 {
-	char buff[1024];
-	if (!path_get((char*)"world",(char*)"env_meta.txt",0,buff,1024))
+	file_t *f;
+
+	f = file_load("world","env_meta.txt");
+	if (!f)
 		return;
 
-	// Open file and serialize
-	std::ofstream os(buff, std::ios_base::binary);
-	if (os.good() == false) {
-		infostream<<"ServerEnvironment::saveMeta(): Failed to open "
-				<<buff<<std::endl;
-		throw SerializationError("Couldn't save env meta");
-	}
+	f->len = 0;
+	f->pos = 0;
 
-	Settings args;
-	args.setU64("game_time", m_game_time);
-	args.setU64("time_of_day", getTimeOfDay());
-	args.setU64("world_time",m_time);
-	args.writeLines(os);
-	os<<"EnvArgsEnd\n";
+	file_writef(f,"game_time = %u\n",m_game_time);
+	file_writef(f,"time_of_day = %u\n",getTimeOfDay());
+	file_writef(f,"world_time = %u\n",m_time);
+
+	file_flush(f);
+	file_free(f);
 }
 
 void ServerEnvironment::loadMeta()
 {
+	file_t *f;
 	char buff[1024];
-	if (!path_get((char*)"world",(char*)"env_meta.txt",1,buff,1024))
+	char* n;
+	char* v;
+
+	f = file_load("world","env_meta.txt");
+	if (!f)
 		return;
 
-	// Open file and deserialize
-	std::ifstream is(buff, std::ios_base::binary);
-	if (is.good() == false) {
-		infostream<<"ServerEnvironment::loadMeta(): Failed to open "
-				<<buff<<std::endl;
-		throw SerializationError("Couldn't load env meta");
+	while (file_readline(f,buff,1024) > 0) {
+		n = buff;
+		v = strchr(n,'=');
+		if (!v)
+			continue;
+		*v = 0;
+		v++;
+		n = trim(n);
+		v = trim(v);
+		if (!n[0] || !v[0])
+			continue;
+
+		if (!strcmp(n,"game_time")) {
+			m_game_time = strtoll(v,NULL,10);
+		}else if (!strcmp(n,"time_of_day")) {
+			m_time_of_day = strtoll(v,NULL,10);
+		}else if (!strcmp(n,"world_time")) {
+			m_time = strtoll(v,NULL,10);
+		}
 	}
 
-	Settings args;
-
-	for(;;)
-	{
-		if(is.eof())
-			throw SerializationError
-					("ServerEnvironment::loadMeta(): EnvArgsEnd not found");
-		std::string line;
-		std::getline(is, line);
-		std::string trimmedline = trim(line);
-		if(trimmedline == "EnvArgsEnd")
-			break;
-		args.parseConfigLine(line);
-	}
-
-	try{
-		m_game_time = args.getU64("game_time");
-	}catch(SettingNotFoundException &e){
-		// Getting this is crucial, otherwise timestamps are useless
-		throw SerializationError("Couldn't load env meta game_time");
-	}
-
-	try{
-		m_time_of_day = args.getU64("time_of_day");
-	}catch(SettingNotFoundException &e){
-		// This is not as important
-		m_time_of_day = 9000;
-	}
-
-	try{
-		m_time = args.getU64("world_time");
-	}catch(SettingNotFoundException &e){
-		// This is not as important
-		m_time = 0;
-	}
+	file_free(f);
 }
 
 void ServerEnvironment::activateBlock(MapBlock *block, u32 additional_dtime)
@@ -1040,7 +1022,7 @@ void ServerEnvironment::step(float dtime)
 	time_diff *= 24000.0;
 
 	// Get some settings
-	bool footprints = g_settings->getBool("enable_footprints");
+	bool footprints = config_get_bool("world.game.environment.footprints");
 
 	/*
 		Increment game time
@@ -1182,7 +1164,7 @@ void ServerEnvironment::step(float dtime)
 		/*
 			Update list of active blocks, collecting changes
 		*/
-		const s16 active_block_range = g_settings->getS16("active_block_range");
+		const s16 active_block_range = config_get_int("world.server.chunk.range.active");
 		std::set<v3s16> blocks_removed;
 		std::set<v3s16> blocks_added;
 		m_active_blocks.update(players_blockpos, active_block_range, blocks_removed, blocks_added);
@@ -1236,21 +1218,17 @@ void ServerEnvironment::step(float dtime)
 	if (circuitstep || metastep || nodestep) {
 		float circuit_dtime = 0.5;
 		float meta_dtime = 1.0;
-		bool can_daylight = false;
-		if (getTimeOfDay() >= 10000 && getTimeOfDay() < 14000)
-			can_daylight = true;
 		u16 season = getSeason();
 		s16 coldzone = 60;
 		if (season == ENV_SEASON_WINTER)
 			coldzone = 5;
-		bool unsafe_fire = g_settings->getBool("unsafe_fire");
+		bool unsafe_fire = config_get_bool("world.game.environment.fire.spread");
 		for (std::set<v3s16>::iterator i = m_active_blocks.m_list.begin(); i != m_active_blocks.m_list.end(); i++) {
 			v3s16 bp = *i;
 
 			MapBlock *block = m_map->getBlockNoCreateNoEx(bp);
 			if (block == NULL)
 				continue;
-			bool daylight = can_daylight && !block->getIsUnderground();
 
 			std::list<u16> new_list;
 			for (std::list<u16>::iterator oi = block->m_active_objects.begin(); oi != block->m_active_objects.end(); oi++) {
@@ -2050,7 +2028,7 @@ void ServerEnvironment::step(float dtime)
 				{
 					if (unsafe_fire) {
 						if (n.envticks > 2) {
-							s16 bs_rad = g_settings->getS16("borderstone_radius");
+							s16 bs_rad = config_get_int("world.game.borderstone.radius");
 							bs_rad += 2;
 							// if any node is border stone protected, don't spread
 							if (!searchNear(p,v3s16(bs_rad,bs_rad,bs_rad),CONTENT_BORDERSTONE,NULL)) {
@@ -2094,7 +2072,7 @@ void ServerEnvironment::step(float dtime)
 					if (!content_features(n_below).flammable) {
 						m_map->removeNodeWithEvent(p);
 					}else{
-						s16 bs_rad = g_settings->getS16("borderstone_radius");
+						s16 bs_rad = config_get_int("world.game.borderstone.radius");
 						bs_rad += 2;
 						// if any node is border stone protected, don't spread
 						if (!searchNear(p,v3s16(bs_rad,bs_rad,bs_rad),CONTENT_BORDERSTONE,NULL)) {
@@ -2131,8 +2109,8 @@ void ServerEnvironment::step(float dtime)
 				{
 					NodeMetadata *meta = m_map->getNodeMetadata(p);
 					if (meta && meta->getEnergy() == ENERGY_MAX) {
-						if (g_settings->getBool("enable_tnt")) {
-							s16 bs_rad = g_settings->getS16("borderstone_radius");
+						if (config_get_bool("world.game.environment.tnt")) {
+							s16 bs_rad = config_get_int("world.game.borderstone.radius");
 							bs_rad += 3;
 							// if any node is border stone protected, don't destroy anything
 							if (!searchNear(p,v3s16(bs_rad,bs_rad,bs_rad),CONTENT_BORDERSTONE,NULL)) {
@@ -2867,27 +2845,6 @@ void ServerEnvironment::step(float dtime)
 					if (p.Y >= 1024 && n.envticks > 1 && !searchNear(p,v3s16(5,5,5),CONTENT_LIFE_SUPPORT,NULL)) {
 						n.setContent(CONTENT_VACUUM);
 						m_map->addNodeWithEvent(p,n);
-					}else if (
-						daylight
-						&& p0.Y > 8
-						&& g_settings->exists("fix_light_bug")
-						&& g_settings->getBool("fix_light_bug") == true
-						&& n.getLightBlend(getDayNightRatio()) < 10
-					) {
-						// CHECK AND FIX!
-						core::map<v3s16, MapBlock*> modified_blocks;
-						m_map->propagateSunlight(p,modified_blocks);
-						// Send a MEET_OTHER event
-						MapEditEvent event;
-						event.type = MEET_OTHER;
-						for(core::map<v3s16, MapBlock*>::Iterator
-							i = modified_blocks.getIterator();
-							i.atEnd() == false; i++)
-						{
-							v3s16 p = i.getNode()->getKey();
-							event.modified_blocks.insert(p, true);
-						}
-						m_map->dispatchEvent(&event);
 					}
 					break;
 				}
@@ -2970,7 +2927,7 @@ void ServerEnvironment::step(float dtime)
 
 		// This helps the objects to send data at the same time
 		bool send_recommended = false;
-		u8 mob_level = mobLevelI(g_settings->get("max_mob_level"));
+		u8 mob_level = mobLevelI(config_get("world.game.mob.spawn.level"));
 		m_send_recommended_timer += dtime;
 		if (m_send_recommended_timer > 0.10) {
 			m_send_recommended_timer = 0;
@@ -3883,7 +3840,7 @@ void ClientEnvironment::step(float dtime)
 	stepTimeOfDay(dtime);
 
 	// Get some settings
-	bool footprints = g_settings->getBool("enable_footprints");
+	bool footprints = config_get_bool("world.game.environment.footprints");
 
 	// Get local player
 	LocalPlayer *lplayer = getLocalPlayer();

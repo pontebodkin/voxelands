@@ -5,6 +5,10 @@
 extern "C" {
 #endif
 
+#ifndef _HAVE_V3_TYPE
+struct v3_s;
+#endif
+
 #ifndef _HAVE_NVP_TYPE
 #define _HAVE_NVP_TYPE
 typedef struct nvp_s {
@@ -28,6 +32,9 @@ void *nvp_get_data(nvp_t **list, char* name);
 void nvp_set(nvp_t **list, char* name, char* value, void *data);
 void nvp_set_int(nvp_t **list, char* name, int value);
 void nvp_set_float(nvp_t **list, char* name, float value);
+void nvp_set_v3t(nvp_t **list, char* name, struct v3_s *value);
+void nvp_from_str(nvp_t **list, char* str);
+int nvp_to_str(nvp_t **list, char* buff, int size);
 
 #ifdef __cplusplus
 }

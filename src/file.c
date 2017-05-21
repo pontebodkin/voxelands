@@ -59,7 +59,7 @@ file_t *file_load(char* type, char* name)
 		fn = name;
 		path = path_get(type,name,1,NULL,0);
 	}else{
-		path = name;
+		path = strdup(name);
 		fn = strrchr(name,'/');
 		if (!fn)
 			return NULL;

@@ -23,6 +23,7 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
 #include "content_nodemeta.h"
 #include "inventory.h"
 #include "content_mapnode.h"
@@ -31,7 +32,6 @@
 #include "log.h"
 #include "player.h"
 #include "environment.h"
-#include "settings.h"
 #include "main.h"
 #include "mapblock.h"
 #include "enchantment.h"
@@ -5261,7 +5261,7 @@ bool PistonNodeMetadata::extend(v3s16 pos, v3s16 dir, content_t arm, MapNode pis
 {
 	bool can_extend = false;
 	v3s16 epos = pos;
-	s16 max_d = g_settings->getS16("borderstone_radius");
+	s16 max_d = config_get_int("world.game.borderstone.radius");
 	for (int i=0; i<17; i++) {
 		epos += dir;
 		v3s16 test_p;
@@ -5327,7 +5327,7 @@ bool PistonNodeMetadata::contract(v3s16 pos, v3s16 dir, bool sticky, MapNode pis
 	if (dir.Y == 1)
 		dropping = true;
 	if (sticky || dropping) {
-		s16 max_d = g_settings->getS16("borderstone_radius");
+		s16 max_d = config_get_int("world.game.borderstone.radius");
 		v3s16 p_cur = pos+dir;
 		v3s16 p_next = p_cur+dir;
 		bool walk = true;

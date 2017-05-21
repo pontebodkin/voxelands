@@ -169,7 +169,6 @@ public:
 
 	Client(
 		IrrlichtDevice *device,
-		const char *playername,
 		std::string password,
 		MapDrawControl &control,
 		ISoundManager *sound

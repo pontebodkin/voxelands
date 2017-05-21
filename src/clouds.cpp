@@ -23,13 +23,14 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "clouds.h"
 #include "noise.h"
 #include "constants.h"
 #include "debug.h"
 #include "main.h" // For g_profiler and g_settings
 #include "profiler.h"
-#include "settings.h"
 
 Clouds::Clouds(
 		scene::ISceneNode* parent,
@@ -56,7 +57,7 @@ Clouds::Clouds(
 	m_box = core::aabbox3d<f32>(-BS*1000000,m_cloud_y-BS,-BS*1000000, BS*1000000,m_cloud_y+BS,BS*1000000);
 
 	m_face_count = 1;
-	if (g_settings->getU16("mesh_detail") > 1)
+	if (config_get_int("client.graphics.mesh.lod") > 1)
 		m_face_count = 6;
 }
 

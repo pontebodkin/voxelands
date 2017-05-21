@@ -29,6 +29,8 @@
 
 #ifndef SERVER
 
+#include "common.h"
+
 #include "sound_openal.h"
 
 #if defined(_MSC_VER)
@@ -49,7 +51,6 @@
 #include <vector>
 #include "utility.h" // myrand()
 #include "path.h"
-#include "settings.h"
 #include "main.h"
 
 #define BUFFER_SIZE 30000
@@ -258,7 +259,7 @@ public:
 		alDistanceModel(AL_EXPONENT_DISTANCE);
 
 		{
-			f32 volume = g_settings->getFloat("sound_volume");
+			float volume = config_get_float("client.sound.volume");
 			if (volume < 1.0)
 				return;
 			if (volume > 100.0)

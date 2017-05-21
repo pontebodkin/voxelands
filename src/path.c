@@ -17,31 +17,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
-
-#ifndef LINUX
-#ifdef __linux__
-#define LINUX
-#endif
-#endif
-
-#ifdef LINUX
-
-#ifdef _POSIX_C_SOURCE
-#undef _POSIX_C_SOURCE
-#endif
-#define _POSIX_C_SOURCE 200112L
-
-#ifdef _XOPEN_SOURCE
-#undef _XOPEN_SOURCE
-#endif
-#define _XOPEN_SOURCE 700
-
-#ifdef _DEFAULT_SOURCE
-#undef _DEFAULT_SOURCE
-#endif
-#define _DEFAULT_SOURCE
-#endif
-
+#include "common.h"
 #include "file.h"
 #include "path.h"
 #include "list.h"

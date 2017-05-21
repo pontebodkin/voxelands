@@ -17,10 +17,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
+
 #include "common_irrlicht.h"
 #include "selection_mesh.h"
 #include "content_mapblock.h"
-#include "settings.h"
 #include "main.h" // For g_settings and g_texturesource
 #include "mesh.h"
 #include "mapblock.h"
@@ -115,10 +116,10 @@ void selection_draw(video::IVideoDriver* driver, Client &client, v3s16 camera_of
 		cos_changed = true;
 	}
 
-	bool render_trilinear = g_settings->getBool("trilinear_filter");
-	bool render_bilinear = g_settings->getBool("bilinear_filter");
-	bool render_anisotropic = g_settings->getBool("anisotropic_filter");
-	bool anim_textures = g_settings->getBool("enable_animated_textures");
+	bool render_trilinear = config_get_bool("client.video.trilinear");
+	bool render_bilinear = config_get_bool("client.video.bilinear");
+	bool render_anisotropic = config_get_bool("client.video.anisotropic");
+	bool anim_textures = config_get_bool("client.graphics.texture.animations");
 
 	for (std::vector<SelectionMesh*>::iterator i = meshes.begin(); i != meshes.end(); i++) {
 			SelectionMesh *mesh = *i;
@@ -171,14 +172,12 @@ void SelectionMesh::animate(float time)
 		// If frame doesn't change, skip
 		if (frame == it->second.frame)// || temp_data.frame < 0)
 			continue;
-		
+
 		m_animation_data[it->first].frame = frame;
 
 		// Make sure we don't cause an overflow. Can get removed if future is no problems occuring
-		if (it->first >= m_mesh->getMeshBufferCount()) {
-			errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
+		if (it->first >= m_mesh->getMeshBufferCount())
 			return;
-		}
 
 		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
 
@@ -207,13 +206,11 @@ void SelectionMesh::generate(MeshMakeData *data)
 {
 	DSTACK(__FUNCTION_NAME);
 
-	BEGIN_DEBUG_EXCEPTION_HANDLER
-
 	data->m_BSd = 0.02;
 	data->m_BS = (float)BS+data->m_BSd;
-	data->mesh_detail = g_settings->getU16("mesh_detail");
-	data->texture_detail = g_settings->getU16("texture_detail");
-	data->light_detail = g_settings->getU16("light_detail");
+	data->mesh_detail = config_get_int("client.graphics.mesh.lod");
+	data->texture_detail = config_get_int("client.graphics.texture.lod");
+	data->light_detail = config_get_int("client.graphics.light.lod");
 	m_pos = data->m_blockpos;
 
 	for (std::map<v3s16,SelectedNode>::iterator i = data->m_selected.begin(); i != data->m_selected.end(); i++) {
@@ -340,7 +337,6 @@ void SelectionMesh::generate(MeshMakeData *data)
 	refresh(data->m_daynight_ratio);
 	m_mesh->recalculateBoundingBox();
 	animate(0.0); // init first frame
-	END_DEBUG_EXCEPTION_HANDLER(errorstream)
 }
 
 void SelectionMesh::refresh(u32 daynight_ratio)

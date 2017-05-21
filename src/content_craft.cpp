@@ -33,7 +33,6 @@
 #include "player.h"
 #include "server.h"
 #include "mapnode.h" // For content_t
-#include "settings.h" // for g_settings
 
 #include <algorithm>
 #include <set>

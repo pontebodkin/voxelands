@@ -17,14 +17,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
+#define VLCRYPTO_EXPOSE_LIBRARY_FUNCTIONS
 #include "crypto.h"
 
 #include <stdlib.h>
 #include <string.h>
-
-/* defined in base64.c */
-int base64_lencode(const char* source, size_t sourcelen, char *target, size_t targetlen);
-size_t base64_ldecode(const char* source, char *target, size_t targetlen);
 
 uint32_t hash(const char *str_param)
 {
@@ -95,4 +93,21 @@ char* base64_decode(const char* str)
 	ret[dl] = 0;
 
 	return ret;
+}
+
+int sha1(char* str, unsigned char buff[20])
+{
+	unsigned char* digest;
+	if (!str)
+		return 1;
+
+	digest = bridge_sha1(str);
+	if (!digest)
+		return 1;
+
+	memcpy(buff,digest,20);
+
+	free(digest);
+
+	return 0;
 }

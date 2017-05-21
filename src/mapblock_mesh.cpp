@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "mapblock_mesh.h"
 #include "light.h"
 #include "mapblock.h"
@@ -30,7 +32,6 @@
 #include "main.h" // For g_settings and g_texturesource
 #include "content_mapblock.h"
 #include "content_nodemeta.h"
-#include "settings.h"
 #include "profiler.h"
 #include "mesh.h"
 #include "base64.h"
@@ -490,10 +491,8 @@ void MapBlockMesh::animate(float time)
 		m_animation_data[it->first].frame = frame;
 
 		 // Make sure we don't cause an overflow. Can get removed in future if no problems occuring
-		if (it->first >= m_mesh->getMeshBufferCount()) {
-			errorstream << ": animate() Tying to index non existent Buffer." << std::endl;
+		if (it->first >= m_mesh->getMeshBufferCount())
 			return;
-		}
 
 		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
 
@@ -513,11 +512,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 {
 	DSTACK(__FUNCTION_NAME);
 
-	BEGIN_DEBUG_EXCEPTION_HANDLER
-
-	data->mesh_detail = g_settings->getU16("mesh_detail");
-	data->texture_detail = g_settings->getU16("texture_detail");
-	data->light_detail = g_settings->getU16("light_detail");
+	data->mesh_detail = config_get_int("client.graphics.mesh.lod");
+	data->texture_detail = config_get_int("client.graphics.texture.lod");
+	data->light_detail = config_get_int("client.graphics.light.lod");
 	m_pos = data->m_blockpos;
 	SelectedNode selected;
 	if (!m_animation_data.empty())
@@ -736,8 +733,6 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 	// Get frist frame of animation AFTER the mutex is unlocked
 	animate(0.0);
-
-	END_DEBUG_EXCEPTION_HANDLER(errorstream)
 }
 
 void MapBlockMesh::refresh(u32 daynight_ratio)

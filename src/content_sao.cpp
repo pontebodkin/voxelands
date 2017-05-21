@@ -23,11 +23,11 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
 #include "content_sao.h"
 #include "content_mob.h"
 #include "collision.h"
 #include "environment.h"
-#include "settings.h"
 #include "profiler.h"
 #include "nodemetadata.h"
 #include "mapblock.h"
@@ -310,10 +310,15 @@ void MobSAO::step(float dtime, bool send_recommended)
 					f32 dist = m_base_position.getDistanceFrom(playerpos);
 					if (dist < BS*16) {
 						if (dist < BS*8 || myrand_range(0,2) == 0) {
-							actionstream<<"Mob id="<<m_id<<" at "
-									<<PP(m_base_position/BS)
-									<<" got randomly disturbed by "
-									<<player->getName()<<std::endl;
+							vlprintf(
+								CN_ACTION,
+								(char*)"mob (%u) at (%f,%f,%f) was randomly disturbed by %s",
+								m_id,
+								m_base_position.X/BS,
+								m_base_position.Y/BS,
+								m_base_position.Z/BS,
+								player->getName()
+							);
 							m_disturbing_player = player->getName();
 							m_disturb_timer = 0;
 							break;
@@ -379,9 +384,6 @@ void MobSAO::step(float dtime, bool send_recommended)
 				dir.normalize();
 				v3f speed = dir * BS * 10.0;
 				v3f pos = m_base_position + shoot_pos;
-				infostream<<__FUNCTION_NAME<<": Mob id="<<m_id
-						<<" shooting from "<<PP(pos)
-						<<" at speed "<<PP(speed)<<std::endl;
 				ServerActiveObject *obj = new MobSAO(m_env, 0, pos, speed, m.attack_throw_object);
 				m_env->addActiveObject(obj);
 			}
@@ -1380,9 +1382,16 @@ u16 MobSAO::punch(content_t punch_item, v3f dir, const std::string &playername)
 	ToolItemFeatures f = content_toolitem_features(punch_item);
 	u16 wear = 655;
 
-	actionstream<<playername<<" punches mob id="<<m_id
-			<<" with a \""<<f.description<<"\" at "
-			<<PP(m_base_position/BS)<<std::endl;
+	vlprintf(
+		CN_ACTION,
+		(char*)"%s punches mod (%u) with a '%s' at (%f,%f,%f)",
+		playername.c_str(),
+		m_id,
+		f.description,
+		m_base_position.X/BS,
+		m_base_position.Y/BS,
+		m_base_position.Z/BS
+	);
 
 	if (m.special_dropped_item != CONTENT_IGNORE && (m.special_punch_item == TT_NONE || f.type == m.special_punch_item))
 		return 0;
@@ -1453,7 +1462,7 @@ bool MobSAO::rightClick(Player *player)
 		return false;
 	// feed the mob
 	// after this always return true as inventory has been modified
-	if (g_settings->getBool("infinite_inventory") == false && ilist) {
+	if (!config_get_bool((char*)"world.player.inventory.creative") && ilist) {
 		// Remove from inventory
 		if (item->getCount() == 1) {
 			ilist->deleteItem(item_i);
@@ -1501,11 +1510,16 @@ void MobSAO::sendPosition()
 }
 void MobSAO::doDamage(u16 d)
 {
-	infostream<<"Mob hp="<<((int)m_hp)<<" damage="<<((int)d)<<std::endl;
-
 	if (d >= m_hp) {
-		actionstream<<"A "<<mobLevelS(content_mob_features(m_content).level)
-				<<" mob id="<<m_id<<" dies at "<<PP(m_base_position)<<std::endl;
+		vlprintf(
+			CN_ACTION,
+			(char*)"mob (%u) dies at (%f,%f,%f)",
+			m_id,
+			m_base_position.X/BS,
+			m_base_position.Y/BS,
+			m_base_position.Z/BS
+		);
+
 		// Die
 		m_hp = 0;
 		m_removed = true;

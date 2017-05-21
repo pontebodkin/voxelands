@@ -25,6 +25,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "guiSettingsMenu.h"
 #include "debug.h"
 #include "serialization.h"
@@ -37,7 +39,6 @@
 #include <IGUIFont.h>
 #include <IGUIScrollBar.h>
 #include <IGUIComboBox.h>
-#include "settings.h"
 #include "gui_colours.h"
 
 GUISettingsMenu::GUISettingsMenu(
@@ -54,19 +55,19 @@ GUISettingsMenu::GUISettingsMenu(
 {
 	activeKey = -1;
 	init_keys();
-	m_data.mesh_detail = g_settings->getU16("mesh_detail");
-	m_data.texture_detail = g_settings->getU16("texture_detail");
-	m_data.light_detail = g_settings->getU16("light_detail");
-	m_data.fullscreen = g_settings->getBool("fullscreen");
-	m_data.particles = g_settings->getBool("enable_particles");
-	m_data.mip_map = g_settings->getBool("mip_map");
-	m_data.anisotropic_filter = g_settings->getBool("anisotropic_filter");
-	m_data.bilinear_filter = g_settings->getBool("bilinear_filter");
-	m_data.trilinear_filter = g_settings->getBool("trilinear_filter");
-	m_data.hotbar = g_settings->getBool("old_hotbar");
-	m_data.wield_index = g_settings->getBool("enable_wieldindex");
-	m_data.volume = g_settings->getFloat("sound_volume");
-	m_data.texture_animation = g_settings->getBool("enable_animated_textures");
+	m_data.mesh_detail = config_get_int("client.graphics.mesh.lod");
+	m_data.texture_detail = config_get_int("client.graphics.texture.lod");
+	m_data.light_detail = config_get_int("client.graphics.light.lod");
+	m_data.fullscreen = config_get_bool("client.video.fullscreen");
+	m_data.particles = config_get_bool("client.graphics.particles");
+	m_data.mip_map = config_get_bool("client.video.mipmaps");
+	m_data.anisotropic_filter = config_get_bool("client.video.anisotropic");
+	m_data.bilinear_filter = config_get_bool("client.video.bilinear");
+	m_data.trilinear_filter = config_get_bool("client.video.trilinear");
+	m_data.hotbar = config_get_bool("client.ui.hud.old");
+	m_data.wield_index = config_get_bool("client.ui.hud.wieldindex");
+	m_data.volume = config_get_float("client.sound.volume");
+	m_data.texture_animation = config_get_bool("client.graphics.texture.animations");
 
 	keynames[VLKC_FORWARD] = narrow_to_wide(gettext("Forward"));
 	keynames[VLKC_BACKWARD] = narrow_to_wide(gettext("Backward"));
@@ -122,23 +123,21 @@ void GUISettingsMenu::save()
 	for (int i=0; i<m; i++) {
 		saveKeySetting(keys[i],(KeyCode)i);
 	}
-	// graphics
-	g_settings->set("mesh_detail", itos(m_data.mesh_detail));
-	g_settings->set("texture_detail", itos(m_data.texture_detail));
-	g_settings->set("light_detail", itos(m_data.light_detail));
-	g_settings->set("old_hotbar", itos(m_data.hotbar));
-	g_settings->set("enable_wieldindex", itos(m_data.wield_index));
-	g_settings->set("enable_animated_textures", itos(m_data.texture_animation));
-	// video
-	g_settings->set("mip_map", itos(m_data.mip_map));
-	g_settings->set("anisotropic_filter", itos(m_data.anisotropic_filter));
-	g_settings->set("bilinear_filter", itos(m_data.bilinear_filter));
-	g_settings->set("trilinear_filter", itos(m_data.trilinear_filter));
-	g_settings->set("fullscreen", itos(m_data.fullscreen));
-	g_settings->set("enable_particles", itos(m_data.particles));
+
+	config_set_int("client.graphics.mesh.lod",m_data.mesh_detail);
+	config_set_int("client.graphics.texture.lod",m_data.texture_detail);
+	config_set_int("client.graphics.light.lod",m_data.light_detail);
+	config_set_int("client.video.fullscreen",m_data.fullscreen);
+	config_set_int("client.graphics.particles",m_data.particles);
+	config_set_int("client.video.mipmaps",m_data.mip_map);
+	config_set_int("client.video.anisotropic",m_data.anisotropic_filter);
+	config_set_int("client.video.bilinear",m_data.bilinear_filter);
+	config_set_int("client.video.trilinear",m_data.trilinear_filter);
+	config_set_int("client.ui.hud.old",m_data.hotbar);
+	config_set_int("client.ui.hud.wieldindex",m_data.wield_index);
+	config_set_float("client.sound.volume",m_data.volume);
+	config_set_int("client.graphics.texture.animations",m_data.texture_animation);
 	Environment->getVideoDriver()->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, m_data.mip_map);
-	// sound
-	g_settings->set("sound_volume",ftos(m_data.volume));
 }
 
 void GUISettingsMenu::regenerateGui(v2u32 screensize)

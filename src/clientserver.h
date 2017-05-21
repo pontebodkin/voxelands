@@ -342,7 +342,7 @@ enum ToServerCommand
 	/*
 		u16 command
 		u16 length
-		wstring message
+		string message
 	*/
 
 	TOSERVER_CLICK_ACTIVEOBJECT = 0x34,

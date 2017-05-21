@@ -17,6 +17,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 ************************************************************************/
 
+#include "common.h"
 #include "auth.h"
 
 #include "thread.h"
@@ -68,13 +69,13 @@ int auth_privs2str(uint64_t privs, char* buff, int size)
 		if ((privs&p) != p)
 			continue;
 		l = strlen(auth.privstr[i]);
-		if ((o+l+2) < size)
+		if ((o+l+2) >= size)
 			continue;
 		if (r) {
-			strcat(buff,",");
+			strcpy(buff+o,",");
 			o++;
 		}
-		strcat(buff,auth.privstr[i]);
+		strcpy(buff+o,auth.privstr[i]);
 		o += l;
 		r++;
 	}
@@ -87,33 +88,32 @@ uint64_t auth_str2privs(char* str)
 {
 	uint64_t privs = 0;
 	char buff[256];
-	char* b;
-	char* e;
 	int i;
+	int j;
+	int o = 0;
+	char* n;
 
 	if (!str)
 		return 0;
 
-	if (!strcpy(buff,str))
-		return 0;
-	b = buff;
-	while (1) {
-		e = strchr(b,',');
-		if (e)
-			*e = 0;
-		for (i=0; i<PRIV_COUNT; i++) {
-			if (strcmp(auth.privstr[i],b))
-				continue;
-			privs |= (1<<i);
-			break;
+	for (i=0; ; i++) {
+		if (!str[i] || str[i] == ',') {
+			buff[o] = 0;
+			o = 0;
+			n = trim(buff);
+			for (j=0; j<PRIV_COUNT; j++) {
+				if (strcmp(auth.privstr[j],n))
+					continue;
+				privs |= (1<<j);
+				break;
+			}
+			if (j == PRIV_COUNT)
+				return PRIV_INVALID;
+			if (!str[i])
+				break;
+		}else if (o<255) {
+			buff[o++] = str[i];
 		}
-		if (i == PRIV_COUNT)
-			return PRIV_INVALID;
-		if (e) {
-			b = e+1;
-			continue;
-		}
-		break;
 	}
 
 	return privs;

@@ -23,13 +23,15 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "keycode.h"
 #include "main.h" // For g_settings
 #include "exceptions.h"
-#include "settings.h"
 #include "hex.h"
 #include "intl.h"
 #include <map>
+#include "utility.h"
 
 class UnknownKeycode : public BaseException
 {
@@ -223,7 +225,7 @@ static const char *KeyNames[] =
 		"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-",
 		"-", "-", "-", "-", "-", "-", "-", "-", "KEY_ATTN", "KEY_CRSEL", "KEY_EXSEL",
 		"KEY_EREOF", "KEY_PLAY", "KEY_ZOOM", "KEY_PA1", "KEY_OEM_CLEAR", "-" };
-		
+
 static const char *KeyNamesLang[255];
 
 void init_KeyNamesLang()
@@ -376,8 +378,8 @@ KeyPress::KeyPress(const char *name)
 			Key = keyname_to_keycode(name);
 			m_name = name;
 			if (strlen(name) > 8 && strncmp(name, "KEY_KEY_", 8) == 0) {
-				int chars_read = mbtowc(&Char, name + 8, 1);
-				assert (chars_read == 1 && "unexpected multibyte character");
+				if (mbtowc(&Char, name + 8, 1) != 1)
+					Char = L'\0';
 			} else
 				Char = L'\0';
 			return;
@@ -388,8 +390,8 @@ KeyPress::KeyPress(const char *name)
 		m_name += name;
 		try {
 			Key = keyname_to_keycode(m_name.c_str());
-			int chars_read = mbtowc(&Char, name, 1);
-			assert (chars_read == 1 && "unexpected multibyte character");
+			if (mbtowc(&Char, name, 1) != 1)
+				Char = L'\0';
 			return;
 		} catch (UnknownKeycode &e) {};
 	}
@@ -398,8 +400,8 @@ KeyPress::KeyPress(const char *name)
 
 	Key = irr::KEY_KEY_CODES_COUNT;
 
-	int mbtowc_ret = mbtowc(&Char, name, 1);
-	assert (mbtowc_ret == 1 && "unexpected multibyte character");
+	if (mbtowc(&Char, name, 1) != 1)
+		Char = L'\0';
 	m_name = name[0];
 }
 
@@ -411,8 +413,7 @@ KeyPress::KeyPress(const irr::SEvent::SKeyInput &in, bool prefer_character)
 	if(prefer_character){
 		m_name.resize(MB_CUR_MAX+1, '\0');
 		int written = wctomb(&m_name[0], Char);
-		if(written > 0){
-			infostream<<"KeyPress: Preferring character for "<<m_name<<std::endl;
+		if (written > 0) {
 			Key = irr::KEY_KEY_CODES_COUNT;
 			return;
 		}
@@ -423,10 +424,8 @@ KeyPress::KeyPress(const irr::SEvent::SKeyInput &in, bool prefer_character)
 	} else {
 		m_name.resize(MB_CUR_MAX+1, '\0');
 		int written = wctomb(&m_name[0], Char);
-		if(written < 0){
+		if (written < 0)
 			std::string hexstr = hex_encode((const char*)&Char, sizeof(Char));
-			errorstream<<"KeyPress: Unexpected multibyte character "<<hexstr<<std::endl;
-		}
 	}
 }
 
@@ -503,12 +502,17 @@ static bool key_setting_cache_init = false;
 
 KeyPress getKeySetting(KeyCode code)
 {
+	char* v;
 	if (!key_setting_cache_init)
 		clearKeyCache();
 	if (g_key_setting_cache[code])
 		return *g_key_setting_cache[code];
 
-	g_key_setting_cache[code] = new KeyPress(g_settings->get(keymap_strings[code]).c_str());
+	v = config_get((char*)keymap_strings[code]);
+	if (!v)
+		v = "";
+
+	g_key_setting_cache[code] = new KeyPress(v);
 
 	return *g_key_setting_cache[code];
 }
@@ -519,7 +523,8 @@ void saveKeySetting(KeyPress &key, KeyCode code)
 		clearKeyCache();
 
 	*g_key_setting_cache[code] = key;
-	g_settings->set(keymap_strings[code],key.sym());
+
+	config_set((char*)keymap_strings[code],(char*)key.sym());
 }
 
 void clearKeyCache()

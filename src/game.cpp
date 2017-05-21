@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "game.h"
 #include "common_irrlicht.h"
 #include <IGUICheckBox.h>
@@ -41,7 +43,6 @@
 #include "clouds.h"
 #include "camera.h"
 #include "mapblock.h"
-#include "settings.h"
 #include "profiler.h"
 #include "mainmenumanager.h"
 #include "intl.h"
@@ -632,14 +633,10 @@ void update_profiler_gui(gui::IGUIStaticText *guitext_profiler,
 
 void the_game(
 	bool &kill,
-	bool random_input,
 	InputHandler *input,
 	IrrlichtDevice *device,
 	gui::IGUIFont* font,
-	std::string playername,
 	std::string password,
-	std::string address,
-	u16 port,
 	std::wstring &error_message,
 	ISoundManager *sound
 )
@@ -668,12 +665,15 @@ void the_game(
 		SharedPtr will delete it when it goes out of scope.
 	*/
 	SharedPtr<Server> server;
-	if(address == ""){
-		//draw_load_screen(L"Creating server...", driver, font);
-		drawLoadingScreen(device,narrow_to_wide(gettext("Creating server...")));
-		infostream<<"Creating server"<<std::endl;
-		server = new Server();
-		server->start(port);
+	{
+		char* v = config_get("world.server.address");
+		if (!v || !v[0]) {
+			//draw_load_screen(L"Creating server...", driver, font);
+			drawLoadingScreen(device,narrow_to_wide(gettext("Creating server...")));
+			infostream<<"Creating server"<<std::endl;
+			server = new Server();
+			server->start();
+		}
 	}
 
 	/*
@@ -684,15 +684,20 @@ void the_game(
 	drawLoadingScreen(device,narrow_to_wide(gettext("Creating client...")));
 	infostream<<"Creating client"<<std::endl;
 	MapDrawControl draw_control;
-	Client client(device, playername.c_str(), password, draw_control, sound);
+	Client client(device, password, draw_control, sound);
 
 	drawLoadingScreen(device,narrow_to_wide(gettext("Resolving address...")));
+	uint16_t port = config_get_int("world.server.port");
+	if (!port)
+		port = 30000;
 	Address connect_address(0,0,0,0, port);
 	try{
-		if(address == "")
+		char* v = config_get("world.server.address");
+		if (!v || !v[0]) {
 			connect_address.setAddress(127,0,0,1);
-		else
-			connect_address.Resolve(address.c_str());
+		}else{
+			connect_address.Resolve(v);
+		}
 	}
 	catch(ResolveError &e)
 	{
@@ -794,7 +799,7 @@ void the_game(
 	*/
 
 	Clouds *clouds = NULL;
-	if (g_settings->getBool("enable_clouds"))
+	if (config_get_bool("client.graphics.clouds"))
 		clouds = new Clouds(smgr->getRootSceneNode(), smgr, -1, time(0));
 
 	/*
@@ -868,7 +873,7 @@ void the_game(
 
 	float damage_flash_timer = 0;
 
-	bool invert_mouse = g_settings->getBool("invert_mouse");
+	bool invert_mouse = config_get_bool("client.ui.mouse.invert");
 
 	bool respawn_menu_active = false;
 
@@ -876,22 +881,25 @@ void the_game(
 	bool show_chat = true;
 	bool force_fog_off = false;
 	bool disable_camera_update = false;
-	bool show_debug = g_settings->getBool("show_debug");
+	bool show_debug = config_get_bool("debug.show");
 	bool show_debug_frametime = false;
 	u32 show_profiler = 0;
 	u32 show_profiler_max = 3;  // Number of pages
-	float fps_max = g_settings->getFloat("fps_max");
-	float profiler_print_interval = g_settings->getFloat("profiler_print_interval");
+	float fps_max = config_get_float("client.graphics.fps.max");
+	float profiler_print_interval = config_get_float("debug.profiler.interval");
 
 	bool free_move = false;
-	f32 mouse_sensitivity = g_settings->getFloat("mouse_sensitivity");
+	f32 mouse_sensitivity = config_get_float("client.ui.mouse.sensitivity");
 	bool highlight_selected_node = true;
-	if (g_settings->exists("selected_node") && g_settings->get("selected_node") == "outline")
-		highlight_selected_node = false;
-	bool enable_particles = g_settings->getBool("enable_particles");
-	bool enable_fog = g_settings->getBool("enable_fog");
-	bool old_hotbar = g_settings->getBool("old_hotbar");
-	bool show_index = g_settings->getBool("enable_wieldindex");
+	{
+		char* v = config_get("client.graphics.selection");
+		if (v && !strcmp(v,"outline"))
+			highlight_selected_node = false;
+	}
+	bool enable_particles = config_get_bool("client.graphics.particles");
+	bool enable_fog = config_get_bool("client.graphics.light.fog");
+	bool old_hotbar = config_get_bool("client.ui.hud.old");
+	bool show_index = config_get_bool("client.ui.hud.wieldindex");
 
 	bool has_selected_node = false;
 	v3s16 selected_node_pos = v3s16(0,0,0);
@@ -1250,22 +1258,21 @@ void the_game(
 				statustext_time = 0;
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_PLUS))) {
-			s16 range = g_settings->getS16("viewing_range_nodes_min");
-			s16 range_new = range + 10;
-			g_settings->set("viewing_range_nodes_min", itos(range_new));
 			char buff[512];
-			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range_new);
+			int range = config_get_int("client.graphics.range.min");
+			range += 10;
+			config_set_int("client.graphics.range.min",range);
+			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range);
 			statustext = narrow_to_wide(buff);
 			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_MINUS))) {
-			s16 range = g_settings->getS16("viewing_range_nodes_min");
-			s16 range_new = range - 10;
-			if (range_new < 0)
-				range_new = range;
-			g_settings->set("viewing_range_nodes_min",
-					itos(range_new));
 			char buff[512];
-			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range_new);
+			int range = config_get_int("client.graphics.range.min");
+			range -= 10;
+			if (range < 10)
+				range = 10;
+			config_set_int("client.graphics.range.min",range);
+			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range);
 			statustext = narrow_to_wide(buff);
 			statustext_time = 0;
 		}
@@ -1359,12 +1366,9 @@ void the_game(
 		*/
 
 		float turn_amount = 0.0;
-		if ((device->isWindowActive() && noMenuActive()) || random_input) {
-			if (!random_input) {
-				// Mac OSX gets upset if this is set every frame
-				if (device->getCursorControl()->isVisible())
-					device->getCursorControl()->setVisible(false);
-			}
+		if ((device->isWindowActive() && noMenuActive())) {
+			if (device->getCursorControl()->isVisible())
+				device->getCursorControl()->setVisible(false);
 
 			if (first_loop_after_window_activation) {
 				//infostream<<"window active, first loop"<<std::endl;
@@ -1485,9 +1489,11 @@ void the_game(
 						damage_flash_timer += 0.05 * event.player_damage.amount;
 					}
 					if (g_sound) {
-						std::string ch = g_settings->get("character_definition");
-						if (ch == "")
-							ch = std::string(PLAYER_DEFAULT_CHARDEF);
+						char* v;
+						std::string ch = std::string(PLAYER_DEFAULT_CHARDEF);
+						v = config_get("client.character");
+						if (v)
+							ch = v;
 						Strfnd f(ch);
 						std::string gender = f.next(":");
 						std::string snd("player-hurt-");
@@ -1751,7 +1757,7 @@ void the_game(
 					}
 
 
-					if (input->wasKeyDown(getKeySetting(VLKC_EXAMINE)) && !random_input) {
+					if (input->wasKeyDown(getKeySetting(VLKC_EXAMINE))) {
 						// If metadata provides an inventory view, activate it
 						if (meta && meta->getDrawSpecString(client.getLocalPlayer()) != "") {
 							infostream<<"Launching custom inventory view"<<std::endl;

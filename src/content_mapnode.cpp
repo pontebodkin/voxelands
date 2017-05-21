@@ -23,13 +23,12 @@
 * for Voxelands.
 ************************************************************************/
 
-// For g_settings
+#include "common.h"
 #include "main.h"
 
 #include "content_mapnode.h"
 #include "mapnode.h"
 #include "content_nodemeta.h"
-#include "settings.h"
 #include "content_craftitem.h"
 #include "content_toolitem.h"
 #include "content_craft.h"
@@ -208,7 +207,7 @@ void content_mapnode_init(bool repeat)
 {
 	// Read some settings
 #ifndef SERVER
-	bool opaque_water = g_settings->getBool("opaque_water");
+	bool opaque_water = config_get_bool("client.graphics.water.opaque");
 #endif
 
 	content_t i;

@@ -20,9 +20,9 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "character_creator.h"
-#include "settings.h"
-#include "defaultsettings.h"
 #include "debug.h"
 #include "serialization.h"
 #include <string>
@@ -813,9 +813,11 @@ void GUICharDefMenu::fetchPlayerSkin()
 {
 	char buff[1024];
 	char buf[256];
+	char* v;
 	std::string chardef = std::string(PLAYER_DEFAULT_CHARDEF);
-	if (g_settings->exists("character_definition"))
-		chardef = g_settings->get("character_definition");
+	v = config_get("client.character");
+	if (v)
+		chardef = v;
 	Strfnd f(chardef);
 
 	m_parts["gender"] = f.next(":");
@@ -903,5 +905,5 @@ void GUICharDefMenu::savePlayerSkin()
 	chardef += std::string(":")+m_parts["pants"];
 	chardef += std::string(":")+m_parts["shoes"];
 
-	g_settings->set("character_definition",chardef);
+	config_set("client.character",(char*)chardef.c_str());
 }

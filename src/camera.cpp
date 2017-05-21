@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "camera.h"
 #include "debug.h"
 #include "client.h"
@@ -33,7 +35,6 @@
 #include "tile.h"
 #include <cmath>
 #include <SAnimatedMesh.h>
-#include "settings.h"
 #include "path.h"
 #include "constants.h"
 #include "content_mapblock.h"
@@ -90,13 +91,13 @@ Camera::Camera(scene::ISceneManager* smgr, MapDrawControl& draw_control, Client 
 	m_wieldnode = new ExtrudedSpriteSceneNode(m_wieldmgr->getRootSceneNode(), m_wieldmgr);
 
 	// Get FOV setting
-	m_fov = g_settings->getFloat("fov");
+	m_fov = config_get_float("client.graphics.fov");
 	m_fov = MYMAX(m_fov, 10.0);
 	m_fov = MYMIN(m_fov, 170.0);
 
-	m_view_bobbing_amount = g_settings->getFloat("view_bobbing_amount");
+	m_view_bobbing_amount = config_get_float("client.graphics.bobbing.amount");
 
-	f32 wanted_fps = g_settings->getFloat("wanted_fps");
+	f32 wanted_fps = config_get_float("client.graphics.fps.min");
 	wanted_fps = MYMAX(wanted_fps, 1.0);
 	m_wanted_frametime = 1.0 / wanted_fps;
 }
@@ -331,10 +332,10 @@ void Camera::updateViewingRange(f32 frametime_in)
 	m_frametime_counter = 0.2;
 
 	// Get current viewing range and FPS settings
-	f32 viewing_range_min = g_settings->getS16("viewing_range_nodes_min");
+	float viewing_range_min = config_get_float("client.graphics.range.min");
 	viewing_range_min = MYMAX(5.0, viewing_range_min);
 
-	f32 viewing_range_max = g_settings->getS16("viewing_range_nodes_max");
+	float viewing_range_max = config_get_float("client.graphics.range.max");
 	viewing_range_max = MYMAX(viewing_range_min, viewing_range_max);
 
 	m_draw_control.wanted_min_range = viewing_range_min;

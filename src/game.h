@@ -135,14 +135,10 @@ class ISoundManager;
 
 void the_game(
 	bool &kill,
-	bool random_input,
 	InputHandler *input,
 	IrrlichtDevice *device,
 	gui::IGUIFont* font,
-	std::string playername,
 	std::string password,
-	std::string address,
-	u16 port,
 	std::wstring &error_message,
 	ISoundManager *sound
 );

@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "map.h"
 #include "mapsector.h"
 #include "mapblock.h"
@@ -39,7 +41,6 @@
 #ifndef SERVER
 #include <IMaterialRenderer.h>
 #endif
-#include "settings.h"
 #include "log.h"
 #include "profiler.h"
 #include "inventory.h"
@@ -1685,106 +1686,23 @@ void Map::nodeMetadataStep(float dtime, core::map<v3s16, MapBlock*> &changed_blo
 ServerMap::ServerMap():
 	Map(dout_server),
 	m_seed(0),
-	m_map_metadata_changed(true),
 	m_database(NULL),
 	m_database_read(NULL),
 	m_database_write(NULL)
 {
+	char b[1024];
 	infostream<<__FUNCTION_NAME<<std::endl;
 
-	//m_chunksize = 8; // Takes a few seconds
-
-	if (g_settings->get("fixed_map_seed").empty()) {
-		m_seed = (((uint64_t)(myrand()%0xffff)<<0)
-				+ ((uint64_t)(myrand()%0xffff)<<16)
-				+ ((uint64_t)(myrand()%0xffff)<<32)
-				+ ((uint64_t)(myrand()%0xffff)<<48));
-	}else{
-		m_seed = g_settings->getU64("fixed_map_seed");
-	}
-	m_type = MGT_DEFAULT;
-	if (g_settings->exists("mapgen_type")) {
-		std::string type = g_settings->get("mapgen_type");
-		if (type == "flat") {
-			m_type = MGT_FLAT;
-		}else if (type == "flatter") {
-			m_type = MGT_FLATTER;
-		}else if (type == "smoother") {
-			m_type = MGT_SMOOTHER;
-		}else if (type == "hilly") {
-			m_type = MGT_HILLY;
-		}else if (type == "mountains") {
-			m_type = MGT_MOUNTAINS;
-		}else if (type == "crazy") {
-			m_type = MGT_CRAZY;
-		}else if (type == "crazyhills") {
-			m_type = MGT_CRAZYHILLS;
-		}
-	}
-
-	/*
-		Experimental and debug stuff
-	*/
-
-	{
-	}
+	loadMapMeta();
 
 	/*
 		Try to load map; if not found, create a new one.
 	*/
 
-	m_map_saving_enabled = false;
+	if (path_get("world","map.sqlite",1,b,1024))
+		return;
 
-	try{
-		// If directory exists, check contents and load if possible
-		char buff[1024];
-		if (path_get((char*)"world",NULL,1,buff,1024)) {
-			// If directory is empty, it is safe to save into it.
-			char b[1024];
-			if (
-				!path_get((char*)"world",(char*)"map_meta.txt",1,b,1024)
-				&& !path_get((char*)"world",(char*)"map.sqlite",1,b,1024)
-				&& !path_get((char*)"world",(char*)"auth.txt",1,b,1024)
-				&& !path_get((char*)"world",(char*)"ipban.txt",1,b,1024)
-				&& !path_get((char*)"world",(char*)"env_meta.txt",1,b,1024)
-			) {
-				infostream<<"Server: Empty save directory is valid."
-						<<std::endl;
-				m_map_saving_enabled = true;
-			}else{
-				try{
-					// Load map metadata (seed, type, chunksize)
-					loadMapMeta();
-				}
-				catch(FileNotGoodException &e){
-					infostream<<"WARNING: Could not load map metadata"
-							//<<" Disabling chunk-based generator."
-							<<std::endl;
-					//m_chunksize = 0;
-				}
-
-				infostream<<"Server: Successfully loaded map "
-						<<"and chunk metadata from "<<buff
-						<<", assuming valid save directory."
-						<<std::endl;
-
-				m_map_saving_enabled = true;
-				// Map loaded, not creating new one
-				return;
-			}
-		// If directory doesn't exist, it is safe to save to it
-		}else{
-			m_map_saving_enabled = true;
-		}
-	}
-	catch(std::exception &e)
-	{
-		infostream<<"WARNING: Server: Failed to load map, exception: "<<e.what()<<std::endl;
-		infostream<<"Please remove the map or fix it."<<std::endl;
-		infostream<<"WARNING: Map saving will be disabled."<<std::endl;
-	}
-
-	infostream<<"Initializing new map."<<std::endl;
+	vlprintf(CN_ACTION,"Initializing new map");
 
 	// Create zero sector
 	emergeSector(v2s16(0,0));
@@ -1798,13 +1716,8 @@ ServerMap::~ServerMap()
 	infostream<<__FUNCTION_NAME<<std::endl;
 
 	try{
-		if (m_map_saving_enabled) {
-			// Save only changed parts
-			save(true);
-			infostream<<"Server: saved map"<<std::endl;
-		}else{
-			infostream<<"Server: map not saved"<<std::endl;
-		}
+		save(true);
+		infostream<<"Server: saved map"<<std::endl;
 	}
 	catch(std::exception &e)
 	{
@@ -1826,11 +1739,6 @@ ServerMap::~ServerMap()
 
 void ServerMap::initBlockMake(mapgen::BlockMakeData *data, v3s16 blockpos)
 {
-	bool enable_mapgen_debug_info = g_settings->getBool("enable_mapgen_debug_info");
-	if (enable_mapgen_debug_info)
-		infostream<<"initBlockMake(): ("<<blockpos.X<<","<<blockpos.Y<<","
-				<<blockpos.Z<<")"<<std::endl;
-
 	// Do nothing if not inside limits (+-1 because of neighbors)
 	if (
 		blockpos_over_limit(blockpos - v3s16(1,1,1))
@@ -1910,8 +1818,6 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 	if (data->no_op)
 		return NULL;
 
-	bool enable_mapgen_debug_info = g_settings->getBool("enable_mapgen_debug_info");
-
 	/*
 		Blit generated stuff to map
 		NOTE: blitBackAll adds nearly everything to changed_blocks
@@ -1921,10 +1827,6 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 		//TimeTaker timer("finishBlockMake() blitBackAll");
 		data->vmanip->blitBackAllWithMeta(&changed_blocks);
 	}
-
-	if (enable_mapgen_debug_info)
-		infostream<<"finishBlockMake: changed_blocks.size()="
-				<<changed_blocks.size()<<std::endl;
 
 	/*
 		Copy transforming liquid information
@@ -2020,8 +1922,6 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 		NOTE: This takes ~60ms, TODO: Investigate why
 	*/
 	{
-		TimeTaker t("finishBlockMake lighting update");
-
 		core::map<v3s16, MapBlock*> lighting_update_blocks;
 		// Center block
 		lighting_update_blocks.insert(block->getPos(), block);
@@ -2039,9 +1939,6 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 			v3s16 p = block->getPos()+v3s16(x,y,z);
 			getBlockNoCreateNoEx(p)->setLightingExpired(false);
 		}
-
-		if(enable_mapgen_debug_info == false)
-			t.stop(true); // Hide output
 	}
 
 	/*
@@ -2116,14 +2013,6 @@ MapBlock * ServerMap::generateBlock(
 {
 	DSTACKF("%s: p=(%d,%d,%d)", __FUNCTION_NAME, p.X, p.Y, p.Z);
 
-	/*infostream<<"generateBlock(): "
-			<<"("<<p.X<<","<<p.Y<<","<<p.Z<<")"
-			<<std::endl;*/
-
-	bool enable_mapgen_debug_info = g_settings->getBool("enable_mapgen_debug_info");
-
-	TimeTaker timer("generateBlock");
-
 	v2s16 p2d(p.X, p.Z);
 
 	/*
@@ -2143,13 +2032,7 @@ MapBlock * ServerMap::generateBlock(
 	/*
 		Generate block
 	*/
-	{
-		TimeTaker t("mapgen::make_block()");
-		mapgen::make_block(&data);
-
-		if (enable_mapgen_debug_info == false)
-			t.stop(true); // Hide output
-	}
+	mapgen::make_block(&data);
 
 	/*
 		Blit data back on map, update lighting, add mobs and whatever this does
@@ -2160,9 +2043,6 @@ MapBlock * ServerMap::generateBlock(
 		Get central block
 	*/
 	MapBlock *block = getBlockNoCreateNoEx(p);
-
-	if (enable_mapgen_debug_info == false)
-		timer.stop(true); // Hide output
 
 	return block;
 }
@@ -2367,17 +2247,10 @@ sqlite3_int64 ServerMap::getBlockAsInteger(const v3s16 pos) {
 void ServerMap::save(bool only_changed)
 {
 	DSTACK(__FUNCTION_NAME);
-	if (m_map_saving_enabled == false) {
-		infostream<<"WARNING: Not saving map, saving disabled."<<std::endl;
-		return;
-	}
 
 	if (only_changed == false)
 		infostream<<"ServerMap: Saving whole map, this can take time."
 				<<std::endl;
-
-	if (only_changed == false || m_map_metadata_changed)
-		saveMapMeta();
 
 	u32 block_count = 0;
 	u32 block_count_all = 0; // Number of blocks in memory
@@ -2462,119 +2335,42 @@ void ServerMap::listAllLoadableBlocks(core::list<v3s16> &dst)
 	}
 }
 
-void ServerMap::saveMapMeta()
-{
-	DSTACK(__FUNCTION_NAME);
-
-	infostream<<"ServerMap::saveMapMeta(): "
-			<<"seed="<<m_seed
-			<<std::endl;
-
-	char buff[1024];
-	if (!path_get((char*)"world",(char*)"map_meta.txt",0,buff,1024)) {
-		infostream<<"ERROR: ServerMap::saveMapMeta(): "
-				<<"could not find map_meta.txt"<<std::endl;
-		throw FileNotGoodException("Cannot find chunk metadata");
-	}
-
-	std::ofstream os(buff, std::ios_base::binary);
-	if (os.good() == false) {
-		infostream<<"ERROR: ServerMap::saveMapMeta(): "
-				<<"could not open map_meta.txt"<<std::endl;
-		throw FileNotGoodException("Cannot open chunk metadata");
-	}
-
-	Settings params;
-	params.setU64("seed", m_seed);
-	switch (m_type) {
-	case MGT_FLAT:
-		params.set("type","flat");
-		break;
-	case MGT_FLATTER:
-		params.set("type","flatter");
-		break;
-	case MGT_SMOOTHER:
-		params.set("type","smoother");
-		break;
-	case MGT_HILLY:
-		params.set("type","hilly");
-		break;
-	case MGT_MOUNTAINS:
-		params.set("type","mountains");
-		break;
-	case MGT_CRAZY:
-		params.set("type","crazy");
-		break;
-	case MGT_CRAZYHILLS:
-		params.set("type","crazyhills");
-		break;
-	default:
-		params.set("type","default");
-	}
-
-	params.writeLines(os);
-
-	os<<"[end_of_params]\n";
-
-	m_map_metadata_changed = false;
-}
-
 void ServerMap::loadMapMeta()
 {
-	DSTACK(__FUNCTION_NAME);
-
-	infostream<<"ServerMap::loadMapMeta(): Loading map metadata"<<std::endl;
-
-	char buff[1024];
-	if (!path_get((char*)"world",(char*)"map_meta.txt",0,buff,1024)) {
-		infostream<<"ERROR: ServerMap::saveMapMeta(): "
-				<<"could not find map_meta.txt"<<std::endl;
-		throw FileNotGoodException("Cannot find chunk metadata");
+	if (!config_get("world.seed")) {
+		m_seed = (
+			((uint64_t)(myrand()%0xffff)<<0)
+			+ ((uint64_t)(myrand()%0xffff)<<16)
+			+ ((uint64_t)(myrand()%0xffff)<<32)
+			+ ((uint64_t)(myrand()%0xffff)<<48)
+		);
+		config_set_int64("world.seed",m_seed);
+	}else{
+		m_seed = config_get_int64("world.seed");
 	}
-
-	std::ifstream is(buff, std::ios_base::binary);
-	if (is.good() == false) {
-		infostream<<"ERROR: ServerMap::loadMapMeta(): "
-				<<"could not open map_meta.txt"<<std::endl;
-		throw FileNotGoodException("Cannot open map metadata");
-	}
-
-	Settings params;
-
-	for (;;) {
-		if(is.eof())
-			throw SerializationError
-					("ServerMap::loadMapMeta(): [end_of_params] not found");
-		std::string line;
-		std::getline(is, line);
-		std::string trimmedline = trim(line);
-		if (trimmedline == "[end_of_params]")
-			break;
-		params.parseConfigLine(line);
-	}
-
-	m_seed = params.getU64("seed");
 	m_type = MGT_DEFAULT;
-	if (params.exists("type")) {
-		std::string type = params.get("type");
-		if (type == "flat") {
+	if (config_get("world.map.type")) {
+		char* type = config_get("world.map.type");
+		if (!strcmp(type,"flat")) {
 			m_type = MGT_FLAT;
-		}else if (type == "flatter") {
+		}else if (!strcmp(type,"flatter")) {
 			m_type = MGT_FLATTER;
-		}else if (type == "smoother") {
+		}else if (!strcmp(type,"smoother")) {
 			m_type = MGT_SMOOTHER;
-		}else if (type == "hilly") {
+		}else if (!strcmp(type,"hilly")) {
 			m_type = MGT_HILLY;
-		}else if (type == "mountains") {
+		}else if (!strcmp(type,"mountains")) {
 			m_type = MGT_MOUNTAINS;
-		}else if (type == "crazy") {
+		}else if (!strcmp(type,"crazy")) {
 			m_type = MGT_CRAZY;
-		}else if (type == "crazyhills") {
+		}else if (!strcmp(type,"crazyhills")) {
 			m_type = MGT_CRAZYHILLS;
+		}else{
+			config_set("world.map.type","default");
 		}
+	}else{
+		config_set("world.map.type","default");
 	}
-
-	infostream<<"ServerMap::loadMapMeta(): "<<"seed="<<m_seed<<std::endl;
 }
 
 void ServerMap::beginSave() {
@@ -2773,9 +2569,9 @@ ClientMap::ClientMap(
 	m_box = core::aabbox3d<f32>(-BS*1000000,-BS*1000000,-BS*1000000,
 			BS*1000000,BS*1000000,BS*1000000);
 
-	m_render_trilinear = g_settings->getBool("trilinear_filter");
-	m_render_bilinear = g_settings->getBool("bilinear_filter");
-	m_render_anisotropic = g_settings->getBool("anisotropic_filter");
+	m_render_trilinear = config_get_bool("client.video.trilinear");
+	m_render_bilinear = config_get_bool("client.video.bilinear");
+	m_render_anisotropic = config_get_bool("client.video.anisotropic");
 }
 
 ClientMap::~ClientMap()
@@ -2921,7 +2717,7 @@ void ClientMap::renderMap(video::IVideoDriver* driver, s32 pass)
 	// Blocks from which stuff was actually drawn
 	u32 blocks_without_stuff = 0;
 
-	bool anim_textures = g_settings->getBool("enable_animated_textures");
+	bool anim_textures = config_get_bool("client.graphics.texture.animations");
 	float anim_time = m_client->getAnimationTime();
 
 	/*

@@ -28,7 +28,6 @@
 #include "main.h" // For g_settings and g_texturesource
 #include "mineral.h"
 #include "mapblock_mesh.h" // For MapBlock_LightColor()
-#include "settings.h"
 #include "environment.h"
 #include "nodemetadata.h"
 #include "content_nodemeta.h"

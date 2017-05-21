@@ -23,6 +23,8 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
+
 #include "server.h"
 #include "utility.h"
 #include <iostream>
@@ -34,7 +36,6 @@
 #include "voxel.h"
 #include "mineral.h"
 #include "config.h"
-#include "servercommand.h"
 #include "content_object.h"
 #include "content_mapnode.h"
 #include "content_craft.h"
@@ -44,7 +45,6 @@
 #include "mapblock.h"
 #include "serverobject.h"
 #include "content_sao.h"
-#include "settings.h"
 #include "profiler.h"
 #include "log.h"
 #include "base64.h"
@@ -129,8 +129,6 @@ void * EmergeThread::Thread()
 
 	BEGIN_DEBUG_EXCEPTION_HANDLER
 
-	bool enable_mapgen_debug_info = g_settings->getBool("enable_mapgen_debug_info");
-
 	/*
 		Get block info from queue, emerge them and send them
 		to clients.
@@ -193,10 +191,7 @@ void * EmergeThread::Thread()
 			}
 		}
 
-		if (enable_mapgen_debug_info)
-			infostream<<"EmergeThread: p="
-					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<") "
-					<<"only_from_disk="<<only_from_disk<<std::endl;
+		//vlprintf(CN_DEBUG,"EmergeThread: p=(%d,%d,%d) only_from_disk = %d",p.X,p.Y,p.Z,only_from_disk);
 
 		ServerMap &map = ((ServerMap&)m_server->m_env.getMap());
 
@@ -219,24 +214,20 @@ void * EmergeThread::Thread()
 			block = map.getBlockNoCreateNoEx(p);
 			if (!block || block->isDummy() || !block->isGenerated()) {
 				bool was_generated = false;
-				if (enable_mapgen_debug_info)
-					infostream<<"EmergeThread: not in memory, loading"<<std::endl;
+				//vlprintf(CN_DEBUG,"EmergeThread: not in memory, loading");
 
 				// Load/generate block
 				block = map.loadBlock(p);
 
 				if (only_from_disk == false) {
 					if (block == NULL || block->isGenerated() == false) {
-						if (enable_mapgen_debug_info)
-							infostream<<"EmergeThread: generating"<<std::endl;
+						//vlprintf(CN_DEBUG,"EmergeThread: generating");
 						block = map.generateBlock(p, modified_blocks);
 						was_generated = true;
 					}
 				}
 
-				if (enable_mapgen_debug_info)
-					infostream<<"EmergeThread: ended up with: "
-							<<analyze_block(block)<<std::endl;
+				//vlprintf(CN_DEBUG,"EmergeThread: ended up with: %s",analyze_block(block).c_str());
 
 				if (block == NULL) {
 					got_block = false;
@@ -364,18 +355,12 @@ void RemoteClient::GetNextBlocks(Server *server, float dtime,
 	m_nothing_to_send_pause_timer -= dtime;
 	m_nearest_unsent_reset_timer += dtime;
 
-	if(m_nothing_to_send_pause_timer >= 0)
-	{
+	if (m_nothing_to_send_pause_timer >= 0)
 		return;
-	}
 
 	// Won't send anything if already sending
-	if(m_blocks_sending.size() >= g_settings->getU16
-			("max_simultaneous_block_sends_per_client"))
-	{
-		//infostream<<"Not sending any blocks, Queue full."<<std::endl;
+	if (m_blocks_sending.size() >= (uint32_t)config_get_int("server.net.client.queue.size"))
 		return;
-	}
 
 	//TimeTaker timer("RemoteClient::GetNextBlocks");
 
@@ -431,9 +416,8 @@ void RemoteClient::GetNextBlocks(Server *server, float dtime,
 
 	//infostream<<"d_start="<<d_start<<std::endl;
 
-	u16 max_simul_sends_setting = g_settings->getU16
-			("max_simultaneous_block_sends_per_client");
-	u16 max_simul_sends_usually = max_simul_sends_setting;
+	uint16_t max_simul_sends_setting = config_get_int("server.net.client.queue.size");
+	uint16_t max_simul_sends_usually = max_simul_sends_setting;
 
 	/*
 		Check the time from last addNode/removeNode.
@@ -441,12 +425,8 @@ void RemoteClient::GetNextBlocks(Server *server, float dtime,
 		Decrease send rate if player is building stuff.
 	*/
 	m_time_from_building += dtime;
-	if(m_time_from_building < g_settings->getFloat(
-				"full_block_send_enable_min_time_from_building"))
-	{
-		max_simul_sends_usually
-			= LIMITED_MAX_SIMULTANEOUS_BLOCK_SENDS;
-	}
+	if (m_time_from_building < config_get_float("server.net.client.queue.delay"))
+		max_simul_sends_usually = LIMITED_MAX_SIMULTANEOUS_BLOCK_SENDS;
 
 	/*
 		Number of blocks sending + number of blocks selected for sending
@@ -462,8 +442,8 @@ void RemoteClient::GetNextBlocks(Server *server, float dtime,
 	*/
 	s32 new_nearest_unsent_d = -1;
 
-	s16 d_max = g_settings->getS16("max_block_send_distance");
-	s16 d_max_gen = g_settings->getS16("max_block_generate_distance");
+	int d_max = config_get_int("world.server.chunk.range.send");
+	int d_max_gen = config_get_int("world.server.chunk.range.generate");
 
 	// Don't loop very much at a time
 	s16 max_d_increment_at_time = 2;
@@ -738,26 +718,27 @@ queue_full_break:
 
 	// If nothing was found for sending and nothing was queued for
 	// emerging, continue next time browsing from here
-	if(nearest_emerged_d != -1){
+	if (nearest_emerged_d != -1) {
 		new_nearest_unsent_d = nearest_emerged_d;
-	} else if(nearest_emergefull_d != -1){
+	}else if (nearest_emergefull_d != -1) {
 		new_nearest_unsent_d = nearest_emergefull_d;
-	} else {
-		if(d > g_settings->getS16("max_block_send_distance")){
+	}else{
+		if (d > config_get_int("world.server.chunk.range.send")) {
 			new_nearest_unsent_d = 0;
 			m_nothing_to_send_pause_timer = 2.0;
 			/*infostream<<"GetNextBlocks(): d wrapped around for "
 					<<server->getPlayerName(peer_id)
 					<<"; setting to 0 and pausing"<<std::endl;*/
-		} else {
-			if(nearest_sent_d != -1)
+		}else{
+			if (nearest_sent_d != -1) {
 				new_nearest_unsent_d = nearest_sent_d;
-			else
+			}else{
 				new_nearest_unsent_d = d;
+			}
 		}
 	}
 
-	if(new_nearest_unsent_d != -1)
+	if (new_nearest_unsent_d != -1)
 		m_nearest_unsent_d = new_nearest_unsent_d;
 
 	/*timer_result = timer.stop(true);
@@ -865,8 +846,8 @@ Server::Server():
 	m_ignore_map_edit_events(false)
 {
 
-	auth_init((char*)"auth.txt");
-	ban_init((char*)"ipban.txt");
+	auth_init("auth.txt");
+	ban_init("ipban.txt");
 
 	m_liquid_transform_timer = 0.0;
 	m_print_info_timer = 0.0;
@@ -889,6 +870,8 @@ Server::Server():
 	// Load players
 	infostream<<"Server: Loading players"<<std::endl;
 	m_env.deSerializePlayers();
+
+	config_save("world","world","world.cfg");
 }
 
 Server::~Server()
@@ -972,11 +955,15 @@ Server::~Server()
 	auth_exit();
 }
 
-void Server::start(unsigned short port)
+void Server::start()
 {
 	DSTACK(__FUNCTION_NAME);
 	// Stop thread if already running
 	m_thread.stop();
+
+	uint16_t port = config_get_int("world.server.port");
+	if (!port)
+		port = 30000;
 
 	// Initialize connection
 	m_con.SetTimeoutMs(30);
@@ -989,21 +976,21 @@ void Server::start(unsigned short port)
 	m_thread.Start();
 
 	// Announce game server to api server
-	if (g_settings->getBool("api_announce")) {
+	if (config_get_bool("world.server.api.announce")) {
 		std::string url("/announce");
 		std::string post("");
 		std::string pre("");
-		std::string sn = g_settings->get("server_name");
+		std::string sn = config_get("world.server.name");
 		if (sn != "") {
 			post += pre+"server_name="+http_url_encode(sn);
 			pre = "&";
 		}
-		std::string sa = g_settings->get("server_address");
+		std::string sa = config_get("world.server.address");
 		if (sa != "") {
 			post += pre+"server_address="+http_url_encode(sa);
 			pre = "&";
 		}
-		std::string sp = g_settings->get("port");
+		std::string sp = config_get("world.server.port");
 		if (sp != "") {
 			post += pre+"server_port="+http_url_encode(sp);
 			pre = "&";
@@ -1020,9 +1007,9 @@ void Server::start(unsigned short port)
 			errorstream<<"Server: Failed to announce to api server"<<std::endl;
 		}else{
 			if (sn == "")
-				g_settings->set("server_name",response);
+				config_set("world.server.name",const_cast<char*>(response.c_str()));
 			if (sa == "")
-				g_settings->set("server_address",response);
+				config_set("world.server.address",const_cast<char*>(response.c_str()));
 			infostream<<"Server: Announced to api server"<<std::endl;
 		}
 	}
@@ -1117,7 +1104,7 @@ void Server::AsyncRunStep()
 	{
 		JMutexAutoLock envlock(m_env_mutex);
 
-		float time_speed = g_settings->getFloat("time_speed");
+		float time_speed = config_get_float("world.game.environment.time.speed");
 
 		m_env.setTimeOfDaySpeed(time_speed);
 
@@ -1127,7 +1114,7 @@ void Server::AsyncRunStep()
 
 		m_time_of_day_send_timer -= dtime;
 		if (m_time_of_day_send_timer < 0.0) {
-			m_time_of_day_send_timer = g_settings->getFloat("time_send_interval");
+			m_time_of_day_send_timer = config_get_float("server.net.client.time.interval");
 
 			//JMutexAutoLock envlock(m_env_mutex);
 			JMutexAutoLock conlock(m_con_mutex);
@@ -1152,13 +1139,11 @@ void Server::AsyncRunStep()
 	}
 
 	const float map_timer_and_unload_dtime = 2.92;
-	if(m_map_timer_and_unload_interval.step(dtime, map_timer_and_unload_dtime))
-	{
+	if (m_map_timer_and_unload_interval.step(dtime, map_timer_and_unload_dtime)) {
 		JMutexAutoLock lock(m_env_mutex);
 		// Run Map's timers and unload unused data
 		ScopeProfiler sp(g_profiler, "Server: map timer and unload");
-		m_env.getMap().timerUpdate(map_timer_and_unload_dtime,
-				g_settings->getFloat("server_unload_unused_data_timeout"));
+		m_env.getMap().timerUpdate(map_timer_and_unload_dtime,config_get_float("server.chunk.timeout"));
 	}
 
 	/*
@@ -1237,7 +1222,8 @@ void Server::AsyncRunStep()
 		ScopeProfiler sp(g_profiler, "Server: checking added and deleted objs");
 
 		// Radius inside which objects are active
-		s16 radius = g_settings->getS16("active_object_send_range_blocks");
+
+		int16_t radius = config_get_int("world.server.mob.range");
 		radius *= MAP_BLOCKSIZE;
 
 		for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
@@ -1576,8 +1562,7 @@ void Server::AsyncRunStep()
 				break;*/
 		}
 
-		if(got_any_events)
-		{
+		if (got_any_events) {
 			infostream<<"Server: MapEditEvents:"<<std::endl;
 			prof.print(infostream);
 		}
@@ -1590,8 +1575,7 @@ void Server::AsyncRunStep()
 	{
 		float &counter = m_objectdata_timer;
 		counter += dtime;
-		if(counter >= g_settings->getFloat("objectdata_interval"))
-		{
+		if (counter >= config_get_float("server.net.client.object.interval")) {
 			JMutexAutoLock lock1(m_env_mutex);
 			JMutexAutoLock lock2(m_con_mutex);
 
@@ -1610,8 +1594,7 @@ void Server::AsyncRunStep()
 	{
 		float &counter = m_emergethread_trigger_timer;
 		counter += dtime;
-		if(counter >= 2.0)
-		{
+		if (counter >= 2.0) {
 			counter = 0.0;
 
 			m_emergethread.trigger();
@@ -1622,8 +1605,7 @@ void Server::AsyncRunStep()
 	{
 		float &counter = m_savemap_timer;
 		counter += dtime;
-		if(counter >= g_settings->getFloat("server_map_save_interval"))
-		{
+		if (counter >= config_get_float("server.save.interval")) {
 			counter = 0.0;
 
 			ScopeProfiler sp(g_profiler, "Server: saving stuff");
@@ -1631,34 +1613,22 @@ void Server::AsyncRunStep()
 			// Auth stuff
 			auth_save();
 
-			//Bann stuff
+			// Ban stuff
 			ban_save();
 
 			// Map
 			JMutexAutoLock lock(m_env_mutex);
 
-			/*// Unload unused data (delete from memory)
-			m_env.getMap().unloadUnusedData(
-					g_settings->getFloat("server_unload_unused_sectors_timeout"));
-					*/
-			/*u32 deleted_count = m_env.getMap().unloadUnusedData(
-					g_settings->getFloat("server_unload_unused_sectors_timeout"));
-					*/
-
 			// Save only changed parts
 			m_env.getMap().save(true);
-
-			/*if(deleted_count > 0)
-			{
-				infostream<<"Server: Unloaded "<<deleted_count
-						<<" blocks from memory"<<std::endl;
-			}*/
 
 			// Save players
 			m_env.serializePlayers();
 
 			// Save environment metadata
 			m_env.saveMeta();
+
+			config_save("world","world","world.cfg");
 		}
 	}
 }
@@ -1792,7 +1762,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		}
 
 		/* Uhh... this should actually be a warning but let's do it like this */
-		if (g_settings->getBool("strict_protocol_version_checking")) {
+		if (config_get_bool("world.server.client.version.strict")) {
 			if (net_proto_version < PROTOCOL_VERSION) {
 				SendAccessDenied(m_con, peer_id, L"Your client is too old. Please upgrade.");
 				return;
@@ -1846,13 +1816,13 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			return;
 		}
 
-		if (password[0] == '\0' && g_settings->getBool("disallow_empty_passwords")) {
+		if (password[0] == '\0' && config_get_bool("world.server.client.emptypwd")) {
 			infostream<<"Server: "<<playername<<" supplied no password"<<std::endl;
 			SendAccessDenied(m_con, peer_id, L"Empty passwords are not allowed on this server.");
 			return;
 		}
 
-		if (g_settings->getBool("disallow_unknown_users") && !auth_exists(playername)) {
+		if (config_get_bool("world.server.client.private") && !auth_exists(playername)) {
 			infostream<<"Server: unknown player "<<playername
 				<<" was blocked"<<std::endl;
 			SendAccessDenied(m_con, peer_id, L"No unknown players allowed.");
@@ -1864,9 +1834,9 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (auth_getpwd(playername,checkpwd))
 				checkpwd[0] = 0;
 		}else{
-			std::string defaultpwd = g_settings->get("default_password");
-			if (defaultpwd.length() > 0) {
-				defaultpwd = translatePassword(playername,narrow_to_wide(defaultpwd));
+			char* default_pwd = config_get("world.server.client.default.password");
+			if (default_pwd && default_pwd[0]) {
+				std::string defaultpwd = translatePassword(playername,narrow_to_wide(defaultpwd));
 				strcpy(checkpwd,defaultpwd.c_str());
 			}else{
 				strcpy(checkpwd,password);
@@ -1887,9 +1857,10 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		// Add player to auth manager
 		if (!auth_exists(playername)) {
 			infostream<<"Server: adding player "<<playername<<" to auth manager"<<std::endl;
-			uint64_t privs;
-
-			privs = auth_str2privs(const_cast<char*>(g_settings->get("default_privs").c_str()));
+			uint64_t privs = 0;
+			char* priv = config_get("world.server.client.default.privs");
+			if (priv)
+				privs = auth_str2privs(priv);
 
 			auth_add(playername);
 			auth_setpwd(playername,checkpwd);
@@ -1899,10 +1870,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		// Enforce user limit.
 		// Don't enforce for users that have some admin right
+		char* admin_name = config_get("world.server.admin");
 		if (
-			m_clients.size() >= g_settings->getU16("max_users")
+			m_clients.size() >= (uint16_t)config_get_int("world.server.client.max")
 			&& (auth_getprivs(playername) & (PRIV_SERVER|PRIV_BAN|PRIV_PRIVS)) == 0
-			&& playername != g_settings->get("name")
+			&& (!admin_name || strcmp(admin_name,playername))
 		) {
 			SendAccessDenied(m_con, peer_id, L"Too many users.");
 			return;
@@ -1986,7 +1958,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		// Send time of day
 		{
-			SharedBuffer<u8> data = makePacket_TOCLIENT_TIME_OF_DAY(m_env.getTimeOfDay(),g_settings->getFloat("time_speed"),m_env.getTime());
+			SharedBuffer<u8> data = makePacket_TOCLIENT_TIME_OF_DAY(
+				m_env.getTimeOfDay(),
+				config_get_float("world.game.environment.time.speed"),
+				m_env.getTime()
+			);
 			m_con.Send(peer_id, 0, data, true);
 		}
 
@@ -2103,7 +2079,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			thrown = content_craftitem_features(item->getContent())->shot_item;
 			if (thrown == CONTENT_IGNORE)
 				return;
-			if (g_settings->getBool("tool_wear")) {
+			if (config_get_bool("world.player.tool.wear")) {
 				bool weared_out = titem->addWear(1000);
 				if (weared_out) {
 					InventoryList *mlist = player->inventory.getList("main");
@@ -2116,8 +2092,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			item_i = i;
 		}
 
-		if (g_settings->getBool("droppable_inventory") == false || (getPlayerPrivs(player) & PRIV_BUILD) == 0) {
-			infostream<<"Not allowing player to drop item: creative mode and no build privs"<<std::endl;
+		if (!config_get_bool("world.player.inventory.droppable")) {
+			InventoryList *mlist = player->inventory.getList("main");
+			mlist->deleteItem(item_i);
+		}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
+			infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
 			return;
 		}
 
@@ -2136,7 +2115,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			// Add the object to the environment
 			m_env.addActiveObject(obj);
 		}
-		if (g_settings->getBool("infinite_inventory") == false) {
+		if (!config_get_bool("world.player.inventory.creative")) {
 			// Delete the right amount of items from the slot
 
 			// Delete item if all gone
@@ -2331,7 +2310,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (ilist != NULL) {
 					actionstream<<player->getName()<<" picked up "
 							<<item->getName()<<std::endl;
-					if (g_settings->getBool("infinite_inventory") == false) {
+					if (!config_get_bool("world.player.inventory.creative")) {
 						// Skip if inventory has no free space
 						if (ilist->roomForItem(item) == false) {
 							infostream<<"Player inventory has no free space"<<std::endl;
@@ -2360,7 +2339,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				v3f objpos = obj->getBasePosition();
 				v3f dir = (objpos - playerpos).normalize();
 
-				if (g_settings->getBool("infinite_inventory") == false && titem) {
+				if (!config_get_bool("world.player.inventory.creative") && titem) {
 					ToolItemFeatures &tool = content_toolitem_features(wield_item);
 					if (
 						tool.type == TT_SWORD
@@ -2376,7 +2355,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 									MobSAO *mob = (MobSAO*)obj;
 									item->setData(mob->getContent());
 									obj->m_removed = true;
-									if (g_settings->getBool("tool_wear")) {
+									if (config_get_bool("world.player.tool.wear")) {
 										if (titem->addWear(655)) {
 											mlist->deleteItem(item_i);
 										}else{
@@ -2400,7 +2379,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					if (ilist != NULL) {
 						actionstream<<player->getName()<<" picked up "
 								<<item->getName()<<std::endl;
-						if (g_settings->getBool("infinite_inventory") == false) {
+						if (!config_get_bool("world.player.inventory.creative")) {
 							// Skip if inventory has no free space
 							if (ilist->roomForItem(item) == false) {
 								infostream<<"Player inventory has no free space"<<std::endl;
@@ -2415,7 +2394,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					}
 				}
 
-				if (titem && g_settings->getBool("tool_wear")) {
+				if (titem && config_get_bool("world.player.tool.wear")) {
 					if (titem->addWear(wear)) {
 						mlist->deleteItem(item_i);
 					}else{
@@ -2488,18 +2467,21 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		if (action != 2) {
 			v3f p_underf = intToFloat(p_under,BS);
 			v3f pp = player->getPosition();
+			v3_t sp;
+			float sg;
 			if (pp.getDistanceFrom(p_underf) > 8.0*BS)
 				return;
+			/* spawn guard */
 			if (
 				(getPlayerPrivs(player) & PRIV_SERVER) == 0
-				&& g_settings->exists("static_spawnpoint")
-				&& g_settings->exists("spawnguard_radius")
+				&& config_get("world.spawn.static")
+				&& !config_get_v3t("world.spawn.guard.radius",&sp)
 			) {
-				v3f sp = g_settings->getV3F("static_spawnpoint");
-				f32 sg = g_settings->getFloat("spawnguard_radius");
-				sp *= BS;
+				v3f spf(sp.x,sp.y,sp.z);
+				sg = config_get_float("world.spawn.guard.radius");
+				spf *= BS;
 				sg *= BS;
-				if (pp.getDistanceFrom(sp) <= sg)
+				if (pp.getDistanceFrom(spf) <= sg)
 					return;
 			}
 		}
@@ -2519,7 +2501,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 		bool borderstone_locked = false;
 		if ((getPlayerPrivs(player) & PRIV_SERVER) == 0) {
-			s16 max_d = g_settings->getS16("borderstone_radius");
+			uint16_t max_d = config_get_int("world.game.borderstone.radius");
 			v3s16 test_p;
 			MapNode testnode;
 			// non-admins can't lock thing in another player's area
@@ -2591,7 +2573,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					if (
 						!wielded_tool_features.has_super_unlock_effect
 						&& (getPlayerPrivs(player) & PRIV_SERVER) == 0
-						&& g_settings->getBool("tool_wear")
+						&& config_get_bool("world.player.tool.wear")
 					) {
 						bool weared_out = titem->addWear(10000);
 						InventoryList *mlist = player->inventory.getList("main");
@@ -2782,7 +2764,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					}
 				}
 				ToolItem *titem = (ToolItem*)wielditem;
-				if (g_settings->getBool("tool_wear")) {
+				if (config_get_bool("world.player.tool.wear")) {
 					bool weared_out = titem->addWear(1000);
 					InventoryList *mlist = player->inventory.getList("main");
 					if (weared_out) {
@@ -2802,7 +2784,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						meta->energise(ENERGY_MAX,pp,pp,p_under);
 					}
 					ToolItem *titem = (ToolItem*)wielditem;
-					if (g_settings->getBool("tool_wear")) {
+					if (config_get_bool("world.player.tool.wear")) {
 						bool weared_out = titem->addWear(1000);
 						InventoryList *mlist = player->inventory.getList("main");
 						if (weared_out) {
@@ -2937,7 +2919,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					sendAddNode(p_under, selected_node, 0, &far_players, 30);
 					// wear out the crowbar
 					ToolItem *titem = (ToolItem*)wielditem;
-					if (g_settings->getBool("tool_wear")) {
+					if (config_get_bool("world.player.tool.wear")) {
 						bool weared_out = titem->addWear(200);
 						InventoryList *mlist = player->inventory.getList("main");
 						if (weared_out) {
@@ -2984,7 +2966,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					Handle inventory
 				*/
 				InventoryList *ilist = player->inventory.getList("main");
-				if(g_settings->getBool("infinite_inventory") == false && ilist) {
+				if (!config_get_bool("world.player.inventory.creative") && ilist) {
 					// Remove from inventory and send inventory
 					if (wielditem->getCount() == 1) {
 						ilist->deleteItem(item_i);
@@ -3283,12 +3265,12 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				Update and send inventory
 			*/
 
-			if (g_settings->getBool("infinite_inventory") == false) {
+			if (!config_get_bool("world.player.inventory.creative")) {
 				/*
 					Wear out tool
 				*/
 				InventoryList *mlist = player->inventory.getList("main");
-				if (mlist != NULL && g_settings->getBool("tool_wear")) {
+				if (mlist != NULL && config_get_bool("world.player.tool.wear")) {
 					InventoryItem *item = mlist->getItem(item_i);
 					if (item && (item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
 						ToolItem *titem = (ToolItem*)item;
@@ -3638,9 +3620,10 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				// don't allow borderstone to be place near another player's borderstone
 				if (wieldcontent == CONTENT_BORDERSTONE) {
-					s16 max_d = g_settings->getS16("borderstone_radius")*2;
+					uint16_t max_d = config_get_int("world.game.borderstone.radius");
 					v3s16 test_p;
 					MapNode testnode;
+					max_d *= 2;
 					for(s16 z=-max_d; z<=max_d; z++) {
 					for(s16 y=-max_d; y<=max_d; y++) {
 					for(s16 x=-max_d; x<=max_d; x++) {
@@ -3832,7 +3815,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					Handle inventory
 				*/
 				InventoryList *ilist = player->inventory.getList("main");
-				if(g_settings->getBool("infinite_inventory") == false && ilist) {
+				if (!config_get_bool("world.player.inventory.creative") && ilist) {
 					// Remove from inventory and send inventory
 					if (wielditem->getCount() == 1) {
 						ilist->deleteItem(item_i);
@@ -3908,7 +3891,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					return;
 				}
 
-				if (g_settings->getBool("infinite_inventory") == false) {
+				if (!config_get_bool("world.player.inventory.creative")) {
 					if (wielded_tool_features.onplace_replace_item != CONTENT_IGNORE) {
 						u16 wear = ((ToolItem*)wielditem)->getWear();
 						InventoryItem *item = InventoryItem::create(
@@ -3970,7 +3953,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				n.setContent(content_craftitem_features(item->getContent())->drop_item);
 				core::list<u16> far_players;
 				sendAddNode(p_over, n, 0, &far_players, 30);
-				if (g_settings->getBool("infinite_inventory") == false) {
+				if (!config_get_bool("world.player.inventory.creative")) {
 					// Delete the right amount of items from the slot
 					u16 dropcount = item->getDropCount();
 					InventoryList *ilist = player->inventory.getList("main");
@@ -4035,13 +4018,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					return;
 				}
 
-				/*
-					If in creative mode, item dropping is disabled unless
-					player has build privileges
-				*/
-				if (g_settings->getBool("droppable_inventory") == false || (getPlayerPrivs(player) & PRIV_BUILD) == 0) {
-					infostream<<"Not allowing player to drop item: "
-							"creative mode and no build privs"<<std::endl;
+				if (!config_get_bool("world.player.inventory.droppable")) {
+					InventoryList *mlist = player->inventory.getList("main");
+					mlist->deleteItem(item_i);
+				}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
+					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
 					return;
 				}
 
@@ -4060,7 +4041,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				if (obj == NULL) {
 					InventoryItem *nitem;
-					if (g_settings->getBool("infinite_inventory") == false) {
+					if (!config_get_bool("world.player.inventory.creative")) {
 						// Delete the right amount of items from the slot
 						InventoryList *ilist = player->inventory.getList("main");
 						nitem = ilist->changeItem(item_i,NULL);
@@ -4080,7 +4061,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 					infostream<<"Placed object"<<std::endl;
 
-					if (g_settings->getBool("infinite_inventory") == false) {
+					if (!config_get_bool("world.player.inventory.creative")) {
 						// Delete the right amount of items from the slot
 						InventoryList *ilist = player->inventory.getList("main");
 
@@ -4103,7 +4084,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 							"no build privs"<<std::endl;
 					return;
 				}
-				if (g_settings->getBool("infinite_inventory") == false) {
+				if (!config_get_bool("world.player.inventory.creative")) {
 					// Delete the right amount of items from the slot
 					u16 dropcount = item->getDropCount();
 					InventoryList *ilist = player->inventory.getList("main");
@@ -4149,13 +4130,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					return;
 				}
 
-				/*
-					If in creative mode, item dropping is disabled unless
-					player has build privileges
-				*/
-				if (g_settings->getBool("droppable_inventory") == false || (getPlayerPrivs(player) & PRIV_BUILD) == 0) {
-					infostream<<"Not allowing player to drop item: "
-							"creative mode and no build privs"<<std::endl;
+				if (!config_get_bool("world.player.inventory.droppable")) {
+					InventoryList *mlist = player->inventory.getList("main");
+					mlist->deleteItem(item_i);
+				}else if ((getPlayerPrivs(player) & PRIV_BUILD) == 0) {
+					infostream<<"Not allowing player to drop item: no build privs"<<std::endl;
 					return;
 				}
 
@@ -4185,7 +4164,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				if (obj == NULL) {
 					InventoryItem *nitem;
-					if (g_settings->getBool("infinite_inventory") == false) {
+					if (!config_get_bool("world.player.inventory.creative")) {
 						// Delete the right amount of items from the slot
 						InventoryList *ilist = player->inventory.getList("main");
 						nitem = ilist->changeItem(item_i,NULL);
@@ -4205,7 +4184,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 					infostream<<"Placed object"<<std::endl;
 
-					if (g_settings->getBool("infinite_inventory") == false) {
+					if (!config_get_bool("world.player.inventory.creative")) {
 						// Delete the right amount of items from the slot
 						u16 dropcount = item->getDropCount();
 						InventoryList *ilist = player->inventory.getList("main");
@@ -4252,20 +4231,20 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		s8 suffocate = readS8(is);
 		s8 hunger = readS8(is);
 
-		if (g_settings->getBool("enable_damage")) {
+		if (config_get_bool("world.player.damage")) {
 			if (damage) {
 				actionstream<<player->getName()<<" damaged by "
 						<<(int)damage<<" hp at "<<PP(player->getPosition()/BS)
 						<<std::endl;
 			}
-			if (suffocate && g_settings->getBool("enable_suffocation")) {
+			if (suffocate && config_get_bool("world.player.suffocation")) {
 				actionstream<<player->getName()<<" lost "
 						<<(int)suffocate<<" air at "<<PP(player->getPosition()/BS)
 						<<std::endl;
 			}else{
 				suffocate = 0;
 			}
-			if (hunger && g_settings->getBool("enable_hunger")) {
+			if (hunger && config_get_bool("world.player.hunger")) {
 				actionstream<<player->getName()<<" lost "
 						<<(int)hunger<<" hunger at "<<PP(player->getPosition()/BS)
 						<<std::endl;
@@ -4290,7 +4269,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		std::string datastring((char*)&data[2], datasize-2);
 		std::istringstream is(datastring, std::ios_base::binary);
 		u16 wear = readU16(is);
-		if (!g_settings->getBool("enable_damage"))
+		if (!config_get_bool("world.player.damage"))
 			return;
 
 		f32 bonus = 1.0;
@@ -4350,7 +4329,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				Handle craftresult specially if not in creative mode
 			*/
 			bool disable_action = false;
-			if (a->getType() == IACTION_MOVE && g_settings->getBool("infinite_inventory") == false) {
+			if (a->getType() == IACTION_MOVE && !config_get_bool("world.player.inventory.creative")) {
 				IMoveAction *ma = (IMoveAction*)a;
 				if(ma->to_inv == "current_player" && ma->from_inv == "current_player") {
 					InventoryList *rlist = player->inventory.getList("craftresult");
@@ -4482,7 +4461,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						InventoryList *list = player->inventory.getList("discard");
 						InventoryItem *item = list->getItem(0);
 						if (item) {
-							if (g_settings->getBool("droppable_inventory")) {
+							if (config_get_bool("world.player.inventory.droppable")) {
 								v3f pos = player->getPosition();
 								pos.Y += BS;
 								v3f dir = v3f(0,0,BS);
@@ -4492,7 +4471,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 								item = item->clone();
 								m_env.dropToParcel(pp,item);
 							}
-							if (g_settings->getBool("infinite_inventory") == false) {
+							if (!config_get_bool("world.player.inventory.creative")) {
 								list->deleteItem(0);
 								SendInventory(player->peer_id);
 							}
@@ -4530,15 +4509,14 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		is.read((char*)buf, 2);
 		u16 len = readU16(buf);
 
-		std::wstring message;
-		for(u16 i=0; i<len; i++)
-		{
-			is.read((char*)buf, 2);
-			message += (wchar_t)readU16(buf);
+		std::string message;
+		for (u16 i=0; i<len; i++) {
+			is.read((char*)buf, 1);
+			message += buf[0];
 		}
 
 		// Get player name of this client
-		std::wstring name = narrow_to_wide(player->getName());
+		const char* name = player->getName();
 
 		// Line to send to players
 		std::wstring line;
@@ -4552,66 +4530,51 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 		uint64_t privs = getPlayerPrivs(player);
 
 		// Parse commands
-		if(message[0] == L'/')
-		{
-			size_t strip_size = 1;
-			if (message[1] == L'#') // support old-style commans
-				++strip_size;
-			message = message.substr(strip_size);
+		if (message[0] == L'/') {
+			command_context_t ctx;
 
-			WStrfnd f1(message);
-			f1.next(L" "); // Skip over /#whatever
-			std::wstring paramstring = f1.next(L"");
+			strcpy(ctx.player,name);
+			ctx.privs = privs;
+			ctx.flags = 0;
+			ctx.bridge_server = this;
+			ctx.bridge_env = &m_env;
+			ctx.bridge_player = player;
 
-			ServerCommandContext *ctx = new ServerCommandContext(
-				str_split(message, L' '),
-				paramstring,
-				this,
-				&m_env,
-				player,
-				privs);
+			if (command_exec(&ctx,(char*)message.c_str())) {
+				line += L"Server: Invalid command";
+				send_to_sender = true;
+			}else if (ctx.flags) {
+				std::wstring reply(narrow_to_wide(ctx.reply));
+				send_to_sender = ctx.flags & SEND_TO_SENDER;
+				send_to_others = ctx.flags & SEND_TO_OTHERS;
 
-			std::wstring reply(processServerCommand(ctx));
-			send_to_sender = ctx->flags & SEND_TO_SENDER;
-			send_to_others = ctx->flags & SEND_TO_OTHERS;
-
-			if (ctx->flags & SEND_NO_PREFIX)
-				line += reply;
-			else
-				line += L"Server: " + reply;
-
-			delete ctx;
-
-		}
-		else
-		{
-			if(privs & PRIV_SHOUT)
-			{
-				line += L"<";
-				line += name;
-				line += L"> ";
-				line += message;
-				send_to_others = true;
+				if (ctx.flags & SEND_NO_PREFIX) {
+					line += reply;
+				}else{
+					line += L"Server: " + reply;
+				}
 			}
-			else
-			{
+		}else{
+			if (privs & PRIV_SHOUT) {
+				line += L"<";
+				line += narrow_to_wide(name);
+				line += L"> ";
+				line += narrow_to_wide(message);
+				send_to_others = true;
+			}else{
 				line += L"Server: You are not allowed to shout";
 				send_to_sender = true;
 			}
 		}
 
-		if(line != L"")
-		{
-			if(send_to_others)
+		if (line != L"") {
+			if (send_to_others)
 				actionstream<<"CHAT: "<<wide_to_narrow(line)<<std::endl;
 
 			/*
 				Send the message to clients
 			*/
-			for(core::map<u16, RemoteClient*>::Iterator
-				i = m_clients.getIterator();
-				i.atEnd() == false; i++)
-			{
+			for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
 				// Get client and check that it is valid
 				RemoteClient *client = i.getNode()->getValue();
 				assert(client->peer_id == i.getNode()->getKey());
@@ -4620,9 +4583,9 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				// Filter recipient
 				bool sender_selected = (peer_id == client->peer_id);
-				if(sender_selected == true && send_to_sender == false)
+				if (sender_selected == true && send_to_sender == false)
 					continue;
-				if(sender_selected == false && send_to_others == false)
+				if (sender_selected == false && send_to_others == false)
 					continue;
 
 				SendChatMessage(client->peer_id, line);
@@ -5266,11 +5229,11 @@ void Server::SendPlayerState(Player *player)
 	u8 hp = player->health;
 	u8 air = player->air;
 	u8 hunger = player->hunger;
-	if (hp < 100 && !g_settings->getBool("enable_damage"))
+	if (hp < 100 && !config_get_bool("world.player.damage"))
 		hp = 100;
-	if (air < 100 && !g_settings->getBool("enable_suffocation"))
+	if (air < 100 && !config_get_bool("world.player.suffocation"))
 		air = 100;
-	if (hunger < 100 && !g_settings->getBool("enable_hunger"))
+	if (hunger < 100 && !config_get_bool("world.player.hunger"))
 		hunger = 100;
 	SendState(
 		m_con,
@@ -5295,11 +5258,11 @@ void Server::SendSettings(Player *player)
 	u8 setting;
 
 	writeU16(os, TOCLIENT_SERVERSETTINGS);
-	setting = g_settings->getBool("enable_damage");
+	setting = config_get_bool("world.player.damage");
 	writeU8(os, setting);
-	setting = g_settings->getBool("enable_suffocation");
+	setting = config_get_bool("world.player.suffocation");
 	writeU8(os, setting);
-	setting = g_settings->getBool("enable_hunger");
+	setting = config_get_bool("world.player.hunger");
 	writeU8(os, setting);
 
 	// Make data buffer
@@ -5512,7 +5475,7 @@ void Server::SendBlocks(float dtime)
 	JMutexAutoLock envlock(m_env_mutex);
 	JMutexAutoLock conlock(m_con_mutex);
 
-	s32 max = g_settings->getS32("max_simultaneous_block_sends_server_total");
+	int max = config_get_int("server.net.chunk.max");
 
 	//TimeTaker timer("Server::SendBlocks");
 
@@ -5648,7 +5611,7 @@ void Server::HandlePlayerHP(Player *player, s16 damage, s16 suffocate, s16 hunge
 		player->blood = 0;
 
 		// Throw items around
-		if (g_settings->getBool("death_drops_inv")) {
+		if (!config_get_bool("world.player.inventory.keep")) {
 			v3s16 bottompos = floatToInt(player->getPosition() + v3f(0,-BS/4,0), BS);
 			v3s16 p = bottompos + v3s16(0,1,0);
 			{
@@ -5707,7 +5670,7 @@ void Server::UpdateCrafting(u16 peer_id)
 	/*
 		Calculate crafting stuff
 	*/
-	if (g_settings->getBool("infinite_inventory") == false) {
+	if (!config_get_bool("world.player.inventory.creative")) {
 		InventoryList *clist = player->inventory.getList("craft");
 		InventoryList *rlist = player->inventory.getList("craftresult");
 
@@ -5753,10 +5716,7 @@ std::wstring Server::getStatusString()
 	os<<L", uptime="<<m_uptime.get();
 	// Information about clients
 	os<<L", clients={";
-	for(core::map<u16, RemoteClient*>::Iterator
-		i = m_clients.getIterator();
-		i.atEnd() == false; i++)
-	{
+	for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
 		// Get client and check that it is valid
 		RemoteClient *client = i.getNode()->getValue();
 		assert(client->peer_id == i.getNode()->getKey());
@@ -5772,19 +5732,10 @@ std::wstring Server::getStatusString()
 		os<<name<<L",";
 	}
 	os<<L"}";
-	if(((ServerMap*)(&m_env.getMap()))->isSavingEnabled() == false)
-		os<<std::endl<<L"# Server: "<<" WARNING: Map saving is disabled.";
-	if(g_settings->get("motd") != "")
-		os<<std::endl<<L"# Server: "<<narrow_to_wide(g_settings->get("motd"));
+	char* motd = config_get("world.game.motd");
+	if (motd && motd[0])
+		os<<std::endl<<L"# Server: "<<narrow_to_wide(motd);
 	return os.str();
-}
-
-// Saves g_settings to configpath given at initialization
-void Server::saveConfig()
-{
-	char buff[1024];
-	if (path_get((char*)"config",(char*)"voxelands.conf",0,buff,1024))
-		g_settings->updateConfigFile(buff);
 }
 
 void Server::notifyPlayer(const char *name, const std::wstring msg)
@@ -5802,8 +5753,10 @@ void Server::notifyPlayers(const std::wstring msg)
 
 v3f findSpawnPos(ServerMap &map)
 {
-	if (g_settings->exists("static_spawnpoint")) {
-		v3f pos = g_settings->getV3F("static_spawnpoint");
+	v3_t sp;
+
+	if (!config_get_v3t("world.spawn.static",&sp)) {
+		v3f pos(sp.x,sp.y,sp.z);
 		return pos*BS;
 	}
 
@@ -5846,11 +5799,9 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 		Try to get an existing player
 	*/
 	Player *player = m_env.getPlayer(name);
-	if(player != NULL)
-	{
+	if (player != NULL) {
 		// If player is already connected, cancel
-		if(player->peer_id != 0)
-		{
+		if (player->peer_id != 0) {
 			infostream<<"emergePlayer(): Player already connected"<<std::endl;
 			return NULL;
 		}
@@ -5859,7 +5810,7 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 		player->peer_id = peer_id;
 
 		// Set creative inventory
-		if (g_settings->getBool("infinite_inventory"))
+		if (config_get_bool("world.player.inventory.creative"))
 			crafting::giveCreative(player);
 
 		return player;
@@ -5868,8 +5819,7 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 	/*
 		If player with the wanted peer_id already exists, cancel.
 	*/
-	if(m_env.getPlayer(peer_id) != NULL)
-	{
+	if (m_env.getPlayer(peer_id) != NULL) {
 		infostream<<"emergePlayer(): Player with wrong name but same"
 				" peer_id already exists"<<std::endl;
 		return NULL;
@@ -5879,9 +5829,13 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 		Create a new player
 	*/
 	{
-		uint64_t privs;
+		uint64_t privs = 0;
+		char* priv;
 
-		privs = auth_str2privs(const_cast<char*>(g_settings->get("default_privs").c_str()));
+		priv = config_get("world.server.client.default.privs");
+
+		if (priv && priv[0])
+			privs = auth_str2privs(priv);
 
 		player = new ServerRemotePlayer();
 		player->peer_id = peer_id;
@@ -5912,10 +5866,10 @@ Player *Server::emergePlayer(const char *name, const char *password, u16 peer_id
 			Add stuff to inventory
 		*/
 
-		if (g_settings->getBool("infinite_inventory")) {
+		if (config_get_bool("world.player.inventory.creative")) {
 			// Set creative inventory
 			crafting::giveCreative(player);
-		}else if(g_settings->getBool("initial_inventory")) {
+		}else if (config_get_bool("world.player.inventory.starter")) {
 			crafting::giveInitial(player);
 		}
 
@@ -6066,19 +6020,18 @@ void Server::addUser(const char *name, const char *password)
 
 uint64_t Server::getPlayerPrivs(Player *player)
 {
-	if(player==NULL)
+	const char* playername;
+	char* admin_name;
+	if (!player)
 		return 0;
-	std::string playername = player->getName();
-	// Local player gets all privileges regardless of
-	// what's set on their account.
-	if(g_settings->get("name") == playername)
-	{
+
+	playername = player->getName();
+	admin_name = config_get("world.server.admin");
+
+	if (admin_name && !strcmp(admin_name,playername))
 		return PRIV_ALL;
-	}
-	else
-	{
-		return getPlayerAuthPrivs(playername);
-	}
+
+	return getPlayerAuthPrivs(playername);
 }
 
 ISoundManager* Server::getSoundManager()
@@ -6096,10 +6049,7 @@ void dedicated_server_loop(Server &server, bool &kill)
 	infostream<<"========================"<<std::endl;
 	infostream<<std::endl;
 
-	IntervalLimiter m_profiler_interval;
-
-	for(;;)
-	{
+	for (;;) {
 		// This is kind of a hack but can be done like this
 		// because server.step() is very light
 		{
@@ -6108,25 +6058,9 @@ void dedicated_server_loop(Server &server, bool &kill)
 		}
 		server.step(0.030);
 
-		if(server.getShutdownRequested() || kill)
-		{
+		if (server.getShutdownRequested() || kill) {
 			infostream<<DTIME<<" dedicated_server_loop(): Quitting."<<std::endl;
 			break;
-		}
-
-		/*
-			Profiler
-		*/
-		float profiler_print_interval =
-				g_settings->getFloat("profiler_print_interval");
-		if(profiler_print_interval != 0)
-		{
-			if(m_profiler_interval.step(0.030, profiler_print_interval))
-			{
-				infostream<<"Profiler:"<<std::endl;
-				g_profiler->print(infostream);
-				g_profiler->clear();
-			}
 		}
 
 		/*
@@ -6134,19 +6068,16 @@ void dedicated_server_loop(Server &server, bool &kill)
 		*/
 		static int counter = 0;
 		counter--;
-		if(counter <= 0)
-		{
+		if (counter <= 0) {
 			counter = 10;
 
 			core::list<PlayerInfo> list = server.getPlayerInfo();
 			core::list<PlayerInfo>::Iterator i;
 			static u32 sum_old = 0;
 			u32 sum = PIChecksum(list);
-			if(sum != sum_old)
-			{
+			if (sum != sum_old) {
 				infostream<<DTIME<<"Player info:"<<std::endl;
-				for(i=list.begin(); i!=list.end(); i++)
-				{
+				for (i=list.begin(); i!=list.end(); i++) {
 					i->PrintLine(&infostream);
 				}
 			}

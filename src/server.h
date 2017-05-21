@@ -365,7 +365,7 @@ public:
 
 	Server();
 	~Server();
-	void start(unsigned short port);
+	void start();
 	void stop();
 	// This is mainly a way to pass the time to the server.
 	// Actual processing is done in an another thread.
@@ -437,9 +437,6 @@ public:
 	array_t *getPlayers(bool ign_disconnected) {return m_env.getPlayers(ign_disconnected);}
 
 	uint64_t getPlayerPrivs(Player *player);
-
-	// Saves g_settings to configpath given at initialization
-	void saveConfig();
 
 	void setIpBanned(const std::string &ip, const std::string &name)
 	{

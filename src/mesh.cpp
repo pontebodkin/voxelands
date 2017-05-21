@@ -37,7 +37,6 @@
 #include <IMeshLoader.h>
 #include <IMeshCache.h>
 #include "main.h"
-#include "settings.h"
 
 // In Irrlicht 1.8 the signature of ITexture::lock was changed from
 // (bool, u32) to (E_TEXTURE_LOCK_MODE, u32).
