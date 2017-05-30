@@ -4541,7 +4541,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			ctx.bridge_player = player;
 
 			if (command_exec(&ctx,(char*)message.c_str())) {
-				line += L"Server: Invalid command";
+				if (ctx.flags) {
+					line += narrow_to_wide(ctx.reply);
+				}else{
+					line += L"Server: Invalid command";
+				}
 				send_to_sender = true;
 			}else if (ctx.flags) {
 				std::wstring reply(narrow_to_wide(ctx.reply));

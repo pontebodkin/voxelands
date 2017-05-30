@@ -173,6 +173,8 @@ int command_setpassword(command_context_t *ctx, array_t *args);
 #ifdef __cplusplus
 }
 #include <string>
+class Client;
+void bridge_register_client(Client *c);
 std::string bridge_config_get(char* name);
 #endif
 
@@ -182,6 +184,7 @@ std::string bridge_config_get(char* name);
 #else
 #define EXTERNC
 #endif
+EXTERNC int bridge_client_send_msg(char* str);
 EXTERNC int bridge_server_get_status(command_context_t *ctx, char* buff, int size);
 EXTERNC int bridge_server_notify_player(command_context_t *ctx, char* name, char* str, ...);
 EXTERNC int bridge_server_settime(command_context_t *ctx, uint32_t time);

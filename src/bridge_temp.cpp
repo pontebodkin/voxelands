@@ -2,10 +2,33 @@
 
 #include <stdarg.h>
 
+#ifndef SERVER
+#include "client.h"
+#endif
 #include "server.h"
 #include "environment.h"
 #include "player.h"
 #include "sha1.h"
+
+#ifndef SERVER
+static Client *bridge_client = NULL;
+
+void bridge_register_client(Client *c)
+{
+	bridge_client = c;
+}
+
+int bridge_client_send_msg(char* str)
+{
+	if (!str)
+		return 1;
+	std::wstring m = narrow_to_wide(str);
+
+	bridge_client->sendChatMessage(m);
+
+	return 0;
+}
+#endif
 
 int bridge_server_get_status(command_context_t *ctx, char* buff, int size)
 {

@@ -1237,7 +1237,7 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 		}
 
 		/* because I can't remember which random stream prints to stdout */
-		printf("CHAT: %s\n",wide_to_narrow(message).c_str());
+		vlprint(CN_CHAT,(char*)wide_to_narrow(message).c_str());
 
 		m_chat_queue.push_back(message);
 	}

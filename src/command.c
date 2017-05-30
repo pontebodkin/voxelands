@@ -134,10 +134,33 @@ static int command_set_detect(char* name)
 	return 1;
 }
 
+static int command_send_str(char* name, char* args)
+{
+#ifndef SERVER
+	char buff[1024];
+
+	if (snprintf(buff,1024,"/%s %s",name,args) >= 1024)
+		return 1;
+
+	return bridge_client_send_msg(buff);
+#else
+	command_print(NULL, 0, CN_WARN, "Server-side command not sent: '%s'",name);
+#endif
+	return 1;
+}
+
 static int command_send(char* name, array_t *args)
 {
-	command_print(NULL, 0, CN_WARN, "Server-side command not sent: '%s'",name);
-	return 1;
+	char* str;
+	int r;
+
+	str = array_join(args," ", 0);
+	if (!str)
+		return 1;
+
+	r = command_send_str(name,str);
+	free(str);
+	return r;
 }
 
 static int command_set(command_context_t *ctx, array_t *args)
@@ -363,7 +386,8 @@ int command_apply(command_context_t *ctx, char* name, char* value)
 	}
 
 	if (!s->client && !ctx) {
-		command_send(name,args);
+		mutex_unlock(command_data.mutex);
+		command_send_str(name,value);
 		return 0;
 	}
 

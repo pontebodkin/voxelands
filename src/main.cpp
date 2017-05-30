@@ -1190,7 +1190,7 @@ int main(int argc, char *argv[])
 
 				// Save settings
 				config_set("client.name", (char*)wide_to_narrow(menudata.name).c_str());
-				config_set("world.admin.name",(char*)wide_to_narrow(menudata.name).c_str());
+				config_set("world.server.admin",(char*)wide_to_narrow(menudata.name).c_str());
 
 				config_save(NULL,NULL,NULL);
 
@@ -1280,6 +1280,8 @@ int main(int argc, char *argv[])
 #endif
 
 	} // Menu-game loop
+
+	config_save(NULL,NULL,NULL);
 
 	delete input;
 

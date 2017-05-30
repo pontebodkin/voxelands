@@ -124,10 +124,15 @@ public:
 		if (fields["text"] == L"")
 			return;
 
-		// Send to others
-		m_client->sendChatMessage(fields["text"]);
-		// Show locally
-		m_client->addChatMessage(fields["text"]);
+		if (fields["text"][0] == L'/') {
+			std::string m = wide_to_narrow(fields["text"]);
+			command_exec(NULL,(char*)m.c_str());
+		}else{
+			// Send to others
+			m_client->sendChatMessage(fields["text"]);
+			// Show locally
+			m_client->addChatMessage(fields["text"]);
+		}
 	}
 
 	std::string getForm()
@@ -686,6 +691,8 @@ void the_game(
 	MapDrawControl draw_control;
 	Client client(device, password, draw_control, sound);
 
+	bridge_register_client(&client);
+
 	drawLoadingScreen(device,narrow_to_wide(gettext("Resolving address...")));
 	uint16_t port = config_get_int("world.server.port");
 	if (!port)
@@ -703,6 +710,7 @@ void the_game(
 	{
 		errorstream<<"Couldn't resolve address"<<std::endl;
 		error_message = narrow_to_wide(gettext("Couldn't resolve address"));
+		bridge_register_client(NULL);
 		return;
 	}
 
@@ -781,6 +789,7 @@ void the_game(
 			error_message = narrow_to_wide(gettext("Connection timed out."));
 			errorstream<<"Timed out."<<std::endl;
 		}
+		bridge_register_client(NULL);
 		return;
 	}
 
@@ -788,8 +797,10 @@ void the_game(
 		Create the camera node
 	*/
 	Camera camera(smgr, draw_control, &client);
-	if (!camera.successfullyCreated(error_message))
+	if (!camera.successfullyCreated(error_message)) {
+		bridge_register_client(NULL);
 		return;
+	}
 
 	f32 camera_yaw = 0; // "right/left"
 	f32 camera_pitch = 0; // "up/down"
@@ -2370,6 +2381,8 @@ void the_game(
 		clouds->drop();
 
 	clear_particles();
+
+	bridge_register_client(NULL);
 
 	/*
 		Draw a "shutting down" screen, which will be shown while the map
