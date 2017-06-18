@@ -19,6 +19,9 @@
 
 #include "common.h"
 #include "path.h"
+#ifndef SERVER
+#include "sound.h"
+#endif
 
 #include <string.h>
 
@@ -53,7 +56,9 @@ void config_default_init()
 	config_set_default("client.video.driver","opengl",NULL);
 	config_set_default("client.video.hpfpu","true",NULL);
 
-	config_set_default("client.sound.volume","50",NULL);
+	config_set_default("client.sound.volume","50",sound_master_setter);
+	config_set_default("client.sound.volume.effects","50",sound_effects_setter);
+	config_set_default("client.sound.volume.music","50",sound_music_setter);
 
 	config_set_default("client.graphics.mesh.lod","3",NULL);
 	config_set_default("client.graphics.texture.animations","true",NULL);

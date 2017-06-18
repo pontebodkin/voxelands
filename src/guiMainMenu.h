@@ -118,8 +118,7 @@ public:
 			gui::IGUIElement* parent, s32 id,
 			IMenuManager *menumgr,
 			MainMenuData *data,
-			IGameCallback *gamecallback,
-			ISoundManager *sound);
+			IGameCallback *gamecallback);
 	~GUIMainMenu();
 
 	void removeChildren();
@@ -148,9 +147,6 @@ private:
 	MainMenuData *m_data;
 	bool m_accepted;
 	IGameCallback *m_gamecallback;
-#if USE_SOUND == 1
-	ISoundManager *m_sound;
-#endif
 
 	gui::IGUIEnvironment* env;
 	gui::IGUIElement* parent;

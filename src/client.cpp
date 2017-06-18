@@ -202,8 +202,7 @@ void * MeshUpdateThread::Thread()
 Client::Client(
 		IrrlichtDevice *device,
 		std::string password,
-		MapDrawControl &control,
-		ISoundManager *sound):
+		MapDrawControl &control):
 	m_mesh_update_thread(),
 	m_env(
 		this,
@@ -216,7 +215,6 @@ Client::Client(
 	m_server_suffocation(false),
 	m_server_hunger(false),
 	m_con(PROTOCOL_ID, 512, CONNECTION_TIMEOUT, this),
-	m_sound(sound),
 	m_device(device),
 	m_server_ser_ver(SER_FMT_VER_INVALID),
 	m_inventory_updated(false),
@@ -1624,7 +1622,8 @@ void Client::useItem()
 	// Send as reliable
 	Send(0, data, true);
 
-	if (g_sound) {
+#if USE_AUDIO == 1
+	{
 		InventoryItem *item = (InventoryItem*)m_env.getLocalPlayer()->getWieldItem();
 		if (!item)
 			return;
@@ -1633,8 +1632,9 @@ void Client::useItem()
 		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
 			snd = content_craftitem_features(w)->sound_use;
 		if (snd != "")
-			g_sound->playSound(snd,false);
+			sound_play_effect(snd.c_str(),1.0,NULL);
 	}
+#endif
 }
 
 void Client::clickActiveObject(u8 button, u16 id, u16 item_i)
@@ -2284,27 +2284,14 @@ float Client::getRTT(void)
 	}
 }
 
-ISoundManager* Client::getSoundManager()
-{
-	if (m_sound == NULL)
-		return &dummySoundManager;
-	return m_sound;
-}
-
 // foot: 0 = left, 1 = right
 void Client::playStepSound(int foot)
 {
-	if (!g_sound)
-		return;
-
-	sound_playStep(&m_env.getMap(),m_env.getLocalPlayer()->getPosition(),foot);
+	//sound_playStep(&m_env.getMap(),m_env.getLocalPlayer()->getPosition(),foot);
 }
 
 void Client::playDigSound(content_t c)
 {
-	if (!g_sound)
-		return;
-
 	if (c == CONTENT_IGNORE) {
 		c = getPointedContent();
 		if ((c&CONTENT_MOB_MASK) != 0)
@@ -2313,41 +2300,37 @@ void Client::playDigSound(content_t c)
 	if (c == CONTENT_IGNORE)
 		c = CONTENT_AIR;
 
-	sound_playDig(c,m_env.getLocalPlayer()->getPosition());
+	//sound_playDig(c,m_env.getLocalPlayer()->getPosition());
 }
 
 void Client::playPlaceSound(content_t c)
 {
-	if (!m_sound)
-		return;
-
 	if (c == CONTENT_IGNORE)
 		c = getPointedContent();
 
 	ContentFeatures *f = &content_features(c);
 	if (f->sound_place != "") {
-		m_sound->playSound(f->sound_place,false);
+		sound_play_effect((char*)f->sound_place.c_str(),1.0,NULL);
 		return;
 	}
 	switch (f->type) {
 	case CMT_LIQUID:
-		m_sound->playSound("liquid-place",false);
+		sound_play_effect("liquid-place",1.0,NULL);
 		break;
 	default:
-		m_sound->playSound("place",false);
+		sound_play_effect("place",1.0,NULL);
 	}
 }
 
 void Client::playSound(std::string &name, bool loop)
 {
-	if (!m_sound)
-		return;
-	m_sound->playSound(name,loop);
+	/* TODO: looping */
+	sound_play_effect((char*)name.c_str(),1.0,NULL);
 }
 
 void Client::playSoundAt(std::string &name, v3f pos, bool loop)
 {
-	if (!m_sound)
-		return;
-	m_sound->playSoundAt(name,loop,pos);
+	v3_t p = {pos.X,pos.Y,pos.Z};
+	/* TODO: looping */
+	sound_play_effect((char*)name.c_str(),1.0,&p);
 }

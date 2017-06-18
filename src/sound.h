@@ -1,96 +1,73 @@
-/************************************************************************
-* Minetest-c55
-* Copyright (C) 2012 celeron55, Perttu Ahola <celeron55@gmail.com>
-*
-* sound.h
-* voxelands - 3d voxel world sandbox game
-* Copyright (C) Lisa 'darkrose' Milne 2014 <lisa@ltmnet.com>
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-* See the GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>
-*
-* License updated from GPLv2 or later to GPLv3 or later by Lisa Milne
-* for Voxelands.
-************************************************************************/
+#ifndef _SOUND_H_
+#define _SOUND_H_
 
-#ifndef SOUND_HEADER
-#define SOUND_HEADER
+#include "common.h"
+#include "nvp.h"
 
-#include "common_irrlicht.h"
-#include <string>
-#include <vector>
-#include <set>
-#include "mapnode.h"
+#include <AL/al.h>
+#include <AL/alc.h>
+#include <AL/alext.h>
 
-class ISoundManager
-{
-public:
-	virtual ~ISoundManager(){}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-	// Multiple sounds can be loaded per name; when played, the sound
-	// should be chosen randomly from alternatives
-	// Return value determines success/failure
-	virtual bool loadSound(const std::string &name, const std::string &filepath, float gain=1.0) = 0;
+typedef struct sound_s {
+	struct sound_s *prev;
+	struct sound_s *next;
+	char* file;
+	char* token;
+	ALenum format;
+	ALsizei freq;
+	ALuint id;
+	char* data;
+	int d_len;
+} sound_t;
 
-	virtual void updateListener(v3f pos, v3f vel, v3f at, v3f up) = 0;
-	virtual void setListenerGain(float gain) = 0;
+typedef struct sound_instance_s {
+	struct sound_instance_s *prev;
+	struct sound_instance_s *next;
+	ALuint id;
+	float volume;
+	float fade;
+} sound_instance_t;
 
-	// playSound functions return -1 on failure, otherwise a handle to the
-	// sound. If name=="", call should be ignored without error.
-	virtual int playSound(const std::string &name, bool loop) = 0;
-	virtual int playSoundAt(const std::string &name, bool loop, v3f pos, float gain=1.0, bool queue=false) = 0;
-	virtual void stopSound(int sound) = 0;
-	virtual bool soundExists(int sound) = 0;
+/* defined in sound.c */
+int sound_init(void);
+void sound_exit(void);
+void sound_step(float dtime, v3_t *pos, v3_t *at, v3_t *up);
+int sound_load_effect(char* file, char* token);
+int sound_load_music(char* file, char* token);
+void sound_free_effect(char* token);
+void sound_free_music(char* token);
+uint32_t sound_play_effect(char* token, float volume, v3_t *pos);
+uint32_t sound_play_music(char* token, float volume);
+void sound_stop_effects(int fade);
+void sound_stop_music(int fade);
+void sound_stop_single(uint32_t id);
+void sound_stop(int fade);
+int sound_master_setter(char* value);
+int sound_effects_setter(char* value);
+int sound_music_setter(char* value);
 
-	virtual bool playMusic(const std::string &name, bool loop) = 0;
-	virtual void stopMusic() = 0;
+#ifdef _VL_SOUND_EXPOSE_INTERNAL
+/* defined in sound.c */
+void sound_process(float dtime);
+float sound_volume_master(float v);
+float sound_volume_effects(float v);
+float sound_volume_music(float v);
 
-	virtual void updateSoundPosition(int sound, v3f pos) = 0;
+/* defined in sound_ogg.c */
+int sound_is_ogg(file_t *f);
+int sound_load_ogg(file_t *f, sound_t *e);
 
-	virtual void maintain(float dtime) = 0;
-};
+/* defined in sound_wav.c */
+int sound_is_wav(file_t *f);
+int sound_load_wav(file_t *f, sound_t *e);
+#endif
 
-class DummySoundManager: public ISoundManager
-{
-public:
-	virtual bool loadSound(const std::string &name, const std::string &filepath, float gain) {return true;}
-
-	void updateListener(v3f pos, v3f vel, v3f at, v3f up) {}
-	void setListenerGain(float gain) {}
-
-	int playSound(const std::string &name, bool loop) {return 0;}
-	int playSoundAt(const std::string &name, bool loop, v3f pos, float gain, bool queue) {return 0;}
-	void stopSound(int sound) {}
-	bool soundExists(int sound) {return false;}
-
-	bool playMusic(const std::string &name, bool loop) {return false;}
-	void stopMusic() {}
-
-	void updateSoundPosition(int sound, v3f pos) {}
-
-	void maintain(float dtime) {}
-};
-
-ISoundManager *createSoundManager();
-void init_sounds(ISoundManager *sound);
-
-class Map;
-
-// Global DummySoundManager singleton
-extern DummySoundManager dummySoundManager;
-extern ISoundManager *g_sound;
-
-void sound_playStep(Map *map, v3f pos, int foot, float gain=1.0);
-void sound_playDig(content_t c, v3f pos);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

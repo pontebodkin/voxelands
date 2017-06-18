@@ -74,11 +74,11 @@ MapBlock::~MapBlock()
 			delete mesh;
 			mesh = NULL;
 		}
-		if (g_sound) {
-			for (std::map<v3s16,MapBlockSound>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++) {
-				g_sound->stopSound(i->second.id);
-			}
+#if USE_AUDIO == 1
+		for (std::map<v3s16,MapBlockSound>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++) {
+			sound_stop_single(i->second.id);
 		}
+#endif
 	}
 #endif
 

@@ -64,7 +64,9 @@ enum
 	GUI_ID_PARTICLES_CB,
 	GUI_ID_FULLSCREEN_CB,
 	// sound
-	GUI_ID_VOLUME_SB,
+	GUI_ID_VOLUME_MASTER_SB,
+	GUI_ID_VOLUME_EFFECTS_SB,
+	GUI_ID_VOLUME_MUSIC_SB,
 	// tabs
 	GUI_ID_TAB_MAINMENU,
 	GUI_ID_TAB_SETTINGS_CONTROLS,
@@ -93,7 +95,9 @@ struct SettingsMenuData
 		light_detail(3),
 		hotbar(false),
 		wield_index(false),
-		volume(0.0f),
+		volume_master(0.0f),
+		volume_effects(0.0f),
+		volume_music(0.0f),
 		particles(true),
 		fullscreen(false),
 		texture_animation(true)
@@ -113,7 +117,9 @@ struct SettingsMenuData
 	bool trilinear_filter;
 	bool hotbar;
 	bool wield_index;
-	f32 volume;
+	f32 volume_master;
+	f32 volume_effects;
+	f32 volume_music;
 	//int enable_shaders;
 	bool particles;
 	bool fullscreen;

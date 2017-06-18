@@ -1693,6 +1693,8 @@ ServerMap::ServerMap():
 	char b[1024];
 	infostream<<__FUNCTION_NAME<<std::endl;
 
+	config_load("world","world.cfg");
+
 	loadMapMeta();
 
 	/*

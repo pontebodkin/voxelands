@@ -36,7 +36,6 @@
 #include "inventory.h"
 #include "auth.h"
 #include "ban.h"
-#include "sound.h"
 
 /*
 	Some random functions
@@ -465,7 +464,6 @@ public:
 	// Envlock and conlock should be locked when calling this
 	void notifyPlayer(const char *name, const std::wstring msg);
 	void notifyPlayers(const std::wstring msg);
-	virtual ISoundManager* getSoundManager();
 
 private:
 

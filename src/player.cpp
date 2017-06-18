@@ -760,12 +760,12 @@ void RemotePlayer::move(f32 dtime, Map &map, f32 pos_max_d)
 	int frame = m_node->getFrameNr();
 	/* roughly sort of when a step sound should probably be heard, maybe */
 	if (frame == 218 || frame == 186 || frame == 209 || frame == 177) {
-		sound_playStep(&map,m_showpos,m_next_foot);
+		//sound_playStep(&map,m_showpos,m_next_foot);
 		m_next_foot = !m_next_foot;
 	}
 	/* roughly sort of when a dig sound should probably be heard, maybe */
 	if (frame == 214 || frame == 205 || frame == 193) {
-		sound_playDig(m_pointed,m_showpos);
+		//sound_playDig(m_pointed,m_showpos);
 	}
 
 	if (m_anim_id == PLAYERANIM_DIE) {
@@ -1224,7 +1224,8 @@ void LocalPlayer::applyControl(float dtime)
 	}else if (m_energy < -0.1) {
 		m_can_use_energy = false;
 		m_energy = -0.1;
-		if (g_sound && m_low_energy_effect == 0) {
+#if USE_AUDIO == 1
+		if (m_low_energy_effect == 0) {
 			if (m_character == "")
 				m_character = std::string(PLAYER_DEFAULT_CHARDEF);
 			Strfnd f(m_character);
@@ -1232,14 +1233,18 @@ void LocalPlayer::applyControl(float dtime)
 			std::string snd("low-energy-");
 			snd += gender;
 
-			m_low_energy_effect = g_sound->playSound(snd,true);
+			/* TODO: looping */
+			m_low_energy_effect = sound_play_effect(snd.c_str(),1.0,NULL);
 		}
+#endif
 	}else if (m_energy > 9.8) {
 		m_can_use_energy = true;
-		if (g_sound && m_low_energy_effect) {
-			g_sound->stopSound(m_low_energy_effect);
+#if USE_AUDIO == 1
+		if (m_low_energy_effect) {
+			sound_stop_single(m_low_energy_effect);
 			m_low_energy_effect = 0;
 		}
+#endif
 	}
 
 	if (energy_effectf > 0.0)

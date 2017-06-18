@@ -52,15 +52,11 @@ GUIMainMenu::GUIMainMenu(gui::IGUIEnvironment* env,
 		gui::IGUIElement* parent, s32 id,
 		IMenuManager *menumgr,
 		MainMenuData *data,
-		IGameCallback *gamecallback,
-		ISoundManager *sound
+		IGameCallback *gamecallback
 ):
 	GUIModalMenu(env, parent, id, menumgr),
 	m_data(data),
 	m_accepted(false),
-#if USE_SOUND == 1
-	m_sound(sound),
-#endif
 	m_gamecallback(gamecallback)
 {
 	assert(m_data);
@@ -223,7 +219,7 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 			txt += "\ndarkrose, sdzen, Menche, tiemay, JHeaton, MavJS, mcnalu.\n\n";
 
 			txt += gettext("Music and Sound Effects Composers");
-			txt += "\ndarkrose, Jordach, AudioRichter, OwlStorm, DjDust, Taira Komori.\n\n";
+			txt += "\ndarkrose, Jordach, AudioRichter, Tom Peter, OwlStorm, DjDust, Taira Komori.\n\n";
 
 			txt += gettext("Other Contributers, and Special Thanks");
 			txt += "\nnadnadnad, Honeypaw, tiemay, stormchaser3000, MichaelEh?, NCC74656.\n\n";
@@ -362,6 +358,7 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 					acceptInput();
 				m_accepted = false;
 				m_data->selected_tab = TAB_CREDITS;
+				config_set("client.ui.mainmenu.tab","credits");
 				regenerateGui(m_screensize);
 				return true;
 			case GUI_ID_TAB_QUIT:

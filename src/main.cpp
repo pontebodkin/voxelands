@@ -79,6 +79,7 @@
 #if USE_FREETYPE
 #include "xCGUITTFont.h"
 #endif
+#include "sound.h"
 
 // This makes textures
 ITextureSource *g_texturesource = NULL;
@@ -826,8 +827,6 @@ int main(int argc, char *argv[])
 	// (for texture atlas making)
 	init_mineral();
 
-	ISoundManager *sound = NULL;
-
 	/*
 		Game parameters
 	*/
@@ -849,6 +848,8 @@ int main(int argc, char *argv[])
 		// Run server
 		dedicated_server_loop(server, kill);
 
+		config_save(NULL,NULL,NULL);
+
 		return 0;
 	}
 
@@ -861,8 +862,6 @@ int main(int argc, char *argv[])
 	bool fullscreen = config_get_bool("client.video.fullscreen");
 	u16 screenW = config_get_int("client.video.size.width");
 	u16 screenH = config_get_int("client.video.size.height");
-
-	vlprintf(CN_INFO,"size %dx%d",screenW,screenH);
 
 	// bpp, fsaa, vsync
 
@@ -989,7 +988,7 @@ int main(int argc, char *argv[])
 	drawLoadingScreen(device,narrow_to_wide(gettext("Setting Up Sound")));
 
 #if USE_AUDIO == 1
-	sound = createSoundManager();
+	sound_init();
 #endif
 
 	/*
@@ -1084,8 +1083,7 @@ int main(int argc, char *argv[])
 					-1,
 					&g_menumgr,
 					&menudata,
-					g_gamecallback,
-					sound
+					g_gamecallback
 				);
 				menu->allowFocusRemoval(true);
 
@@ -1105,7 +1103,7 @@ int main(int argc, char *argv[])
 				infostream<<"Created main menu"<<std::endl;
 
 #if USE_AUDIO == 1
-				sound->playMusic("bg-mainmenu",true);
+				sound_play_music("bg-mainmenu",1.0);
 #endif
 
 				while (device->run() && kill == false) {
@@ -1126,7 +1124,7 @@ int main(int argc, char *argv[])
 					driver->endScene();
 
 #if USE_AUDIO == 1
-					sound->maintain(0.02);
+					sound_step(0.02,NULL,NULL,NULL);
 #endif
 
 					// On some computers framerate doesn't seem to be
@@ -1135,7 +1133,7 @@ int main(int argc, char *argv[])
 				}
 
 #if USE_AUDIO == 1
-				sound->stopMusic();
+				sound_stop_music(1.0);
 #endif
 
 				// Break out of menu-game loop to shut down cleanly
@@ -1210,7 +1208,7 @@ int main(int argc, char *argv[])
 				menu->allowFocusRemoval(true);
 
 #if USE_AUDIO == 1
-				sound->playMusic("bg-charcreator",true);
+				sound_play_music("bg-charcreator",1.0);
 #endif
 
 				while (device->run() && kill == false) {
@@ -1225,7 +1223,7 @@ int main(int argc, char *argv[])
 					driver->endScene();
 
 #if USE_AUDIO == 1
-					sound->maintain(0.02);
+					sound_step(0.02,NULL,NULL,NULL);
 #endif
 
 					// On some computers framerate doesn't seem to be
@@ -1234,7 +1232,7 @@ int main(int argc, char *argv[])
 				}
 
 #if USE_AUDIO == 1
-				sound->stopMusic();
+				sound_stop_music(1.0);
 #endif
 
 				menu->drop();
@@ -1253,8 +1251,7 @@ int main(int argc, char *argv[])
 				device,
 				font,
 				password,
-				error_message,
-				sound
+				error_message
 			);
 
 		} //try
@@ -1285,8 +1282,9 @@ int main(int argc, char *argv[])
 
 	delete input;
 
-	if (sound != NULL)
-		delete sound;
+#if USE_AUDIO == 1
+	sound_exit();
+#endif
 
 	/*
 		In the end, delete the Irrlicht device.

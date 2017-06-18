@@ -48,7 +48,6 @@
 #include "profiler.h"
 #include "log.h"
 #include "base64.h"
-#include "sound.h"
 #include "http.h"
 #include "enchantment.h"
 #include "path.h"
@@ -6036,11 +6035,6 @@ uint64_t Server::getPlayerPrivs(Player *player)
 		return PRIV_ALL;
 
 	return getPlayerAuthPrivs(playername);
-}
-
-ISoundManager* Server::getSoundManager()
-{
-	return &dummySoundManager;
 }
 
 void dedicated_server_loop(Server &server, bool &kill)

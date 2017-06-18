@@ -642,8 +642,7 @@ void the_game(
 	IrrlichtDevice *device,
 	gui::IGUIFont* font,
 	std::string password,
-	std::wstring &error_message,
-	ISoundManager *sound
+	std::wstring &error_message
 )
 {
 	video::IVideoDriver* driver = device->getVideoDriver();
@@ -689,7 +688,7 @@ void the_game(
 	drawLoadingScreen(device,narrow_to_wide(gettext("Creating client...")));
 	infostream<<"Creating client"<<std::endl;
 	MapDrawControl draw_control;
-	Client client(device, password, draw_control, sound);
+	Client client(device, password, draw_control);
 
 	bridge_register_client(&client);
 
@@ -1482,12 +1481,6 @@ void the_game(
 			client.step(dtime);
 		}
 
-#if USE_AUDIO == 1
-		{
-			sound->maintain(dtime);
-		}
-#endif
-
 		{
 			// Read client events
 			while (1) {
@@ -1499,7 +1492,8 @@ void the_game(
 					if (event.player_damage.amount >= 2) {
 						damage_flash_timer += 0.05 * event.player_damage.amount;
 					}
-					if (g_sound) {
+#if USE_AUDIO == 1
+					{
 						char* v;
 						std::string ch = std::string(PLAYER_DEFAULT_CHARDEF);
 						v = config_get("client.character");
@@ -1509,8 +1503,9 @@ void the_game(
 						std::string gender = f.next(":");
 						std::string snd("player-hurt-");
 						snd += gender;
-						g_sound->playSound(snd,false);
+						sound_play_effect((char*)snd.c_str(),1.0,NULL);
 					}
+#endif
 				}else if (event.type == CE_PLAYER_FORCE_MOVE) {
 					camera_yaw = event.player_force_move.yaw;
 					camera_pitch = event.player_force_move.pitch;
@@ -1541,16 +1536,18 @@ void the_game(
 		v3f player_position = player->getPosition();
 		v3f camera_position = camera.getPosition();
 		v3f camera_direction = camera.getDirection();
+		v3f camera_up = camera.getCameraNode()->getUpVector();
 		f32 camera_fov = camera.getFovMax();
 		v3s16 camera_offset = camera.getOffset();
 
+#if USE_AUDIO == 1
 		{
-			ISoundManager *snd = client.getSoundManager();
-			if (snd)
-				snd->updateListener(camera_position,v3f(0,0,0),camera_direction,camera.getCameraNode()->getUpVector());
+			v3_t pos = {camera_position.X,camera_position.Y,camera_position.Z};
+			v3_t at = {camera_direction.X,camera_direction.Y,camera_direction.Z};
+			v3_t up = {camera_up.X,camera_up.Y,camera_up.Z};
+			sound_step(dtime,&pos,&at,&up);
 		}
-
-		//bool camera_offset_changed = (camera_offset != old_camera_offset);
+#endif
 
 		if (!disable_camera_update) {
 			client.updateCamera(camera_position, camera_direction, camera_fov, camera_offset);

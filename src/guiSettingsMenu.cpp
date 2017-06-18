@@ -66,7 +66,9 @@ GUISettingsMenu::GUISettingsMenu(
 	m_data.trilinear_filter = config_get_bool("client.video.trilinear");
 	m_data.hotbar = config_get_bool("client.ui.hud.old");
 	m_data.wield_index = config_get_bool("client.ui.hud.wieldindex");
-	m_data.volume = config_get_float("client.sound.volume");
+	m_data.volume_master = config_get_float("client.sound.volume");
+	m_data.volume_effects = config_get_float("client.sound.volume.effects");
+	m_data.volume_music = config_get_float("client.sound.volume.music");
 	m_data.texture_animation = config_get_bool("client.graphics.texture.animations");
 
 	keynames[VLKC_FORWARD] = narrow_to_wide(gettext("Forward"));
@@ -135,7 +137,6 @@ void GUISettingsMenu::save()
 	config_set_int("client.video.trilinear",m_data.trilinear_filter);
 	config_set_int("client.ui.hud.old",m_data.hotbar);
 	config_set_int("client.ui.hud.wieldindex",m_data.wield_index);
-	config_set_float("client.sound.volume",m_data.volume);
 	config_set_int("client.graphics.texture.animations",m_data.texture_animation);
 	Environment->getVideoDriver()->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, m_data.mip_map);
 }
@@ -154,7 +155,9 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	bool hotbar;
 	bool wield_index;
 	bool texture_animation;
-	f32 volume;
+	f32 volume_master;
+	f32 volume_effects;
+	f32 volume_music;
 
 	m_screensize = screensize;
 
@@ -285,11 +288,25 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 			wield_index = m_data.wield_index;
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_SB);
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_MASTER_SB);
 		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
-			volume = (float)((gui::IGUIScrollBar*)e)->getPos();
+			volume_master = (float)((gui::IGUIScrollBar*)e)->getPos();
 		else
-			volume = m_data.volume;
+			volume_master = m_data.volume_master;
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_EFFECTS_SB);
+		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
+			volume_effects = (float)((gui::IGUIScrollBar*)e)->getPos();
+		else
+			volume_effects = m_data.volume_effects;
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_MUSIC_SB);
+		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
+			volume_music = (float)((gui::IGUIScrollBar*)e)->getPos();
+		else
+			volume_music = m_data.volume_music;
 	}
 	/*
 	 Remove stuff
@@ -534,15 +551,41 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 		{
 			core::rect<s32> rect(0, 0, 200, 15);
 			rect += topleft_content + v2s32(80, 60);
-			Environment->addStaticText(narrow_to_wide(gettext("Volume:")).c_str(), rect, false, false, this, -1);
+			Environment->addStaticText(narrow_to_wide(gettext("Master Volume:")).c_str(), rect, false, false, this, -1);
 		}
 		{
 			core::rect<s32> rect(0, 0, 200, 15);
 			rect += topleft_content + v2s32(290, 60);
-			gui::IGUIScrollBar *sb = Environment->addScrollBar(true, rect, this, GUI_ID_VOLUME_SB);
+			gui::IGUIScrollBar *sb = Environment->addScrollBar(true, rect, this, GUI_ID_VOLUME_MASTER_SB);
 			sb->setMin(0);
 			sb->setMax(100);
-			sb->setPos(volume);
+			sb->setPos(volume_master);
+		}
+		{
+			core::rect<s32> rect(0, 0, 200, 15);
+			rect += topleft_content + v2s32(80, 90);
+			Environment->addStaticText(narrow_to_wide(gettext("Effects Volume:")).c_str(), rect, false, false, this, -1);
+		}
+		{
+			core::rect<s32> rect(0, 0, 200, 15);
+			rect += topleft_content + v2s32(290, 90);
+			gui::IGUIScrollBar *sb = Environment->addScrollBar(true, rect, this, GUI_ID_VOLUME_EFFECTS_SB);
+			sb->setMin(0);
+			sb->setMax(100);
+			sb->setPos(volume_effects);
+		}
+		{
+			core::rect<s32> rect(0, 0, 200, 15);
+			rect += topleft_content + v2s32(80, 120);
+			Environment->addStaticText(narrow_to_wide(gettext("Music Volume:")).c_str(), rect, false, false, this, -1);
+		}
+		{
+			core::rect<s32> rect(0, 0, 200, 15);
+			rect += topleft_content + v2s32(290, 120);
+			gui::IGUIScrollBar *sb = Environment->addScrollBar(true, rect, this, GUI_ID_VOLUME_MUSIC_SB);
+			sb->setMin(0);
+			sb->setMax(100);
+			sb->setPos(volume_music);
 		}
 	}
 }
@@ -693,9 +736,19 @@ bool GUISettingsMenu::acceptInput()
 			m_data.wield_index = ((gui::IGUICheckBox*)e)->isChecked();
 	}
 	{
-		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_SB);
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_MASTER_SB);
 		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
-			m_data.volume = (float)((gui::IGUIScrollBar*)e)->getPos();
+			m_data.volume_master = (float)((gui::IGUIScrollBar*)e)->getPos();
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_EFFECTS_SB);
+		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
+			m_data.volume_effects = (float)((gui::IGUIScrollBar*)e)->getPos();
+	}
+	{
+		gui::IGUIElement *e = getElementFromId(GUI_ID_VOLUME_MUSIC_SB);
+		if(e != NULL && e->getType() == gui::EGUIET_SCROLL_BAR)
+			m_data.volume_music = (float)((gui::IGUIScrollBar*)e)->getPos();
 	}
 	return true;
 }
@@ -794,14 +847,33 @@ bool GUISettingsMenu::OnEvent(const SEvent& event)
 		}
 		if (event.GUIEvent.EventType == gui::EGET_SCROLL_BAR_CHANGED) {
 			switch (event.GUIEvent.Caller->getID()) {
-			case GUI_ID_VOLUME_SB:
-				gui::IGUIElement *vsb = getElementFromId(GUI_ID_VOLUME_SB);
+			case GUI_ID_VOLUME_MASTER_SB:
+			{
+				gui::IGUIElement *vsb = getElementFromId(GUI_ID_VOLUME_MASTER_SB);
 				if(vsb != NULL && vsb->getType() == gui::EGUIET_SCROLL_BAR) {
-					m_data.volume = (float)((gui::IGUIScrollBar*)vsb)->getPos();
-					if (g_sound)
-						g_sound->setListenerGain(m_data.volume/100.0);
+					m_data.volume_master = (float)((gui::IGUIScrollBar*)vsb)->getPos();
+					config_set_int("client.sound.volume",m_data.volume_master);
 				}
 				return true;
+			}
+			case GUI_ID_VOLUME_EFFECTS_SB:
+			{
+				gui::IGUIElement *vsb = getElementFromId(GUI_ID_VOLUME_EFFECTS_SB);
+				if(vsb != NULL && vsb->getType() == gui::EGUIET_SCROLL_BAR) {
+					m_data.volume_effects = (float)((gui::IGUIScrollBar*)vsb)->getPos();
+					config_set_int("client.sound.volume.effects",m_data.volume_effects);
+				}
+				return true;
+			}
+			case GUI_ID_VOLUME_MUSIC_SB:
+			{
+				gui::IGUIElement *vsb = getElementFromId(GUI_ID_VOLUME_MUSIC_SB);
+				if(vsb != NULL && vsb->getType() == gui::EGUIET_SCROLL_BAR) {
+					m_data.volume_music = (float)((gui::IGUIScrollBar*)vsb)->getPos();
+					config_set_int("client.sound.volume.music",m_data.volume_music);
+				}
+				return true;
+			}
 			}
 		}
 		if (event.GUIEvent.EventType == gui::EGET_COMBO_BOX_CHANGED) {

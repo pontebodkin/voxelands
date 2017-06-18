@@ -46,7 +46,7 @@ if(SOUND_PROBLEM)
 		"To continue, either fill in the required paths or disable sound. (-DENABLE_AUDIO=0)")
 endif()
 if(USE_AUDIO)
-	set(audio_SRCS sound.cpp sound_openal.cpp)
+	set(audio_SRCS sound.c sound_ogg.c sound_wav.c)
 	set(AUDIO_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIR}
 		${VORBIS_INCLUDE_DIR}
@@ -56,8 +56,6 @@ if(USE_AUDIO)
 		${OPENAL_LIBRARY}
 		${VORBIS_LIBRARIES}
 		)
-else()
-	set(audio_SRCS sound.cpp)
 endif()
 
 option(ENABLE_FREETYPE "Enable freetype2 (truetype fonts and basic unicode support)" ON)
@@ -279,7 +277,6 @@ set(voxelands_SRCS
 # Server sources
 set(voxelandsserver_SRCS
 	${common_SRCS}
-	${audio_SRCS}
 	servermain.cpp
 )
 
@@ -415,7 +412,7 @@ else()
 
 
 	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive -Wno-write-strings")
-	set(CMAKE_C_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+	set(CMAKE_C_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -ansi -pedantic")
 	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive -Wno-write-strings")
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 

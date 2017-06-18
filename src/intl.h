@@ -10,7 +10,7 @@ char* ngettext(const char* s1, const char* s2, int n);
 void intl_init();
 
 #ifndef SERVER
-// Initialise KeyNamesLang array
+/* Initialise KeyNamesLang array */
 void init_KeyNamesLang();
 #endif
 

@@ -139,8 +139,7 @@ void the_game(
 	IrrlichtDevice *device,
 	gui::IGUIFont* font,
 	std::string password,
-	std::wstring &error_message,
-	ISoundManager *sound
+	std::wstring &error_message
 );
 
 #endif

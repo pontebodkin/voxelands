@@ -241,14 +241,18 @@ void config_set_default_float(char* name, float value, int (*setter)(char* v))
 }
 
 /* load a config file */
-void config_load(char* file)
+void config_load(char* type, char* file)
 {
 	char buff[2048];
 	int s;
 	char* l;
+	file_t *f;
 	command_context_t ctx;
 
-	file_t *f = file_load("config",file);
+	if (!type)
+		type = "config";
+
+	f = file_load(type,file);
 	if (!f)
 		return;
 
@@ -284,7 +288,7 @@ int config_load_command(command_context_t *ctx, array_t *args)
 
 	f = array_get_string(args,0);
 	nvp_set(&config.files,f,"true",NULL);
-	config_load(f);
+	config_load("config",f);
 
 	return 0;
 }
@@ -332,7 +336,7 @@ void config_init(int argc, char** argv)
 	n = config.files;
 	while (n) {
 		if (n->value && !strcmp(n->value,"true"))
-			config_load(n->name);
+			config_load("config",n->name);
 		n = n->next;
 	}
 

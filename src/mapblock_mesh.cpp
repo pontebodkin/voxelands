@@ -528,7 +528,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 		MapNode n = data->m_vmanip.getNodeNoEx(data->m_blockpos_nodes+p);
 
-		if (g_sound) {
+
+#if USE_AUDIO == 1
+		{
 			std::string snd = content_features(n).sound_ambient;
 			std::map<v3s16,MapBlockSound>::iterator i = data->m_sounds->find(p);
 			if (snd != "") {
@@ -576,6 +578,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 				data->m_sounds->erase(i);
 			}
 		}
+#endif
 		if (data->light_detail > 1 && !selected.is_coloured)
 			meshgen_preset_smooth_lights(data,p);
 		switch (content_features(n).draw_type) {

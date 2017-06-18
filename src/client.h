@@ -170,8 +170,7 @@ public:
 	Client(
 		IrrlichtDevice *device,
 		std::string password,
-		MapDrawControl &control,
-		ISoundManager *sound
+		MapDrawControl &control
 	);
 
 	~Client();
@@ -323,7 +322,6 @@ public:
 	}
 
 	float getRTT(void);
-	virtual ISoundManager* getSoundManager();
 
 	void playStepSound(int foot);
 	void playDigSound(content_t c);
@@ -385,7 +383,6 @@ private:
 	bool m_server_hunger;
 
 	con::Connection m_con;
-	ISoundManager *m_sound;
 
 	IrrlichtDevice *m_device;
 

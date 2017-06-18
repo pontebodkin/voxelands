@@ -95,7 +95,7 @@ void config_set_float(char* name, float value);
 void config_set_default(char* name, char* value, int (*setter)(char* v));
 void config_set_default_int(char* name, int value, int (*setter)(char* v));
 void config_set_default_float(char* name, float value, int (*setter)(char* v));
-void config_load(char* file);
+void config_load(char* type, char* file);
 int config_load_command(command_context_t *ctx, array_t *args);
 int config_ignore_command(command_context_t *ctx, array_t *args);
 void config_init(int argc, char** argv);
