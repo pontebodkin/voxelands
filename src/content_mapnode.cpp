@@ -508,7 +508,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
-	f->extra_dug_item = std::string("CraftItem snow_ball 1");
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 1";
 	f->extra_dug_item_rarity = 5;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
@@ -540,7 +540,7 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("ash.png", "ash.png", "ash.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_ash 9");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 9";
 	f->type = CMT_DIRT;
 	f->hardness = 0.5;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_ASH,CONTENT_ASH);
@@ -597,7 +597,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->pressure_type = CST_DROPABLE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->extra_dug_item = std::string("CraftItem lump_of_flint 1");
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_FLINT)+" 1";
 	f->extra_dug_item_rarity = 10;
 	f->extra_dug_item_min_level = 1;
 	f->type = CMT_DIRT;
@@ -660,7 +660,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_BLOCKDATA;
 	f->param2_type = CPT_PLANTGROWTH;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_TERRACOTTA)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
@@ -677,9 +677,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_blue.png", "clay_blue.png", "clay_blue.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_blue 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_BLUE)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CLAY,CONTENT_CLAY_BLUE);
@@ -694,9 +694,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_green.png", "clay_green.png", "clay_green.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_green 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_GREEN)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CLAY,CONTENT_CLAY_GREEN);
@@ -711,9 +711,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_orange.png", "clay_orange.png", "clay_orange.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_orange 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_ORANGE)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CLAY,CONTENT_CLAY_ORANGE);
@@ -728,9 +728,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_purple.png", "clay_purple.png", "clay_purple.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_purple 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_PURPLE)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CLAY,CONTENT_CLAY_PURPLE);
@@ -745,9 +745,10 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_red.png", "clay_red.png", "clay_red.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_red 1");
-	f->extra_dug_item_rarity = 4;
+	f->is_ground_content = true;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_RED)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_CLAY,CONTENT_CLAY_RED);
@@ -762,9 +763,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_yellow.png", "clay_yellow.png", "clay_yellow.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_yellow 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_YELLOW)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CLAY,CONTENT_CLAY_YELLOW);
@@ -779,9 +780,9 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("clay_black.png", "clay_black.png", "clay_black.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem lump_of_clay 4");
-	f->extra_dug_item = std::string("CraftItem dye_black 1");
-	f->extra_dug_item_rarity = 4;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_BLACK)+" 1";
+	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CLAY,CONTENT_CLAY_BLACK);
@@ -800,7 +801,7 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("brick_top.png", "brick.png", "brick_side.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_CLAY_BRICK,CONTENT_BRICK);
@@ -1485,8 +1486,8 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "apple_pie.png", "apple_pie.png", "apple_pie.png");
-	f->dug_item = std::string("CraftItem apple_pie_slice 1");
-	f->ondig_replace_node=CONTENT_APPLE_PIE_3;
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
+	f->ondig_replace_node = CONTENT_APPLE_PIE_3;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1509,7 +1510,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_3(f);
-	f->dug_item = std::string("CraftItem apple_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_APPLE_PIE_2;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
@@ -1531,7 +1532,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_2(f);
-	f->dug_item = std::string("CraftItem apple_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_APPLE_PIE_1;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
@@ -1553,7 +1554,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_1(f);
-	f->dug_item = std::string("CraftItem apple_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1604,7 +1605,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "pumpkin_pie.png", "pumpkin_pie.png", "pumpkin_pie.png");
-	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_3;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
@@ -1628,7 +1629,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_3(f);
-	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_2;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
@@ -1650,7 +1651,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_2(f);
-	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_1;
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
@@ -1672,7 +1673,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_pie_1(f);
-	f->dug_item = std::string("CraftItem pumpkin_pie_slice 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->type = CMT_DIRT;
 	f->hardness = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1685,7 +1686,7 @@ void content_mapnode_init(bool repeat)
 	f->setInventoryTextureCube("snow.png", "snow.png", "snow.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem snow_ball 9");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 9";
 	f->type = CMT_DIRT;
 	f->hardness = 0.3;
 	f->warmth_per_second = 10;
@@ -1704,8 +1705,8 @@ void content_mapnode_init(bool repeat)
 	f->setTexture(5,"snowman_front.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem snow_ball 18");
-	f->extra_dug_item = std::string("CraftItem Stick 3");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 18";
+	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 3";
 	f->extra_dug_item_rarity = 1;
 	f->rotate_tile_with_nodebox = true;
 	f->type = CMT_DIRT;
@@ -1768,7 +1769,7 @@ void content_mapnode_init(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->sunlight_propagates = true;
-	f->dug_item = std::string("CraftItem snow_ball 1");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 1";
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"snow.png", "snow.png", "snow.png");
 	f->type = CMT_DIRT;
@@ -2718,7 +2719,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -2741,7 +2742,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
@@ -2756,7 +2757,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3195,7 +3196,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -3211,7 +3212,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
@@ -3226,7 +3227,7 @@ void content_mapnode_init(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->air_equivalent = true; // grass grows underneath
 	f->light_propagates = true;
 	f->sunlight_propagates = true;

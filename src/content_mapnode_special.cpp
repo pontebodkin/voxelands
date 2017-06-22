@@ -2129,7 +2129,7 @@ void content_mapnode_special(bool repeat)
 	f->setAllTextures("wood.png");
 	f->air_equivalent = true;
 	f->climbable = true;
-	f->cook_result = std::string("CraftItem lump_of_charcoal 1");
+	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
 	f->draw_type = CDT_NODEBOX;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1;

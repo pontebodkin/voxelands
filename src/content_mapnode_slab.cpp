@@ -151,7 +151,7 @@ void content_mapnode_slab(bool repeat)
 	f->setTexture(3,"brick_side.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->special_alternate_node = CONTENT_BRICK;
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"brick_top.png", "brick.png", "brick_side.png");
@@ -500,7 +500,7 @@ void content_mapnode_slab(bool repeat)
 	f->setTexture(3,"brick_side.png^[transformfy");
 	f->draw_type = CDT_SLABLIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->special_alternate_node = CONTENT_BRICK;
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"brick_top.png", "brick.png^[transformfy", "brick_side.png^[transformfy");

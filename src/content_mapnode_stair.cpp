@@ -157,7 +157,7 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(5,"brick_stair_front.png");
 	f->draw_type = CDT_STAIRLIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_stair(f);
 	f->setInventoryTextureNodeBox(i,"brick_stair_top.png", "brick_stair_front.png", "brick_side.png");
 	f->type = CMT_STONE;
@@ -310,7 +310,7 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(5,"brick_stair_front.png^[transformfy");
 	f->draw_type = CDT_STAIRLIKE;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_stairud(f);
 	f->setInventoryTextureNodeBox(i,"brick.png", "brick_front.png", "brick.png");
 	f->type = CMT_STONE;
@@ -357,12 +357,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_ROUGHSTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"roughstone.png",
-									"roughstone.png",
-									"roughstone.png");
+	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER;
@@ -375,12 +372,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_COBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"cobble.png",
-									"cobble.png",
-									"cobble.png");
+	f->setInventoryTextureNodeBox(i,"cobble.png","cobble.png","cobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_INNER_STAIR_CORNER;
@@ -393,12 +387,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_MOSSYCOBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"mossycobble.png",
-									"mossycobble.png",
-									"mossycobble.png");
+	f->setInventoryTextureNodeBox(i,"mossycobble.png","mossycobble.png","mossycobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER;
@@ -411,12 +402,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_STONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"stone.png",
-									"stone.png",
-									"stone.png");
+	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_INNER_STAIR_CORNER;
@@ -428,12 +416,9 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->setAllTextures("wood.png");
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_WOOD_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"wood.png",
-									"wood.png",
-									"wood.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -449,12 +434,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_NODEBOX;
 	// f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_JUNGLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"junglewood.png",
-									"junglewood.png",
-									"junglewood.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -472,11 +454,9 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 24");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"brick.png",
-                                    "brick.png",
-                                    "brick.png");
+	f->setInventoryTextureNodeBox(i,"brick.png","brick.png","brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_INNER_STAIR_CORNER;
@@ -489,12 +469,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 24";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"sandstone.png",
-									"sandstone.png",
-									"sandstone.png");
+	f->setInventoryTextureNodeBox(i,"sandstone.png","sandstone.png","sandstone.png");
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_INNER_STAIR_CORNER;
@@ -507,12 +484,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_LIMESTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_STAIR)+" 1";
 	content_nodebox_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"limestone.png",
-									"limestone.png",
-									"limestone.png");
+	f->setInventoryTextureNodeBox(i,"limestone.png","limestone.png","limestone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_INNER_STAIR_CORNER;
@@ -526,12 +500,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_ROUGHSTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"roughstone.png",
-									"roughstone.png",
-									"roughstone.png");
+	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_INNER_STAIR_CORNER_UD;
@@ -544,12 +515,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_COBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"cobble.png",
-									"cobble.png",
-									"cobble.png");
+	f->setInventoryTextureNodeBox(i,"cobble.png","cobble.png","cobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_INNER_STAIR_CORNER_UD;
@@ -561,12 +529,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_MOSSYCOBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"mossycobble.png",
-									"mossycobble.png",
-									"mossycobble.png");
+	f->setInventoryTextureNodeBox(i,"mossycobble.png","mossycobble.png","mossycobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_INNER_STAIR_CORNER_UD;
@@ -578,12 +543,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_STONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"stone.png",
-									"stone.png",
-									"stone.png");
+	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_INNER_STAIR_CORNER_UD;
@@ -595,12 +557,9 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->setAllTextures("wood.png");
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_WOOD_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"wood.png",
-									"wood.png",
-									"wood.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -616,12 +575,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_NODEBOX;
 	// f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_JUNGLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"junglewood.png",
-									"junglewood.png",
-									"junglewood.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -638,11 +594,9 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 4");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"brick.png",
-                                    "brick.png",
-                                    "brick.png");
+	f->setInventoryTextureNodeBox(i,"brick.png","brick.png","brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_INNER_STAIR_CORNER_UD;
@@ -654,12 +608,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 4";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"sandstone.png",
-									"sandstone.png",
-									"sandstone.png");
+	f->setInventoryTextureNodeBox(i,"sandstone.png","sandstone.png","sandstone.png");
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_INNER_STAIR_CORNER_UD;
@@ -671,12 +622,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_LIMESTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_STAIR)+" 1";
 	content_nodebox_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"limestone.png",
-									"limestone.png",
-									"limestone.png");
+	f->setInventoryTextureNodeBox(i,"limestone.png","limestone.png","limestone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_INNER_STAIR_CORNER_UD;
@@ -690,12 +638,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_ROUGHSTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"roughstone.png",
-									"roughstone.png",
-									"roughstone.png");
+	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_STAIR;
@@ -707,12 +652,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_COBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"cobble.png",
-									"cobble.png",
-									"cobble.png");
+	f->setInventoryTextureNodeBox(i,"cobble.png","cobble.png","cobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_STAIR;
@@ -725,12 +667,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_MOSSYCOBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"mossycobble.png",
-									"mossycobble.png",
-									"mossycobble.png");
+	f->setInventoryTextureNodeBox(i,"mossycobble.png","mossycobble.png","mossycobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_STAIR;
@@ -742,12 +681,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_STONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"stone.png",
-									"stone.png",
-									"stone.png");
+	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_STAIR;
@@ -759,12 +695,9 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->setAllTextures("wood.png");
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_WOOD_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"wood.png",
-									"wood.png",
-									"wood.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -779,12 +712,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_NODEBOX;
 	// f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_JUNGLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"junglewood.png",
-									"junglewood.png",
-									"junglewood.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -803,11 +733,9 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(1,"brick_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 24");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"brick.png",
-                                    "brick.png",
-                                    "brick.png");
+	f->setInventoryTextureNodeBox(i,"brick.png","brick.png","brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_STAIR;
@@ -820,12 +748,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 24";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"sandstone.png",
-									"sandstone.png",
-									"sandstone.png");
+	f->setInventoryTextureNodeBox(i,"sandstone.png","sandstone.png","sandstone.png");
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_STAIR;
@@ -837,12 +762,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_LIMESTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_STAIR)+" 1";
 	content_nodebox_inner_stair_corner(f);
-	f->setInventoryTextureNodeBox(i,"limestone.png",
-									"limestone.png",
-									"limestone.png");
+	f->setInventoryTextureNodeBox(i,"limestone.png","limestone.png","limestone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_STAIR;
@@ -856,12 +778,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("roughstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_ROUGHSTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"roughstone.png",
-									"roughstone.png",
-									"roughstone.png");
+	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_STAIR_UD;
@@ -874,12 +793,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("cobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_COBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"cobble.png",
-									"cobble.png",
-									"cobble.png");
+	f->setInventoryTextureNodeBox(i,"cobble.png","cobble.png","cobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_COBBLE_STAIR_UD;
@@ -892,12 +808,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("mossycobble.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_MOSSYCOBBLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MOSSYCOBBLE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"mossycobble.png",
-									"mossycobble.png",
-									"mossycobble.png");
+	f->setInventoryTextureNodeBox(i,"mossycobble.png","mossycobble.png","mossycobble.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.8;
 	f->onpunch_replace_node = CONTENT_MOSSYCOBBLE_STAIR_UD;
@@ -910,12 +823,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("stone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_STONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STONE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"stone.png",
-									"stone.png",
-									"stone.png");
+	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_STAIR_UD;
@@ -927,12 +837,9 @@ void content_mapnode_stair(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->setAllTextures("wood.png");
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_WOOD_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"wood.png",
-									"wood.png",
-									"wood.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -948,12 +855,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("junglewood.png");
 	f->draw_type = CDT_NODEBOX;
 	// f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_JUNGLE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"junglewood.png",
-									"junglewood.png",
-									"junglewood.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->fuel_time = 30;
@@ -970,11 +874,9 @@ void content_mapnode_stair(bool repeat)
 	f->setTexture(1,"brick_stair_ud_inner_corner_top.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("CraftItem clay_brick 24");
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"brick.png",
-                                    "brick.png",
-                                    "brick.png");
+	f->setInventoryTextureNodeBox(i,"brick.png","brick.png","brick.png");
 	f->type = CMT_STONE;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_STAIR_UD;
@@ -987,12 +889,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("sandstone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-						     itos(CONTENT_SAND)+ " 24";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+ " 4";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"sandstone.png",
-									"sandstone.png",
-									"sandstone.png");
+	f->setInventoryTextureNodeBox(i,"sandstone.png","sandstone.png","sandstone.png");
 	f->type = CMT_DIRT;
 	f->hardness = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_STAIR_UD;
@@ -1005,12 +904,9 @@ void content_mapnode_stair(bool repeat)
 	f->setAllTextures("limestone.png");
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+
-							  itos(CONTENT_LIMESTONE_STAIR)+ " 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LIMESTONE_STAIR)+" 1";
 	content_nodebox_inner_stair_cornerud(f);
-	f->setInventoryTextureNodeBox(i,"limestone.png",
-									"limestone.png",
-									"limestone.png");
+	f->setInventoryTextureNodeBox(i,"limestone.png","limestone.png","limestone.png");
 	f->type = CMT_STONE;
 	f->hardness = 0.9;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_STAIR_UD;
