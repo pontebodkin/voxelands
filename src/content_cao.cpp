@@ -272,7 +272,7 @@ void MobCAO::step(float dtime, ClientEnvironment *env)
 		/* roughly sort of when a step sound should probably be heard, maybe */
 		if (m_last_step > 0.5) {
 			m_last_step -= 0.5;
-			//sound_playStep(&env->getMap(),m_position,m_next_foot, 0.3);
+			sound_play_step(&env->getMap(),m_position,m_next_foot, 0.3);
 			m_next_foot = !m_next_foot;
 		}
 	}

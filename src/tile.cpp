@@ -39,6 +39,7 @@
 #include "mineral.h" // For texture atlas making
 #include "path.h"
 #include "base64.h"
+#include "xCGUITTFont.h"
 
 /*
 	TextureSource
@@ -1794,7 +1795,8 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			gui::IGUIFont *std_font = skin->getFont();
 			static gui::IGUIFont *tex_font = NULL;
 #if USE_FREETYPE
-			tex_font = gui::CGUITTFont::createTTFont(guienv, getPath("font","unifont.ttf",false).c_str(),10);
+			if (path_get("font","unifont.ttf",1,buff,1024))
+				tex_font = gui::CGUITTFont::createTTFont(guienv, buff,10);
 #else
 			if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
 				tex_font = guienv->getFont(buff);

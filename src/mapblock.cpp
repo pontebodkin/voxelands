@@ -24,6 +24,8 @@
 ************************************************************************/
 
 #include "mapblock.h"
+
+#include "config.h"
 #include "map.h"
 // For g_settings
 #include "main.h"

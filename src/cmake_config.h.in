@@ -1,4 +1,4 @@
-// Filled in by the build system
+/* Filled in by the build system */
 
 #ifndef CMAKE_CONFIG_H
 #define CMAKE_CONFIG_H
@@ -7,6 +7,7 @@
 #define INSTALL_PREFIX "@CMAKE_INSTALL_PREFIX@"
 #define VERSION_STRING "@VERSION_STRING@"
 #define USE_AUDIO @USE_AUDIO@
+#define USE_MUMBLE @USE_MUMBLE@
 #define USE_FREETYPE @USE_FREETYPE@
 #define USE_GETTEXT @USE_GETTEXT@
 #ifdef NDEBUG

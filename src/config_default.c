@@ -59,6 +59,10 @@ void config_default_init()
 	config_set_default("client.sound.volume","50",sound_master_setter);
 	config_set_default("client.sound.volume.effects","50",sound_effects_setter);
 	config_set_default("client.sound.volume.music","50",sound_music_setter);
+	config_set_default("client.sound.mumble","true",NULL);
+#if USE_MUMBLE == 0
+	config_set_default("client.name",NULL,sound_mumble_set_ident);
+#endif
 
 	config_set_default("client.graphics.mesh.lod","3",NULL);
 	config_set_default("client.graphics.texture.animations","true",NULL);

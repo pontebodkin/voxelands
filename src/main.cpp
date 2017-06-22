@@ -1103,7 +1103,7 @@ int main(int argc, char *argv[])
 				infostream<<"Created main menu"<<std::endl;
 
 #if USE_AUDIO == 1
-				sound_play_music("bg-mainmenu",1.0);
+				sound_play_music("bg-mainmenu",1.0,1);
 #endif
 
 				while (device->run() && kill == false) {
@@ -1208,7 +1208,7 @@ int main(int argc, char *argv[])
 				menu->allowFocusRemoval(true);
 
 #if USE_AUDIO == 1
-				sound_play_music("bg-charcreator",1.0);
+				sound_play_music("bg-charcreator",1.0,1);
 #endif
 
 				while (device->run() && kill == false) {
@@ -1253,6 +1253,9 @@ int main(int argc, char *argv[])
 				password,
 				error_message
 			);
+#if USE_AUDIO == 1
+			sound_stop_effects(0);
+#endif
 
 		} //try
 		catch(con::PeerNotFoundException &e)

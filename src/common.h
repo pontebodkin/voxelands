@@ -27,6 +27,17 @@ extern "C" {
 #undef _DEFAULT_SOURCE
 #endif
 #define _DEFAULT_SOURCE
+#else
+
+#ifdef _WIN32
+
+#ifndef WIN32
+#define WIN32
+#endif
+
+#include <windows.h>
+
+#endif
 #endif
 
 #include <stdlib.h>
@@ -34,6 +45,8 @@ extern "C" {
 
 #include "array.h"
 #include "file.h"
+
+#include "config.h"
 
 #ifndef _HAVE_V3_TYPE
 #define _HAVE_V3_TYPE

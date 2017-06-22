@@ -16,9 +16,11 @@ endif(GETTEXT_FOUND)
 
 # user visible option to enable/disable audio
 OPTION(ENABLE_AUDIO "Enable audio" ON)
+OPTION(ENABLE_MUMBLE "Enable Mumble Positional Audio" ON)
 
 ## this is only set to 1 if audio is enabled _and_ available
 set(USE_AUDIO 0)
+set(USE_MUMBLE 0)
 set(SOUND_PROBLEM 0)
 
 if(ENABLE_AUDIO AND BUILD_CLIENT)
@@ -39,6 +41,14 @@ if(ENABLE_AUDIO AND BUILD_CLIENT)
 		set(USE_AUDIO 1)
 		message(STATUS "Sound enabled")
 	endif()
+	if(ENABLE_MUMBLE AND USE_AUDIO)
+		if(WIN32)
+			set(USE_MUMBLE 1)
+		else()
+			find_library(MUMBLE_LIBS rt)
+			set(USE_MUMBLE 1)
+		endif()
+	endif()
 endif(ENABLE_AUDIO AND BUILD_CLIENT)
 
 if(SOUND_PROBLEM)
@@ -46,7 +56,11 @@ if(SOUND_PROBLEM)
 		"To continue, either fill in the required paths or disable sound. (-DENABLE_AUDIO=0)")
 endif()
 if(USE_AUDIO)
-	set(audio_SRCS sound.c sound_ogg.c sound_wav.c)
+	if(USE_MUMBLE)
+		set(audio_SRCS sound.c sound_ogg.c sound_wav.c sound_util.cpp sound_mumble.c)
+	else()
+		set(audio_SRCS sound.c sound_ogg.c sound_wav.c sound_util.cpp)
+	endif()
 	set(AUDIO_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIR}
 		${VORBIS_INCLUDE_DIR}
@@ -321,6 +335,7 @@ if(BUILD_CLIENT)
 		${SQLITE3_LIBRARY}
 		${PLATFORM_LIBS}
 		${CLIENT_PLATFORM_LIBS}
+		${MUMBLE_LIBS}
 	)
 	if(USE_FREETYPE)
 		if(FREETYPE_PKGCONFIG_FOUND)

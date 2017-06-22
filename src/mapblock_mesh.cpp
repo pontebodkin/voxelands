@@ -25,11 +25,13 @@
 
 #include "common.h"
 
+#include "config.h"
+
 #include "mapblock_mesh.h"
 #include "light.h"
 #include "mapblock.h"
 #include "map.h"
-#include "main.h" // For g_settings and g_texturesource
+#include "main.h" // For g_texturesource
 #include "content_mapblock.h"
 #include "content_nodemeta.h"
 #include "profiler.h"
@@ -536,10 +538,10 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 			if (snd != "") {
 				bool add_sound = true;
 				if (i != data->m_sounds->end()) {
-					if (i->second.name == snd && g_sound->soundExists(i->second.id)) {
+					if (i->second.name == snd && sound_exists(i->second.id)) {
 						add_sound = false;
 					}else{
-						g_sound->stopSound(i->second.id);
+						sound_stop_single(i->second.id);
 					}
 				}
 				if (add_sound && content_features(n).liquid_type != LIQUID_NONE) {
@@ -567,14 +569,15 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 				}
 				if (add_sound) {
 					v3f pf = intToFloat(p+data->m_blockpos_nodes,BS);
+					v3_t vp = {pf.X,pf.Y,pf.Z};
 					MapBlockSound bsnd;
-					bsnd.id = g_sound->playSoundAt(snd,true,pf, true);
+					bsnd.id = sound_play_effect((char*)snd.c_str(),1.0,1,&vp);
 					bsnd.name = snd;
 					if (bsnd.id > 0)
 						(*data->m_sounds)[p] = bsnd;
 				}
 			}else if (i != data->m_sounds->end()) {
-				g_sound->stopSound(i->second.id);
+				sound_stop_single(i->second.id);
 				data->m_sounds->erase(i);
 			}
 		}

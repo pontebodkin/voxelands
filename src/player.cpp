@@ -760,12 +760,12 @@ void RemotePlayer::move(f32 dtime, Map &map, f32 pos_max_d)
 	int frame = m_node->getFrameNr();
 	/* roughly sort of when a step sound should probably be heard, maybe */
 	if (frame == 218 || frame == 186 || frame == 209 || frame == 177) {
-		//sound_playStep(&map,m_showpos,m_next_foot);
+		sound_play_step(&map,m_showpos,m_next_foot,1.0);
 		m_next_foot = !m_next_foot;
 	}
 	/* roughly sort of when a dig sound should probably be heard, maybe */
 	if (frame == 214 || frame == 205 || frame == 193) {
-		//sound_playDig(m_pointed,m_showpos);
+		sound_play_dig(m_pointed,m_showpos);
 	}
 
 	if (m_anim_id == PLAYERANIM_DIE) {
@@ -1233,8 +1233,7 @@ void LocalPlayer::applyControl(float dtime)
 			std::string snd("low-energy-");
 			snd += gender;
 
-			/* TODO: looping */
-			m_low_energy_effect = sound_play_effect(snd.c_str(),1.0,NULL);
+			m_low_energy_effect = sound_play_effect((char*)snd.c_str(),1.0,1,NULL);
 		}
 #endif
 	}else if (m_energy > 9.8) {

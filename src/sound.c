@@ -87,6 +87,11 @@ int sound_init()
 	alDistanceModel(AL_EXPONENT_DISTANCE);
 	alListenerf(AL_GAIN, 1.0);
 
+#if USE_MUMBLE == 1
+	if (config_get_bool("client.sound.mumble"))
+		sound_mumble_init();
+#endif
+
 	sound_data.init = 1;
 
 	/* sounds must be mono sounds, stereo will not work right!
@@ -263,7 +268,7 @@ void sound_step(float dtime, v3_t *pos, v3_t *at, v3_t *up)
 	sound_process(dtime);
 
 	if (pos) {
-		alListenerfv(AL_POSITION, (float*)pos);
+		alListener3f(AL_POSITION, pos->x,pos->y,pos->z);
 	}else{
 		alListener3f(AL_POSITION, 0.0,0.0,0.0);
 	}
@@ -277,12 +282,17 @@ void sound_step(float dtime, v3_t *pos, v3_t *at, v3_t *up)
 	}
 
 	if (up) {
-		orientation[3] = up->x;
-		orientation[4] = up->y;
-		orientation[5] = up->z;
+		orientation[3] = -up->x;
+		orientation[4] = -up->y;
+		orientation[5] = -up->z;
 	}
 
 	alListenerfv(AL_ORIENTATION, orientation);
+
+#if USE_MUMBLE == 1
+	if (pos && at && up)
+		sound_mumble_step(dtime,pos,at,up);
+#endif
 }
 
 /* get/set sound effect volume */
@@ -458,7 +468,7 @@ void sound_free_music(char* token)
 }
 
 /* play sound effect */
-uint32_t sound_play_effect(char* token, float volume, v3_t *pos)
+uint32_t sound_play_effect(char* token, float volume, uint8_t loop, v3_t *pos)
 {
 	sound_instance_t *i;
 	sound_t *e = sound_data.effects.sounds;
@@ -494,7 +504,11 @@ uint32_t sound_play_effect(char* token, float volume, v3_t *pos)
 	}
 
 	alSource3f(i->id, AL_VELOCITY, 0, 0, 0);
-	alSourcei(i->id, AL_LOOPING, AL_FALSE);
+	if (loop) {
+		alSourcei(i->id, AL_LOOPING, AL_TRUE);
+	}else{
+		alSourcei(i->id, AL_LOOPING, AL_FALSE);
+	}
 	alSourcef(i->id, AL_GAIN, sound_data.effects.volume*sound_data.volume*volume);
 	alSourcePlay(i->id);
 
@@ -510,7 +524,7 @@ uint32_t sound_play_effect(char* token, float volume, v3_t *pos)
 }
 
 /* play music */
-uint32_t sound_play_music(char* token, float volume)
+uint32_t sound_play_music(char* token, float volume, uint8_t loop)
 {
 	sound_t *e = sound_data.music.sounds;
 	if (!sound_data.init || !e)
@@ -543,7 +557,11 @@ uint32_t sound_play_music(char* token, float volume)
 	alSourcei(sound_data.music.playing->id, AL_SOURCE_RELATIVE, AL_TRUE);
 	alSource3f(sound_data.music.playing->id, AL_POSITION, 0, 0, 0);
 	alSource3f(sound_data.music.playing->id, AL_VELOCITY, 0, 0, 0);
-	alSourcei(sound_data.music.playing->id, AL_LOOPING, AL_TRUE);
+	if (loop) {
+		alSourcei(sound_data.music.playing->id, AL_LOOPING, AL_TRUE);
+	}else{
+		alSourcei(sound_data.music.playing->id, AL_LOOPING, AL_FALSE);
+	}
 	alSourcef(sound_data.music.playing->id, AL_GAIN, sound_data.music.volume*sound_data.volume*volume);
 	alSourcePlay(sound_data.music.playing->id);
 
@@ -598,6 +616,17 @@ void sound_stop_single(uint32_t id)
 		}
 		i = i->next;
 	}
+}
+
+int sound_exists(uint32_t id)
+{
+	sound_instance_t *i = sound_data.effects.playing;
+	while (i) {
+		if (i->id == id)
+			return 1;
+		i = i->next;
+	}
+	return 0;
 }
 
 /* stop all sounds, optionally fading out in fade seconds */

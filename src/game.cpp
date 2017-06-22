@@ -1503,7 +1503,7 @@ void the_game(
 						std::string gender = f.next(":");
 						std::string snd("player-hurt-");
 						snd += gender;
-						sound_play_effect((char*)snd.c_str(),1.0,NULL);
+						sound_play_effect((char*)snd.c_str(),1.0,0,NULL);
 					}
 #endif
 				}else if (event.type == CE_PLAYER_FORCE_MOVE) {

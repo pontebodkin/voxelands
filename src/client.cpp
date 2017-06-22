@@ -1632,7 +1632,7 @@ void Client::useItem()
 		if ((w&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
 			snd = content_craftitem_features(w)->sound_use;
 		if (snd != "")
-			sound_play_effect(snd.c_str(),1.0,NULL);
+			sound_play_effect((char*)snd.c_str(),1.0,0,NULL);
 	}
 #endif
 }
@@ -2287,7 +2287,7 @@ float Client::getRTT(void)
 // foot: 0 = left, 1 = right
 void Client::playStepSound(int foot)
 {
-	//sound_playStep(&m_env.getMap(),m_env.getLocalPlayer()->getPosition(),foot);
+	sound_play_step(&m_env.getMap(),m_env.getLocalPlayer()->getPosition(),foot,1.0);
 }
 
 void Client::playDigSound(content_t c)
@@ -2300,7 +2300,7 @@ void Client::playDigSound(content_t c)
 	if (c == CONTENT_IGNORE)
 		c = CONTENT_AIR;
 
-	//sound_playDig(c,m_env.getLocalPlayer()->getPosition());
+	sound_play_dig(c,m_env.getLocalPlayer()->getPosition());
 }
 
 void Client::playPlaceSound(content_t c)
@@ -2310,27 +2310,25 @@ void Client::playPlaceSound(content_t c)
 
 	ContentFeatures *f = &content_features(c);
 	if (f->sound_place != "") {
-		sound_play_effect((char*)f->sound_place.c_str(),1.0,NULL);
+		sound_play_effect((char*)f->sound_place.c_str(),1.0,0,NULL);
 		return;
 	}
 	switch (f->type) {
 	case CMT_LIQUID:
-		sound_play_effect("liquid-place",1.0,NULL);
+		sound_play_effect("liquid-place",1.0,0,NULL);
 		break;
 	default:
-		sound_play_effect("place",1.0,NULL);
+		sound_play_effect("place",1.0,0,NULL);
 	}
 }
 
 void Client::playSound(std::string &name, bool loop)
 {
-	/* TODO: looping */
-	sound_play_effect((char*)name.c_str(),1.0,NULL);
+	sound_play_effect((char*)name.c_str(),1.0,loop,NULL);
 }
 
 void Client::playSoundAt(std::string &name, v3f pos, bool loop)
 {
 	v3_t p = {pos.X,pos.Y,pos.Z};
-	/* TODO: looping */
-	sound_play_effect((char*)name.c_str(),1.0,&p);
+	sound_play_effect((char*)name.c_str(),1.0,loop,&p);
 }
