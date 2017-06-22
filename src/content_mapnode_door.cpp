@@ -1291,7 +1291,6 @@ void content_mapnode_door(bool repeat)
 	f->setInventoryTexture("gate_wood_inv.png");
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
-	f->jumpable = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -1468,8 +1467,8 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
+	f->walkable = false;
 	f->draw_type = CDT_NODEBOX;
-	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WOOD_GATE)+" 1";
 	f->onpunch_replace_node = CONTENT_WOOD_GATE;
 	f->sound_punch = "env-doorclose";
@@ -1493,8 +1492,8 @@ void content_mapnode_door(bool repeat)
 	f->light_propagates = true;
 	f->air_equivalent = true;
 	f->sunlight_propagates = true;
+	f->walkable = false;
 	f->draw_type = CDT_NODEBOX;
-	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_GATE)+" 1";
 	f->onpunch_replace_node = CONTENT_STEEL_GATE;
 	f->sound_punch = "env-doorclose";

@@ -145,8 +145,8 @@ void sound_mumble_step(float dtime, v3_t *pos, v3_t *at, v3_t *up)
 	mumble_data.dtime_cumulative += dtime;
 
 	if (mumble_data.link->uiVersion != 2) {
-		wcsncpy(mumble_data.link->name, L"TestLink", 256);
-		wcsncpy(mumble_data.link->description, L"TestLink is a test of the Link plugin.", 2048);
+		wcsncpy(mumble_data.link->name, L"Voxelands", 256);
+		wcsncpy(mumble_data.link->description, L"Voxelands Mumble Position Audio Link.", 2048);
 		mumble_data.link->uiVersion = 2;
 	}
 
@@ -179,6 +179,4 @@ void sound_mumble_step(float dtime, v3_t *pos, v3_t *at, v3_t *up)
 	mumble_data.link->fCameraTop[0] = -up->x;
 	mumble_data.link->fCameraTop[1] = -up->y;
 	mumble_data.link->fCameraTop[2] = -up->z;
-
-
 }
