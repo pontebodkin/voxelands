@@ -24,9 +24,7 @@
 
 #ifdef WIN32
 #include <windows.h>
-#define GAMEDATA "nfi"
 #else
-#define GAMEDATA "/usr/games/voxelands"
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -211,9 +209,9 @@ int path_init()
 {
 	char buff[2048];
 
-	path.data_global = strdup(GAMEDATA);
-
 #ifndef WIN32
+	path.data_global = strdup("/usr/games/voxelands");
+
 	if (getcwd(buff,2048)) {
 		path.cwd = strdup(buff);
 	}else{
@@ -248,6 +246,34 @@ int path_init()
 	path_create(NULL,path.config);
 #else
 	/* TODO: windows, and mac? */
+	DWORD buflen = 2048;
+	int i;
+	int k;
+	DWORD len;
+	// Find path of executable and set path_data relative to it
+	len = GetModuleFileName(GetModuleHandle(NULL), buff, buflen);
+	if (len >= buflen)
+		return 1;
+
+	for (i=0; i<len; i++) {
+		if (buff[i] == '\\')
+			buff[i] = '/';
+	}
+	for (k=0; k<2; k++) {
+		for (i--; i>=0; i--) {
+			if (path[i] == '/')
+				break;
+		}
+		path[i] = 0;
+	}
+
+	path.cwd = strdup(buff);
+	path.data_global = strdup(cwd);
+	path.home = strdup(path.cwd);
+	path.data_user = path_set(path.cwd,"data",NULL,0);
+	path.config = strdup(path.cwd);
+	path_create(NULL,path.config);
+
 #endif
 
 	if (snprintf(buff,2048,"%s/data",path.cwd) < 2048 && path_check(NULL,buff) == 2)
@@ -484,7 +510,7 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 			return path_set(path.data,rel_path,buff,size);
 	}
 
-	/* check from default data directory */
+	/* check from global data directory */
 	if (path.data_global) {
 		if (path_check(path.data_global,rel_path))
 			return path_set(path.data_global,rel_path,buff,size);
