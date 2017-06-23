@@ -1796,7 +1796,7 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			static gui::IGUIFont *tex_font = NULL;
 #if USE_FREETYPE
 			if (path_get("font","unifont.ttf",1,buff,1024))
-				tex_font = gui::CGUITTFont::createTTFont(guienv, buff,10);
+				tex_font = gui::CGUITTFont::createTTFont(guienv, buff,12);
 #else
 			if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
 				tex_font = guienv->getFont(buff);

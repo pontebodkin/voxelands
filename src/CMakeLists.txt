@@ -197,7 +197,20 @@ set(common_SRCS
 	log.cpp
 	content_sao.cpp
 	mapgen.cpp
-	content_nodemeta.cpp
+	nodemeta/content_nodemeta_circuits.cpp
+	nodemeta/content_nodemeta_sign.cpp
+	nodemeta/content_nodemeta_flag.cpp
+	nodemeta/content_nodemeta_bed.cpp
+	nodemeta/content_nodemeta_storage_old.cpp
+	nodemeta/content_nodemeta_storage_prefill.cpp
+	nodemeta/content_nodemeta_borderstone.cpp
+	nodemeta/content_nodemeta_cooking.cpp
+	nodemeta/content_nodemeta_tnt.cpp
+	nodemeta/content_nodemeta_incinerator.cpp
+	nodemeta/content_nodemeta_blocks.cpp
+	nodemeta/content_nodemeta_forge.cpp
+	nodemeta/content_nodemeta_book.cpp
+	nodemeta/content_nodemeta_book_guide.cpp
 	content_craft.cpp
 	content_craftitem.cpp
 	content_clothesitem.cpp
