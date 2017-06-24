@@ -1240,6 +1240,126 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_CHEST;
 	f = &content_features(i);
 	f->description = gettext("Chest");
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("wood.png^chests_side.png");
+	f->setTexture(0, "wood.png^chests_top.png");
+	f->setTexture(1, "wood.png^chests_top.png");
+	f->setTexture(4, "wood.png^chests_back.png");
+	f->setTexture(5, "wood.png^chests_front.png"); // Z-
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->rotate_tile_with_nodebox = true;
+		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
+	));
+	f->setInventoryTextureNodeBox(i,"wood.png^chests_top.png", "wood.png^chests_front.png", "wood.png^chests_side.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new ChestNodeMetadata();
+	f->sound_access = "open-chest";
+	f->type = CMT_WOOD;
+	f->hardness = 1.0;
+	f->pressure_type = CST_SOLID;
+	crafting::setRoundRecipe(CONTENT_WOOD,CONTENT_CHEST);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CHEST_PINE;
+	f = &content_features(i);
+	f->description = gettext("Chest");
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("pine.png^chests_side.png");
+	f->setTexture(0, "pine.png^chests_top.png");
+	f->setTexture(1, "pine.png^chests_top.png");
+	f->setTexture(4, "pine.png^chests_back.png");
+	f->setTexture(5, "pine.png^chests_front.png"); // Z-
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->rotate_tile_with_nodebox = true;
+		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
+	));
+	f->setInventoryTextureNodeBox(i,"pine.png^chests_top.png", "pine.png^chests_front.png", "pine.png^chests_side.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new ChestNodeMetadata();
+	f->sound_access = "open-chest";
+	f->type = CMT_WOOD;
+	f->hardness = 1.0;
+	f->pressure_type = CST_SOLID;
+	crafting::setRoundRecipe(CONTENT_WOOD_PINE,CONTENT_CHEST_PINE);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CHEST_JUNGLE;
+	f = &content_features(i);
+	f->description = gettext("Chest");
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("junglewood.png^chests_side.png");
+	f->setTexture(0, "junglewood.png^chests_top.png");
+	f->setTexture(1, "junglewood.png^chests_top.png");
+	f->setTexture(4, "junglewood.png^chests_back.png");
+	f->setTexture(5, "junglewood.png^chests_front.png"); // Z-
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->rotate_tile_with_nodebox = true;
+		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
+	));
+	f->setInventoryTextureNodeBox(i,"junglewood.png^chests_top.png", "junglewood.png^chests_front.png", "junglewood.png^chests_side.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new ChestNodeMetadata();
+	f->sound_access = "open-chest";
+	f->type = CMT_WOOD;
+	f->hardness = 1.0;
+	f->pressure_type = CST_SOLID;
+	crafting::setRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CHEST_JUNGLE);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CHEST_DEPRECATED;
+	f = &content_features(i);
+	f->description = gettext("Chest");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
 	f->setAllTextures("chest_side.png");
@@ -1248,18 +1368,13 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(5, "chest_front.png"); // Z-
 	f->setInventoryTexture("chest_top.png");
 	f->setInventoryTextureCube("chest_top.png", "chest_front.png", "chest_side.png");
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHEST)+" 1";
 	if(f->initial_metadata == NULL)
-		f->initial_metadata = new ChestNodeMetadata();
+		f->initial_metadata = new DeprecatedChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
 	f->hardness = 1.0;
 	f->pressure_type = CST_SOLID;
-	f->alternate_lockstate_node = CONTENT_LOCKABLE_CHEST;
-	crafting::setRoundRecipe(CONTENT_WOOD,CONTENT_CHEST);
-	crafting::setRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CHEST);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CREATIVE_CHEST;
 	f = &content_features(i);
@@ -1282,7 +1397,7 @@ void content_mapnode_special(bool repeat)
 	content_list_add("player-creative",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_LOCKABLE_CHEST;
+	i = CONTENT_LOCKABLE_CHEST_DEPRECATED;
 	f = &content_features(i);
 	f->description = gettext("Locking Chest");
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -1293,25 +1408,14 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(5, "chest_lock.png"); // Z-
 	f->setInventoryTexture("chest_lock.png");
 	f->setInventoryTextureCube("chest_top.png", "chest_lock.png", "chest_side.png");
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHEST)+" 1";
+	/* TODO: give padlock */
 	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingChestNodeMetadata();
+		f->initial_metadata = new LockingDeprecatedChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
 	f->hardness = 1.0;
 	f->pressure_type = CST_SOLID;
-	f->alternate_lockstate_node = CONTENT_CHEST;
-	crafting::setFilledRoundRecipe(CONTENT_WOOD,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::setFilledRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::set1Any2Recipe(CONTENT_CHEST,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::setFilledRoundRecipe(CONTENT_WOOD,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::setFilledRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::set1Any2Recipe(CONTENT_CHEST,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::setFilledRoundRecipe(CONTENT_WOOD,CONTENT_CRAFTITEM_SILVER_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::setFilledRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CRAFTITEM_SILVER_INGOT,CONTENT_LOCKABLE_CHEST);
-	crafting::set1Any2Recipe(CONTENT_CHEST,CONTENT_CRAFTITEM_SILVER_INGOT,CONTENT_LOCKABLE_CHEST);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
 
 	i = CONTENT_SAFE;
 	f = &content_features(i);

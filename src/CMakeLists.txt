@@ -202,6 +202,7 @@ set(common_SRCS
 	nodemeta/content_nodemeta_flag.cpp
 	nodemeta/content_nodemeta_bed.cpp
 	nodemeta/content_nodemeta_storage_old.cpp
+	nodemeta/content_nodemeta_storage.cpp
 	nodemeta/content_nodemeta_storage_prefill.cpp
 	nodemeta/content_nodemeta_borderstone.cpp
 	nodemeta/content_nodemeta_cooking.cpp

@@ -3079,7 +3079,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (
 					meta
 					&& (
-						meta->typeId() == CONTENT_LOCKABLE_CHEST
+						meta->typeId() == CONTENT_LOCKABLE_CHEST_DEPRECATED
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_WALL
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_UD
@@ -4394,8 +4394,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						p.Z = mystoi(fn.next(","));
 						NodeMetadata *meta = m_env.getMap().getNodeMetadata(p);
 						if (meta) {
-							if (meta->typeId() == CONTENT_LOCKABLE_CHEST) {
-								LockingChestNodeMetadata *lcm = (LockingChestNodeMetadata*)meta;
+							if (meta->typeId() == CONTENT_LOCKABLE_CHEST_DEPRECATED) {
+								LockingDeprecatedChestNodeMetadata *lcm = (LockingDeprecatedChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != player->getName())
 									return;
 							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
@@ -4423,8 +4423,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						p.Z = mystoi(fn.next(","));
 						NodeMetadata *meta = m_env.getMap().getNodeMetadata(p);
 						if (meta) {
-							if (meta->typeId() == CONTENT_LOCKABLE_CHEST) {
-								LockingChestNodeMetadata *lcm = (LockingChestNodeMetadata*)meta;
+							if (meta->typeId() == CONTENT_LOCKABLE_CHEST_DEPRECATED) {
+								LockingDeprecatedChestNodeMetadata *lcm = (LockingDeprecatedChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != player->getName())
 									return;
 							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
@@ -4755,8 +4755,7 @@ void Server::onMapEditEvent(MapEditEvent *event)
 
 Inventory* Server::getInventory(InventoryContext *c, std::string id)
 {
-	if(id == "current_player")
-	{
+	if (id == "current_player") {
 		assert(c->current_player);
 		return &(c->current_player->inventory);
 	}
@@ -4764,14 +4763,13 @@ Inventory* Server::getInventory(InventoryContext *c, std::string id)
 	Strfnd fn(id);
 	std::string id0 = fn.next(":");
 
-	if(id0 == "nodemeta")
-	{
+	if (id0 == "nodemeta") {
 		v3s16 p;
 		p.X = mystoi(fn.next(","));
 		p.Y = mystoi(fn.next(","));
 		p.Z = mystoi(fn.next(","));
 		NodeMetadata *meta = m_env.getMap().getNodeMetadata(p);
-		if(meta)
+		if (meta)
 			return meta->getInventory();
 		infostream<<"nodemeta at ("<<p.X<<","<<p.Y<<","<<p.Z<<"): "
 				<<"no metadata found"<<std::endl;
@@ -4783,8 +4781,7 @@ Inventory* Server::getInventory(InventoryContext *c, std::string id)
 }
 void Server::inventoryModified(InventoryContext *c, std::string id)
 {
-	if(id == "current_player")
-	{
+	if (id == "current_player") {
 		assert(c->current_player);
 		// Send inventory
 		UpdateCrafting(c->current_player->peer_id);

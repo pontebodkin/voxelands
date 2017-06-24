@@ -966,6 +966,7 @@ void content_toolitem_init()
 	f->has_unlock_effect = true;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_GOLD_INGOT,CONTENT_TOOLITEM_KEY);
 	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TOOLITEM_MITHRIL_KEY;
 	f = &g_content_toolitem_features[i];

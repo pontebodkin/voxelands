@@ -23,6 +23,7 @@
 * for Voxelands.
 ************************************************************************/
 
+#include "common.h"
 #include "nodemetadata.h"
 #include "utility.h"
 #include "mapnode.h"
@@ -30,7 +31,6 @@
 #include "inventory.h"
 #include <sstream>
 #include "content_mapnode.h"
-#include "log.h"
 
 /*
 	NodeMetadata
@@ -62,8 +62,7 @@ NodeMetadata* NodeMetadata::deSerialize(std::istream &is)
 	if(n == NULL)
 	{
 		// If factory is not found, just return.
-		infostream<<"WARNING: NodeMetadata: No factory for typeId="
-				<<id<<std::endl;
+		vlprintf(CN_INFO,"WARNING: NodeMetadata: No factory for typeId=%d",id);
 		return NULL;
 	}
 
@@ -78,7 +77,7 @@ NodeMetadata* NodeMetadata::deSerialize(std::istream &is)
 	}
 	catch(SerializationError &e)
 	{
-		infostream<<"WARNING: NodeMetadata: ignoring SerializationError"<<std::endl;
+		vlprintf(CN_INFO,"WARNING: NodeMetadata: ignoring SerializationError '%s'",e.what());
 		return NULL;
 	}
 }
@@ -144,8 +143,7 @@ void NodeMetadataList::deSerialize(std::istream &is)
 	u16 version = readU16(buf);
 
 	if (version > 1) {
-		infostream<<__FUNCTION_NAME<<": version "<<version<<" not supported"
-				<<std::endl;
+		vlprintf(CN_INFO,"NodeMetadataList::deSerialize: version %u not supported",version);
 		throw SerializationError("NodeMetadataList::deSerialize");
 	}
 
@@ -169,10 +167,7 @@ void NodeMetadataList::deSerialize(std::istream &is)
 			continue;
 
 		if (m_data.find(p)) {
-			infostream<<"WARNING: NodeMetadataList::deSerialize(): "
-					<<"already set data at position"
-					<<"("<<p.X<<","<<p.Y<<","<<p.Z<<"): Ignoring."
-					<<std::endl;
+			vlprintf(CN_INFO,"WARNING: NodeMetadataList::deSerialize(): already set data at position (%d,%d,%d): Ignoring.",p.X,p.Y,p.Z);
 			delete data;
 			continue;
 		}

@@ -23,7 +23,7 @@
 * for Voxelands.
 ************************************************************************/
 
-
+#include "common.h"
 #include "inventory.h"
 #include "serialization.h"
 #include "utility.h"
@@ -840,7 +840,7 @@ void InventoryList::deSerialize(std::istream &is)
 			m_items[item_i] = InventoryItem::create(c,wc,wc);
 		}
 		if (readU8(is) != 3)
-			throw SerializationError("Unknown inventory identifier");
+			throw SerializationError("Unknown inventory identifier (2)");
 		return;
 	}
 
@@ -903,7 +903,7 @@ void InventoryList::deSerialize(std::istream &is)
 				delete m_items[item_i];
 			m_items[item_i++] = NULL;
 		}else{
-			throw SerializationError("Unknown inventory identifier");
+			throw SerializationError("Unknown inventory identifier (3)");
 		}
 	}
 }
@@ -1314,7 +1314,7 @@ void Inventory::deSerialize(std::istream &is)
 
 			list->deSerialize(is);
 		}else{
-			throw SerializationError("Unknown inventory identifier");
+			throw SerializationError("Unknown Inventory identifier");
 		}
 	}
 }

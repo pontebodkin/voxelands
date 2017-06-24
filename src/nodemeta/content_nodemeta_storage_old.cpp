@@ -31,48 +31,48 @@
 
 
 /*
-	ChestNodeMetadata
+	DeprecatedChestNodeMetadata
 */
 
 // Prototype
-ChestNodeMetadata proto_ChestNodeMetadata;
+DeprecatedChestNodeMetadata proto_DeprecatedChestNodeMetadata;
 
-ChestNodeMetadata::ChestNodeMetadata()
+DeprecatedChestNodeMetadata::DeprecatedChestNodeMetadata()
 {
 	NodeMetadata::registerType(typeId(), create);
 
 	m_inventory = new Inventory();
 	m_inventory->addList("0", 8*4);
 }
-ChestNodeMetadata::~ChestNodeMetadata()
+DeprecatedChestNodeMetadata::~DeprecatedChestNodeMetadata()
 {
 	delete m_inventory;
 }
-u16 ChestNodeMetadata::typeId() const
+u16 DeprecatedChestNodeMetadata::typeId() const
 {
-	return CONTENT_CHEST;
+	return CONTENT_CHEST_DEPRECATED;
 }
-NodeMetadata* ChestNodeMetadata::create(std::istream &is)
+NodeMetadata* DeprecatedChestNodeMetadata::create(std::istream &is)
 {
-	ChestNodeMetadata *d = new ChestNodeMetadata();
+	DeprecatedChestNodeMetadata *d = new DeprecatedChestNodeMetadata();
 	d->m_inventory->deSerialize(is);
 	return d;
 }
-NodeMetadata* ChestNodeMetadata::clone()
+NodeMetadata* DeprecatedChestNodeMetadata::clone()
 {
-	ChestNodeMetadata *d = new ChestNodeMetadata();
+	DeprecatedChestNodeMetadata *d = new DeprecatedChestNodeMetadata();
 	*d->m_inventory = *m_inventory;
 	return d;
 }
-void ChestNodeMetadata::serializeBody(std::ostream &os)
+void DeprecatedChestNodeMetadata::serializeBody(std::ostream &os)
 {
 	m_inventory->serialize(os);
 }
-std::wstring ChestNodeMetadata::infoText()
+std::wstring DeprecatedChestNodeMetadata::infoText()
 {
 	return narrow_to_wide(gettext("Chest"));
 }
-bool ChestNodeMetadata::nodeRemovalDisabled()
+bool DeprecatedChestNodeMetadata::nodeRemovalDisabled()
 {
 	/*
 		Disable removal if chest contains something
@@ -84,69 +84,69 @@ bool ChestNodeMetadata::nodeRemovalDisabled()
 		return false;
 	return true;
 }
-std::string ChestNodeMetadata::getDrawSpecString(Player *player)
+std::string DeprecatedChestNodeMetadata::getDrawSpecString(Player *player)
 {
 	return
 		"size[8,9]"
 		"list[current_name;0;0,0;8,4;]"
 		"list[current_player;main;0,5;8,4;]";
 }
-bool ChestNodeMetadata::import(NodeMetadata *meta)
+bool DeprecatedChestNodeMetadata::import(NodeMetadata *meta)
 {
-	if (meta->typeId() != CONTENT_LOCKABLE_CHEST)
+	if (meta->typeId() != CONTENT_LOCKABLE_CHEST_DEPRECATED)
 		return false;
-	LockingChestNodeMetadata *l = (LockingChestNodeMetadata*)meta;
+	LockingDeprecatedChestNodeMetadata *l = (LockingDeprecatedChestNodeMetadata*)meta;
 	*m_inventory = *l->getInventory();
 	return true;
 }
 
 /*
-	LockingChestNodeMetadata
+	LockingDeprecatedChestNodeMetadata
 */
 
 // Prototype
-LockingChestNodeMetadata proto_LockingChestNodeMetadata;
+LockingDeprecatedChestNodeMetadata proto_LockingDeprecatedChestNodeMetadata;
 
-LockingChestNodeMetadata::LockingChestNodeMetadata()
+LockingDeprecatedChestNodeMetadata::LockingDeprecatedChestNodeMetadata()
 {
 	NodeMetadata::registerType(typeId(), create);
 
 	m_inventory = new Inventory();
 	m_inventory->addList("0", 8*4);
 }
-LockingChestNodeMetadata::~LockingChestNodeMetadata()
+LockingDeprecatedChestNodeMetadata::~LockingDeprecatedChestNodeMetadata()
 {
 	delete m_inventory;
 }
-u16 LockingChestNodeMetadata::typeId() const
+u16 LockingDeprecatedChestNodeMetadata::typeId() const
 {
-	return CONTENT_LOCKABLE_CHEST;
+	return CONTENT_LOCKABLE_CHEST_DEPRECATED;
 }
-NodeMetadata* LockingChestNodeMetadata::create(std::istream &is)
+NodeMetadata* LockingDeprecatedChestNodeMetadata::create(std::istream &is)
 {
-	LockingChestNodeMetadata *d = new LockingChestNodeMetadata();
+	LockingDeprecatedChestNodeMetadata *d = new LockingDeprecatedChestNodeMetadata();
 	d->setOwner(deSerializeString(is));
 	d->m_inventory->deSerialize(is);
 	return d;
 }
-NodeMetadata* LockingChestNodeMetadata::clone()
+NodeMetadata* LockingDeprecatedChestNodeMetadata::clone()
 {
-	LockingChestNodeMetadata *d = new LockingChestNodeMetadata();
+	LockingDeprecatedChestNodeMetadata *d = new LockingDeprecatedChestNodeMetadata();
 	*d->m_inventory = *m_inventory;
 	return d;
 }
-void LockingChestNodeMetadata::serializeBody(std::ostream &os)
+void LockingDeprecatedChestNodeMetadata::serializeBody(std::ostream &os)
 {
 	os<<serializeString(m_owner);
 	m_inventory->serialize(os);
 }
-std::wstring LockingChestNodeMetadata::infoText()
+std::wstring LockingDeprecatedChestNodeMetadata::infoText()
 {
 	char buff[256];
 	snprintf(buff, 256, gettext("Locking Chest owned by '%s'"), m_owner.c_str());
 	return narrow_to_wide(buff);
 }
-bool LockingChestNodeMetadata::nodeRemovalDisabled()
+bool LockingDeprecatedChestNodeMetadata::nodeRemovalDisabled()
 {
 	/*
 		Disable removal if chest contains something
@@ -158,18 +158,18 @@ bool LockingChestNodeMetadata::nodeRemovalDisabled()
 		return false;
 	return true;
 }
-std::string LockingChestNodeMetadata::getDrawSpecString(Player *player)
+std::string LockingDeprecatedChestNodeMetadata::getDrawSpecString(Player *player)
 {
 	return
 		"size[8,9]"
 		"list[current_name;0;0,0;8,4;]"
 		"list[current_player;main;0,5;8,4;]";
 }
-bool LockingChestNodeMetadata::import(NodeMetadata *meta)
+bool LockingDeprecatedChestNodeMetadata::import(NodeMetadata *meta)
 {
-	if (meta->typeId() != CONTENT_CHEST)
+	if (meta->typeId() != CONTENT_CHEST_DEPRECATED)
 		return false;
-	ChestNodeMetadata *l = (ChestNodeMetadata*)meta;
+	DeprecatedChestNodeMetadata *l = (DeprecatedChestNodeMetadata*)meta;
 	*m_inventory = *l->getInventory();
 	return true;
 }
@@ -241,9 +241,9 @@ std::string SafeNodeMetadata::getDrawSpecString(Player *player)
 }
 bool SafeNodeMetadata::import(NodeMetadata *meta)
 {
-	if (meta->typeId() != CONTENT_CHEST)
+	if (meta->typeId() != CONTENT_CHEST_DEPRECATED)
 		return false;
-	ChestNodeMetadata *l = (ChestNodeMetadata*)meta;
+	DeprecatedChestNodeMetadata *l = (DeprecatedChestNodeMetadata*)meta;
 	*m_inventory = *l->getInventory();
 	return true;
 }

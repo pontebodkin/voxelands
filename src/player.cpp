@@ -97,6 +97,9 @@ void Player::resetInventory(bool include_clothes)
 		InventoryList *l = inventory.getList("main");
 		if (l)
 			l->clearItems();
+		l = inventory.getList("exo");
+		if (l)
+			l->clearItems();
 		l = inventory.getList("discard");
 		if (l)
 			l->clearItems();
@@ -114,6 +117,8 @@ void Player::checkInventory()
 {
 	if (!inventory.getList("main"))
 		inventory.addList("main", PLAYER_INVENTORY_SIZE);
+	if (!inventory.getList("exo"))
+		inventory.addList("exo", 18);
 	if (!inventory.getList("hat"))
 		inventory.addList("hat",1);
 	if (!inventory.getList("jacket"))

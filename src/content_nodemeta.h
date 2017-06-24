@@ -164,6 +164,37 @@ public:
 	virtual NodeMetadata* clone();
 	virtual void serializeBody(std::ostream &os);
 	virtual std::wstring infoText();
+	virtual Inventory* getInventory();
+	virtual void inventoryModified();
+	virtual bool nodeRemovalDisabled();
+	virtual std::string getDrawSpecString(Player *player);
+	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
+
+	virtual std::string getOwner();
+	virtual void setOwner(std::string t){ m_owner = t; }
+	virtual std::string getInventoryOwner();
+	virtual void setInventoryOwner(std::string t){ m_owner = t; }
+
+private:
+	Inventory *m_inventory;
+	std::string m_owner;
+	bool m_is_exo;
+	bool m_is_expanded;
+	bool m_is_locked;
+	uint16_t m_expanded_slot_id;
+};
+
+class DeprecatedChestNodeMetadata : public NodeMetadata
+{
+public:
+	DeprecatedChestNodeMetadata();
+	~DeprecatedChestNodeMetadata();
+
+	virtual u16 typeId() const;
+	static NodeMetadata* create(std::istream &is);
+	virtual NodeMetadata* clone();
+	virtual void serializeBody(std::ostream &os);
+	virtual std::wstring infoText();
 	virtual Inventory* getInventory() {return m_inventory;}
 	virtual bool nodeRemovalDisabled();
 	virtual std::string getDrawSpecString(Player *player);
@@ -174,11 +205,11 @@ private:
 	Inventory *m_inventory;
 };
 
-class LockingChestNodeMetadata : public NodeMetadata
+class LockingDeprecatedChestNodeMetadata : public NodeMetadata
 {
 public:
-	LockingChestNodeMetadata();
-	~LockingChestNodeMetadata();
+	LockingDeprecatedChestNodeMetadata();
+	~LockingDeprecatedChestNodeMetadata();
 
 	virtual u16 typeId() const;
 	static NodeMetadata* create(std::istream &is);

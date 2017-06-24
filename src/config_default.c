@@ -43,9 +43,9 @@ void config_default_init()
 	config_set_default("debug.show","false",NULL);
 
 #ifndef SERVER
-	config_set_default("client.video.anisotropic","true",NULL);
-	config_set_default("client.video.bilinear","true",NULL);
-	config_set_default("client.video.trilinear","true",NULL);
+	config_set_default("client.video.anisotropic","false",NULL);
+	config_set_default("client.video.bilinear","false",NULL);
+	config_set_default("client.video.trilinear","false",NULL);
 	config_set_default("client.video.mipmaps","true",NULL);
 	config_set_default("client.video.fullscreen","false",NULL);
 	config_set_default("client.video.fullscreen.bpp","24",NULL);
@@ -65,7 +65,7 @@ void config_default_init()
 #endif
 
 	config_set_default("client.graphics.mesh.lod","3",NULL);
-	config_set_default("client.graphics.texture.animations","true",NULL);
+	config_set_default("client.graphics.texture.animations","false",NULL);
 	config_set_default("client.graphics.texture.atlas","true",NULL);
 	config_set_default("client.graphics.texture.lod","3",NULL);
 	config_set_default("client.graphics.light.lod","3",NULL);
