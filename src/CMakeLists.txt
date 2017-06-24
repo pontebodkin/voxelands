@@ -225,6 +225,7 @@ set(common_SRCS
 	content_mapnode_stair.cpp
 	content_mapnode_slab.cpp
 	content_mapnode_special.cpp
+	content_mapnode_sign.cpp
 	content_mapnode_plants.cpp
 	content_mapnode_util.cpp
 	content_list.c

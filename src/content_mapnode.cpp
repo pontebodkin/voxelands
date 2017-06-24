@@ -1344,6 +1344,32 @@ void content_mapnode_init(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_APPLEWOOD;
+	f = &content_features(i);
+	f->description = gettext("Apple Wood");
+	f->setAllTextures("applewood.png");
+	f->setInventoryTextureCube("applewood.png", "applewood.png", "applewood.png");
+	f->draw_type = CDT_CUBELIKE;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/4;
+	f->type = CMT_WOOD;
+	f->hardness = 0.75;
+	crafting::set1To4Recipe(CONTENT_TREE,CONTENT_WOOD);
+	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_WOOD);
+	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD);
+	//{
+		//u16 r[9] = {
+			//CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_WOOD_PLANK,
+			//CONTENT_IGNORE,			CONTENT_IGNORE,	CONTENT_IGNORE,
+			//CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_WOOD_PLANK
+		//};
+		//crafting::setRecipe(r,CONTENT_APPLEWOOD,1);
+	//}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
 	i = CONTENT_JUNGLEWOOD;
 	f = &content_features(i);
 	f->description = gettext("Jungle Wood");

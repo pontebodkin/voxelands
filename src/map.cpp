@@ -1850,8 +1850,7 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 		for (p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++) {
 		for (p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++) {
 			MapNode n = block->getNodeNoEx(p0);
-			/* TODO: chests */
-			if (n.getContent() == CONTENT_CHEST_DEPRECATED) {
+			if (n.getContent() == CONTENT_CHEST) {
 				// chest? give it metadata and put shit in it
 				NodeMetadata *f = block->m_node_metadata.get(p0);
 				Inventory *inv = f->getInventory();

@@ -34,11 +34,7 @@ void content_mapnode_furniture(bool repeat)
 	i = CONTENT_BOOKSHELF;
 	f = &content_features(i);
 	f->description = gettext("Book Shelf");
-	f->setAllTextures("bookshelf_front.png");
-	f->setTexture(0, "bookshelf_top.png");
-	f->setTexture(1, "bookshelf_top.png");
-	f->setTexture(2, "bookshelf_side.png");
-	f->setTexture(3, "bookshelf_side.png");
+	f->setAllTextures("wood.png");
 	f->setAllMetaTextures("bookshelf_book.png");
 	f->setMetaTexture(0, "bookshelf_book_top.png");
 	f->rotate_tile_with_nodebox = true;
@@ -52,7 +48,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	content_nodebox_bookshelf(f);
-	f->setInventoryTextureNodeBox(i,"bookshelf_top.png", "bookshelf_front.png", "bookshelf_side.png");
+	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BookShelfNodeMetadata();
 	{
@@ -71,11 +67,7 @@ void content_mapnode_furniture(bool repeat)
 	i = CONTENT_BOOKSHELF_JUNGLE;
 	f = &content_features(i);
 	f->description = gettext("Junglewood Book Shelf");
-	f->setAllTextures("bookshelf_jungle_front.png");
-	f->setTexture(0, "bookshelf_jungle_top.png");
-	f->setTexture(1, "bookshelf_jungle_top.png");
-	f->setTexture(2, "bookshelf_jungle_side.png");
-	f->setTexture(3, "bookshelf_jungle_side.png");
+	f->setAllTextures("junglewood.png");
 	f->setAllMetaTextures("bookshelf_book.png");
 	f->setMetaTexture(0, "bookshelf_book_top.png");
 	f->rotate_tile_with_nodebox = true;
@@ -89,7 +81,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	content_nodebox_bookshelf(f);
-	f->setInventoryTextureNodeBox(i,"bookshelf_jungle_top.png", "bookshelf_jungle_front.png", "bookshelf_jungle_side.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BookShelfNodeMetadata();
 	{
@@ -108,11 +100,7 @@ void content_mapnode_furniture(bool repeat)
 	i = CONTENT_BOOKSHELF_PINE;
 	f = &content_features(i);
 	f->description = gettext("Pine Book Shelf");
-	f->setAllTextures("bookshelf_pine_front.png");
-	f->setTexture(0, "bookshelf_pine_top.png");
-	f->setTexture(1, "bookshelf_pine_top.png");
-	f->setTexture(2, "bookshelf_pine_side.png");
-	f->setTexture(3, "bookshelf_pine_side.png");
+	f->setAllTextures("pine.png");
 	f->setAllMetaTextures("bookshelf_book.png");
 	f->setMetaTexture(0, "bookshelf_book_top.png");
 	f->rotate_tile_with_nodebox = true;
@@ -126,7 +114,7 @@ void content_mapnode_furniture(bool repeat)
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	content_nodebox_bookshelf(f);
-	f->setInventoryTextureNodeBox(i,"bookshelf_pine_top.png", "bookshelf_pine_front.png", "bookshelf_pine_side.png");
+	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new BookShelfNodeMetadata();
 	{
@@ -136,6 +124,39 @@ void content_mapnode_furniture(bool repeat)
 			CONTENT_WOOD_PINE,	CONTENT_WOOD_PINE,	CONTENT_WOOD_PINE
 		};
 		crafting::setRecipe(r,CONTENT_BOOKSHELF_PINE,1);
+	}
+	f->pressure_type = CST_SOLID;
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_BOOKSHELF_APPLE;
+	f = &content_features(i);
+	f->description = gettext("Applewood Book Shelf");
+	f->setAllTextures("applewood.png");
+	f->setAllMetaTextures("bookshelf_book.png");
+	f->setMetaTexture(0, "bookshelf_book_top.png");
+	f->rotate_tile_with_nodebox = true;
+	//f->setInventoryTextureCube("wood.png", "bookshelf.png", "bookshelf.png");
+	f->draw_type = CDT_NODEBOX_META;
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30/4;
+	f->type = CMT_WOOD;
+	f->hardness = 0.75;
+	content_nodebox_bookshelf(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new BookShelfNodeMetadata();
+	{
+		u16 r[9] = {
+			CONTENT_APPLEWOOD,	CONTENT_APPLEWOOD,	CONTENT_APPLEWOOD,
+			CONTENT_IGNORE,		CONTENT_IGNORE,		CONTENT_IGNORE,
+			CONTENT_APPLEWOOD,	CONTENT_APPLEWOOD,	CONTENT_APPLEWOOD
+		};
+		crafting::setRecipe(r,CONTENT_BOOKSHELF_APPLE,1);
 	}
 	f->pressure_type = CST_SOLID;
 	content_list_add("craftguide",i,1,0);

@@ -1286,10 +1286,8 @@ void content_mapnode_door(bool repeat)
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->description = gettext("Wood Gate");
-	f->setAllTextures("gate_wood.png");
+	f->setAllTextures("wood.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("gate_wood_inv.png");
-	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1302,6 +1300,7 @@ void content_mapnode_door(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30;
 	content_nodebox_gate(f);
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->type = CMT_WOOD;
 	f->hardness = 0.75;
 	f->pressure_type = CST_SOLID;
@@ -1461,7 +1460,6 @@ void content_mapnode_door(bool repeat)
 	f->description = gettext("Wood Gate");
 	f->setAllTextures("wood.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("gate_wood_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;

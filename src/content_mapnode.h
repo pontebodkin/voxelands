@@ -36,6 +36,7 @@ void content_mapnode_door(bool repeat);
 void content_mapnode_stair(bool repeat);
 void content_mapnode_slab(bool repeat);
 void content_mapnode_special(bool repeat);
+void content_mapnode_sign(bool repeat);
 void content_mapnode_plants(bool repeat);
 
 MapNode mapnode_translate_from_internal(MapNode n_from, u8 version);
@@ -99,7 +100,20 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_CHEST 0x02F
 #define CONTENT_CHEST_PINE 0x030
 #define CONTENT_CHEST_JUNGLE 0x031
-// FREE 0x032-0x03F
+#define CONTENT_CHEST_APPLE 0x032
+#define CONTENT_SIGN_JUNGLE 0x033
+#define CONTENT_SIGN_APPLE 0x034
+#define CONTENT_SIGN_PINE 0x035
+#define CONTENT_SIGN_STEEL 0x036
+#define CONTENT_SIGN_WALL_JUNGLE 0x037
+#define CONTENT_SIGN_WALL_APPLE 0x038
+#define CONTENT_SIGN_WALL_PINE 0x039
+#define CONTENT_SIGN_WALL_STEEL 0x03A
+#define CONTENT_SIGN_UD_JUNGLE 0x03B
+#define CONTENT_SIGN_UD_APPLE 0x03C
+#define CONTENT_SIGN_UD_PINE 0x03D
+#define CONTENT_SIGN_UD_STEEL 0x03E
+#define CONTENT_APPLE_FENCE 0x03F
 #define CONTENT_BUSH_BLUEBERRY 0x040
 #define CONTENT_BUSH_RASPBERRY 0x041
 // FREE 0x042-0x07C
@@ -166,8 +180,8 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_ROUGHSTONE_COLUMN_CROSS 0x0BC
 #define CONTENT_ROUGHSTONE_COLUMN_CROSS_BASE 0x0BD
 #define CONTENT_ROUGHSTONE_COLUMN_CROSS_TOP 0x0BE
-// FREE 0x0BF-0x7F6
-
+// FREE 0x0BF-0x7F5
+#define CONTENT_APPLEWOOD 0x7F6
 #define CONTENT_LEAVES_SNOWY 0x7F7
 #define CONTENT_TRIMMED_LEAVES_AUTUMN 0x7F8
 #define CONTENT_TRIMMED_LEAVES_WINTER 0x7F9
@@ -220,8 +234,8 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_CLOCK 0x830
 #define CONTENT_BOOKSHELF_PINE 0x831
 #define CONTENT_BOOKSHELF_JUNGLE 0x832
-// FREE 931-835
-
+#define CONTENT_BOOKSHELF_APPLE 0x833
+// FREE 834-835
 #define CONTENT_COUCH_CENTRE 0x836
 #define CONTENT_COUCH_ENDL 0x837
 #define CONTENT_COUCH_ENDR 0x838

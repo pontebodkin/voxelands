@@ -327,6 +327,7 @@ void init_mapnode()
 #endif
 	content_mapnode_stair(repeat);
 	content_mapnode_slab(repeat);
+	content_mapnode_sign(repeat);
 	content_mapnode_special(repeat);
 }
 

@@ -548,8 +548,7 @@ static void make_room1(VoxelManipulator &vmanip, v3s16 roomsize, v3s16 roomplace
 		u32 vi = vmanip.m_area.index(p);
 		if (vmanip.m_data[vi].getContent() == CONTENT_AIR) {
 			vmanip.m_flags[vi] |= VMANIP_FLAG_DUNGEON_UNTOUCHABLE;
-			/* TODO: chests
-			vmanip.m_data[vi] = MapNode(CONTENT_CHEST); */
+			vmanip.m_data[vi] = MapNode(CONTENT_CHEST);
 		}
 	}
 }

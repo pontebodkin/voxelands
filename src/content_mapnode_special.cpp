@@ -35,9 +35,7 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_FENCE;
 	f = &content_features(i);
 	f->description = gettext("Fence");
-	f->setAllTextures("fence.png");
-	f->setTexture(0,"fence_top.png");
-	f->setTexture(1,"fence_top.png");
+	f->setAllTextures("wood.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_SPECIAL;
@@ -55,7 +53,7 @@ void content_mapnode_special(bool repeat)
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
 	content_nodebox_fence(f);
-	f->setInventoryTextureNodeBox(i,"fence.png","fence_top.png","fence.png");
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	crafting::setWallRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_FENCE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -90,9 +88,7 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_JUNGLE_FENCE;
 	f = &content_features(i);
 	f->description = gettext("Jungle Wood Fence");
-	f->setAllTextures("fence_jungle.png");
-	f->setTexture(0,"fence_jungle_top.png");
-	f->setTexture(1,"fence_jungle_top.png");
+	f->setAllTextures("junglewood.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_SPECIAL;
@@ -110,7 +106,7 @@ void content_mapnode_special(bool repeat)
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
 	content_nodebox_fence(f);
-	f->setInventoryTextureNodeBox(i,"fence_jungle.png","fence_jungle_top.png","fence_jungle.png");
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	crafting::setWallRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_JUNGLE_FENCE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -118,9 +114,7 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_PINE_FENCE;
 	f = &content_features(i);
 	f->description = gettext("Pine Fence");
-	f->setAllTextures("fence_pine.png");
-	f->setTexture(0,"fence_pine_top.png");
-	f->setTexture(1,"fence_pine_top.png");
+	f->setAllTextures("pine.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_SPECIAL;
@@ -138,8 +132,35 @@ void content_mapnode_special(bool repeat)
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
 	content_nodebox_fence(f);
-	f->setInventoryTextureNodeBox(i,"fence_pine.png","fence_pine_top.png","fence_pine.png");
+	f->setInventoryTextureNodeBox(i,"pine.png","pine.png","pine.png");
 	crafting::setWallRecipe(CONTENT_CRAFTITEM_PINE_PLANK,CONTENT_PINE_FENCE);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_APPLE_FENCE;
+	f = &content_features(i);
+	f->description = gettext("Fence");
+	f->setAllTextures("applewood.png");
+	f->light_propagates = true;
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_SPECIAL;
+	f->draw_type = CDT_FENCELIKE;
+	f->is_ground_content = true;
+	f->jumpable = false;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->air_equivalent = true; // grass grows underneath
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 15;
+	f->special_alternate_node = CONTENT_APPLEWOOD;
+	f->type = CMT_WOOD;
+	f->hardness = 0.75;
+	f->pressure_type = CST_CRUSHABLE;
+	f->suffocation_per_second = 0;
+	content_nodebox_fence_inv(f);
+	content_nodebox_fence(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+/* TODO: apple planks
+	crafting::setWallRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_FENCE);*/
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1059,184 +1080,6 @@ void content_mapnode_special(bool repeat)
 	content_list_add("player-creative",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_SIGN_WALL;
-	f = &content_features(i);
-	f->description = gettext("Sign");
-	f->setAllTextures("sign_wall.png");
-	f->param_type = CPT_LIGHT;
-	f->param2_type = CPT_FACEDIR_WALLMOUNT;
-	f->draw_type = CDT_NODEBOX;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->floormount_alternate_node = CONTENT_SIGN;
-	f->roofmount_alternate_node = CONTENT_SIGN_UD;
-	f->walkable = false;
-	f->air_equivalent = true;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new SignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN_WALL;
-	content_nodebox_sign_wall(f);
-	f->setFaceText(5,FaceText(0.05,0.3,0.95,0.7));
-
-	i = CONTENT_SIGN;
-	f = &content_features(i);
-	f->description = gettext("Sign");
-	f->setAllTextures("sign.png");
-	f->setTexture(4, "sign_back.png");
-	f->setTexture(5, "sign_front.png"); // Z-
-	f->param_type = CPT_LIGHT;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_SIGN_WALL;
-	f->roofmount_alternate_node = CONTENT_SIGN_UD;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_NODEBOX;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new SignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN;
-	content_nodebox_sign(f);
-	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
-	f->setInventoryTextureNodeBox(i,"sign.png", "sign_front.png", "sign.png");
-	crafting::setSignRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_SIGN);
-	crafting::setSignRecipe(CONTENT_CRAFTITEM_PINE_PLANK,CONTENT_SIGN);
-	crafting::setSignRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_SIGN);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_SIGN_UD;
-	f = &content_features(i);
-	f->description = gettext("Sign");
-	f->setAllTextures("sign.png");
-	f->setTexture(4, "sign_back_ud.png");
-	f->setTexture(5, "sign_front_ud.png"); // Z-
-	f->param_type = CPT_LIGHT;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_SIGN_WALL;
-	f->floormount_alternate_node = CONTENT_SIGN;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_NODEBOX;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new SignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN_UD;
-	content_nodebox_sign_ud(f);
-	f->setFaceText(5,FaceText(0.05,0.45,0.95,0.8875));
-	f->setInventoryTextureNodeBox(i,"sign.png", "sign_front.png", "sign.png");
-
-	i = CONTENT_LOCKABLE_SIGN_WALL;
-	f = &content_features(i);
-	f->description = gettext("Locking Sign");
-	f->setAllTextures("sign.png");
-	f->setTexture(4, "sign_back.png");
-	f->setTexture(5, "sign_wall_lock.png"); // Z-
-	f->param_type = CPT_LIGHT;
-	f->param2_type = CPT_FACEDIR_WALLMOUNT;
-	f->draw_type = CDT_NODEBOX;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->air_equivalent = true;
-	f->floormount_alternate_node = CONTENT_LOCKABLE_SIGN;
-	f->roofmount_alternate_node = CONTENT_LOCKABLE_SIGN_UD;
-	f->walkable = false;
-	f->air_equivalent = true;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_SIGN)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_SIGN_WALL;
-	content_nodebox_sign_wall(f);
-	f->setFaceText(4,FaceText(0.05,0.3,0.95,0.7,FTT_OWNER));
-	f->setFaceText(5,FaceText(0.05,0.3,0.95,0.7));
-
-	i = CONTENT_LOCKABLE_SIGN;
-	f = &content_features(i);
-	f->description = gettext("Locking Sign");
-	f->setAllTextures("sign.png");
-	f->setTexture(4, "sign_back.png");
-	f->setTexture(5, "sign_lock.png"); // Z-
-	f->param_type = CPT_LIGHT;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_LOCKABLE_SIGN_WALL;
-	f->roofmount_alternate_node = CONTENT_LOCKABLE_SIGN_UD;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_NODEBOX;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_SIGN;
-	content_nodebox_sign(f);
-	f->setFaceText(4,FaceText(0.05,0.0675,0.95,0.55,FTT_OWNER));
-	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
-	f->setInventoryTextureNodeBox(i,"sign.png", "sign_lock.png", "sign.png");
-	crafting::set1Any2Recipe(CONTENT_SIGN,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_SIGN);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_LOCKABLE_SIGN_UD;
-	f = &content_features(i);
-	f->description = gettext("Locking Sign");
-	f->setAllTextures("sign.png");
-	f->setTexture(4, "sign_back_ud.png");
-	f->setTexture(5, "sign_lock_ud.png"); // Z-
-	f->param_type = CPT_LIGHT;
-	f->light_propagates = true;
-	f->sunlight_propagates = true;
-	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_LOCKABLE_SIGN_WALL;
-	f->floormount_alternate_node = CONTENT_LOCKABLE_SIGN;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_NODEBOX;
-	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_SIGN)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
-	f->type = CMT_WOOD;
-	f->hardness = 0.1;
-	f->pressure_type = CST_CRUSHABLE;
-	f->suffocation_per_second = 0;
-	f->alternate_lockstate_node = CONTENT_SIGN_UD;
-	content_nodebox_sign_ud(f);
-	f->setFaceText(4,FaceText(0.05,0.45,0.95,0.8875,FTT_OWNER));
-	f->setFaceText(5,FaceText(0.05,0.45,0.95,0.8875));
-	f->setInventoryTextureNodeBox(i,"sign.png", "sign_lock.png", "sign.png");
-
 	i = CONTENT_CHEST;
 	f = &content_features(i);
 	f->description = gettext("Chest");
@@ -1252,7 +1095,6 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
 	f->setNodeBox(NodeBox(
 		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
 	));
@@ -1292,7 +1134,6 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
 	f->setNodeBox(NodeBox(
 		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
 	));
@@ -1332,7 +1173,6 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-		//-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.4375*BS,0.4375*BS
 	f->setNodeBox(NodeBox(
 		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
 	));
@@ -1354,6 +1194,45 @@ void content_mapnode_special(bool repeat)
 	f->hardness = 1.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CHEST_JUNGLE);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CHEST_APPLE;
+	f = &content_features(i);
+	f->description = gettext("Chest");
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("applewood.png^chests_side.png");
+	f->setTexture(0, "applewood.png^chests_top.png");
+	f->setTexture(1, "applewood.png^chests_top.png");
+	f->setTexture(4, "applewood.png^chests_back.png");
+	f->setTexture(5, "applewood.png^chests_front.png"); // Z-
+	f->param_type = CPT_LIGHT;
+	f->param2_type = CPT_FACEDIR_SIMPLE;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->rotate_tile_with_nodebox = true;
+	f->setNodeBox(NodeBox(
+		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
+	));
+	f->addNodeBox(NodeBox(
+		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
+	));
+	f->setInventoryTextureNodeBox(i,"applewood.png^chests_top.png", "applewood.png^chests_front.png", "applewood.png^chests_side.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new ChestNodeMetadata();
+	f->sound_access = "open-chest";
+	f->type = CMT_WOOD;
+	f->hardness = 1.0;
+	f->pressure_type = CST_SOLID;
+	crafting::setRoundRecipe(CONTENT_APPLEWOOD,CONTENT_CHEST_APPLE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

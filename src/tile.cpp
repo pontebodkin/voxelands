@@ -1795,8 +1795,12 @@ bool generate_image(std::string part_of_name, video::IImage *& baseimg,
 			gui::IGUIFont *std_font = skin->getFont();
 			static gui::IGUIFont *tex_font = NULL;
 #if USE_FREETYPE
-			if (path_get("font","unifont.ttf",1,buff,1024))
-				tex_font = gui::CGUITTFont::createTTFont(guienv, buff,12);
+			if (path_get("font","unifont.ttf",1,buff,1024)) {
+				int sz = 10*((dim.Width/16)+1);
+				if (sz < 10)
+					sz = 12;
+				tex_font = gui::CGUITTFont::createTTFont(guienv, buff,sz);
+			}
 #else
 			if (path_get((char*)"texture",(char*)"fontlucida.png",1,buff,1024))
 				tex_font = guienv->getFont(buff);
