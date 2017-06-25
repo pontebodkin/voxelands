@@ -131,7 +131,7 @@ void ChestNodeMetadata::inventoryModified()
 	int i;
 	int k;
 	int a[3] = {1,1,1};
-	int ex = 0;
+	int b[3] = {0,0,0};
 	Inventory *inv;
 	InventoryList *il;
 	InventoryList *im;
@@ -147,7 +147,7 @@ void ChestNodeMetadata::inventoryModified()
 			continue;
 		if (itm->getContent() == CONTENT_CHEST) {
 			if (m_is_expanded) {
-				ex = 1;
+				b[0] = 1;
 				continue;
 			}
 			if (m_is_exo)
@@ -176,17 +176,20 @@ void ChestNodeMetadata::inventoryModified()
 			l = il;
 			m = im;
 			a[2] = 0;
-			ex = 1;
+			b[0] = 1;
 			m_is_expanded = true;
 			m_expanded_slot_id = i;
 		}else if (itm->getContent() == CONTENT_TOOLITEM_KEY) {
 			if (m_is_exo)
 				continue;
 			a[2] = 0;
+			b[1] = 1;
 			m_is_locked = true;
 		}else if (itm->getContent() == CONTENT_CRAFTITEM_OERKKI_DUST) {
-			if (m_is_exo)
+			if (m_is_exo) {
+				b[2] = 1;
 				continue;
+			}
 			if (m->getUsedSlots() != 0)
 				continue;
 			if (l->getUsedSlots() != 1)
@@ -198,10 +201,11 @@ void ChestNodeMetadata::inventoryModified()
 			m_is_exo = true;
 			a[0] = 0;
 			a[1] = 0;
+			b[2] = 1;
 		}
 	}
 
-	if (m_is_expanded && !ex) {
+	if (m_is_expanded && !b[0]) {
 		inv = new Inventory();
 		inv->addList("upgrades", 2);
 		inv->addList("main", 18);
@@ -232,6 +236,12 @@ void ChestNodeMetadata::inventoryModified()
 			m_is_expanded = false;
 		}
 	}
+
+	if (m_is_locked && !b[1])
+		m_is_locked = false;
+
+	if (m_is_exo && !b[2])
+		m_is_exo = false;
 
 	if (m_is_expanded || m_is_locked || m->getUsedSlots() != 0)
 		a[2] = 0;
@@ -289,6 +299,29 @@ std::string ChestNodeMetadata::getDrawSpecString(Player *player)
 std::vector<NodeBox> ChestNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
+
+	if (m_is_locked) {
+		boxes.push_back(NodeBox(
+			v3s16(0,180,0),aabb3f(-0.125*BS,-0.3125*BS,-0.5*BS,0.125*BS,-0.125*BS,-0.4375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,180,0),aabb3f(0.0625*BS,-0.125*BS,-0.5*BS,0.09375*BS,0.0,-0.4375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,180,0),aabb3f(-0.09375*BS,-0.125*BS,-0.5*BS,-0.0625*BS,0.0,-0.4375*BS)
+		));
+	}else if (m_is_exo) {
+		boxes.push_back(NodeBox(
+			aabb3f(-0.125*BS,-0.3125*BS,0.4375*BS,0.125*BS,-0.1875*BS,0.5*BS)
+		));
+		boxes.push_back(NodeBox(
+			aabb3f(-0.0625*BS,-0.375*BS,0.4375*BS,0.0625*BS,-0.3125*BS,0.5*BS)
+		));
+		boxes.push_back(NodeBox(
+			aabb3f(-0.0625*BS,-0.1875*BS,0.4375*BS,0.0625*BS,-0.125*BS,0.5*BS)
+		));
+	}
+
 	return boxes;
 }
 std::string ChestNodeMetadata::getOwner()
