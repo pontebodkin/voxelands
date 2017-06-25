@@ -105,6 +105,26 @@ void content_mapnode_stair(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_APPLEWOOD_STAIR;
+	f = &content_features(i);
+	f->description = gettext("Apple wood Stair");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_STAIRLIKE;
+	f->setAllTextures("applewood.png");
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	content_nodebox_stair(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_CORNER;
+	f->onpunch_replace_respects_borderstone = true;
+	crafting::setStairRecipe(CONTENT_APPLEWOOD,CONTENT_APPLEWOOD_STAIR);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
 	i = CONTENT_WOOD_STAIR;
 	f = &content_features(i);
 	f->description = gettext("Wood Stair");
@@ -265,6 +285,23 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->suffocation_per_second = 0;
 
+	i = CONTENT_APPLEWOOD_STAIR_UD;
+	f = &content_features(i);
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->setAllTextures("applewood.png");
+	f->draw_type = CDT_STAIRLIKE;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_STAIR)+" 1";
+	content_nodebox_stairud(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_CORNER_UD;
+	f->onpunch_replace_respects_borderstone = true;
+	f->suffocation_per_second = 0;
+
 	i = CONTENT_WOOD_STAIR_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -410,6 +447,23 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_STONE_INNER_STAIR_CORNER;
 	f->onpunch_replace_respects_borderstone = true;
 
+	i = CONTENT_APPLEWOOD_STAIR_CORNER;
+	f = &content_features(i);
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->setAllTextures("applewood.png");
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_STAIR)+" 1";
+	content_nodebox_stair_corner(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_INNER_STAIR_CORNER;
+	f->onpunch_replace_respects_borderstone = true;
+
 	i = CONTENT_WOOD_STAIR_CORNER;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -551,6 +605,23 @@ void content_mapnode_stair(bool repeat)
 	f->onpunch_replace_node = CONTENT_STONE_INNER_STAIR_CORNER_UD;
 	f->onpunch_replace_respects_borderstone = true;
 
+	i = CONTENT_APPLEWOOD_STAIR_CORNER_UD;
+	f = &content_features(i);
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->setAllTextures("applewood.png");
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_STAIR)+" 1";
+	content_nodebox_stair_cornerud(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_INNER_STAIR_CORNER_UD;
+	f->onpunch_replace_respects_borderstone = true;
+
 	i = CONTENT_WOOD_STAIR_CORNER_UD;
 	f = &content_features(i);
 	f->param_type = CPT_FACEDIR_SIMPLE;
@@ -687,6 +758,23 @@ void content_mapnode_stair(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_STAIR;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_INNER_STAIR_CORNER;
+	f = &content_features(i);
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->setAllTextures("applewood.png");
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_STAIR)+" 1";
+	content_nodebox_inner_stair_corner(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR;
 	f->onpunch_replace_respects_borderstone = true;
 
 	i = CONTENT_WOOD_INNER_STAIR_CORNER;
@@ -829,6 +917,23 @@ void content_mapnode_stair(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_STAIR_UD;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_INNER_STAIR_CORNER_UD;
+	f = &content_features(i);
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX;
+	f->setAllTextures("applewood.png");
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_STAIR)+" 1";
+	content_nodebox_inner_stair_cornerud(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_UD;
 	f->onpunch_replace_respects_borderstone = true;
 
 	i = CONTENT_WOOD_INNER_STAIR_CORNER_UD;

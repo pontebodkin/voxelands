@@ -2793,6 +2793,67 @@ void content_mapnode_init(bool repeat)
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
+	i = CONTENT_APPLEWOOD_COLUMN_SQUARE;
+	f = &content_features(i);
+	f->description = gettext("Apple wood Column");
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->air_equivalent = true; // grass grows underneath
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_square(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_SQUARE_BASE;
+	f->onpunch_replace_respects_borderstone = true;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->fuel_time = 30/4;
+	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
+	crafting::setCol3Recipe(CONTENT_APPLEWOOD,CONTENT_APPLEWOOD_COLUMN_SQUARE);
+	content_list_add("cooking",i,1,0);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+	
+	i = CONTENT_APPLEWOOD_COLUMN_SQUARE_BASE;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_COLUMN_SQUARE)+" 1";
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_square_base(f);
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_SQUARE_TOP;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_COLUMN_SQUARE_TOP;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_COLUMN_SQUARE)+" 1";
+	f->air_equivalent = true; // grass grows underneath
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_square_top(f);
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_CROSS;
+	f->onpunch_replace_respects_borderstone = true;
+
 	i = CONTENT_WOOD_COLUMN_SQUARE;
 	f = &content_features(i);
 	f->description = gettext("Wood Column");
@@ -3261,6 +3322,59 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_SQUARE;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_COLUMN_CROSS;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_COLUMN_SQUARE)+" 1";
+	f->air_equivalent = true; // grass grows underneath
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_cross(f);
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_CROSS_BASE;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_COLUMN_CROSS_BASE;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_COLUMN_SQUARE)+" 1";
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_cross_base(f);
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_CROSS_TOP;
+	f->onpunch_replace_respects_borderstone = true;
+
+	i = CONTENT_APPLEWOOD_COLUMN_CROSS_TOP;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->param_type = CPT_LIGHT;
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_COLUMN_SQUARE)+" 1";
+	f->air_equivalent = true; // grass grows underneath
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	content_nodebox_column_cross_top(f);
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->flammable = 1; // can be replaced by fire if the node under
+					  // it is set on fire
+	f->onpunch_replace_node = CONTENT_APPLEWOOD_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
 	i = CONTENT_WOOD_COLUMN_CROSS;
