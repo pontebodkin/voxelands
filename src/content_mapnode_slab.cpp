@@ -44,7 +44,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"roughstone.png", "roughstone.png", "roughstone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -62,7 +62,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"cobble.png", "cobble.png", "cobble.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_COBBLE,CONTENT_COBBLE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -80,7 +80,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"mossycobble.png", "mossycobble.png", "mossycobble.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.8;
+	f->dig_time = 0.8;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_MOSSYCOBBLE,CONTENT_MOSSYCOBBLE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -97,7 +97,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"stone.png", "stone.png", "stone.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_STONE,CONTENT_STONE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -116,7 +116,7 @@ void content_mapnode_slab(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_WOOD,CONTENT_WOOD_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -135,7 +135,7 @@ void content_mapnode_slab(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30;
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_JUNGLEWOOD,CONTENT_JUNGLE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -156,7 +156,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"brick_top.png", "brick.png", "brick_side.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_BRICK,CONTENT_BRICK_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -173,7 +173,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"sandstone.png", "sandstone.png", "sandstone.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -198,7 +198,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png", "glass_slab.png^glass.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -223,7 +223,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_BLUE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_GLASS_BLUE_SLAB);
@@ -249,7 +249,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_GREEN_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_GLASS_GREEN_SLAB);
@@ -275,7 +275,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_ORANGE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_GLASS_ORANGE_SLAB);
@@ -301,7 +301,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_PURPLE_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_GLASS_PURPLE_SLAB);
@@ -327,7 +327,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_RED_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_RED,CONTENT_GLASS_RED_SLAB);
@@ -353,7 +353,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_YELLOW_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_GLASS_YELLOW_SLAB);
@@ -379,7 +379,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_GLASS,CONTENT_GLASS_BLACK_SLAB);
 	crafting::set1Any2Recipe(CONTENT_GLASS_SLAB,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_GLASS_BLACK_SLAB);
@@ -398,7 +398,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"limestone.png", "limestone.png", "limestone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setRow3Recipe(CONTENT_LIMESTONE,CONTENT_LIMESTONE_SLAB);
 	content_list_add("craftguide",i,1,0);
@@ -416,7 +416,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"roughstone.png", "roughstone.png", "roughstone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_COBBLE_SLAB_UD;
@@ -431,7 +431,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"cobble.png", "cobble.png", "cobble.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_MOSSYCOBBLE_SLAB_UD;
@@ -445,7 +445,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"mossycobble.png", "mossycobble.png", "mossycobble.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.8;
+	f->dig_time = 0.8;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_STONE_SLAB_UD;
@@ -458,7 +458,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"stone.png", "stone.png", "stone.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_WOOD_SLAB_UD;
@@ -473,7 +473,7 @@ void content_mapnode_slab(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_JUNGLE_SLAB_UD;
@@ -488,7 +488,7 @@ void content_mapnode_slab(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30;
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_BRICK_SLAB_UD;
@@ -505,7 +505,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"brick_top.png", "brick.png^[transformfy", "brick_side.png^[transformfy");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_SANDSTONE_SLAB_UD;
@@ -518,7 +518,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"sandstone.png", "sandstone.png", "sandstone.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_SLAB_UD;
@@ -540,7 +540,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png", "glass_slab.png^glass.png", "glass_slab.png^glass.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_BLUE_SLAB_UD;
@@ -562,7 +562,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png", "glass_slab.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_GREEN_SLAB_UD;
@@ -584,7 +584,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png", "glass_slab.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_ORANGE_SLAB_UD;
@@ -606,7 +606,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png", "glass_slab.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_PURPLE_SLAB_UD;
@@ -628,7 +628,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png", "glass_slab.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_RED_SLAB_UD;
@@ -650,7 +650,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png", "glass_slab.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_YELLOW_SLAB_UD;
@@ -672,7 +672,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png", "glass_slab.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_GLASS_BLACK_SLAB_UD;
@@ -694,7 +694,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"glass.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png", "glass_slab.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_LIMESTONE_SLAB_UD;
@@ -708,6 +708,6 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"limestone.png", "limestone.png", "limestone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 }

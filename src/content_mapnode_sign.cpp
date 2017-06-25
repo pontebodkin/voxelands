@@ -50,7 +50,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN;
@@ -80,7 +80,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN_WALL;
@@ -105,7 +105,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_LOCKABLE_SIGN_UD;
@@ -130,7 +130,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
@@ -160,7 +160,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_wall(f);
@@ -184,7 +184,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_ud(f);
@@ -208,7 +208,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
@@ -237,7 +237,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_wall(f);
@@ -261,7 +261,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_ud(f);
@@ -285,7 +285,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
@@ -314,7 +314,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_wall(f);
@@ -338,7 +338,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_ud(f);
@@ -362,7 +362,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_STONE;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
@@ -391,7 +391,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_STONE;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_wall(f);
@@ -415,7 +415,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_STONE;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_sign_ud(f);
@@ -443,7 +443,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_SIGN_WALL;
@@ -469,7 +469,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_SIGN;
@@ -499,7 +499,7 @@ void content_mapnode_sign(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->alternate_lockstate_node = CONTENT_SIGN_UD;

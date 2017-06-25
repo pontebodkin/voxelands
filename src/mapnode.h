@@ -503,8 +503,8 @@ struct ContentFeatures
 
 	// the material type (stone, wood, etc)
 	ContentMaterialType type;
-	// the hardness of the node
-	f32 hardness;
+	// the dig time of the node
+	f32 dig_time;
 	// for pistons
 	ContentPressureType pressure_type;
 
@@ -619,7 +619,7 @@ struct ContentFeatures
 		liquid_viscosity = 0;
 		light_source = 0;
 		type = CMT_AIR;
-		hardness = 1.0;
+		dig_time = 1.0;
 		pressure_type = CST_MOVABLE;
 		damage_per_second = 0;
 		suffocation_per_second = 20;

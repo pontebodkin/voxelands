@@ -46,7 +46,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	if (f->initial_metadata == NULL)
@@ -79,7 +79,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	if (f->initial_metadata == NULL)
@@ -112,7 +112,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	if (f->initial_metadata == NULL)
@@ -145,7 +145,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
 	if (f->initial_metadata == NULL)
@@ -175,7 +175,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -194,7 +194,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -213,7 +213,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -232,7 +232,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -251,7 +251,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -270,7 +270,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -299,7 +299,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -318,7 +318,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -337,7 +337,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -356,7 +356,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -375,7 +375,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -394,7 +394,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLUE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -417,7 +417,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -436,7 +436,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -455,7 +455,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -474,7 +474,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -493,7 +493,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -512,7 +512,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_GREEN;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -535,7 +535,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -554,7 +554,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -573,7 +573,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -592,7 +592,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -611,7 +611,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -630,7 +630,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_ORANGE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -653,7 +653,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -672,7 +672,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -691,7 +691,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -710,7 +710,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -729,7 +729,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -748,7 +748,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_PURPLE;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -771,7 +771,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -790,7 +790,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -809,7 +809,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -828,7 +828,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -847,7 +847,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -866,7 +866,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_RED;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -889,7 +889,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -908,7 +908,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -927,7 +927,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -946,7 +946,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -965,7 +965,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -984,7 +984,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_YELLOW;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -1007,7 +1007,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_centre(f);
@@ -1026,7 +1026,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_left(f);
@@ -1045,7 +1045,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_right(f);
@@ -1064,7 +1064,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_inner(f);
@@ -1083,7 +1083,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_outer(f);
@@ -1102,7 +1102,7 @@ void content_mapnode_furniture(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLACK;
 	f->onpunch_replace_respects_borderstone = true;
 	content_nodebox_couch_chair(f);
@@ -1132,7 +1132,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1165,7 +1165,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1188,7 +1188,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1211,7 +1211,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1234,7 +1234,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1257,7 +1257,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onpunch_replace_respects_borderstone = true;
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1277,7 +1277,7 @@ void content_mapnode_furniture(bool repeat)
 	content_nodebox_table(f);
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1314,7 +1314,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON,CONTENT_BED_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1346,7 +1346,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1373,7 +1373,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_BLUE,CONTENT_BED_BLUE_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1405,7 +1405,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1432,7 +1432,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_GREEN,CONTENT_BED_GREEN_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1464,7 +1464,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1491,7 +1491,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_ORANGE,CONTENT_BED_ORANGE_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1523,7 +1523,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1550,7 +1550,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_PURPLE,CONTENT_BED_PURPLE_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1582,7 +1582,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1609,7 +1609,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_RED,CONTENT_BED_RED_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1641,7 +1641,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1668,7 +1668,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_YELLOW,CONTENT_BED_YELLOW_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1700,7 +1700,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1727,7 +1727,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	crafting::setBedRecipe(CONTENT_COTTON_BLACK,CONTENT_BED_BLACK_HEAD);
 	content_list_add("craftguide",i,1,0);
@@ -1759,7 +1759,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1781,7 +1781,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_slab(f);
 	f->type = CMT_PLANT;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		content_t r[9] = {
@@ -1815,7 +1815,7 @@ void content_mapnode_furniture(bool repeat)
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_slab(f);
 	f->type = CMT_PLANT;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1839,7 +1839,7 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_WHITE)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1873,7 +1873,7 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_RED)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1907,7 +1907,7 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_GREEN)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1941,7 +1941,7 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_BLUE)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	{
 		u16 r[9] = {
@@ -1975,7 +1975,7 @@ void content_mapnode_furniture(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_CANVAS)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	crafting::set1Any2Recipe(CONTENT_PAINTING_WHITE,CONTENT_CRAFTITEM_STARCH,CONTENT_PAINTING_CANVAS);
 	crafting::set1Any2Recipe(CONTENT_PAINTING_RED,CONTENT_CRAFTITEM_STARCH,CONTENT_PAINTING_CANVAS);
@@ -2010,7 +2010,7 @@ void content_mapnode_furniture(bool repeat)
 	f->fuel_time = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	content_nodebox_clock(f);
 	f->setInventoryTextureNodeBox(i,"clock.png","clock_front.png","clock.png");
 	f->pressure_type = CST_CRUSHABLE;

@@ -55,7 +55,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_DOOR_LT;
@@ -82,7 +82,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_WOOD_HATCH,CONTENT_WOOD_HATCH,CONTENT_WOOD_DOOR_LT);
@@ -110,7 +110,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -138,7 +138,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -173,7 +173,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_GLASS_DOOR_LT;
@@ -202,7 +202,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_GLASS_PANE,CONTENT_GLASS_PANE,CONTENT_GLASS_DOOR_LT);
@@ -233,7 +233,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_W_DOOR_LT;
@@ -261,7 +261,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorw(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_WOOD_W_HATCH,CONTENT_WOOD_HATCH,CONTENT_WOOD_W_DOOR_LT);
@@ -291,7 +291,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -320,7 +320,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_doorw(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -355,7 +355,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_DOOR_RT;
@@ -382,7 +382,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -413,7 +413,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_GLASS_DOOR_RT;
@@ -443,7 +443,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -469,7 +469,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -497,7 +497,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -529,7 +529,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_W_DOOR_RT;
@@ -557,7 +557,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorw(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -584,7 +584,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -613,7 +613,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_doorw(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -647,7 +647,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_DOOR_LT_OPEN;
@@ -672,7 +672,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -700,7 +700,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_GLASS_DOOR_LT_OPEN;
@@ -727,7 +727,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -751,7 +751,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -777,7 +777,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -806,7 +806,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_W_DOOR_LT_OPEN;
@@ -831,7 +831,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorwol(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -855,7 +855,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -881,7 +881,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorwol(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -913,7 +913,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_DOOR_RT_OPEN;
@@ -940,7 +940,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -970,7 +970,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_dooror(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_GLASS_DOOR_RT_OPEN;
@@ -998,7 +998,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1024,7 +1024,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1052,7 +1052,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1083,7 +1083,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	i = CONTENT_WOOD_W_DOOR_RT_OPEN;
@@ -1110,7 +1110,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_doorwor(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1136,7 +1136,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1164,7 +1164,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorwor(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1190,7 +1190,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_hatch(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD_HATCH);
@@ -1214,7 +1214,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_hatch(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1245,7 +1245,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_hatchw(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_WOOD_HATCH,CONTENT_WOOD_W_HATCH);
@@ -1271,7 +1271,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_hatchw(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1302,7 +1302,7 @@ void content_mapnode_door(bool repeat)
 	content_nodebox_gate(f);
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	crafting::setGateRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD,CONTENT_WOOD_GATE);
@@ -1332,7 +1332,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-dooropen";
 	content_nodebox_gate(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1366,7 +1366,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_hatcho(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1391,7 +1391,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_hatcho(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1421,7 +1421,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_hatchwo(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1446,7 +1446,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_hatchwo(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;
@@ -1474,7 +1474,7 @@ void content_mapnode_door(bool repeat)
 	f->fuel_time = 30;
 	content_nodebox_gateo(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -1497,7 +1497,7 @@ void content_mapnode_door(bool repeat)
 	f->sound_punch = "env-doorclose";
 	content_nodebox_gateo(f);
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->energy_type = CET_DEVICE;

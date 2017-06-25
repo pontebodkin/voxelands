@@ -45,7 +45,7 @@ void content_mapnode_circuit(bool repeat)
 	f->air_equivalent = true; // grass grows underneath
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_MITHRILDUST)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
@@ -68,7 +68,7 @@ void content_mapnode_circuit(bool repeat)
 	f->air_equivalent = true; // grass grows underneath
 	f->dug_item = std::string("MaterialItem2 ") + itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
@@ -97,7 +97,7 @@ void content_mapnode_circuit(bool repeat)
 	f->light_source = 10;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->suffocation_per_second = 0;
 	content_nodebox_battery(f);
 	f->setInventoryTextureNodeBox(i,"circuit_reactor_top.png","circuit_reactor.png","circuit_reactor.png");
@@ -120,7 +120,7 @@ void content_mapnode_circuit(bool repeat)
 	f->sunlight_propagates = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"circuit_solarpanel_top.png","wood.png","wood.png");
@@ -153,7 +153,7 @@ void content_mapnode_circuit(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	content_nodebox_waterwheel(f);
 	f->setInventoryTextureNodeBox(i,"circuit_waterwheel.png","circuit_waterwheel.png","circuit_waterwheel_side.png");
 	if (f->initial_metadata == NULL)
@@ -187,7 +187,7 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_drop = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_switch(f);
 	f->setInventoryTextureNodeBox(i,"stone.png","circuit_switch_front.png","stone.png");
@@ -218,7 +218,7 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_drop = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_button(f);
 	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
@@ -246,7 +246,7 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_drop = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"pressureplate_stone_top.png","stone.png","stone.png");
@@ -274,7 +274,7 @@ void content_mapnode_circuit(bool repeat)
 	f->energy_drop = 0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"pressureplate_wood_top.png","stone.png","stone.png");
@@ -305,7 +305,7 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_logicgate(f);
 	f->setInventoryTextureNodeBox(i,"circuit_gate_top.png","circuit_gate.png","circuit_gate.png");
@@ -336,7 +336,7 @@ void content_mapnode_circuit(bool repeat)
 	f->light_propagates = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_nodebox_logicgate(f);
 	f->setInventoryTextureNodeBox(i,"circuit_repeater_top.png","circuit_repeater.png","circuit_repeater.png");
@@ -368,7 +368,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setAllTextures("circuit_lamp_on.png");
 	f->setInventoryTextureCube("circuit_lamp.png", "circuit_lamp.png", "circuit_lamp.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new CircuitNodeMetadata();
 
@@ -389,7 +389,7 @@ void content_mapnode_circuit(bool repeat)
 #endif
 	f->setInventoryTextureCube("circuit_lamp.png", "circuit_lamp.png", "circuit_lamp.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new CircuitNodeMetadata();
 	{
@@ -424,7 +424,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(5,"circuit_piston_arm_top.png");
 	f->setInventoryTextureCube("circuit_piston.png^[transformR90", "circuit_piston_arm_top.png", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 	{
@@ -458,7 +458,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston(f);
 	f->setInventoryTextureCube("circuit_piston.png^[transformR90", "circuit_piston_top.png", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -483,7 +483,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm(f);
 	f->setInventoryTextureCube("circuit_piston_arm.png", "circuit_piston_arm_top.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -504,7 +504,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(1,"circuit_piston_bottom.png");
 	f->setInventoryTextureCube("circuit_piston_arm_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 
@@ -524,7 +524,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston_up(f);
 	f->setInventoryTextureCube("circuit_piston_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -544,7 +544,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm_up(f);
 	f->setInventoryTextureCube("circuit_piston_arm_top.png", "circuit_piston_arm.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -565,7 +565,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(1,"circuit_piston_arm_top.png");
 	f->setInventoryTextureCube("circuit_piston_arm_bottom.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 
@@ -585,7 +585,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston_down(f);
 	f->setInventoryTextureCube("circuit_piston_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -605,7 +605,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm_down(f);
 	f->setInventoryTextureCube("circuit_piston_arm.png", "circuit_piston_arm_top.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -630,7 +630,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(5,"circuit_stickypiston_arm_top.png");
 	f->setInventoryTextureCube("circuit_piston.png^[transformR90", "circuit_stickypiston_arm_top.png", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_RESIN,CONTENT_CIRCUIT_PISTON_OFF,CONTENT_CIRCUIT_STICKYPISTON_OFF);
@@ -657,7 +657,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston(f);
 	f->setInventoryTextureCube("circuit_piston.png^[transformR90", "circuit_piston_top.png", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -682,7 +682,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm(f);
 	f->setInventoryTextureCube("circuit_piston_arm.png", "circuit_stickypiston_arm_top.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -703,7 +703,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(1,"circuit_piston_bottom.png");
 	f->setInventoryTextureCube("circuit_stickypiston_arm_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 
@@ -723,7 +723,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston_up(f);
 	f->setInventoryTextureCube("circuit_piston_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -743,7 +743,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm_up(f);
 	f->setInventoryTextureCube("circuit_stickypiston_arm_top.png", "circuit_piston_arm.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
@@ -764,7 +764,7 @@ void content_mapnode_circuit(bool repeat)
 	f->setTexture(1,"circuit_stickypiston_arm_top.png");
 	f->setInventoryTextureCube("circuit_piston_arm_bottom.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
 
@@ -784,7 +784,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_piston_down(f);
 	f->setInventoryTextureCube("circuit_piston_top.png", "circuit_piston.png^[transformR90", "circuit_piston.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new PistonNodeMetadata();
@@ -804,7 +804,7 @@ void content_mapnode_circuit(bool repeat)
 	content_nodebox_pistonarm_down(f);
 	f->setInventoryTextureCube("circuit_piston_arm.png", "circuit_stickypiston_arm_top.png", "circuit_piston_arm.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 }

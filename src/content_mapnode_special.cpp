@@ -48,7 +48,7 @@ void content_mapnode_special(bool repeat)
 	f->fuel_time = 15;
 	f->special_alternate_node = CONTENT_WOOD;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
@@ -74,7 +74,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true; // grass grows underneath
 	f->special_alternate_node = CONTENT_STEEL;
 	f->type = CMT_STONE;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	f->destructive_mob_safe = true;
@@ -101,7 +101,7 @@ void content_mapnode_special(bool repeat)
 	f->fuel_time = 15;
 	f->special_alternate_node = CONTENT_JUNGLEWOOD;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
@@ -127,7 +127,7 @@ void content_mapnode_special(bool repeat)
 	f->fuel_time = 15;
 	f->special_alternate_node = CONTENT_WOOD_PINE;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
@@ -153,7 +153,7 @@ void content_mapnode_special(bool repeat)
 	f->fuel_time = 15;
 	f->special_alternate_node = CONTENT_APPLEWOOD;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_fence_inv(f);
@@ -176,7 +176,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true; // grass grows underneath
 	f->special_alternate_node = CONTENT_STEEL;
 	f->type = CMT_STONE;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	content_nodebox_bars(f);
@@ -205,7 +205,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->type = CMT_DIRT;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
 	{
 		u16 r[9] = {
@@ -232,7 +232,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -248,7 +248,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -265,7 +265,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -288,7 +288,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -310,7 +310,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -332,7 +332,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -355,7 +355,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -378,7 +378,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -401,7 +401,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -424,7 +424,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -447,7 +447,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -470,7 +470,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_GLASS;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -487,7 +487,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
@@ -515,7 +515,7 @@ void content_mapnode_special(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->setNodeBox(core::aabbox3d<f32>(
@@ -574,7 +574,7 @@ void content_mapnode_special(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->setNodeBox(core::aabbox3d<f32>(
@@ -608,7 +608,7 @@ void content_mapnode_special(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->setNodeBox(core::aabbox3d<f32>(
@@ -635,7 +635,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new BorderStoneNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 2.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setFilledRoundRecipe(CONTENT_STONE,CONTENT_CRAFTITEM_MITHRIL_RAW,CONTENT_BORDERSTONE);
 	crafting::setFilledRoundRecipe(CONTENT_STONE,CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_BORDERSTONE);
@@ -673,7 +673,7 @@ void content_mapnode_special(bool repeat)
 	f->setFaceText(0,FaceText(0.45,0.3,0.9875,0.7375));
 	f->setInventoryTextureNodeBox(i, "book_cover.png", "book_end.png^[transformFX", "book_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol1Recipe(CONTENT_CRAFTITEM_PAPER,i);
@@ -703,7 +703,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_cook_cover.png", "book_cook_end.png^[transformFX", "book_cook_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_COAL,i);
@@ -734,7 +734,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_decraft_cover.png", "book_decraft_end.png^[transformFX", "book_decraft_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_GUNPOWDER,i);
@@ -765,7 +765,7 @@ void content_mapnode_special(bool repeat)
 	f->setFaceText(0,FaceText(0.45,0.3,0.9875,0.7375));
 	f->setInventoryTextureNodeBox(i, "book_diary_cover.png", "book_diary_end.png^[transformFX", "book_diary_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_STEEL_INGOT,i);
@@ -795,7 +795,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_craft_cover.png", "book_craft_end.png^[transformFX", "book_craft_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_MITHRIL_RAW,i);
@@ -834,7 +834,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_book(f);
 	f->setInventoryTextureNodeBox(i, "book_rcraft_cover.png", "book_rcraft_end.png^[transformFX", "book_rcraft_side.png^[transformFY");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	{
@@ -871,7 +871,7 @@ void content_mapnode_special(bool repeat)
 	f->setFaceText(0,FaceText(0.15,0.35,0.85,0.85,FTT_BOOKCONTENT));
 	f->setInventoryTextureNodeBox(i, "guide_top.png", "guide_end.png", "guide_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -898,7 +898,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_cook_top.png", "guide_cook_end.png", "guide_cook_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -925,7 +925,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_decraft_top.png", "guide_decraft_end.png", "guide_decraft_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -953,7 +953,7 @@ void content_mapnode_special(bool repeat)
 	f->setFaceText(0,FaceText(0.15,0.35,0.85,0.85,FTT_BOOKCONTENT));
 	f->setInventoryTextureNodeBox(i, "guide_diary_top.png", "guide_diary_end.png", "guide_diary_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -980,7 +980,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_craft_top.png", "guide_craft_end.png", "guide_craft_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -1007,7 +1007,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_guide(f);
 	f->setInventoryTextureNodeBox(i, "guide_rcraft_top.png", "guide_rcraft_end.png", "guide_rcraft_side.png");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
@@ -1071,7 +1071,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_source = LIGHT_MAX-1;
 	f->type = CMT_WOOD;
-	f->hardness = 0.0;
+	f->dig_time = 0.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1over4Recipe(CONTENT_CRAFTITEM_COAL,CONTENT_CRAFTITEM_STICK,CONTENT_TORCH);
@@ -1113,7 +1113,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new ChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setRoundRecipe(CONTENT_WOOD,CONTENT_CHEST);
 	content_list_add("craftguide",i,1,0);
@@ -1152,7 +1152,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new ChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setRoundRecipe(CONTENT_WOOD_PINE,CONTENT_CHEST_PINE);
 	content_list_add("craftguide",i,1,0);
@@ -1191,7 +1191,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new ChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setRoundRecipe(CONTENT_JUNGLEWOOD,CONTENT_CHEST_JUNGLE);
 	content_list_add("craftguide",i,1,0);
@@ -1230,7 +1230,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new ChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	crafting::setRoundRecipe(CONTENT_APPLEWOOD,CONTENT_CHEST_APPLE);
 	content_list_add("craftguide",i,1,0);
@@ -1252,7 +1252,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new DeprecatedChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 
 	i = CONTENT_CREATIVE_CHEST;
@@ -1271,7 +1271,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new CreativeChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	content_list_add("player-creative",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -1293,7 +1293,7 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new LockingDeprecatedChestNodeMetadata();
 	f->sound_access = "open-chest";
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 
 	i = CONTENT_SAFE;
@@ -1311,7 +1311,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SafeNodeMetadata();
 	f->type = CMT_WOOD;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->destructive_mob_safe = true;
 	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_SAFE);
@@ -1337,7 +1337,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new FurnaceNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 	f->alternate_lockstate_node = CONTENT_LOCKABLE_FURNACE;
 	crafting::setRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_FURNACE);
@@ -1359,7 +1359,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new FurnaceNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 
 	i = CONTENT_LOCKABLE_FURNACE;
@@ -1381,7 +1381,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingFurnaceNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 	f->alternate_lockstate_node = CONTENT_FURNACE;
 	crafting::setFilledRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_FURNACE);
@@ -1404,7 +1404,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingFurnaceNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 
 	i = CONTENT_INCINERATOR;
@@ -1426,7 +1426,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new IncineratorNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_SOLID;
 	crafting::setFilledRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_INCINERATOR);
 	content_list_add("craftguide",i,1,0);
@@ -1447,7 +1447,7 @@ void content_mapnode_special(bool repeat)
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new IncineratorNodeMetadata();
 	f->type = CMT_STONE;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_SOLID;
 
 
@@ -1479,7 +1479,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new CampFireNodeMetadata();
 	f->type = CMT_WOOD;
-	f->hardness = 2.0;
+	f->dig_time = 2.0;
 	f->pressure_type = CST_CRUSHED;
 	{
 		u16 r[9] = {
@@ -1505,7 +1505,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureCube("nc_side.png", "nc_front.png", "nc_side.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_NC_RB;
@@ -1516,7 +1516,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureCube("nc_rb.png", "nc_rb.png", "nc_rb.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_FLOWER_POT_RAW;
@@ -1532,7 +1532,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_FLOWER_POT)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	content_nodebox_flower_pot(f);
 	f->setInventoryTextureNodeBox(i,"flower_pot_raw_top.png","flower_pot_raw.png","flower_pot_raw.png");
@@ -1552,7 +1552,7 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	content_nodebox_flower_pot(f);
 	f->setInventoryTextureNodeBox(i,"flower_pot_top.png","flower_pot.png","flower_pot.png");
 	content_list_add("creative",i,1,0);
@@ -1575,7 +1575,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cobble.png","cobble.png","cobble.png");
 	f->special_alternate_node = CONTENT_COBBLE;
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_COBBLE,CONTENT_COBBLE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1598,7 +1598,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->special_alternate_node = CONTENT_ROUGHSTONE;
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1621,7 +1621,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"mossycobble.png","mossycobble.png","mossycobble.png");
 	f->special_alternate_node = CONTENT_MOSSYCOBBLE;
 	f->type = CMT_STONE;
-	f->hardness = 0.8;
+	f->dig_time = 0.8;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_MOSSYCOBBLE,CONTENT_MOSSYCOBBLE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1644,7 +1644,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"stone.png","stone.png","stone.png");
 	f->special_alternate_node = CONTENT_STONE;
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_STONE,CONTENT_STONE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1667,7 +1667,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"sandstone.png","sandstone.png","sandstone.png");
 	f->special_alternate_node = CONTENT_SANDSTONE;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1690,7 +1690,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"limestone.png","limestone.png","limestone.png");
 	f->special_alternate_node = CONTENT_LIMESTONE;
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_LIMESTONE,CONTENT_LIMESTONE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1713,7 +1713,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"marble.png","marble.png","marble.png");
 	f->special_alternate_node = CONTENT_MARBLE;
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setWallRecipe(CONTENT_MARBLE,CONTENT_MARBLE_WALL);
 	content_list_add("craftguide",i,1,0);
@@ -1733,7 +1733,7 @@ void content_mapnode_special(bool repeat)
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new TNTNodeMetadata();
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_TNT,CONTENT_TNT);
 	content_list_add("craftguide",i,1,0);
@@ -1794,7 +1794,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_WHITE;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	{
 		content_t r[9] = {
@@ -1839,7 +1839,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_BLUE;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_FLAG_BLUE);
 	if(f->initial_metadata == NULL)
@@ -1863,7 +1863,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_GREEN;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_FLAG_GREEN);
 	if(f->initial_metadata == NULL)
@@ -1887,7 +1887,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_ORANGE;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_FLAG_ORANGE);
 	if(f->initial_metadata == NULL)
@@ -1911,7 +1911,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_PURPLE;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_FLAG_PURPLE);
 	if(f->initial_metadata == NULL)
@@ -1935,7 +1935,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_RED;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_RED,CONTENT_FLAG_RED);
 	if(f->initial_metadata == NULL)
@@ -1959,7 +1959,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_YELLOW;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_FLAG_YELLOW);
 	if(f->initial_metadata == NULL)
@@ -1983,7 +1983,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_flag(f);
 	f->home_node = PLAYERFLAG_BLACK;
 	f->type = CMT_WOOD;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->suffocation_per_second = 0;
 	crafting::set1Any2Recipe(CONTENT_FLAG,CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_FLAG_BLACK);
 	if(f->initial_metadata == NULL)
@@ -2002,7 +2002,7 @@ void content_mapnode_special(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	{
 		content_t r[9] = {
@@ -2035,7 +2035,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_parcel(f);
 	f->setInventoryTextureNodeBox(i,"parcel_top.png", "parcel.png", "parcel.png");
 	f->type = CMT_DIRT;
-	f->hardness = 0.01;
+	f->dig_time = 0.01;
 	f->suffocation_per_second = 0;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new ParcelNodeMetadata();
@@ -2048,7 +2048,7 @@ void content_mapnode_special(bool repeat)
 	f->setMetaTexture(0,"water.png");
 	f->draw_type = CDT_NODEBOX_META;
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_cauldron(f);
 	f->setInventoryTextureNodeBox(i,"cauldron_outer.png", "cauldron_outer.png", "cauldron_outer.png");
@@ -2068,7 +2068,7 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(1,"forge_bottom.png");
 	f->draw_type = CDT_NODEBOX;
 	f->type = CMT_STONE;
-	f->hardness = 3.0;
+	f->dig_time = 3.0;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_forge(f);
 	f->setInventoryTextureNodeBox(i,"forge_top.png", "forge_side.png", "forge_side.png");
@@ -2117,7 +2117,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1;
     f->fuel_time = 30/4;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->is_ground_content = true;
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;

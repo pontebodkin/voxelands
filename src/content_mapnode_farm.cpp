@@ -41,7 +41,7 @@ void content_mapnode_farm(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("decrafting",i,1,0);
 
 	i = CONTENT_FERTILIZER;
@@ -57,7 +57,7 @@ void content_mapnode_farm(bool repeat)
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"fertilizer.png", "fertilizer.png", "fertilizer.png");
 	f->type = CMT_DIRT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -75,7 +75,7 @@ void content_mapnode_farm(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set5Recipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_TRELLIS);
@@ -97,7 +97,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_WHEAT;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -117,7 +117,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_MELON;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -139,7 +139,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_PUMPKIN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -161,7 +161,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_POTATO;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -183,7 +183,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_CARROT;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -205,7 +205,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_BEETROOT;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -227,7 +227,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_GRAPEVINE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -249,7 +249,7 @@ void content_mapnode_farm(bool repeat)
 	f->special_alternate_node = CONTENT_FARM_COTTON;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->fuel_time = 2;
 	f->suffocation_per_second = 0;
@@ -273,7 +273,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_WHEAT;
 	f->plantgrowth_large_gives_small = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -291,7 +291,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_FARM_MELON;
 	f->plantgrowth_large_count = 1;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_FARM_PUMPKIN;
@@ -308,7 +308,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_FARM_PUMPKIN;
 	f->plantgrowth_large_count = 1;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	content_list_add("creative",i,1,0);
 	f->pressure_type = CST_CRUSHABLE;
 
@@ -330,7 +330,7 @@ void content_mapnode_farm(bool repeat)
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->light_source = LIGHT_MAX-1;
 	crafting::set1Any2Recipe(CONTENT_TORCH,CONTENT_FARM_PUMPKIN,CONTENT_FARM_PUMPKIN_JACK);
 	content_list_add("creative",i,1,0);
@@ -353,7 +353,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_POTATO;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_POTATO;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -373,7 +373,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_CARROT;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_CARROT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -393,7 +393,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_small_dug_node = CONTENT_SEEDS_BEETROOT;
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_BEETROOT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -414,7 +414,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_CRAFTITEM_GRAPE;
 	f->plantgrowth_trellis_node = CONTENT_FARM_TRELLIS_GRAPE;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -437,7 +437,7 @@ void content_mapnode_farm(bool repeat)
 	f->plantgrowth_large_count = 6;
 	f->plantgrowth_large_gives_small = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -461,7 +461,7 @@ void content_mapnode_farm(bool repeat)
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -479,7 +479,7 @@ void content_mapnode_farm(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.3;
+	f->dig_time = 0.3;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -499,7 +499,7 @@ void content_mapnode_farm(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 }

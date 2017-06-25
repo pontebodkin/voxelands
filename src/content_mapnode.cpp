@@ -224,7 +224,7 @@ void content_mapnode_init(bool repeat)
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
 	content_list_add("decrafting",i,1,0);
 
@@ -241,7 +241,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 	content_list_add("decrafting",i,1,0);
@@ -257,7 +257,7 @@ void content_mapnode_init(bool repeat)
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.1;
+	f->dig_time = 1.1;
 
 	i = CONTENT_MARBLE;
 	f = &content_features(i);
@@ -267,7 +267,7 @@ void content_mapnode_init(bool repeat)
 	f->draw_type = CDT_CUBELIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_ROCK;
@@ -276,7 +276,7 @@ void content_mapnode_init(bool repeat)
 	f->setAllTextures("stone.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.01;
+	f->dig_time = 0.01;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
@@ -303,7 +303,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->warmth_per_second = 10;
 	content_list_add("creative",i,1,0);
 
@@ -318,7 +318,7 @@ void content_mapnode_init(bool repeat)
 	f->fuel_time = 400;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_COAL,CONTENT_COAL);
 	crafting::setUncraftHardBlockRecipe(CONTENT_COAL,CONTENT_CRAFTITEM_COAL);
 	content_list_add("craftguide",i,1,0);
@@ -335,7 +335,7 @@ void content_mapnode_init(bool repeat)
 	f->fuel_time = 400;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_CHARCOAL,CONTENT_CHARCOAL);
 	crafting::setUncraftHardBlockRecipe(CONTENT_CHARCOAL,CONTENT_CRAFTITEM_CHARCOAL);
 	content_list_add("craftguide",i,1,0);
@@ -350,7 +350,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBrickRecipe(CONTENT_STONE,CONTENT_STONEBRICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -364,7 +364,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBlockRecipe(CONTENT_STONE,CONTENT_STONEBLOCK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -380,7 +380,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBRICK)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBrickRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBRICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("player-creative",i,1,0);
@@ -398,7 +398,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBLOCK)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBlockRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBLOCK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -418,7 +418,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 10;
 	f->sound_step = "grass-step";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 	content_list_add("decrafting",i,1,0);
 
@@ -434,7 +434,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->special_alternate_node = CONTENT_GRASS;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 
 	i = CONTENT_GRASS_FOOTSTEPS;
@@ -448,7 +448,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->sound_step = "grass-step";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 
 	i = CONTENT_GRASS_AUTUMN;
@@ -465,7 +465,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 10;
 	f->sound_step = "grass-step";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 	content_list_add("decrafting",i,1,0);
 
@@ -481,7 +481,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->special_alternate_node = CONTENT_GRASS_AUTUMN;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 
 	i = CONTENT_GRASS_FOOTSTEPS_AUTUMN;
@@ -495,7 +495,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MUD)+" 1";
 	f->sound_step = "grass-step";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 
 	i = CONTENT_MUDSNOW;
@@ -511,7 +511,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 1";
 	f->extra_dug_item_rarity = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("decrafting",i,1,0);
 
 	i = CONTENT_MUD;
@@ -529,7 +529,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 3;
 	f->extra_dug_item_max_level = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->farm_ploughable = true;
 	content_list_add("creative",i,1,0);
 
@@ -542,7 +542,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 9";
 	f->type = CMT_DIRT;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_ASH,CONTENT_ASH);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -563,7 +563,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 	content_list_add("decrafting",i,1,0);
@@ -583,7 +583,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 	content_list_add("decrafting",i,1,0);
@@ -601,7 +601,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 10;
 	f->extra_dug_item_min_level = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.75;
+	f->dig_time = 1.75;
 	content_list_add("creative",i,1,0);
 	content_list_add("decrafting",i,1,0);
 
@@ -614,7 +614,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setSoftBlockRecipe(CONTENT_SAND,CONTENT_SANDSTONE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -629,7 +629,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBrickRecipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_BRICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -644,7 +644,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 4";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBlockRecipe(CONTENT_SANDSTONE,CONTENT_SANDSTONE_BLOCK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -663,7 +663,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY)+" 4";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_TERRACOTTA)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -681,7 +681,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_BLUE)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_CLAY,CONTENT_CLAY_BLUE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -698,7 +698,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_GREEN)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_CLAY,CONTENT_CLAY_GREEN);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -715,7 +715,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_ORANGE)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_CLAY,CONTENT_CLAY_ORANGE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -732,7 +732,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_PURPLE)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_CLAY,CONTENT_CLAY_PURPLE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -750,7 +750,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_RED)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_CLAY,CONTENT_CLAY_RED);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -767,7 +767,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_YELLOW)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_CLAY,CONTENT_CLAY_YELLOW);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -784,7 +784,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_DYE_BLACK)+" 1";
 	f->extra_dug_item_rarity = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_CLAY,CONTENT_CLAY_BLACK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -803,7 +803,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CLAY_BRICK)+" 4";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_CLAY_BRICK,CONTENT_BRICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -818,7 +818,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_TERRACOTTA_BRICK;
@@ -830,7 +830,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBrickRecipe(CONTENT_TERRACOTTA,CONTENT_TERRACOTTA_BRICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -844,7 +844,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	crafting::setBlockRecipe(CONTENT_TERRACOTTA,CONTENT_TERRACOTTA_BLOCK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -855,7 +855,7 @@ void content_mapnode_init(bool repeat)
 	f->setAllTextures("terracotta_tile.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -883,7 +883,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png", "glass.png", "glass.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_GLASS_BLUE;
@@ -901,7 +901,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_GLASS,CONTENT_GLASS_BLUE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -921,7 +921,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_green_side.png", "glass.png^glass_pane_green_side.png", "glass.png^glass_pane_green_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_GLASS,CONTENT_GLASS_GREEN);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -941,7 +941,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_GLASS,CONTENT_GLASS_ORANGE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -961,7 +961,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_GLASS,CONTENT_GLASS_PURPLE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -981,7 +981,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_red_side.png", "glass.png^glass_pane_red_side.png", "glass.png^glass_pane_red_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_GLASS,CONTENT_GLASS_RED);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -1001,7 +1001,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_GLASS,CONTENT_GLASS_YELLOW);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -1021,7 +1021,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glass.png^glass_pane_black_side.png", "glass.png^glass_pane_black_side.png", "glass.png^glass_pane_black_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_GLASS,CONTENT_GLASS_BLACK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -1052,7 +1052,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_side.png", "glass.png", "glass_pane_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS,CONTENT_GLASS_PANE);
@@ -1085,7 +1085,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png", "glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_BLUE,CONTENT_GLASS_PANE_BLUE);
@@ -1119,7 +1119,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_green_side.png", "glass.png^glass_pane_green_side.png", "glass_pane_green_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_GREEN,CONTENT_GLASS_PANE_GREEN);
@@ -1153,7 +1153,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png", "glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_ORANGE,CONTENT_GLASS_PANE_ORANGE);
@@ -1187,7 +1187,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png", "glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_PURPLE,CONTENT_GLASS_PANE_PURPLE);
@@ -1221,7 +1221,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_red_side.png", "glass.png^glass_pane_red_side.png", "glass_pane_red_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_RED,CONTENT_GLASS_PANE_RED);
@@ -1255,7 +1255,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png", "glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_YELLOW,CONTENT_GLASS_PANE_YELLOW);
@@ -1289,7 +1289,7 @@ void content_mapnode_init(bool repeat)
 	));
 	f->setInventoryTextureNodeBox(i,"glass_pane_black_side.png", "glass.png^glass_pane_black_side.png", "glass_pane_black_side.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setCol3Recipe(CONTENT_GLASS_BLACK,CONTENT_GLASS_PANE_BLACK);
@@ -1312,7 +1312,7 @@ void content_mapnode_init(bool repeat)
 #endif
 	f->setInventoryTextureCube("glasslight.png", "glasslight.png", "glasslight.png");
 	f->type = CMT_GLASS;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->light_source = LIGHT_MAX-1;
 	crafting::setSurroundRecipe(CONTENT_GLASS,CONTENT_CRAFTITEM_FIREFLY,CONTENT_GLASSLIGHT);
 	content_list_add("craftguide",i,1,0);
@@ -1329,7 +1329,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	crafting::set1To4Recipe(CONTENT_TREE,CONTENT_WOOD);
 	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_WOOD);
 	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD);
@@ -1355,7 +1355,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	crafting::set1To4Recipe(CONTENT_TREE,CONTENT_WOOD);
 	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_WOOD);
 	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD);
@@ -1381,7 +1381,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/4;
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	crafting::set1To4Recipe(CONTENT_JUNGLETREE,CONTENT_JUNGLEWOOD);
 	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_JUNGLEWOOD);
 	{
@@ -1406,7 +1406,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/16;
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	crafting::set1To4Recipe(CONTENT_CONIFER_TREE,CONTENT_WOOD_PINE);
 	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_PINE_PLANK,CONTENT_WOOD_PINE);
 	{
@@ -1431,7 +1431,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	content_list_add("creative",i,1,0);
 
@@ -1447,7 +1447,7 @@ void content_mapnode_init(bool repeat)
 	f->ondig_special_tool = TT_BUCKET;
 	f->ondig_special_tool_append = std::string("_water");
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_HAY;
@@ -1461,7 +1461,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1;
 	f->fuel_time = 20;
 	f->type = CMT_PLANT;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->pressure_type = CST_CRUSHABLE;
 	crafting::setSoftBlockRecipe(CONTENT_DEADGRASS,CONTENT_HAY);
 	content_list_add("craftguide",i,1,0);
@@ -1487,7 +1487,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "apple_pie_raw.png", "apple_pie_raw.png", "apple_pie_raw.png");
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_APPLE,CONTENT_CRAFTITEM_DOUGH,CONTENT_APPLE_PIE_RAW);
@@ -1515,7 +1515,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->ondig_replace_node = CONTENT_APPLE_PIE_3;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1539,7 +1539,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_APPLE_PIE_2;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1561,7 +1561,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_APPLE_PIE_1;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1582,7 +1582,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_pie_1(f);
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_APPLE_PIE_SLICE)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1606,7 +1606,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_pie(f);
 	f->setInventoryTextureNodeBox(i, "pumpkin_pie_raw.png", "pumpkin_pie_raw.png", "pumpkin_pie_raw.png");
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::set1over1Recipe(CONTENT_CRAFTITEM_PUMPKINSLICE,CONTENT_CRAFTITEM_DOUGH,CONTENT_PUMPKIN_PIE_RAW);
@@ -1634,7 +1634,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_3;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1658,7 +1658,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_2;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1680,7 +1680,7 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->ondig_replace_node=CONTENT_PUMPKIN_PIE_1;
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1701,7 +1701,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_pie_1(f);
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE)+" 1";
 	f->type = CMT_DIRT;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1714,7 +1714,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_SNOW_BALL)+" 9";
 	f->type = CMT_DIRT;
-	f->hardness = 0.3;
+	f->dig_time = 0.3;
 	f->warmth_per_second = 10;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_SNOW_BALL,CONTENT_SNOW_BLOCK);
 	content_list_add("craftguide",i,1,0);
@@ -1737,7 +1737,7 @@ void content_mapnode_init(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->type = CMT_DIRT;
 	f->pressure_type = CST_CRUSHABLE;
-	f->hardness = 0.3;
+	f->dig_time = 0.3;
 	f->setNodeBox(core::aabbox3d<f32>(
 		-0.3125*BS,
 		-0.5*BS,
@@ -1799,7 +1799,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"snow.png", "snow.png", "snow.png");
 	f->type = CMT_DIRT;
-	f->hardness = 0.3;
+	f->dig_time = 0.3;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->warmth_per_second = 10;
@@ -1817,7 +1817,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_COTTON_BLUE,CONTENT_COTTON);
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_WHITE,CONTENT_COTTON_GREEN,CONTENT_COTTON);
@@ -1848,7 +1848,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLUE,CONTENT_COTTON,CONTENT_COTTON_BLUE);
 	content_list_add("craftguide",i,1,0);
@@ -1865,7 +1865,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_GREEN,CONTENT_COTTON,CONTENT_COTTON_GREEN);
 	content_list_add("craftguide",i,1,0);
@@ -1882,7 +1882,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_ORANGE,CONTENT_COTTON,CONTENT_COTTON_ORANGE);
 	content_list_add("craftguide",i,1,0);
@@ -1899,7 +1899,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_PURPLE,CONTENT_COTTON,CONTENT_COTTON_PURPLE);
 	content_list_add("craftguide",i,1,0);
@@ -1916,7 +1916,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_RED,CONTENT_COTTON,CONTENT_COTTON_RED);
 	content_list_add("craftguide",i,1,0);
@@ -1933,7 +1933,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_YELLOW,CONTENT_COTTON,CONTENT_COTTON_YELLOW);
 	content_list_add("craftguide",i,1,0);
@@ -1950,7 +1950,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 15;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_DROPABLE;
 	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_DYE_BLACK,CONTENT_COTTON,CONTENT_COTTON_BLACK);
 	content_list_add("craftguide",i,1,0);
@@ -1971,7 +1971,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON,CONTENT_CARPET);
@@ -1993,7 +1993,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_BLUE,CONTENT_CARPET_BLUE);
@@ -2016,7 +2016,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_GREEN,CONTENT_CARPET_GREEN);
@@ -2039,7 +2039,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_ORANGE,CONTENT_CARPET_ORANGE);
@@ -2062,7 +2062,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_PURPLE,CONTENT_CARPET_PURPLE);
@@ -2085,7 +2085,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_RED,CONTENT_CARPET_RED);
@@ -2108,7 +2108,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	f->pressure_type = CST_CRUSHABLE;
 	crafting::setTileRecipe(CONTENT_COTTON_YELLOW,CONTENT_CARPET_YELLOW);
@@ -2131,7 +2131,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_DIRT;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_COTTON_BLACK,CONTENT_CARPET_BLACK);
@@ -2227,7 +2227,7 @@ void content_mapnode_init(bool repeat)
 	f->setAllTextures("water_source.png");
 #endif
 	f->type = CMT_LIQUID;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 10;
 
@@ -2290,7 +2290,7 @@ void content_mapnode_init(bool repeat)
 	f->setAllTextures("lava_source.png");
 #endif
 	f->type = CMT_LIQUID;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 
 	i = CONTENT_ROUGHSTONE;
@@ -2305,7 +2305,7 @@ void content_mapnode_init(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONE)+" 1";
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	crafting::setBlockRecipe(CONTENT_COBBLE,CONTENT_ROUGHSTONE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -2321,7 +2321,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	crafting::set5Recipe(CONTENT_ROUGHSTONE,CONTENT_COBBLE);
 	crafting::setHardBlockRecipe(CONTENT_ROCK,CONTENT_COBBLE);
 	content_list_add("craftguide",i,1,0);
@@ -2337,7 +2337,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 0.8;
+	f->dig_time = 0.8;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL;
@@ -2350,7 +2350,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL);
 	crafting::setUncraftHardBlockRecipe(CONTENT_STEEL,CONTENT_CRAFTITEM_STEEL_INGOT);
@@ -2367,7 +2367,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 10.0;
+	f->dig_time = 10.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_MITHRIL_BLOCK);
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_MITHRIL,CONTENT_MITHRIL_BLOCK);
@@ -2392,7 +2392,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_COPPER);
 	crafting::setUncraftHardBlockRecipe(CONTENT_COPPER,CONTENT_CRAFTITEM_COPPER_INGOT);
@@ -2409,7 +2409,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_GOLD_INGOT,CONTENT_GOLD);
 	crafting::setUncraftHardBlockRecipe(CONTENT_GOLD,CONTENT_CRAFTITEM_GOLD_INGOT);
@@ -2426,7 +2426,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_SILVER_INGOT,CONTENT_SILVER);
 	crafting::setUncraftHardBlockRecipe(CONTENT_SILVER,CONTENT_CRAFTITEM_SILVER_INGOT);
@@ -2443,7 +2443,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_TIN);
 	crafting::setUncraftHardBlockRecipe(CONTENT_TIN,CONTENT_CRAFTITEM_TIN_INGOT);
@@ -2460,7 +2460,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
-	f->hardness = 5.0;
+	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
 	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_QUARTZ,CONTENT_QUARTZ);
 	crafting::setUncraftHardBlockRecipe(CONTENT_QUARTZ,CONTENT_CRAFTITEM_QUARTZ);
@@ -2480,7 +2480,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_carpet(f);
 	f->setInventoryTextureNodeBox(i,"stone_tile.png", "stone_tile.png", "stone_tile.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_STONE,CONTENT_STONE_TILE);
@@ -2502,7 +2502,7 @@ void content_mapnode_init(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 5;
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	crafting::setTileRecipe(CONTENT_WOOD,CONTENT_WOOD_TILE);
@@ -2525,7 +2525,7 @@ void content_mapnode_init(bool repeat)
 									"stone.png",
 									"stone.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_STONE,
@@ -2545,7 +2545,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2562,7 +2562,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2582,7 +2582,7 @@ void content_mapnode_init(bool repeat)
 									"limestone.png",
 									"limestone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_LIMESTONE,
@@ -2602,7 +2602,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2619,7 +2619,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2639,7 +2639,7 @@ void content_mapnode_init(bool repeat)
 									"marble.png",
 									"marble.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_MARBLE,
@@ -2659,7 +2659,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2676,7 +2676,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2697,7 +2697,7 @@ void content_mapnode_init(bool repeat)
 									"sandstone.png",
 									"sandstone.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_SANDSTONE,
@@ -2717,7 +2717,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2734,7 +2734,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2754,7 +2754,7 @@ void content_mapnode_init(bool repeat)
 									"brick.png",
 									"brick.png");
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_BRICK,
@@ -2773,7 +2773,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2789,7 +2789,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -2807,7 +2807,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_column_square(f);
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	f->flammable = 1; // can be replaced by fire if the node under
@@ -2830,7 +2830,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_SQUARE_TOP;
@@ -2848,7 +2848,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_CROSS;
@@ -2868,7 +2868,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_column_square(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	f->flammable = 1; // can be replaced by fire if the node under
@@ -2891,7 +2891,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_SQUARE_TOP;
@@ -2909,7 +2909,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_CROSS;
@@ -2929,7 +2929,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_column_square(f);
 	f->setInventoryTextureNodeBox(i,"pine.jpg","pine.jpg","pine.jpg");
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	f->flammable = 1; // can be replaced by fire if the node under
@@ -2952,7 +2952,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_SQUARE_TOP;
@@ -2970,7 +2970,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_CROSS;
@@ -2990,7 +2990,7 @@ void content_mapnode_init(bool repeat)
 	content_nodebox_column_square(f);
 	f->setInventoryTextureNodeBox(i,"roughstone.png","roughstone.png","roughstone.png");
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_SQUARE_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 	crafting::setCol3Recipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONE_COLUMN_SQUARE);
@@ -3008,7 +3008,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_SQUARE_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3024,7 +3024,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_square_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_CROSS;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3040,7 +3040,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3055,7 +3055,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3071,7 +3071,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_STONE_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3087,7 +3087,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3102,7 +3102,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3118,7 +3118,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_LIMESTONE_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3134,7 +3134,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3149,7 +3149,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3165,7 +3165,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.6;
+	f->dig_time = 0.6;
 	f->onpunch_replace_node = CONTENT_MARBLE_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3181,7 +3181,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3196,7 +3196,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3212,7 +3212,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_SANDSTONE_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3228,7 +3228,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3243,7 +3243,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3259,7 +3259,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_BRICK_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3275,7 +3275,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_CROSS_BASE;
@@ -3292,7 +3292,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_CROSS_TOP;
@@ -3310,7 +3310,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_COLUMN_SQUARE;
@@ -3328,7 +3328,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_CROSS_BASE;
@@ -3345,7 +3345,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_CROSS_TOP;
@@ -3363,7 +3363,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_JUNGLEWOOD_COLUMN_SQUARE;
@@ -3381,7 +3381,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_CROSS_BASE;
@@ -3398,7 +3398,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_CROSS_TOP;
@@ -3416,7 +3416,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_WOOD;
-	f->hardness = 0.5;
+	f->dig_time = 0.5;
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_SQUARE;
@@ -3434,7 +3434,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_CROSS_BASE;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3449,7 +3449,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_base(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_CROSS_TOP;
 	f->onpunch_replace_respects_borderstone = true;
 
@@ -3465,7 +3465,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	content_nodebox_column_cross_top(f);
 	f->type = CMT_STONE;
-	f->hardness = 0.9;
+	f->dig_time = 0.9;
 	f->onpunch_replace_node = CONTENT_ROUGHSTONE_COLUMN_SQUARE;
 	f->onpunch_replace_respects_borderstone = true;
 }

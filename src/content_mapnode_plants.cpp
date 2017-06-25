@@ -49,7 +49,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
 	f->fuel_time = 30;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_WOOD;
 	f->ondig_special_drop_count = 6;
 	f->ondig_special_tool = TT_AXE;
@@ -70,7 +70,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
 	f->fuel_time = 30;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_WOOD;
 	f->ondig_special_drop_count = 6;
 	f->ondig_special_tool = TT_AXE;
@@ -91,7 +91,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
 	f->fuel_time = 30;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_JUNGLEWOOD;
 	f->ondig_special_drop_count = 6;
 	f->ondig_special_tool = TT_AXE;
@@ -111,7 +111,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
 	f->fuel_time = 25;
 	f->type = CMT_TREE;
-	f->hardness = 0.8;
+	f->dig_time = 0.8;
 	f->ondig_special_drop = CONTENT_WOOD_PINE;
 	f->ondig_special_drop_count = 6;
 	f->ondig_special_tool = TT_AXE;
@@ -134,7 +134,7 @@ void content_mapnode_plants(bool repeat)
 	f->special_alternate_node = CONTENT_LEAVES;
 	f->fuel_time = 20;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -154,7 +154,7 @@ void content_mapnode_plants(bool repeat)
 	f->special_alternate_node = CONTENT_JUNGLELEAVES;
 	f->fuel_time = 20;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -174,7 +174,7 @@ void content_mapnode_plants(bool repeat)
 	f->special_alternate_node = CONTENT_APPLE_LEAVES;
 	f->fuel_time = 20;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -194,7 +194,7 @@ void content_mapnode_plants(bool repeat)
 	f->special_alternate_node = CONTENT_CONIFER_LEAVES;
 	f->fuel_time = 20;
 	f->type = CMT_TREE;
-	f->hardness = 1.0;
+	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -214,7 +214,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.20;
+	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -235,7 +235,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.20;
+	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -266,7 +266,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -298,7 +298,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -330,7 +330,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -362,7 +362,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -395,7 +395,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_APPLE_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -427,7 +427,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_JUNGLESAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -459,7 +459,7 @@ void content_mapnode_plants(bool repeat)
 	f->place_on_drop = CONTENT_CONIFER_SAPLING;
 	f->place_on_drop_alternate = CONTENT_WILDGRASS_SHORT;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -484,7 +484,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -509,7 +509,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -534,7 +534,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -559,7 +559,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -584,7 +584,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -609,7 +609,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -635,7 +635,7 @@ void content_mapnode_plants(bool repeat)
 	f->extra_dug_item_rarity = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLE_LEAVES)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("decrafting",i,1,0);
@@ -657,7 +657,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -677,7 +677,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.20;
+	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -697,7 +697,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.20;
+	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -718,7 +718,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.20;
+	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -781,7 +781,7 @@ void content_mapnode_plants(bool repeat)
 	));
 	f->setInventoryTextureCube("cactus_top.png", "cactus_side.png", "cactus_side.png");
 	f->type = CMT_WOOD;
-	f->hardness = 0.75;
+	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	content_list_add("creative",i,1,0);
 
@@ -803,7 +803,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 30/32;
 	f->type = CMT_PLANT;
-	f->hardness = 0.25;
+	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -823,7 +823,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->fertilizer_affects = true;
@@ -844,7 +844,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->fertilizer_affects = true;
@@ -865,7 +865,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->fertilizer_affects = true;
@@ -886,7 +886,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = 1;
 	f->type = CMT_WOOD;
-	f->hardness = 0.1;
+	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->fertilizer_affects = true;
@@ -910,7 +910,7 @@ void content_mapnode_plants(bool repeat)
 	f->ondig_replace_node = CONTENT_APPLE_LEAVES;
 	f->ondig_replace_node_requires = CONTENT_APPLE_TREE;
 	f->type = CMT_PLANT;
-	f->hardness = 0.0;
+	f->dig_time = 0.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -935,7 +935,7 @@ void content_mapnode_plants(bool repeat)
 	//f->pointable = false;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -957,7 +957,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -979,7 +979,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1001,7 +1001,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 
@@ -1023,7 +1023,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1046,7 +1046,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1069,7 +1069,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.10;
+	f->dig_time = 0.10;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1088,7 +1088,7 @@ void content_mapnode_plants(bool repeat)
 	f->special_alternate_node = CONTENT_TEA;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1111,7 +1111,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1131,7 +1131,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_COFFEE_BEANS)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.4;
+	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1153,7 +1153,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/32;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
@@ -1179,7 +1179,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/16;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->onpunch_gives_inventory = true;
@@ -1209,7 +1209,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = 30/16;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
-	f->hardness = 0.15;
+	f->dig_time = 0.15;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	f->onpunch_gives_inventory = true;

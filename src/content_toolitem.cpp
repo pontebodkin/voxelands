@@ -188,6 +188,8 @@ int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t too
 		}else{
 			info->data = 4.0;
 		}
+
+		info->data *= c_features->dig_time;
 	}
 
 	if (type_match && data != 0 && info->diggable) {

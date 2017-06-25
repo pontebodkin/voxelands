@@ -30,7 +30,7 @@ void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMateri
 	features->light_propagates = true;
 	features->dug_item = std::string("MaterialItem2 ")+itos(nodeid)+" 1";
 	features->type = CMT_STONE;
-	features->hardness = 0.8;
+	features->dig_time = 0.8;
 	features->climbable = true;
 	features->suffocation_per_second = 0;
 	if (material_type == CMT_WOOD) {
