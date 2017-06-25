@@ -136,8 +136,7 @@ void content_mapnode_sign(bool repeat)
 	content_nodebox_sign(f);
 	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
-/* TODO: apple planks
-	crafting::setSignRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_SIGN);*/
+	crafting::setSignRecipe(CONTENT_CRAFTITEM_APPLE_PLANK,CONTENT_SIGN_APPLE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -347,7 +346,7 @@ void content_mapnode_sign(bool repeat)
 	i = CONTENT_SIGN_STEEL;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_block.png");
+	f->setAllTextures("steel_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
@@ -367,7 +366,7 @@ void content_mapnode_sign(bool repeat)
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
 	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
-	f->setInventoryTextureNodeBox(i,"steel_block.png", "steel_block.png", "steel_block.png");
+	f->setInventoryTextureNodeBox(i,"steel_sheet.png", "steel_sheet.png", "steel_sheet.png");
 	crafting::setSignRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_SIGN_STEEL);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -375,7 +374,7 @@ void content_mapnode_sign(bool repeat)
 	i = CONTENT_SIGN_WALL_STEEL;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_block.png");
+	f->setAllTextures("steel_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_WALLMOUNT;
 	f->draw_type = CDT_NODEBOX;
@@ -400,7 +399,7 @@ void content_mapnode_sign(bool repeat)
 	i = CONTENT_SIGN_UD_STEEL;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_block.png");
+	f->setAllTextures("steel_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;

@@ -179,7 +179,7 @@ void ChestNodeMetadata::inventoryModified()
 			b[0] = 1;
 			m_is_expanded = true;
 			m_expanded_slot_id = i;
-		}else if (itm->getContent() == CONTENT_TOOLITEM_KEY) {
+		}else if (itm->getContent() == CONTENT_CRAFTITEM_PADLOCK) {
 			if (m_is_exo)
 				continue;
 			a[2] = 0;
@@ -250,7 +250,7 @@ void ChestNodeMetadata::inventoryModified()
 	if (a[0])
 		l->addAllowed(CONTENT_CHEST);
 	if (a[1])
-		l->addAllowed(CONTENT_TOOLITEM_KEY);
+		l->addAllowed(CONTENT_CRAFTITEM_PADLOCK);
 	if (a[2])
 		l->addAllowed(CONTENT_CRAFTITEM_OERKKI_DUST);
 }

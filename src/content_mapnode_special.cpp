@@ -139,7 +139,7 @@ void content_mapnode_special(bool repeat)
 
 	i = CONTENT_APPLE_FENCE;
 	f = &content_features(i);
-	f->description = gettext("Fence");
+	f->description = gettext("Apple Wood Fence");
 	f->setAllTextures("applewood.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
@@ -159,8 +159,7 @@ void content_mapnode_special(bool repeat)
 	content_nodebox_fence_inv(f);
 	content_nodebox_fence(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
-/* TODO: apple planks
-	crafting::setWallRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_FENCE);*/
+	crafting::setWallRecipe(CONTENT_CRAFTITEM_APPLE_PLANK,CONTENT_APPLE_FENCE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

@@ -88,6 +88,16 @@ void content_craftitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_CRAFTITEM_PADLOCK;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_PADLOCK;
+	f->texture = "padlock.png";
+	f->name = "padlock";
+	f->description = gettext("Padlock");
+	crafting::set1over1Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_CRAFTITEM_PADLOCK);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
 	i = CONTENT_CRAFTITEM_CHARCOAL;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CHARCOAL;
@@ -430,6 +440,7 @@ void content_craftitem_init()
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_PINE_PLANK,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_CRAFTITEM_STICK);
+	crafting::set1To2Recipe(CONTENT_CRAFTITEM_APPLE_PLANK,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_LEAVES,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_APPLE_LEAVES,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_JUNGLELEAVES,CONTENT_CRAFTITEM_STICK);
@@ -446,6 +457,18 @@ void content_craftitem_init()
 	f->fuel_time = 30/16;
 	crafting::set1To4Recipe(CONTENT_WOOD_PINE,CONTENT_CRAFTITEM_PINE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_CONIFER_TREE,CONTENT_CRAFTITEM_PINE_PLANK);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CRAFTITEM_APPLE_PLANK;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_APPLE_PLANK;
+	f->texture = "applewood_plank.png";
+	f->name = "applewood_plank";
+	f->description = gettext("Apple Wood Plank");
+	f->fuel_time = 30/16;
+	crafting::set1To4Recipe(CONTENT_APPLEWOOD,CONTENT_CRAFTITEM_APPLE_PLANK);
+	crafting::set1To2Recipe(CONTENT_YOUNG_APPLE_TREE,CONTENT_CRAFTITEM_APPLE_PLANK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

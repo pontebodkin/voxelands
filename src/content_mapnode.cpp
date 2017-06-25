@@ -2918,7 +2918,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_WOOD_PINE_COLUMN_SQUARE;
 	f = &content_features(i);
 	f->description = gettext("Pine Wood Column");
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -2927,7 +2927,7 @@ void content_mapnode_init(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	content_nodebox_column_square(f);
-	f->setInventoryTextureNodeBox(i,"pine.jpg","pine.jpg","pine.jpg");
+	f->setInventoryTextureNodeBox(i,"pine.png","pine.png","pine.png");
 	f->type = CMT_WOOD;
 	f->dig_time = 0.5;
 	f->onpunch_replace_node = CONTENT_WOOD_PINE_COLUMN_SQUARE_BASE;
@@ -2943,7 +2943,7 @@ void content_mapnode_init(bool repeat)
 
 	i = CONTENT_WOOD_PINE_COLUMN_SQUARE_BASE;
 	f = &content_features(i);
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -2960,7 +2960,7 @@ void content_mapnode_init(bool repeat)
 
 	i = CONTENT_WOOD_PINE_COLUMN_SQUARE_TOP;
 	f = &content_features(i);
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -3371,7 +3371,7 @@ void content_mapnode_init(bool repeat)
 
 	i = CONTENT_WOOD_PINE_COLUMN_CROSS;
 	f = &content_features(i);
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -3389,7 +3389,7 @@ void content_mapnode_init(bool repeat)
 
 	i = CONTENT_WOOD_PINE_COLUMN_CROSS_BASE;
 	f = &content_features(i);
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -3406,7 +3406,7 @@ void content_mapnode_init(bool repeat)
 
 	i = CONTENT_WOOD_PINE_COLUMN_CROSS_TOP;
 	f = &content_features(i);
-	f->setAllTextures("pine.jpg");
+	f->setAllTextures("pine.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;

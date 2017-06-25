@@ -463,6 +463,8 @@ void setSignRecipe(u16 input, u16 result)
 	setRecipe(r,result,1);
 	r[7] = CONTENT_CRAFTITEM_JUNGLE_PLANK;
 	setRecipe(r,result,1);
+	r[7] = CONTENT_CRAFTITEM_APPLE_PLANK;
+	setRecipe(r,result,1);
 }
 // shears recipe, input is blade yields one result
 void setShearsRecipe(u16 input, u16 result)
@@ -495,6 +497,12 @@ void setShovelRecipe(u16 input, u16 result)
 		CONTENT_IGNORE,	CONTENT_CRAFTITEM_JUNGLE_PLANK,	CONTENT_IGNORE
 	};
 	setRecipe(r2,result,0);
+	u16 r3[9] = {
+		CONTENT_IGNORE,	input,				CONTENT_IGNORE,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE
+	};
+	setRecipe(r3,result,0);
 }
 // spear recipe, input is blade yields one result
 void setSpearRecipe(u16 input, u16 result)
@@ -545,6 +553,18 @@ void setAxeRecipe(u16 input, u16 result)
 		CONTENT_IGNORE,	CONTENT_CRAFTITEM_JUNGLE_PLANK,	CONTENT_IGNORE
 	};
 	setRecipe(r5,result,0);
+	u16 r6[9] = {
+		input,		input,				CONTENT_IGNORE,
+		input,		CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE
+	};
+	setRecipe(r6,result,0);
+	u16 r7[9] = {
+		CONTENT_IGNORE,	input,				input,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	input,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE
+	};
+	setRecipe(r7,result,0);
 }
 // pick recipe, input is blade yields one result
 void setPickRecipe(u16 input, u16 result)
@@ -567,6 +587,12 @@ void setPickRecipe(u16 input, u16 result)
 		CONTENT_IGNORE,	CONTENT_CRAFTITEM_JUNGLE_PLANK,	CONTENT_IGNORE
 	};
 	setRecipe(r2,result,0);
+	u16 r3[9] = {
+		input,		input,				input,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE
+	};
+	setRecipe(r3,result,0);
 }
 // sword recipe, input is blade yields one result
 void setSwordRecipe(u16 input, u16 result)
@@ -589,6 +615,12 @@ void setSwordRecipe(u16 input, u16 result)
 		CONTENT_IGNORE,	CONTENT_CRAFTITEM_JUNGLE_PLANK,	CONTENT_IGNORE
 	};
 	setRecipe(r2,result,0);
+	u16 r3[9] = {
+		CONTENT_IGNORE,	input,				CONTENT_IGNORE,
+		CONTENT_IGNORE,	input,				CONTENT_IGNORE,
+		CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE
+	};
+	setRecipe(r3,result,0);
 }
 // gate recipe 1 2 1 in two rows yields one result
 void setGateRecipe(u16 input1, u16 input2, u16 result)
