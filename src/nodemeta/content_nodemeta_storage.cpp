@@ -302,23 +302,23 @@ std::vector<NodeBox> ChestNodeMetadata::getNodeBoxes(MapNode &n)
 
 	if (m_is_locked) {
 		boxes.push_back(NodeBox(
-			v3s16(0,180,0),aabb3f(-0.125*BS,-0.3125*BS,-0.5*BS,0.125*BS,-0.125*BS,-0.4375*BS)
+			aabb3f(-0.125*BS,-0.3125*BS,-0.5*BS,0.125*BS,-0.125*BS,-0.4375*BS)
 		));
 		boxes.push_back(NodeBox(
-			v3s16(0,180,0),aabb3f(0.0625*BS,-0.125*BS,-0.5*BS,0.09375*BS,0.0,-0.4375*BS)
+			aabb3f(0.0625*BS,-0.125*BS,-0.5*BS,0.09375*BS,0.0,-0.4375*BS)
 		));
 		boxes.push_back(NodeBox(
-			v3s16(0,180,0),aabb3f(-0.09375*BS,-0.125*BS,-0.5*BS,-0.0625*BS,0.0,-0.4375*BS)
+			aabb3f(-0.09375*BS,-0.125*BS,-0.5*BS,-0.0625*BS,0.0,-0.4375*BS)
 		));
 	}else if (m_is_exo) {
 		boxes.push_back(NodeBox(
-			aabb3f(-0.125*BS,-0.3125*BS,0.4375*BS,0.125*BS,-0.1875*BS,0.5*BS)
+			v3s16(0,180,0),aabb3f(-0.125*BS,-0.3125*BS,0.4375*BS,0.125*BS,-0.1875*BS,0.5*BS)
 		));
 		boxes.push_back(NodeBox(
-			aabb3f(-0.0625*BS,-0.375*BS,0.4375*BS,0.0625*BS,-0.3125*BS,0.5*BS)
+			v3s16(0,180,0),aabb3f(-0.0625*BS,-0.375*BS,0.4375*BS,0.0625*BS,-0.3125*BS,0.5*BS)
 		));
 		boxes.push_back(NodeBox(
-			aabb3f(-0.0625*BS,-0.1875*BS,0.4375*BS,0.0625*BS,-0.125*BS,0.5*BS)
+			v3s16(0,180,0),aabb3f(-0.0625*BS,-0.1875*BS,0.4375*BS,0.0625*BS,-0.125*BS,0.5*BS)
 		));
 	}
 

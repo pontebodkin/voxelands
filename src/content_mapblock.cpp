@@ -2995,10 +2995,14 @@ void meshgen_nodebox(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sele
 
 	boxes = meta->getNodeBoxes(n);
 	if (boxes.size() > 0) {
+
+		boxes = transformNodeBox(n, boxes);
+
 		for (int i = 0; i < 6; i++) {
 			// Handles facedir rotation for textures
 			tiles[i] = getMetaTile(n,p,tile_dirs[i],selected);
 		}
+
 		meshgen_build_nodebox(data,p,n,selected,boxes,tiles);
 	}
 

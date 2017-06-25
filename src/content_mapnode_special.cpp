@@ -1090,10 +1090,10 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(5, "wood.png^chests_front.png"); // Z-
 	f->setMetaTexture(0,"chests_meta_top.png");
 	f->setMetaTexture(1,"chests_meta_bottom.png");
-	f->setMetaTexture(2,"chests_meta_side.png^[transformFX");
-	f->setMetaTexture(3,"chests_meta_side.png");
-	f->setMetaTexture(4,"chests_meta_lock.png");
-	f->setMetaTexture(5,"chests_meta_exo.png");
+	f->setMetaTexture(2,"chests_meta_side.png");
+	f->setMetaTexture(3,"chests_meta_side.png^[transformFX");
+	f->setMetaTexture(4,"chests_meta_exo.png");
+	f->setMetaTexture(5,"chests_meta_lock.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->light_propagates = true;
