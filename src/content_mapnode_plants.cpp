@@ -41,6 +41,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextures("tree.png");
 	f->setTexture(0, "tree_top.png");
 	f->setTexture(1, "tree_top.png");
+	f->param_type = CPT_BLOCKDATA;
 	f->setInventoryTextureCube("tree_top.png", "tree.png", "tree.png");
 	f->draw_type = CDT_TRUNKLIKE;
 	f->is_ground_content = true;
@@ -62,6 +63,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextures("apple_tree.png");
 	f->setTexture(0, "apple_tree_top.png");
 	f->setTexture(1, "apple_tree_top.png");
+	f->param_type = CPT_BLOCKDATA;
 	f->setInventoryTextureCube("apple_tree_top.png", "apple_tree.png", "apple_tree.png");
 	f->draw_type = CDT_TRUNKLIKE;
 	f->is_ground_content = true;
@@ -83,6 +85,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextures("jungletree.png");
 	f->setTexture(0, "jungletree_top.png");
 	f->setTexture(1, "jungletree_top.png");
+	f->param_type = CPT_BLOCKDATA;
 	f->setInventoryTextureCube("jungletree_top.png", "jungletree.png", "jungletree.png");
 	f->draw_type = CDT_TRUNKLIKE;
 	//f->is_ground_content = true;
@@ -103,6 +106,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextures("conifer_tree.png");
 	f->setTexture(0, "conifer_tree_top.png");
 	f->setTexture(1, "conifer_tree_top.png");
+	f->param_type = CPT_BLOCKDATA;
 	f->setInventoryTextureCube("conifer_tree_top.png", "conifer_tree.png", "conifer_tree.png");
 	f->draw_type = CDT_TRUNKLIKE;
 	f->is_ground_content = true;

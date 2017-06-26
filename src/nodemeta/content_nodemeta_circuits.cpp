@@ -220,7 +220,7 @@ std::vector<NodeBox>  SwitchNodeMetadata::getNodeBoxes(MapNode &n)
 		));
 	}
 
-	return transformNodeBox(n,boxes);
+	return boxes;
 }
 
 

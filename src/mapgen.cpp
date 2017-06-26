@@ -43,12 +43,17 @@ static void make_tree(ManualMapVoxelManipulator &vmanip, v3s16 p0)
 {
 	MapNode treenode(CONTENT_TREE);
 	MapNode leavesnode(CONTENT_LEAVES);
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(5,6);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		if (vmanip.m_area.contains(p1))
 			vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
+		b = 0;
 		p1.Y++;
 	}
 
@@ -117,13 +122,17 @@ static void make_appletree(ManualMapVoxelManipulator &vmanip, v3s16 p0)
 	MapNode treenode(CONTENT_APPLE_TREE);
 	MapNode leavesnode(CONTENT_APPLE_LEAVES);
 	MapNode applenode(CONTENT_APPLE);
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(4, 5);
 	v3s16 p1 = p0;
-	for(s16 ii=0; ii<trunk_h; ii++)
-	{
+	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		if(vmanip.m_area.contains(p1))
 			vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
+		b = 0;
 		p1.Y++;
 	}
 
@@ -196,12 +205,17 @@ static void make_conifertree(ManualMapVoxelManipulator &vmanip, v3s16 p0)
 {
 	MapNode treenode(CONTENT_CONIFER_TREE);
 	MapNode leavesnode(CONTENT_CONIFER_LEAVES);
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(8, 11);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		if(vmanip.m_area.contains(p1))
 			vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
+		b = 0;
 		p1.Y++;
 	}
 
@@ -233,13 +247,17 @@ static void make_largetree(ManualMapVoxelManipulator &vmanip, v3s16 p0)
 {
 	MapNode treenode(CONTENT_TREE);
 	MapNode leavesnode(CONTENT_LEAVES);
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(10, 12);
 	v3s16 p1 = p0;
-	for(s16 ii=0; ii<trunk_h; ii++)
-	{
+	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		if(vmanip.m_area.contains(p1))
 			vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
+		b = 0;
 		p1.Y++;
 	}
 
@@ -254,33 +272,50 @@ static void make_largetree(ManualMapVoxelManipulator &vmanip, v3s16 p0)
 	for (s16 k=0; k<5; k++) {
 		if (k == 1) {
 			p1.Y -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X++;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
 			}
 			p1.X--;
 		}else if (k == 2) {
 			p1.X -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X--;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
 			}
 			p1.X++;
 		}else if (k == 3) {
 			p1.X += 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z++;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
 			}
 			p1.Z--;
 		}else if (k == 4) {
 			p1.Z -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z--;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
 			}
 			p1.Z++;
 		}else{
+			treenode.param1 = 0x10|trunk_h;
 			vmanip.m_data[vmanip.m_area.index(p1)] = treenode;
 		}
 		// Force leaves at near the end of the trunk

@@ -31,11 +31,16 @@ void plantgrowth_tree(ServerEnvironment *env, v3s16 p0)
 	MapNode treenode(CONTENT_TREE);
 	MapNode leavesnode(CONTENT_LEAVES);
 	Map *map = &env->getMap();
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(5,6);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
+		b = 0;
 		p1.Y++;
 	}
 
@@ -101,11 +106,16 @@ void plantgrowth_appletree(ServerEnvironment *env, v3s16 p0)
 	MapNode leavesnode(CONTENT_APPLE_LEAVES);
 	MapNode applenode(CONTENT_APPLE);
 	Map *map = &env->getMap();
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(4, 5);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
+		b = 0;
 		p1.Y++;
 	}
 
@@ -174,11 +184,16 @@ void plantgrowth_conifertree(ServerEnvironment *env, v3s16 p0)
 	MapNode treenode(CONTENT_CONIFER_TREE);
 	MapNode leavesnode(CONTENT_CONIFER_LEAVES);
 	Map *map = &env->getMap();
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(8, 11);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
+		b = 0;
 		p1.Y++;
 	}
 
@@ -218,11 +233,16 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 	MapNode treenode(CONTENT_TREE);
 	MapNode leavesnode(CONTENT_LEAVES);
 	Map *map = &env->getMap();
+	uint8_t b = 0xE0;
 
 	s16 trunk_h = myrand_range(10, 12);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
+		if (ii == trunk_h-1)
+			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
+		b = 0;
 		p1.Y++;
 	}
 
@@ -238,33 +258,50 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 	for (s16 k=0; k<5; k++) {
 		if (k == 1) {
 			p1.Y -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X++;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.X--;
 		}else if (k == 2) {
 			p1.X -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X--;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.X++;
 		}else if (k == 3) {
 			p1.X += 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z++;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.Z--;
 		}else if (k == 4) {
 			p1.Z -= 3;
+			b = k<<5;
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z--;
+				treenode.param1 = b|((trunk_h-3)+ki);
+				if (ki == 3)
+					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.Z++;
 		}else{
+			treenode.param1 = 0x10|trunk_h;
 			map->addNodeWithEvent(p1,treenode);
 		}
 		// Force leaves at near the end of the trunk
@@ -319,6 +356,7 @@ void plantgrowth_jungletree(ServerEnvironment *env, v3s16 p0)
 	MapNode treenode(CONTENT_JUNGLETREE);
 	MapNode leavesnode(CONTENT_JUNGLELEAVES);
 	Map *map = &env->getMap();
+	uint8_t b = 0xE0;
 
 	for (s16 x=-1; x<=1; x++) {
 	for (s16 z=-1; z<=1; z++) {
@@ -339,7 +377,9 @@ void plantgrowth_jungletree(ServerEnvironment *env, v3s16 p0)
 	s16 trunk_h = myrand_range(8, 12);
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
+		treenode.param1 = b|ii;
 		map->addNodeWithEvent(p1,treenode);
+		b = 0;
 		p1.Y++;
 	}
 

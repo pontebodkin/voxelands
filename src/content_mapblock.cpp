@@ -5585,6 +5585,12 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	content_t n2;
 	bool mud_under = false;
 
+	float bottom_scale = 1.0;
+	float top_scale = 1.0;
+	int height = 0;
+	int dir = 0;
+	int cap = 0;
+
 	content_t thiscontent = n.getContent();
 
 	if (data->mesh_detail == 1) {
@@ -5641,33 +5647,67 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	}else if (!meshgen_hardface(data,p,n,v3s16(0,0,-1))) {
 		z_minus_any = true;
 	}
+
+	if (content_features(thiscontent).param_type == CPT_BLOCKDATA) {
+		height = n.param1&0x0F;
+		cap = n.param1&0x10;
+		dir = (n.param1&0xE0)>>5;
+	}
+
+	if (height || dir) {
+		int top_height = height+1;
+		int bottom_height = height;
+		if (top_height > 16)
+			top_height = 16;
+		if (bottom_height > 16)
+			bottom_height = 16;
+		if (cap)
+			top_height = 16;
+		if (dir == 1 || dir == 4) {
+			bottom_scale = (0.0625*(16.0-((float)top_height)));
+			top_scale = (0.0625*(16.0-((float)bottom_height)));
+		}else{
+			bottom_scale = (0.0625*(16.0-((float)bottom_height)));
+			top_scale = (0.0625*(16.0-((float)top_height)));
+		}
+		if (dir) {
+			if (dir == 1 || dir == 2) {
+				x_plus = true;
+				x_minus = true;
+			}else if (dir == 3 || dir == 4) {
+				z_plus = true;
+				z_minus = true;
+			}
+		}
+	}
+
 	TileSpec tile = getNodeTile(n,p,v3s16(1,0,0),selected);
 	TileSpec endtile = getNodeTile(n,p,v3s16(0,1,0),selected);
 	video::S3DVertex vertices[10] = {
-		video::S3DVertex(0       ,-data->m_BS*0.5,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.125, 0.),
-		video::S3DVertex(data->m_BS*0.125,-data->m_BS*0.5,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.25, 0.),
-		video::S3DVertex(data->m_BS*0.375,-data->m_BS*0.5,data->m_BS*0.375, 0,0,0, video::SColor(255,255,255,255), 0.5, 0.),
-		video::S3DVertex(data->m_BS*0.499,-data->m_BS*0.5,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.75, 0.),
-		video::S3DVertex(data->m_BS*0.499,-data->m_BS*0.5,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 0.),
+		video::S3DVertex(0               ,-data->m_BS*0.5,data->m_BS*0.499*(bottom_scale), 0,0,0, video::SColor(255,255,255,255), 0.125, 0.),
+		video::S3DVertex(data->m_BS*0.125*(bottom_scale),-data->m_BS*0.5,data->m_BS*0.499*(bottom_scale), 0,0,0, video::SColor(255,255,255,255), 0.25, 0.),
+		video::S3DVertex(data->m_BS*0.375*(bottom_scale),-data->m_BS*0.5,data->m_BS*0.375*(bottom_scale), 0,0,0, video::SColor(255,255,255,255), 0.5, 0.),
+		video::S3DVertex(data->m_BS*0.499*(bottom_scale),-data->m_BS*0.5,data->m_BS*0.125*(bottom_scale), 0,0,0, video::SColor(255,255,255,255), 0.75, 0.),
+		video::S3DVertex(data->m_BS*0.499*(bottom_scale),-data->m_BS*0.5,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 0.),
 
-		video::S3DVertex(0       , data->m_BS*0.5,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.125, 1.0),
-		video::S3DVertex(data->m_BS*0.125, data->m_BS*0.5,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.25, 1.0),
-		video::S3DVertex(data->m_BS*0.375, data->m_BS*0.5,data->m_BS*0.375, 0,0,0, video::SColor(255,255,255,255), 0.5, 1.0),
-		video::S3DVertex(data->m_BS*0.499, data->m_BS*0.5,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.75, 1.0),
-		video::S3DVertex(data->m_BS*0.499, data->m_BS*0.5,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 1.0)
+		video::S3DVertex(0               , data->m_BS*0.5,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.125, 1.0),
+		video::S3DVertex(data->m_BS*0.125*top_scale, data->m_BS*0.5,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.25, 1.0),
+		video::S3DVertex(data->m_BS*0.375*top_scale, data->m_BS*0.5,data->m_BS*0.375*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.5, 1.0),
+		video::S3DVertex(data->m_BS*0.499*top_scale, data->m_BS*0.5,data->m_BS*0.125*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.75, 1.0),
+		video::S3DVertex(data->m_BS*0.499*top_scale, data->m_BS*0.5,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 1.0)
 	};
 	video::S3DVertex branch_vertices[10] = {
-		video::S3DVertex(0       ,data->m_BS*0.125,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.125, 0.625),
-		video::S3DVertex(data->m_BS*0.125,data->m_BS*0.125,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.25, 0.625),
-		video::S3DVertex(data->m_BS*0.375,data->m_BS*0.125,data->m_BS*0.375, 0,0,0, video::SColor(255,255,255,255), 0.5, 0.625),
-		video::S3DVertex(data->m_BS*0.499,data->m_BS*0.125,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.75, 0.625),
-		video::S3DVertex(data->m_BS*0.499,data->m_BS*0.125,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 0.625),
+		video::S3DVertex(0       ,data->m_BS*0.125,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.125, 0.625),
+		video::S3DVertex(data->m_BS*0.125*top_scale,data->m_BS*0.125,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.25, 0.625),
+		video::S3DVertex(data->m_BS*0.375*top_scale,data->m_BS*0.125,data->m_BS*0.375*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.5, 0.625),
+		video::S3DVertex(data->m_BS*0.499*top_scale,data->m_BS*0.125,data->m_BS*0.125*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.75, 0.625),
+		video::S3DVertex(data->m_BS*0.499*top_scale,data->m_BS*0.125,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 0.625),
 
-		video::S3DVertex(0       ,data->m_BS*0.5  ,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.125, 1.0),
-		video::S3DVertex(data->m_BS*0.125,data->m_BS*0.5  ,data->m_BS*0.499, 0,0,0, video::SColor(255,255,255,255), 0.25, 1.0),
-		video::S3DVertex(data->m_BS*0.375,data->m_BS*0.5  ,data->m_BS*0.375, 0,0,0, video::SColor(255,255,255,255), 0.5, 1.0),
-		video::S3DVertex(data->m_BS*0.499,data->m_BS*0.5  ,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.75, 1.0),
-		video::S3DVertex(data->m_BS*0.499,data->m_BS*0.5  ,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 1.0)
+		video::S3DVertex(0       ,data->m_BS*0.5  ,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.125, 1.0),
+		video::S3DVertex(data->m_BS*0.125*top_scale,data->m_BS*0.5  ,data->m_BS*0.499*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.25, 1.0),
+		video::S3DVertex(data->m_BS*0.375*top_scale,data->m_BS*0.5  ,data->m_BS*0.375*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.5, 1.0),
+		video::S3DVertex(data->m_BS*0.499*top_scale,data->m_BS*0.5  ,data->m_BS*0.125*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.75, 1.0),
+		video::S3DVertex(data->m_BS*0.499*top_scale,data->m_BS*0.5  ,0       , 0,0,0, video::SColor(255,255,255,255), 0.625, 1.0)
 	};
 	u16 indices[24] = {0,1,6,0,6,5,1,2,7,1,7,6,2,3,8,2,8,7,3,4,9,3,9,8};
 	video::S3DVertex end_vertices[6] = {
@@ -5683,9 +5723,9 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 		video::S3DVertex(data->m_BS*0.498,-data->m_BS*0.5 ,data->m_BS*0.498, 0,0,0, video::SColor(255,255,255,255), 0., 0.),
 		video::S3DVertex(data->m_BS*0.498,-data->m_BS*0.5 ,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.),
 		video::S3DVertex(data->m_BS*0.125,-data->m_BS*0.5 ,data->m_BS*0.498, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.),
-		video::S3DVertex(data->m_BS*0.498, data->m_BS*0.25,data->m_BS*0.125, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.75),
-		video::S3DVertex(data->m_BS*0.375, data->m_BS*0.25,data->m_BS*0.375, 0,0,0, video::SColor(255,255,255,255), 0.125, 0.75),
-		video::S3DVertex(data->m_BS*0.125, data->m_BS*0.25,data->m_BS*0.498, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.75),
+		video::S3DVertex(data->m_BS*0.498*top_scale, data->m_BS*0.25,data->m_BS*0.125*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.75),
+		video::S3DVertex(data->m_BS*0.375*top_scale, data->m_BS*0.25,data->m_BS*0.375*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.125, 0.75),
+		video::S3DVertex(data->m_BS*0.125*top_scale, data->m_BS*0.25,data->m_BS*0.498*top_scale, 0,0,0, video::SColor(255,255,255,255), 0.375, 0.75),
 	};
 	u16 base_indices[12] = {0,1,3,0,5,2,0,3,4,0,4,5};
 	u16 rots[4] = {0,90,180,270};
@@ -5734,6 +5774,8 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				video::S3DVertex v[6];
 				for (u16 i=0; i<6; i++) {
 					v[i] = end_vertices[i];
+					v[i].Pos.X *= top_scale;
+					v[i].Pos.Z *= top_scale;
 					v[i].Pos.rotateXZBy(rots[j]);
 					v[i].TCoords *= endtile.texture.size;
 					v[i].TCoords += endtile.texture.pos;
@@ -5757,6 +5799,8 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 				video::S3DVertex v[6];
 				for (u16 i=0; i<6; i++) {
 					v[i] = end_vertices[i];
+					v[i].Pos.X *= bottom_scale;
+					v[i].Pos.Z *= bottom_scale;
 					v[i].Pos.rotateXYBy(180);
 					v[i].Pos.rotateXZBy(rots[j]);
 					v[i].TCoords *= endtile.texture.size;
@@ -5980,6 +6024,10 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					video::S3DVertex v[6];
 					for (u16 i=0; i<6; i++) {
 						v[i] = end_vertices[i];
+						if (dir) {
+							v[i].Pos.X *= bottom_scale;
+							v[i].Pos.Z *= bottom_scale;
+						}
 						v[i].Pos.rotateXYBy(-90);
 						v[i].Pos.rotateYZBy(rots[j]);
 						v[i].TCoords *= endtile.texture.size;
@@ -6004,6 +6052,10 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					video::S3DVertex v[6];
 					for (u16 i=0; i<6; i++) {
 						v[i] = end_vertices[i];
+						if (dir) {
+							v[i].Pos.X *= top_scale;
+							v[i].Pos.Z *= top_scale;
+						}
 						v[i].Pos.rotateXYBy(90);
 						v[i].Pos.rotateYZBy(rots[j]);
 						v[i].TCoords *= endtile.texture.size;
@@ -6133,6 +6185,10 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					video::S3DVertex v[6];
 					for (u16 i=0; i<6; i++) {
 						v[i] = end_vertices[i];
+						if (dir) {
+							v[i].Pos.X *= top_scale;
+							v[i].Pos.Z *= top_scale;
+						}
 						v[i].Pos.rotateYZBy(90);
 						v[i].Pos.rotateXYBy(rots[j]);
 						v[i].TCoords *= endtile.texture.size;
@@ -6157,6 +6213,10 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 					video::S3DVertex v[6];
 					for (u16 i=0; i<6; i++) {
 						v[i] = end_vertices[i];
+						if (dir) {
+							v[i].Pos.X *= bottom_scale;
+							v[i].Pos.Z *= bottom_scale;
+						}
 						v[i].Pos.rotateYZBy(-90);
 						v[i].Pos.rotateXYBy(rots[j]);
 						v[i].TCoords *= endtile.texture.size;
