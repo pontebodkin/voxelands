@@ -1964,18 +1964,19 @@ void the_game(
 
 			{
 				char temptext[300];
-				snprintf(temptext, 300, "%s ("
-						"R: range_all=%i"
-						")"
-						" drawtime=%.0f, dtime_jitter = % .1f %%"
-						", v_range = %.1f, RTT = %.3f",
-						program_name_and_version,
-						draw_control.range_all,
-						drawtime_avg,
-						dtime_jitter1_max_fraction * 100.0,
-						draw_control.wanted_range,
-						client_rtt
-						);
+				snprintf(
+					temptext,
+					300,
+					"%s (R: range_all=%i)"
+					" drawtime=%.0f, dtime_jitter = % .1f %%"
+					", v_range = %.1f, RTT = %.3f",
+					program_name_and_version,
+					draw_control.range_all,
+					drawtime_avg,
+					dtime_jitter1_max_fraction * 100.0,
+					draw_control.wanted_range,
+					client_rtt
+				);
 
 				guitext->setText(narrow_to_wide(temptext).c_str());
 				guitext->setVisible(true);
@@ -2285,6 +2286,7 @@ void the_game(
 					}
 				}
 				MapNode snode;
+				uint8_t biome = BIOME_UNKNOWN;
 				v3s16 spos = v3s16(0,0,0);
 				if (show_debug) {
 					if (has_selected_node) {
@@ -2294,6 +2296,7 @@ void the_game(
 						spos = floatToInt(pp,BS);
 					}
 					snode = client.getEnv().getMap().getNodeNoEx(spos,NULL);
+					biome = client.getEnv().getMap().getBlockNoCreateNoEx(getNodeBlockPos(spos))->getBiome();
 				}
 
 				LocalPlayer *p = client.getLocalPlayer();
@@ -2322,6 +2325,7 @@ void the_game(
 					has_selected_node,
 					spos,
 					snode,
+					biome,
 					client.getEnv().getTime()
 				);
 			}

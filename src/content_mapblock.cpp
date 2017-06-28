@@ -5589,7 +5589,6 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	float top_scale = 1.0;
 	int height = 0;
 	int dir = 0;
-	int cap = 0;
 
 	content_t thiscontent = n.getContent();
 
@@ -5649,8 +5648,7 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 	}
 
 	if (content_features(thiscontent).param_type == CPT_BLOCKDATA) {
-		height = n.param1&0x0F;
-		cap = n.param1&0x10;
+		height = n.param1&0x1F;
 		dir = (n.param1&0xE0)>>5;
 	}
 
@@ -5661,8 +5659,6 @@ void meshgen_trunklike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			top_height = 16;
 		if (bottom_height > 16)
 			bottom_height = 16;
-		if (cap)
-			top_height = 16;
 		if (dir == 1 || dir == 4) {
 			bottom_scale = (0.0625*(16.0-((float)top_height)));
 			top_scale = (0.0625*(16.0-((float)bottom_height)));

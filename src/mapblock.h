@@ -275,6 +275,16 @@ public:
 		return m_pos * MAP_BLOCKSIZE;
 	}
 
+	uint8_t getBiome()
+	{
+		return m_biome;
+	}
+
+	void setBiome(uint8_t biome)
+	{
+		m_biome = biome;
+	}
+
 	core::aabbox3d<s16> getBox()
 	{
 		return core::aabbox3d<s16>(getPosRelative(),
@@ -547,6 +557,8 @@ private:
 	Map *m_parent;
 	// Position in blocks on parent
 	v3s16 m_pos;
+
+	uint8_t m_biome;
 
 	/*
 		If NULL, block is a dummy block.

@@ -86,6 +86,7 @@ void hud_draw(
 	bool selected,
 	v3s16 pos,
 	MapNode node,
+	uint8_t biome,
 	u32 time
 );
 

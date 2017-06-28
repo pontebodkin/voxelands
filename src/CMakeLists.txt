@@ -196,7 +196,13 @@ set(common_SRCS
 	servercommand.c
 	log.cpp
 	content_sao.cpp
-	mapgen.cpp
+	mapgen/mapgen.cpp
+	mapgen/mapgen_trees.cpp
+	mapgen/mapgen_plants.cpp
+	mapgen/mapgen_dungeon.cpp
+	mapgen/mapgen_util.cpp
+	mapgen/mapgen_space.cpp
+	mapgen/mapgen_thedeep.cpp
 	nodemeta/content_nodemeta_circuits.cpp
 	nodemeta/content_nodemeta_sign.cpp
 	nodemeta/content_nodemeta_flag.cpp
@@ -439,10 +445,8 @@ else()
 		set(OPT_FLAGS "${OPT_FLAGS} -march=${CPUTYPE}")
 	endif()
 
-
-
 	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive -Wno-write-strings")
-	set(CMAKE_C_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -ansi -pedantic")
+	set(CMAKE_C_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe")
 	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive -Wno-write-strings")
 	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 

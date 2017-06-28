@@ -45,6 +45,7 @@ MapBlock::MapBlock(Map *parent, v3s16 pos, bool dummy):
 	last_spawn(0),
 	m_parent(parent),
 	m_pos(pos),
+	m_biome(BIOME_UNKNOWN),
 	m_modified(MOD_STATE_WRITE_NEEDED),
 	is_underground(false),
 	m_lighting_expired(true),
@@ -370,6 +371,9 @@ void MapBlock::serialize(std::ostream &os, u8 version)
 			flags |= 0x08;
 		os.write((char*)&flags, 1);
 
+		if (version > 21)
+			os.write((char*)&m_biome,1);
+
 		u32 nodecount = MAP_BLOCKSIZE*MAP_BLOCKSIZE*MAP_BLOCKSIZE;
 
 		u32 sl = MapNode::serializedLength(version);
@@ -423,6 +427,9 @@ void MapBlock::deSerialize(std::istream &is, u8 version)
 		m_lighting_expired = (flags & 0x04) ? true : false;
 		m_generated = (flags & 0x08) ? false : true;
 		u32 sl = MapNode::serializedLength(version);
+
+		if (version > 21)
+			is.read((char*)&m_biome,1);
 
 		// Uncompress data
 		std::ostringstream os(std::ios_base::binary);

@@ -37,8 +37,6 @@ void plantgrowth_tree(ServerEnvironment *env, v3s16 p0)
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
 		treenode.param1 = b|ii;
-		if (ii == trunk_h-1)
-			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
 		b = 0;
 		p1.Y++;
@@ -112,8 +110,6 @@ void plantgrowth_appletree(ServerEnvironment *env, v3s16 p0)
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
 		treenode.param1 = b|ii;
-		if (ii == trunk_h-1)
-			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
 		b = 0;
 		p1.Y++;
@@ -190,8 +186,6 @@ void plantgrowth_conifertree(ServerEnvironment *env, v3s16 p0)
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
 		treenode.param1 = b|ii;
-		if (ii == trunk_h-1)
-			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
 		b = 0;
 		p1.Y++;
@@ -239,8 +233,6 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 	v3s16 p1 = p0;
 	for (s16 ii=0; ii<trunk_h; ii++) {
 		treenode.param1 = b|ii;
-		if (ii == trunk_h-1)
-			treenode.param1 |= 0x10;
 		map->addNodeWithEvent(p1,treenode);
 		b = 0;
 		p1.Y++;
@@ -262,8 +254,6 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X++;
 				treenode.param1 = b|((trunk_h-3)+ki);
-				if (ki == 3)
-					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.X--;
@@ -273,8 +263,6 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 			for (s16 ki=0; ki<4; ki++) {
 				p1.X--;
 				treenode.param1 = b|((trunk_h-3)+ki);
-				if (ki == 3)
-					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.X++;
@@ -284,8 +272,6 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z++;
 				treenode.param1 = b|((trunk_h-3)+ki);
-				if (ki == 3)
-					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.Z--;
@@ -295,13 +281,11 @@ void plantgrowth_largetree(ServerEnvironment *env, v3s16 p0)
 			for (s16 ki=0; ki<4; ki++) {
 				p1.Z--;
 				treenode.param1 = b|((trunk_h-3)+ki);
-				if (ki == 3)
-					treenode.param1 |= 0x10;
 				map->addNodeWithEvent(p1,treenode);
 			}
 			p1.Z++;
 		}else{
-			treenode.param1 = 0x10|trunk_h;
+			treenode.param1 = trunk_h;
 			map->addNodeWithEvent(p1,treenode);
 		}
 		// Force leaves at near the end of the trunk

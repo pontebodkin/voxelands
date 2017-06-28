@@ -31,17 +31,34 @@
 
 class MapBlock;
 class ManualMapVoxelManipulator;
+class VoxelManipulator;
+struct NoiseParams;
 
 enum MapGenType {
 	MGT_FLAT = 0,
-	MGT_FLATTER,
-	MGT_SMOOTHER,
-	MGT_DEFAULT,
-	MGT_HILLY,
-	MGT_MOUNTAINS,
-	MGT_CRAZY,
-	MGT_CRAZYHILLS
+	MGT_DEFAULT
 };
+
+#define SURBIOME_X_MINUS 0
+#define SURBIOME_X_PLUS 1
+#define SURBIOME_Z_MINUS 2
+#define SURBIOME_Z_PLUS 3
+#define SURBIOME_XZ_MINUS 4
+#define SURBIOME_XZ_PLUS 5
+#define SURBIOME_X_MINUS_Z 6
+#define SURBIOME_Z_MINUS_X 7
+
+
+#define VMANIP_FLAG_DUNGEON_INSIDE VOXELFLAG_CHECKED1
+#define VMANIP_FLAG_DUNGEON_PRESERVE VOXELFLAG_CHECKED2
+#define VMANIP_FLAG_DUNGEON_UNTOUCHABLE (VMANIP_FLAG_DUNGEON_INSIDE|VMANIP_FLAG_DUNGEON_PRESERVE)
+
+/*
+	Scaling the output of the noise function affects the overdrive of the
+	contour function, which affects the shape of the output considerably.
+*/
+#define CAVE_NOISE_SCALE 12.0
+#define CAVE_NOISE_THRESHOLD (1.5/CAVE_NOISE_SCALE)
 
 namespace mapgen
 {
@@ -51,6 +68,7 @@ namespace mapgen
 		ManualMapVoxelManipulator *vmanip;
 		uint64_t seed;
 		MapGenType type;
+		uint8_t biome;
 		v3s16 blockpos;
 		UniqueQueue<v3s16> transforming_liquid;
 
@@ -67,11 +85,48 @@ namespace mapgen
 	// Main map generation routine
 	void make_block(BlockMakeData *data);
 
-	/*
-		These are used by FarMesh
-	*/
+	/* defined in mapgen_plants.cpp */
+	void make_papyrus(VoxelManipulator &vmanip, v3s16 p0);
+	void make_cactus(VoxelManipulator &vmanip, v3s16 p0);
+
+	/* defined in mapgen_trees.cpp */
+	void make_tree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
+	void make_appletree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
+	void make_conifertree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
+	void make_largetree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
+	void make_jungletree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
+
+	/* defined in mapgen_dungeon.cpp */
+	void make_dungeon(BlockMakeData *data, uint32_t blockseed);
+
+	/* defined in mapgen_util.cpp */
+	NoiseParams get_cave_noise1_params(uint64_t seed);
+	NoiseParams get_cave_noise2_params(uint64_t seed);
+	NoiseParams get_ground_noise1_params(uint64_t seed);
+	NoiseParams get_ground_crumbleness_params(uint64_t seed);
+	NoiseParams get_ground_wetness_params(uint64_t seed);
+	float get_humidity(uint64_t seed, v2s16 p);
+	int16_t get_ground_height(uint64_t seed, v2s16 p);
+	uint32_t get_tree_density(BlockMakeData *data, v2s16 p);
+	uint32_t get_grass_density(BlockMakeData *data, v2s16 p);
+
+	bool is_cave(uint64_t seed, v3s16 p);
+	double debris_amount_2d(uint64_t seed, v2s16 p);
+	double largestone_amount_2d(uint64_t seed, v2s16 p);
+	s16 find_ground_level_from_noise(BlockMakeData *data, v2s16 p2d, s16 precision);
+	double get_sector_average_ground_level(BlockMakeData *data, v2s16 sectorpos);
+	double get_sector_maximum_ground_level(BlockMakeData *data, v2s16 sectorpos);
+	double get_sector_minimum_ground_level(BlockMakeData *data, v2s16 sectorpos);
+	bool block_is_underground(BlockMakeData *data, v3s16 blockpos);
 	bool get_have_sand(uint64_t seed, v2s16 p2d);
-	double tree_amount_2d(uint64_t seed, v2s16 p);
+	float get_biomes(BlockMakeData *data, v3s16 pos, uint8_t biome[2]);
+	void calc_biome(BlockMakeData *data);
+
+	/* defined in mapgen_space.cpp */
+	void make_space(BlockMakeData *data);
+
+	/* defined in mapgen_thedeep.cpp */
+	void make_thedeep(BlockMakeData *data);
 
 }; // namespace mapgen
 

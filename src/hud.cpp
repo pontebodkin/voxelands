@@ -393,6 +393,7 @@ void hud_draw(
 	bool selected,
 	v3s16 pos,
 	MapNode node,
+	uint8_t biome,
 	u32 time
 )
 {
@@ -787,6 +788,9 @@ void hud_draw(
 		case CPT_SPECIAL:
 			txt += L"(CPT_SPECIAL)";
 			break;
+		case CPT_BLOCKDATA:
+			txt += L"(CPT_BLOCKDATA)";
+			break;
 		default:
 			txt += L"(UNKNOWN)";
 			break;
@@ -822,6 +826,9 @@ void hud_draw(
 		case CPT_SPECIAL:
 			txt += L"(CPT_SPECIAL)";
 			break;
+		case CPT_BLOCKDATA:
+			txt += L"(CPT_BLOCKDATA)";
+			break;
 		default:
 			txt += L"(UNKNOWN)";
 			break;
@@ -833,6 +840,50 @@ void hud_draw(
 		}
 		if (selected)
 			txt += L" (selected)";
+
+		txt += L"\nBiome: ";
+		switch (biome) {
+		case BIOME_WOODLANDS:
+			txt += L"Woodlands";
+			break;
+		case BIOME_JUNGLE:
+			txt += L"Jungle";
+			break;
+		case BIOME_OCEAN:
+			txt += L"Ocean";
+			break;
+		case BIOME_DESERT:
+			txt += L"Desert";
+			break;
+		case BIOME_PLAINS:
+			txt += L"Plains";
+			break;
+		case BIOME_FOREST:
+			txt += L"Forest";
+			break;
+		case BIOME_SNOWCAP:
+			txt += L"Snowcaps";
+			break;
+		case BIOME_LAKE:
+			txt += L"Lake";
+			break;
+		case BIOME_BEACH:
+			txt += L"Beach";
+			break;
+		case BIOME_SPACE:
+			txt += L"Space";
+			break;
+		case BIOME_THEDEEP:
+			txt += L"The Deep";
+			break;
+		case BIOME_SKY:
+			txt += L"Sky";
+			break;
+		case BIOME_UNKNOWN:
+		default:
+			txt += L"Unknown";
+			break;
+		}
 
 		v2u32 dim = font->getDimension(txt.c_str());
 		v2s32 sdim(dim.X,dim.Y);

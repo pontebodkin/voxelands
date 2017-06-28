@@ -59,6 +59,22 @@ class ServerEnvironment;
 #define MAPTYPE_SERVER 1
 #define MAPTYPE_CLIENT 2
 
+#define BIOME_UNKNOWN 0
+#define BIOME_WOODLANDS 1
+#define BIOME_JUNGLE 2
+#define BIOME_OCEAN 3
+#define BIOME_DESERT 4
+#define BIOME_PLAINS 5
+#define BIOME_FOREST 6
+#define BIOME_SNOWCAP 7
+#define BIOME_LAKE 8
+#define BIOME_BEACH 9
+#define BIOME_SPACE 10
+#define BIOME_THEDEEP 11
+#define BIOME_SKY 12
+
+#define BIOME_COUNT 13
+
 enum MapEditEventType{
 	// Node added (changed from air or something else to something)
 	MEET_ADDNODE,

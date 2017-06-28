@@ -1844,6 +1844,8 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 	MapBlock *block = getBlockNoCreateNoEx(data->blockpos);
 	assert(block);
 
+	block->setBiome(data->biome);
+
 	{
 		v3s16 p0;
 		for (p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++) {
@@ -1855,7 +1857,7 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 				NodeMetadata *f = block->m_node_metadata.get(p0);
 				Inventory *inv = f->getInventory();
 				if (inv) {
-					InventoryList *ilist = inv->getList("0");
+					InventoryList *ilist = inv->getList("main");
 					if (ilist) {
 						if (myrand_range(0,2) == 0)
 							ilist->addItem(new CraftItem(CONTENT_CRAFTITEM_GRAPE,10,0));
@@ -2354,18 +2356,6 @@ void ServerMap::loadMapMeta()
 		char* type = config_get("world.map.type");
 		if (!strcmp(type,"flat")) {
 			m_type = MGT_FLAT;
-		}else if (!strcmp(type,"flatter")) {
-			m_type = MGT_FLATTER;
-		}else if (!strcmp(type,"smoother")) {
-			m_type = MGT_SMOOTHER;
-		}else if (!strcmp(type,"hilly")) {
-			m_type = MGT_HILLY;
-		}else if (!strcmp(type,"mountains")) {
-			m_type = MGT_MOUNTAINS;
-		}else if (!strcmp(type,"crazy")) {
-			m_type = MGT_CRAZY;
-		}else if (!strcmp(type,"crazyhills")) {
-			m_type = MGT_CRAZYHILLS;
 		}else{
 			config_set("world.map.type","default");
 		}

@@ -63,11 +63,12 @@
 	19: new content type handling
 	20: many existing content types translated to extended ones
 	21: u8 param0 replaced with content_t content
+	22: added biome id
 */
 // This represents an uninitialized or invalid format
 #define SER_FMT_VER_INVALID 255
 // Highest supported serialization version
-#define SER_FMT_VER_HIGHEST 21
+#define SER_FMT_VER_HIGHEST 22
 // Lowest supported serialization version
 #define SER_FMT_VER_LOWEST 20
 
