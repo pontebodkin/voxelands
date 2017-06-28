@@ -42,6 +42,8 @@
 void MeshMakeData::fill(u32 daynight_ratio, MapBlock *block)
 {
 	m_daynight_ratio = daynight_ratio;
+	if (!block)
+		return;
 	m_blockpos = block->getPos();
 	if (m_env)
 		m_vmanip.m_env = m_env;
