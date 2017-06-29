@@ -505,6 +505,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_GLASS_YELLOW_SLAB 0xA0E
 #define CONTENT_GLASS_BLACK_SLAB 0xA0F
 #define CONTENT_LIMESTONE_SLAB 0xA10
+#define CONTENT_APPLEWOOD_SLAB 0xA11
 // stairs
 #define CONTENT_ROUGHSTONE_STAIR 0xA20
 #define CONTENT_MOSSYCOBBLE_STAIR 0xA21
@@ -534,6 +535,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_GLASS_YELLOW_SLAB_UD 0xA4E
 #define CONTENT_GLASS_BLACK_SLAB_UD 0xA4F
 #define CONTENT_LIMESTONE_SLAB_UD 0xA50
+#define CONTENT_APPLEWOOD_SLAB_UD 0xA51
 // upside down stairs
 #define CONTENT_ROUGHSTONE_STAIR_UD 0xA60
 #define CONTENT_MOSSYCOBBLE_STAIR_UD 0xA61
@@ -779,4 +781,3 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_CIRCUIT_MAX 0xFFF
 
 #endif
-

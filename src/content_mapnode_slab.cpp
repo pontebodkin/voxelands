@@ -103,6 +103,25 @@ void content_mapnode_slab(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_APPLEWOOD_SLAB;
+	f = &content_features(i);
+	f->description = gettext("Apple Wood Slab");
+	f->setAllTextures("applewood.png");
+	f->draw_type = CDT_NODEBOX;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_APPLEWOOD;
+	content_nodebox_slab(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
+	f->suffocation_per_second = 0;
+	crafting::setRow3Recipe(CONTENT_APPLEWOOD,CONTENT_APPLEWOOD_SLAB);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
 	i = CONTENT_WOOD_SLAB;
 	f = &content_features(i);
 	f->description = gettext("Wood Slab");
@@ -459,6 +478,21 @@ void content_mapnode_slab(bool repeat)
 	f->setInventoryTextureNodeBox(i,"stone.png", "stone.png", "stone.png");
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
+	f->suffocation_per_second = 0;
+
+	i = CONTENT_APPLEWOOD_SLAB_UD;
+	f = &content_features(i);
+	f->setAllTextures("applewood.png");
+	f->draw_type = CDT_SLABLIKE;
+	f->is_ground_content = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLEWOOD_SLAB)+" 1";
+	f->special_alternate_node = CONTENT_APPLEWOOD;
+	content_nodebox_slabud(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
+	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
+	f->fuel_time = 30;
+	f->type = CMT_WOOD;
+	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
 
 	i = CONTENT_WOOD_SLAB_UD;
