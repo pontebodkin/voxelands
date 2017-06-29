@@ -423,7 +423,7 @@ BushNodeMetadata::BushNodeMetadata()
 	m_inventory = new Inventory();
 	m_inventory->addList("main", 1);
 
-	m_days_since_growth = 0;
+	m_days_since_growth = -1;
 }
 BushNodeMetadata::~BushNodeMetadata()
 {
@@ -462,6 +462,10 @@ bool BushNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	if (env->getSeason() != ENV_SEASON_SPRING)
 		return false;
 	u32 day = env->getTime();
+	if (m_days_since_growth < 0) {
+		m_days_since_growth = day;
+		return true;
+	}
 	if (day-m_days_since_growth < 10) {
 		return true;
 	}

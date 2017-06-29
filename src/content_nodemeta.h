@@ -745,7 +745,7 @@ public:
 
 private:
 	Inventory *m_inventory;
-	u16 m_days_since_growth;
+	s16 m_days_since_growth;
 };
 
 class CircuitNodeMetadata : public NodeMetadata
