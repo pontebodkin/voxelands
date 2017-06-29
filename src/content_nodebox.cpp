@@ -2042,38 +2042,38 @@ void content_nodebox_column_cross_top(ContentFeatures *f)
 void content_nodebox_scaffolding(ContentFeatures *f)
 {
 	f->setNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.5*BS,-0.375*BS,0.5*BS,-0.375*BS
+		-0.500000*BS,0.406250*BS,-0.500000*BS,0.500000*BS,0.500000*BS,0.500000*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		0.375*BS,-0.5*BS,0.375*BS,0.5*BS,0.5*BS,0.5*BS
+		0.406250*BS,-0.500000*BS,0.406250*BS,0.500000*BS,0.406250*BS,0.500000*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.5*BS,-0.375*BS,-0.375*BS,0.5*BS
+		-0.500000*BS,-0.500000*BS,-0.500000*BS,-0.406250*BS,0.406250*BS,-0.406250*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		-0.5*BS,0.375*BS,-0.5*BS,0.5*BS,0.5*BS,0.5*BS
+		0.406250*BS,-0.500000*BS,-0.500000*BS,0.500000*BS,0.406250*BS,-0.406250*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		0.375*BS,-0.5*BS,-0.5*BS,0.5*BS,0.5*BS,-0.375*BS
+		-0.500000*BS,-0.500000*BS,0.406250*BS,-0.406250*BS,0.406250*BS,0.500000*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,0.375*BS,-0.375*BS,0.5*BS,0.5*BS
+		-0.406250*BS,-0.500000*BS,-0.500000*BS,0.406250*BS,-0.406250*BS,-0.406250*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.375*BS,-0.375*BS
+		-0.406250*BS,-0.500000*BS,0.406250*BS,0.406250*BS,-0.406250*BS,0.500000*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,0.375*BS,0.5*BS,-0.375*BS,0.5*BS
+		-0.500000*BS,-0.500000*BS,-0.406250*BS,-0.406250*BS,-0.406250*BS,0.406250*BS
 	));
 
 	f->addNodeBox(NodeBox(
-		0.375*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.375*BS,0.5*BS
+		0.406250*BS,-0.500000*BS,-0.406250*BS,0.500000*BS,-0.406250*BS,0.406250*BS
 	));
 }
