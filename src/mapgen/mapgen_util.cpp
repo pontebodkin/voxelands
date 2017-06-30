@@ -97,20 +97,24 @@ bool is_cave(uint64_t seed, v3s16 p)
 // Amount of trees per area in nodes
 uint32_t get_tree_density(BlockMakeData *data, v2s16 p)
 {
-	double noise = noise2d_perlin(
+
+	double zeroval = -0.39;
+	double density = 0.0;
+	double noise = 0.0;
+	uint32_t r = 0;
+
+	noise = noise2d_perlin(
 			0.5+(float)p.X/125,
 			0.5+(float)p.Y/125,
 			data->seed+2,
 			4,
 			0.66
 		);
-	double zeroval = -0.39;
-	if (noise < zeroval)
-		return 0;
 
-	double density = 0.04 * (noise-zeroval) / (1.0-zeroval);
-
-	uint32_t r = density*(double)(MAP_BLOCKSIZE*MAP_BLOCKSIZE);
+	if (noise >= zeroval) {
+		density = 0.04 * (noise-zeroval) / (1.0-zeroval);
+		r = density*(double)(MAP_BLOCKSIZE*MAP_BLOCKSIZE);
+	}
 
 	if (data->biome == BIOME_JUNGLE || data->biome == BIOME_FOREST) {
 		if (r < 1) {

@@ -420,10 +420,7 @@ char* path_get(char* type, char* file, int must_exist, char* buff, int size)
 		if (!path.world)
 			return NULL;
 		ck = path_check(path.world,"players");
-		if (!ck) {
-		}
-
-		if (ck != 2)
+		if (ck == 1 || (!ck && must_exist))
 			return NULL;
 
 		if (file) {
