@@ -51,6 +51,11 @@ void make_block(BlockMakeData *data)
 		return;
 	}
 
+	if (data->biome == BIOME_SKY) {
+		make_sky(data);
+		return;
+	}
+
 	v3s16 blockpos = data->blockpos;
 
 	ManualMapVoxelManipulator &vmanip = *(data->vmanip);

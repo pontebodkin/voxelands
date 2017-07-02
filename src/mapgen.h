@@ -126,6 +126,9 @@ namespace mapgen
 	/* defined in mapgen_space.cpp */
 	void make_space(BlockMakeData *data);
 
+	/* defined in mapgen_sky.cpp */
+	void make_sky(BlockMakeData *data);
+
 	/* defined in mapgen_thedeep.cpp */
 	void make_thedeep(BlockMakeData *data);
 
