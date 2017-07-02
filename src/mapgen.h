@@ -69,6 +69,7 @@ namespace mapgen
 		uint64_t seed;
 		MapGenType type;
 		uint8_t biome;
+		uint8_t surrounding_biomes[8];
 		v3s16 blockpos;
 		UniqueQueue<v3s16> transforming_liquid;
 
@@ -119,7 +120,7 @@ namespace mapgen
 	double get_sector_minimum_ground_level(BlockMakeData *data, v2s16 sectorpos);
 	bool block_is_underground(BlockMakeData *data, v3s16 blockpos);
 	bool get_have_sand(uint64_t seed, v2s16 p2d);
-	float get_biomes(BlockMakeData *data, v3s16 pos, uint8_t biome[2]);
+	uint8_t get_block_biome(BlockMakeData *data, v3s16 blockpos);
 	void calc_biome(BlockMakeData *data);
 
 	/* defined in mapgen_space.cpp */

@@ -146,7 +146,7 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	noise = noise2d_perlin(
 			0.5+(float)p.X/125,
 			0.5+(float)p.Y/125,
-			data->seed+2,
+			data->seed+21335,
 			4,
 			0.66
 		);
@@ -167,7 +167,7 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 			r = 5;
 	}
 
-	return r;
+	return r*3;
 }
 
 // used in space
@@ -281,88 +281,140 @@ bool get_have_sand(uint64_t seed, v2s16 p2d)
 	return (sandnoise > -0.15);
 }
 
-void calc_biome(BlockMakeData *data)
+uint8_t get_block_biome(BlockMakeData *data, v3s16 blockpos)
 {
-	v3s16 node_min = data->blockpos*MAP_BLOCKSIZE;
-	v3s16 node_max = (data->blockpos+v3s16(1,1,1))*MAP_BLOCKSIZE-v3s16(1,1,1);
+	v3s16 relpos = blockpos - data->blockpos*MAP_BLOCKSIZE;
+	uint16_t xv = 0;
+	uint16_t zv = 0;
+	uint16_t v;
+	uint8_t xb = SURBIOME_X_PLUS;
+	uint8_t zb = SURBIOME_Z_PLUS;
+
+	if (
+		data->surrounding_biomes[SURBIOME_X_MINUS] == data->biome
+		&& data->surrounding_biomes[SURBIOME_X_PLUS] == data->biome
+		&& data->surrounding_biomes[SURBIOME_Z_MINUS] == data->biome
+		&& data->surrounding_biomes[SURBIOME_Z_PLUS] == data->biome
+	)
+		return data->biome;
+
+	if (relpos.X > 11) {
+		if (relpos.Z > 11) {
+			xv = (relpos.X-11);
+			zv = (relpos.Z-11);
+		}else if (relpos.Z < 5) {
+			zb = SURBIOME_Z_MINUS;
+			xv = (relpos.X-11);
+			zv = 3-relpos.Z;
+		}
+	}else if (relpos.X < 5) {
+		xb = SURBIOME_X_MINUS;
+		if (relpos.Z > 11) {
+			xv = 3-relpos.X;
+			zv = (relpos.Z-11);
+		}else if (relpos.Z < 5) {
+			zb = SURBIOME_Z_MINUS;
+			xv = 3-relpos.X;
+			zv = 3-relpos.Z;
+		}
+	}
+
+	v = xv+zv;
+	if (v > 4) {
+		if (xv > zv) {
+			return data->surrounding_biomes[xb];
+		}else{
+			return data->surrounding_biomes[zb];
+		}
+	}
+
+	return data->biome;
+}
+
+uint8_t get_chunk_biome(uint64_t seed, v3s16 blockpos)
+{
+	v3s16 node_min = blockpos*MAP_BLOCKSIZE;
+	v3s16 node_max = (blockpos+v3s16(1,1,1))*MAP_BLOCKSIZE-v3s16(1,1,1);
 	v2s16 p2d_center(node_min.X+MAP_BLOCKSIZE/2, node_min.Z+MAP_BLOCKSIZE/2);
-	v2s16 p2d(data->blockpos.X, data->blockpos.Z);
+	v2s16 p2d(blockpos.X, blockpos.Z);
 	int16_t average_ground_height;
 	float surface_humidity = 0;
+	BlockMakeData data;
 
 	if (node_min.Y >= 1024) {
-		data->biome = BIOME_SPACE;
-		return;
+		return BIOME_SPACE;
 	}else if (node_min.Y >= 256) {
-		data->biome = BIOME_SKY;
-		return;
+		return BIOME_SKY;
 	}else if (node_max.Y <= -128) {
-		data->biome = BIOME_THEDEEP;
-		return;
+		return BIOME_THEDEEP;
 	}
 
-	average_ground_height = (int16_t)get_sector_average_ground_level(data,p2d);
+	data.seed = seed;
+	data.blockpos = blockpos;
+
+	average_ground_height = (int16_t)get_sector_average_ground_level(&data,p2d);
 
 	if (average_ground_height <= -10) {
-		data->biome = BIOME_OCEAN;
-		return;
+		return BIOME_OCEAN;
 	}
 	if (average_ground_height >= 40) {
-		data->biome = BIOME_SNOWCAP;
-		return;
+		return BIOME_SNOWCAP;
 	}
 
-	surface_humidity = get_humidity(data->seed, p2d_center);
+	surface_humidity = get_humidity(seed, p2d_center);
 
 	if (average_ground_height <= 2) {
 		if (surface_humidity < 0.5) {
-			data->biome = BIOME_BEACH;
-			return;
+			return BIOME_BEACH;
 		}
-		data->biome = BIOME_LAKE;
-		return;
+		return BIOME_LAKE;
 	}
 
 	if (average_ground_height > 30) {
 		if (surface_humidity < 0.25) {
-			data->biome = BIOME_WOODLANDS;
-			return;
+			return BIOME_WOODLANDS;
 		}
 		if (surface_humidity < 0.5) {
-			data->biome = BIOME_FOREST;
-			return;
+			return BIOME_FOREST;
 		}
-		data->biome = BIOME_JUNGLE;
-		return;
+		return BIOME_JUNGLE;
 	}
 
 	if (average_ground_height > 10) {
 		if (surface_humidity < 0.25) {
-			data->biome = BIOME_DESERT;
-			return;
+			return BIOME_DESERT;
 		}
 		if (surface_humidity < 0.5) {
-			data->biome = BIOME_WOODLANDS;
-			return;
+			return BIOME_WOODLANDS;
 		}
 		if (surface_humidity < 0.75) {
-			data->biome = BIOME_FOREST;
-			return;
+			return BIOME_FOREST;
 		}
-		data->biome = BIOME_JUNGLE;
-		return;
+		return BIOME_JUNGLE;
 	}
 
 	if (surface_humidity < 0.25) {
-		data->biome = BIOME_PLAINS;
-		return;
+		return BIOME_PLAINS;
 	}
 	if (surface_humidity < 0.75) {
-		data->biome = BIOME_WOODLANDS;
-		return;
+		return BIOME_WOODLANDS;
 	}
 
-	data->biome = BIOME_FOREST;
+	return BIOME_FOREST;
+}
+
+void calc_biome(BlockMakeData *data)
+{
+	data->biome = get_chunk_biome(data->seed,data->blockpos);
+
+	data->surrounding_biomes[SURBIOME_X_MINUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(-1,0,0));
+	data->surrounding_biomes[SURBIOME_X_PLUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(1,0,0));
+	data->surrounding_biomes[SURBIOME_Z_MINUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(0,0,-1));
+	data->surrounding_biomes[SURBIOME_Z_PLUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(0,0,1));
+	data->surrounding_biomes[SURBIOME_XZ_MINUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(-1,0,-1));
+	data->surrounding_biomes[SURBIOME_XZ_PLUS] = get_chunk_biome(data->seed,data->blockpos+v3s16(1,0,1));
+	data->surrounding_biomes[SURBIOME_X_MINUS_Z] = get_chunk_biome(data->seed,data->blockpos+v3s16(-1,0,1));
+	data->surrounding_biomes[SURBIOME_Z_MINUS_X] = get_chunk_biome(data->seed,data->blockpos+v3s16(1,0,-1));
 }
 
 }

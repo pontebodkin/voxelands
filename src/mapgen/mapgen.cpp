@@ -466,6 +466,7 @@ void make_block(BlockMakeData *data)
 				s16 start_y = node_max.Y+2;
 				v3s16 em = vmanip.m_area.getExtent();
 				u32 i = vmanip.m_area.index(v3s16(p2d.X, start_y, p2d.Y));
+				uint8_t biome = get_block_biome(data,v3s16(x,0,z));
 				for (s16 y=start_y; y>=node_min.Y-3; y--) {
 					if (vmanip.m_data[i].getContent() == CONTENT_WATERSOURCE)
 						water_detected = true;
@@ -482,15 +483,15 @@ void make_block(BlockMakeData *data)
 							air_detected || water_detected
 						)
 					) {
-						if (data->biome == BIOME_DESERT) {
+						if (biome == BIOME_DESERT) {
 							vmanip.m_data[i] = MapNode(CONTENT_DESERT_SAND);
 						}else if (current_depth < 4) {
-							if (data->biome == BIOME_BEACH || data->biome == BIOME_OCEAN) {
+							if (biome == BIOME_BEACH || biome == BIOME_OCEAN) {
 								vmanip.m_data[i] = MapNode(CONTENT_SAND);
 							}else if (current_depth==0 && !water_detected && y >= WATER_LEVEL && air_detected) {
-								if (data->biome == BIOME_SNOWCAP) {
+								if (biome == BIOME_SNOWCAP) {
 									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x04);
-								}else if (data->biome == BIOME_JUNGLE) {
+								}else if (biome == BIOME_JUNGLE) {
 									if (noisebuf_ground_wetness.get(x,y,z) > 1.0) {
 										vmanip.m_data[i] = MapNode(CONTENT_CLAY,0x08);
 									}else{
@@ -610,7 +611,7 @@ void make_block(BlockMakeData *data)
 		u32 grass_count = get_grass_density(data, p2d_center);
 		if (grass_count) {
 			PseudoRandom grassrandom(blockseed);
-			for (u32 i=0; i<4*tree_count; i++) {
+			for (u32 i=0; i<grass_count; i++) {
 				s16 x = grassrandom.range(node_min.X, node_max.X);
 				s16 z = grassrandom.range(node_min.Z, node_max.Z);
 				s16 y = get_ground_height(data->seed, v2s16(x,z));
@@ -666,6 +667,10 @@ BlockMakeData::BlockMakeData():
 	type(MGT_DEFAULT),
 	biome(BIOME_UNKNOWN)
 {
+	int i;
+	for (i=0; i<8; i++) {
+		surrounding_biomes[i] = BIOME_UNKNOWN;
+	}
 }
 
 BlockMakeData::~BlockMakeData()
