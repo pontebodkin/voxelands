@@ -162,6 +162,12 @@ enum CookType
 	COOK_FURNACE
 };
 
+enum CrushType
+{
+        CRUSH_ANY,
+        CRUSH_CRUSHER
+};
+
 /*
 	Material Type
 */
@@ -457,6 +463,11 @@ struct ContentFeatures
 	// the fuel value of this node
 	float fuel_time;
 
+	// the result of crushing this node
+	std::string crush_result;
+	// what type of crushing device this node needs
+	CrushType crush_type;
+
 	// maximum height a plant can grow to
 	s16 plantgrowth_max_height;
 	// when CPT_PLANTGROWTH < 8 digging gives this
@@ -599,6 +610,8 @@ struct ContentFeatures
 		unpowered_node = CONTENT_IGNORE;
 		cook_result = "";
 		cook_type = COOK_ANY;
+		crush_result = "";
+		crush_type = CRUSH_ANY;
 		fuel_time = 0.0;
 		plantgrowth_max_height = 1;
 		plantgrowth_small_dug_node = CONTENT_IGNORE;

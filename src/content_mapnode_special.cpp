@@ -1515,7 +1515,90 @@ void content_mapnode_special(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_CRUSHER;
+	f = &content_features(i);
+	f->description = gettext("Crusher");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("crusher_side.png");
+	f->setTexture(0, "crusher_top.png");
+	f->setTexture(1, "crusher_top.png^[transformFY");
+	f->setTexture(2, "crusher_side.png^[transformFX");
+	f->setTexture(4, "crusher_back.png");
+	f->setTexture(5, "crusher_front.png"); // Z-
+	content_nodebox_crusher(f);
+	f->setInventoryTextureNodeBox(i,"crusher_top.png^[transformR90", "crusher_front.png", "crusher_side.png^[transformFX");
+	f->rotate_tile_with_nodebox = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new CrusherNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
+	f->alternate_lockstate_node = CONTENT_LOCKABLE_CRUSHER;
+	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_CRUSHER);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 
+	i = CONTENT_CRUSHER_ACTIVE;
+	f = &content_features(i);
+	f->description = gettext("Crusher");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_CUBELIKE;
+	f->setAllTextures("crusher_side.png");
+	f->setTexture(0, "crusher_top.png");
+	f->setTexture(1, "crusher_top.png");
+	f->setTexture(5, "crusher_front.png"); // Z-
+        content_nodebox_activecrusher(f);
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRUSHER)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new CrusherNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
+
+	i = CONTENT_LOCKABLE_CRUSHER;
+	f = &content_features(i);
+	f->description = gettext("Locking Crusher");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("crusher_side.png");
+	f->setTexture(0, "crusher_top.png");
+	f->setTexture(1, "crusher_top.png^[transformFY");
+	f->setTexture(2, "crusher_side.png^[transformFX");
+	f->setTexture(4, "crusher_back.png");
+	f->setTexture(5, "crusher_lock.png"); // Z-
+	content_nodebox_lockedcrusher(f);
+	f->setInventoryTextureNodeBox(i,"crusher_top.png^[transformR90", "crusher_lock.png", "crusher_side.png^[transformFX");
+	f->rotate_tile_with_nodebox = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new LockingCrusherNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
+	f->alternate_lockstate_node = CONTENT_CRUSHER;
+	crafting::set1Any2Recipe(CONTENT_CRUSHER,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_CRUSHER);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_LOCKABLE_CRUSHER_ACTIVE;
+	f = &content_features(i);
+	f->description = gettext("Locking Crusher");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_CUBELIKE;
+	f->light_source = 9;
+	f->setAllTextures("crusher_side.png");
+	f->setTexture(0, "crusher_top.png");
+	f->setTexture(1, "crusher_top.png");
+	f->setTexture(5, "crusher_lock_active.png"); // Z-
+        content_nodebox_activelockedcrusher(f);
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_CRUSHER)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new LockingCrusherNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
 
 	i = CONTENT_NC;
 	f = &content_features(i);

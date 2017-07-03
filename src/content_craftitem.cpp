@@ -60,6 +60,8 @@ void content_craftitem_init()
 		g_content_craftitem_features[k].description = (char*)"";
 		g_content_craftitem_features[k].cook_result = CONTENT_IGNORE;
 		g_content_craftitem_features[k].cook_type = COOK_ANY;
+		g_content_craftitem_features[k].crush_result = CONTENT_IGNORE;
+		g_content_craftitem_features[k].crush_type = CRUSH_ANY;
 		g_content_craftitem_features[k].fuel_time = 0.0;
 		g_content_craftitem_features[k].stackable = true;
 		g_content_craftitem_features[k].consumable = false;

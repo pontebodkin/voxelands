@@ -3084,6 +3084,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_WALL
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_UD
 						|| meta->typeId() == CONTENT_LOCKABLE_FURNACE
+                                                || meta->typeId() == CONTENT_LOCKABLE_CRUSHER
 						|| meta->typeId() == CONTENT_FLAG
 						|| meta->typeId() == CONTENT_FLAG_BLUE
 						|| meta->typeId() == CONTENT_FLAG_GREEN
@@ -4400,6 +4401,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 									return;
 							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
 								LockingFurnaceNodeMetadata *lfm = (LockingFurnaceNodeMetadata*)meta;
+								std::string name = lfm->getInventoryOwner();
+								if (name != "" && name != player->getName() && lfm->getOwner() != player->getName())
+									return;
+							}else if (meta->typeId() == CONTENT_LOCKABLE_CRUSHER) {
+								LockingCrusherNodeMetadata *lfm = (LockingCrusherNodeMetadata*)meta;
 								std::string name = lfm->getInventoryOwner();
 								if (name != "" && name != player->getName() && lfm->getOwner() != player->getName())
 									return;

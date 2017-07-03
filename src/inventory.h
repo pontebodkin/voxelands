@@ -135,10 +135,14 @@ public:
 
 	// Whether it can be cooked
 	virtual bool isCookable(CookType type=COOK_ANY) const {return false;}
+	// Whether it can be crushed
+	virtual bool isCrushable(CrushType type=CRUSH_ANY) const {return false;}
 	// Time of cooking
 	virtual float getCookTime() const {return 3.0;}
 	// Result of cooking (can randomize)
 	virtual InventoryItem *createCookResult() const {return NULL;}
+	// Result of crushing (can randomize)
+	virtual InventoryItem *createCrushResult() const {return NULL;}
 	// Whether it can be used as fuel
 	virtual bool isFuel() const {return false;}
 	// the fuel time value
@@ -223,6 +227,8 @@ public:
 	*/
 	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
+	bool isCrushable(CrushType type) const;
+	InventoryItem *createCrushResult() const;
 	virtual bool isFuel() const;
 	virtual float getFuelTime() const;
 
@@ -314,6 +320,8 @@ public:
 
 	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
+	bool isCrushable(CrushType type) const;
+	InventoryItem *createCrushResult() const;
 	bool isFuel() const;
 	float getFuelTime() const;
 
@@ -385,6 +393,8 @@ public:
 
 	bool isCookable(CookType type) const;
 	InventoryItem *createCookResult() const;
+	bool isCrushable(CrushType type) const;
+	InventoryItem *createCrushResult() const;
 	bool isFuel() const;
 	float getFuelTime() const;
 	/*
@@ -632,8 +642,11 @@ public:
 	// Checks whether there is room for a given item
 	bool roomForItem(const InventoryItem *item);
 
-	// Checks whether there is room for a given item aftr it has been cooked
+	// Checks whether there is room for a given item after it has been cooked
 	bool roomForCookedItem(const InventoryItem *item);
+
+	// Checks whether there is room for a given item aftr it has been crushed
+	bool roomForCrushedItem(const InventoryItem *item);
 
 	// Takes some items from a slot.
 	// If there are not enough, takes as many as it can.

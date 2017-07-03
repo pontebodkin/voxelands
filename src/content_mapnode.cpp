@@ -223,6 +223,8 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_ROUGHSTONE)+" 1";
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
@@ -242,6 +244,8 @@ void content_mapnode_init(bool repeat)
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->dig_time = 0.6;
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 	content_list_add("decrafting",i,1,0);
@@ -602,6 +606,8 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_min_level = 1;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.75;
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_SAND)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	content_list_add("creative",i,1,0);
 	content_list_add("decrafting",i,1,0);
 
@@ -2306,6 +2312,8 @@ void content_mapnode_init(bool repeat)
 	f->cook_type = COOK_FURNACE;
 	f->type = CMT_STONE;
 	f->dig_time = 0.9;
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	crafting::setBlockRecipe(CONTENT_COBBLE,CONTENT_ROUGHSTONE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -2322,6 +2330,8 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 0.9;
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_GRAVEL)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	crafting::set5Recipe(CONTENT_ROUGHSTONE,CONTENT_COBBLE);
 	crafting::setHardBlockRecipe(CONTENT_ROCK,CONTENT_COBBLE);
 	content_list_add("craftguide",i,1,0);
@@ -2338,6 +2348,8 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 0.8;
+	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_GRAVEL)+" 1";
+	f->crush_type = CRUSH_CRUSHER;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_STEEL;
@@ -2818,7 +2830,7 @@ void content_mapnode_init(bool repeat)
 	content_list_add("cooking",i,1,0);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
-	
+
 	i = CONTENT_APPLEWOOD_COLUMN_SQUARE_BASE;
 	f = &content_features(i);
 	f->setAllTextures("applewood.png");

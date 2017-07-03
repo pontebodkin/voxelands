@@ -41,6 +41,10 @@ struct CraftItemFeatures {
 	content_t cook_result;
 	// what type of cooking device this item needs
 	CookType cook_type;
+	// the result of crushing this item
+	content_t crush_result;
+	// what type of crushing device this item needs
+	CrushType crush_type;
 	// the fuel value of this item
 	float fuel_time;
 	// whether the item can be stacked in inventory

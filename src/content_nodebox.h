@@ -90,5 +90,9 @@ void content_nodebox_column_cross(ContentFeatures *f);
 void content_nodebox_column_cross_base(ContentFeatures *f);
 void content_nodebox_column_cross_top(ContentFeatures *f);
 void content_nodebox_scaffolding(ContentFeatures *f);
+void content_nodebox_crusher(ContentFeatures *f);
+void content_nodebox_activecrusher(ContentFeatures *f);
+void content_nodebox_lockedcrusher(ContentFeatures *f);
+void content_nodebox_activelockedcrusher(ContentFeatures *f);
 
 #endif

@@ -36,6 +36,10 @@ struct ToolItemFeatures {
 	// what type of cooking device this item needs
 	CookType cook_type;
 	// the fuel value of this item
+	std::string crush_result;
+	// what type of crushing device this item needs
+        CrushType crush_type;
+        // the crush value of this item
 	float fuel_time;
 	// 0 if inedible, otherwise the value it improves hp by
 	s16 edible;
@@ -73,6 +77,8 @@ struct ToolItemFeatures {
 		name(""),
 		cook_result(""),
 		cook_type(COOK_ANY),
+		crush_result(""),
+		crush_type(CRUSH_ANY),
 		fuel_time(0.0),
 		edible(0),
 		drop_count(-1),

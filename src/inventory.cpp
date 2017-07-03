@@ -281,6 +281,24 @@ InventoryItem *MaterialItem::createCookResult() const
 	return InventoryItem::deSerialize(is);
 }
 
+bool MaterialItem::isCrushable(CrushType type) const
+{
+	ContentFeatures *f = &content_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->crush_type && f->crush_type != CRUSH_ANY)
+		return false;
+	if (f->crush_result == "")
+		return false;
+	return true;
+}
+
+InventoryItem *MaterialItem::createCrushResult() const
+{
+	std::istringstream is(content_features(m_content).crush_result, std::ios::binary);
+	return InventoryItem::deSerialize(is);
+}
+
 bool MaterialItem::isFuel() const
 {
 	return (content_features(m_content).fuel_time != 0.0);
@@ -449,6 +467,23 @@ InventoryItem *CraftItem::createCookResult() const
 	return InventoryItem::create(content_craftitem_features(m_content)->cook_result,1,1,0);
 }
 
+bool CraftItem::isCrushable(CrushType type) const
+{
+	CraftItemFeatures *f = content_craftitem_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->crush_type && f->crush_type != CRUSH_ANY)
+		return false;
+	if (f->crush_result == CONTENT_IGNORE)
+		return false;
+	return true;
+}
+
+InventoryItem *CraftItem::createCrushResult() const
+{
+	return InventoryItem::create(content_craftitem_features(m_content)->crush_result,1,1,0);
+}
+
 bool CraftItem::isFuel() const
 {
 	return (content_craftitem_features(m_content)->fuel_time != 0.0);
@@ -611,6 +646,24 @@ bool ToolItem::isCookable(CookType type) const
 InventoryItem *ToolItem::createCookResult() const
 {
 	std::istringstream is(content_toolitem_features(m_content).cook_result, std::ios::binary);
+	return InventoryItem::deSerialize(is);
+}
+
+bool ToolItem::isCrushable(CrushType type) const
+{
+	ToolItemFeatures *f = &content_toolitem_features(m_content);
+	if (!f)
+		return false;
+	if (type != f->crush_type && f->crush_type != CRUSH_ANY)
+		return false;
+	if (f->crush_result == "")
+		return false;
+	return true;
+}
+
+InventoryItem *ToolItem::createCrushResult() const
+{
+	std::istringstream is(content_toolitem_features(m_content).crush_result, std::ios::binary);
 	return InventoryItem::deSerialize(is);
 }
 
@@ -1149,6 +1202,18 @@ bool InventoryList::roomForCookedItem(const InventoryItem *item)
 	if (!item)
 		return false;
 	const InventoryItem *cook = item->createCookResult();
+	if (!cook)
+		return false;
+	bool room = roomForItem(cook);
+	delete cook;
+	return room;
+}
+
+bool InventoryList::roomForCrushedItem(const InventoryItem *item)
+{
+	if (!item)
+		return false;
+	const InventoryItem *cook = item->createCrushResult();
 	if (!cook)
 		return false;
 	bool room = roomForItem(cook);
