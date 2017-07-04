@@ -25,6 +25,7 @@
 #include "content_craft.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_door(bool repeat)
 {
@@ -52,7 +53,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_LB_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -79,7 +80,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_LT_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -230,7 +231,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_LB_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -258,7 +259,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_LT_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorw(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -352,7 +353,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_RB_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -379,7 +380,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_RT_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -410,7 +411,7 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_RB_OPEN;
 	f->sound_punch = "env-dooropen";
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR_GLASS;
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -440,7 +441,7 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,-1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_RT_OPEN;
 	f->sound_punch = "env-dooropen";
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR_GLASS;
 	content_nodebox_door(f);
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -526,7 +527,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_RB_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_door(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -554,7 +555,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_RT_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorw(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -644,7 +645,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_LB;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -669,7 +670,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_LT;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -697,7 +698,7 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_LB;
 	f->sound_punch = "env-doorclose";
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR_GLASS;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.15;
@@ -724,7 +725,7 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,-1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_LT;
 	f->sound_punch = "env-doorclose";
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR_GLASS;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.15;
@@ -803,7 +804,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_LB;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -828,7 +829,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_LT;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorwol(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -910,7 +911,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_RB;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -937,7 +938,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_DOOR_RT;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -967,7 +968,7 @@ void content_mapnode_door(bool repeat)
 	f->onact_also_affects = v3s16(0,1,0);
 	f->onpunch_replace_node = CONTENT_GLASS_DOOR_RB;
 	f->sound_punch = "env-doorclose";
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR_GLASS;
 	content_nodebox_dooror(f);
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1080,7 +1081,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_RB;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_dooror(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1107,7 +1108,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_DOOR_RT;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_DOOR;
 	content_nodebox_doorwor(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1187,7 +1188,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_HATCH_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_HATCH;
 	content_nodebox_hatch(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1242,7 +1243,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_HATCH_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_HATCH;
 	content_nodebox_hatchw(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1298,7 +1299,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_GATE_OPEN;
 	f->sound_punch = "env-dooropen";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_FENCE;
 	content_nodebox_gate(f);
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->type = CMT_WOOD;
@@ -1363,7 +1364,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_HATCH;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_HATCH;
 	content_nodebox_hatcho(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1418,7 +1419,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_W_HATCH;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_HATCH;
 	content_nodebox_hatchwo(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -1471,7 +1472,7 @@ void content_mapnode_door(bool repeat)
 	f->onpunch_replace_node = CONTENT_WOOD_GATE;
 	f->sound_punch = "env-doorclose";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_FENCE;
 	content_nodebox_gateo(f);
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;

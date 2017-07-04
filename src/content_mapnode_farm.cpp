@@ -26,6 +26,7 @@
 #include "content_craftitem.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_farm(bool repeat)
 {
@@ -73,7 +74,7 @@ void content_mapnode_farm(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_TRELLIS;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
@@ -99,7 +100,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -119,7 +120,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_MELONSLICE,CONTENT_SEEDS_MELON);
 	content_list_add("craftguide",i,1,0);
@@ -141,7 +142,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To1Recipe(CONTENT_CRAFTITEM_PUMPKINSLICE,CONTENT_SEEDS_PUMPKIN);
 	content_list_add("craftguide",i,1,0);
@@ -163,7 +164,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_POTATO,CONTENT_SEEDS_POTATO);
 	content_list_add("craftguide",i,1,0);
@@ -185,7 +186,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_CARROT,CONTENT_SEEDS_CARROT);
 	content_list_add("craftguide",i,1,0);
@@ -207,7 +208,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_BEETROOT,CONTENT_SEEDS_BEETROOT);
 	content_list_add("craftguide",i,1,0);
@@ -229,7 +230,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_GRAPE,CONTENT_SEEDS_GRAPE);
 	content_list_add("craftguide",i,1,0);
@@ -251,7 +252,7 @@ void content_mapnode_farm(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;
-	f->fuel_time = 2;
+	f->fuel_time = BT_SEED;
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
@@ -458,7 +459,7 @@ void content_mapnode_farm(bool repeat)
 	f->ondig_replace_node = CONTENT_TRELLIS;
 	f->plantgrowth_max_height = 5;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_TRELLIS;
 	f->type = CMT_WOOD;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
@@ -477,7 +478,7 @@ void content_mapnode_farm(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ") + itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_TRELLIS;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.3;
 	f->pressure_type = CST_CRUSHABLE;
@@ -497,7 +498,7 @@ void content_mapnode_farm(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ") + itos(CONTENT_DEAD_VINE)+" 1";
 	f->ondig_replace_node = CONTENT_TRELLIS;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_TRELLIS;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.4;
 	f->pressure_type = CST_CRUSHABLE;

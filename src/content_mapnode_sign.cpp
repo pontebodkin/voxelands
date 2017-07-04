@@ -26,6 +26,7 @@
 #include "content_nodemeta.h"
 #include "player.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_sign(bool repeat)
 {
@@ -45,7 +46,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -75,7 +76,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -100,7 +101,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -125,7 +126,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -154,7 +155,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_APPLE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -178,7 +179,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_APPLE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -202,7 +203,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -231,7 +232,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_JUNGLE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -255,7 +256,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_JUNGLE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -279,7 +280,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -308,7 +309,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_PINE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -332,7 +333,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_PINE)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -356,7 +357,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -385,7 +386,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_STEEL)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -409,7 +410,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_STEEL)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
@@ -437,7 +438,7 @@ void content_mapnode_sign(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_SIGN)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
@@ -463,7 +464,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");
@@ -493,7 +494,7 @@ void content_mapnode_sign(bool repeat)
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SIGN;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_SIGN)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new LockingSignNodeMetadata("Some sign");

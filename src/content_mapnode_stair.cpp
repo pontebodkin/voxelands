@@ -25,6 +25,7 @@
 #include "content_craft.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_stair(bool repeat)
 {
@@ -116,7 +117,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stair(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_CORNER;
@@ -136,7 +137,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stair(f);
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_STAIR_CORNER;
@@ -156,7 +157,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stair(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_STAIR_CORNER;
@@ -295,7 +296,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stairud(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_CORNER_UD;
@@ -312,7 +313,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stairud(f);
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_STAIR_CORNER_UD;
@@ -329,7 +330,7 @@ void content_mapnode_stair(bool repeat)
 	content_nodebox_stairud(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_STAIR_CORNER_UD;
@@ -458,7 +459,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_INNER_STAIR_CORNER;
@@ -475,7 +476,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_INNER_STAIR_CORNER;
@@ -493,7 +494,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_INNER_STAIR_CORNER;
@@ -616,7 +617,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_INNER_STAIR_CORNER_UD;
@@ -633,7 +634,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_INNER_STAIR_CORNER_UD;
@@ -651,7 +652,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_INNER_STAIR_CORNER_UD;
@@ -771,7 +772,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR;
@@ -788,7 +789,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_STAIR;
@@ -805,7 +806,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_STAIR;
@@ -930,7 +931,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png","applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_APPLEWOOD_STAIR_UD;
@@ -947,7 +948,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png","wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->onpunch_replace_node = CONTENT_WOOD_STAIR_UD;
@@ -965,7 +966,7 @@ void content_mapnode_stair(bool repeat)
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png","junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under
 					  // it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_STAIR;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_JUNGLE_STAIR_UD;

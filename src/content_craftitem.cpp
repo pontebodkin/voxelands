@@ -30,6 +30,7 @@
 #include "content_list.h"
 #include "intl.h"
 #include "player.h"
+#include "content_burntimes.h"
 
 struct CraftItemFeatures g_content_craftitem_features[4096];
 
@@ -106,7 +107,7 @@ void content_craftitem_init()
 	f->texture = "lump_of_charcoal.png";
 	f->name = "lump_of_charcoal";
 	f->description = gettext("Charcoal Lump");
-	f->fuel_time = 40;
+	f->fuel_time = BT_COAL;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_COAL;
@@ -115,7 +116,7 @@ void content_craftitem_init()
 	f->texture = "lump_of_coal.png";
 	f->name = "lump_of_coal";
 	f->description = gettext("Coal Lump");
-	f->fuel_time = 40;
+	f->fuel_time = BT_COAL;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_IRON;
@@ -438,7 +439,7 @@ void content_craftitem_init()
 	f->texture = "stick.png";
 	f->name = "Stick";
 	f->description = gettext("Stick");
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_STICK;
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_PINE_PLANK,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_CRAFTITEM_STICK);
 	crafting::set1To2Recipe(CONTENT_CRAFTITEM_JUNGLE_PLANK,CONTENT_CRAFTITEM_STICK);
@@ -456,7 +457,7 @@ void content_craftitem_init()
 	f->texture = "pine_plank.png";
 	f->name = "pine_plank";
 	f->description = gettext("Pine Plank");
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_PLANK;
 	crafting::set1To4Recipe(CONTENT_WOOD_PINE,CONTENT_CRAFTITEM_PINE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_CONIFER_TREE,CONTENT_CRAFTITEM_PINE_PLANK);
 	content_list_add("craftguide",i,1,0);
@@ -468,7 +469,7 @@ void content_craftitem_init()
 	f->texture = "applewood_plank.png";
 	f->name = "applewood_plank";
 	f->description = gettext("Apple Wood Plank");
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_PLANK;
 	crafting::set1To4Recipe(CONTENT_APPLEWOOD,CONTENT_CRAFTITEM_APPLE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_APPLE_TREE,CONTENT_CRAFTITEM_APPLE_PLANK);
 	content_list_add("craftguide",i,1,0);
@@ -480,7 +481,7 @@ void content_craftitem_init()
 	f->texture = "wood_plank.png";
 	f->name = "wood_plank";
 	f->description = gettext("Wood Plank");
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_PLANK;
 	crafting::set1To4Recipe(CONTENT_WOOD,CONTENT_CRAFTITEM_WOOD_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_TREE,CONTENT_CRAFTITEM_WOOD_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_APPLE_TREE,CONTENT_CRAFTITEM_WOOD_PLANK);
@@ -493,7 +494,7 @@ void content_craftitem_init()
 	f->texture = "jungle_plank.png";
 	f->name = "jungle_plank";
 	f->description = gettext("Jungle Wood Plank");
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_PLANK;
 	crafting::set1To4Recipe(CONTENT_JUNGLEWOOD,CONTENT_CRAFTITEM_JUNGLE_PLANK);
 	crafting::set1To2Recipe(CONTENT_YOUNG_JUNGLETREE,CONTENT_CRAFTITEM_JUNGLE_PLANK);
 	content_list_add("craftguide",i,1,0);
@@ -534,7 +535,7 @@ void content_craftitem_init()
 	f->sound_use = "use-eat";
 	f->hunger_effect = 10;
 	f->health_effect = 5;
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_FLOWER;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CACTUS_FRUIT;

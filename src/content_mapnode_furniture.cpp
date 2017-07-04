@@ -25,6 +25,7 @@
 #include "content_craft.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_furniture(bool repeat)
 {
@@ -44,7 +45,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BOOKSHELF)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_BOOKSHELF;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
@@ -77,7 +78,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_BOOKSHELF;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
@@ -110,7 +111,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_BOOKSHELF;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
@@ -143,7 +144,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_BOOKSHELF;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	content_nodebox_bookshelf(f);
@@ -173,7 +174,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL;
@@ -192,7 +193,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR;
@@ -211,7 +212,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER;
@@ -230,7 +231,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER;
@@ -249,7 +250,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR;
@@ -268,7 +269,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE;
@@ -297,7 +298,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLUE;
@@ -316,7 +317,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLUE;
@@ -335,7 +336,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLUE;
@@ -354,7 +355,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLUE;
@@ -373,7 +374,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLUE;
@@ -392,7 +393,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLUE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLUE;
@@ -415,7 +416,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_GREEN;
@@ -434,7 +435,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_GREEN;
@@ -453,7 +454,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_GREEN;
@@ -472,7 +473,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_GREEN;
@@ -491,7 +492,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_GREEN;
@@ -510,7 +511,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_GREEN)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_GREEN;
@@ -533,7 +534,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_ORANGE;
@@ -552,7 +553,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_ORANGE;
@@ -571,7 +572,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_ORANGE;
@@ -590,7 +591,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_ORANGE;
@@ -609,7 +610,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_ORANGE;
@@ -628,7 +629,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_ORANGE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_ORANGE;
@@ -651,7 +652,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_PURPLE;
@@ -670,7 +671,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_PURPLE;
@@ -689,7 +690,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_PURPLE;
@@ -708,7 +709,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_PURPLE;
@@ -727,7 +728,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_PURPLE;
@@ -746,7 +747,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_PURPLE)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_PURPLE;
@@ -769,7 +770,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_RED;
@@ -788,7 +789,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_RED;
@@ -807,7 +808,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_RED;
@@ -826,7 +827,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_RED;
@@ -845,7 +846,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_RED;
@@ -864,7 +865,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_RED)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_RED;
@@ -887,7 +888,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_YELLOW;
@@ -906,7 +907,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_YELLOW;
@@ -925,7 +926,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_YELLOW;
@@ -944,7 +945,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_YELLOW;
@@ -963,7 +964,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_YELLOW;
@@ -982,7 +983,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_YELLOW)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_YELLOW;
@@ -1005,7 +1006,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDL_BLACK;
@@ -1024,7 +1025,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_ENDR_BLACK;
@@ -1043,7 +1044,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_INNER_BLACK;
@@ -1062,7 +1063,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_OUTER_BLACK;
@@ -1081,7 +1082,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CHAIR_BLACK;
@@ -1100,7 +1101,7 @@ void content_mapnode_furniture(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_COUCH_CHAIR_BLACK)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_COUCH;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->onpunch_replace_node = CONTENT_COUCH_CENTRE_BLACK;
@@ -1126,7 +1127,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair(f);
 	f->onpunch_replace_node = CONTENT_CHAIR_CENTRE;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1159,7 +1160,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair_centre(f);
 	f->onpunch_replace_node = CONTENT_CHAIR_ENDL;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1182,7 +1183,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair_endl(f);
 	f->onpunch_replace_node = CONTENT_CHAIR_ENDR;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1205,7 +1206,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair_endr(f);
 	f->onpunch_replace_node = CONTENT_CHAIR_INNER;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1228,7 +1229,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair_inner(f);
 	f->onpunch_replace_node = CONTENT_CHAIR_OUTER;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1251,7 +1252,7 @@ void content_mapnode_furniture(bool repeat)
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CHAIR)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CHAIR;
 	content_nodebox_chair_outer(f);
 	f->onpunch_replace_node = CONTENT_CHAIR;
 	f->onpunch_replace_respects_borderstone = true;
@@ -1273,7 +1274,7 @@ void content_mapnode_furniture(bool repeat)
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_TABLE;
 	content_nodebox_table(f);
 	f->setInventoryTextureNodeBox(i,"pine.png", "pine.png", "pine.png");
 	f->type = CMT_WOOD;
@@ -1309,7 +1310,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1341,7 +1342,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1368,7 +1369,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1400,7 +1401,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_BLUE_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1427,7 +1428,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1459,7 +1460,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_GREEN_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1486,7 +1487,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1518,7 +1519,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_ORANGE_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1545,7 +1546,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1577,7 +1578,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_PURPLE_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1604,7 +1605,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1636,7 +1637,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_RED_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1663,7 +1664,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1695,7 +1696,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_YELLOW_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1722,7 +1723,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_bed_head(f);
@@ -1754,7 +1755,7 @@ void content_mapnode_furniture(bool repeat)
 	f->sunlight_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_BLACK_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_bed_foot(f);
@@ -1776,7 +1777,7 @@ void content_mapnode_furniture(bool repeat)
 	f->light_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CAMP_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->onact_also_affects = v3s16(0,0,1);
 	content_nodebox_slab(f);
@@ -1810,7 +1811,7 @@ void content_mapnode_furniture(bool repeat)
 	f->light_propagates = true;
 	f->rotate_tile_with_nodebox = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_CAMP_BED;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_BED_CAMP_HEAD)+" 1";
 	f->onact_also_affects = v3s16(0,0,-1);
 	content_nodebox_slab(f);
@@ -1835,7 +1836,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_PAINTING;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_WHITE)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
@@ -1869,7 +1870,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_PAINTING;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_RED)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
@@ -1903,7 +1904,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_PAINTING;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_GREEN)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
@@ -1937,7 +1938,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_PAINTING;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_BLUE)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
@@ -1971,7 +1972,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_PAINTING;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_PAINTING_CANVAS)+" 1";
 	f->type = CMT_WOOD;
 	content_nodebox_painting(f);
@@ -2007,7 +2008,7 @@ void content_mapnode_furniture(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_CLOCK;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_WOOD;
 	f->dig_time = 0.1;

@@ -29,6 +29,7 @@
 #include "intl.h"
 #include "enchantment.h"
 #include "auth.h"
+#include "content_burntimes.h"
 
 std::map<content_t,struct ToolItemFeatures> g_content_toolitem_features;
 
@@ -924,7 +925,7 @@ void content_toolitem_init()
 	f->description = gettext("Steel Bucket of Lava");
 	f->onplace_node = CONTENT_LAVASOURCE;
 	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
-	f->fuel_time = 80;
+	f->fuel_time = BT_LAVA_BUCKET;
 	f->type = TT_SPECIAL;
 	content_list_add("creative",i,1,0);
 

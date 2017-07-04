@@ -28,6 +28,7 @@
 #include "content_craft.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_plants(bool repeat)
 {
@@ -48,7 +49,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 2; // can be set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
-	f->fuel_time = 30;
+	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_WOOD;
@@ -70,7 +71,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 2; // can be set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
-	f->fuel_time = 30;
+	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_WOOD;
@@ -92,7 +93,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 2; // can be set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
-	f->fuel_time = 30;
+	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->ondig_special_drop = CONTENT_JUNGLEWOOD;
@@ -113,7 +114,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 2; // can be set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CHARCOAL)+" 1";
-	f->fuel_time = 25;
+	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 0.8;
 	f->ondig_special_drop = CONTENT_WOOD_PINE;
@@ -136,7 +137,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_LEAVES;
-	f->fuel_time = 20;
+	f->fuel_time = BT_YOUNG_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
@@ -156,7 +157,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_JUNGLELEAVES;
-	f->fuel_time = 20;
+	f->fuel_time = BT_YOUNG_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
@@ -176,7 +177,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_APPLE_LEAVES;
-	f->fuel_time = 20;
+	f->fuel_time = BT_YOUNG_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
@@ -196,7 +197,7 @@ void content_mapnode_plants(bool repeat)
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->special_alternate_node = CONTENT_CONIFER_LEAVES;
-	f->fuel_time = 20;
+	f->fuel_time = BT_YOUNG_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
@@ -216,7 +217,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BUSH;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
@@ -237,7 +238,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BUSH;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
@@ -259,7 +260,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -291,7 +292,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -323,7 +324,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -355,7 +356,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -388,7 +389,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLE_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -420,7 +421,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLESAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -452,7 +453,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CONIFER_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
@@ -484,7 +485,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("leaves.png", "leaves.png", "leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -509,7 +510,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("leaves_autumn.png", "leaves_autumn.png", "leaves_autumn.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -534,7 +535,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("leaves_winter.png", "leaves_winter.png", "leaves_winter.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -559,7 +560,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("apple_leaves.png", "apple_leaves.png", "apple_leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -584,7 +585,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("jungleleaves.png", "jungleleaves.png", "jungleleaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -609,7 +610,7 @@ void content_mapnode_plants(bool repeat)
 #endif
 	f->setInventoryTextureCube("conifer_leaves.png", "conifer_leaves.png", "conifer_leaves.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LEAF;
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
@@ -679,7 +680,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_FLOWER;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
@@ -699,7 +700,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CACTUS_BLOSSOM)+" 1";
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_FLOWER;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
@@ -720,7 +721,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_CACTUS_FRUIT)+" 1";
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_FRUIT;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.20;
 	f->pressure_type = CST_CRUSHABLE;
@@ -739,7 +740,7 @@ void content_mapnode_plants(bool repeat)
 	f->sunlight_propagates = true;
 	f->damage_per_second = 10;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/4;
+	f->fuel_time = BT_CACTUS;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->extra_dug_item = std::string("CraftItem2 ") + itos (CONTENT_CRAFTITEM_MUSH) + " 1";
 	f->extra_dug_item_rarity = 10;
@@ -805,7 +806,7 @@ void content_mapnode_plants(bool repeat)
 	f->plantgrowth_max_height = 5;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BUSH;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.25;
 	f->pressure_type = CST_CRUSHABLE;
@@ -825,7 +826,7 @@ void content_mapnode_plants(bool repeat)
 	f->air_equivalent = false;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SAPLING;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -846,7 +847,7 @@ void content_mapnode_plants(bool repeat)
 	f->air_equivalent = false;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SAPLING;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -867,7 +868,7 @@ void content_mapnode_plants(bool repeat)
 	f->air_equivalent = false;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SAPLING;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -888,7 +889,7 @@ void content_mapnode_plants(bool repeat)
 	f->air_equivalent = false;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_SAPLING;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.1;
 	f->pressure_type = CST_CRUSHABLE;
@@ -909,7 +910,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 1;
+	f->fuel_time = BT_FRUIT;
 	f->dug_item = std::string("CraftItem2 ") +itos(CONTENT_CRAFTITEM_APPLE)+" 1";
 	f->ondig_replace_node = CONTENT_APPLE_LEAVES;
 	f->ondig_replace_node_requires = CONTENT_APPLE_TREE;
@@ -935,7 +936,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	//f->pointable = false;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
@@ -958,7 +959,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.15;
@@ -980,7 +981,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.10;
@@ -1002,7 +1003,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.10;
@@ -1024,7 +1025,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.10;
@@ -1047,7 +1048,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.10;
@@ -1070,7 +1071,7 @@ void content_mapnode_plants(bool repeat)
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_GRASS;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.10;
@@ -1112,7 +1113,7 @@ void content_mapnode_plants(bool repeat)
 	f->plantgrowth_large_gives_small = true;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BUSH;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.15;
@@ -1154,7 +1155,7 @@ void content_mapnode_plants(bool repeat)
 	f->plantgrowth_large_dug_node = CONTENT_BEANS_COFFEE;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/32;
+	f->fuel_time = BT_BUSH;
 	f->buildable_to = true;
 	f->type = CMT_PLANT;
 	f->dig_time = 0.15;
@@ -1180,7 +1181,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllMetaTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_BUSH;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->dig_time = 0.15;
@@ -1210,7 +1211,7 @@ void content_mapnode_plants(bool repeat)
 	f->setAllMetaTextureFlags(0);
 #endif
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_BUSH;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_PLANT;
 	f->dig_time = 0.15;

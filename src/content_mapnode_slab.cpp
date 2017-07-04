@@ -25,6 +25,7 @@
 #include "content_craft.h"
 #include "content_nodemeta.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_slab(bool repeat)
 {
@@ -114,7 +115,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
@@ -133,7 +134,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
@@ -152,7 +153,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slab(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;
@@ -490,7 +491,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png", "applewood.png", "applewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
@@ -505,7 +506,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	f->suffocation_per_second = 0;
@@ -520,7 +521,7 @@ void content_mapnode_slab(bool repeat)
 	content_nodebox_slabud(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png", "junglewood.png", "junglewood.png");
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30;
+	f->fuel_time = BT_SLAB;
 	f->type = CMT_WOOD;
 	f->dig_time = 1.0;
 	f->suffocation_per_second = 0;

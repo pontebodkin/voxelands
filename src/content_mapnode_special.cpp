@@ -26,6 +26,7 @@
 #include "content_nodemeta.h"
 #include "player.h"
 #include "intl.h"
+#include "content_burntimes.h"
 
 void content_mapnode_special(bool repeat)
 {
@@ -45,7 +46,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_FENCE;
 	f->special_alternate_node = CONTENT_WOOD;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -98,7 +99,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_FENCE;
 	f->special_alternate_node = CONTENT_JUNGLEWOOD;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -124,7 +125,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_FENCE;
 	f->special_alternate_node = CONTENT_WOOD_PINE;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -150,7 +151,7 @@ void content_mapnode_special(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 15;
+	f->fuel_time = BT_FENCE;
 	f->special_alternate_node = CONTENT_APPLEWOOD;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
@@ -512,7 +513,7 @@ void content_mapnode_special(bool repeat)
 	f->climbable = true;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LADDER;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
@@ -571,7 +572,7 @@ void content_mapnode_special(bool repeat)
 	f->climbable = true;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LADDER;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
@@ -605,7 +606,7 @@ void content_mapnode_special(bool repeat)
 	f->climbable = true;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 30/16;
+	f->fuel_time = BT_LADDER;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1066,7 +1067,7 @@ void content_mapnode_special(bool repeat)
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
-	f->fuel_time = 0.5;
+	f->fuel_time = BT_TORCH;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->light_source = LIGHT_MAX-1;
 	f->type = CMT_WOOD;
@@ -1484,7 +1485,7 @@ void content_mapnode_special(bool repeat)
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->walkable = false;
-	f->fuel_time = 1.0;
+	f->fuel_time = BT_CAMP_FIRE;
 	f->light_source = LIGHT_MAX-3;
 	f->damage_per_second = 40;
 	f->setAllTextures("campfire_stones.png");
@@ -2222,7 +2223,7 @@ void content_mapnode_special(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->flammable = 1;
-    f->fuel_time = 30/4;
+        f->fuel_time = BT_SCAFFOLDING;
 	f->dig_time = 0.75;
 	f->is_ground_content = true;
 	f->light_propagates = true;
