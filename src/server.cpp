@@ -56,6 +56,9 @@
 
 #define BLOCK_EMERGE_FLAG_FROMDISK (1<<0)
 
+#define SECONDS_PER_DAY 86400
+#define SECONDS_PER_HOUR 3600
+
 class MapEditEventIgnorer
 {
 public:
@@ -5718,8 +5721,22 @@ std::wstring Server::getStatusString()
 	os<<L"# Server: ";
 	// Version
 	os<<L"version="<<narrow_to_wide(VERSION_STRING);
-	// Uptime
-	os<<L", uptime="<<m_uptime.get();
+
+	// Uptime - human readable format
+	float timestamp = m_uptime.get(), seconds = 0.0;
+	int days = 0, hours = 0, minutes = 0;
+
+	days = (int)timestamp / SECONDS_PER_DAY;
+	hours = ((int)timestamp - (days * SECONDS_PER_DAY)) / SECONDS_PER_HOUR;
+	minutes = ((int)timestamp -
+				 ((days * SECONDS_PER_DAY) + (hours * SECONDS_PER_HOUR))) / 60;
+	seconds = timestamp -
+				 ((days * SECONDS_PER_DAY) + (hours * SECONDS_PER_HOUR) +
+				 (minutes * 60));
+
+	os<<L", uptime: " << days << "DD, " << hours << ":" << minutes << ":"
+	  << seconds;
+
 	// Information about clients
 	os<<L", clients={";
 	for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
