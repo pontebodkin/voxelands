@@ -2295,8 +2295,9 @@ void the_game(
 						v3f pp = client.getLocalPlayer()->getPosition();
 						spos = floatToInt(pp,BS);
 					}
+					MapBlock *block = client.getEnv().getMap().getBlockNoCreateNoEx(getNodeBlockPos(spos));
 					snode = client.getEnv().getMap().getNodeNoEx(spos,NULL);
-					biome = client.getEnv().getMap().getBlockNoCreateNoEx(getNodeBlockPos(spos))->getBiome();
+					biome = (block == NULL) ? BIOME_UNKNOWN : block->getBiome();
 				}
 
 				LocalPlayer *p = client.getLocalPlayer();
