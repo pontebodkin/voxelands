@@ -218,9 +218,7 @@ void content_mapnode_special(bool repeat)
 		r[7] = CONTENT_CRAFTITEM_JUNGLE_PLANK;
 		crafting::setRecipe(r,CONTENT_RAIL,15);
 	}
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,-0.5*BS,-0.5*BS,0.5*BS,-0.375*BS,0.5*BS
-	));
+	content_nodebox_rail(f);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -518,18 +516,7 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.4375*BS,-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		0.3125*BS,-0.5*BS,0.3125*BS,0.4375*BS,0.5*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,-0.25*BS,0.375*BS,0.3125*BS,-0.1875*BS,0.4375*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,0.25*BS,0.375*BS,0.3125*BS,0.3125*BS,0.4375*BS
-	));
+	content_nodebox_ladder_wall(f);
 	f->setInventoryTextureNodeBox(i,"ladder.png","ladder.png","ladder.png");
 	{
 		u16 r[9] = {
@@ -577,18 +564,7 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.4375*BS,-0.5*BS,-0.5*BS,-0.3125*BS,-0.3125*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		0.3125*BS,-0.5*BS,-0.5*BS,0.4375*BS,-0.3125*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,-0.4375*BS,-0.3125*BS,0.3125*BS,-0.375*BS,-0.25*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,-0.4375*BS,0.1875*BS,0.3125*BS,-0.375*BS,0.25*BS
-	));
+	content_nodebox_ladder_floor(f);
 
 	i = CONTENT_LADDER_ROOF;
 	f = &content_features(i);
@@ -611,18 +587,7 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.4375*BS,0.3125*BS,-0.5*BS,-0.3125*BS,0.5*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		0.3125*BS,0.3125*BS,-0.5*BS,0.4375*BS,0.5*BS,0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,0.375*BS,-0.3125*BS,0.3125*BS,0.4375*BS,-0.25*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,0.375*BS,0.1875*BS,0.3125*BS,0.4375*BS,0.25*BS
-	));
+	content_nodebox_ladder_roof(f);
 
 	i = CONTENT_BORDERSTONE;
 	f = &content_features(i);
@@ -1101,18 +1066,7 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-	f->setNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
-	));
+	content_nodebox_chest(f);
 	f->setInventoryTextureNodeBox(i,"wood.png^chests_top.png", "wood.png^chests_front.png", "wood.png^chests_side.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if (f->initial_metadata == NULL)
@@ -1146,18 +1100,7 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-	f->setNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
-	));
+	content_nodebox_chest(f);
 	f->setInventoryTextureNodeBox(i,"pine.png^chests_top.png", "pine.png^chests_front.png", "pine.png^chests_side.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if (f->initial_metadata == NULL)
@@ -1191,18 +1134,7 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-	f->setNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
-	));
+	content_nodebox_chest(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png^chests_top.png", "junglewood.png^chests_front.png", "junglewood.png^chests_side.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if (f->initial_metadata == NULL)
@@ -1236,18 +1168,7 @@ void content_mapnode_special(bool repeat)
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
 	f->rotate_tile_with_nodebox = true;
-	f->setNodeBox(NodeBox(
-		-0.5*BS,-0.5*BS,-0.4375*BS,0.5*BS,0.3125*BS,0.4375*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.3125*BS,-0.3125*BS,0.5*BS,0.375*BS,0.3125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.5*BS,0.375*BS,-0.125*BS,0.5*BS,0.4375*BS,0.125*BS
-	));
-	f->addNodeBox(NodeBox(
-		-0.0625*BS,-0.0625*BS,-0.5*BS,0.0625*BS,0.125*BS,-0.4375*BS
-	));
+	content_nodebox_chest(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png^chests_top.png", "applewood.png^chests_front.png", "applewood.png^chests_side.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if (f->initial_metadata == NULL)

@@ -744,46 +744,7 @@ void content_mapnode_plants(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->extra_dug_item = std::string("CraftItem2 ") + itos (CONTENT_CRAFTITEM_MUSH) + " 1";
 	f->extra_dug_item_rarity = 10;
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.4375*BS,
-		-0.5*BS,
-		-0.4375*BS,
-		0.4375*BS,
-		0.5*BS,
-		0.4375*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		0.3125*BS,
-		-0.5*BS,
-		-0.4375*BS,
-		0.375*BS,
-		-0.4375*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		0.4375*BS,
-		0.125*BS,
-		0.4375*BS,
-		0.5*BS,
-		0.1875*BS,
-		0.5*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		0.4375*BS,
-		-0.1875*BS,
-		-0.5*BS,
-		0.5*BS,
-		-0.125*BS,
-		-0.4375*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.375*BS,
-		0.4375*BS,
-		-0.4375*BS,
-		-0.3125*BS,
-		0.5*BS
-	));
+	content_nodebox_cactus(f);
 	f->setInventoryTextureCube("cactus_top.png", "cactus_side.png", "cactus_side.png");
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;

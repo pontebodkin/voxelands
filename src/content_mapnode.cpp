@@ -1049,14 +1049,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_side.png", "glass.png", "glass_pane_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1082,14 +1075,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+		content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_blue_side.png", "glass.png^glass_pane_blue_side.png", "glass_pane_blue_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1116,14 +1102,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_green_side.png", "glass.png^glass_pane_green_side.png", "glass_pane_green_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1150,14 +1129,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_orange_side.png", "glass.png^glass_pane_orange_side.png", "glass_pane_orange_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1184,14 +1156,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_purple_side.png", "glass.png^glass_pane_purple_side.png", "glass_pane_purple_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1218,14 +1183,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_red_side.png", "glass.png^glass_pane_red_side.png", "glass_pane_red_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1252,14 +1210,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_yellow_side.png", "glass.png^glass_pane_yellow_side.png", "glass_pane_yellow_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1286,14 +1237,7 @@ void content_mapnode_init(bool repeat)
 #ifndef SERVER
 	f->setAllTextureTypes(MATERIAL_ALPHA_BLEND);
 #endif
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.5*BS,
-		-0.05*BS,
-		0.5*BS,
-		0.5*BS,
-		0.05*BS
-	));
+	content_nodebox_glass_pane(f);
 	f->setInventoryTextureNodeBox(i,"glass_pane_black_side.png", "glass.png^glass_pane_black_side.png", "glass_pane_black_side.png");
 	f->type = CMT_GLASS;
 	f->dig_time = 0.15;
@@ -1745,38 +1689,7 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_DIRT;
 	f->pressure_type = CST_CRUSHABLE;
 	f->dig_time = 0.3;
-	f->setNodeBox(core::aabbox3d<f32>(
-		-0.3125*BS,
-		-0.5*BS,
-		-0.3125*BS,
-		0.3125*BS,
-		0.125*BS,
-		0.3125*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.25*BS,
-		0.125*BS,
-		-0.25*BS,
-		0.25*BS,
-		0.5*BS,
-		0.25*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.0625*BS,
-		0.3125*BS,
-		-0.375*BS,
-		0.*BS,
-		0.375*BS,
-		-0.25*BS
-	));
-	f->addNodeBox(core::aabbox3d<f32>(
-		-0.5*BS,
-		-0.0625*BS,
-		-0.0625*BS,
-		0.5*BS,
-		0.*BS,
-		0.*BS
-	));
+	content_nodebox_snowman(f);
 	f->setInventoryTextureNodeBox(i,"snow.png", "snow.png", "snow.png");
 	{
 		content_t r[9] = {

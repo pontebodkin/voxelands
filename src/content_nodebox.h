@@ -94,5 +94,13 @@ void content_nodebox_crusher(ContentFeatures *f);
 void content_nodebox_activecrusher(ContentFeatures *f);
 void content_nodebox_lockedcrusher(ContentFeatures *f);
 void content_nodebox_activelockedcrusher(ContentFeatures *f);
+void content_nodebox_cactus(ContentFeatures *f);
+void content_nodebox_ladder_wall(ContentFeatures *f);
+void content_nodebox_ladder_floor(ContentFeatures *f);
+void content_nodebox_ladder_roof(ContentFeatures *f);
+void content_nodebox_rail(ContentFeatures *f);
+void content_nodebox_chest(ContentFeatures *f);
+void content_nodebox_glass_pane(ContentFeatures *f);
+void content_nodebox_snowman(ContentFeatures *f);
 
 #endif
