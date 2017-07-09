@@ -2297,7 +2297,8 @@ void the_game(
 					}
 					MapBlock *block = client.getEnv().getMap().getBlockNoCreateNoEx(getNodeBlockPos(spos));
 					snode = client.getEnv().getMap().getNodeNoEx(spos,NULL);
-					biome = (block == NULL) ? BIOME_UNKNOWN : block->getBiome();
+					if (block != NULL)
+						biome = block->getBiome();
 				}
 
 				LocalPlayer *p = client.getLocalPlayer();
