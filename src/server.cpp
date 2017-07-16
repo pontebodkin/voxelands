@@ -3087,7 +3087,6 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_WALL
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_UD
 						|| meta->typeId() == CONTENT_LOCKABLE_FURNACE
-                                                || meta->typeId() == CONTENT_LOCKABLE_CRUSHER
 						|| meta->typeId() == CONTENT_FLAG
 						|| meta->typeId() == CONTENT_FLAG_BLUE
 						|| meta->typeId() == CONTENT_FLAG_GREEN
@@ -3098,6 +3097,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						|| meta->typeId() == CONTENT_FLAG_BLACK
 						|| meta->typeId() == CONTENT_SAFE
 					)
+					&& meta->getOwner() != ""
 					&& meta->getOwner() != player->getName()
 				) {
 					infostream<<"Player "<<player->getName()<<" cannot remove node: not node owner"<<std::endl;
@@ -4398,17 +4398,20 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						p.Z = mystoi(fn.next(","));
 						NodeMetadata *meta = m_env.getMap().getNodeMetadata(p);
 						if (meta) {
-							if (meta->typeId() == CONTENT_LOCKABLE_CHEST_DEPRECATED) {
+							if (meta->typeId() == CONTENT_CHEST) {
+								ChestNodeMetadata *lcm = (ChestNodeMetadata*)meta;
+								if (lcm->getInventoryOwner() != "" && lcm->getInventoryOwner() != player->getName())
+									return;
+							}else if (meta->typeId() == CONTENT_CRUSHER) {
+								CrusherNodeMetadata *lcm = (CrusherNodeMetadata*)meta;
+								if (lcm->getInventoryOwner() != "" && lcm->getInventoryOwner() != player->getName())
+									return;
+							}else if (meta->typeId() == CONTENT_LOCKABLE_CHEST_DEPRECATED) {
 								LockingDeprecatedChestNodeMetadata *lcm = (LockingDeprecatedChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != player->getName())
 									return;
 							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
 								LockingFurnaceNodeMetadata *lfm = (LockingFurnaceNodeMetadata*)meta;
-								std::string name = lfm->getInventoryOwner();
-								if (name != "" && name != player->getName() && lfm->getOwner() != player->getName())
-									return;
-							}else if (meta->typeId() == CONTENT_LOCKABLE_CRUSHER) {
-								LockingCrusherNodeMetadata *lfm = (LockingCrusherNodeMetadata*)meta;
 								std::string name = lfm->getInventoryOwner();
 								if (name != "" && name != player->getName() && lfm->getOwner() != player->getName())
 									return;

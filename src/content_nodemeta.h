@@ -392,52 +392,24 @@ public:
 	virtual std::string getDrawSpecString(Player *player);
 	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
 
-	virtual bool import(NodeMetadata *meta);
-
-private:
-	Inventory *m_inventory;
-	float m_step_accumulator;
-	float m_fuel_totaltime;
-	float m_fuel_time;
-	float m_src_totaltime;
-	float m_src_time;
-};
-
-class LockingCrusherNodeMetadata : public NodeMetadata
-{
-public:
-	LockingCrusherNodeMetadata();
-	~LockingCrusherNodeMetadata();
-
-	virtual u16 typeId() const;
-	virtual NodeMetadata* clone();
-	static NodeMetadata* create(std::istream &is);
-	virtual void serializeBody(std::ostream &os);
-	virtual std::wstring infoText();
-	virtual Inventory* getInventory() {return m_inventory;}
-	virtual void inventoryModified();
-	virtual bool step(float dtime, v3s16 pos, ServerEnvironment *env);
-	virtual bool nodeRemovalDisabled();
-	virtual std::string getDrawSpecString(Player *player);
-	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
-
-	virtual bool import(NodeMetadata *meta);
-
-	virtual std::string getOwner(){ return m_owner; }
+	virtual std::string getOwner();
 	virtual void setOwner(std::string t){ m_owner = t; }
-	virtual std::string getInventoryOwner(){ return m_inv_owner; }
-	virtual void setInventoryOwner(std::string t){ m_inv_owner = t; }
+	virtual std::string getInventoryOwner();
+	virtual void setInventoryOwner(std::string t){ m_owner = t; }
 
 private:
 	Inventory *m_inventory;
-	float m_step_accumulator;
-	float m_fuel_totaltime;
-	float m_fuel_time;
-	float m_src_totaltime;
-	float m_src_time;
+	float m_active_timer;
+	float m_burn_counter;
+	float m_cook_timer;
+	float m_step_interval;
 	std::string m_owner;
-	std::string m_inv_owner;
-	float m_lock;
+	bool m_is_locked;
+	bool m_is_expanded;
+	bool m_is_exo;
+	float m_cook_upgrade;
+	float m_burn_upgrade;
+	uint16_t m_expanded_slot_id;
 };
 
 class LockingFurnaceNodeMetadata : public NodeMetadata
