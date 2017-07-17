@@ -254,9 +254,7 @@ std::wstring MaterialItem::getGuiText()
 		char buff[20];
 		txt += "\n";
 		txt += gettext("Fuel Burn Time: ");
-		txt += itos((int)f->fuel_time/60);
-		txt += ":";
-		sprintf(buff,"%02d",(int)f->fuel_time%60);
+		sprintf(buff,"%01.2f",f->fuel_time);
 		txt += buff;
 	}
 
@@ -401,9 +399,7 @@ std::wstring CraftItem::getGuiText()
 		char buff[20];
 		txt += "\n";
 		txt += gettext("Fuel Burn Time: ");
-		txt += itos((int)f->fuel_time/60);
-		txt += ":";
-		sprintf(buff,"%02d",(int)f->fuel_time%60);
+		sprintf(buff,"%01.2f",f->fuel_time);
 		txt += buff;
 	}
 	if (m_data > 0) {
@@ -595,9 +591,7 @@ std::wstring ToolItem::getGuiText()
 		char buff[20];
 		txt += "\n";
 		txt += gettext("Fuel Burn Time: ");
-		txt += itos((int)f->fuel_time/60);
-		txt += ":";
-		sprintf(buff,"%02d",(int)f->fuel_time%60);
+		sprintf(buff,"%01.2f",f->fuel_time);
 		txt += buff;
 	}
 	if (m_data > 0) {

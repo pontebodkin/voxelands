@@ -840,7 +840,8 @@ CrusherNodeMetadata::CrusherNodeMetadata()
 	m_inventory->addList("upgrades", 2);
 
 	m_active_timer = 0.0;
-	m_burn_counter = 0;
+	m_burn_counter = 0.0;
+	m_burn_timer = 0.0;
 	m_cook_timer = 0.0;
 	m_step_interval = 1.0;
 	m_is_locked = false;
@@ -867,6 +868,7 @@ NodeMetadata* CrusherNodeMetadata::clone()
 
 	d->m_active_timer = m_active_timer;
 	d->m_burn_counter = m_burn_counter;
+	d->m_burn_timer = m_burn_timer;
 	d->m_cook_timer = m_cook_timer;
 	d->m_step_interval = m_step_interval;
 	d->m_is_locked = m_is_locked;
@@ -890,6 +892,9 @@ NodeMetadata* CrusherNodeMetadata::create(std::istream &is)
 
 	s = deSerializeString(is);
 	d->m_burn_counter = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_burn_timer = mystoi(s);
 
 	s = deSerializeString(is);
 	d->m_cook_timer = mystof(s);
@@ -933,6 +938,7 @@ void CrusherNodeMetadata::serializeBody(std::ostream &os)
 	os<<serializeString(m_owner);
 	os<<serializeString(ftos(m_active_timer));
 	os<<serializeString(itos(m_burn_counter));
+	os<<serializeString(itos(m_burn_timer));
 	os<<serializeString(ftos(m_cook_timer));
 	os<<serializeString(ftos(m_step_interval));
 	os<<serializeString(itos(m_is_locked ? 1 : 0));
@@ -1126,7 +1132,7 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 			return false;
 		dst_list = p->inventory.getList("exo");
 	}else{
-		dst_list = m_inventory->getList("dst");
+		dst_list = m_inventory->getList("main");
 	}
 	if (!dst_list)
 		return false;
@@ -1142,8 +1148,8 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	if (m_burn_upgrade < 1.0)
 		m_burn_upgrade = 1.0;
 
-	/* cook_upgrade/cook_time determines time to cook one item */
-	/* burn_upgrade/burn_time determines number of items that fuel can cook */
+	/* cook_upgrade/m_cook_time determines time to cook one item */
+	/* burn_upgrade/m_burn_time determines number of items that fuel can cook */
 
 	cook_time = 4.0/m_cook_upgrade;
 	if (cook_time < 0.1)
@@ -1172,36 +1178,47 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 		if (m_cook_timer > cook_time)
 			m_cook_timer = cook_time;
 
-		if (m_burn_counter <= 0.0 && cook_ongoing) {
-			fuel_list = m_inventory->getList("fuel");
-			if (!fuel_list)
-				break;
-			fuel_item = fuel_list->getItem(0);
-			if (fuel_item && fuel_item->isFuel()) {
-				content_t c = fuel_item->getContent();
-				if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
-					m_burn_counter = ((CraftItem*)fuel_item)->getFuelTime();
-				}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
-					m_burn_counter = ((ToolItem*)fuel_item)->getFuelTime();
-				}else{
-					m_burn_counter = ((MaterialItem*)fuel_item)->getFuelTime();
+		if (m_burn_counter < 1.0 && is_cooking) {
+			if (m_cook_timer+m_step_interval < cook_time || cook_ongoing) {
+				fuel_list = m_inventory->getList("fuel");
+				if (!fuel_list)
+					break;
+				fuel_item = fuel_list->getItem(0);
+				if (fuel_item && fuel_item->isFuel()) {
+					content_t c = fuel_item->getContent();
+					float v = 0.0;
+					if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+						v = ((CraftItem*)fuel_item)->getFuelTime();
+					}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+						v = ((ToolItem*)fuel_item)->getFuelTime();
+					}else{
+						v = ((MaterialItem*)fuel_item)->getFuelTime();
+					}
+					fuel_list->decrementMaterials(1);
+					if (c == CONTENT_TOOLITEM_STEELBUCKET_LAVA) {
+						fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_STEELBUCKET,0,0));
+					}
+					m_burn_counter += v*m_burn_upgrade;
+					changed = true;
 				}
-				fuel_list->decrementMaterials(1);
-				if (c == CONTENT_TOOLITEM_STEELBUCKET_LAVA) {
-					fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_STEELBUCKET,0,0));
-				}
-				m_burn_counter *= m_burn_upgrade;
-				changed = true;
 			}
 		}
 
 		if (m_burn_counter <= 0.0) {
 			m_active_timer = 0.0;
 			m_burn_counter = 0.0;
+			m_burn_timer = 0.0;
 			break;
 		}
 
-		m_burn_counter -= m_step_interval;
+		if (m_burn_counter < 1.0)
+			continue;
+
+		m_burn_timer += m_step_interval;
+		if (m_burn_timer >= cook_time) {
+			m_burn_counter -= 1.0;
+			m_burn_timer -= cook_time;
+		}
 
 		if (!is_cooking) {
 			m_cook_timer = 0.0;
@@ -1242,7 +1259,7 @@ std::string CrusherNodeMetadata::getDrawSpecString(Player *player)
 	spec += itos((int)v);
 	spec += "]";
 	spec += "list[current_name;src;2,1;1,1;]";
-	spec += "list[current_name;dst;5,1;2,2;]";
+	spec += "list[current_name;main;5,1;2,2;]";
 	spec += "list[current_player;main;0,5;8,4;]";
 	return spec;
 }

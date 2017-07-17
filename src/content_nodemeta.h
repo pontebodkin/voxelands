@@ -401,6 +401,7 @@ private:
 	Inventory *m_inventory;
 	float m_active_timer;
 	float m_burn_counter;
+	float m_burn_timer;
 	float m_cook_timer;
 	float m_step_interval;
 	std::string m_owner;
