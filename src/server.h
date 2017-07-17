@@ -580,6 +580,7 @@ private:
 	float m_emergethread_trigger_timer;
 	float m_savemap_timer;
 	float m_send_object_info_timer;
+	float m_send_full_inventory_timer;
 	IntervalLimiter m_map_timer_and_unload_interval;
 
 	// NOTE: If connection and environment are both to be locked,

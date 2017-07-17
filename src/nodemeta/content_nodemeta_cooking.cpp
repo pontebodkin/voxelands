@@ -837,7 +837,7 @@ CrusherNodeMetadata::CrusherNodeMetadata()
 	m_inventory->addList("fuel", 1);
 	m_inventory->addList("src", 1);
 	m_inventory->addList("main", 4);
-	m_inventory->addList("upgrades", 2);
+	m_inventory->addList("upgrades", 3);
 
 	m_active_timer = 0.0;
 	m_burn_counter = 0.0;
@@ -925,8 +925,8 @@ NodeMetadata* CrusherNodeMetadata::create(std::istream &is)
 		d->m_inventory = new Inventory();
 		d->m_inventory->addList("fuel", 1);
 		d->m_inventory->addList("src", 1);
-		d->m_inventory->addList("main", 18);
-		d->m_inventory->addList("upgrades", 2);
+		d->m_inventory->addList("main", 16);
+		d->m_inventory->addList("upgrades", 3);
 	}
 	d->m_inventory->deSerialize(is);
 	d->inventoryModified();
@@ -955,7 +955,7 @@ std::wstring CrusherNodeMetadata::infoText()
 	if (m_is_locked) {
 		snprintf(buff, 256, gettext("Locked Crusher owned by '%s'"), m_owner.c_str());
 	}else if (m_is_exo) {
-		snprintf(buff, 256, gettext("Exo Crusher"));
+		snprintf(buff, 256, gettext("Exo Crusher owned by '%s'"), m_owner.c_str());
 	}else{
 		snprintf(buff, 256, gettext("Crusher"));
 	}
@@ -975,11 +975,11 @@ bool CrusherNodeMetadata::nodeRemovalDisabled()
 	for (int i = 0; i < 3; i++) {
 		if (list[i] == NULL)
 			continue;
-		if (list[i]->getUsedSlots() == 0)
+		if (list[i]->getUsedSlots() != 0)
 			continue;
-		return true;
+		return false;
 	}
-	return false;
+	return true;
 
 }
 void CrusherNodeMetadata::inventoryModified()
@@ -1009,20 +1009,21 @@ void CrusherNodeMetadata::inventoryModified()
 			if (m_is_exo)
 				continue;
 			inv = new Inventory();
-			inv->addList("upgrades", 2);
-			inv->addList("main", 36);
+			inv->addList("upgrades", 3);
+			inv->addList("main", 16);
 			il = inv->getList("upgrades");
 			im = inv->getList("main");
 			if (!il || !im) {
 				delete inv;
 				continue;
 			}
-			for (k=0; k<2; k++) {
+			vlprintf(CN_INFO,"inv size: '%u' '%u'",l->getSize(),m->getSize());
+			for (k=0; k<3; k++) {
 				itm = l->changeItem(k,NULL);
 				if (itm)
 					il->addItem(k,itm);
 			}
-			for (k=0; k<18; k++) {
+			for (k=0; k<4; k++) {
 				itm = m->changeItem(k,NULL);
 				if (itm)
 					im->addItem(k,itm);
@@ -1063,22 +1064,22 @@ void CrusherNodeMetadata::inventoryModified()
 
 	if (m_is_expanded && !b[0]) {
 		inv = new Inventory();
-		inv->addList("upgrades", 2);
-		inv->addList("main", 18);
+		inv->addList("upgrades", 3);
+		inv->addList("main", 4);
 		il = inv->getList("upgrades");
 		im = inv->getList("main");
 		if (!il || !im) {
 			delete inv;
 		}else{
-			for (k=0; k<2; k++) {
+			for (k=0; k<3; k++) {
 				itm = l->changeItem(k,NULL);
 				if (itm)
 					il->addItem(k,itm);
 			}
-			for (k=0; k<36; k++) {
+			for (k=0; k<16; k++) {
 				itm = m->changeItem(k,NULL);
 				if (itm) {
-					if (k > 17) {
+					if (k > 3) {
 						im->addItem(itm);
 					}else{
 						im->addItem(k,itm);
@@ -1122,15 +1123,16 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	InventoryItem *src_item;
 	InventoryList *fuel_list;
 	InventoryItem *fuel_item;
+	Player *player = NULL;
 
 	if (dtime > 60.0)
 		vlprintf(CN_INFO,"Crusher stepping a long time (%f)",dtime);
 
 	if (m_is_exo) {
-		Player *p = env->getPlayer(m_owner.c_str());
-		if (!p)
+		player = env->getPlayer(m_owner.c_str());
+		if (!player)
 			return false;
-		dst_list = p->inventory.getList("exo");
+		dst_list = player->inventory.getList("exo");
 	}else{
 		dst_list = m_inventory->getList("main");
 	}
@@ -1234,6 +1236,8 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 				dst_list->addItem(crushresult);
 				src_list->decrementMaterials(1);
 				changed = true;
+				if (m_is_exo && player)
+					player->inventory_modified = true;
 			}
 		}
 	}
@@ -1243,24 +1247,51 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 std::string CrusherNodeMetadata::getDrawSpecString(Player *player)
 {
 	float cook_time;
+	float v = 0;
 
 	if (m_cook_upgrade < 1.0)
 		m_cook_upgrade = 1.0;
 	cook_time = 4.0/m_cook_upgrade;
 	if (cook_time < 0.1)
 		cook_time = 0.1;
+	if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+		v = ((100.0/cook_time)*m_burn_timer);
 
-	std::string spec("size[8,9]");
-	spec += "list[current_name;fuel;2,3;1,1;]";
-	spec += "ring[2,3;1;#FF0000;";
-	float v = 0;
-	if (m_burn_counter > 0.0 && m_cook_timer > 0.0)
-		v = 100.0-((100.0/cook_time)*m_cook_timer);
+	std::string spec("size[9,10]");
+
+	if (!m_is_exo) {
+		InventoryList *l = m_inventory->getList("main");
+		if (m_is_expanded && l && l->getUsedSlots() > 4) {
+			if (m_expanded_slot_id == 0) {
+				spec += "list[current_name;upgrades;1,0;2,1;1,2;]";
+			}else if (m_expanded_slot_id == 1) {
+				spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
+				spec += "list[current_name;upgrades;2,0;1,1;2,1;]";
+			}else{
+				spec += "list[current_name;upgrades;0,0;2,1;0,2;]";
+			}
+		}else{
+			spec += "list[current_name;upgrades;0,0;3,1;]";
+		}
+	}
+
+	spec += "list[current_name;fuel;1.5,3.5;1,1;]";
+	spec += "ring[1.5,3.5;1;#FF0000;";
 	spec += itos((int)v);
 	spec += "]";
-	spec += "list[current_name;src;2,1;1,1;]";
-	spec += "list[current_name;main;5,1;2,2;]";
-	spec += "list[current_player;main;0,5;8,4;]";
+	spec += "list[current_name;src;1.5,1.5;1,1;]";
+
+	if (m_is_expanded) {
+		spec += "list[current_name;main;4,1;4,4;]";
+	}else if (m_is_exo) {
+		spec += "list[current_player;exo;3,1;6,3;]";
+	}else{
+		spec += "list[current_name;main;5,1.5;2,2;]";
+	}
+
+	spec += "list[current_player;main;0.5,5.8;8,1;0,8;]";
+	spec += "list[current_player;main;0.5,7;8,3;8,-1;]";
+
 	return spec;
 }
 std::vector<NodeBox> CrusherNodeMetadata::getNodeBoxes(MapNode &n)
@@ -1278,7 +1309,7 @@ std::vector<NodeBox> CrusherNodeMetadata::getNodeBoxes(MapNode &n)
 }
 std::string CrusherNodeMetadata::getOwner()
 {
-	if (m_is_locked)
+	if (m_is_locked || m_is_exo)
 		return m_owner;
 	return "";
 }

@@ -238,6 +238,7 @@ public:
 	u8 light;
 
 	Inventory inventory;
+	bool inventory_modified;
 
 	bool craftresult_is_preview;
 

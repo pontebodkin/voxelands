@@ -52,6 +52,7 @@ Player::Player():
 	swimming_up(false),
 	in_bed(false),
 	wake_timeout(0.0),
+	inventory_modified(true),
 	craftresult_is_preview(true),
 	health(100),
 	air(100),

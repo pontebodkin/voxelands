@@ -857,6 +857,7 @@ Server::Server():
 	m_emergethread_trigger_timer = 0.0;
 	m_savemap_timer = 0.0;
 	m_send_object_info_timer = 0.0;
+	m_send_full_inventory_timer = 0.0;
 
 	m_env_mutex.Init();
 	m_con_mutex.Init();
@@ -1186,33 +1187,6 @@ void Server::AsyncRunStep()
 		}
 	}
 
-	// Periodically print some info
-	{
-		float &counter = m_print_info_timer;
-		counter += dtime;
-		if(counter >= 30.0)
-		{
-			counter = 0.0;
-
-			JMutexAutoLock lock2(m_con_mutex);
-
-			if(m_clients.size() != 0)
-				infostream<<"Players:"<<std::endl;
-			for(core::map<u16, RemoteClient*>::Iterator
-				i = m_clients.getIterator();
-				i.atEnd() == false; i++)
-			{
-				//u16 peer_id = i.getNode()->getKey();
-				RemoteClient *client = i.getNode()->getValue();
-				Player *player = m_env.getPlayer(client->peer_id);
-				if(player==NULL)
-					continue;
-				infostream<<"* "<<player->getName()<<"\t";
-				client->PrintInfo(infostream);
-			}
-		}
-	}
-
 	/*
 		Check added and deleted active objects
 	*/
@@ -1227,6 +1201,12 @@ void Server::AsyncRunStep()
 
 		int16_t radius = config_get_int("world.server.mob.range");
 		radius *= MAP_BLOCKSIZE;
+		bool send_inventory = false;
+		m_send_full_inventory_timer += dtime;
+		if (m_send_full_inventory_timer >= 60.0) {
+			m_send_full_inventory_timer -= 60.0;
+			send_inventory = true;
+		}
 
 		for (core::map<u16, RemoteClient*>::Iterator i = m_clients.getIterator(); i.atEnd() == false; i++) {
 			RemoteClient *client = i.getNode()->getValue();
@@ -1241,6 +1221,11 @@ void Server::AsyncRunStep()
 			std::map<u16, bool> added_objects;
 			m_env.getRemovedActiveObjects(pos, radius, client->m_known_objects, removed_objects);
 			m_env.getAddedActiveObjects(pos, radius, client->m_known_objects, added_objects);
+
+			if (send_inventory || player->inventory_modified) {
+				player->inventory_modified = false;
+				SendInventory(client->peer_id,true);
+			}
 
 			// Ignore if nothing happened
 			if (removed_objects.size() == 0 && added_objects.size() == 0) {
@@ -1591,7 +1576,7 @@ void Server::AsyncRunStep()
 
 	/*
 		Trigger emergethread (it somehow gets to a non-triggered but
-		bysy state sometimes)
+		busy state sometimes)
 	*/
 	{
 		float &counter = m_emergethread_trigger_timer;
