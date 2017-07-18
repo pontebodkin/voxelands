@@ -68,6 +68,14 @@ int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t too
 	info->data = 0.0;
 	info->delay = 0.25;
 
+	if (toolid == CONTENT_TOOLITEM_CREATIVEPICK) {
+		info->wear = 0;
+		info->diggable = true;
+		info->data = 0.1;
+		info->delay = 0.1;
+		return 0;
+	}
+
 	t_features = &content_toolitem_features(toolid);
 
 	if ((target&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
