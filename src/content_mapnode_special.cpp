@@ -1448,6 +1448,7 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(2, "crusher_side.png^[transformFX");
 	f->setTexture(4, "crusher_back.png");
 	f->setTexture(5, "crusher_front.png"); // Z-
+	f->setAllMetaTextures("steel_sheet.png");
 	content_nodebox_crusher(f);
 	f->setInventoryTextureNodeBox(i,"crusher_top.png^[transformR90", "crusher_front.png", "crusher_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
@@ -1464,27 +1465,22 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_NC;
 	f = &content_features(i);
 	f->description = gettext("Nyan Cat");
-	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_CUBELIKE;
-	f->setAllTextures("nc_side.png");
-	f->setTexture(5, "nc_front.png"); // Z-
-	f->setTexture(4, "nc_back.png"); // Z+
-	f->setInventoryTextureCube("nc_side.png", "nc_front.png", "nc_side.png");
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->setAllTextures("mithril_block.png");
+	f->setInventoryTextureCube("mithril_block.png", "mithril_block.png", "mithril_block.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MITHRIL_BLOCK)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
-	content_list_add("creative",i,1,0);
 
 	i = CONTENT_NC_RB;
 	f = &content_features(i);
 	f->description = gettext("Rainbow");
 	f->draw_type = CDT_CUBELIKE;
-	f->setAllTextures("nc_rb.png");
-	f->setInventoryTextureCube("nc_rb.png", "nc_rb.png", "nc_rb.png");
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->setAllTextures("mithril_block.png");
+	f->setInventoryTextureCube("mithril_block.png", "mithril_block.png", "mithril_block.png");
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_MITHRIL_BLOCK)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
-	content_list_add("creative",i,1,0);
 
 	i = CONTENT_FLOWER_POT_RAW;
 	f = &content_features(i);

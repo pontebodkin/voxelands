@@ -1125,6 +1125,10 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	InventoryItem *fuel_item;
 	Player *player = NULL;
 
+	/* requires air above it (because that's where the imput slot on the nodebox is) */
+	if (content_features(env->getMap().getNodeNoEx(pos+v3s16(0,1,0),NULL).getContent()).air_equivalent == false)
+		return false;
+
 	if (dtime > 60.0)
 		vlprintf(CN_INFO,"Crusher stepping a long time (%f)",dtime);
 
@@ -1217,6 +1221,7 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 			continue;
 
 		m_burn_timer += m_step_interval;
+		changed = true;
 		if (m_burn_timer >= cook_time) {
 			m_burn_counter -= 1.0;
 			m_burn_timer -= cook_time;
@@ -1235,7 +1240,6 @@ bool CrusherNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 				InventoryItem *crushresult = src_item->createCrushResult();
 				dst_list->addItem(crushresult);
 				src_list->decrementMaterials(1);
-				changed = true;
 				if (m_is_exo && player)
 					player->inventory_modified = true;
 			}
@@ -1297,11 +1301,32 @@ std::string CrusherNodeMetadata::getDrawSpecString(Player *player)
 std::vector<NodeBox> CrusherNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
-	boxes.clear();
+	int v = 0;
 
 	if (m_burn_counter > 0.0) {
+		float cook_time;
+		if (m_cook_upgrade < 1.0)
+			m_cook_upgrade = 1.0;
+		cook_time = 4.0/m_cook_upgrade;
+		if (cook_time < 0.1)
+			cook_time = 0.1;
+		if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+			v = ((2.0/cook_time)*m_burn_timer);
+	}
+
+	if (v) {
 		boxes.push_back(NodeBox(
-			-0.3125*BS,-0.25*BS,-0.4*BS,0.3125*BS,0.125*BS,-0.3*BS
+			-0.125*BS,-0.375*BS,-0.375*BS,-0.0625*BS,0.375*BS,0.375*BS
+		));
+		boxes.push_back(NodeBox(
+			0.0625*BS,-0.375*BS,-0.375*BS,0.125*BS,0.375*BS,0.375*BS
+		));
+	}else{
+		boxes.push_back(NodeBox(
+			-0.375*BS,-0.375*BS,-0.375*BS,-0.3125*BS,0.375*BS,0.375*BS
+		));
+		boxes.push_back(NodeBox(
+			0.3125*BS,-0.375*BS,-0.375*BS,0.375*BS,0.375*BS,0.375*BS
 		));
 	}
 
