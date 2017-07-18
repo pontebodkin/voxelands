@@ -530,9 +530,55 @@ void make_block(BlockMakeData *data)
 			}
 		}
 
+		/* add boulders */
+		u32 boulder_count = get_boulder_density(data, p2d_center);
+		if (boulder_count) {
+			PseudoRandom boulderrandom(blockseed);
+			// Put trees in random places on part of division
+			for (u32 i=0; i<boulder_count; i++) {
+				s16 x = boulderrandom.range(node_min.X, node_max.X);
+				s16 z = boulderrandom.range(node_min.Z, node_max.Z);
+				s16 y = find_ground_level_from_noise(data, v2s16(x,z), 4);
+				// Make sure boulder fits (only boulders whose starting point is
+				// at this block are added)
+				if (y < node_min.Y || y > node_max.Y)
+					continue;
+				/*
+					Find exact ground level
+				*/
+				v3s16 p(x,y+6,z);
+				bool found = false;
+				for (; p.Y >= y-6; p.Y--) {
+					u32 i = data->vmanip->m_area.index(p);
+					MapNode *n = &data->vmanip->m_data[i];
+					if (n->getContent() != CONTENT_AIR && n->getContent() != CONTENT_WATERSOURCE && n->getContent() != CONTENT_IGNORE) {
+						found = true;
+						break;
+					}
+				}
+				// If not found, handle next one
+				if (found == false)
+					continue;
+
+				{
+					u32 i = data->vmanip->m_area.index(p);
+					MapNode *n = &data->vmanip->m_data[i];
+
+					if (n->getContent() == CONTENT_MUD || n->getContent() == CONTENT_CLAY) {
+						if (data->biome == BIOME_WASTELANDS) {
+							p.Y++;
+							make_boulder(vmanip,p,3,CONTENT_SPACEROCK,CONTENT_SPACEROCK,CONTENT_IGNORE);
+						}else{
+							make_boulder(vmanip,p,2,CONTENT_STONE,CONTENT_STONE,CONTENT_IGNORE);
+						}
+					}
+				}
+			}
+		}
+
 		/* add trees */
 		u32 tree_count = get_tree_density(data, p2d_center);
-			if (tree_count) {
+		if (tree_count) {
 			PseudoRandom treerandom(blockseed);
 			// Put trees in random places on part of division
 			for (u32 i=0; i<tree_count; i++) {
@@ -641,7 +687,12 @@ void make_block(BlockMakeData *data)
 				for (; p.Y >= y-6; p.Y--) {
 					u32 i = data->vmanip->m_area.index(p);
 					MapNode *n = &data->vmanip->m_data[i];
-					if (content_features(*n).is_ground_content || n->getContent() == CONTENT_JUNGLETREE) {
+					if (
+						n->getContent() == CONTENT_MUD
+						|| n->getContent() == CONTENT_CLAY
+						|| n->getContent() == CONTENT_SAND
+						|| n->getContent() == CONTENT_JUNGLETREE
+					) {
 						found = true;
 						break;
 					}
@@ -670,10 +721,6 @@ void make_block(BlockMakeData *data)
 					}
 				}
 			}
-		}
-
-		if (data->biome == BIOME_WASTELANDS) {
-			/* fallen meteor */
 		}
 	}
 }

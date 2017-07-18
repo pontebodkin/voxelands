@@ -198,6 +198,7 @@ set(common_SRCS
 	content_sao.cpp
 	mapgen/mapgen.cpp
 	mapgen/mapgen_trees.cpp
+	mapgen/mapgen_rocks.cpp
 	mapgen/mapgen_plants.cpp
 	mapgen/mapgen_dungeon.cpp
 	mapgen/mapgen_util.cpp

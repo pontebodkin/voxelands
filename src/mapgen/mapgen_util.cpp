@@ -125,7 +125,7 @@ uint32_t get_tree_density(BlockMakeData *data, v2s16 p)
 	}else if (data->biome == BIOME_LAKE || data->biome == BIOME_SNOWCAP || data->biome == BIOME_WOODLANDS) {
 		if (r < 1)
 			r = 5;
-	}else if (data->biome == BIOME_PLAINS|| data->biome == BIOME_WASTELANDS) {
+	}else if (data->biome == BIOME_PLAINS) {
 		if (r)
 			r /= 5;
 	}
@@ -170,6 +170,37 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	return r*3;
 }
 
+uint32_t get_boulder_density(BlockMakeData *data, v2s16 p)
+{
+	double zeroval = 0.3;
+	double density = 0.0;
+	double factor = 500.0;
+	double noise = 0.0;
+	uint32_t r = 0;
+
+	if (data->biome == BIOME_DESERT || data->biome == BIOME_SNOWCAP || data->biome == BIOME_OCEAN || data->biome == BIOME_BEACH)
+		return 0;
+	if (data->biome == BIOME_WASTELANDS)
+		factor = 200.0;
+	if (data->biome == BIOME_WOODLANDS)
+		factor = 250.0;
+
+	noise = noise2d_perlin(
+			0.5+(float)p.X/factor,
+			0.5+(float)p.Y/factor,
+			data->seed+14143242,
+			4,
+			0.66
+		);
+
+	if (noise >= zeroval) {
+		density = 0.005 * (noise-zeroval) / (1.0-zeroval);
+		r = density*(double)(MAP_BLOCKSIZE*MAP_BLOCKSIZE);
+	}
+
+	return !!r;
+}
+
 // used in space
 double debris_amount_2d(uint64_t seed, v2s16 p)
 {
@@ -185,18 +216,6 @@ double debris_amount_2d(uint64_t seed, v2s16 p)
 		return 0;
 
 	return 0.037 * (noise-zeroval) / (1.0-zeroval);
-}
-
-double largestone_amount_2d(uint64_t seed, v2s16 p)
-{
-	double noise = noise2d_perlin(
-			0.5+(float)p.X/250, 0.5+(float)p.Y/250,
-			seed+14143242, 5, 0.66);
-	double zeroval = 0.3;
-	if(noise < zeroval)
-		return 0;
-	else
-		return 0.005 * (noise-zeroval) / (1.0-zeroval);
 }
 
 /*

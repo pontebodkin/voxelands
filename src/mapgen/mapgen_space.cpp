@@ -126,54 +126,29 @@ void make_space(BlockMakeData *data)
 		u16 comet_size = debris_amount-11;
 		if (comet_size > 5)
 			comet_size = 5;
-		s16 comet_min = -comet_size;
-		s16 comet_max = comet_size;
-		MapNode new_content(CONTENT_SPACEROCK);
+		content_t inner = CONTENT_SPACEROCK;
 
 		float mineral_noise = noisebuf_mineral.get(pos.X,pos.Y,pos.Z);
 
 		if (mineral_noise < -0.5) {
-			new_content = MapNode(CONTENT_LAVASOURCE);
+			inner = CONTENT_LAVASOURCE;;
 		}else if (mineral_noise < -0.3) {
-			new_content = MapNode(CONTENT_ICE);
+			inner = CONTENT_ICE;;
 		}else if (mineral_noise < -0.1) {
-			new_content = MapNode(CONTENT_STEEL);
+			inner = CONTENT_STEEL;;
 		}else if (mineral_noise > 0.4) {
-			new_content = MapNode(CONTENT_SILVER);
+			inner = CONTENT_SILVER;;
 		}else if (mineral_noise > 0.3) {
-			new_content = MapNode(CONTENT_MITHRIL_BLOCK);
+			inner = CONTENT_MITHRIL_BLOCK;;
 		}else if (mineral_noise > 0.2) {
-			new_content = MapNode(CONTENT_COPPER);
+			inner = CONTENT_COPPER;;
 		}else if (mineral_noise > 0.1) {
-			new_content = MapNode(CONTENT_TIN);
+			inner = CONTENT_TIN;;
 		}else if (mineral_noise > 0.0) {
-			new_content = MapNode(CONTENT_GOLD);
+			inner = CONTENT_GOLD;;
 		}
 
-		for (s16 x=comet_min; x<=comet_max; x++) {
-		for (s16 y=comet_min; y<=comet_max; y++) {
-		for (s16 z=comet_min; z<=comet_max; z++) {
-			int edge = 0;
-			if (x == comet_min || x == comet_max)
-				edge++;
-			if (y == comet_min || y == comet_max)
-				edge++;
-			if (z == comet_min || z == comet_max)
-				edge++;
-
-			if (edge > 1)
-				continue;
-			u32 vi = vmanip.m_area.index(pos+v3s16(x,y,z));
-			if (vmanip.m_data[vi].getContent() != CONTENT_VACUUM)
-				continue;
-			if (edge) {
-				vmanip.m_data[vi] = MapNode(CONTENT_SPACEROCK);
-				continue;
-			}
-			vmanip.m_data[vi] = new_content;
-		}
-		}
-		}
+		make_boulder(vmanip,pos,comet_size,inner,CONTENT_SPACEROCK,CONTENT_VACUUM);
 	}
 }
 

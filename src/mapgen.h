@@ -28,6 +28,7 @@
 
 #include "common_irrlicht.h"
 #include "utility.h" // UniqueQueue
+#include "mapnode.h"
 
 class MapBlock;
 class ManualMapVoxelManipulator;
@@ -97,6 +98,9 @@ namespace mapgen
 	void make_largetree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
 	void make_jungletree(ManualMapVoxelManipulator &vmanip, v3s16 p0);
 
+	/* defined in mapgen_rocks.cpp */
+	void make_boulder(ManualMapVoxelManipulator &vmanip, v3s16 pos, uint16_t size, content_t inner, content_t outer, content_t replace);
+
 	/* defined in mapgen_dungeon.cpp */
 	void make_dungeon(BlockMakeData *data, uint32_t blockseed);
 
@@ -110,10 +114,10 @@ namespace mapgen
 	int16_t get_ground_height(uint64_t seed, v2s16 p);
 	uint32_t get_tree_density(BlockMakeData *data, v2s16 p);
 	uint32_t get_grass_density(BlockMakeData *data, v2s16 p);
+	uint32_t get_boulder_density(BlockMakeData *data, v2s16 p);
 
 	bool is_cave(uint64_t seed, v3s16 p);
 	double debris_amount_2d(uint64_t seed, v2s16 p);
-	double largestone_amount_2d(uint64_t seed, v2s16 p);
 	s16 find_ground_level_from_noise(BlockMakeData *data, v2s16 p2d, s16 precision);
 	double get_sector_average_ground_level(BlockMakeData *data, v2s16 sectorpos);
 	double get_sector_maximum_ground_level(BlockMakeData *data, v2s16 sectorpos);
