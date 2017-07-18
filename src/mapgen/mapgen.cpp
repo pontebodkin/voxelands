@@ -771,7 +771,7 @@ void make_block(BlockMakeData *data)
 					case BIOME_FOREST:
 						v = grassnoise.get(p.X,p.Y,p.Z);
 						if (v < -0.5) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COTTON;
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_COTTON;
 						}else if (v < -0.3) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_MELON;
 						}else{
