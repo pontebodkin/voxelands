@@ -125,7 +125,7 @@ uint32_t get_tree_density(BlockMakeData *data, v2s16 p)
 	}else if (data->biome == BIOME_LAKE || data->biome == BIOME_SNOWCAP || data->biome == BIOME_WOODLANDS) {
 		if (r < 1)
 			r = 5;
-	}else if (data->biome == BIOME_PLAINS) {
+	}else if (data->biome == BIOME_PLAINS|| data->biome == BIOME_WASTELANDS) {
 		if (r)
 			r /= 5;
 	}
@@ -140,7 +140,7 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	double noise = 0.0;
 	uint32_t r = 0;
 
-	if (data->biome == BIOME_DESERT || data->biome == BIOME_SNOWCAP || data->biome == BIOME_OCEAN)
+	if (data->biome == BIOME_DESERT || data->biome == BIOME_SNOWCAP || data->biome == BIOME_OCEAN || data->biome == BIOME_WASTELANDS)
 		return 0;
 
 	noise = noise2d_perlin(
@@ -381,6 +381,9 @@ uint8_t get_chunk_biome(uint64_t seed, v3s16 blockpos)
 	}
 
 	if (average_ground_height > 10) {
+		if (surface_humidity < 0.05) {
+			return BIOME_WASTELANDS;
+		}
 		if (surface_humidity < 0.25) {
 			return BIOME_DESERT;
 		}

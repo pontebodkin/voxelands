@@ -148,7 +148,7 @@ void make_block(BlockMakeData *data)
 
 	bool limestone = (noisebuf_ground_wetness.get(node_min.X+8,node_min.Y+8,node_min.Z+8) > 0.5);
 	content_t base_content = CONTENT_STONE;
-	if (limestone)
+	if (limestone && data->biome != BIOME_WASTELANDS)
 		base_content = CONTENT_LIMESTONE;
 
 	/*
@@ -496,6 +496,8 @@ void make_block(BlockMakeData *data)
 							}else if (current_depth==0 && !water_detected && y >= WATER_LEVEL && air_detected) {
 								if (biome == BIOME_SNOWCAP) {
 									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x04);
+								}else if (biome == BIOME_WASTELANDS) {
+									vmanip.m_data[i] = MapNode(CONTENT_MUD,0x06);
 								}else if (biome == BIOME_JUNGLE) {
 									if (noisebuf_ground_wetness.get(x,y,z) > 1.0) {
 										vmanip.m_data[i] = MapNode(CONTENT_CLAY,0x08);
@@ -566,8 +568,15 @@ void make_block(BlockMakeData *data)
 					MapNode *n = &data->vmanip->m_data[i];
 
 					if (n->getContent() == CONTENT_MUD) {
+						// just stumps in wastelands
+						if (data->biome == BIOME_WASTELANDS) {
+							p.Y++;
+							if (data->vmanip->m_area.contains(p)) {
+								u32 ip = data->vmanip->m_area.index(p);
+								vmanip.m_data[ip] = MapNode(CONTENT_TREE,0xE0);
+							}
 						// Papyrus grows only on mud and in water
-						if (y <= WATER_LEVEL) {
+						}else if (y <= WATER_LEVEL) {
 							p.Y++;
 							make_papyrus(vmanip, p);
 						// Trees grow only on mud and grass, on land
@@ -661,6 +670,10 @@ void make_block(BlockMakeData *data)
 					}
 				}
 			}
+		}
+
+		if (data->biome == BIOME_WASTELANDS) {
+			/* fallen meteor */
 		}
 	}
 }

@@ -879,6 +879,9 @@ void hud_draw(
 		case BIOME_SKY:
 			txt += L"Sky";
 			break;
+		case BIOME_WASTELANDS:
+			txt += L"Wastelands";
+			break;
 		case BIOME_UNKNOWN:
 		default:
 			txt += L"Unknown";

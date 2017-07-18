@@ -72,8 +72,9 @@ class ServerEnvironment;
 #define BIOME_SPACE 10
 #define BIOME_THEDEEP 11
 #define BIOME_SKY 12
+#define BIOME_WASTELANDS 13
 
-#define BIOME_COUNT 13
+#define BIOME_COUNT 14
 
 enum MapEditEventType{
 	// Node added (changed from air or something else to something)

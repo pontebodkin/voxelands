@@ -33,6 +33,7 @@
 #include "noise.h" // easeCurve
 #include "main.h" // g_profiler
 #include "profiler.h"
+#include "map.h"
 
 //! constructor
 Sky::Sky(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id):
@@ -42,7 +43,7 @@ Sky::Sky(scene::ISceneNode* parent, scene::ISceneManager* mgr, s32 id):
 		m_cloud_brightness(0.5),
 		m_moon_phase(0.0),
 		m_moon_phase_pending(0.0),
-		m_space(false),
+		m_biome(BIOME_UNKNOWN),
 		m_bgcolor_bright_f(1,1,1,1),
 		m_skycolor_bright_f(1,0,0,0),
 		m_cloudcolor_bright_f(1,1,1,1)
@@ -200,7 +201,7 @@ void Sky::render()
 
 	float f = 0.0;
 	// Stars
-	if (m_space) {
+	if (m_biome == BIOME_SPACE) {
 		f = 120.0;
 	}else{
 		float starbrightness = MYMAX(
@@ -245,7 +246,7 @@ void Sky::update(
 	float time_brightness,
 	float direct_brightness,
 	bool sunlight_seen,
-	bool in_space
+	uint8_t biome
 )
 {
 	// Stabilize initial brightness and color values by flooding updates
@@ -253,7 +254,7 @@ void Sky::update(
 		m_first_update = false;
 		m_moon_phase = moon_phase;
 		for (u32 i=0; i<100; i++) {
-			update(time_of_day, moon_phase, time_brightness, direct_brightness, sunlight_seen, in_space);
+			update(time_of_day, moon_phase, time_brightness, direct_brightness, sunlight_seen, biome);
 		}
 		return;
 	}
@@ -263,22 +264,44 @@ void Sky::update(
 	m_time_brightness = time_brightness;
 	m_sunlight_seen = sunlight_seen;
 
-	m_space = in_space;
+	bool is_dull = false;
+	bool is_dawn = false;
 
-	bool is_dawn = (!in_space && time_brightness >= 0.20 && time_brightness < 0.50);
+	m_biome = biome;
+
+	if (biome != BIOME_SPACE && biome != BIOME_THEDEEP) {
+		if (biome == BIOME_WASTELANDS) {
+			is_dull = true;
+		}else if (time_brightness >= 0.20 && time_brightness < 0.50) {
+			is_dawn = true;
+		}
+	}
 
 	video::SColorf bgcolor_bright_normal_f(170./255,200./255,230./255, 1.0);
 	video::SColorf bgcolor_bright_indoor_f(100./255,100./255,100./255, 1.0);
 	video::SColorf bgcolor_bright_dawn_f(0.666*1.2,0.549*1.0,0.220*1.2,1.0);
 
+	video::SColorf skycolor_dull_f = video::SColor(255, 170,170,170);
 	video::SColorf skycolor_bright_normal_f = video::SColor(255, 121, 141, 232);
 	video::SColorf skycolor_bright_dawn_f = video::SColor(255, 46, 60, 132);
 
+	video::SColorf cloudcolor_dull_f = video::SColor(255, 100,100,100);
 	video::SColorf cloudcolor_bright_normal_f = video::SColor(255, 240,240,255);
 	video::SColorf cloudcolor_bright_dawn_f(1.0, 0.7, 0.5, 1.0);
 
-	if (in_space) {
+	m_clouds_visible = true;
+	if (biome == BIOME_SPACE) {
 		m_brightness = 0.02;
+		m_clouds_visible = false;
+	}else if (biome == BIOME_WASTELANDS) {
+		m_sunlight_seen = false;
+		m_brightness = m_brightness * 0.98 + direct_brightness * 0.02;
+		if (m_brightness > 0.25)
+			m_brightness = 0.25;
+	}else if (biome == BIOME_THEDEEP) {
+		m_sunlight_seen = false;
+		m_brightness = 0.02;
+		m_clouds_visible = false;
 	}else if (sunlight_seen) {
 		if (fabs(time_brightness - m_brightness) < 0.2) {
 			m_brightness = m_brightness * 0.95 + time_brightness * 0.05;
@@ -291,9 +314,12 @@ void Sky::update(
 		m_brightness = m_brightness * 0.98 + direct_brightness * 0.02;
 	}
 
-	m_clouds_visible = !in_space;
 	float color_change_fraction = 0.98;
-	if (sunlight_seen) {
+	if (is_dull) {
+		m_bgcolor_bright_f = m_bgcolor_bright_f.getInterpolated(bgcolor_bright_indoor_f, color_change_fraction);
+		m_cloudcolor_bright_f = m_cloudcolor_bright_f.getInterpolated(cloudcolor_dull_f, color_change_fraction);
+		m_skycolor_bright_f = m_skycolor_bright_f.getInterpolated(skycolor_dull_f, color_change_fraction);
+	}else if (sunlight_seen) {
 		if (is_dawn) {
 			m_bgcolor_bright_f = m_bgcolor_bright_f.getInterpolated(bgcolor_bright_dawn_f, color_change_fraction);
 			m_skycolor_bright_f = m_skycolor_bright_f.getInterpolated(skycolor_bright_dawn_f, color_change_fraction);

@@ -54,7 +54,7 @@ public:
 	virtual u32 getMaterialCount() const
 	{ return SKY_MATERIAL_COUNT; }
 
-	void update(float time_of_day, float moon_phase, float time_brightness, float direct_brightness, bool sunlight_seen, bool in_space);
+	void update(float time_of_day, float moon_phase, float time_brightness, float direct_brightness, bool sunlight_seen, uint8_t biome);
 
 	float getBrightness(){ return m_brightness; }
 	video::SColor getBgColor(){ return m_bgcolor; }
@@ -76,7 +76,7 @@ private:
 	bool m_clouds_visible;
 	float m_moon_phase;
 	float m_moon_phase_pending;
-	bool m_space;
+	uint8_t m_biome;
 	video::SColorf m_bgcolor_bright_f;
 	video::SColorf m_skycolor_bright_f;
 	video::SColorf m_cloudcolor_bright_f;

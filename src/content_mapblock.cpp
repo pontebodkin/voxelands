@@ -1088,6 +1088,7 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	 * 		1 - spring grass
 	 * 		2 - autumn grass
 	 * 		4 - snow
+	 *		6 - polluted grass
 	 * 		8 - jungle grass
 	 *
 	 * param2:
@@ -1176,6 +1177,15 @@ void meshgen_dirtlike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 			}
 			sidetile.texture = g_texturesource->getTexture("grass_side_jungle.png");
 			upstile.texture = g_texturesource->getTexture("grass_corner_jungle.png");
+			break;
+		case 6:
+			tex = "grass_polluted.png";
+			if (data->mesh_detail > 2) {
+				for (int i=0; i<6; i++) {
+					o_faces[i] = faces[i];
+				}
+			}
+			sidetile.texture = g_texturesource->getTexture("grass_side_polluted.png");
 			break;
 		case 4:
 			tex = "snow.png";

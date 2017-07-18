@@ -1865,8 +1865,15 @@ void the_game(
 		float time_brightness = (float)decode_light((daynight_ratio * LIGHT_SUN) / 1000) / 255.0;
 		float direct_brightness = 0;
 		bool sunlight_seen = false;
-		bool in_space = (client.getLocalPlayer()->getPosition().Y>(1024*BS));
-		if (in_space || free_move) {
+		uint8_t biome = BIOME_UNKNOWN;
+		{
+			v3f pp = client.getLocalPlayer()->getPosition();
+			v3s16 ppos = floatToInt(pp,BS);
+			MapBlock *block = client.getEnv().getMap().getBlockNoCreateNoEx(getNodeBlockPos(ppos));
+			if (block != NULL)
+				biome = block->getBiome();
+		}
+		if (biome == BIOME_SPACE || free_move) {
 			direct_brightness = time_brightness;
 			sunlight_seen = true;
 		}else{
@@ -1898,7 +1905,7 @@ void the_game(
 
 		float moon_phase = client.getEnv().getMoonPhase();
 
-		sky->update(time_of_day_smooth, moon_phase, time_brightness, direct_brightness, sunlight_seen, in_space);
+		sky->update(time_of_day_smooth, moon_phase, time_brightness, direct_brightness, sunlight_seen, biome);
 
 		video::SColor bgcolor = sky->getBgColor();
 		video::SColor skycolor = sky->getSkyColor();
