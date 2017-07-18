@@ -140,7 +140,7 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	double noise = 0.0;
 	uint32_t r = 0;
 
-	if (data->biome == BIOME_DESERT || data->biome == BIOME_SNOWCAP || data->biome == BIOME_OCEAN || data->biome == BIOME_WASTELANDS)
+	if (data->biome == BIOME_DESERT || data->biome == BIOME_SNOWCAP || data->biome == BIOME_WASTELANDS)
 		return 0;
 
 	noise = noise2d_perlin(
@@ -165,6 +165,9 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	}else if (data->biome == BIOME_LAKE || data->biome == BIOME_WOODLANDS) {
 		if (r < 1)
 			r = 5;
+	}else if (data->biome == BIOME_OCEAN) {
+		if (r)
+			r /= 5;
 	}
 
 	return r*3;

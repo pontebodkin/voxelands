@@ -671,6 +671,22 @@ void make_block(BlockMakeData *data)
 		u32 grass_count = get_grass_density(data, p2d_center);
 		if (grass_count) {
 			PseudoRandom grassrandom(blockseed);
+			NoiseBuffer grassnoise;
+			{
+				v3f minpos_f(node_min.X, node_min.Y, node_min.Z);
+				v3f maxpos_f(node_max.X, node_max.Y, node_max.Z);
+
+
+				// Sample length
+				v3f sl(2.5, 2.5, 2.5);
+				grassnoise.create(
+					get_ground_wetness_params(data->seed),
+					minpos_f.X, minpos_f.Y, minpos_f.Z,
+					maxpos_f.X, maxpos_f.Y+5, maxpos_f.Z,
+					sl.X, sl.Y, sl.Z
+				);
+			}
+			float v;
 			for (u32 i=0; i<grass_count; i++) {
 				s16 x = grassrandom.range(node_min.X, node_max.X);
 				s16 z = grassrandom.range(node_min.Z, node_max.Z);
@@ -703,21 +719,70 @@ void make_block(BlockMakeData *data)
 				p.Y++;
 				if (vmanip.m_area.contains(p) == false)
 					continue;
-				if (vmanip.m_data[vmanip.m_area.index(p)].getContent() != CONTENT_AIR)
+				if (
+					vmanip.m_data[vmanip.m_area.index(p)].getContent() != CONTENT_AIR
+					|| (
+						data->biome == BIOME_OCEAN
+						&& vmanip.m_data[vmanip.m_area.index(p)].getContent() != CONTENT_WATERSOURCE
+					)
+				)
 					continue;
 				if (vmanip.m_area.contains(p)) {
-					if (data->biome != BIOME_JUNGLE) {
-						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
-					}else if (y < 30 && myrand_range(0,20) == 0) {
-						if (y > 20) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
+					switch (data->biome) {
+					case BIOME_WOODLANDS:
+						v = grassnoise.get(p.X,p.Y,p.Z);
+						if (v < -0.5) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_POTATO;
+						}else if (v < -0.4) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_CARROT;
+						}else if (v < -0.3) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_BEETROOT;
 						}else{
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
 						}
-					}else if (myrand_range(0,3) == 0) {
-						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
-					}else{
-						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
+						break;
+					case BIOME_JUNGLE:
+						v = grassnoise.get(p.X,p.Y,p.Z);
+						if (v < -0.5) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_GRAPEVINE;
+						}else if (v < -0.4) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
+						}else if (v < -0.3) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
+						}else if (v > 0.2) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
+						}else{
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
+						}
+						break;
+					case BIOME_OCEAN:
+						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_SPONGE_FULL;
+						break;
+					case BIOME_PLAINS:
+						v = grassnoise.get(p.X,p.Y,p.Z);
+						if (v > -0.5 && v < -0.499) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_WHEAT;
+						}else if (v > -0.4 && v < -0.399) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_PUMPKIN;
+						}else{
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
+						}
+						break;
+					case BIOME_FOREST:
+						v = grassnoise.get(p.X,p.Y,p.Z);
+						if (v < -0.5) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COTTON;
+						}else if (v < -0.3) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_MELON;
+						}else{
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
+						}
+						break;
+					case BIOME_LAKE:
+					case BIOME_BEACH:
+						vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
+						break;
+					default:;
 					}
 				}
 			}

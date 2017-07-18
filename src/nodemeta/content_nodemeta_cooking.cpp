@@ -1330,7 +1330,7 @@ std::vector<NodeBox> CrusherNodeMetadata::getNodeBoxes(MapNode &n)
 		));
 	}
 
-	return transformNodeBox(n,boxes);
+	return boxes;
 }
 std::string CrusherNodeMetadata::getOwner()
 {
