@@ -664,72 +664,32 @@ void SpeedTests()
 void drawMenuBackground(video::IVideoDriver* driver)
 {
 	char buff[1024];
-	core::dimension2d<u32> screensize = driver->getScreenSize();
+	core::dimension2d<s32> screensize(driver->getScreenSize());
 
-	video::ITexture *mud = NULL;
-	video::ITexture *stone = NULL;
-	video::ITexture *grass = NULL;
+	video::ITexture *background = NULL;
+	if (path_get((char*)"texture",(char*)"menubg0.png",1,buff,1024))
+		background = driver->getTexture(buff);
 
-	if (path_get((char*)"texture",(char*)"mud.png",1,buff,1024))
-		mud = driver->getTexture(buff);
-	if (path_get((char*)"texture",(char*)"stone.png",1,buff,1024))
-		stone = driver->getTexture(buff);
-	if (path_get((char*)"texture",(char*)"grass_side.png",1,buff,1024))
-		grass = driver->getTexture(buff);
-	if (mud && stone && grass) {
-		video::ITexture *texture;
-		s32 texturesize = 128;
-		s32 tiled_y = screensize.Height / texturesize + 1;
-		s32 tiled_x = screensize.Width / texturesize + 1;
-		s32 grassline = (tiled_y/4)*3;
+	if (!background)
+		return;
 
-		texture = stone;
+	core::dimension2d<s32> texturesize(background->getSize());
 
-		for (s32 y=0; y<tiled_y; y++)
-		for (s32 x=0; x<tiled_x; x++) {
-			if (y == grassline) {
-				core::rect<s32> rect(0,0,texturesize,texturesize);
-				rect += v2s32(x*texturesize, y*texturesize);
-				driver->draw2DImage(
-					mud,
-					rect,
-					core::rect<s32>(
-						core::position2d<s32>(0,0),
-						core::dimension2di(mud->getSize())
-					),
-					NULL,
-					NULL,
-					true
-				);
-				driver->draw2DImage(
-					grass,
-					rect,
-					core::rect<s32>(
-						core::position2d<s32>(0,0),
-						core::dimension2di(grass->getSize())
-					),
-					NULL,
-					NULL,
-					true
-				);
-				texture = mud;
-			}else{
-				core::rect<s32> rect(0,0,texturesize,texturesize);
-				rect += v2s32(x*texturesize, y*texturesize);
-				driver->draw2DImage(
-					texture,
-					rect,
-					core::rect<s32>(
-						core::position2d<s32>(0,0),
-						core::dimension2di(texture->getSize())
-					),
-					NULL,
-					NULL,
-					true
-				);
-			}
-		}
-	}
+	core::rect<s32> image(0,0,texturesize.Width,texturesize.Height);
+	core::rect<s32> pos(
+		(texturesize.Width/2)-(screensize.Width/2),
+		(texturesize.Height/2)-(screensize.Height/2),
+		texturesize.Width,
+		texturesize.Height
+	);
+	driver->draw2DImage(
+		background,
+		image,
+		pos,
+		NULL,
+		NULL,
+		true
+	);
 }
 
 class StderrLogOutput: public ILogOutput

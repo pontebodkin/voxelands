@@ -165,9 +165,6 @@ uint32_t get_grass_density(BlockMakeData *data, v2s16 p)
 	}else if (data->biome == BIOME_LAKE || data->biome == BIOME_WOODLANDS) {
 		if (r < 1)
 			r = 5;
-	}else if (data->biome == BIOME_OCEAN) {
-		if (r)
-			r /= 5;
 	}
 
 	return r*3;

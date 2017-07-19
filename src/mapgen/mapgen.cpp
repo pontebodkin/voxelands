@@ -74,8 +74,6 @@ void make_block(BlockMakeData *data)
 
 	s16 approx_groundlevel = (s16)get_sector_average_ground_level(data, v2s16(blockpos.X, blockpos.Z));
 
-	s16 approx_ground_depth = approx_groundlevel - (node_min.Y+MAP_BLOCKSIZE/2);
-
 	s16 minimum_groundlevel = (s16)get_sector_minimum_ground_level(data, v2s16(blockpos.X, blockpos.Z));
 	// Minimum amount of ground above the top of the central block
 	s16 minimum_ground_depth = minimum_groundlevel - node_max.Y;
@@ -99,9 +97,6 @@ void make_block(BlockMakeData *data)
 	/*
 		Make some 3D noise
 	*/
-
-	//NoiseBuffer noisebuf1;
-	//NoiseBuffer noisebuf2;
 	NoiseBuffer noisebuf_cave;
 	NoiseBuffer noisebuf_ground_crumbleness;
 	NoiseBuffer noisebuf_ground_wetness;
@@ -109,40 +104,28 @@ void make_block(BlockMakeData *data)
 		v3f minpos_f(node_min.X, node_min.Y, node_min.Z);
 		v3f maxpos_f(node_max.X, node_max.Y, node_max.Z);
 
-		//TimeTaker timer("noisebuf.create");
-
 		/*
 			Cave noise
 		*/
-#if 1
 		noisebuf_cave.create(get_cave_noise1_params(data->seed),
 				minpos_f.X, minpos_f.Y, minpos_f.Z,
 				maxpos_f.X, maxpos_f.Y, maxpos_f.Z,
-				2, 2, 2);
+				2.0, 2.0, 2.0);
 		noisebuf_cave.multiply(get_cave_noise2_params(data->seed));
-#endif
 
 		/*
 			Ground noise
 		*/
-
-		// Sample length
-		v3f sl = v3f(4.0, 4.0, 4.0);
-
-		/*
-			Ground property noise
-		*/
-		sl = v3f(2.5, 2.5, 2.5);
 		noisebuf_ground_crumbleness.create(
 				get_ground_crumbleness_params(data->seed),
 				minpos_f.X, minpos_f.Y, minpos_f.Z,
 				maxpos_f.X, maxpos_f.Y+5, maxpos_f.Z,
-				sl.X, sl.Y, sl.Z);
+				2.5, 2.5, 2.5);
 		noisebuf_ground_wetness.create(
 				get_ground_wetness_params(data->seed),
 				minpos_f.X, minpos_f.Y, minpos_f.Z,
 				maxpos_f.X, maxpos_f.Y+5, maxpos_f.Z,
-				sl.X, sl.Y, sl.Z);
+				2.5, 2.5, 2.5);
 	}
 
 
@@ -198,166 +181,57 @@ void make_block(BlockMakeData *data)
 
 	{
 		PseudoRandom mineralrandom(blockseed);
+		uint8_t minerals[15] = {
+			MINERAL_COAL,		// all
+			MINERAL_TIN,		// > -48 (-3)
+			MINERAL_COPPER,
+			MINERAL_SALT,		// > -16 (-1)
+			MINERAL_COAL,		// all
+			MINERAL_QUARTZ,		// < -16 (-1)
+			MINERAL_SILVER,		// < -32 (-2)
+			MINERAL_GOLD,
+			MINERAL_IRON,		// < -48 (-3)
+			MINERAL_MITHRIL,	// < -64 (-4)
+			MINERAL_RUBY,		// < -72 (-5)
+			MINERAL_TURQUOISE,
+			MINERAL_AMETHYST,
+			MINERAL_SAPPHIRE,
+			MINERAL_SUNSTONE
+		};
 
-		/*
-			Add mithril blocks
-		*/
-		for (s16 i=0; i<approx_ground_depth/4; i++) {
-			if (mineralrandom.next()%50 == 0) {
-				s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
-				s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
-				s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
-				// TODO: at random, some should be gems
-				u8 type = mineralrandom.next()%12;
-				switch (type) {
-				case 0:
-					type = MINERAL_RUBY;
-					break;
-				case 1:
-					type = MINERAL_TURQUOISE;
-					break;
-				case 2:
-					type = MINERAL_AMETHYST;
-					break;
-				case 3:
-					type = MINERAL_SAPPHIRE;
-					break;
-				case 4:
-					type = MINERAL_SUNSTONE;
-					break;
-				default:
-					type = MINERAL_MITHRIL;
-				}
-				for (u16 i=0; i<27; i++) {
-					v3s16 p = v3s16(x,y,z) + g_27dirs[i];
-					u32 vi = vmanip.m_area.index(p);
-					if (vmanip.m_data[vi].getContent() == base_content && mineralrandom.next()%8 == 0)
-						vmanip.m_data[vi] = MapNode(base_content,type);
-				}
+		int start_index = 0;
+		int end_index = 2;
+		int count = 0;
+		int prob;
 
-			}
-		}
-		/*
-			Add others
-		*/
-		if (limestone) {
-			/*
-				Add tin/quartz (and rare coal)
-			*/
-			u16 a = mineralrandom.range(0,15);
-			a = a*a*a;
-			u16 amount = 20;
-			u16 rareness = 40 / amount;
-			if (rareness == 0)
-				rareness = 1;
-			if (mineralrandom.next()%rareness == 0) {
-				u16 a = mineralrandom.next() % 16;
-				u16 amnt = amount * a*a*a / 1000;
-				for (s16 i=0; i<amnt; i++) {
-					s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
-					s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
-					s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
-					u8 type = mineralrandom.next()%12;
-					if (type == 0) {
-						type = MINERAL_COAL;
-					}else if (type > 8) {
-						type =  MINERAL_QUARTZ;
-					}else if (type > 4) {
-						type =  MINERAL_COPPER;
-					}else{
-						type = MINERAL_TIN;
-					}
-					for (u16 i=0; i<27; i++) {
-						v3s16 p = v3s16(x,y,z) + g_27dirs[i];
-						u32 vi = vmanip.m_area.index(p);
-						if (vmanip.m_data[vi].getContent() == CONTENT_LIMESTONE && mineralrandom.next()%8 == 0)
-							vmanip.m_data[vi] = MapNode(CONTENT_LIMESTONE, type);
-					}
-				}
-			}
+		if (data->blockpos.Y > -2) {
+			end_index = 3;
+		}else if (data->blockpos.Y < -4) {
+			start_index = 4;
+			end_index = 14;
+		}else if (data->blockpos.Y < -3) {
+			start_index = 4;
+			end_index = 9;
 		}else{
-			{
-				u16 a = mineralrandom.range(0,15);
-				a = a*a*a;
-				u16 amount = 20 * a/1000;
-				for (s16 i=0; i<amount; i++) {
-					s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
-					s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
-					s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
+			start_index = 4;
+			end_index = 8;
+		}
 
-					u8 base_content = CONTENT_STONE;
-					MapNode new_content(CONTENT_IGNORE);
-					u32 sparseness = 6;
+		count = (end_index-start_index)+1;
 
-					if (noisebuf_ground_crumbleness.get(x,y+5,z) < -0.1) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_COAL);
-					}else if (noisebuf_ground_wetness.get(x,y+5,z) > 0.1) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_IRON);
-					}else if (noisebuf_ground_crumbleness.get(x,y,z) > 0.4) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_SILVER);
-					}else if (noisebuf_ground_crumbleness.get(x,y,z) > 0.3) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_QUARTZ);
-					}else if (noisebuf_ground_crumbleness.get(x,y,z) > 0.2) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_COPPER);
-					}else if (noisebuf_ground_crumbleness.get(x,y,z) > 0.1) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_TIN);
-					}else if (noisebuf_ground_wetness.get(x,y+5,z) > 0.0) {
-						new_content = MapNode(CONTENT_STONE, MINERAL_GOLD);
-					}
-
-					if (new_content.getContent() != CONTENT_IGNORE) {
-						for (u16 i=0; i<27; i++) {
-							v3s16 p = v3s16(x,y,z) + g_27dirs[i];
-							u32 vi = vmanip.m_area.index(p);
-							if (vmanip.m_data[vi].getContent() == base_content && mineralrandom.next()%sparseness == 0)
-								vmanip.m_data[vi] = new_content;
-						}
-					}
-				}
-			}
-			/*
-				Add coal
-			*/
-			u16 coal_amount = 30;
-			u16 coal_rareness = 60 / coal_amount;
-			if (coal_rareness == 0)
-				coal_rareness = 1;
-			if (mineralrandom.next()%coal_rareness == 0) {
-				u16 a = mineralrandom.next() % 16;
-				u16 amount = coal_amount * a*a*a / 1000;
-				for (s16 i=0; i<amount; i++) {
-					s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
-					s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
-					s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
-					for (u16 i=0; i<27; i++) {
-						v3s16 p = v3s16(x,y,z) + g_27dirs[i];
-						u32 vi = vmanip.m_area.index(p);
-						if (vmanip.m_data[vi].getContent() == CONTENT_STONE && mineralrandom.next()%8 == 0)
-							vmanip.m_data[vi] = MapNode(CONTENT_STONE, MINERAL_COAL);
-					}
-				}
-			}
-			/*
-				Add iron
-			*/
-			u16 iron_amount = 8;
-			u16 iron_rareness = 60 / iron_amount;
-			if (iron_rareness == 0)
-				iron_rareness = 1;
-			if (mineralrandom.next()%iron_rareness == 0) {
-				u16 a = mineralrandom.next() % 16;
-				u16 amount = iron_amount * a*a*a / 1000;
-				for (s16 i=0; i<amount; i++) {
-					s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
-					s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
-					s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
-					for (u16 i=0; i<27; i++) {
-						v3s16 p = v3s16(x,y,z) + g_27dirs[i];
-						u32 vi = vmanip.m_area.index(p);
-						if (vmanip.m_data[vi].getContent() == CONTENT_STONE && mineralrandom.next()%8 == 0)
-							vmanip.m_data[vi] = MapNode(CONTENT_STONE, MINERAL_IRON);
-					}
-				}
+		for (s16 i=0; i<20; i++) {
+			s16 x = mineralrandom.range(node_min.X+1, node_max.X-1);
+			s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
+			s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
+			u8 type = mineralrandom.next()%count;
+			for (u16 i=0; i<27; i++) {
+				v3s16 p = v3s16(x,y,z) + g_27dirs[i];
+				u32 vi = vmanip.m_area.index(p);
+				prob = 4;
+				if (minerals[type] == MINERAL_COAL)
+					prob = 2;
+				if (vmanip.m_data[vi].getContent() == base_content && mineralrandom.next()%prob == 0)
+					vmanip.m_data[vi] = MapNode(base_content,minerals[type]);
 			}
 		}
 	}
@@ -707,7 +581,6 @@ void make_block(BlockMakeData *data)
 						n->getContent() == CONTENT_MUD
 						|| n->getContent() == CONTENT_CLAY
 						|| n->getContent() == CONTENT_SAND
-						|| n->getContent() == CONTENT_JUNGLETREE
 					) {
 						found = true;
 						break;
@@ -731,11 +604,11 @@ void make_block(BlockMakeData *data)
 					switch (data->biome) {
 					case BIOME_WOODLANDS:
 						v = grassnoise.get(p.X,p.Y,p.Z);
-						if (v < -0.5) {
+						if (v > -0.6 && v < -0.55) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_POTATO;
-						}else if (v < -0.4) {
+						}else if (v > -0.55 && v < -0.5) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_CARROT;
-						}else if (v < -0.3) {
+						}else if (v > -0.5 && v < -0.45) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_BEETROOT;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
@@ -743,14 +616,14 @@ void make_block(BlockMakeData *data)
 						break;
 					case BIOME_JUNGLE:
 						v = grassnoise.get(p.X,p.Y,p.Z);
-						if (v < -0.3) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
-						}else if (v > -0.5 && v < -0.499) {
+						if (v > -0.5 && v < -0.48) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
-						}else if (v > -0.4 && v < -0.399) {
+						}else if (v > -0.48 && v < -0.46) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
-						}else if (v > -0.3 && v < -0.299) {
+						}else if (v > -0.46 && v < -0.44) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_GRAPEVINE;
+						}else if (((int)(v*10.0))%2 == 1) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
 						}
@@ -764,15 +637,21 @@ void make_block(BlockMakeData *data)
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_WHEAT;
 						}else if (v > -0.4 && v < -0.399) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_PUMPKIN;
+						}else if (v > -0.3 && v < -0.299) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FLOWER_DAFFODIL;
+						}else if (v > -0.2 && v < -0.199) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FLOWER_ROSE;
+						}else if (v > -0.1 && v < -0.099) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FLOWER_TULIP;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
 						}
 						break;
 					case BIOME_FOREST:
 						v = grassnoise.get(p.X,p.Y,p.Z);
-						if (v > -0.5 && v < -0.499) {
+						if (v > -0.5 && v < -0.4) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_COTTON;
-						}else if (v > -0.4 && v < -0.399) {
+						}else if (v > -0.4 && v < -0.3) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_MELON;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
