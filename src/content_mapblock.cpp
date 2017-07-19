@@ -2520,77 +2520,47 @@ void meshgen_croplike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 
 	v3f pos = offset+intToFloat(p,BS);
 
-	if (selected.is_coloured || selected.has_crack) {
-		//for (u32 j=0; j<2; j++) {
-			//video::S3DVertex vertices[4] = {
-				//video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v1),
-				//video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v1),
-				//video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v0),
-				//video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v0)
-			//};
+	for (u32 j=0; j<4; j++) {
+		video::S3DVertex vertices[4] = {
+			video::S3DVertex(-0.5*BS,-0.5*BS,-0.25*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,v1),
+			video::S3DVertex( 0.5*BS,-0.5*BS,-0.25*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,v1),
+			video::S3DVertex( 0.5*BS,   h*BS,-0.25*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 1.,v0),
+			video::S3DVertex(-0.5*BS,   h*BS,-0.25*data->m_BS, 0,0,0, video::SColor(255,255,255,255), 0.,v0)
+		};
 
-			//s16 angle = 45;
-			//if (j == 1)
-				//angle = -45;
+		s16 angle = j*90;
 
-			//for (u16 i=0; i<4; i++) {
-				//vertices[i].Pos.rotateXZBy(angle);
-				//vertices[i].TCoords *= tile.texture.size;
-				//vertices[i].TCoords += tile.texture.pos;
-			//}
-
-			//u16 indices[] = {0,1,2,2,3,0};
-			//std::vector<u32> colours;
-			//if (selected.is_coloured) {
-				//meshgen_selected_lights(colours,255,4);
-			//}else{
-				//meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
-			//}
-
-			//for (u16 i=0; i<4; i++) {
-				//vertices[i].Pos += pos;
-				//vertices[i].Pos.X += 0.005;
-			//}
-
-			//data->append(tile, vertices, 4, indices, 6, colours);
-
-			//for (u16 i=0; i<4; i++) {
-				//vertices[i].Pos.X -= 0.01;
-			//}
-
-			//data->append(tile, vertices, 4, indices, 6, colours);
-		//}
-	}else{
-		for (u32 j=0; j<4; j++) {
-			video::S3DVertex vertices[4] = {
-				video::S3DVertex(-0.5*BS,-0.5*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 0.,v1),
-				video::S3DVertex( 0.5*BS,-0.5*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 1.,v1),
-				video::S3DVertex( 0.5*BS,   h*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 1.,v0),
-				video::S3DVertex(-0.5*BS,   h*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 0.,v0)
-			};
-
-			s16 angle = j*90;
-
-			for (u16 i=0; i<4; i++) {
-				vertices[i].Pos.rotateXZBy(angle);
-				vertices[i].TCoords *= tile.texture.size;
-				vertices[i].TCoords += tile.texture.pos;
-			}
-
-			u16 indices[] = {0,1,2,2,3,0};
-			std::vector<u32> colours;
-			if (selected.is_coloured) {
-				meshgen_selected_lights(colours,255,4);
-			}else{
-				meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
-			}
-
-			for (u16 i=0; i<4; i++) {
-				vertices[i].Pos += pos;
-			}
-
-			data->append(tile, vertices, 4, indices, 6, colours);
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos.rotateXZBy(angle);
+			vertices[i].TCoords *= tile.texture.size;
+			vertices[i].TCoords += tile.texture.pos;
 		}
+
+		u16 indices[] = {0,1,2,2,3,0};
+		std::vector<u32> colours;
+		if (selected.is_coloured) {
+			meshgen_selected_lights(colours,255,4);
+		}else{
+			meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
+		}
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += pos;
+		}
+
+		data->append(tile, vertices, 4, indices, 6, colours);
+
+		if (!selected.is_coloured && !selected.has_crack)
+			continue;
+
+		v3f hpos(0.0,0.0,data->m_BSd*2.0);
+		hpos.rotateXZBy(angle);
+
+		for (u16 i=0; i<4; i++) {
+			vertices[i].Pos += hpos;
+		}
+
+		data->append(tile, vertices, 4, indices, 6, colours);
 	}
 }
 
