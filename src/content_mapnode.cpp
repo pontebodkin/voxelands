@@ -42,12 +42,6 @@
 #include "intl.h"
 #include "content_burntimes.h"
 
-#define WATER_ALPHA 160
-
-#define WATER_VISC 1
-#define LAVA_VISC 7
-
-
 MapNode mapnode_translate_from_internal(MapNode n_from, u8 version)
 {
 	return n_from;

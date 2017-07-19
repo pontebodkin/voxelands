@@ -336,3 +336,86 @@ std::string ChestNodeMetadata::getInventoryOwner()
 		return m_owner;
 	return "";
 }
+
+/*
+	BarrelNodeMetadata
+*/
+
+// Prototype
+BarrelNodeMetadata proto_BarrelNodeMetadata;
+
+BarrelNodeMetadata::BarrelNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_water_level = 0;
+}
+BarrelNodeMetadata::~BarrelNodeMetadata()
+{
+}
+u16 BarrelNodeMetadata::typeId() const
+{
+	return CONTENT_WOOD_BARREL;
+}
+NodeMetadata* BarrelNodeMetadata::create(std::istream &is)
+{
+	std::string s;
+	BarrelNodeMetadata *d = new BarrelNodeMetadata();
+
+	s = deSerializeString(is);
+	d->m_water_level = mystoi(s);
+
+	return d;
+}
+NodeMetadata* BarrelNodeMetadata::clone()
+{
+	BarrelNodeMetadata *d = new BarrelNodeMetadata();
+	d->m_water_level = m_water_level;
+	return d;
+}
+void BarrelNodeMetadata::serializeBody(std::ostream &os)
+{
+	os<<serializeString(itos(m_water_level));
+}
+std::wstring BarrelNodeMetadata::infoText()
+{
+	char buff[1024];
+	if (!m_water_level)
+		return narrow_to_wide(gettext("Barrel is empty"));
+
+	if (m_water_level > 9)
+		return narrow_to_wide(gettext("Barrel is full"));
+
+	if (snprintf(buff,1024,gettext("Barrel is %u%% full"),m_water_level*10) < 1024)
+		return narrow_to_wide(buff);
+
+	return narrow_to_wide(gettext("Barrel"));
+}
+bool BarrelNodeMetadata::nodeRemovalDisabled()
+{
+	if (!m_water_level)
+		return false;
+
+	return true;
+}
+std::vector<NodeBox> BarrelNodeMetadata::getNodeBoxes(MapNode &n)
+{
+	std::vector<NodeBox> boxes;
+
+	if (m_water_level) {
+		float h = -0.375+(0.0625*(float)m_water_level);
+		boxes.push_back(NodeBox(
+			-0.3125*BS,-0.375*BS,-0.3125*BS,0.3125*BS,h*BS,0.3125*BS
+		));
+	}
+
+	return boxes;
+}
+bool BarrelNodeMetadata::import(NodeMetadata *meta)
+{
+	if (meta->typeId() != CONTENT_WOOD_BARREL)
+		return false;
+	BarrelNodeMetadata *l = (BarrelNodeMetadata*)meta;
+	m_water_level = l->m_water_level;
+	return true;
+}

@@ -102,5 +102,7 @@ void content_nodebox_rail(ContentFeatures *f);
 void content_nodebox_chest(ContentFeatures *f);
 void content_nodebox_glass_pane(ContentFeatures *f);
 void content_nodebox_snowman(ContentFeatures *f);
+void content_nodebox_barrel(ContentFeatures *f);
+void content_nodebox_barrel_sealed(ContentFeatures *f);
 
 #endif

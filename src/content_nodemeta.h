@@ -297,6 +297,25 @@ private:
 	Inventory *m_inventory;
 };
 
+class BarrelNodeMetadata : public NodeMetadata
+{
+public:
+	BarrelNodeMetadata();
+	~BarrelNodeMetadata();
+
+	virtual u16 typeId() const;
+	static NodeMetadata* create(std::istream &is);
+	virtual NodeMetadata* clone();
+	virtual void serializeBody(std::ostream &os);
+	virtual std::wstring infoText();
+	virtual bool nodeRemovalDisabled();
+	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
+
+	virtual bool import(NodeMetadata *meta);
+
+	uint8_t m_water_level;
+};
+
 class BorderStoneNodeMetadata : public NodeMetadata
 {
 public:

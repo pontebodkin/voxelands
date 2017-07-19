@@ -42,6 +42,10 @@ void content_mapnode_plants(bool repeat);
 MapNode mapnode_translate_from_internal(MapNode n_from, u8 version);
 MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 
+#define WATER_ALPHA 160
+#define WATER_VISC 1
+#define LAVA_VISC 7
+
 /*
 	Node content type IDs
 	Range: 0x0 - 0xFFF
@@ -116,7 +120,11 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_APPLE_FENCE 0x03F
 #define CONTENT_BUSH_BLUEBERRY 0x040
 #define CONTENT_BUSH_RASPBERRY 0x041
-// FREE 0x042-0x07C
+#define CONTENT_WOOD_BARREL 0x042
+#define CONTENT_APPLEWOOD_BARREL 0x043
+#define CONTENT_JUNGLEWOOD_BARREL 0x044
+#define CONTENT_PINE_BARREL 0x045
+// FREE 0x046-0x07C
 // 0x7D-0x7F reserved values, air, ignore, etc
 #define CONTENT_CHAIR_CENTRE 0x080
 #define CONTENT_CHAIR_ENDL 0x081

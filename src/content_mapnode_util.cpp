@@ -13,11 +13,6 @@
 #include "tile.h"
 #endif
 
-#define WATER_ALPHA 160
-
-#define WATER_VISC 1
-#define LAVA_VISC 7
-
 void content_nodedef_knob(content_t nodeid, content_t source_node, ContentMaterialType material_type, const char* texture, char* desc)
 {
 	ContentFeatures *features = &content_features(nodeid);
