@@ -2498,6 +2498,120 @@ void meshgen_plantlike_fern(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNod
 	}
 }
 
+void meshgen_croplike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
+{
+	ContentFeatures *f = &content_features(n);
+	TileSpec tile = getNodeTile(n,p,v3s16(0,1,0),selected);
+	v3f offset(0,0,0);
+	if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() == CONTENT_FLOWER_POT)
+		offset = v3f(0,-0.25*data->m_BS,0);
+
+	f32 v0 = 0.;
+	f32 v1 = 1.;
+	f32 h = 0.5;
+
+	if (f->plantlike_tiled) {
+		if (f->param2_type == CPT_PLANTGROWTH && n.param2 != 0 && !f->plantgrowth_on_trellis) {
+			h = (0.0625*(float)n.param2);
+			if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() != n.getContent()) {
+				v0 = (1.0-h)/2;
+			}else{
+				v0 = ((1.0-h)/2)+0.25;
+				v1 = 0.75;
+			}
+			h -= 0.5;
+		}else if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() != n.getContent()) {
+			v0 = 0.5;
+		}else if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,1,0)).getContent() != n.getContent()) {
+			v1 = 0.5;
+		}else{
+			v0 = 0.25;
+			v1 = 0.75;
+		}
+	}else if (f->param2_type == CPT_PLANTGROWTH) {
+		if (n.param2 != 0 && !f->plantgrowth_on_trellis) {
+			h = (0.0625*(float)n.param2);
+			v0 = (1.0-h);
+			h -= 0.5;
+		}
+	}
+
+	v3f pos = offset+intToFloat(p,BS);
+
+	if (selected.is_coloured || selected.has_crack) {
+		//for (u32 j=0; j<2; j++) {
+			//video::S3DVertex vertices[4] = {
+				//video::S3DVertex(-0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v1),
+				//video::S3DVertex( 0.5*BS,-0.5*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v1),
+				//video::S3DVertex( 0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 1.,v0),
+				//video::S3DVertex(-0.5*BS,   h*BS,0., 0,0,0, video::SColor(255,255,255,255), 0.,v0)
+			//};
+
+			//s16 angle = 45;
+			//if (j == 1)
+				//angle = -45;
+
+			//for (u16 i=0; i<4; i++) {
+				//vertices[i].Pos.rotateXZBy(angle);
+				//vertices[i].TCoords *= tile.texture.size;
+				//vertices[i].TCoords += tile.texture.pos;
+			//}
+
+			//u16 indices[] = {0,1,2,2,3,0};
+			//std::vector<u32> colours;
+			//if (selected.is_coloured) {
+				//meshgen_selected_lights(colours,255,4);
+			//}else{
+				//meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
+			//}
+
+			//for (u16 i=0; i<4; i++) {
+				//vertices[i].Pos += pos;
+				//vertices[i].Pos.X += 0.005;
+			//}
+
+			//data->append(tile, vertices, 4, indices, 6, colours);
+
+			//for (u16 i=0; i<4; i++) {
+				//vertices[i].Pos.X -= 0.01;
+			//}
+
+			//data->append(tile, vertices, 4, indices, 6, colours);
+		//}
+	}else{
+		for (u32 j=0; j<4; j++) {
+			video::S3DVertex vertices[4] = {
+				video::S3DVertex(-0.5*BS,-0.5*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 0.,v1),
+				video::S3DVertex( 0.5*BS,-0.5*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 1.,v1),
+				video::S3DVertex( 0.5*BS,   h*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 1.,v0),
+				video::S3DVertex(-0.5*BS,   h*BS,-0.25*BS, 0,0,0, video::SColor(255,255,255,255), 0.,v0)
+			};
+
+			s16 angle = j*90;
+
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos.rotateXZBy(angle);
+				vertices[i].TCoords *= tile.texture.size;
+				vertices[i].TCoords += tile.texture.pos;
+			}
+
+			u16 indices[] = {0,1,2,2,3,0};
+			std::vector<u32> colours;
+			if (selected.is_coloured) {
+				meshgen_selected_lights(colours,255,4);
+			}else{
+				meshgen_lights(data,n,p,colours,255,v3s16(0,0,0),4,vertices);
+			}
+
+			for (u16 i=0; i<4; i++) {
+				vertices[i].Pos += pos;
+			}
+
+			data->append(tile, vertices, 4, indices, 6, colours);
+		}
+	}
+}
+
 void meshgen_liquid(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &selected)
 {
 	ContentFeatures *f = &content_features(n);
