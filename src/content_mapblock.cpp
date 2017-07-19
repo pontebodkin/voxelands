@@ -2510,25 +2510,7 @@ void meshgen_croplike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &sel
 	f32 v1 = 1.;
 	f32 h = 0.5;
 
-	if (f->plantlike_tiled) {
-		if (f->param2_type == CPT_PLANTGROWTH && n.param2 != 0 && !f->plantgrowth_on_trellis) {
-			h = (0.0625*(float)n.param2);
-			if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() != n.getContent()) {
-				v0 = (1.0-h)/2;
-			}else{
-				v0 = ((1.0-h)/2)+0.25;
-				v1 = 0.75;
-			}
-			h -= 0.5;
-		}else if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,-1,0)).getContent() != n.getContent()) {
-			v0 = 0.5;
-		}else if (data->m_vmanip.getNodeRO(data->m_blockpos_nodes + p + v3s16(0,1,0)).getContent() != n.getContent()) {
-			v1 = 0.5;
-		}else{
-			v0 = 0.25;
-			v1 = 0.75;
-		}
-	}else if (f->param2_type == CPT_PLANTGROWTH) {
+	if (f->param2_type == CPT_PLANTGROWTH) {
 		if (n.param2 != 0 && !f->plantgrowth_on_trellis) {
 			h = (0.0625*(float)n.param2);
 			v0 = (1.0-h);

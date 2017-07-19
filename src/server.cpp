@@ -3410,7 +3410,10 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 							}
 						}
 					}else if (selected_node_features.param2_type == CPT_PLANTGROWTH) {
-						if (selected_node_features.draw_type == CDT_PLANTLIKE) {
+						if (
+							selected_node_features.draw_type == CDT_PLANTLIKE
+							|| selected_node_features.draw_type == CDT_CROPLIKE
+						) {
 							if (p2 && p2 < 8) {
 								if (selected_node_features.plantgrowth_small_dug_node != CONTENT_IGNORE) {
 									u16 count = 1;
