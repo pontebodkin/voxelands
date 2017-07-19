@@ -360,8 +360,8 @@ bool CauldronNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 			}
 			content_t c = fitem->getContent();
 			list->decrementMaterials(1);
-			if (c == CONTENT_TOOLITEM_STEELBUCKET_LAVA)
-				list->addItem(0,new ToolItem(CONTENT_TOOLITEM_STEELBUCKET,0,0));
+			if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA)
+				list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
 			return true;
 		}
 	}

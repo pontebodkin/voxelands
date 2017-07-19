@@ -97,7 +97,7 @@ void content_craftitem_init()
 	f->texture = "padlock.png";
 	f->name = "padlock";
 	f->description = gettext("Padlock");
-	crafting::set1over1Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_CRAFTITEM_PADLOCK);
+	crafting::set1over1Recipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_CRAFTITEM_PADLOCK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -125,7 +125,7 @@ void content_craftitem_init()
 	f->texture = "lump_of_iron.png";
 	f->name = "lump_of_iron";
 	f->description = gettext("Iron Lump");
-	f->cook_result = CONTENT_CRAFTITEM_STEEL_INGOT;
+	f->cook_result = CONTENT_CRAFTITEM_IRON_INGOT;
 	f->cook_type = COOK_FURNACE;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
@@ -230,12 +230,12 @@ void content_craftitem_init()
 	f->description = gettext("Flint");
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CRAFTITEM_STEEL_INGOT;
+	i = CONTENT_CRAFTITEM_IRON_INGOT;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
-	f->content = CONTENT_CRAFTITEM_STEEL_INGOT;
-	f->texture = "steel_ingot.png";
-	f->name = "steel_ingot";
-	f->description = gettext("Steel Ingot");
+	f->content = CONTENT_CRAFTITEM_IRON_INGOT;
+	f->texture = "iron_ingot.png";
+	f->name = "iron_ingot";
+	f->description = gettext("Iron Ingot");
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_CLAY_BRICK;
@@ -306,9 +306,9 @@ void content_craftitem_init()
 	f->health_effect = 40;
 	{
 		u16 recipe[9] = {
-			CONTENT_CRAFTITEM_STEEL_INGOT,		CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,		CONTENT_IGNORE,	CONTENT_CRAFTITEM_IRON_INGOT,
 			CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE,		CONTENT_IGNORE,
-			CONTENT_CRAFTITEM_STEEL_INGOT,		CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT
+			CONTENT_CRAFTITEM_IRON_INGOT,		CONTENT_IGNORE,	CONTENT_CRAFTITEM_IRON_INGOT
 		};
 		crafting::setRecipe(recipe,CONTENT_CRAFTITEM_APPLE_IRON,1);
 	}
@@ -1251,7 +1251,7 @@ void content_craftitem_init()
 	f->name = "arrow";
 	f->description = gettext("Arrow");
 	f->shot_item = CONTENT_MOB_ARROW;
-	crafting::set1over4Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_STICK,CONTENT_CRAFTITEM_ARROW);
+	crafting::set1over4Recipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CRAFTITEM_STICK,CONTENT_CRAFTITEM_ARROW);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1433,7 +1433,7 @@ void content_craftitem_init()
 	i = CONTENT_CRAFTITEM_TEA;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
-	f->texture = "steel_bottle.png^tea_bag.png";
+	f->texture = "iron_bottle.png^tea_bag.png";
 	f->name = "tea_drink";
 	f->description = gettext("Tea");
 	f->stackable = false;
@@ -1444,8 +1444,8 @@ void content_craftitem_init()
 	f->health_effect = 20;
 	f->cold_effect = 300;
 	f->energy_effect = 10;
-	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
-	crafting::set1over1Recipe(CONTENT_CRAFTITEM_TEA_LEAVES,CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER,CONTENT_CRAFTITEM_TEA);
+	f->onuse_replace_item = CONTENT_CRAFTITEM_IRON_BOTTLE;
+	crafting::set1over1Recipe(CONTENT_CRAFTITEM_TEA_LEAVES,CONTENT_CRAFTITEM_IRON_BOTTLE_WATER,CONTENT_CRAFTITEM_TEA);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1466,7 +1466,7 @@ void content_craftitem_init()
 	i = CONTENT_CRAFTITEM_COFFEE;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
-	f->texture = "steel_bottle.png^coffee_bean.png";
+	f->texture = "iron_bottle.png^coffee_bean.png";
 	f->name = "coffee_drink";
 	f->description = gettext("Coffee");
 	f->stackable = false;
@@ -1477,25 +1477,25 @@ void content_craftitem_init()
 	f->health_effect = 15;
 	f->cold_effect = 10;
 	f->energy_effect = 300;
-	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
-	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COFFEE_BEANS,CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER,CONTENT_CRAFTITEM_COFFEE);
+	f->onuse_replace_item = CONTENT_CRAFTITEM_IRON_BOTTLE;
+	crafting::set1over1Recipe(CONTENT_CRAFTITEM_COFFEE_BEANS,CONTENT_CRAFTITEM_IRON_BOTTLE_WATER,CONTENT_CRAFTITEM_COFFEE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CRAFTITEM_STEEL_BOTTLE;
+	i = CONTENT_CRAFTITEM_IRON_BOTTLE;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
-	f->texture = "steel_bottle.png";
-	f->name = "steel_bottle";
-	f->description = gettext("Steel Bottle");
+	f->texture = "iron_bottle.png";
+	f->name = "iron_bottle";
+	f->description = gettext("Iron Bottle");
 	f->drop_count = 1;
 	{
 		u16 r[9] = {
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_IGNORE,			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE
 		};
-		crafting::setRecipe(r,CONTENT_CRAFTITEM_STEEL_BOTTLE,5);
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_IRON_BOTTLE,5);
 	}
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -1515,10 +1515,10 @@ void content_craftitem_init()
 	f->onuse_replace_item = CONTENT_CRAFTITEM_GLASS_BOTTLE;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER;
+	i = CONTENT_CRAFTITEM_IRON_BOTTLE_WATER;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = i;
-	f->texture = "steel_bottle.png^water_droplet.png";
+	f->texture = "iron_bottle.png^water_droplet.png";
 	f->name = "hotwater_drink";
 	f->description = gettext("Bottle of Hot Water");
 	f->stackable = false;
@@ -1528,7 +1528,7 @@ void content_craftitem_init()
 	f->hunger_effect = 5;
 	f->health_effect = 8;
 	f->cold_effect = 5;
-	f->onuse_replace_item = CONTENT_CRAFTITEM_STEEL_BOTTLE;
+	f->onuse_replace_item = CONTENT_CRAFTITEM_IRON_BOTTLE;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CRAFTITEM_MITHRIL_RAW;

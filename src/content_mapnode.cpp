@@ -2266,11 +2266,11 @@ void content_mapnode_init(bool repeat)
 	f->crush_type = CRUSH_CRUSHER;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL;
+	i = CONTENT_IRON;
 	f = &content_features(i);
-	f->description = gettext("Steel Block");
-	f->setAllTextures("steel_block.png");
-	f->setInventoryTextureCube("steel_block.png", "steel_block.png", "steel_block.png");
+	f->description = gettext("Iron Block");
+	f->setAllTextures("iron_block.png");
+	f->setInventoryTextureCube("iron_block.png", "iron_block.png", "iron_block.png");
 	f->param_type = CPT_NONE;
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
@@ -2278,8 +2278,8 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 5.0;
 	f->destructive_mob_safe = true;
-	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL);
-	crafting::setUncraftHardBlockRecipe(CONTENT_STEEL,CONTENT_CRAFTITEM_STEEL_INGOT);
+	crafting::setHardBlockRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_IRON);
+	crafting::setUncraftHardBlockRecipe(CONTENT_IRON,CONTENT_CRAFTITEM_IRON_INGOT);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

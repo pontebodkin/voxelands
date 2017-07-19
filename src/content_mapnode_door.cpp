@@ -90,15 +90,15 @@ void content_mapnode_door(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_DOOR_LB;
+	i = CONTENT_IRON_DOOR_LB;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Door");
-	f->setAllTextures("door_steel_b.png");
-	f->setTexture(2,"door_steel_b.png^[transformFX");
-	f->setTexture(3,"door_steel_b.png^[transformFX");
-	f->setTexture(4,"door_steel_b.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png");
+	f->description = gettext("Iron Door");
+	f->setAllTextures("door_iron_b.png");
+	f->setTexture(2,"door_iron_b.png^[transformFX");
+	f->setTexture(3,"door_iron_b.png^[transformFX");
+	f->setTexture(4,"door_iron_b.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -107,7 +107,7 @@ void content_mapnode_door(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_LB_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_LB_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -117,15 +117,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_DOOR_LT;
+	i = CONTENT_IRON_DOOR_LT;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Door");
-	f->setAllTextures("door_steel_t.png");
-	f->setTexture(2,"door_steel_t.png^[transformFX");
-	f->setTexture(3,"door_steel_t.png^[transformFX");
-	f->setTexture(4,"door_steel_t.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png");
+	f->description = gettext("Iron Door");
+	f->setAllTextures("door_iron_t.png");
+	f->setTexture(2,"door_iron_t.png^[transformFX");
+	f->setTexture(3,"door_iron_t.png^[transformFX");
+	f->setTexture(4,"door_iron_t.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -133,9 +133,9 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onuse_replace_node = CONTENT_STEEL_DOOR_RT;
+	f->onuse_replace_node = CONTENT_IRON_DOOR_RT;
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_LT_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_LT_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -145,7 +145,7 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::set1over1Recipe(CONTENT_STEEL_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_DOOR_LT);
+	crafting::set1over1Recipe(CONTENT_IRON_HATCH,CONTENT_IRON_HATCH,CONTENT_IRON_DOOR_LT);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -270,15 +270,15 @@ void content_mapnode_door(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_W_DOOR_LB;
+	i = CONTENT_IRON_W_DOOR_LB;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Windowed Door");
-	f->setAllTextures("door_steel_wb.png");
-	f->setTexture(2,"door_steel_wb.png^[transformFX");
-	f->setTexture(3,"door_steel_wb.png^[transformFX");
-	f->setTexture(4,"door_steel_wb.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png");
+	f->description = gettext("Iron Windowed Door");
+	f->setAllTextures("door_iron_wb.png");
+	f->setTexture(2,"door_iron_wb.png^[transformFX");
+	f->setTexture(3,"door_iron_wb.png^[transformFX");
+	f->setTexture(4,"door_iron_wb.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -288,7 +288,7 @@ void content_mapnode_door(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_LB_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_LB_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -298,15 +298,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_W_DOOR_LT;
+	i = CONTENT_IRON_W_DOOR_LT;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Windowed Door");
-	f->setAllTextures("door_steel_wt.png");
-	f->setTexture(2,"door_steel_wt.png^[transformFX");
-	f->setTexture(3,"door_steel_wt.png^[transformFX");
-	f->setTexture(4,"door_steel_wt.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png");
+	f->description = gettext("Iron Windowed Door");
+	f->setAllTextures("door_iron_wt.png");
+	f->setTexture(2,"door_iron_wt.png^[transformFX");
+	f->setTexture(3,"door_iron_wt.png^[transformFX");
+	f->setTexture(4,"door_iron_wt.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -315,9 +315,9 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onuse_replace_node = CONTENT_STEEL_W_DOOR_RT;
+	f->onuse_replace_node = CONTENT_IRON_W_DOOR_RT;
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_LT_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_LT_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_doorw(f);
 	f->type = CMT_STONE;
@@ -327,8 +327,8 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::set1over1Recipe(CONTENT_STEEL_W_HATCH,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_DOOR_LT);
-	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_DOOR_LT,CONTENT_STEEL_W_DOOR_LT);
+	crafting::set1over1Recipe(CONTENT_IRON_W_HATCH,CONTENT_IRON_HATCH,CONTENT_IRON_W_DOOR_LT);
+	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_IRON_DOOR_LT,CONTENT_IRON_W_DOOR_LT);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -449,15 +449,15 @@ void content_mapnode_door(bool repeat)
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_DOOR_RB;
+	i = CONTENT_IRON_DOOR_RB;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Door");
-	f->setAllTextures("door_steel_b.png^[transformFX");
-	f->setTexture(2,"door_steel_b.png");
-	f->setTexture(3,"door_steel_b.png");
-	f->setTexture(4,"door_steel_b.png");
-	f->setInventoryTexture("door_steel_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Door");
+	f->setAllTextures("door_iron_b.png^[transformFX");
+	f->setTexture(2,"door_iron_b.png");
+	f->setTexture(3,"door_iron_b.png");
+	f->setTexture(4,"door_iron_b.png");
+	f->setInventoryTexture("door_iron_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -466,7 +466,7 @@ void content_mapnode_door(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_RB_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_RB_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -476,15 +476,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_DOOR_RT;
+	i = CONTENT_IRON_DOOR_RT;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Door");
-	f->setAllTextures("door_steel_t.png^[transformFX");
-	f->setTexture(2,"door_steel_t.png");
-	f->setTexture(3,"door_steel_t.png");
-	f->setTexture(4,"door_steel_t.png");
-	f->setInventoryTexture("door_steel_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Door");
+	f->setAllTextures("door_iron_t.png^[transformFX");
+	f->setTexture(2,"door_iron_t.png");
+	f->setTexture(3,"door_iron_t.png");
+	f->setTexture(4,"door_iron_t.png");
+	f->setInventoryTexture("door_iron_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -492,9 +492,9 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onuse_replace_node = CONTENT_STEEL_DOOR_LT;
+	f->onuse_replace_node = CONTENT_IRON_DOOR_LT;
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_RT_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_RT_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -563,15 +563,15 @@ void content_mapnode_door(bool repeat)
 	f->suffocation_per_second = 0;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_W_DOOR_RB;
+	i = CONTENT_IRON_W_DOOR_RB;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Windowed Door");
-	f->setAllTextures("door_steel_wb.png^[transformFX");
-	f->setTexture(2,"door_steel_wb.png");
-	f->setTexture(3,"door_steel_wb.png");
-	f->setTexture(4,"door_steel_wb.png");
-	f->setInventoryTexture("door_steel_w_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Windowed Door");
+	f->setAllTextures("door_iron_wb.png^[transformFX");
+	f->setTexture(2,"door_iron_wb.png");
+	f->setTexture(3,"door_iron_wb.png");
+	f->setTexture(4,"door_iron_wb.png");
+	f->setInventoryTexture("door_iron_w_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -581,7 +581,7 @@ void content_mapnode_door(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i+1)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_RB_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_RB_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_door(f);
 	f->type = CMT_STONE;
@@ -591,15 +591,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_W_DOOR_RT;
+	i = CONTENT_IRON_W_DOOR_RT;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Windowed Door");
-	f->setAllTextures("door_steel_wt.png^[transformFX");
-	f->setTexture(2,"door_steel_wt.png");
-	f->setTexture(3,"door_steel_wt.png");
-	f->setTexture(4,"door_steel_wt.png");
-	f->setInventoryTexture("door_steel_w_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Windowed Door");
+	f->setAllTextures("door_iron_wt.png^[transformFX");
+	f->setTexture(2,"door_iron_wt.png");
+	f->setTexture(3,"door_iron_wt.png");
+	f->setTexture(4,"door_iron_wt.png");
+	f->setInventoryTexture("door_iron_w_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -608,9 +608,9 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onuse_replace_node = CONTENT_STEEL_W_DOOR_LT;
+	f->onuse_replace_node = CONTENT_IRON_W_DOOR_LT;
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_RT_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_RT_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_doorw(f);
 	f->type = CMT_STONE;
@@ -620,8 +620,8 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::set1To1Recipe(CONTENT_STEEL_W_DOOR_LT,CONTENT_STEEL_W_DOOR_RT);
-	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_DOOR_RT,CONTENT_STEEL_W_DOOR_RT);
+	crafting::set1To1Recipe(CONTENT_IRON_W_DOOR_LT,CONTENT_IRON_W_DOOR_RT);
+	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_IRON_DOOR_RT,CONTENT_IRON_W_DOOR_RT);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -732,13 +732,13 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_DOOR_LB_OPEN;
+	i = CONTENT_IRON_DOOR_LB_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Door");
-	f->setAllTextures("door_steel_b.png");
-	f->setTexture(3,"door_steel_b.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png");
+	f->description = gettext("Iron Door");
+	f->setAllTextures("door_iron_b.png");
+	f->setTexture(3,"door_iron_b.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -746,9 +746,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_LT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_LB;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_LB;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
@@ -758,13 +758,13 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_DOOR_LT_OPEN;
+	i = CONTENT_IRON_DOOR_LT_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Door");
-	f->setAllTextures("door_steel_t.png");
-	f->setTexture(3,"door_steel_t.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png");
+	f->description = gettext("Iron Door");
+	f->setAllTextures("door_iron_t.png");
+	f->setTexture(3,"door_iron_t.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -772,9 +772,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_LT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_LT;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_LT;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
@@ -836,13 +836,13 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_W_DOOR_LB_OPEN;
+	i = CONTENT_IRON_W_DOOR_LB_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Windowed Door");
-	f->setAllTextures("door_steel_wb.png");
-	f->setTexture(3,"door_steel_wb.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png");
+	f->description = gettext("Iron Windowed Door");
+	f->setAllTextures("door_iron_wb.png");
+	f->setTexture(3,"door_iron_wb.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -850,9 +850,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_LT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_LB;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_LB;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorol(f);
 	f->type = CMT_STONE;
@@ -862,13 +862,13 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_W_DOOR_LT_OPEN;
+	i = CONTENT_IRON_W_DOOR_LT_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Windowed Door");
-	f->setAllTextures("door_steel_wt.png");
-	f->setTexture(3,"door_steel_wt.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png");
+	f->description = gettext("Iron Windowed Door");
+	f->setAllTextures("door_iron_wt.png");
+	f->setTexture(3,"door_iron_wt.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -876,9 +876,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_LT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_W_DOOR_LT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_LT;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_LT;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorwol(f);
 	f->type = CMT_STONE;
@@ -1003,15 +1003,15 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_DOOR_RB_OPEN;
+	i = CONTENT_IRON_DOOR_RB_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Door");
-	f->setAllTextures("door_steel_b.png");
-	f->setTexture(3,"door_steel_b.png^[transformFX");
-	f->setTexture(4,"door_steel_b.png^[transformFX");
-	f->setTexture(5,"door_steel_b.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Door");
+	f->setAllTextures("door_iron_b.png");
+	f->setTexture(3,"door_iron_b.png^[transformFX");
+	f->setTexture(4,"door_iron_b.png^[transformFX");
+	f->setTexture(5,"door_iron_b.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1019,9 +1019,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_RT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_RB;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_RB;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
@@ -1031,15 +1031,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_DOOR_RT_OPEN;
+	i = CONTENT_IRON_DOOR_RT_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Door");
-	f->setAllTextures("door_steel_b.png");
-	f->setTexture(3,"door_steel_t.png^[transformFX");
-	f->setTexture(4,"door_steel_t.png^[transformFX");
-	f->setTexture(5,"door_steel_t.png^[transformFX");
-	f->setInventoryTexture("door_steel_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Door");
+	f->setAllTextures("door_iron_b.png");
+	f->setTexture(3,"door_iron_t.png^[transformFX");
+	f->setTexture(4,"door_iron_t.png^[transformFX");
+	f->setTexture(5,"door_iron_t.png^[transformFX");
+	f->setInventoryTexture("door_iron_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1047,9 +1047,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_DOOR_RT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_DOOR_RT;
+	f->onpunch_replace_node = CONTENT_IRON_DOOR_RT;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
@@ -1115,15 +1115,15 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_W_DOOR_RB_OPEN;
+	i = CONTENT_IRON_W_DOOR_RB_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Windowed Door");
-	f->setAllTextures("door_steel_wb.png");
-	f->setTexture(3,"door_steel_wb.png^[transformFX");
-	f->setTexture(4,"door_steel_wb.png^[transformFX");
-	f->setTexture(5,"door_steel_wb.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Windowed Door");
+	f->setAllTextures("door_iron_wb.png");
+	f->setTexture(3,"door_iron_wb.png^[transformFX");
+	f->setTexture(4,"door_iron_wb.png^[transformFX");
+	f->setTexture(5,"door_iron_wb.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1131,9 +1131,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_RT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_RB;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_RB;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_dooror(f);
 	f->type = CMT_STONE;
@@ -1143,15 +1143,15 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	i = CONTENT_STEEL_W_DOOR_RT_OPEN;
+	i = CONTENT_IRON_W_DOOR_RT_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Right Hanging Steel Windowed Door");
-	f->setAllTextures("door_steel_wt.png");
-	f->setTexture(3,"door_steel_wt.png^[transformFX");
-	f->setTexture(4,"door_steel_wt.png^[transformFX");
-	f->setTexture(5,"door_steel_wt.png^[transformFX");
-	f->setInventoryTexture("door_steel_w_inv.png^[transformFX");
+	f->description = gettext("Right Hanging Iron Windowed Door");
+	f->setAllTextures("door_iron_wt.png");
+	f->setTexture(3,"door_iron_wt.png^[transformFX");
+	f->setTexture(4,"door_iron_wt.png^[transformFX");
+	f->setTexture(5,"door_iron_wt.png^[transformFX");
+	f->setInventoryTexture("door_iron_w_inv.png^[transformFX");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1159,9 +1159,9 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_DOOR_RT)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_W_DOOR_RT)+" 1";
 	f->onact_also_affects = v3s16(0,-1,0);
-	f->onpunch_replace_node = CONTENT_STEEL_W_DOOR_RT;
+	f->onpunch_replace_node = CONTENT_IRON_W_DOOR_RT;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_doorwor(f);
 	f->type = CMT_STONE;
@@ -1199,19 +1199,19 @@ void content_mapnode_door(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_HATCH;
+	i = CONTENT_IRON_HATCH;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Hatch");
-	f->setAllTextures("hatch_steel.png");
+	f->description = gettext("Iron Hatch");
+	f->setAllTextures("hatch_iron.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("hatch_steel_inv.png");
+	f->setInventoryTexture("hatch_iron_inv.png");
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_HATCH_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_HATCH_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_hatch(f);
 	f->type = CMT_STONE;
@@ -1221,7 +1221,7 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL_HATCH);
+	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_IRON_HATCH);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1253,13 +1253,13 @@ void content_mapnode_door(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_W_HATCH;
+	i = CONTENT_IRON_W_HATCH;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Windowed Hatch");
-	f->setAllTextures("hatch_steel_w.png");
+	f->description = gettext("Iron Windowed Hatch");
+	f->setAllTextures("hatch_iron_w.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("hatch_steel_w_inv.png");
+	f->setInventoryTexture("hatch_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->param_type = CPT_LIGHT;
@@ -1268,7 +1268,7 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_W_HATCH_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_W_HATCH_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_hatchw(f);
 	f->type = CMT_STONE;
@@ -1278,7 +1278,7 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_STEEL_HATCH,CONTENT_STEEL_W_HATCH);
+	crafting::set1over1Recipe(CONTENT_GLASS,CONTENT_IRON_HATCH,CONTENT_IRON_W_HATCH);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1313,13 +1313,13 @@ void content_mapnode_door(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_GATE;
+	i = CONTENT_IRON_GATE;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Gate");
-	f->setAllTextures("steel_sheet.png");
+	f->description = gettext("Iron Gate");
+	f->setAllTextures("iron_sheet.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("gate_steel_inv.png");
+	f->setInventoryTexture("gate_iron_inv.png");
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->jumpable = false;
@@ -1329,7 +1329,7 @@ void content_mapnode_door(bool repeat)
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_GATE_OPEN;
+	f->onpunch_replace_node = CONTENT_IRON_GATE_OPEN;
 	f->sound_punch = "env-dooropen";
 	content_nodebox_gate(f);
 	f->type = CMT_STONE;
@@ -1339,7 +1339,7 @@ void content_mapnode_door(bool repeat)
 	f->energy_type = CET_DEVICE;
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new DoorNodeMetadata();
-	crafting::setGateRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL,CONTENT_STEEL_GATE);
+	crafting::setGateRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_IRON,CONTENT_IRON_GATE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1371,15 +1371,15 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_HATCH_OPEN;
+	i = CONTENT_IRON_HATCH_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Hatch");
-	f->setAllTextures("hatch_steel.png");
-	f->setTexture(2,"hatch_steel.png^[transformR90");
-	f->setTexture(3,"hatch_steel.png^[transformR90");
+	f->description = gettext("Iron Hatch");
+	f->setAllTextures("hatch_iron.png");
+	f->setTexture(2,"hatch_iron.png^[transformR90");
+	f->setTexture(3,"hatch_iron.png^[transformR90");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("hatch_steel_inv.png");
+	f->setInventoryTexture("hatch_iron_inv.png");
 	f->wield_nodebox = false;
 	f->air_equivalent = true;
 	f->param_type = CPT_LIGHT;
@@ -1387,8 +1387,8 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->climbable = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_HATCH)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_HATCH;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_HATCH)+" 1";
+	f->onpunch_replace_node = CONTENT_IRON_HATCH;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_hatcho(f);
 	f->type = CMT_STONE;
@@ -1426,15 +1426,15 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_W_HATCH_OPEN;
+	i = CONTENT_IRON_W_HATCH_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Hatch");
-	f->setAllTextures("hatch_steel_w.png");
-	f->setTexture(2,"hatch_steel.png^[transformR90");
-	f->setTexture(3,"hatch_steel.png^[transformR90");
+	f->description = gettext("Iron Hatch");
+	f->setAllTextures("hatch_iron_w.png");
+	f->setTexture(2,"hatch_iron.png^[transformR90");
+	f->setTexture(3,"hatch_iron.png^[transformR90");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("hatch_steel_w_inv.png");
+	f->setInventoryTexture("hatch_iron_w_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1442,8 +1442,8 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->draw_type = CDT_NODEBOX;
 	f->climbable = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_W_HATCH)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_W_HATCH;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_W_HATCH)+" 1";
+	f->onpunch_replace_node = CONTENT_IRON_W_HATCH;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_hatchwo(f);
 	f->type = CMT_STONE;
@@ -1479,13 +1479,13 @@ void content_mapnode_door(bool repeat)
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 
-	i = CONTENT_STEEL_GATE_OPEN;
+	i = CONTENT_IRON_GATE_OPEN;
 	f = &content_features(i);
 	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->description = gettext("Steel Gate");
-	f->setAllTextures("steel_sheet.png");
+	f->description = gettext("Iron Gate");
+	f->setAllTextures("iron_sheet.png");
 	f->rotate_tile_with_nodebox = true;
-	f->setInventoryTexture("gate_steel_inv.png");
+	f->setInventoryTexture("gate_iron_inv.png");
 	f->wield_nodebox = false;
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
@@ -1493,8 +1493,8 @@ void content_mapnode_door(bool repeat)
 	f->sunlight_propagates = true;
 	f->walkable = false;
 	f->draw_type = CDT_NODEBOX;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_STEEL_GATE)+" 1";
-	f->onpunch_replace_node = CONTENT_STEEL_GATE;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_IRON_GATE)+" 1";
+	f->onpunch_replace_node = CONTENT_IRON_GATE;
 	f->sound_punch = "env-doorclose";
 	content_nodebox_gateo(f);
 	f->type = CMT_STONE;

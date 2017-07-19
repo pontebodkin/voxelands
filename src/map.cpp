@@ -1868,7 +1868,7 @@ MapBlock* ServerMap::finishBlockMake(mapgen::BlockMakeData *data,
 						if (myrand_range(0,3) == 0)
 							ilist->addItem(new ClothesItem(CONTENT_CLOTHESITEM_SPACESUIT_PANTS,0,0));
 						if (myrand_range(0,4) == 0) {
-							content_t c = CONTENT_CRAFTITEM_STEEL_INGOT;
+							content_t c = CONTENT_CRAFTITEM_IRON_INGOT;
 							switch (myrand_range(0,4)) {
 							case 0:
 								c = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;

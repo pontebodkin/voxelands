@@ -1019,10 +1019,10 @@ void giveCreative(Player *player)
 void giveInitial(Player *player)
 {
 	player->resetInventory();
-	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_STEELPICK, 0, 0)) == NULL) ;
-	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_STEELAXE, 0, 0)) == NULL) ;
-	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_STEELSHOVEL, 0, 0)) == NULL) ;
-	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_STEELSHEARS, 0, 0)) == NULL) ;
+	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_IRON_PICK, 0, 0)) == NULL) ;
+	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_IRON_AXE, 0, 0)) == NULL) ;
+	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_IRON_SHOVEL, 0, 0)) == NULL) ;
+	assert(player->inventory.addItem("main", new ToolItem(CONTENT_TOOLITEM_IRON_SHEARS, 0, 0)) == NULL) ;
 	assert(player->inventory.addItem("main", new MaterialItem(CONTENT_TORCH, 99, 0)) == NULL) ;
 	assert(player->inventory.addItem("main", new MaterialItem(CONTENT_ROUGHSTONEBRICK, 99, 0)) == NULL) ;
 	assert(player->inventory.addItem("main", new MaterialItem(CONTENT_BORDERSTONE, 5, 0)) == NULL) ;

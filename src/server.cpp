@@ -2811,9 +2811,9 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						cmeta->m_water_level = 4;
 						SendInventory(player->peer_id);
 					}
-				}else if (wieldcontent == CONTENT_CRAFTITEM_STEEL_BOTTLE) {
+				}else if (wieldcontent == CONTENT_CRAFTITEM_IRON_BOTTLE) {
 					if (cmeta->m_water_level && cmeta->m_water_hot && wielditem->getCount() == 1) {
-						InventoryItem *itm = InventoryItem::create(CONTENT_CRAFTITEM_STEEL_BOTTLE_WATER,1,0);
+						InventoryItem *itm = InventoryItem::create(CONTENT_CRAFTITEM_IRON_BOTTLE_WATER,1,0);
 						InventoryList *mlist = player->inventory.getList("main");
 						InventoryItem *old = mlist->changeItem(item_i,itm);
 						if (old)

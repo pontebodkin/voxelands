@@ -59,12 +59,12 @@ void content_mapnode_special(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_FENCE;
+	i = CONTENT_IRON_FENCE;
 	f = &content_features(i);
-	f->description = gettext("Steel Fence");
-	f->setAllTextures("fence_steel.png");
-	f->setTexture(0,"fence_steel_top.png");
-	f->setTexture(1,"fence_steel_top.png");
+	f->description = gettext("Iron Fence");
+	f->setAllTextures("fence_iron.png");
+	f->setTexture(0,"fence_iron_top.png");
+	f->setTexture(1,"fence_iron_top.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_SPECIAL;
@@ -73,7 +73,7 @@ void content_mapnode_special(bool repeat)
 	f->jumpable = false;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
-	f->special_alternate_node = CONTENT_STEEL;
+	f->special_alternate_node = CONTENT_IRON;
 	f->type = CMT_STONE;
 	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
@@ -81,8 +81,8 @@ void content_mapnode_special(bool repeat)
 	f->destructive_mob_safe = true;
 	content_nodebox_fence_inv(f);
 	content_nodebox_fence(f);
-	f->setInventoryTextureNodeBox(i,"fence_steel.png","fence_steel_top.png","fence_steel.png");
-	crafting::setWallRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_STEEL_FENCE);
+	f->setInventoryTextureNodeBox(i,"fence_iron.png","fence_iron_top.png","fence_iron.png");
+	crafting::setWallRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_IRON_FENCE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -164,30 +164,30 @@ void content_mapnode_special(bool repeat)
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_STEEL_BARS;
+	i = CONTENT_IRON_BARS;
 	f = &content_features(i);
-	f->description = gettext("Steel Bars");
-	f->setAllTextures("steel_block.png");
+	f->description = gettext("Iron Bars");
+	f->setAllTextures("iron_block.png");
 	f->light_propagates = true;
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->air_equivalent = true; // grass grows underneath
-	f->special_alternate_node = CONTENT_STEEL;
+	f->special_alternate_node = CONTENT_IRON;
 	f->type = CMT_STONE;
 	f->dig_time = 0.75;
 	f->pressure_type = CST_SOLID;
 	f->suffocation_per_second = 0;
 	content_nodebox_bars(f);
-	f->setInventoryTextureNodeBox(i,"steel_block.png","steel_block.png","steel_block.png");
+	f->setInventoryTextureNodeBox(i,"iron_block.png","iron_block.png","iron_block.png");
 	{
 		u16 r[9] = {
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_STEEL_INGOT
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_IRON_INGOT
 		};
-		crafting::setRecipe(r,CONTENT_STEEL_BARS,6);
+		crafting::setRecipe(r,CONTENT_IRON_BARS,6);
 	}
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -209,9 +209,9 @@ void content_mapnode_special(bool repeat)
 	f->suffocation_per_second = 0;
 	{
 		u16 r[9] = {
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_CRAFTITEM_STEEL_INGOT
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_CRAFTITEM_IRON_INGOT
 		};
 		crafting::setRecipe(r,CONTENT_RAIL,15);
 		r[1] = CONTENT_CRAFTITEM_JUNGLE_PLANK;
@@ -606,9 +606,9 @@ void content_mapnode_special(bool repeat)
 	crafting::setFilledRoundRecipe(CONTENT_STONE,CONTENT_CRAFTITEM_MITHRIL_UNBOUND,CONTENT_BORDERSTONE);
 	{
 		u16 r[9] = {
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_STONE,			CONTENT_CRAFTITEM_STEEL_INGOT,
-			CONTENT_STONE,			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_STONE,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_STONE,			CONTENT_CRAFTITEM_STEEL_INGOT
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_STONE,			CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_STONE,			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_STONE,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_STONE,			CONTENT_CRAFTITEM_IRON_INGOT
 		};
 		crafting::setRecipe(r,CONTENT_BORDERSTONE,1);
 	}
@@ -733,7 +733,7 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_IRON_INGOT,i);
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new ClosedBookNodeMetadata();
 	content_list_add("craftguide",i,1,0);
@@ -1259,7 +1259,7 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 1.0;
 	f->pressure_type = CST_SOLID;
 	f->destructive_mob_safe = true;
-	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_SAFE);
+	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CRAFTITEM_COPPER_INGOT,CONTENT_SAFE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1329,8 +1329,8 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 	f->alternate_lockstate_node = CONTENT_FURNACE;
-	crafting::setFilledRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_FURNACE);
-	crafting::set1Any2Recipe(CONTENT_FURNACE,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_FURNACE);
+	crafting::setFilledRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_LOCKABLE_FURNACE);
+	crafting::set1Any2Recipe(CONTENT_FURNACE,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_LOCKABLE_FURNACE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1448,7 +1448,7 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(2, "crusher_side.png^[transformFX");
 	f->setTexture(4, "crusher_back.png");
 	f->setTexture(5, "crusher_front.png"); // Z-
-	f->setAllMetaTextures("steel_sheet.png");
+	f->setAllMetaTextures("iron_sheet.png");
 	content_nodebox_crusher(f);
 	f->setInventoryTextureNodeBox(i,"crusher_top.png^[transformR90", "crusher_front.png", "crusher_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
@@ -1458,7 +1458,7 @@ void content_mapnode_special(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
-	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_CRUSHER);
+	crafting::setFilledRoundRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_CRUSHER);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -2017,7 +2017,7 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"cauldron_outer.png", "cauldron_outer.png", "cauldron_outer.png");
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new CauldronNodeMetadata();
-	crafting::setDeepURecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CAULDRON);
+	crafting::setDeepURecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CAULDRON);
 	f->pressure_type = CST_SOLID;
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -2041,7 +2041,7 @@ void content_mapnode_special(bool repeat)
 		content_t r[9] = {
 			CONTENT_ROUGHSTONE,	CONTENT_CHARCOAL,	CONTENT_ROUGHSTONE,
 			CONTENT_ROUGHSTONE,	CONTENT_SAND,		CONTENT_ROUGHSTONE,
-			CONTENT_ROUGHSTONE,	CONTENT_STEEL,		CONTENT_ROUGHSTONE
+			CONTENT_ROUGHSTONE,	CONTENT_IRON,		CONTENT_ROUGHSTONE
 		};
 		crafting::setRecipe(r,CONTENT_FORGE,1);
 	}

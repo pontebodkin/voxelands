@@ -344,16 +344,16 @@ void content_mapnode_sign(bool repeat)
 	content_nodebox_sign_ud(f);
 	f->setFaceText(5,FaceText(0.05,0.45,0.95,0.8875));
 
-	i = CONTENT_SIGN_STEEL;
+	i = CONTENT_SIGN_IRON;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_sheet.png");
+	f->setAllTextures("iron_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_SIGN_WALL_STEEL;
-	f->roofmount_alternate_node = CONTENT_SIGN_UD_STEEL;
+	f->wallmount_alternate_node = CONTENT_SIGN_WALL_IRON;
+	f->roofmount_alternate_node = CONTENT_SIGN_UD_IRON;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -367,27 +367,27 @@ void content_mapnode_sign(bool repeat)
 	f->suffocation_per_second = 0;
 	content_nodebox_sign(f);
 	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
-	f->setInventoryTextureNodeBox(i,"steel_sheet.png", "steel_sheet.png", "steel_sheet.png");
-	crafting::setSignRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_SIGN_STEEL);
+	f->setInventoryTextureNodeBox(i,"iron_sheet.png", "iron_sheet.png", "iron_sheet.png");
+	crafting::setSignRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_SIGN_IRON);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_SIGN_WALL_STEEL;
+	i = CONTENT_SIGN_WALL_IRON;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_sheet.png");
+	f->setAllTextures("iron_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->param2_type = CPT_FACEDIR_WALLMOUNT;
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
-	f->floormount_alternate_node = CONTENT_SIGN_STEEL;
-	f->roofmount_alternate_node = CONTENT_SIGN_UD_STEEL;
+	f->floormount_alternate_node = CONTENT_SIGN_IRON;
+	f->roofmount_alternate_node = CONTENT_SIGN_UD_IRON;
 	f->walkable = false;
 	f->air_equivalent = true;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = BT_SIGN;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_STEEL)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_IRON)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_STONE;
@@ -397,21 +397,21 @@ void content_mapnode_sign(bool repeat)
 	content_nodebox_sign_wall(f);
 	f->setFaceText(5,FaceText(0.05,0.3,0.95,0.7));
 
-	i = CONTENT_SIGN_UD_STEEL;
+	i = CONTENT_SIGN_UD_IRON;
 	f = &content_features(i);
 	f->description = gettext("Sign");
-	f->setAllTextures("steel_sheet.png");
+	f->setAllTextures("iron_sheet.png");
 	f->param_type = CPT_LIGHT;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->air_equivalent = true;
-	f->wallmount_alternate_node = CONTENT_SIGN_WALL_STEEL;
-	f->floormount_alternate_node = CONTENT_SIGN_STEEL;
+	f->wallmount_alternate_node = CONTENT_SIGN_WALL_IRON;
+	f->floormount_alternate_node = CONTENT_SIGN_IRON;
 	f->param2_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = BT_SIGN;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_STEEL)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SIGN_IRON)+" 1";
 	if(f->initial_metadata == NULL)
 		f->initial_metadata = new SignNodeMetadata("Some sign");
 	f->type = CMT_STONE;
@@ -477,7 +477,7 @@ void content_mapnode_sign(bool repeat)
 	f->setFaceText(4,FaceText(0.05,0.0675,0.95,0.55,FTT_OWNER));
 	f->setFaceText(5,FaceText(0.05,0.0675,0.95,0.55));
 	f->setInventoryTextureNodeBox(i,"wood.png", "wood.png", "wood.png");
-	crafting::set1Any2Recipe(CONTENT_SIGN,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_LOCKABLE_SIGN);
+	crafting::set1Any2Recipe(CONTENT_SIGN,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_LOCKABLE_SIGN);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

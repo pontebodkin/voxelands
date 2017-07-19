@@ -513,8 +513,8 @@ static int meshgen_check_walllike(MeshMakeData *data, MapNode n, v3s16 p, u8 d[8
 			|| f2->draw_type == CDT_WALLLIKE
 			|| c2 == CONTENT_WOOD_GATE
 			|| c2 == CONTENT_WOOD_GATE_OPEN
-			|| c2 == CONTENT_STEEL_GATE
-			|| c2 == CONTENT_STEEL_GATE_OPEN
+			|| c2 == CONTENT_IRON_GATE
+			|| c2 == CONTENT_IRON_GATE_OPEN
 			|| (
 				c2 != CONTENT_IGNORE
 				&& c2 == content_features(n).special_alternate_node
@@ -3516,8 +3516,8 @@ void meshgen_fencelike(MeshMakeData *data, v3s16 p, MapNode &n, SelectedNode &se
 			|| f2->draw_type == CDT_WALLLIKE
 			|| n2.getContent() == CONTENT_WOOD_GATE
 			|| n2.getContent() == CONTENT_WOOD_GATE_OPEN
-			|| n2.getContent() == CONTENT_STEEL_GATE
-			|| n2.getContent() == CONTENT_STEEL_GATE_OPEN
+			|| n2.getContent() == CONTENT_IRON_GATE
+			|| n2.getContent() == CONTENT_IRON_GATE_OPEN
 			|| (
 				n2.getContent() != CONTENT_IGNORE
 				&& n2.getContent() == content_features(n).special_alternate_node

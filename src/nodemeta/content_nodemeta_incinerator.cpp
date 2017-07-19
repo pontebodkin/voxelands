@@ -170,8 +170,8 @@ bool IncineratorNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *en
 			m_fuel_time = 0;
 			content_t c = fuel_item->getContent();
 			fuel_list->decrementMaterials(1);
-			if (c == CONTENT_TOOLITEM_STEELBUCKET_LAVA) {
-				fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_STEELBUCKET,0,0));
+			if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
+				fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
 			}
 			m_should_fire = false;
 			changed = true;

@@ -754,7 +754,7 @@ DoorNodeMetadata::DoorNodeMetadata():
 }
 u16 DoorNodeMetadata::typeId() const
 {
-	return CONTENT_STEEL_DOOR_LB;
+	return CONTENT_IRON_DOOR_LB;
 }
 NodeMetadata* DoorNodeMetadata::create(std::istream &is)
 {

@@ -73,7 +73,7 @@ void content_clothesitem_init()
 	{
 		u16 r[9] = {
 			CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_CANVAS_SHEET,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_STEEL_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_IRON_INGOT,
 			CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_CANVAS_SHEET
 		};
 		crafting::setRecipe(r,i,1);
@@ -95,7 +95,7 @@ void content_clothesitem_init()
 	{
 		u16 r[9] = {
 			CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_CANVAS_SHEET,
-			CONTENT_CRAFTITEM_STEEL_INGOT,	CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_STEEL_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_CRAFTITEM_IRON_INGOT,
 			CONTENT_IGNORE,			CONTENT_CRAFTITEM_CANVAS_SHEET,	CONTENT_IGNORE
 		};
 		crafting::setRecipe(r,i,1);
@@ -2889,7 +2889,7 @@ void content_clothesitem_init()
 	f->vacuum = 0.0;
 	f->effect = 1.6;
 	f->durability = 8;
-	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::set1over1Recipe(CONTENT_CLOTHESITEM_LEATHER_NECKLACE,CONTENT_CRAFTITEM_IRON_INGOT,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -2910,63 +2910,63 @@ void content_clothesitem_init()
 	content_list_add("creative",i,1,0);
 
 	// armour
-	i = CONTENT_CLOTHESITEM_STEEL_HELMET;
+	i = CONTENT_CLOTHESITEM_IRON_HELMET;
 	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_HAT;
-	f->texture = "clothes_helmet_steel.png";
-	f->overlay_texture = "clothes_player_helmet_steel.png";
-	f->description = gettext("Steel Helmet");
+	f->texture = "clothes_helmet_iron.png";
+	f->overlay_texture = "clothes_player_helmet_iron.png";
+	f->description = gettext("Iron Helmet");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
 	f->durability = 10;
-	crafting::setHatRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::setHatRecipe(CONTENT_CRAFTITEM_IRON_INGOT,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CLOTHESITEM_STEEL_SHIRT;
+	i = CONTENT_CLOTHESITEM_IRON_SHIRT;
 	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_JACKET;
-	f->texture = "clothes_shirt_steel.png";
-	f->overlay_texture = "clothes_player_shirt_steel.png";
-	f->description = gettext("Steel Chest Armour");
+	f->texture = "clothes_shirt_iron.png";
+	f->overlay_texture = "clothes_player_shirt_iron.png";
+	f->description = gettext("Iron Chest Armour");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
 	f->durability = 10;
-	crafting::setShirtRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::setShirtRecipe(CONTENT_CRAFTITEM_IRON_INGOT,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CLOTHESITEM_STEEL_PANTS;
+	i = CONTENT_CLOTHESITEM_IRON_PANTS;
 	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_PANTS;
-	f->texture = "clothes_pants_steel.png";
-	f->overlay_texture = "clothes_player_pants_steel.png";
-	f->description = gettext("Steel Pants");
+	f->texture = "clothes_pants_iron.png";
+	f->overlay_texture = "clothes_player_pants_iron.png";
+	f->description = gettext("Iron Pants");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
 	f->durability = 10;
-	crafting::setPantsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::setPantsRecipe(CONTENT_CRAFTITEM_IRON_INGOT,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_CLOTHESITEM_STEEL_BOOTS;
+	i = CONTENT_CLOTHESITEM_IRON_BOOTS;
 	f = &g_content_clothesitem_features[(i&~CONTENT_CLOTHESITEM_MASK)];
 	f->content = i;
 	f->type = CT_BOOTS;
-	f->texture = "clothes_boots_steel.png";
-	f->overlay_texture = "clothes_player_boots_steel.png";
-	f->description = gettext("Steel Boots");
+	f->texture = "clothes_boots_iron.png";
+	f->overlay_texture = "clothes_player_boots_iron.png";
+	f->description = gettext("Iron Boots");
 	f->armour = 1.0;
 	f->warmth = 0.0;
 	f->vacuum = 0.1;
 	f->durability = 10;
-	crafting::setBootsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,i);
+	crafting::setBootsRecipe(CONTENT_CRAFTITEM_IRON_INGOT,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

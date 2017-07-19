@@ -334,17 +334,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELPICK;
+	i = CONTENT_TOOLITEM_IRON_PICK;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelpick.png";
-	f->name = "SteelPick";
-	f->description = gettext("Steel Pick");
+	f->texture = "tool_ironpick.png";
+	f->name = "IronPick";
+	f->description = gettext("Iron Pick");
 	f->type = TT_PICK;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setPickRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELPICK);
+	crafting::setPickRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_PICK);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -449,17 +449,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELSHOVEL;
+	i = CONTENT_TOOLITEM_IRON_SHOVEL;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelshovel.png";
-	f->name = "SteelShovel";
-	f->description = gettext("Steel Shovel");
+	f->texture = "tool_ironshovel.png";
+	f->name = "IronShovel";
+	f->description = gettext("Iron Shovel");
 	f->type = TT_SHOVEL;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setShovelRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSHOVEL);
+	crafting::setShovelRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_SHOVEL);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -559,17 +559,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELAXE;
+	i = CONTENT_TOOLITEM_IRON_AXE;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelaxe.png";
-	f->name = "SteelAxe";
-	f->description = gettext("Steel Axe");
+	f->texture = "tool_ironaxe.png";
+	f->name = "IronAxe";
+	f->description = gettext("Iron Axe");
 	f->type = TT_AXE;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setAxeRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELAXE);
+	crafting::setAxeRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_AXE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -684,17 +684,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELSPEAR;
+	i = CONTENT_TOOLITEM_IRON_SPEAR;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelspear.png";
-	f->name = "steel_spear";
-	f->description = gettext("Steel Spear");
+	f->texture = "tool_ironspear.png";
+	f->name = "iron_spear";
+	f->description = gettext("Iron Spear");
 	f->type = TT_SPEAR;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setSpearRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSPEAR);
+	crafting::setSpearRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_SPEAR);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -756,17 +756,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELSWORD;
+	i = CONTENT_TOOLITEM_IRON_SWORD;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelsword.png";
-	f->name = "SteelSword";
-	f->description = gettext("Steel Sword");
+	f->texture = "tool_ironsword.png";
+	f->name = "IronSword";
+	f->description = gettext("Iron Sword");
 	f->type = TT_SWORD;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setSwordRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSWORD);
+	crafting::setSwordRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_SWORD);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -828,17 +828,17 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELSHEARS;
+	i = CONTENT_TOOLITEM_IRON_SHEARS;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelshears.png";
+	f->texture = "tool_ironshears.png";
 	f->name = "Shears";
-	f->description = gettext("Steel Shears");
+	f->description = gettext("Iron Shears");
 	f->type = TT_SHEAR;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 2;
-	crafting::setShearsRecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELSHEARS);
+	crafting::setShearsRecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_SHEARS);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -877,18 +877,18 @@ void content_toolitem_init()
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELBUCKET;
+	i = CONTENT_TOOLITEM_IRON_BUCKET;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelbucket.png";
-	f->name = "SteelBucket";
-	f->description = gettext("Steel Bucket");
+	f->texture = "tool_ironbucket.png";
+	f->name = "IronBucket";
+	f->description = gettext("Iron Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
-	crafting::setURecipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_STEELBUCKET);
+	crafting::setURecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_BUCKET);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -914,25 +914,25 @@ void content_toolitem_init()
 	f->onplace_replace_item = CONTENT_TOOLITEM_TINBUCKET;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELBUCKET_WATER;
+	i = CONTENT_TOOLITEM_IRON_BUCKET_WATER;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelbucket.png^bucket_water.png";
-	f->name = "SteelBucket_water";
-	f->description = gettext("Steel Bucket of Water");
+	f->texture = "tool_ironbucket.png^bucket_water.png";
+	f->name = "IronBucket_water";
+	f->description = gettext("Iron Bucket of Water");
 	f->type = TT_SPECIAL;
 	f->onplace_node = CONTENT_WATERSOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
+	f->onplace_replace_item = CONTENT_TOOLITEM_IRON_BUCKET;
 	content_list_add("creative",i,1,0);
 
-	i = CONTENT_TOOLITEM_STEELBUCKET_LAVA;
+	i = CONTENT_TOOLITEM_IRON_BUCKET_LAVA;
 	f = &g_content_toolitem_features[i];
 	f->content = i;
-	f->texture = "tool_steelbucket.png^bucket_lava.png";
-	f->name = "SteelBucket_lava";
-	f->description = gettext("Steel Bucket of Lava");
+	f->texture = "tool_ironbucket.png^bucket_lava.png";
+	f->name = "IronBucket_lava";
+	f->description = gettext("Iron Bucket of Lava");
 	f->onplace_node = CONTENT_LAVASOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_STEELBUCKET;
+	f->onplace_replace_item = CONTENT_TOOLITEM_IRON_BUCKET;
 	f->fuel_time = BT_LAVA_BUCKET;
 	f->type = TT_SPECIAL;
 	content_list_add("creative",i,1,0);
@@ -949,7 +949,7 @@ void content_toolitem_init()
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 3;
 	f->has_fire_effect = true;
-	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FLINT,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_FIRESTARTER);
+	crafting::set1Any2Recipe(CONTENT_CRAFTITEM_FLINT,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_FIRESTARTER);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -962,7 +962,7 @@ void content_toolitem_init()
 	f->type = TT_SPECIAL;
 	f->diginfo.level = 3;
 	f->has_rotate_effect = true;
-	crafting::set1over1Recipe(CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_CRAFTITEM_STEEL_INGOT,CONTENT_TOOLITEM_CROWBAR);
+	crafting::set1over1Recipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_CROWBAR);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

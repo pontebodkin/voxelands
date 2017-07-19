@@ -135,7 +135,7 @@ void make_space(BlockMakeData *data)
 		}else if (mineral_noise < -0.3) {
 			inner = CONTENT_ICE;;
 		}else if (mineral_noise < -0.1) {
-			inner = CONTENT_STEEL;;
+			inner = CONTENT_IRON;;
 		}else if (mineral_noise > 0.4) {
 			inner = CONTENT_SILVER;;
 		}else if (mineral_noise > 0.3) {
