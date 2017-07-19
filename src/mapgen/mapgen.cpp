@@ -743,14 +743,14 @@ void make_block(BlockMakeData *data)
 						break;
 					case BIOME_JUNGLE:
 						v = grassnoise.get(p.X,p.Y,p.Z);
-						if (v < -0.5) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_GRAPEVINE;
-						}else if (v < -0.4) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
-						}else if (v < -0.3) {
-							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
-						}else if (v > 0.2) {
+						if (v < -0.3) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEFERN;
+						}else if (v > -0.5 && v < -0.499) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_TEA;
+						}else if (v > -0.4 && v < -0.399) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_COFFEE;
+						}else if (v > -0.3 && v < -0.299) {
+							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_GRAPEVINE;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_JUNGLEGRASS;
 						}
@@ -770,9 +770,9 @@ void make_block(BlockMakeData *data)
 						break;
 					case BIOME_FOREST:
 						v = grassnoise.get(p.X,p.Y,p.Z);
-						if (v < -0.5) {
+						if (v > -0.5 && v < -0.499) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_COTTON;
-						}else if (v < -0.3) {
+						}else if (v > -0.4 && v < -0.399) {
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_FARM_MELON;
 						}else{
 							vmanip.m_data[vmanip.m_area.index(p)] = CONTENT_WILDGRASS_LONG;
