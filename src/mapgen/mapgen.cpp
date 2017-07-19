@@ -224,6 +224,7 @@ void make_block(BlockMakeData *data)
 			s16 y = mineralrandom.range(node_min.Y+1, node_max.Y-1);
 			s16 z = mineralrandom.range(node_min.Z+1, node_max.Z-1);
 			u8 type = mineralrandom.next()%count;
+			type += start_index;
 			for (u16 i=0; i<27; i++) {
 				v3s16 p = v3s16(x,y,z) + g_27dirs[i];
 				u32 vi = vmanip.m_area.index(p);
