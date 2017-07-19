@@ -1166,6 +1166,8 @@ int main(int argc, char *argv[])
 					}
 				}
 
+				playername = wide_to_narrow(menudata.name);
+
 				password = translatePassword(playername, menudata.password);
 
 				//infostream<<"Main: password hash: '"<<password<<"'"<<std::endl;
@@ -1187,8 +1189,8 @@ int main(int argc, char *argv[])
 				config_set_int("world.game.environment.fire.spread", menudata.unsafe_fire);
 
 				// Save settings
-				config_set("client.name", (char*)wide_to_narrow(menudata.name).c_str());
-				config_set("world.server.admin",(char*)wide_to_narrow(menudata.name).c_str());
+				config_set("client.name", (char*)playername.c_str());
+				config_set("world.server.admin",(char*)playername.c_str());
 
 				config_save(NULL,NULL,NULL);
 
