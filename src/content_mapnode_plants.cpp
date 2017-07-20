@@ -74,7 +74,7 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
-	f->ondig_special_drop = CONTENT_WOOD;
+	f->ondig_special_drop = CONTENT_APPLEWOOD;
 	f->ondig_special_drop_count = 6;
 	f->ondig_special_tool = TT_AXE;
 	content_list_add("creative",i,1,0);
