@@ -481,9 +481,6 @@ endif()
 # Installation
 #
 
-# Example configuration file
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/../voxelands.conf.example" DESTINATION ${EXAMPLE_CONF_DIR})
-
 if(BUILD_CLIENT)
 	install(TARGETS ${PROJECT_NAME} DESTINATION ${BINDIR})
 

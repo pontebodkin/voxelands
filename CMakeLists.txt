@@ -90,7 +90,7 @@ endif()
 
 install(FILES "README.txt" DESTINATION "${DOCDIR}")
 install(FILES "doc/changelog.txt" DESTINATION "${DOCDIR}")
-install(FILES "voxelands.conf.example" DESTINATION "${DOCDIR}")
+install(FILES "doc/default.cfg.example" DESTINATION "${DOCDIR}")
 if (APPLE)
     install(DIRECTORY "libs/" DESTINATION "libs")
 endif()
