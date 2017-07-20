@@ -582,10 +582,10 @@ void drawLoadingScreen(irr::IrrlichtDevice* device, const std::wstring msg)
 	driver->beginScene(true, true, video::SColor(255,0,0,0));
 
 
-	if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
+	if (path_get((char*)"texture",(char*)"loadingbg.png",1,buff,1024)) {
 		video::ITexture *logotexture = driver->getTexture(buff);
 		if (logotexture) {
-			core::rect<s32> rect(x-100,y-150,x+100,y+50);
+			core::rect<s32> rect(x-512,y-200,x+512,y+200);
 			driver->draw2DImage(logotexture, rect,
 				core::rect<s32>(core::position2d<s32>(0,0),
 				core::dimension2di(logotexture->getSize())),
@@ -593,17 +593,29 @@ void drawLoadingScreen(irr::IrrlichtDevice* device, const std::wstring msg)
 		}
 	}
 	if (guienv) {
+		gui::IGUIStaticText *info = NULL;
+		gui::IGUIStaticText *version = NULL;
 		std::wstring m;
 		if (msg != L"") {
 			m = msg;
 		}else{
 			m = narrow_to_wide(gettext("Loading"));
 		}
-		core::dimension2d<u32> textsize = guienv->getSkin()->getFont()->getDimension(m.c_str());
-		core::rect<s32> rect(x-(textsize.Width/2), y+50, x+textsize.Width, y+50+textsize.Height);
-		gui::IGUIStaticText *guitext = guienv->addStaticText(m.c_str(),rect);
+		{
+			core::dimension2d<u32> textsize = guienv->getSkin()->getFont()->getDimension(m.c_str());
+			core::rect<s32> rect(x-(textsize.Width/2), y+220, x+textsize.Width, y+220+textsize.Height);
+			info = guienv->addStaticText(m.c_str(),rect);
+		}
+		{
+			m = narrow_to_wide(VERSION_STRING);
+			core::dimension2d<u32> textsize = guienv->getSkin()->getFont()->getDimension(m.c_str());
+			core::rect<s32> rect((x-412)-(textsize.Width/2), y+10, (x-412)+(textsize.Width/2), y+10+textsize.Height);
+			version = guienv->addStaticText(m.c_str(),rect);
+		}
+
 		guienv->drawAll();
-		guitext->remove();
+		info->remove();
+		version->remove();
 	}
 
 	driver->endScene();
