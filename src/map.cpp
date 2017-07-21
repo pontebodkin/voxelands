@@ -3226,8 +3226,6 @@ void ClientMap::renderPostFx()
 
 	if (m_client->getSleepAlpha() > 0) {
 		post_effect_color = video::SColor(m_client->getSleepAlpha(),0,0,0);
-	}else if (m_client->getFormState()) {
-		post_effect_color = video::SColor(128,0,0,0);
 	}else{
 		MapNode n = getNodeNoEx(floatToInt(camera_position, BS));
 
@@ -3242,6 +3240,10 @@ void ClientMap::renderPostFx()
 		) {
 			post_effect_color = video::SColor(255, 0, 0, 0);
 		}
+	}
+	if (m_client->getFormState()) {
+		if (post_effect_color.getAlpha() < 128)
+			post_effect_color = video::SColor(128,0,0,0);
 	}
 	if (post_effect_color.getAlpha() != 0) {
 		// Draw a full-screen rectangle
