@@ -180,6 +180,7 @@ int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t too
 			break;
 		case TT_BUCKET:
 			if (c_features->type == CMT_LIQUID) {
+				info->wear = 0;
 				type_match = true;
 			}
 			break;
@@ -193,7 +194,11 @@ int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t too
 		}
 
 		if (type_match) {
-			info->data = t_features->diginfo.time;
+			if (c_features->type == CMT_LIQUID) {
+				info->data = 0.1;
+			}else{
+				info->data = t_features->diginfo.time;
+			}
 		}else{
 			info->data = 4.0;
 		}
@@ -852,6 +857,7 @@ void content_toolitem_init()
 	f->description = gettext("Wooden Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
+	f->param_type = CPT_CONTENT;
 	f->diginfo.uses = 64;
 	f->diginfo.time = 1.5;
 	f->diginfo.level = 1;
@@ -860,6 +866,7 @@ void content_toolitem_init()
 	crafting::setURecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_TOOLITEM_WBUCKET);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
+	content_list_add("creative",i,1,CONTENT_WATERSOURCE);
 
 	i = CONTENT_TOOLITEM_TINBUCKET;
 	f = &g_content_toolitem_features[i];
@@ -869,6 +876,7 @@ void content_toolitem_init()
 	f->description = gettext("Tin Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
+	f->param_type = CPT_CONTENT;
 	f->diginfo.uses = 128;
 	f->diginfo.time = 1.75;
 	f->diginfo.level = 2;
@@ -876,6 +884,7 @@ void content_toolitem_init()
 	crafting::setURecipe(CONTENT_CRAFTITEM_TIN_INGOT,CONTENT_TOOLITEM_TINBUCKET);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
+	content_list_add("creative",i,1,CONTENT_WATERSOURCE);
 
 	i = CONTENT_TOOLITEM_IRON_BUCKET;
 	f = &g_content_toolitem_features[i];
@@ -885,57 +894,15 @@ void content_toolitem_init()
 	f->description = gettext("Iron Bucket");
 	f->liquids_pointable = true;
 	f->type = TT_BUCKET;
+	f->param_type = CPT_CONTENT;
 	f->diginfo.uses = 256;
 	f->diginfo.time = 1.0;
 	f->diginfo.level = 3;
 	crafting::setURecipe(CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_TOOLITEM_IRON_BUCKET);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
-
-	i = CONTENT_TOOLITEM_WBUCKET_WATER;
-	f = &g_content_toolitem_features[i];
-	f->content = i;
-	f->texture = "tool_woodbucket.png^bucket_water.png";
-	f->name = "WBucket_water";
-	f->description = gettext("Wooden Bucket of Water");
-	f->type = TT_SPECIAL;
-	f->onplace_node = CONTENT_WATERSOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_WBUCKET;
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_TOOLITEM_TINBUCKET_WATER;
-	f = &g_content_toolitem_features[i];
-	f->content = i;
-	f->texture = "tool_tinbucket.png^bucket_water.png";
-	f->name = "TinBucket_water";
-	f->description = gettext("Tin Bucket of Water");
-	f->type = TT_SPECIAL;
-	f->onplace_node = CONTENT_WATERSOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_TINBUCKET;
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_TOOLITEM_IRON_BUCKET_WATER;
-	f = &g_content_toolitem_features[i];
-	f->content = i;
-	f->texture = "tool_ironbucket.png^bucket_water.png";
-	f->name = "IronBucket_water";
-	f->description = gettext("Iron Bucket of Water");
-	f->type = TT_SPECIAL;
-	f->onplace_node = CONTENT_WATERSOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_IRON_BUCKET;
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_TOOLITEM_IRON_BUCKET_LAVA;
-	f = &g_content_toolitem_features[i];
-	f->content = i;
-	f->texture = "tool_ironbucket.png^bucket_lava.png";
-	f->name = "IronBucket_lava";
-	f->description = gettext("Iron Bucket of Lava");
-	f->onplace_node = CONTENT_LAVASOURCE;
-	f->onplace_replace_item = CONTENT_TOOLITEM_IRON_BUCKET;
-	f->fuel_time = BT_LAVA_BUCKET;
-	f->type = TT_SPECIAL;
-	content_list_add("creative",i,1,0);
+	content_list_add("creative",i,1,CONTENT_WATERSOURCE);
+	content_list_add("creative",i,1,CONTENT_LAVASOURCE);
 
 /* SPECIAL TOOLS */
 

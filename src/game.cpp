@@ -297,7 +297,15 @@ void getPointedNode(Client *client, v3f player_position,
 			if (content_features(n.getContent()).pointable == false) {
 				if (content_features(n.getContent()).liquid_type != LIQUID_SOURCE)
 					continue;
-				if (!wield || content_toolitem_features(wield->getContent()).liquids_pointable == false)
+				if (
+					!wield
+					|| content_toolitem_features(wield->getContent()).liquids_pointable == false
+					|| (
+						content_toolitem_features(wield->getContent()).liquids_pointable
+						&& content_toolitem_features(wield->getContent()).param_type == CPT_CONTENT
+						&& wield->getData() != 0
+					)
+				)
 					continue;
 			}else if (content_features(n.getContent()).material_pointable == false && wield_is_material) {
 					continue;

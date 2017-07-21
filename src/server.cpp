@@ -2800,65 +2800,45 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (!bmeta)
 					return;
 				if (wielded_tool_features.type == TT_BUCKET) {
-					if (bmeta->m_water_level) {
-						std::string dug_s = std::string("ToolItem ");
-						dug_s += ((ToolItem*)wielditem)->getToolName();
-						dug_s += "_water 1";
-						std::istringstream is(dug_s, std::ios::binary);
-						InventoryItem *item = InventoryItem::deSerialize(is);
+					content_t c = wielditem->getData();
+					if (!c) {
+						if (!bmeta->m_water_level)
+							return;
+						wielditem->setData(CONTENT_WATERSOURCE);
 						InventoryList *mlist = player->inventory.getList("main");
-						InventoryItem *ritem = mlist->changeItem(item_i,item);
-						if (ritem)
-							delete ritem;
-						item = NULL;
+						if (mlist)
+							mlist->addDiff(item_i,wielditem);
+						UpdateCrafting(player->peer_id);
+						SendInventory(player->peer_id);
 						bmeta->m_water_level--;
-						SendInventory(player->peer_id);
-						v3s16 blockpos = getNodeBlockPos(p_under);
-						MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
-						if (!block)
+					}else if (c == CONTENT_WATERSOURCE) {
+						if (bmeta->m_water_level > 9)
 							return;
-						block->setChangedFlag();
-						core::map<v3s16, MapBlock*> modified_blocks;
-						modified_blocks.insert(block->getPos(),block);
-
-						for(core::map<u16, RemoteClient*>::Iterator
-							i = m_clients.getIterator();
-							i.atEnd()==false; i++)
-						{
-							RemoteClient *client = i.getNode()->getValue();
-							client->SetBlocksNotSent(modified_blocks);
-							client->SetBlockNotSent(blockpos);
-						}
-					}
-				}else if (wielded_tool_features.type == TT_SPECIAL) {
-					if (
-						bmeta->m_water_level < 10
-						&& wielded_tool_features.onplace_node == CONTENT_WATERSOURCE
-						&& wielded_tool_features.onplace_replace_item != CONTENT_IGNORE
-					) {
-						InventoryItem *itm = InventoryItem::create(wielded_tool_features.onplace_replace_item,1,0);
+						wielditem->setData(0);
 						InventoryList *mlist = player->inventory.getList("main");
-						InventoryItem *old = mlist->changeItem(item_i,itm);
-						if (old)
-							delete old;
-						bmeta->m_water_level++;
+						if (mlist)
+							mlist->addDiff(item_i,wielditem);
+						UpdateCrafting(player->peer_id);
 						SendInventory(player->peer_id);
-						v3s16 blockpos = getNodeBlockPos(p_under);
-						MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
-						if (!block)
-							return;
-						block->setChangedFlag();
-						core::map<v3s16, MapBlock*> modified_blocks;
-						modified_blocks.insert(block->getPos(),block);
+						bmeta->m_water_level++;
+					}else if (c == CONTENT_LAVASOURCE) {
+						return;
+					}
+					v3s16 blockpos = getNodeBlockPos(p_under);
+					MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+					if (!block)
+						return;
+					block->setChangedFlag();
+					core::map<v3s16, MapBlock*> modified_blocks;
+					modified_blocks.insert(block->getPos(),block);
 
-						for(core::map<u16, RemoteClient*>::Iterator
-							i = m_clients.getIterator();
-							i.atEnd()==false; i++)
-						{
-							RemoteClient *client = i.getNode()->getValue();
-							client->SetBlocksNotSent(modified_blocks);
-							client->SetBlockNotSent(blockpos);
-						}
+					for(core::map<u16, RemoteClient*>::Iterator
+						i = m_clients.getIterator();
+						i.atEnd()==false; i++)
+					{
+						RemoteClient *client = i.getNode()->getValue();
+						client->SetBlocksNotSent(modified_blocks);
+						client->SetBlockNotSent(blockpos);
 					}
 				}
 			}else if (selected_content == CONTENT_CAULDRON) {
@@ -2866,37 +2846,45 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (!cmeta)
 					return;
 				if (wielded_tool_features.type == TT_BUCKET) {
-					if (cmeta->m_water_level == 4) {
-					}
-				}else if (wielded_tool_features.type == TT_SPECIAL) {
-					if (
-						!cmeta->m_water_level
-						&& wielded_tool_features.onplace_node == CONTENT_WATERSOURCE
-						&& wielded_tool_features.onplace_replace_item != CONTENT_IGNORE
-					) {
-						InventoryItem *itm = InventoryItem::create(wielded_tool_features.onplace_replace_item,1,0);
-						InventoryList *mlist = player->inventory.getList("main");
-						InventoryItem *old = mlist->changeItem(item_i,itm);
-						if (old)
-							delete old;
-						cmeta->m_water_level = 4;
-						SendInventory(player->peer_id);
-						v3s16 blockpos = getNodeBlockPos(p_under);
-						MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
-						if (!block)
+					content_t c = wielditem->getData();
+					if (!c) {
+						if (cmeta->m_water_level != 4)
 							return;
-						block->setChangedFlag();
-						core::map<v3s16, MapBlock*> modified_blocks;
-						modified_blocks.insert(block->getPos(),block);
+						wielditem->setData(CONTENT_WATERSOURCE);
+						InventoryList *mlist = player->inventory.getList("main");
+						if (mlist)
+							mlist->addDiff(item_i,wielditem);
+						UpdateCrafting(player->peer_id);
+						SendInventory(player->peer_id);
+						cmeta->m_water_level = 0;
+					}else if (c == CONTENT_WATERSOURCE) {
+						if (cmeta->m_water_level > 3)
+							return;
+						wielditem->setData(0);
+						InventoryList *mlist = player->inventory.getList("main");
+						if (mlist)
+							mlist->addDiff(item_i,wielditem);
+						UpdateCrafting(player->peer_id);
+						SendInventory(player->peer_id);
+						cmeta->m_water_level = 4;
+					}else if (c == CONTENT_LAVASOURCE) {
+						return;
+					}
+					v3s16 blockpos = getNodeBlockPos(p_under);
+					MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+					if (!block)
+						return;
+					block->setChangedFlag();
+					core::map<v3s16, MapBlock*> modified_blocks;
+					modified_blocks.insert(block->getPos(),block);
 
-						for(core::map<u16, RemoteClient*>::Iterator
-							i = m_clients.getIterator();
-							i.atEnd()==false; i++)
-						{
-							RemoteClient *client = i.getNode()->getValue();
-							client->SetBlocksNotSent(modified_blocks);
-							client->SetBlockNotSent(blockpos);
-						}
+					for(core::map<u16, RemoteClient*>::Iterator
+						i = m_clients.getIterator();
+						i.atEnd()==false; i++)
+					{
+						RemoteClient *client = i.getNode()->getValue();
+						client->SetBlocksNotSent(modified_blocks);
+						client->SetBlockNotSent(blockpos);
 					}
 				}else if (wieldcontent == CONTENT_CRAFTITEM_IRON_BOTTLE) {
 					if (cmeta->m_water_level && cmeta->m_water_hot && wielditem->getCount() == 1) {
@@ -3476,17 +3464,9 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 							SendInventory(player->peer_id);
 							HandlePlayerHP(player,4,0,0);
 							return;
-						}else{
-							std::string dug_s = std::string("ToolItem ");
-							dug_s += ((ToolItem*)wielditem)->getToolName();
-							dug_s += selected_node_features.dug_item;
-							dug_s += " 1";
-							std::istringstream is(dug_s, std::ios::binary);
-							item = InventoryItem::deSerialize(is);
-							InventoryItem *ritem = mlist->changeItem(item_i,item);
-							if (ritem)
-								delete ritem;
-							item = NULL;
+						}else if (wielded_tool_features.param_type == CPT_CONTENT) {
+							wielditem->setData(selected_node.getContent());
+							mlist->addDiff(item_i,wielditem);
 							UpdateCrafting(player->peer_id);
 							SendInventory(player->peer_id);
 						}
@@ -3687,7 +3667,19 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			/*
 				Handle material items
 			*/
-			if (std::string("MaterialItem") == item->getName()) {
+			if (
+				(wieldcontent&0xF000) == 0
+				|| (
+					(wieldcontent&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK
+					&& wielded_tool_features.param_type == CPT_CONTENT
+					&& item->getData() != 0
+				)
+				|| (
+					(wieldcontent&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK
+					&& wielded_craft_features->param_type == CPT_CONTENT
+					&& item->getData() != 0
+				)
+			) {
 				bool replaced_node_exists = false;
 				MapNode replaced_node = m_env.getMap().getNodeNoEx(p_over,&replaced_node_exists);
 				if (!replaced_node_exists) {
@@ -3727,9 +3719,15 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 				// the node type
 				content_t addedcontent = wieldcontent;
+				if (
+					(wieldcontent&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK
+					|| (wieldcontent&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK
+				) {
+					addedcontent = item->getData();
+				}
 
 				// don't allow borderstone to be place near another player's borderstone
-				if (wieldcontent == CONTENT_BORDERSTONE) {
+				if (addedcontent == CONTENT_BORDERSTONE) {
 					uint16_t max_d = config_get_int("world.game.borderstone.radius");
 					v3s16 test_p;
 					MapNode testnode;
@@ -3926,8 +3924,18 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				*/
 				InventoryList *ilist = player->inventory.getList("main");
 				if (!config_get_bool("world.player.inventory.creative") && ilist) {
-					// Remove from inventory and send inventory
-					if (wielditem->getCount() == 1) {
+					if ((wieldcontent&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+						ToolItem *titem = (ToolItem*)wielditem;
+						if (titem->addWear(1)) {
+							ilist->deleteItem(item_i);
+						}else{
+							wielditem->setData(0);
+							ilist->addDiff(item_i,wielditem);
+						}
+					}else if ((wieldcontent&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+						wielditem->setData(0);
+						ilist->addDiff(item_i,wielditem);
+					}else if (wielditem->getCount() == 1) {
 						ilist->deleteItem(item_i);
 					}else{
 						wielditem->remove(1);

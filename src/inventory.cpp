@@ -168,6 +168,19 @@ InventoryItem* InventoryItem::create(content_t c, u16 count, u16 wear, u16 data)
 			wear = w;
 		if (wear > w)
 			wear = w;
+		if (c == CONTENT_TOOLITEM_WBUCKET_WATER) {
+			c = CONTENT_TOOLITEM_WBUCKET;
+			data = CONTENT_WATERSOURCE;
+		}else if (c == CONTENT_TOOLITEM_TINBUCKET_WATER) {
+			c = CONTENT_TOOLITEM_TINBUCKET;
+			data = CONTENT_WATERSOURCE;
+		}else if (c == CONTENT_TOOLITEM_IRON_BUCKET_WATER) {
+			c = CONTENT_TOOLITEM_IRON_BUCKET;
+			data = CONTENT_WATERSOURCE;
+		}else if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
+			c = CONTENT_TOOLITEM_WBUCKET;
+			data = CONTENT_LAVASOURCE;
+		}
 		return new ToolItem(c,wear,data);
 	}else if ((c&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK) {
 		return new ClothesItem(c,wear,data);
@@ -538,15 +551,35 @@ std::string ToolItem::getBasename() const
 	std::ostringstream os;
 	os<<content_toolitem_features(m_content).texture;
 
-	if (content_toolitem_features(m_content).param_type == CPT_ENCHANTMENT) {
-		EnchantmentInfo info;
-		u16 data = m_data;
-		// TODO: adding more than 2 overlays messes up alpha
-		for (int i=0; i<2 && enchantment_get(&data,&info); i++) {
-			std::string ol = toolitem_overlay(m_content,info.overlay);
+	switch (content_toolitem_features(m_content).param_type) {
+	case CPT_ENCHANTMENT:
+		{
+			EnchantmentInfo info;
+			u16 data = m_data;
+			// TODO: adding more than 2 overlays messes up alpha
+			for (int i=0; i<2 && enchantment_get(&data,&info); i++) {
+				std::string ol = toolitem_overlay(m_content,info.overlay);
+				if (ol != "")
+					os<<"^"<<ol;
+			}
+		}
+		break;
+	case CPT_CONTENT:
+	case CPT_DROP:
+		{
+			/* TODO: no hardcoding */
+			std::string ol = "";
+			if (m_data == CONTENT_WATERSOURCE) {
+				ol = toolitem_overlay(m_content,"water");
+			}else if (m_data == CONTENT_LAVASOURCE) {
+				ol = toolitem_overlay(m_content,"lava");
+			}
+
 			if (ol != "")
 				os<<"^"<<ol;
 		}
+		break;
+	default:;
 	}
 
 	return os.str();
@@ -610,11 +643,24 @@ std::wstring ToolItem::getGuiText()
 			break;
 		}
 		case CPT_DROP:
+		case CPT_CONTENT:
 		{
+			txt += "\n";
+			txt += gettext("Contains: ");
 			if ((m_data&CONTENT_MOB_MASK) == CONTENT_MOB_MASK) {
-				txt += "\n";
-				txt += gettext("Contains: ");
 				txt += content_mob_features(m_data).description;
+			}else if ((m_data&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+				CraftItemFeatures *cif = content_craftitem_features(m_data);
+				if (cif)
+					txt += cif->description;
+			}else if ((m_data&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+				txt += content_toolitem_features(m_data).description;
+			}else if ((m_data&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK) {
+				ClothesItemFeatures *cif = content_clothesitem_features(m_data);
+				if (cif)
+					txt += cif->description;
+			}else{
+				txt += content_features(m_data).description;
 			}
 			break;
 		}
