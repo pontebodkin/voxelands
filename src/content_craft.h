@@ -279,6 +279,8 @@ namespace crafting {
 	void setShoesRecipe(u16 input, u16 result);
 	// pants recipe 5 input in an upside-down V yields one result
 	void setShortsRecipe(u16 input, u16 result);
+	// 4 spaced input yelds 1 result
+	void set4SpacedTo1Recipe(u16 input, u16 result);
 
 	InventoryItem *getResult(InventoryItem **items, Player *player, Server *server);
 	content_t *getRecipe(InventoryItem *item);

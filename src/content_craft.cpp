@@ -712,6 +712,17 @@ void setShortsRecipe(u16 input, u16 result)
 	};
 	setRecipe(r,result,1);
 }
+// 4 spaced input yelds 1 result
+void set4SpacedTo1Recipe(u16 input, u16 result)
+{
+	u16 r[9] = {
+	input,		CONTENT_IGNORE,	input,
+	CONTENT_IGNORE,	CONTENT_IGNORE,	CONTENT_IGNORE,
+	input,		CONTENT_IGNORE,	input
+	};
+	setRecipe(r,result,1);
+}
+
 
 InventoryItem *getResult(InventoryItem **items, Player *player, Server *server)
 {
