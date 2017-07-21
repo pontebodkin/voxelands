@@ -366,7 +366,7 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	if (m_data.selected_tab == TAB_SETTINGS_CONTROLS) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
+			rect += topleft_content + v2s32(0, 0);
 			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Controls")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -397,7 +397,7 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	}else if (m_data.selected_tab == TAB_SETTINGS_GRAPHICS) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
+			rect += topleft_content + v2s32(0, 0);
 			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Graphics")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -496,7 +496,7 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	}else if (m_data.selected_tab == TAB_SETTINGS_VIDEO) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
+			rect += topleft_content + v2s32(0, 0);
 			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Video")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -544,7 +544,7 @@ void GUISettingsMenu::regenerateGui(v2u32 screensize)
 	}else if (m_data.selected_tab == TAB_SETTINGS_SOUND) {
 		{
 			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
+			rect += topleft_content + v2s32(0, 0);
 			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Sound")).c_str(), rect, false, true, this, -1);
 			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
 		}
@@ -596,20 +596,13 @@ void GUISettingsMenu::drawMenu()
 
 	{
 		char buff[1024];
-		core::rect<s32> left(
-			AbsoluteRect.UpperLeftCorner.X,
-			AbsoluteRect.UpperLeftCorner.Y,
-			AbsoluteRect.LowerRightCorner.X-550,
-			AbsoluteRect.LowerRightCorner.Y
+		core::rect<s32> rect(
+			0,
+			0,
+			m_screensize.X,
+			m_screensize.Y
 		);
-		core::rect<s32> right(
-			AbsoluteRect.UpperLeftCorner.X+250,
-			AbsoluteRect.UpperLeftCorner.Y,
-			AbsoluteRect.LowerRightCorner.X,
-			AbsoluteRect.LowerRightCorner.Y
-		);
-		driver->draw2DRectangle(left, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
-		driver->draw2DRectangle(right, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, &AbsoluteClippingRect);
+		driver->draw2DRectangle(rect, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, NULL);
 
 		if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
 			video::ITexture *texture = driver->getTexture(buff);

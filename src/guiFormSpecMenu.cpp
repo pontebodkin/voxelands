@@ -60,7 +60,8 @@ GUIFormSpecMenu::GUIFormSpecMenu(gui::IGUIEnvironment* env,
 	m_selected_item(NULL),
 	m_selected_amount(0),
 	m_selected_dragging(false),
-	m_tooltip_element(NULL)
+	m_tooltip_element(NULL),
+	m_screensize(1024,600)
 {
 }
 
@@ -103,6 +104,8 @@ void GUIFormSpecMenu::regenerateGui(v2u32 screensize)
 {
 	// Remove children
 	removeChildren();
+
+	m_screensize = screensize;
 
 	v2s32 size(100,100);
 	s32 helptext_h = 15;
@@ -598,8 +601,13 @@ void GUIFormSpecMenu::drawMenu()
 		return;
 	video::IVideoDriver* driver = Environment->getVideoDriver();
 
-	driver->draw2DRectangle(AbsoluteRect,GUI_BG_TOP, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
-	driver->draw2DRectangleOutline(AbsoluteRect, GUI_BORDER);
+	core::rect<s32> rect(
+		0,
+		0,
+		m_screensize.X,
+		m_screensize.Y
+	);
+	driver->draw2DRectangle(rect, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, NULL);
 
 	m_tooltip_element->setVisible(false);
 

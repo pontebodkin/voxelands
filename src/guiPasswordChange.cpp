@@ -51,7 +51,8 @@ GUIPasswordChange::GUIPasswordChange(gui::IGUIEnvironment* env,
 		Client* client
 ):
 	GUIModalMenu(env, parent, id, menumgr),
-	m_client(client)
+	m_client(client),
+	m_screensize(1024,600)
 {
 }
 
@@ -78,6 +79,7 @@ void GUIPasswordChange::regenerateGui(v2u32 screensize)
 		Remove stuff
 	*/
 	removeChildren();
+	m_screensize = screensize;
 
 	/*
 		Calculate new sizes and positions
@@ -175,9 +177,13 @@ void GUIPasswordChange::drawMenu()
 	if (!skin)
 		return;
 	video::IVideoDriver* driver = Environment->getVideoDriver();
-
-	driver->draw2DRectangle(AbsoluteRect, GUI_BG_TOP, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
-	driver->draw2DRectangleOutline(AbsoluteRect, GUI_BORDER);
+	core::rect<s32> rect(
+		0,
+		0,
+		m_screensize.X,
+		m_screensize.Y
+	);
+	driver->draw2DRectangle(rect, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, NULL);
 
 	gui::IGUIElement::draw();
 }

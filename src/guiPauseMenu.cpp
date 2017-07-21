@@ -48,6 +48,7 @@ GUIPauseMenu::GUIPauseMenu(gui::IGUIEnvironment* env,
 	m_gamecallback = gamecallback;
 	this->env = env;
 	this->parent = parent;
+	this->m_screensize = v2u32(1024,600);
 	this->id = id;
 	this->menumgr = menumgr;
 }
@@ -75,6 +76,8 @@ void GUIPauseMenu::regenerateGui(v2u32 screensize)
 		Remove stuff
 	*/
 	removeChildren();
+
+	m_screensize = screensize;
 
 	/*
 		Calculate new sizes and positions
@@ -168,9 +171,13 @@ void GUIPauseMenu::drawMenu()
 	if (!skin)
 		return;
 	video::IVideoDriver* driver = Environment->getVideoDriver();
-
-	driver->draw2DRectangle(AbsoluteRect, GUI_BG_TOP, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
-	driver->draw2DRectangleOutline(AbsoluteRect, GUI_BORDER);
+	core::rect<s32> rect(
+		0,
+		0,
+		m_screensize.X,
+		m_screensize.Y
+	);
+	driver->draw2DRectangle(rect, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, NULL);
 
 	gui::IGUIElement::draw();
 }

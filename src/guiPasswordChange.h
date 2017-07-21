@@ -56,6 +56,7 @@ public:
 
 private:
 	Client* m_client;
+	v2u32 m_screensize;
 
 };
 

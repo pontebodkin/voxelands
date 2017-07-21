@@ -245,20 +245,13 @@ void GUIMainMenu::drawMenu()
 
 	{
 		char buff[1024];
-		core::rect<s32> left(
-			AbsoluteRect.UpperLeftCorner.X,
-			AbsoluteRect.UpperLeftCorner.Y,
-			AbsoluteRect.LowerRightCorner.X-550,
-			AbsoluteRect.LowerRightCorner.Y
+		core::rect<s32> rect(
+			0,
+			0,
+			m_screensize.X,
+			m_screensize.Y
 		);
-		core::rect<s32> right(
-			AbsoluteRect.UpperLeftCorner.X+250,
-			AbsoluteRect.UpperLeftCorner.Y,
-			AbsoluteRect.LowerRightCorner.X,
-			AbsoluteRect.LowerRightCorner.Y
-		);
-		driver->draw2DRectangle(left, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, GUI_BG_BTM, &AbsoluteClippingRect);
-		driver->draw2DRectangle(right, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, &AbsoluteClippingRect);
+		driver->draw2DRectangle(rect, GUI_BG_TOP, GUI_BG_BTM, GUI_BG_TOP, GUI_BG_BTM, NULL);
 		if (path_get((char*)"texture",(char*)"menulogo.png",1,buff,1024)) {
 			video::ITexture *texture = driver->getTexture(buff);
 			if (texture != 0) {

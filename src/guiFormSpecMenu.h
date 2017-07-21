@@ -225,6 +225,7 @@ protected:
 
 	v2s32 m_pointer;
 	gui::IGUIStaticText *m_tooltip_element;
+	v2u32 m_screensize;
 };
 
 #endif

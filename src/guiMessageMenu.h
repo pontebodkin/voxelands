@@ -61,6 +61,7 @@ public:
 private:
 	std::wstring m_message_text;
 	bool m_status;
+	v2u32 m_screensize;
 };
 
 #endif

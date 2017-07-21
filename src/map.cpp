@@ -3241,10 +3241,6 @@ void ClientMap::renderPostFx()
 			post_effect_color = video::SColor(255, 0, 0, 0);
 		}
 	}
-	if (m_client->getFormState()) {
-		if (post_effect_color.getAlpha() < 128)
-			post_effect_color = video::SColor(128,0,0,0);
-	}
 	if (post_effect_color.getAlpha() != 0) {
 		// Draw a full-screen rectangle
 		video::IVideoDriver* driver = SceneManager->getVideoDriver();

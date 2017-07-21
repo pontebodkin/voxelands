@@ -62,6 +62,7 @@ private:
 
 	gui::IGUIEnvironment* env;
 	gui::IGUIElement* parent;
+	v2u32 m_screensize;
 	s32 id;
 	IMenuManager *menumgr;
 };
