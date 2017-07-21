@@ -2067,7 +2067,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 			if (thrown == CONTENT_IGNORE)
 				return;
 			if (config_get_bool("world.player.tool.wear")) {
-				bool weared_out = titem->addWear(1000);
+				bool weared_out = titem->addWear(1);
 				if (weared_out) {
 					InventoryList *mlist = player->inventory.getList("main");
 					mlist->deleteItem(item_i);
@@ -2343,7 +2343,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 									item->setData(mob->getContent());
 									obj->m_removed = true;
 									if (config_get_bool("world.player.tool.wear")) {
-										if (titem->addWear(655)) {
+										if (titem->addWear(1)) {
 											mlist->deleteItem(item_i);
 										}else{
 											mlist->addDiff(item_i,titem);
@@ -2562,7 +2562,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						&& (getPlayerPrivs(player) & PRIV_SERVER) == 0
 						&& config_get_bool("world.player.tool.wear")
 					) {
-						bool weared_out = titem->addWear(10000);
+						bool weared_out = titem->addWear(1);
 						InventoryList *mlist = player->inventory.getList("main");
 						if (weared_out) {
 							mlist->deleteItem(item_i);
@@ -2752,7 +2752,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				}
 				ToolItem *titem = (ToolItem*)wielditem;
 				if (config_get_bool("world.player.tool.wear")) {
-					bool weared_out = titem->addWear(1000);
+					bool weared_out = titem->addWear(1);
 					InventoryList *mlist = player->inventory.getList("main");
 					if (weared_out) {
 						mlist->deleteItem(item_i);
@@ -2772,7 +2772,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					}
 					ToolItem *titem = (ToolItem*)wielditem;
 					if (config_get_bool("world.player.tool.wear")) {
-						bool weared_out = titem->addWear(1000);
+						bool weared_out = titem->addWear(1);
 						InventoryList *mlist = player->inventory.getList("main");
 						if (weared_out) {
 							mlist->deleteItem(item_i);
@@ -3014,7 +3014,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					// wear out the crowbar
 					ToolItem *titem = (ToolItem*)wielditem;
 					if (config_get_bool("world.player.tool.wear")) {
-						bool weared_out = titem->addWear(200);
+						bool weared_out = titem->addWear(1);
 						InventoryList *mlist = player->inventory.getList("main");
 						if (weared_out) {
 							mlist->deleteItem(item_i);
