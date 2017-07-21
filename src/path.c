@@ -210,7 +210,12 @@ int path_init()
 	char buff[2048];
 
 #ifndef WIN32
+
+#ifdef DATA_PATH
+	path.data_global = strdup(DATA_PATH);
+#else
 	path.data_global = strdup("/usr/games/voxelands");
+#endif
 
 	if (getcwd(buff,2048)) {
 		path.cwd = strdup(buff);
@@ -276,8 +281,24 @@ int path_init()
 
 #endif
 
-	if (snprintf(buff,2048,"%s/data",path.cwd) < 2048 && path_check(NULL,buff) == 2)
+	if (snprintf(buff,2048,"%s/data",path.cwd) < 2048 && path_check(NULL,buff) == 2) {
 		path.data = strdup(buff);
+#ifndef WIN32
+	}else{
+		char* a = NULL;
+		char* b = strstr(path.cwd,"/bin");
+		while (b) {
+			a = b;
+			b = strstr(a+1,"/bin");
+		}
+		if (a) {
+			*a = 0;
+			if (snprintf(buff,2048,"%s/data",path.cwd) < 2048 && path_check(NULL,buff) == 2)
+				path.data = strdup(buff);
+			*a = '/';
+		}
+#endif
+	}
 
 	return 0;
 }
