@@ -1276,7 +1276,6 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
 	crafting::set1To4Recipe(CONTENT_TREE,CONTENT_WOOD);
-	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_WOOD);
 	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD);
 	{
 		u16 r[9] = {
@@ -1301,17 +1300,16 @@ void content_mapnode_init(bool repeat)
 	f->fuel_time = BT_WOOD;
 	f->type = CMT_WOOD;
 	f->dig_time = 0.75;
-	crafting::set1To4Recipe(CONTENT_TREE,CONTENT_WOOD);
-	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_WOOD);
-	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_WOOD_PLANK,CONTENT_WOOD);
-	//{
-		//u16 r[9] = {
-			//CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_WOOD_PLANK,
-			//CONTENT_IGNORE,			CONTENT_IGNORE,	CONTENT_IGNORE,
-			//CONTENT_CRAFTITEM_WOOD_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_WOOD_PLANK
-		//};
-		//crafting::setRecipe(r,CONTENT_APPLEWOOD,1);
-	//}
+	crafting::set1To4Recipe(CONTENT_APPLE_TREE,CONTENT_APPLEWOOD);
+	//crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_APPLE_PLANK,CONTENT_APPLEWOOD);
+	{
+		u16 r[9] = {
+			CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK,
+			CONTENT_IGNORE,			CONTENT_IGNORE,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_APPLE_PLANK,	CONTENT_IGNORE,	CONTENT_CRAFTITEM_APPLE_PLANK
+		};
+		crafting::setRecipe(r,CONTENT_APPLEWOOD,1);
+	}
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
