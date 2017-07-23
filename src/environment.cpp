@@ -1589,7 +1589,10 @@ void ServerEnvironment::step(float dtime)
 						if (water_found) {
 							test_p = temp_p + v3s16(0,1,0);
 							testnode = m_map->getNodeNoEx(test_p);
-							if (content_features(testnode).draw_type == CDT_PLANTLIKE) {
+							if (
+								content_features(testnode).draw_type == CDT_PLANTLIKE
+								|| content_features(testnode).draw_type == CDT_CROPLIKE
+							) {
 								if (content_features(testnode).param2_type == CPT_PLANTGROWTH) {
 									plantgrowth_plant(this,test_p);
 								}else if (content_features(testnode).special_alternate_node != CONTENT_IGNORE) {
