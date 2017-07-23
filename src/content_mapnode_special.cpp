@@ -979,6 +979,8 @@ void content_mapnode_special(bool repeat)
 		f->initial_metadata = new ReverseCraftGuideNodeMetadata();
 	f->sound_access = "open-book";
 
+/* barrels */
+
 	i = CONTENT_WOOD_BARREL;
 	f = &content_features(i);
 	f->description = gettext("Wood Barrel");
@@ -991,6 +993,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_WOOD_BARREL_SEALED;
 	content_nodebox_barrel(f);
 	f->setInventoryTextureNodeBox(i,"wood.png","wood.png^[transformR90","wood.png^[transformR90");
 	f->type = CMT_WOOD;
@@ -1015,6 +1018,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_APPLEWOOD_BARREL_SEALED;
 	content_nodebox_barrel(f);
 	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png^[transformR90","applewood.png^[transformR90");
 	f->type = CMT_WOOD;
@@ -1039,6 +1043,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_JUNGLEWOOD_BARREL_SEALED;
 	content_nodebox_barrel(f);
 	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png^[transformR90","junglewood.png^[transformR90");
 	f->type = CMT_WOOD;
@@ -1063,6 +1068,7 @@ void content_mapnode_special(bool repeat)
 	f->air_equivalent = true;
 	f->flammable = 1;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_PINE_BARREL_SEALED;
 	content_nodebox_barrel(f);
 	f->setInventoryTextureNodeBox(i,"pine.png","pine.png^[transformR90","pine.png^[transformR90");
 	f->type = CMT_WOOD;
@@ -1074,6 +1080,100 @@ void content_mapnode_special(bool repeat)
 	crafting::setURecipe(CONTENT_WOOD_PINE,i);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
+
+/* sealed barrels */
+
+	i = CONTENT_WOOD_BARREL_SEALED;
+	f = &content_features(i);
+	f->description = gettext("Wood Barrel");
+	f->setAllTextures("wood.png^[transformR90");
+	f->setAllMetaTextures("water.png",WATER_ALPHA);
+	f->param_type = CPT_LIGHT;
+	f->item_param_type = CPT_METADATA;
+	f->draw_type = CDT_NODEBOX_META;
+	f->rotate_tile_with_nodebox = true;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->flammable = 1;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_WOOD_BARREL;
+	content_nodebox_barrel_sealed(f);
+	f->setInventoryTextureNodeBox(i,"wood.png","wood.png^[transformR90","wood.png^[transformR90");
+	f->type = CMT_WOOD;
+	f->dig_time = 1.0;
+	f->pressure_type = CST_SOLID;
+	f->suffocation_per_second = 0;
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new SealedBarrelNodeMetadata();
+
+	i = CONTENT_APPLEWOOD_BARREL_SEALED;
+	f = &content_features(i);
+	f->description = gettext("Applewood Barrel");
+	f->setAllTextures("applewood.png^[transformR90");
+	f->setAllMetaTextures("water.png",WATER_ALPHA);
+	f->param_type = CPT_LIGHT;
+	f->item_param_type = CPT_METADATA;
+	f->draw_type = CDT_NODEBOX_META;
+	f->rotate_tile_with_nodebox = true;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->flammable = 1;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_APPLEWOOD_BARREL;
+	content_nodebox_barrel_sealed(f);
+	f->setInventoryTextureNodeBox(i,"applewood.png","applewood.png^[transformR90","applewood.png^[transformR90");
+	f->type = CMT_WOOD;
+	f->dig_time = 1.0;
+	f->pressure_type = CST_SOLID;
+	f->suffocation_per_second = 0;
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new SealedBarrelNodeMetadata();
+
+	i = CONTENT_JUNGLEWOOD_BARREL_SEALED;
+	f = &content_features(i);
+	f->description = gettext("Junglewood Barrel");
+	f->setAllTextures("junglewood.png^[transformR90");
+	f->setAllMetaTextures("water.png",WATER_ALPHA);
+	f->param_type = CPT_LIGHT;
+	f->item_param_type = CPT_METADATA;
+	f->draw_type = CDT_NODEBOX_META;
+	f->rotate_tile_with_nodebox = true;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->flammable = 1;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_JUNGLEWOOD_BARREL;
+	content_nodebox_barrel_sealed(f);
+	f->setInventoryTextureNodeBox(i,"junglewood.png","junglewood.png^[transformR90","junglewood.png^[transformR90");
+	f->type = CMT_WOOD;
+	f->dig_time = 1.0;
+	f->pressure_type = CST_SOLID;
+	f->suffocation_per_second = 0;
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new SealedBarrelNodeMetadata();
+
+	i = CONTENT_PINE_BARREL_SEALED;
+	f = &content_features(i);
+	f->description = gettext("Pine Barrel");
+	f->setAllTextures("pine.png^[transformR90");
+	f->setAllMetaTextures("water.png",WATER_ALPHA);
+	f->param_type = CPT_LIGHT;
+	f->item_param_type = CPT_METADATA;
+	f->draw_type = CDT_NODEBOX_META;
+	f->rotate_tile_with_nodebox = true;
+	f->light_propagates = true;
+	f->air_equivalent = true;
+	f->flammable = 1;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->special_alternate_node = CONTENT_PINE_BARREL;
+	content_nodebox_barrel_sealed(f);
+	f->setInventoryTextureNodeBox(i,"pine.png","pine.png^[transformR90","pine.png^[transformR90");
+	f->type = CMT_WOOD;
+	f->dig_time = 1.0;
+	f->pressure_type = CST_SOLID;
+	f->suffocation_per_second = 0;
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new SealedBarrelNodeMetadata();
 
 	i = CONTENT_FIRE;
 	f = &content_features(i);

@@ -2802,7 +2802,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				if (wielded_tool_features.type == TT_BUCKET) {
 					content_t c = wielditem->getData();
 					if (!c) {
-						if (!bmeta->m_water_level)
+						if (bmeta->m_water_level < 4)
 							return;
 						wielditem->setData(CONTENT_WATERSOURCE);
 						InventoryList *mlist = player->inventory.getList("main");
@@ -2810,9 +2810,9 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 							mlist->addDiff(item_i,wielditem);
 						UpdateCrafting(player->peer_id);
 						SendInventory(player->peer_id);
-						bmeta->m_water_level--;
+						bmeta->m_water_level -= 4;
 					}else if (c == CONTENT_WATERSOURCE) {
-						if (bmeta->m_water_level > 9)
+						if (bmeta->m_water_level > 39)
 							return;
 						wielditem->setData(0);
 						InventoryList *mlist = player->inventory.getList("main");
@@ -2820,7 +2820,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 							mlist->addDiff(item_i,wielditem);
 						UpdateCrafting(player->peer_id);
 						SendInventory(player->peer_id);
-						bmeta->m_water_level++;
+						bmeta->m_water_level += 4;
 					}else if (c == CONTENT_LAVASOURCE) {
 						return;
 					}
@@ -2831,6 +2831,97 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					block->setChangedFlag();
 					core::map<v3s16, MapBlock*> modified_blocks;
 					modified_blocks.insert(block->getPos(),block);
+
+					for(core::map<u16, RemoteClient*>::Iterator
+						i = m_clients.getIterator();
+						i.atEnd()==false; i++)
+					{
+						RemoteClient *client = i.getNode()->getValue();
+						client->SetBlocksNotSent(modified_blocks);
+						client->SetBlockNotSent(blockpos);
+					}
+				}else if (wielded_tool_features.type == TT_NONE) {
+					core::list<u16> far_players;
+					core::map<v3s16, MapBlock*> modified_blocks;
+
+					meta = m_env.getMap().getNodeMetadata(p_under);
+					NodeMetadata *ometa = NULL;
+					if (meta)
+						ometa = meta->clone();
+					m_env.getMap().removeNodeMetadata(p_under);
+
+					selected_node.setContent(selected_node_features.special_alternate_node);
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+					if (selected_node_features.sound_punch != "")
+						SendEnvEvent(ENV_EVENT_SOUND,intToFloat(p_under,BS),selected_node_features.sound_punch,NULL);
+					{
+						MapEditEventIgnorer ign(&m_ignore_map_edit_events);
+
+						std::string p_name = std::string(player->getName());
+						m_env.getMap().addNodeAndUpdate(p_under, selected_node, modified_blocks, p_name);
+					}
+
+					if (ometa) {
+						meta = m_env.getMap().getNodeMetadata(p_under);
+						if (meta)
+							meta->import(ometa);
+
+						delete ometa;
+					}
+
+					v3s16 blockpos = getNodeBlockPos(p_under);
+					MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+					if (block)
+						block->setChangedFlag();
+
+					for(core::map<u16, RemoteClient*>::Iterator
+						i = m_clients.getIterator();
+						i.atEnd()==false; i++)
+					{
+						RemoteClient *client = i.getNode()->getValue();
+						client->SetBlocksNotSent(modified_blocks);
+						client->SetBlockNotSent(blockpos);
+					}
+				}
+			}else if (
+				selected_content == CONTENT_WOOD_BARREL_SEALED
+				|| selected_content == CONTENT_APPLEWOOD_BARREL_SEALED
+				|| selected_content == CONTENT_JUNGLEWOOD_BARREL_SEALED
+				|| selected_content == CONTENT_PINE_BARREL_SEALED
+			) {
+				if (wielded_tool_features.type == TT_NONE) {
+					core::list<u16> far_players;
+					core::map<v3s16, MapBlock*> modified_blocks;
+
+					meta = m_env.getMap().getNodeMetadata(p_under);
+					NodeMetadata *ometa = NULL;
+					if (meta)
+						ometa = meta->clone();
+					m_env.getMap().removeNodeMetadata(p_under);
+
+					selected_node.setContent(selected_node_features.special_alternate_node);
+					sendAddNode(p_under, selected_node, 0, &far_players, 30);
+					if (selected_node_features.sound_punch != "")
+						SendEnvEvent(ENV_EVENT_SOUND,intToFloat(p_under,BS),selected_node_features.sound_punch,NULL);
+					{
+						MapEditEventIgnorer ign(&m_ignore_map_edit_events);
+
+						std::string p_name = std::string(player->getName());
+						m_env.getMap().addNodeAndUpdate(p_under, selected_node, modified_blocks, p_name);
+					}
+
+					if (ometa) {
+						meta = m_env.getMap().getNodeMetadata(p_under);
+						if (meta)
+							meta->import(ometa);
+
+						delete ometa;
+					}
+
+					v3s16 blockpos = getNodeBlockPos(p_under);
+					MapBlock *block = m_env.getMap().getBlockNoCreateNoEx(blockpos);
+					if (block)
+						block->setChangedFlag();
 
 					for(core::map<u16, RemoteClient*>::Iterator
 						i = m_clients.getIterator();
@@ -3508,6 +3599,13 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 								player->inventory.addItem("main", eitem);
 							}
 						}
+						if (item && selected_node_features.item_param_type == CPT_METADATA) {
+							NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_under);
+							if (meta) {
+								uint16_t v = meta->getData();
+								item->setData(v);
+							}
+						}
 					}else if (selected_node_features.param2_type == CPT_PLANTGROWTH) {
 						if (
 							selected_node_features.draw_type == CDT_PLANTLIKE
@@ -3918,6 +4016,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 					Send to all close-by players
 				*/
 				sendAddNode(p_over, n, 0, &far_players, 30);
+				uint16_t idata = item->getData();
 
 				/*
 					Handle inventory
@@ -3956,6 +4055,13 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 
 					std::string p_name = std::string(player->getName());
 					m_env.getMap().addNodeAndUpdate(p_over, n, modified_blocks, p_name);
+				}
+
+				if (content_features(addedcontent).item_param_type == CPT_METADATA) {
+					NodeMetadata *meta = m_env.getMap().getNodeMetadata(p_over);
+					if (meta)
+						meta->setData(idata);
+					sendAddNode(p_over, n, 0, &far_players, 30);
 				}
 				/*
 					Set blocks not sent to far players

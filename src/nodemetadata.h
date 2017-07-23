@@ -93,6 +93,9 @@ public:
 	virtual bool import(NodeMetadata *meta) {return false;}
 	// get nodeboxes for CDT_NODEBOX_META
 	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n) {return std::vector<NodeBox>();}
+	// get a data value for the Meta, can be stored in InventoryItems
+	virtual uint16_t getData() {return 0;}
+	virtual void setData(uint16_t v) {};
 	// used by tnt to arm it, but also for future circuitry
 	// level is the amount of power
 	// powersrc is the generator or such that created the power

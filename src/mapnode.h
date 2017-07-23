@@ -147,6 +147,7 @@ enum ContentParamType
 	CPT_DROP,
 	CPT_CONTENT,
 	CPT_BLOCKDATA,
+	CPT_METADATA,
 	CPT_SPECIAL
 };
 
@@ -348,6 +349,7 @@ struct ContentFeatures
 	// Type of MapNode::param1
 	ContentParamType param_type;
 	ContentParamType param2_type;
+	ContentParamType item_param_type;
 	// drawtype
 	ContentDrawType draw_type;
 	// True for all ground-like things like stone and mud, false for eg. trees
@@ -561,6 +563,7 @@ struct ContentFeatures
 		setAllFaceTexts(FaceText());
 		param_type = CPT_NONE;
 		param2_type = CPT_NONE;
+		item_param_type = CPT_NONE;
 		draw_type = CDT_AIRLIKE;
 		is_ground_content = false;
 		light_propagates = false;
