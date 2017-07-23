@@ -486,7 +486,9 @@ void MapBlockMesh::animate(float time)
 		const TileSpec &tile = it->second.tile;
 
 		// Figure out current frame
-		int frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
+		int frame = 0;
+		if (time > 0.0)
+			frame = (int)(time * 1000 / tile.animation_frame_length_ms) % tile.animation_frame_count;
 
 		// If frame doesn't change, skip
 		if (frame == it->second.frame)
