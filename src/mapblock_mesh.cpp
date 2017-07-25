@@ -483,6 +483,10 @@ void MapBlockMesh::animate(float time)
 	for (std::map<u32, AnimationData>::iterator it = m_animation_data.begin();
 				it != m_animation_data.end(); ++it) {
 
+		 // Make sure we don't cause an overflow
+		if (it->first >= m_mesh->getMeshBufferCount())
+			return;
+
 		const TileSpec &tile = it->second.tile;
 
 		// Figure out current frame
@@ -495,10 +499,6 @@ void MapBlockMesh::animate(float time)
 			continue;
 
 		m_animation_data[it->first].frame = frame;
-
-		 // Make sure we don't cause an overflow. Can get removed in future if no problems occuring
-		if (it->first >= m_mesh->getMeshBufferCount())
-			return;
 
 		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
 

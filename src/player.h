@@ -92,6 +92,7 @@
 #define DAMAGE_TNT	0x0C
 #define DAMAGE_STEAM	0x0D
 #define DAMAGE_POISON	0x0E
+#define DAMAGE_SHADOW	0x0F
 
 class Map;
 
@@ -368,6 +369,7 @@ public:
 			case DAMAGE_COLD:
 				v += content_clothesitem_features(i->getContent())->warmth;
 				break;
+			case DAMAGE_POISON:
 			case DAMAGE_SPACE:
 				v += content_clothesitem_features(i->getContent())->vacuum;
 				break;
@@ -662,6 +664,7 @@ public:
 	v3f last_speed;
 	float last_pitch;
 	float last_yaw;
+	float shadow_timer;
 
 private:
 	// This is used for determining the sneaking range

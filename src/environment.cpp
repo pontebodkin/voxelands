@@ -3974,8 +3974,12 @@ void ClientEnvironment::step(float dtime)
 			v3f pf = lplayer->getPosition();
 			v3s16 pp = floatToInt(pf, BS);
 
-			s16 coldzone = 60;
-			bool possible_cold = (pp.Y > coldzone && pp.Y < 1024);
+			uint32_t time = getTimeOfDay();
+			uint16_t season = getSeason();
+			uint8_t biome = BIOME_UNKNOWN;
+			MapBlock *block = m_map->getBlockNoCreateNoEx(getNodeBlockPos(pp));
+			if (block)
+				biome = block->getBiome();
 
 			v3f ps[7] = {
 				v3f(0, BS*-0.1, 0),
@@ -4018,6 +4022,7 @@ void ClientEnvironment::step(float dtime)
 						break;
 					case CONTENT_FIRE:
 					case CONTENT_FIRE_SHORTTERM:
+					case CONTENT_CAMPFIRE:
 						t = DAMAGE_FIRE;
 						break;
 					case CONTENT_TNT:
@@ -4047,12 +4052,116 @@ void ClientEnvironment::step(float dtime)
 				}
 			}
 
-			// cold zone
-			if (possible_cold) {
+			switch (biome) {
+			case BIOME_JUNGLE:
+			if (season == ENV_SEASON_WINTER && time > 4000 && time < 8000) {
 				std::vector<content_t> search;
 				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
 				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
 					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_OCEAN:
+			if (season == ENV_SEASON_WINTER) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_DESERT:
+				break;
+			case BIOME_PLAINS:
+			if (season == ENV_SEASON_WINTER && (time < 6000 || time > 18000)) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_FOREST:
+			if (season == ENV_SEASON_WINTER) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_SKY:
+			case BIOME_SNOWCAP:
+			{
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_LAKE:
+			if (
+				season == ENV_SEASON_WINTER
+				|| (
+					season == ENV_SEASON_AUTUMN
+					&& (time < 6000 || time > 18000)
+				) || (
+					season == ENV_SEASON_SPRING
+					&& time > 4000
+					&& time < 8000
+				)
+			) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_BEACH:
+			if (season == ENV_SEASON_WINTER) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+				break;
+			case BIOME_SPACE:
+				break;
+			case BIOME_THEDEEP:
+			if (lplayer->shadow_timer >= 5.0) {
+				/* this means it takes 5 seconds to start taking damage, then damage every second after that */
+				lplayer->shadow_timer -= 2.0;
+				damageLocalPlayer(PLAYER_ALL,DAMAGE_SHADOW,5);
+			}
+			if (lplayer->light < 8) {
+				lplayer->shadow_timer += 1.0;
+			}else{
+				lplayer->shadow_timer = 0.0;
+			}
+				break;
+			case BIOME_WASTELANDS:
+			{
+				std::vector<content_t> search;
+				search.push_back(CONTENT_LIFE_SUPPORT);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_POISON,5);
+			}
+				break;
+			case BIOME_UNKNOWN:
+			case BIOME_WOODLANDS:
+			if (season == ENV_SEASON_WINTER) {
+				std::vector<content_t> search;
+				search.push_back(CONTENT_FIRE);
+				search.push_back(CONTENT_CAMPFIRE);
+				if (!searchNear(pp,v3s16(-4,-2,-4),v3s16(5,5,5),search,NULL))
+					damageLocalPlayer(PLAYER_ALL,DAMAGE_COLD,5);
+			}
+			default:
+				break;
 			}
 		}
 

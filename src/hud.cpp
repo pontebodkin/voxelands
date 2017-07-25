@@ -671,7 +671,8 @@ void hud_draw(
 				gettext("Fire"),
 				gettext("TNT"),
 				gettext("Steam"),
-				gettext("Poison")
+				gettext("Poison"),
+				gettext("Shadows")
 			};
 
 			std::wstring t = narrow_to_wide(damage_types[damage_type]);
