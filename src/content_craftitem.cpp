@@ -1654,4 +1654,68 @@ void content_craftitem_init()
 	f->hunger_effect = 10;
 	f->health_effect = 10;
 	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CRAFTITEM_UPGRADE_STORAGE;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_UPGRADE_STORAGE;
+	f->texture = "upgrade_storage.png";
+	f->name = "upgrade_storage";
+	f->description = gettext("Storage Upgrade");
+	crafting::set1To1Recipe(CONTENT_CHEST,CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+	crafting::set1To1Recipe(CONTENT_CHEST_APPLE,CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+	crafting::set1To1Recipe(CONTENT_CHEST_JUNGLE,CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+	crafting::set1To1Recipe(CONTENT_CHEST_PINE,CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHEST,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
+		};
+		/* why 3? because I couldn't decide between 2 and 4 */
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_STORAGE,3);
+	}
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHEST_APPLE,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_STORAGE,3);
+	}
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHEST_JUNGLE,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_STORAGE,3);
+	}
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHEST_PINE,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_STORAGE,3);
+	}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CRAFTITEM_UPGRADE_EXO;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_UPGRADE_EXO;
+	f->texture = "upgrade_exo.png";
+	f->name = "upgrade_exo";
+	f->description = gettext("Exo Upgrade");
+	crafting::set1To1Recipe(CONTENT_CRAFTITEM_OERKKI_DUST,CONTENT_CRAFTITEM_UPGRADE_EXO);
+	{
+		u16 r[9] = {
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CRAFTITEM_OERKKI_DUST,	CONTENT_CRAFTITEM_PAPER,
+			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_EXO,3);
+	}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
 }

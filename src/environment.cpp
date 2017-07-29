@@ -1380,6 +1380,7 @@ void ServerEnvironment::step(float dtime)
 	 * 		1 - spring grass
 	 * 		2 - autumn grass
 	 * 		4 - snow
+	 * 		6 - polluted
 	 * 		8 - jungle grass
 	 *
 	 * param2:
