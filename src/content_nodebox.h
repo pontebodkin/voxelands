@@ -104,5 +104,6 @@ void content_nodebox_glass_pane(ContentFeatures *f);
 void content_nodebox_snowman(ContentFeatures *f);
 void content_nodebox_barrel(ContentFeatures *f);
 void content_nodebox_barrel_sealed(ContentFeatures *f);
+void content_nodebox_clay_vessel(ContentFeatures *f);
 
 #endif

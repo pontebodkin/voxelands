@@ -225,7 +225,7 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_ROOFTILE_TERRACOTTA;
 	f = &content_features(i);
 	f->description = gettext("Terracotta Roof Tile");
-	f->setAllTextures("rooftile_terracotta.png");
+	f->setAllTextures("terracotta.png^overlay_rooftile.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -281,7 +281,7 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_ROOFTILE_STONE;
 	f = &content_features(i);
 	f->description = gettext("Stone Roof Tile");
-	f->setAllTextures("rooftile_stone.png");
+	f->setAllTextures("stone.png^overlay_rooftile.png");
 	f->setAllTextureFlags(0);
 	f->draw_type = CDT_ROOFLIKE;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -1681,39 +1681,40 @@ void content_mapnode_special(bool repeat)
 	i = CONTENT_FLOWER_POT_RAW;
 	f = &content_features(i);
 	f->param_type = CPT_LIGHT;
-	f->description = gettext("Unbaked Flower Pot");
-	f->setAllTextures("flower_pot_raw.png");
-	f->setTexture(0,"flower_pot_raw_top.png");
-	f->setTexture(1,"flower_pot_raw_bottom.png");
+	f->description = gettext("Unfired Flower Pot");
+	f->setAllTextures("clay.png");
+	f->setTexture(0,"clay.png^flower_pot_top.png");
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
+	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_FLOWER_POT)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 0.75;
 	f->pressure_type = CST_CRUSHABLE;
 	content_nodebox_flower_pot(f);
-	f->setInventoryTextureNodeBox(i,"flower_pot_raw_top.png","flower_pot_raw.png","flower_pot_raw.png");
+	f->setInventoryTextureNodeBox(i,"clay.png^flower_pot_top.png","clay.png","clay.png");
 	crafting::setVRecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_FLOWER_POT_RAW);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("cooking",i,1,0);
+	content_list_add("creative",i,1,0);
 
 	i = CONTENT_FLOWER_POT;
 	f = &content_features(i);
 	f->param_type = CPT_LIGHT;
 	f->description = gettext("Flower Pot");
-	f->setAllTextures("flower_pot.png");
-	f->setTexture(0,"flower_pot_top.png");
-	f->setTexture(1,"flower_pot_bottom.png");
+	f->setAllTextures("terracotta.png");
+	f->setTexture(0,"terracotta.png^flower_pot_top.png");
 	f->draw_type = CDT_NODEBOX;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
+	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 0.75;
 	content_nodebox_flower_pot(f);
-	f->setInventoryTextureNodeBox(i,"flower_pot_top.png","flower_pot.png","flower_pot.png");
+	f->setInventoryTextureNodeBox(i,"terracotta.png^flower_pot_top.png","terracotta.png","terracotta.png");
 	content_list_add("creative",i,1,0);
 
 	// walls
@@ -2296,6 +2297,51 @@ void content_mapnode_special(bool repeat)
 		crafting::setRecipe(r,CONTENT_SCAFFOLDING,1);
 	}
 	content_list_add("cooking",i,1,0);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CLAY_VESSEL_RAW;
+	f = &content_features(i);
+	f->description = gettext("Unfired Clay Vessel");
+	f->setAllTextures("clay.png");
+	f->draw_type = CDT_NODEBOX;
+	f->param_type = CPT_LIGHT;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->type = CMT_DIRT;
+	f->dig_time = 0.1;
+	f->suffocation_per_second = 0;
+	f->pressure_type = CST_SOLID;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_CLAY_VESSEL)+" 1";
+	content_nodebox_clay_vessel(f);
+	f->setInventoryTextureNodeBox(i,"clay.png", "clay.png", "clay.png");
+	crafting::setURecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY_VESSEL);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("cooking",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CLAY_VESSEL;
+	f = &content_features(i);
+	f->description = gettext("Clay Vessel");
+	f->setAllTextures("terracotta.png");
+	f->setAllMetaTextures("terracotta.png");
+	f->draw_type = CDT_NODEBOX_META;
+	f->param_type = CPT_LIGHT;
+	f->light_propagates = true;
+	f->sunlight_propagates = true;
+	f->air_equivalent = true;
+	f->type = CMT_DIRT;
+	f->dig_time = 0.1;
+	f->suffocation_per_second = 0;
+	f->pressure_type = CST_SOLID;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	content_nodebox_clay_vessel(f);
+	f->setInventoryTextureNodeBox(i,"terracotta.png", "terracotta.png", "terracotta.png");
+	if (f->initial_metadata == NULL)
+		f->initial_metadata = new ClayVesselNodeMetadata();
+	crafting::setURecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY_VESSEL);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 }

@@ -343,8 +343,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_STONEBRICK;
 	f = &content_features(i);
 	f->description = gettext("Stone Brick");
-	f->setAllTextures("stonebrick.png");
-	f->setInventoryTextureCube("stonebrick.png", "stonebrick.png", "stonebrick.png");
+	f->setAllTextures("stone.png^overlay_brick.png");
+	f->setInventoryTextureCube("stone.png^overlay_brick.png", "stone.png^overlay_brick.png", "stone.png^overlay_brick.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -357,8 +357,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_STONEBLOCK;
 	f = &content_features(i);
 	f->description = gettext("Stone Block");
-	f->setAllTextures("stoneblock.png");
-	f->setInventoryTextureCube("stoneblock.png", "stoneblock.png", "stoneblock.png");
+	f->setAllTextures("stone.png^overlay_block.png");
+	f->setInventoryTextureCube("stone.png^overlay_block.png", "stone.png^overlay_block.png", "stone.png^overlay_block.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -371,8 +371,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_ROUGHSTONEBRICK;
 	f = &content_features(i);
 	f->description = gettext("Rough Stone Brick");
-	f->setAllTextures("roughstone_brick.png");
-	f->setInventoryTextureCube("roughstone_brick.png", "roughstone_brick.png", "roughstone_brick.png");
+	f->setAllTextures("roughstone.png^overlay_brick.png");
+	f->setInventoryTextureCube("roughstone.png^overlay_brick.png", "roughstone.png^overlay_brick.png", "roughstone.png^overlay_brick.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -389,8 +389,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_ROUGHSTONEBLOCK;
 	f = &content_features(i);
 	f->description = gettext("Rough Stone Block");
-	f->setAllTextures("roughstone_block.png");
-	f->setInventoryTextureCube("roughstone_block.png", "roughstone_block.png", "roughstone_block.png");
+	f->setAllTextures("roughstone.png^overlay_block.png");
+	f->setInventoryTextureCube("roughstone.png^overlay_block.png", "roughstone.png^overlay_block.png", "roughstone.png^overlay_block.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -825,8 +825,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_TERRACOTTA_BRICK;
 	f = &content_features(i);
 	f->description = gettext("Terracotta Brick");
-	f->setAllTextures("terracotta_brick.png");
-	f->setInventoryTextureCube("terracotta_brick.png", "terracotta_brick.png", "terracotta_brick.png");
+	f->setAllTextures("terracotta.png^overlay_brick.png");
+	f->setInventoryTextureCube("terracotta.png^overlay_brick.png", "terracotta.png^overlay_brick.png", "terracotta.png^overlay_brick.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -839,8 +839,8 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_TERRACOTTA_BLOCK;
 	f = &content_features(i);
 	f->description = gettext("Terracotta Block");
-	f->setAllTextures("terracotta_block.png");
-	f->setInventoryTextureCube("terracotta_block.png", "terracotta_block.png", "terracotta_block.png");
+	f->setAllTextures("terracotta.png^overlay_block.png");
+	f->setInventoryTextureCube("terracotta.png^overlay_block.png", "terracotta.png^overlay_block.png", "terracotta.png^overlay_block.png");
 	f->draw_type = CDT_CUBELIKE;
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
@@ -853,7 +853,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_TERRACOTTA_TILE;
 	f = &content_features(i);
 	f->description = gettext("Terracotta Tile");
-	f->setAllTextures("terracotta_tile.png");
+	f->setAllTextures("terracotta.png^overlay_tile.png");
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
@@ -864,7 +864,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	f->suffocation_per_second = 0;
 	content_nodebox_carpet(f);
-	f->setInventoryTextureNodeBox(i,"terracotta_tile.png", "terracotta_tile.png", "terracotta_tile.png");
+	f->setInventoryTextureNodeBox(i,"terracotta.png^overlay_tile.png", "terracotta.png^overlay_tile.png", "terracotta.png^overlay_tile.png");
 	crafting::setTileRecipe(CONTENT_TERRACOTTA,CONTENT_TERRACOTTA_TILE);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
@@ -2356,7 +2356,7 @@ void content_mapnode_init(bool repeat)
 	i = CONTENT_STONE_TILE;
 	f = &content_features(i);
 	f->description = gettext("Stone Tiles");
-	f->setAllTextures("stone_tile.png");
+	f->setAllTextures("stone.png^overlay_oddtile.png");
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_NODEBOX;
 	f->is_ground_content = true;
@@ -2364,7 +2364,7 @@ void content_mapnode_init(bool repeat)
 	f->sunlight_propagates = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	content_nodebox_carpet(f);
-	f->setInventoryTextureNodeBox(i,"stone_tile.png", "stone_tile.png", "stone_tile.png");
+	f->setInventoryTextureNodeBox(i,"stone.png^overlay_oddtile.png", "stone.png^overlay_oddtile.png", "stone.png^overlay_oddtile.png");
 	f->type = CMT_STONE;
 	f->dig_time = 0.5;
 	f->pressure_type = CST_CRUSHABLE;

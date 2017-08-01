@@ -2160,20 +2160,6 @@ void ServerEnvironment::step(float dtime)
 					break;
 				}
 
-				// MESE is dead
-				case CONTENT_MESE:
-				{
-					if (p.Y > 0) {
-						n.setContent(CONTENT_MITHRIL_BLOCK);
-						m_map->addNodeWithEvent(p, n);
-					}else{
-						n.setContent(CONTENT_STONE);
-						n.param1 = MINERAL_MITHRIL;
-						m_map->addNodeWithEvent(p, n);
-					}
-					break;
-				}
-
 				// cobble becomes mossy underwater
 				case CONTENT_COBBLE:
 				{

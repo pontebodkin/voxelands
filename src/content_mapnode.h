@@ -128,7 +128,9 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_APPLEWOOD_BARREL_SEALED 0x047
 #define CONTENT_JUNGLEWOOD_BARREL_SEALED 0x048
 #define CONTENT_PINE_BARREL_SEALED 0x049
-// FREE 0x04A-0x07C
+#define CONTENT_CLAY_VESSEL 0x04A
+#define CONTENT_CLAY_VESSEL_RAW 0x04B
+// FREE 0x04C-0x07C
 // 0x7D-0x7F reserved values, air, ignore, etc
 #define CONTENT_CHAIR_CENTRE 0x080
 #define CONTENT_CHAIR_ENDL 0x081
@@ -213,8 +215,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_TREE 0x801
 #define CONTENT_LEAVES 0x802
 #define CONTENT_FARM_DIRT 0x803
-// MESE is deprecated, but leave it here for the moment
-#define CONTENT_MESE 0x804
+// FREE 0x804
 #define CONTENT_MUD 0x805
 #define CONTENT_COTTON 0x806
 #define CONTENT_BORDERSTONE 0x807

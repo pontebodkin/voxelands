@@ -184,6 +184,27 @@ private:
 	uint16_t m_expanded_slot_id;
 };
 
+class ClayVesselNodeMetadata : public NodeMetadata
+{
+public:
+	ClayVesselNodeMetadata();
+	~ClayVesselNodeMetadata();
+
+	virtual u16 typeId() const;
+	static NodeMetadata* create(std::istream &is);
+	virtual NodeMetadata* clone();
+	virtual void serializeBody(std::ostream &os);
+	virtual Inventory* getInventory() {return m_inventory;}
+	virtual bool nodeRemovalDisabled();
+	virtual std::string getDrawSpecString(Player *player);
+	virtual bool receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player);
+	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
+
+private:
+	Inventory *m_inventory;
+	bool is_sealed;
+};
+
 class DeprecatedChestNodeMetadata : public NodeMetadata
 {
 public:

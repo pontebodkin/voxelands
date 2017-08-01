@@ -33,6 +33,104 @@
 
 
 /*
+	BookShelfNodeMetadata
+*/
+
+// Prototype
+BookShelfNodeMetadata proto_BookShelfNodeMetadata;
+
+BookShelfNodeMetadata::BookShelfNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_inventory = new Inventory();
+	m_inventory->addList("0", 14);
+	InventoryList *l = m_inventory->getList("0");
+	l->setStackable(false);
+	l->addAllowed(CONTENT_BOOK);
+	l->addAllowed(CONTENT_COOK_BOOK);
+	l->addAllowed(CONTENT_DECRAFT_BOOK);
+	l->addAllowed(CONTENT_DIARY_BOOK);
+	l->addAllowed(CONTENT_CRAFT_BOOK);
+	l->addAllowed(CONTENT_RCRAFT_BOOK);
+}
+BookShelfNodeMetadata::~BookShelfNodeMetadata()
+{
+	delete m_inventory;
+}
+u16 BookShelfNodeMetadata::typeId() const
+{
+	return CONTENT_BOOKSHELF;
+}
+NodeMetadata* BookShelfNodeMetadata::create(std::istream &is)
+{
+	BookShelfNodeMetadata *d = new BookShelfNodeMetadata();
+	d->m_inventory->deSerialize(is);
+	return d;
+}
+NodeMetadata* BookShelfNodeMetadata::clone()
+{
+	BookShelfNodeMetadata *d = new BookShelfNodeMetadata();
+	*d->m_inventory = *m_inventory;
+	return d;
+}
+void BookShelfNodeMetadata::serializeBody(std::ostream &os)
+{
+	m_inventory->serialize(os);
+}
+bool BookShelfNodeMetadata::nodeRemovalDisabled()
+{
+	/*
+		Disable removal if chest contains something
+	*/
+	InventoryList *list = m_inventory->getList("0");
+	if(list == NULL)
+		return false;
+	if(list->getUsedSlots() == 0)
+		return false;
+	return true;
+}
+std::string BookShelfNodeMetadata::getDrawSpecString(Player *player)
+{
+	return
+		"size[8,7]"
+		"list[current_name;0;0.5,0;7,2;]"
+		"list[current_player;main;0,3;8,4;]";
+}
+std::vector<NodeBox> BookShelfNodeMetadata::getNodeBoxes(MapNode &n)
+{
+	std::vector<NodeBox> boxes;
+	boxes.clear();
+
+	InventoryList *list = m_inventory->getList("0");
+	if(list == NULL)
+		return boxes;
+	if(list->getUsedSlots() == 0)
+		return boxes;
+
+	f32 x = 0;
+	f32 y = 0;
+	f32 h = 0;
+
+	for (s16 i=0; i<14; i++) {
+		if (list->getItem(i) == NULL)
+			continue;
+		x = (i%7)*0.125;
+		y = (i/7)*-0.5;
+		h = ((i%7)%2)*0.0625;
+
+		boxes.push_back(NodeBox(
+			(-0.4375+x)*BS,(0.0625+y)*BS,-0.4375*BS,(-0.3125+x)*BS,(0.375+y+h)*BS,-0.0625*BS
+		));
+		boxes.push_back(NodeBox(
+			(0.3125-x)*BS,(0.0625+y)*BS,0.0625*BS,(0.4375-x)*BS,(0.375+y+h)*BS,0.4375*BS
+		));
+	}
+
+	return transformNodeBox(n,boxes);
+}
+
+/*
 	ChestNodeMetadata
 */
 
@@ -474,4 +572,152 @@ bool SealedBarrelNodeMetadata::import(NodeMetadata *meta)
 	BarrelNodeMetadata *l = (BarrelNodeMetadata*)meta;
 	m_water_level = l->m_water_level;
 	return true;
+}
+
+/*
+	ClayVesselNodeMetadata
+*/
+
+// Prototype
+ClayVesselNodeMetadata proto_ClayVesselNodeMetadata;
+
+ClayVesselNodeMetadata::ClayVesselNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_inventory = new Inventory();
+	m_inventory->addList("main", 9);
+	is_sealed = false;
+	InventoryList *l = m_inventory->getList("main");
+	l->addAllowed(CONTENT_CRAFTITEM_APPLE);
+	l->addAllowed(CONTENT_CRAFTITEM_APPLE_BLOSSOM);
+	l->addAllowed(CONTENT_CRAFTITEM_APPLE_IRON);
+	l->addAllowed(CONTENT_CRAFTITEM_APPLE_JUICE);
+	l->addAllowed(CONTENT_CRAFTITEM_APPLE_PIE_SLICE);
+	l->addAllowed(CONTENT_CRAFTITEM_BEETROOT);
+	l->addAllowed(CONTENT_CRAFTITEM_BLUEBERRY);
+	l->addAllowed(CONTENT_CRAFTITEM_BREAD);
+	l->addAllowed(CONTENT_CRAFTITEM_CACTUS_FRUIT);
+	l->addAllowed(CONTENT_CRAFTITEM_CARROT);
+	l->addAllowed(CONTENT_CRAFTITEM_CARROT_CAKE);
+	l->addAllowed(CONTENT_CRAFTITEM_CARROT_CAKE_RAW);
+	l->addAllowed(CONTENT_CRAFTITEM_COFFEE);
+	l->addAllowed(CONTENT_CRAFTITEM_COFFEE_BEANS);
+	l->addAllowed(CONTENT_CRAFTITEM_COOKED_FISH);
+	l->addAllowed(CONTENT_CRAFTITEM_COOKED_MEAT);
+	l->addAllowed(CONTENT_CRAFTITEM_COOKED_RAT);
+	l->addAllowed(CONTENT_CRAFTITEM_DOUGH);
+	l->addAllowed(CONTENT_CRAFTITEM_FISH);
+	l->addAllowed(CONTENT_CRAFTITEM_FLOUR);
+	l->addAllowed(CONTENT_CRAFTITEM_GLASS_BOTTLE_WATER);
+	l->addAllowed(CONTENT_CRAFTITEM_GRAPE);
+	l->addAllowed(CONTENT_CRAFTITEM_GRAPE_JUICE);
+	l->addAllowed(CONTENT_CRAFTITEM_IRON_BOTTLE_WATER);
+	l->addAllowed(CONTENT_CRAFTITEM_MEAT);
+	l->addAllowed(CONTENT_CRAFTITEM_MELONSLICE);
+	l->addAllowed(CONTENT_CRAFTITEM_MUSH);
+	l->addAllowed(CONTENT_CRAFTITEM_POTATO);
+	l->addAllowed(CONTENT_CRAFTITEM_PUMPKINSLICE);
+	l->addAllowed(CONTENT_CRAFTITEM_PUMPKIN_PIE_SLICE);
+	l->addAllowed(CONTENT_CRAFTITEM_RASPBERRY);
+	l->addAllowed(CONTENT_CRAFTITEM_ROASTPOTATO);
+	l->addAllowed(CONTENT_CRAFTITEM_TEA);
+	l->addAllowed(CONTENT_CRAFTITEM_TEA_LEAVES);
+	l->addAllowed(CONTENT_CRAFTITEM_WHEAT);
+}
+ClayVesselNodeMetadata::~ClayVesselNodeMetadata()
+{
+	delete m_inventory;
+}
+u16 ClayVesselNodeMetadata::typeId() const
+{
+	return CONTENT_CLAY_VESSEL;
+}
+NodeMetadata* ClayVesselNodeMetadata::create(std::istream &is)
+{
+	std::string s;
+	ClayVesselNodeMetadata *d = new ClayVesselNodeMetadata();
+	d->m_inventory->deSerialize(is);
+
+	s = deSerializeString(is);
+	d->is_sealed = !!mystoi(s);
+
+	return d;
+}
+NodeMetadata* ClayVesselNodeMetadata::clone()
+{
+	ClayVesselNodeMetadata *d = new ClayVesselNodeMetadata();
+	*d->m_inventory = *m_inventory;
+	d->is_sealed = is_sealed;
+	return d;
+}
+void ClayVesselNodeMetadata::serializeBody(std::ostream &os)
+{
+	m_inventory->serialize(os);
+	os<<serializeString(itos(is_sealed ? 1 : 0));
+}
+bool ClayVesselNodeMetadata::nodeRemovalDisabled()
+{
+	/*
+		Disable removal if chest contains something
+	*/
+	InventoryList *list = m_inventory->getList("main");
+	if (list == NULL)
+		return false;
+	if (list->getUsedSlots() == 0)
+		return false;
+	return true;
+}
+std::string ClayVesselNodeMetadata::getDrawSpecString(Player *player)
+{
+	std::string spec("size[8,8]");
+
+	if (is_sealed) {
+		spec += "button[0.5,2;3,1;unseal;";
+		spec += gettext("Unseal Vessel");
+		spec += "]";
+	}else{
+		spec += "button[0.5,2;3,1;seal;";
+		spec += gettext("Seal Vessel");
+		spec += "]";
+
+		spec += "list[current_name;main;3.5,0.5;3,3;]";
+	}
+
+	spec += "list[current_player;main;0,3.8;8,1;0,8;]";
+	spec += "list[current_player;main;0,5;8,3;8,-1;]";
+
+	return spec;
+}
+
+bool ClayVesselNodeMetadata::receiveFields(std::string formname, std::map<std::string, std::string> fields, Player *player)
+{
+	if (fields["seal"] != "") {
+		if (is_sealed)
+			return false;
+		is_sealed = true;
+		return true;
+	}else if (fields["unseal"] != "") {
+		if (!is_sealed)
+			return false;
+		is_sealed = false;
+		return true;
+	}
+	return false;
+}
+
+std::vector<NodeBox> ClayVesselNodeMetadata::getNodeBoxes(MapNode &n)
+{
+	std::vector<NodeBox> boxes;
+
+	if (is_sealed) {
+		boxes.push_back(NodeBox(
+			-0.34375*BS,0.1875*BS,-0.34375*BS,0.34375*BS,0.3125*BS,0.34375*BS
+		));
+		boxes.push_back(NodeBox(
+			-0.125*BS,0.3125*BS,-0.125*BS,0.125*BS,0.375*BS,0.125*BS
+		));
+	}
+
+	return boxes;
 }

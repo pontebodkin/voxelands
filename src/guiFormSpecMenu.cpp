@@ -545,7 +545,12 @@ void GUIFormSpecMenu::drawList(const ListDrawSpec &s, int phase)
 
 		driver->draw2DRectangle(GUI_INV_BG, brect, &AbsoluteClippingRect);
 
-		if (m_selected_item != NULL && m_selected_item->listname == s.listname && m_selected_item->i == i) {
+		if (
+			m_selected_item != NULL
+			&& s.inventoryloc.type == m_selected_item->inventoryloc.type
+			&& m_selected_item->i == i
+			&& m_selected_item->listname == s.listname
+		) {
 			driver->draw2DRectangleOutline(brect, GUI_INV_HIGHLIGHT);
 
 		}else{
