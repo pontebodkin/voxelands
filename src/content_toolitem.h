@@ -34,7 +34,7 @@ struct ToolItemFeatures {
 	// the result of cooking this item
 	std::string cook_result;
 	// what type of cooking device this item needs
-	CookType cook_type;
+	uint16_t cook_type;
 	// the fuel value of this item
 	std::string crush_result;
 	// what type of crushing device this item needs

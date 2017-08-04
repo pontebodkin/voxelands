@@ -134,7 +134,7 @@ public:
 	*/
 
 	// Whether it can be cooked
-	virtual bool isCookable(CookType type=COOK_ANY) const {return false;}
+	virtual bool isCookable(uint16_t type=COOK_ANY) const {return false;}
 	// Whether it can be crushed
 	virtual bool isCrushable(CrushType type=CRUSH_ANY) const {return false;}
 	// Time of cooking
@@ -225,7 +225,7 @@ public:
 	/*
 		Other properties
 	*/
-	bool isCookable(CookType type) const;
+	bool isCookable(uint16_t type) const;
 	InventoryItem *createCookResult() const;
 	bool isCrushable(CrushType type) const;
 	InventoryItem *createCrushResult() const;
@@ -318,7 +318,7 @@ public:
 		Other properties
 	*/
 
-	bool isCookable(CookType type) const;
+	bool isCookable(uint16_t type) const;
 	InventoryItem *createCookResult() const;
 	bool isCrushable(CrushType type) const;
 	InventoryItem *createCrushResult() const;
@@ -391,7 +391,7 @@ public:
 
 	ServerActiveObject* createSAO(ServerEnvironment *env, u16 id, v3f pos);
 
-	bool isCookable(CookType type) const;
+	bool isCookable(uint16_t type) const;
 	InventoryItem *createCookResult() const;
 	bool isCrushable(CrushType type) const;
 	InventoryItem *createCrushResult() const;

@@ -169,12 +169,21 @@ struct CraftDefShapeless {
 	}
 };
 
+typedef struct craft_alloy_s {
+	struct craft_alloy_s *prev;
+	struct craft_alloy_s *next;
+	content_t recipe[2];
+	content_t result;
+	uint16_t result_count;
+} craft_alloy_t;
+
 namespace crafting {
 	void initCrafting();
 
 	// add recipes
 	void setRecipe(u16 recipe[9], u16 result, u16 count, uint64_t privs = 0);
 	void setShapelessRecipe(u16 recipe[9], u16 result, u16 count, uint64_t privs = 0);
+	void setAlloy(content_t recipe[2], content_t result, uint16_t count);
 
 	// shortcuts
 	// one input yields one result
@@ -283,6 +292,7 @@ namespace crafting {
 	void set4SpacedTo1Recipe(u16 input, u16 result);
 
 	InventoryItem *getResult(InventoryItem **items, Player *player, Server *server);
+	InventoryItem *getAlloy(content_t c0, content_t c1);
 	content_t *getRecipe(InventoryItem *item);
 	content_t *getRecipe(InventoryItem *item, int i);
 	int getResultCount(InventoryItem *item);

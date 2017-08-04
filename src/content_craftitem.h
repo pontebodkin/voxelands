@@ -40,7 +40,7 @@ struct CraftItemFeatures {
 	// the result of cooking this item
 	content_t cook_result;
 	// what type of cooking device this item needs
-	CookType cook_type;
+	uint16_t cook_type;
 	// the result of crushing this item
 	content_t crush_result;
 	// what type of crushing device this item needs
@@ -222,5 +222,6 @@ CraftItemFeatures *content_craftitem_features(content_t i);
 #define CONTENT_CRAFTITEM_RASPBERRY (CONTENT_CRAFTITEM_MASK | 0x8A)
 #define CONTENT_CRAFTITEM_UPGRADE_STORAGE (CONTENT_CRAFTITEM_MASK | 0x8B)
 #define CONTENT_CRAFTITEM_UPGRADE_EXO (CONTENT_CRAFTITEM_MASK | 0x8C)
+#define CONTENT_CRAFTITEM_BRONZE_INGOT (CONTENT_CRAFTITEM_MASK | 0x8D)
 
 #endif

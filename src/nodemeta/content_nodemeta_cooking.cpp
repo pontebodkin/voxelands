@@ -27,6 +27,7 @@
 #include "content_nodemeta.h"
 #include "inventory.h"
 #include "content_mapnode.h"
+#include "content_craft.h"
 #include "environment.h"
 
 /*
@@ -580,14 +581,16 @@ CampFireNodeMetadata::CampFireNodeMetadata()
 
 	m_inventory = new Inventory();
 	m_inventory->addList("fuel", 1);
-	m_inventory->addList("src", 1);
+	m_inventory->addList("src", 3);
 	m_inventory->addList("dst", 1);
 
-	m_step_accumulator = 0;
-	m_fuel_totaltime = 0;
-	m_fuel_time = 0;
-	m_src_totaltime = 0;
-	m_src_time = 0;
+	m_active_timer = 0.0;
+	m_burn_counter = 0.0;
+	m_burn_timer = 0.0;
+	m_cook_timer = 0.0;
+	m_has_pots = false;
+
+	inventoryModified();
 }
 CampFireNodeMetadata::~CampFireNodeMetadata()
 {
@@ -601,31 +604,49 @@ NodeMetadata* CampFireNodeMetadata::clone()
 {
 	CampFireNodeMetadata *d = new CampFireNodeMetadata();
 	*d->m_inventory = *m_inventory;
-	d->m_fuel_totaltime = m_fuel_totaltime;
-	d->m_fuel_time = m_fuel_time;
-	d->m_src_totaltime = m_src_totaltime;
-	d->m_src_time = m_src_time;
+
+	d->m_active_timer = m_active_timer;
+	d->m_burn_counter = m_burn_counter;
+	d->m_burn_timer = m_burn_timer;
+	d->m_cook_timer = m_cook_timer;
+	d->m_has_pots = m_has_pots;
+
 	return d;
 }
 NodeMetadata* CampFireNodeMetadata::create(std::istream &is)
 {
+	std::string s;
 	CampFireNodeMetadata *d = new CampFireNodeMetadata();
 
 	d->m_inventory->deSerialize(is);
 
-	int temp;
-	is>>temp;
-	d->m_fuel_totaltime = (float)temp/10;
-	is>>temp;
-	d->m_fuel_time = (float)temp/10;
+	s = deSerializeString(is);
+	d->m_active_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_burn_counter = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_burn_timer = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_cook_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_has_pots = !!mystoi(s);
+
+	d->inventoryModified();
 
 	return d;
 }
 void CampFireNodeMetadata::serializeBody(std::ostream &os)
 {
 	m_inventory->serialize(os);
-	os<<itos(m_fuel_totaltime*10)<<" ";
-	os<<itos(m_fuel_time*10)<<" ";
+	os<<serializeString(ftos(m_active_timer));
+	os<<serializeString(itos(m_burn_counter));
+	os<<serializeString(itos(m_burn_timer));
+	os<<serializeString(ftos(m_cook_timer));
+	os<<serializeString(itos(m_has_pots ? 1 : 0));
 }
 std::wstring CampFireNodeMetadata::infoText()
 {
@@ -634,28 +655,14 @@ std::wstring CampFireNodeMetadata::infoText()
 	char e[128];
 	e[0] = 0;
 
-	if (m_fuel_time >= m_fuel_totaltime) {
-		const InventoryList *src_list = m_inventory->getList("src");
-		assert(src_list);
-		const InventoryItem *src_item = src_list->getItem(0);
-
-		if (src_item && src_item->isCookable(COOK_FIRE)) {
-			InventoryList *dst_list = m_inventory->getList("dst");
-			if(!dst_list->roomForCookedItem(src_item)) {
-				s = gettext("CampFire is overloaded");
-			}else{
-				s = gettext("CampFire is out of fuel");
-			}
-		}else{
-			s = gettext("CampFire is inactive");
-		}
-	}else{
+	if (m_burn_counter > 0.0) {
 		s = gettext("CampFire is active");
-		// Do this so it doesn't always show (0%) for weak fuel
-		if (m_fuel_totaltime > 3) {
-			uint32_t tt = m_fuel_time/m_fuel_totaltime*100;
+		if (m_cook_timer > 0.0) {
+			uint32_t tt = m_cook_timer/4.0*100;
 			snprintf(e,128, " (%d%%)",tt);
 		}
+	}else{
+		s = gettext("CampFire is inactive");
 	}
 
 	snprintf(buff,256,"%s%s",s,e);
@@ -666,8 +673,11 @@ bool CampFireNodeMetadata::nodeRemovalDisabled()
 	/*
 		Disable removal if furnace is not empty
 	*/
-	InventoryList *list[3] = {m_inventory->getList("src"),
-	m_inventory->getList("dst"), m_inventory->getList("fuel")};
+	InventoryList *list[3] = {
+		m_inventory->getList("src"),
+		m_inventory->getList("dst"),
+		m_inventory->getList("fuel")
+	};
 
 	for (int i = 0; i < 3; i++) {
 		if (list[i] == NULL)
@@ -676,148 +686,280 @@ bool CampFireNodeMetadata::nodeRemovalDisabled()
 			continue;
 		return true;
 	}
-	return false;
 
+	return false;
 }
 void CampFireNodeMetadata::inventoryModified()
 {
-	vlprintf(CN_INFO,"CampFire inventory modification callback");
+	InventoryList *src_list;
+	InventoryItem *src_item = NULL;
+
+	src_list = m_inventory->getList("src");
+	if (!src_list)
+		return;
+
+	src_item = src_list->getItem(0);
+	if (!src_item) {
+		m_has_pots = false;
+		return;
+	}
+
+	if (src_item->getContent() != CONTENT_CLAY_VESSEL) {
+		m_has_pots = false;
+		return;
+	}
+
+	m_has_pots = true;
 }
 bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
-	{
-		MapNode n = env->getMap().getNodeNoEx(pos).getContent();
-		if (n.getContent() == CONTENT_FURNACE_ACTIVE) {
-			n.param1 = n.param2;
-			n.setContent(CONTENT_FURNACE);
-			env->setPostStepNodeSwap(pos,n);
-		}
-	}
+	float cook_time = 4.0;
+	bool changed = false;
+	bool is_cooking;
+	bool cook_ongoing;
+	bool room_available;
+	uint8_t pots_mode = 0;
+	InventoryList *dst_list;
+	InventoryList *src_list;
+	InventoryItem *src_item = NULL;
+	InventoryItem *src_item1 = NULL;
+	InventoryList *fuel_list;
+	InventoryItem *fuel_item;
+	uint16_t mode = COOK_FIRE;
+
+	/* requires air above it (because why not?) */
+	if (content_features(env->getMap().getNodeNoEx(pos+v3s16(0,1,0),NULL).getContent()).air_equivalent == false)
+		return false;
 
 	if (dtime > 60.0)
-		vlprintf(CN_INFO,"CampFire stepping a long time (%f)",dtime);
-	// Update at a fixed frequency
-	const float interval = 2.0;
-	m_step_accumulator += dtime;
-	bool changed = false;
-	while (m_step_accumulator > interval) {
-		m_step_accumulator -= interval;
-		dtime = interval;
+		vlprintf(CN_INFO,"Campfire stepping a long time (%f)",dtime);
 
-		InventoryList *dst_list = m_inventory->getList("dst");
-		assert(dst_list);
+	dst_list = m_inventory->getList("dst");
+	if (!dst_list)
+		return false;
 
-		InventoryList *src_list = m_inventory->getList("src");
-		assert(src_list);
-		InventoryItem *src_item = src_list->getItem(0);
+	src_list = m_inventory->getList("src");
+	if (!src_list)
+		return false;
 
-		bool room_available = false;
+	if (m_has_pots)
+		mode = COOK_FIRE_POT;
 
-		if (src_item && src_item->isCookable(COOK_FIRE))
-			room_available = dst_list->roomForCookedItem(src_item);
+	m_active_timer += dtime;
 
-		// Start only if there are free slots in dst, so that it can
-		// accomodate any result item
-		if (room_available) {
-			m_src_totaltime = 3;
-		}else{
-			m_src_time = 0;
-			m_src_totaltime = 0;
-		}
+	while (m_active_timer > 1.0) {
+		m_active_timer -= 1.0;
 
-		/*
-			If fuel is burning, increment the burn counters.
-			If item finishes cooking, move it to result.
-		*/
-		if (m_fuel_time < m_fuel_totaltime) {
-			m_fuel_time += dtime;
-			m_src_time += dtime;
-			if (m_src_time >= m_src_totaltime && m_src_totaltime > 0.001 && src_item) {
-				InventoryItem *cookresult = src_item->createCookResult();
-				dst_list->addItem(cookresult);
-				src_list->decrementMaterials(1);
-				m_src_time = 0;
-				m_src_totaltime = 0;
+		is_cooking = false;
+		cook_ongoing = false;
+		room_available = false;
+
+		if (m_has_pots) {
+			src_item = src_list->getItem(1);
+			src_item1 = src_list->getItem(2);
+			if (src_item && src_item1) {
+				if (src_item->getContent() == src_item1->getContent()) {
+					if (src_item->isCookable(mode)) {
+						pots_mode = 1;
+						is_cooking = true;
+						room_available = dst_list->roomForCookedItem(src_item);
+						if (room_available)
+							cook_ongoing = true;
+					}else{
+						m_cook_timer = 0.0;
+					}
+				}else{
+					pots_mode = 0;
+					InventoryItem *alloy = crafting::getAlloy(src_item->getContent(),src_item1->getContent());
+					if (alloy) {
+						is_cooking = true;
+						room_available = dst_list->roomForItem(alloy);
+						if (room_available && src_item->getCount() > 1 && src_item1->getCount() > 1)
+							cook_ongoing = true;
+						delete alloy;
+					}else{
+						m_cook_timer = 0.0;
+					}
+				}
+			}else if (src_item) {
+				if (src_item->isCookable(mode)) {
+					pots_mode = 1;
+					is_cooking = true;
+					room_available = dst_list->roomForCookedItem(src_item);
+					if (room_available && src_item->getCount() > 1)
+						cook_ongoing = true;
+				}else{
+					m_cook_timer = 0.0;
+				}
+			}else if (src_item1) {
+				if (src_item1->isCookable(mode)) {
+					pots_mode = 2;
+					is_cooking = true;
+					room_available = dst_list->roomForCookedItem(src_item1);
+					if (room_available && src_item1->getCount() > 1)
+						cook_ongoing = true;
+				}else{
+					m_cook_timer = 0.0;
+				}
+			}else{
+				m_cook_timer = 0.0;
 			}
-			changed = true;
-
-			// If the fuel was not used up this step, just keep burning it
-			if (m_fuel_time < m_fuel_totaltime)
-				continue;
+		}else{
+			src_item = src_list->getItem(0);
+			if (src_item && src_item->isCookable(mode)) {
+				is_cooking = true;
+				room_available = dst_list->roomForCookedItem(src_item);
+				if (room_available && src_item->getCount() > 1)
+					cook_ongoing = true;
+			}else{
+				m_cook_timer = 0.0;
+			}
 		}
 
-		/*
-			Get the source again in case it has all burned
-		*/
-		src_item = src_list->getItem(0);
+		if (m_cook_timer > 4.0)
+			m_cook_timer = 4.0;
 
-		/*
-			If there is no source item, or the source item is not cookable,
-			or the furnace is still cooking, or the furnace became overloaded, stop loop.
-		*/
-		if (
-			src_item == NULL
-			|| !room_available
-			|| m_fuel_time < m_fuel_totaltime
-			|| dst_list->roomForCookedItem(src_item) == false
-		) {
-			m_step_accumulator = 0;
+		if (m_burn_counter < 1.0 && is_cooking) {
+			if (m_cook_timer+1.0 < 4.0 || cook_ongoing) {
+				fuel_list = m_inventory->getList("fuel");
+				if (!fuel_list)
+					break;
+				fuel_item = fuel_list->getItem(0);
+				if (fuel_item && fuel_item->isFuel()) {
+					content_t c = fuel_item->getContent();
+					float v = 0.0;
+					if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+						v = ((CraftItem*)fuel_item)->getFuelTime();
+					}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+						v = ((ToolItem*)fuel_item)->getFuelTime();
+					}else{
+						v = ((MaterialItem*)fuel_item)->getFuelTime();
+					}
+					fuel_list->decrementMaterials(1);
+					if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
+						fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
+					}
+					m_burn_counter += v;
+					changed = true;
+				}
+			}
+		}
+
+		if (m_burn_counter <= 0.0) {
+			m_active_timer = 0.0;
+			m_burn_counter = 0.0;
+			m_burn_timer = 0.0;
 			break;
 		}
 
-		//vlprintf(CN_INFO,"CampFire is out of fuel");
+		if (m_burn_counter < 1.0)
+			continue;
 
-		InventoryList *fuel_list = m_inventory->getList("fuel");
-		assert(fuel_list);
-		InventoryItem *fuel_item = fuel_list->getItem(0);
-		if (fuel_item && fuel_item->isFuel()) {
-			if ((fuel_item->getContent()&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
-				m_fuel_totaltime = ((CraftItem*)fuel_item)->getFuelTime();
-			}else if ((fuel_item->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
-				m_fuel_totaltime = ((ToolItem*)fuel_item)->getFuelTime();
+		m_burn_timer += 1.0;
+		changed = true;
+		if (m_burn_timer >= 4.0) {
+			m_burn_counter -= 1.0;
+			m_burn_timer -= cook_time;
+		}
+
+		if (!is_cooking) {
+			m_cook_timer = 0.0;
+			continue;
+		}
+
+		m_cook_timer += 1.0;
+
+		if (m_cook_timer >= 4.0) {
+			m_cook_timer -= 4.0;
+			if (m_has_pots) {
+				if (pots_mode == 1) {
+					if (src_item && src_item->isCookable(mode)) {
+						InventoryItem *result = src_item->createCookResult();
+						dst_list->addItem(result);
+						InventoryItem *itm = src_list->takeItem(1,1);
+						if (itm)
+							delete itm;
+						src_list->addDiff(1,src_item);
+					}
+				}else if (pots_mode == 2) {
+					if (src_item1 && src_item1->isCookable(mode)) {
+						InventoryItem *result = src_item1->createCookResult();
+						dst_list->addItem(result);
+						InventoryItem *itm = src_list->takeItem(2,1);
+						if (itm)
+							delete itm;
+						src_list->addDiff(2,src_item1);
+					}
+				}else if (src_item && src_item1) {
+					InventoryItem *alloy = crafting::getAlloy(src_item->getContent(),src_item1->getContent());
+					dst_list->addItem(alloy);
+					{
+						InventoryItem *itm = src_list->takeItem(1,1);
+						if (itm)
+							delete itm;
+						src_list->addDiff(1,src_item);
+					}
+					{
+						InventoryItem *itm = src_list->takeItem(2,1);
+						if (itm)
+							delete itm;
+						src_list->addDiff(2,src_item1);
+					}
+				}
 			}else{
-				m_fuel_totaltime = ((MaterialItem*)fuel_item)->getFuelTime();
+				if (src_item && src_item->isCookable(mode)) {
+					InventoryItem *crushresult = src_item->createCookResult();
+					dst_list->addItem(crushresult);
+					src_list->decrementMaterials(1);
+				}
 			}
-			m_fuel_totaltime *= 2.0;
-			m_fuel_time = 0;
-			content_t c = fuel_item->getContent();
-			fuel_list->decrementMaterials(1);
-			if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
-				fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
-			}
-			changed = true;
-		}else{
-			m_step_accumulator = 0;
 		}
 	}
+
 	return changed;
 }
 std::string CampFireNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,9]");
 	spec += "list[current_name;fuel;2,2;1,1;]";
-	spec += "list[current_name;src;5,1;1,1;]";
+	if (m_has_pots) {
+		InventoryList *src_list = m_inventory->getList("src");
+		if (src_list && (src_list->getItem(1) || src_list->getItem(2))) {
+			char buff[10];
+			snprintf(buff,10,"%u",CONTENT_CLAY_VESSEL);
+			spec += "image[5,0.5;1,1;inventory:";
+			spec += buff;
+			spec += "]";
+		}else{
+			spec += "list[current_name;src;5,0.5;1,1;0,1;]";
+		}
+		spec += "list[current_name;src;4.5,1.5;2,1;1,-1;]";
+	}else{
+		spec += "list[current_name;src;5,1;1,1;]";
+	}
 	spec += "list[current_name;dst;5,3;1,1;]";
-	spec += "list[current_player;main;0,5;8,4;]";
+
+	spec += "list[current_player;main;0,4.8;8,1;0,8;]";
+	spec += "list[current_player;main;0,6;8,3;8,-1;]";
+
 	return spec;
 }
 std::vector<NodeBox> CampFireNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
-	boxes.clear();
 
-	if (m_fuel_time < m_fuel_totaltime) {
+	if (m_burn_counter > 0.0) {
 		boxes.push_back(NodeBox(
 			-0.3125*BS,-0.25*BS,-0.4*BS,0.3125*BS,0.125*BS,-0.3*BS
 		));
 	}
 
-	return transformNodeBox(n,boxes);
+	return boxes;
 }
 
 bool CampFireNodeMetadata::isActive()
 {
-	if (m_fuel_time >= m_fuel_totaltime)
+	if (m_burn_counter > 0.0)
 		return false;
 	return true;
 }

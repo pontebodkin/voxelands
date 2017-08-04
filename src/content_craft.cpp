@@ -43,11 +43,17 @@ namespace crafting {
 
 std::vector<CraftDef> shaped_recipes;
 std::vector<CraftDefShapeless> shapeless_recipes;
+craft_alloy_t *alloys;
 
 void initCrafting()
 {
+	craft_alloy_t *a;
 	shaped_recipes.clear();
 	shapeless_recipes.clear();
+
+	while ((a = (craft_alloy_t*)list_pull(&alloys))) {
+		free(a);
+	}
 }
 
 static bool checkRecipe(content_t recipe[9], content_t result)
@@ -66,6 +72,19 @@ static bool checkShapelessRecipe(content_t recipe[9], content_t result)
 		CraftDefShapeless d = *i;
 		if (d.result == result && d == recipe)
 			return true;
+	}
+	return false;
+}
+
+static bool checkAlloy(content_t recipe[2], content_t result)
+{
+	craft_alloy_t *a;
+
+	a = alloys;
+	while (a) {
+		if (a->recipe[0] == recipe[0] && a->recipe[1] == recipe[1])
+			return true;
+		a = a->next;
 	}
 	return false;
 }
@@ -96,6 +115,24 @@ void setShapelessRecipe(content_t recipe[9], content_t result, u16 count, uint64
 	d.result_count = count;
 	d.privs = privs;
 	shapeless_recipes.push_back(d);
+}
+
+void setAlloy(content_t recipe[2], content_t result, uint16_t count)
+{
+	craft_alloy_t *a;
+	if (checkAlloy(recipe,result))
+		return;
+
+	a = (craft_alloy_t*)malloc(sizeof(craft_alloy_t));
+	if (!a)
+		return;
+
+	a->recipe[0] = recipe[0];
+	a->recipe[1] = recipe[1];
+	a->result = result;
+	a->result_count = count;
+
+	alloys = (craft_alloy_t*)list_push(&alloys,a);
 }
 
 // one input yields one result
@@ -739,6 +776,21 @@ InventoryItem *getResult(InventoryItem **items, Player *player, Server *server)
 			continue;
 		if (d == items)
 			return InventoryItem::create(d.result,d.result_count);
+	}
+
+	return NULL;
+}
+
+InventoryItem *getAlloy(content_t c0, content_t c1)
+{
+	craft_alloy_t *a;
+
+	a = alloys;
+	while (a) {
+		if (a->recipe[0] == c0 && a->recipe[1] == c1) {
+			return InventoryItem::create(a->result,a->result_count);
+		}
+		a = a->next;
 	}
 
 	return NULL;

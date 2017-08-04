@@ -158,12 +158,11 @@ enum LiquidType
 	LIQUID_SOURCE
 };
 
-enum CookType
-{
-	COOK_ANY,
-	COOK_FIRE,
-	COOK_FURNACE
-};
+#define COOK_ANY	0xFFFF
+#define COOK_FIRE	0x0001
+#define COOK_CLAY_POT	0x0002
+#define COOK_FIRE_POT	(COOK_FIRE | COOK_CLAY_POT)
+#define COOK_FURNACE	0x0004
 
 enum CrushType
 {
@@ -264,6 +263,7 @@ public:
 	v3s16 m_angle;
 	v3f m_centre;
 	aabb3f m_box;
+	std::string textures[6];
 };
 
 enum FaceTextType {
@@ -463,7 +463,7 @@ struct ContentFeatures
 	// the result of cooking this node
 	std::string cook_result;
 	// what type of cooking device this node needs
-	CookType cook_type;
+	uint16_t cook_type;
 	// the fuel value of this node
 	float fuel_time;
 

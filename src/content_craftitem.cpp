@@ -238,6 +238,27 @@ void content_craftitem_init()
 	f->description = gettext("Iron Ingot");
 	content_list_add("creative",i,1,0);
 
+	i = CONTENT_CRAFTITEM_BRONZE_INGOT;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_BRONZE_INGOT;
+	f->texture = "bronze_ingot.png";
+	f->name = "bronze_ingot";
+	f->description = gettext("Bronze Ingot");
+	content_list_add("creative",i,1,0);
+	{
+		content_t r[2] = {CONTENT_CRAFTITEM_TIN,CONTENT_CRAFTITEM_COPPER};
+		crafting::setAlloy(r,i,1);
+		r[0] = CONTENT_CRAFTITEM_COPPER;
+		r[1] = CONTENT_CRAFTITEM_TIN;
+		crafting::setAlloy(r,i,1);
+		r[0] = CONTENT_CRAFTITEM_TIN_INGOT;
+		r[1] = CONTENT_CRAFTITEM_COPPER_INGOT;
+		crafting::setAlloy(r,i,1);
+		r[0] = CONTENT_CRAFTITEM_COPPER_INGOT;
+		r[1] = CONTENT_CRAFTITEM_TIN_INGOT;
+		crafting::setAlloy(r,i,1);
+	}
+
 	i = CONTENT_CRAFTITEM_CLAY_BRICK;
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_CLAY_BRICK;

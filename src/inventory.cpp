@@ -274,12 +274,12 @@ std::wstring MaterialItem::getGuiText()
 	return narrow_to_wide(txt);
 }
 
-bool MaterialItem::isCookable(CookType type) const
+bool MaterialItem::isCookable(uint16_t type) const
 {
 	ContentFeatures *f = &content_features(m_content);
 	if (!f)
 		return false;
-	if (type != f->cook_type && f->cook_type != COOK_ANY)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
 		return false;
 	if (f->cook_result == "")
 		return false;
@@ -459,12 +459,12 @@ u16 CraftItem::getDropCount() const
 	return InventoryItem::getDropCount();
 }
 
-bool CraftItem::isCookable(CookType type) const
+bool CraftItem::isCookable(uint16_t type) const
 {
 	CraftItemFeatures *f = content_craftitem_features(m_content);
 	if (!f)
 		return false;
-	if (type != f->cook_type && f->cook_type != COOK_ANY)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
 		return false;
 	if (f->cook_result == CONTENT_IGNORE)
 		return false;
@@ -671,12 +671,12 @@ std::wstring ToolItem::getGuiText()
 	return narrow_to_wide(txt);
 }
 
-bool ToolItem::isCookable(CookType type) const
+bool ToolItem::isCookable(uint16_t type) const
 {
 	ToolItemFeatures *f = &content_toolitem_features(m_content);
 	if (!f)
 		return false;
-	if (type != f->cook_type && f->cook_type != COOK_ANY)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
 		return false;
 	if (f->cook_result == "")
 		return false;

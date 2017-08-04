@@ -639,10 +639,21 @@ void GUIFormSpecMenu::drawMenu()
 
 	for (u32 i=0; i<m_images.size(); i++) {
 		const ImageDrawSpec &spec = m_images[i];
-		char buff[1024];
+		char* img_name;
 		video::ITexture *texture = NULL;
-		if (path_get((char*)"texture",const_cast<char*>(spec.name.c_str()),1,buff,1024))
-			texture = driver->getTexture(buff);
+		img_name = const_cast<char*>(spec.name.c_str());
+		if (!strncmp(img_name,"inventory:",10)) {
+			content_t c = strtoul(img_name+10,NULL,10);
+			InventoryItem *itm = InventoryItem::create(c,1,0,0);
+			if (itm) {
+				texture = itm->getImage();
+				delete itm;
+			}
+		}else{
+			char buff[1024];
+			if (path_get((char*)"texture",img_name,1,buff,1024))
+				texture = driver->getTexture(buff);
+		}
 		// Image size on screen
 		core::rect<s32> imgrect(0, 0, spec.geom.X, spec.geom.Y);
 		// Image rectangle on screen

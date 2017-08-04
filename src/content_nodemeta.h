@@ -425,11 +425,11 @@ public:
 
 private:
 	Inventory *m_inventory;
-	float m_step_accumulator;
-	float m_fuel_totaltime;
-	float m_fuel_time;
-	float m_src_totaltime;
-	float m_src_time;
+	float m_active_timer;
+	float m_burn_counter;
+	float m_burn_timer;
+	float m_cook_timer;
+	bool m_has_pots;
 };
 
 class CrusherNodeMetadata : public NodeMetadata
