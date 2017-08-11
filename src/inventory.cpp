@@ -109,12 +109,6 @@ content_t InventoryItem::info(std::istream &is, u16 *count, u16 *wear, u16 *data
 		is>>(*count);
 		is>>(*data);
 		c = material;
-	}else if(name == "ToolItem") {
-		std::string toolname;
-		std::getline(is, toolname, ' ');
-		is>>(*wear);
-		ToolItem itm(toolname, *wear, 0);
-		c = itm.getContent();
 	}else if(name == "ToolItem2") {
 		u16 material;
 		is>>material;

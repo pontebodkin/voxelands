@@ -489,9 +489,7 @@ void content_mapnode_special(bool repeat)
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
 	content_nodebox_roofcollide(f);
-	crafting::set1over4Recipe(CONTENT_DEADGRASS,CONTENT_DEADGRASS,CONTENT_ROOFTILE_THATCH);
-	crafting::set1over4Recipe(CONTENT_WILDGRASS_SHORT,CONTENT_WILDGRASS_SHORT,CONTENT_ROOFTILE_THATCH);
-	crafting::set1over4Recipe(CONTENT_JUNGLEGRASS,CONTENT_JUNGLEGRASS,CONTENT_ROOFTILE_THATCH);
+	crafting::set1over4Recipe(CONTENT_CRAFTITEM_STRAW,CONTENT_DEADGRASS,CONTENT_ROOFTILE_THATCH);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1598,13 +1596,12 @@ void content_mapnode_special(bool repeat)
 	f->description = gettext("Camp Fire");
 	f->draw_type = CDT_CAMPFIRELIKE;
 	f->param_type = CPT_LIGHT;
-	f->draw_type = CDT_CAMPFIRELIKE;
 	f->light_propagates = true;
 	f->sunlight_propagates = true;
 	f->walkable = false;
 	f->fuel_time = BT_CAMP_FIRE;
 	f->light_source = LIGHT_MAX-3;
-	f->damage_per_second = 40;
+	f->damage_per_second = 10;
 	f->setAllTextures("campfire_stones.png");
 	f->setTexture(1, "campfire_logs.png");
 #ifndef SERVER

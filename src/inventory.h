@@ -331,18 +331,10 @@ public:
 class ToolItem : public InventoryItem
 {
 public:
-	ToolItem(std::string toolname, u16 wear, u16 data):
-		InventoryItem(1,data)
-	{
-		m_wear = wear;
-		m_toolname = content_toolitem_features(toolname).name;
-		m_content = content_toolitem_features(toolname).content;
-	}
 	ToolItem(content_t content, u16 wear, u16 data):
 		InventoryItem(1,data)
 	{
 		m_wear = wear;
-		m_toolname = content_toolitem_features(content).name;
 		m_content = content_toolitem_features(content).content;
 	}
 	/*
@@ -400,10 +392,6 @@ public:
 	/*
 		Special methods
 	*/
-	std::string getToolName()
-	{
-		return m_toolname;
-	}
 	virtual u16 getWear()
 	{
 		return m_wear;
@@ -421,7 +409,6 @@ public:
 	}
 	virtual void setWear(u16 wear) {m_wear = wear;}
 private:
-	std::string m_toolname;
 	u16 m_wear;
 };
 

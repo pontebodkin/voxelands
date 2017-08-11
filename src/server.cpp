@@ -3511,42 +3511,11 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 				}else if (
 					selected_node_features.ondig_special_drop != CONTENT_IGNORE
 					&& selected_node_features.ondig_special_tool == wielded_tool_features.type
-					&& (
-						selected_node_features.liquid_type != LIQUID_NONE
-						|| wielded_tool_features.diginfo.level > 1
-					)
 				) {
-					if (selected_node_features.ondig_special_tool_append != "") {
-						std::string dug_s = std::string("ToolItem ");
-						dug_s += ((ToolItem*)wielditem)->getToolName();
-						dug_s += selected_node_features.ondig_special_tool_append;
-						dug_s += " 1";
-						std::istringstream is(dug_s, std::ios::binary);
-						item = InventoryItem::deSerialize(is);
-						InventoryItem *ritem = mlist->changeItem(item_i,item);
-						if (ritem)
-							delete ritem;
-						item = NULL;
-						{
-							MapNode n = selected_node;
-							n.setContent(selected_node_features.ondig_special_drop);
-							sendAddNode(p_under, n, 0, &far_players, 30);
-							{
-								MapEditEventIgnorer ign(&m_ignore_map_edit_events);
-
-								std::string p_name = std::string(player->getName());
-								m_env.getMap().addNodeAndUpdate(p_under, n, modified_blocks, p_name);
-							}
-							node_replaced = true;
-						}
-						UpdateCrafting(player->peer_id);
-						SendInventory(player->peer_id);
-					}else{
-						item = InventoryItem::create(
-							selected_node_features.ondig_special_drop,
-							selected_node_features.ondig_special_drop_count
-						);
-					}
+					item = InventoryItem::create(
+						selected_node_features.ondig_special_drop,
+						selected_node_features.ondig_special_drop_count
+					);
 				}else if (selected_node_features.liquid_type != LIQUID_NONE) {
 					if (selected_node_features.liquid_type == LIQUID_SOURCE && wielded_tool_features.type == TT_BUCKET) {
 						if (selected_node_features.damage_per_second > 0 && !wielded_tool_features.damaging_nodes_diggable) {

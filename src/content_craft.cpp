@@ -753,9 +753,18 @@ void setShortsRecipe(u16 input, u16 result)
 void set4SpacedTo1Recipe(u16 input, u16 result)
 {
 	u16 r[9] = {
-	input,		CONTENT_IGNORE,	input,
-	CONTENT_IGNORE,	CONTENT_IGNORE,	CONTENT_IGNORE,
-	input,		CONTENT_IGNORE,	input
+		input,		CONTENT_IGNORE,	input,
+		CONTENT_IGNORE,	CONTENT_IGNORE,	CONTENT_IGNORE,
+		input,		CONTENT_IGNORE,	input
+	};
+	setRecipe(r,result,1);
+}
+void setKnifeRecipe(u16 input, u16 result)
+{
+	u16 r[9] = {
+		CONTENT_IGNORE,			input,		CONTENT_IGNORE,
+		CONTENT_CRAFTITEM_STICK,	CONTENT_IGNORE,	CONTENT_IGNORE,
+		CONTENT_IGNORE,			CONTENT_IGNORE,	CONTENT_IGNORE
 	};
 	setRecipe(r,result,1);
 }

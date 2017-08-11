@@ -33,8 +33,6 @@ struct CraftItemFeatures {
 	// if additional overlays are used, the texture name is made from
 	// <overlay_base>_<overlay>.png
 	std::string overlay_base;
-	// the old 'subname'
-	std::string name;
 	// tooltip used in inventory
 	char* description;
 	// the result of cooking this item
@@ -223,5 +221,6 @@ CraftItemFeatures *content_craftitem_features(content_t i);
 #define CONTENT_CRAFTITEM_UPGRADE_STORAGE (CONTENT_CRAFTITEM_MASK | 0x8B)
 #define CONTENT_CRAFTITEM_UPGRADE_EXO (CONTENT_CRAFTITEM_MASK | 0x8C)
 #define CONTENT_CRAFTITEM_BRONZE_INGOT (CONTENT_CRAFTITEM_MASK | 0x8D)
+#define CONTENT_CRAFTITEM_STRAW (CONTENT_CRAFTITEM_MASK | 0x8E)
 
 #endif

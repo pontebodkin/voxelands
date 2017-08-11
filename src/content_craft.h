@@ -290,6 +290,8 @@ namespace crafting {
 	void setShortsRecipe(u16 input, u16 result);
 	// 4 spaced input yelds 1 result
 	void set4SpacedTo1Recipe(u16 input, u16 result);
+	// one input diagonally above and to the right of a stick gives 1 result
+	void setKnifeRecipe(u16 input, u16 result);
 
 	InventoryItem *getResult(InventoryItem **items, Player *player, Server *server);
 	InventoryItem *getAlloy(content_t c0, content_t c1);

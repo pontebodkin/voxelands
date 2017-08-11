@@ -872,6 +872,7 @@ int main(int argc, char *argv[])
 
 	// Set the window caption
 	device->setWindowCaption(L"Voxelands");
+	drawLoadingScreen(device,L"");
 
 	// Create time getter
 	g_timegetter = new IrrlichtTimeGetter(device);

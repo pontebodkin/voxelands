@@ -1356,7 +1356,6 @@ void content_mapnode_init(bool repeat)
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->ondig_special_drop = CONTENT_SPONGE;
 	f->ondig_special_tool = TT_BUCKET;
-	f->ondig_special_tool_append = std::string("_water");
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
@@ -1374,7 +1373,7 @@ void content_mapnode_init(bool repeat)
 	f->type = CMT_PLANT;
 	f->dig_time = 0.6;
 	f->pressure_type = CST_CRUSHABLE;
-	crafting::setSoftBlockRecipe(CONTENT_DEADGRASS,CONTENT_HAY);
+	crafting::setSoftBlockRecipe(CONTENT_CRAFTITEM_STRAW,CONTENT_HAY);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 

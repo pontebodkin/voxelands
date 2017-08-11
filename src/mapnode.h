@@ -413,10 +413,6 @@ struct ContentFeatures
 	content_t ondig_special_drop;
 	u16 ondig_special_drop_count;
 	u16 ondig_special_tool;
-	// for above, when dug the special tool's name has this appended to it
-	// used for sponge filling buckets
-	// if set, ondig_special_drop replaces the node, instead of being picked up
-	std::string ondig_special_tool_append;
 	// when punched, this node will replace the punched node
 	content_t onpunch_replace_node;
 	// whether onpunch replace node works within borderstone
@@ -595,7 +591,6 @@ struct ContentFeatures
 		ondig_special_drop = CONTENT_IGNORE;
 		ondig_special_drop_count = 1;
 		ondig_special_tool = 0;
-		ondig_special_tool_append = "";
 		onpunch_replace_node = CONTENT_IGNORE;
 		onpunch_replace_respects_borderstone = false;
 		onpunch_gives_inventory = false;

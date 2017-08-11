@@ -52,9 +52,6 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
-	f->ondig_special_drop = CONTENT_WOOD;
-	f->ondig_special_drop_count = 6;
-	f->ondig_special_tool = TT_AXE;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -74,9 +71,6 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
-	f->ondig_special_drop = CONTENT_APPLEWOOD;
-	f->ondig_special_drop_count = 6;
-	f->ondig_special_tool = TT_AXE;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -96,9 +90,6 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 1.0;
-	f->ondig_special_drop = CONTENT_JUNGLEWOOD;
-	f->ondig_special_drop_count = 6;
-	f->ondig_special_tool = TT_AXE;
 	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CONIFER_TREE;
@@ -117,9 +108,6 @@ void content_mapnode_plants(bool repeat)
 	f->fuel_time = BT_TREE;
 	f->type = CMT_TREE;
 	f->dig_time = 0.8;
-	f->ondig_special_drop = CONTENT_WOOD_PINE;
-	f->ondig_special_drop_count = 6;
-	f->ondig_special_tool = TT_AXE;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -215,6 +203,9 @@ void content_mapnode_plants(bool repeat)
 	f->draw_type = CDT_PLANTLIKE_FERN;
 	f->air_equivalent = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->ondig_special_drop = CONTENT_CRAFTITEM_STRAW;
+	f->ondig_special_drop_count = 2;
+	f->ondig_special_tool = TT_KNIFE;
 	f->walkable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
 	f->fuel_time = BT_BUSH;
@@ -893,7 +884,8 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->ondig_special_drop = CONTENT_CRAFTITEM_STRAW;
+	f->ondig_special_tool = TT_KNIFE;
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
@@ -916,7 +908,8 @@ void content_mapnode_plants(bool repeat)
 	f->param_type = CPT_LIGHT;
 	f->draw_type = CDT_PLANTLIKE;
 	f->air_equivalent = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_WILDGRASS_SHORT)+" 1";
+	f->ondig_special_drop = CONTENT_CRAFTITEM_STRAW;
+	f->ondig_special_tool = TT_KNIFE;
 	f->walkable = false;
 	f->material_pointable = false;
 	f->flammable = 1; // can be replaced by fire if the node under it is set on fire
