@@ -194,6 +194,7 @@ set(common_SRCS
 	string.c
 	bridge_temp.cpp
 	servercommand.c
+	world.c
 	log.cpp
 	content_sao.cpp
 	mapgen/mapgen.cpp
@@ -450,7 +451,7 @@ else()
 	set(CMAKE_CXX_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe -fpermissive -Wno-write-strings")
 	set(CMAKE_C_FLAGS_RELEASE "${OPT_FLAGS} ${SAFETY_FLAGS} -Wall -DNDEBUG -pipe")
 	set(CMAKE_CXX_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb -fpermissive -Wno-write-strings")
-	set(CMAKE_C_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+	set(CMAKE_C_FLAGS_DEBUG "${SAFETY_FLAGS} -Wall -O0 -g3 -ggdb")
 
 	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${OPT_LDFLAGS} ${SAFETY_LDFLAGS}")
 	set(CMAKE_MODULE_LINKER_FLAGS_RELEASE ${CMAKE_EXE_LINKER_FLAGS_RELEASE})

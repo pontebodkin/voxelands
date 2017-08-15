@@ -408,3 +408,24 @@ void config_save(char* section, char* type, char* file)
 	file_flush(f);
 	file_free(f);
 }
+
+/* clears all config values for section (i.e. "world.*") to defaults */
+void config_clear(char* section)
+{
+	nvp_t *n;
+	int l;
+
+	/* don't clear everything, only sections */
+	if (!section)
+		return;
+
+	l = strlen(section);
+	n = config.items;
+	while (n) {
+		if (n->value && !strncmp(n->name,section,l)) {
+			free(n->value);
+			n->value = NULL;
+		}
+		n = n->next;
+	}
+}

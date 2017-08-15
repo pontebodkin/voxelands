@@ -113,6 +113,7 @@ int config_load_command(command_context_t *ctx, array_t *args);
 int config_ignore_command(command_context_t *ctx, array_t *args);
 void config_init(int argc, char** argv);
 void config_save(char* section, char* type, char* file);
+void config_clear(char* section);
 
 /* defined in config_default.c */
 void config_default_init(void);
@@ -182,6 +183,13 @@ int command_unban(command_context_t *ctx, array_t *args);
 int command_adduser(command_context_t *ctx, array_t *args);
 int command_clearobjects(command_context_t *ctx, array_t *args);
 int command_setpassword(command_context_t *ctx, array_t *args);
+
+/* defined in world.c */
+int world_create(char* name);
+int world_load(char* name);
+void world_unload(void);
+int world_init(char* name);
+void world_exit(void);
 
 #ifdef __cplusplus
 }

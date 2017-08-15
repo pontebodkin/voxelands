@@ -231,8 +231,7 @@ int main(int argc, char *argv[])
 
 	std::cout<<std::endl;
 
-	/* TODO: configise this */
-	path_world_setter((char*)"default");
+	world_init(NULL);
 
 	// Create server
 	Server server;
@@ -244,6 +243,7 @@ int main(int argc, char *argv[])
 	// Run server
 	dedicated_server_loop(server, kill);
 	http_server.stop();
+	world_exit();
 
 	} //try
 	catch(con::PeerNotFoundException &e)

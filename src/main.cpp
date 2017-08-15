@@ -791,9 +791,6 @@ int main(int argc, char *argv[])
 		Game parameters
 	*/
 
-	/* TODO: configise this */
-	path_world_setter((char*)"default");
-
 	// Run dedicated server if asked to
 	if (config_get_bool("server")) {
 		DSTACK("Dedicated server branch");
@@ -801,12 +798,17 @@ int main(int argc, char *argv[])
 		// Create time getter
 		g_timegetter = new SimpleTimeGetter();
 
+		char* v = config_get("server.world");
+		world_init(v);
+
 		// Create server
 		Server server;
 		server.start();
 
 		// Run server
 		dedicated_server_loop(server, kill);
+
+		world_exit();
 
 		config_save(NULL,NULL,NULL);
 
@@ -1208,14 +1210,17 @@ int main(int argc, char *argv[])
 			/*
 				Run game
 			*/
-			the_game(
-				kill,
-				input,
-				device,
-				font,
-				password,
-				error_message
-			);
+			if (!world_init(NULL)) {
+				the_game(
+					kill,
+					input,
+					device,
+					font,
+					password,
+					error_message
+				);
+				world_exit();
+			}
 #if USE_AUDIO == 1
 			sound_stop_effects(0);
 #endif
