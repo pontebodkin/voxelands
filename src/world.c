@@ -19,6 +19,9 @@
 
 #include "common.h"
 #include "path.h"
+#include "list.h"
+
+#include <string.h>
 
 static int world_exists(char* name)
 {
@@ -62,6 +65,7 @@ int world_create(char* name)
 
 		config_set("world.path",buff);
 		config_set("world.name",name);
+		config_set("world.version",VERSION_STRING);
 
 		return path_create("world","players");
 	}
@@ -75,6 +79,7 @@ int world_create(char* name)
 			config_set("world.path",nbuff1);
 			snprintf(nbuff,256,"%s %d",name,i);
 			config_set("world.name",nbuff);
+			config_set("world.version",VERSION_STRING);
 
 			return path_create("world","players");
 		}
@@ -86,7 +91,9 @@ int world_create(char* name)
 int world_load(char* name)
 {
 	char buff[2048];
+	char buff1[2048];
 	char nbuff[256];
+	char* v;
 
 	config_clear("world");
 
@@ -101,7 +108,8 @@ int world_load(char* name)
 	}
 
 	name = trim(name);
-	snprintf(nbuff,256,"%s",name);
+	if (snprintf(nbuff,256,"%s",name) >= 256)
+		return 1;
 
 	if (str_sanitise(buff,2048,nbuff) < 1)
 		return 1;
@@ -109,21 +117,75 @@ int world_load(char* name)
 	config_set("world.path",buff);
 	config_set("world.name",nbuff);
 
-	if (path_get("world","world.cfg",1,buff,2048)) {
+	if (path_get("world","world.cfg",1,buff1,2048)) {
 		config_load("world","world.cfg");
 	}else{
 		vlprintf(CN_WARN,"Unknown world config: using defaults");
+		config_save("world","world","world.cfg");
 	}
 
-	config_set("world.version",VERSION_STRING);
-
-#ifdef SERVER
-	config_set("server.world",nbuff);
-#else
-	config_set("client.world",nbuff);
-#endif
+	v = config_get("world.path");
+	/* world.path may have changed, if so then load world config from the new path */
+	if (v && strcmp(v,buff))
+		config_load("world","world.cfg");
 
 	return 0;
+}
+
+/* imports a world from an absolute path, path = /path/to/world.cfg */
+int world_import(char* path)
+{
+	char buff[2048];
+	char pbuff[2048];
+	char newp[256];
+	char id[256];
+	char* v;
+
+	if (!path_exists(path))
+		return 1;
+
+	if (snprintf(buff,2048,"%s",path) >= 2048)
+		return 1;
+
+	v = strrchr(buff,'/');
+	if (!v)
+		return 1;
+
+	*v = 0;
+
+	config_set("world.path",buff);
+	config_load("world","world.cfg");
+
+	v = config_get("world.path");
+	if (!v || !strcmp(v,buff) || !config_get("world.name")) {
+		config_clear("world");
+		return 1;
+	}
+
+	if (snprintf(id,256,"%s",v) >= 256) {
+		config_clear("world");
+		return 1;
+	}
+
+	if (snprintf(newp,256,"%s/world.cfg",id) >= 256) {
+		config_clear("world");
+		return 1;
+	}
+
+	if (path_get("worlds",newp,1,pbuff,2048)) {
+		config_clear("world");
+		return 1;
+	}
+
+	if (!path_get("worlds",newp,0,pbuff,2048)) {
+		config_clear("world");
+		return 1;
+	}
+
+	config_save("world",NULL,pbuff);
+	config_clear("world");
+
+	return world_load(id);
 }
 
 /* save the world data, then clear all world.* config */
@@ -136,6 +198,7 @@ void world_unload()
 /* initialise and/or create a world */
 int world_init(char* name)
 {
+	char *v;
 	if (!world_exists(name)) {
 		if (world_create(name))
 			return 1;
@@ -143,6 +206,16 @@ int world_init(char* name)
 
 	if (world_load(name))
 		return 1;
+
+	v = config_get("world.name");
+
+	config_set("world.version",VERSION_STRING);
+
+#ifdef SERVER
+	config_set("server.world",v);
+#else
+	config_set("client.world",v);
+#endif
 
 	/* TODO: init server/environment/etc */
 
@@ -156,4 +229,81 @@ void world_exit()
 	/* TODO: shutdown server/environment/etc */
 
 	world_unload();
+}
+
+int8_t world_compatibility(char* version)
+{
+	return 1;
+}
+
+#ifndef _HAVE_WORDLIST_TYPE
+#define _HAVE_WORDLIST_TYPE
+typedef struct worldlist_s {
+	struct worldlist_s *prev;
+	struct worldlist_s *next;
+	char* name;
+	char* path;
+	char* version;
+	int8_t compat;
+} worldlist_t;
+#endif
+
+worldlist_t *world_list_get()
+{
+	dirlist_t *d;
+	dirlist_t *e;
+	worldlist_t *l = NULL;
+	worldlist_t *w;
+	char* n;
+	char* v;
+
+	d = path_dirlist("worlds",NULL);
+
+	if (!d)
+		return NULL;
+
+	e = d;
+	while (e) {
+		world_load(e->name);
+		n = config_get("world.name");
+		v = config_get("world.version");
+		if (n) {
+			w = malloc(sizeof(worldlist_t));
+			if (w) {
+				w->name = strdup(n);
+				w->path = strdup(e->name);
+				if (v) {
+					w->version = strdup(v);
+					w->compat = world_compatibility(w->version);
+				}else{
+					w->version = strdup(VERSION_STRING);
+					w->compat = -1;
+				}
+				l = list_push(&l,w);
+			}
+		}
+		config_clear("world");
+		e = e->next;
+	}
+
+	path_dirlist_free(d);
+
+	return l;
+}
+
+void world_list_free(worldlist_t *l)
+{
+	worldlist_t *w;
+	if (!l)
+		return;
+
+	while ((w = list_pull(&l))) {
+		if (w->name)
+			free(w->name);
+		if (w->path)
+			free(w->path);
+		if (w->version)
+			free(w->version);
+		free(w);
+	}
 }

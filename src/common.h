@@ -73,6 +73,18 @@ typedef struct command_context_s {
 } command_context_t;
 #endif
 
+#ifndef _HAVE_WORDLIST_TYPE
+#define _HAVE_WORDLIST_TYPE
+typedef struct worldlist_s {
+	struct worldlist_s *prev;
+	struct worldlist_s *next;
+	char* name;
+	char* path;
+	char* version;
+	int8_t compat;
+} worldlist_t;
+#endif
+
 #define CN_ERROR	0x01
 #define CN_WARN		0x02
 #define CN_ACTION	0x03
@@ -187,6 +199,7 @@ int command_setpassword(command_context_t *ctx, array_t *args);
 /* defined in world.c */
 int world_create(char* name);
 int world_load(char* name);
+int world_import(char* path);
 void world_unload(void);
 int world_init(char* name);
 void world_exit(void);

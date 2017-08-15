@@ -752,3 +752,16 @@ dirlist_t *path_dirlist(char* type, char* file)
 #endif
 	return list;
 }
+
+void path_dirlist_free(dirlist_t *l)
+{
+	dirlist_t *w;
+	if (!l)
+		return;
+
+	while ((w = list_pull(&l))) {
+		if (w->name)
+			free(w->name);
+		free(w);
+	}
+}

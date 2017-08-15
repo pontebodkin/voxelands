@@ -26,6 +26,7 @@ int path_exists(char* path);
 int path_create(char* type, char* file);
 int path_remove(char* type, char* path);
 dirlist_t *path_dirlist(char* type, char* path);
+void path_dirlist_free(dirlist_t *l);
 
 #ifdef __cplusplus
 }
