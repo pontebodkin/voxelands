@@ -223,6 +223,8 @@ double debris_amount_2d(uint64_t seed, v2s16 p)
 */
 s16 find_ground_level_from_noise(BlockMakeData *data, v2s16 p2d, s16 precision)
 {
+	if (data->type == MGT_FLAT)
+		return 2;
 	return get_ground_height(data->seed,p2d);
 }
 

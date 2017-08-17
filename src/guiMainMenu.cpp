@@ -29,6 +29,7 @@
 #include "main.h"
 #include "guiSettingsMenu.h"
 #include "guiMultiplayerMenu.h"
+#include "guiSingleplayerMenu.h"
 #include "debug.h"
 #include "serialization.h"
 #include <string>
@@ -98,7 +99,7 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 		Calculate new sizes and positions
 	*/
 
-	v2s32 size(800, 500);
+	v2s32 size(800, 550);
 
 	core::rect<s32> rect(
 			screensize.X/2 - size.X/2,
@@ -171,28 +172,17 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 		m_data->selected_tab = TAB_SINGLEPLAYER;
 	}
 
-	if (m_data->selected_tab == TAB_SINGLEPLAYER || m_data->selected_tab == TAB_MULTIPLAYER) {
-		if (m_data->selected_tab == TAB_MULTIPLAYER) {
-			GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
-			mmenu->drop();
-		}
-		{
-			core::rect<s32> rect(0, 0, 550, 20);
-			rect += topleft_content + v2s32(0, 20);
-			gui::IGUIStaticText *t = Environment->addStaticText(narrow_to_wide(gettext("Single Player")).c_str(), rect, false, true, this, -1);
-			t->setTextAlignment(gui::EGUIA_CENTER, gui::EGUIA_UPPERLEFT);
-		}
-		// Start game button
-		{
-			core::rect<s32> rect(0, 0, 180, 30);
-			rect += topleft_content + v2s32(185, 170);
-			Environment->addButton(rect, this, GUI_ID_JOIN_GAME_BUTTON, narrow_to_wide(gettext("Start Game")).c_str());
-		}
-	}else if(m_data->selected_tab == TAB_CREDITS) {
+	if (m_data->selected_tab == TAB_MULTIPLAYER) {
+		GUIMultiplayerMenu *mmenu = new GUIMultiplayerMenu(env, parent, -1,m_data,menumgr,m_gamecallback);
+		mmenu->drop();
+	}else if (m_data->selected_tab == TAB_SINGLEPLAYER) {
+		GUISingleplayerMenu *mmenu = new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
+		mmenu->drop();
+	}else if (m_data->selected_tab == TAB_CREDITS) {
 		// CREDITS
 		{
-			core::rect<s32> rect(0, 0, 550, 480);
-			rect += topleft_content + v2s32(0, 10);
+			core::rect<s32> rect(0, 0, 550, 550);
+			rect += topleft_content + v2s32(0, 0);
 			std::string txt("");
 
 			txt += gettext(
@@ -223,6 +213,9 @@ void GUIMainMenu::regenerateGui(v2u32 screensize)
 
 			txt += gettext("Other Contributers, and Special Thanks");
 			txt += "\nnadnadnad, Honeypaw, tiemay, stormchaser3000, MichaelEh?, NCC74656.\n\n";
+
+			txt += gettext("Patreon Supporters");
+			txt += "\nLerura.\n\n";
 
 			txt += gettext(
 				"Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
@@ -310,11 +303,6 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 		}
 		if (event.GUIEvent.EventType==gui::EGET_BUTTON_CLICKED) {
 			switch (event.GUIEvent.Caller->getID()) {
-			case GUI_ID_JOIN_GAME_BUTTON: // Start game
-				acceptInput();
-				m_gamecallback->startGame();
-				quitMenu();
-				return true;
 			case GUI_ID_CHARACTER_CREATOR:
 			{
 				acceptInput();
@@ -323,13 +311,15 @@ bool GUIMainMenu::OnEvent(const SEvent& event)
 				return true;
 			}
 			case GUI_ID_TAB_SINGLEPLAYER:
+			{
 				if (m_data->selected_tab == TAB_SETTINGS)
 					acceptInput();
-				m_accepted = false;
+				GUISingleplayerMenu *mmenu = new GUISingleplayerMenu(env, parent, -1,menumgr,m_gamecallback);
+				mmenu->drop();
 				m_data->selected_tab = TAB_SINGLEPLAYER;
 				config_set("client.ui.mainmenu.tab","singleplayer");
-				regenerateGui(m_screensize);
 				return true;
+			}
 			case GUI_ID_TAB_MULTIPLAYER:
 			{
 				if (m_data->selected_tab == TAB_SETTINGS)

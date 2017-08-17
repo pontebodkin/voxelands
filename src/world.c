@@ -31,8 +31,6 @@ static int world_exists(char* name)
 	if (!name)
 		return 0;
 
-	name = trim(name);
-
 	if (str_sanitise(nbuff,256,name) < 1)
 		return 0;
 
@@ -49,11 +47,7 @@ int world_create(char* name)
 	char nbuff1[256];
 	int i;
 
-	if (!name)
-		name = "New World";
-
-	name = trim(name);
-	if (!name[0])
+	if (!name || !name[0])
 		name = "New World";
 
 	if (str_sanitise(nbuff,256,name) < 1)
@@ -107,7 +101,6 @@ int world_load(char* name)
 			return 1;
 	}
 
-	name = trim(name);
 	if (snprintf(nbuff,256,"%s",name) >= 256)
 		return 1;
 
@@ -199,6 +192,17 @@ void world_unload()
 int world_init(char* name)
 {
 	char *v;
+
+	if (!name) {
+#ifdef SERVER
+		name = config_get("server.world");
+#else
+		name = config_get("client.world");
+#endif
+		if (!name)
+			return 1;
+	}
+
 	if (!world_exists(name)) {
 		if (world_create(name))
 			return 1;
@@ -236,18 +240,6 @@ int8_t world_compatibility(char* version)
 	return 1;
 }
 
-#ifndef _HAVE_WORDLIST_TYPE
-#define _HAVE_WORDLIST_TYPE
-typedef struct worldlist_s {
-	struct worldlist_s *prev;
-	struct worldlist_s *next;
-	char* name;
-	char* path;
-	char* version;
-	int8_t compat;
-} worldlist_t;
-#endif
-
 worldlist_t *world_list_get()
 {
 	dirlist_t *d;
@@ -256,6 +248,7 @@ worldlist_t *world_list_get()
 	worldlist_t *w;
 	char* n;
 	char* v;
+	char* m;
 
 	d = path_dirlist("worlds",NULL);
 
@@ -267,6 +260,7 @@ worldlist_t *world_list_get()
 		world_load(e->name);
 		n = config_get("world.name");
 		v = config_get("world.version");
+		m = config_get("world.game.mode");
 		if (n) {
 			w = malloc(sizeof(worldlist_t));
 			if (w) {
@@ -278,6 +272,11 @@ worldlist_t *world_list_get()
 				}else{
 					w->version = strdup(VERSION_STRING);
 					w->compat = -1;
+				}
+				if (m) {
+					w->mode = strdup(m);
+				}else{
+					w->mode = strdup("survival");
 				}
 				l = list_push(&l,w);
 			}
@@ -302,6 +301,8 @@ void world_list_free(worldlist_t *l)
 			free(w->name);
 		if (w->path)
 			free(w->path);
+		if (w->mode)
+			free(w->mode);
 		if (w->version)
 			free(w->version);
 		free(w);

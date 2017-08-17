@@ -80,6 +80,7 @@ typedef struct worldlist_s {
 	struct worldlist_s *next;
 	char* name;
 	char* path;
+	char* mode;
 	char* version;
 	int8_t compat;
 } worldlist_t;
@@ -203,6 +204,8 @@ int world_import(char* path);
 void world_unload(void);
 int world_init(char* name);
 void world_exit(void);
+worldlist_t *world_list_get(void);
+void world_list_free(worldlist_t *l);
 
 #ifdef __cplusplus
 }

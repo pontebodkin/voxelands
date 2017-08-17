@@ -116,7 +116,7 @@ void GUIMultiplayerMenu::regenerateGui(v2u32 screensize)
 	 Calculate new sizes and positions
 	 */
 
-	v2s32 size(800, 500);
+	v2s32 size(800, 550);
 
 	core::rect<s32> rect(
 			screensize.X/2 - size.X/2,

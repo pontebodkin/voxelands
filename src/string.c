@@ -94,10 +94,10 @@ int str_sanitise(char* dest, int size, char* str)
 			dest[o] = 0;
 			return o;
 		}
-		if (isalnum(str[i])) {
+		if (isalnum(str[i]) || str[i] == '-') {
 			lws = 0;
 			dest[o++] = str[i];
-		}else if (!lws) {
+		}else if (!lws && o) {
 			dest[o++] = '_';
 			lws = 1;
 		}
