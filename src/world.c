@@ -57,7 +57,7 @@ int world_create(char* name)
 		if (!path_get("worlds",nbuff,0,buff,2048))
 			return 1;
 
-		config_set("world.path",buff);
+		config_set("world.path",nbuff);
 		config_set("world.name",name);
 		config_set("world.version",VERSION_STRING);
 
