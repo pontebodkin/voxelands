@@ -136,6 +136,9 @@ namespace mapgen
 	/* defined in mapgen_thedeep.cpp */
 	void make_thedeep(BlockMakeData *data);
 
+	/* defined in mapgen_flat.cpp */
+	void make_flat(BlockMakeData *data);
+
 }; // namespace mapgen
 
 #endif

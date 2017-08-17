@@ -39,6 +39,12 @@ void make_block(BlockMakeData *data)
 {
 	if (data->no_op)
 		return;
+
+	if (data->type == MGT_FLAT) {
+		make_flat(data);
+		return;
+	}
+
 	calc_biome(data);
 
 	if (data->biome == BIOME_THEDEEP) {

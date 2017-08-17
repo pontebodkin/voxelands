@@ -206,6 +206,7 @@ set(common_SRCS
 	mapgen/mapgen_space.cpp
 	mapgen/mapgen_sky.cpp
 	mapgen/mapgen_thedeep.cpp
+	mapgen/mapgen_flat.cpp
 	nodemeta/content_nodemeta_circuits.cpp
 	nodemeta/content_nodemeta_sign.cpp
 	nodemeta/content_nodemeta_flag.cpp
