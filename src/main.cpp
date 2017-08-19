@@ -1210,16 +1210,31 @@ int main(int argc, char *argv[])
 			/*
 				Run game
 			*/
-			if (!world_init(NULL)) {
-				the_game(
-					kill,
-					input,
-					device,
-					font,
-					password,
-					error_message
-				);
-				world_exit();
+			{
+				char* v = config_get("world.server.address");
+				if (!v || !v[0]) {
+					if (!world_init(NULL)) {
+						the_game(
+							kill,
+							input,
+							device,
+							font,
+							password,
+							error_message
+						);
+						world_exit();
+					}
+				}else{
+					the_game(
+						kill,
+						input,
+						device,
+						font,
+						password,
+						error_message
+					);
+					config_clear("world");
+				}
 			}
 #if USE_AUDIO == 1
 			sound_stop_effects(0);
