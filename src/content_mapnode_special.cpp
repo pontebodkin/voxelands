@@ -2314,10 +2314,9 @@ void content_mapnode_special(bool repeat)
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_CLAY_VESSEL)+" 1";
 	content_nodebox_clay_vessel(f);
 	f->setInventoryTextureNodeBox(i,"clay.png", "clay.png", "clay.png");
-	crafting::setURecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY_VESSEL);
+	crafting::setURecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY_VESSEL_RAW);
 	content_list_add("craftguide",i,1,0);
 	content_list_add("cooking",i,1,0);
-	content_list_add("creative",i,1,0);
 
 	i = CONTENT_CLAY_VESSEL;
 	f = &content_features(i);
@@ -2338,7 +2337,5 @@ void content_mapnode_special(bool repeat)
 	f->setInventoryTextureNodeBox(i,"terracotta.png", "terracotta.png", "terracotta.png");
 	if (f->initial_metadata == NULL)
 		f->initial_metadata = new ClayVesselNodeMetadata();
-	crafting::setURecipe(CONTENT_CRAFTITEM_CLAY,CONTENT_CLAY_VESSEL);
-	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 }
