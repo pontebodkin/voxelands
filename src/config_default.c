@@ -193,6 +193,11 @@ void config_default_init()
 	config_set_default("world.server.address","",NULL);
 	config_set_default("world.server.port","30000",NULL);
 
+	config_set_default("server.world","default",NULL);
+#ifndef SERVER
+	config_set_default("client.world","default",NULL);
+#endif
+
 	config_default_survival();
 }
 
