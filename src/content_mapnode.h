@@ -130,7 +130,10 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_PINE_BARREL_SEALED 0x049
 #define CONTENT_CLAY_VESSEL 0x04A
 #define CONTENT_CLAY_VESSEL_RAW 0x04B
-// FREE 0x04C-0x07C
+#define CONTENT_DESERT_SANDSTONE 0x04C
+#define CONTENT_DESERT_SANDSTONE_BRICK 0x04D
+#define CONTENT_DESERT_SANDSTONE_BLOCK 0x04E
+// FREE 0x04F-0x07C
 // 0x7D-0x7F reserved values, air, ignore, etc
 #define CONTENT_CHAIR_CENTRE 0x080
 #define CONTENT_CHAIR_ENDL 0x081

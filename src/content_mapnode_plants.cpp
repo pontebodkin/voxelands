@@ -255,7 +255,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -287,7 +287,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_AUTUMN;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -319,7 +319,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_WINTER;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -351,7 +351,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_ASH)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_LEAVES_WINTER;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -384,7 +384,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_APPLE_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_APPLE_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -416,7 +416,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_JUNGLESAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_JUNGLE_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
@@ -448,7 +448,7 @@ void content_mapnode_plants(bool repeat)
 	f->cook_result = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_RESIN)+" 1";
 	f->extra_dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CONIFER_SAPLING)+" 1";
 	f->extra_dug_item_rarity = 20;
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
+	f->dug_item = std::string("CraftItem2 ")+itos(CONTENT_CRAFTITEM_STICK)+" 2";
 	f->ondig_special_drop = CONTENT_TRIMMED_CONIFER_LEAVES;
 	f->ondig_special_drop_count = 1;
 	f->ondig_special_tool = TT_SHEAR;
