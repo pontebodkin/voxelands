@@ -1219,9 +1219,7 @@ void ServerEnvironment::step(float dtime)
 		float circuit_dtime = 0.5;
 		float meta_dtime = 1.0;
 		u16 season = getSeason();
-		s16 coldzone = 60;
-		if (season == ENV_SEASON_WINTER)
-			coldzone = 5;
+		uint16_t time = getTimeOfDay();
 		bool unsafe_fire = config_get_bool("world.game.environment.fire.spread");
 		for (std::set<v3s16>::iterator i = m_active_blocks.m_list.begin(); i != m_active_blocks.m_list.end(); i++) {
 			v3s16 bp = *i;
@@ -1342,6 +1340,55 @@ void ServerEnvironment::step(float dtime)
 			}
 
 			v3s16 p0;
+			uint8_t biome = block->getBiome();
+			bool coldzone = false;
+			switch (biome) {
+			case BIOME_JUNGLE:
+				if (season == ENV_SEASON_WINTER && time > 4000 && time < 8000)
+					coldzone = true;
+				break;
+			case BIOME_OCEAN:
+				if (season == ENV_SEASON_WINTER)
+					coldzone = true;
+				break;
+			case BIOME_PLAINS:
+				if (season == ENV_SEASON_WINTER && (time < 6000 || time > 18000))
+					coldzone = true;
+				break;
+			case BIOME_FOREST:
+				if (season == ENV_SEASON_WINTER)
+					coldzone = true;
+				break;
+			case BIOME_SKY:
+			case BIOME_SNOWCAP:
+				coldzone = true;
+				break;
+			case BIOME_LAKE:
+			if (
+				season == ENV_SEASON_WINTER
+				|| (
+					season == ENV_SEASON_AUTUMN
+					&& (time < 6000 || time > 18000)
+				) || (
+					season == ENV_SEASON_SPRING
+					&& time > 4000
+					&& time < 8000
+				)
+			) {
+				coldzone = true;
+			}
+				break;
+			case BIOME_BEACH:
+				if (season == ENV_SEASON_WINTER)
+					coldzone = true;
+				break;
+			case BIOME_UNKNOWN:
+			case BIOME_WOODLANDS:
+				if (season == ENV_SEASON_WINTER)
+					coldzone = true;
+			default:
+				break;
+			}
 			for (p0.X=0; p0.X<MAP_BLOCKSIZE; p0.X++)
 			for (p0.Y=0; p0.Y<MAP_BLOCKSIZE; p0.Y++)
 			for (p0.Z=0; p0.Z<MAP_BLOCKSIZE; p0.Z++) {
@@ -1397,7 +1444,7 @@ void ServerEnvironment::step(float dtime)
 					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
 					if (content_features(n_top).air_equivalent) {
 						// coldzone, change to snow
-						if (p.Y > (coldzone+10) && p.Y < 1024 && (n.param1&0x0F) != 0x04) {
+						if (coldzone && (n.param1&0x0F) != 0x04) {
 							// should only change to snow if there's nothing above it
 							std::vector<content_t> search;
 							search.push_back(CONTENT_SNOW);
@@ -1412,15 +1459,21 @@ void ServerEnvironment::step(float dtime)
 							m_map->updateNodeWithEvent(p,n);
 						// autumn grass in autumn/winter
 						}else if (
-							(
-								(n.param1&0x0F) == 0x01
-							) && (
-								season == ENV_SEASON_WINTER
-								|| (
-									season == ENV_SEASON_AUTUMN
-									&& (
-										getSeasonDay() > 20
-										|| myrand_range(0,5) == 0
+							biome == BIOME_DESERT
+							|| (
+								biome != BIOME_WASTELANDS
+								&& biome != BIOME_SPACE
+								&& biome != BIOME_THEDEEP
+								&& (
+									(n.param1&0x0F) == 0x01
+								) && (
+									season == ENV_SEASON_WINTER
+									|| (
+										season == ENV_SEASON_AUTUMN
+										&& (
+											getSeasonDay() > 20
+											|| myrand_range(0,5) == 0
+										)
 									)
 								)
 							)
@@ -1430,15 +1483,22 @@ void ServerEnvironment::step(float dtime)
 							m_map->updateNodeWithEvent(p,n);
 						// green grass in spring/summer
 						}else if (
-							(
-								(n.param1&0x0F) == 0x02
-							) && (
-								season == ENV_SEASON_SUMMER
+							biome != BIOME_WASTELANDS
+							&& biome != BIOME_THEDEEP
+							&& (
+								biome == BIOME_SPACE
 								|| (
-									season == ENV_SEASON_SPRING
-									&& (
-										getSeasonDay() > 20
-										|| myrand_range(0,5) == 0
+									(
+										(n.param1&0x0F) == 0x02
+									) && (
+										season == ENV_SEASON_SUMMER
+										|| (
+											season == ENV_SEASON_SPRING
+											&& (
+												getSeasonDay() > 20
+												|| myrand_range(0,5) == 0
+											)
+										)
 									)
 								)
 							)
@@ -1449,7 +1509,7 @@ void ServerEnvironment::step(float dtime)
 						// melt snow out of the coldzone
 						}else if (
 							(n.param1&0x0F) == 0x04
-							&& p.Y < coldzone
+							&& !coldzone
 						) {
 							n.param1 &= ~0x0F;
 							if (season == ENV_SEASON_SUMMER) {
@@ -1484,15 +1544,14 @@ void ServerEnvironment::step(float dtime)
 				{
 					if (p.Y < 1024) {
 						bool chill = false;
-						if (p.Y > coldzone) {
-							s16 range = (p.Y > coldzone) ? 2 : 4;
+						if (coldzone) {
 							std::vector<content_t> search;
 							search.push_back(CONTENT_LAVASOURCE);
 							search.push_back(CONTENT_LAVA);
 							search.push_back(CONTENT_FIRE);
-							if (searchNear(p,v3s16(range,1,range),search,NULL))
+							if (searchNear(p,v3s16(3,2,3),search,NULL))
 								chill = true;
-						}else if (season == ENV_SEASON_WINTER) {
+						}else if (season == ENV_SEASON_WINTER && biome != BIOME_DESERT) {
 							MapNode nu = m_map->getNodeNoEx(p+v3s16(0,-1,0));
 							MapNode no = m_map->getNodeNoEx(p+v3s16(0,1,0));
 							if (nu.getContent() == CONTENT_MUD && no.getContent() == CONTENT_AIR && myrand_range(0,3) == 0)
@@ -1510,13 +1569,12 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_ICE:
 				{
 					bool found = false;
-					if (p.Y > (coldzone-8)) {
-						s16 range = (p.Y > coldzone) ? 2 : 4;
+					if (coldzone) {
 						std::vector<content_t> search;
 						search.push_back(CONTENT_LAVASOURCE);
 						search.push_back(CONTENT_LAVA);
 						search.push_back(CONTENT_FIRE);
-						found = searchNear(p,v3s16(range,1,range),search,NULL);
+						found = searchNear(p,v3s16(3,2,3),search,NULL);
 					}else{
 						found = true;
 					}
@@ -1535,7 +1593,7 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_SNOW:
 				{
 					MapNode n_test = m_map->getNodeNoEx(p+v3s16(0,-1,0));
-					if (n_test.getContent() == CONTENT_AIR || p.Y < (coldzone-10))
+					if (n_test.getContent() == CONTENT_AIR || !coldzone)
 						m_map->removeNodeWithEvent(p);
 					break;
 				}
@@ -1555,7 +1613,7 @@ void ServerEnvironment::step(float dtime)
 						search.push_back(CONTENT_LAVASOURCE);
 						search.push_back(CONTENT_LAVA);
 						search.push_back(CONTENT_FIRE);
-						if (searchNear(p,v3s16(3,1,3),search,NULL)) {
+						if (searchNear(p,v3s16(3,2,3),search,NULL)) {
 							n.setContent(CONTENT_WATERSOURCE);
 							m_map->addNodeWithEvent(p, n);
 						}
@@ -1610,11 +1668,7 @@ void ServerEnvironment::step(float dtime)
 								int chance = 5;
 								if (water_found == 1)
 									chance = 2;
-								if (myrand()%chance == 0) {
-									// revert to mud
-									n.setContent(CONTENT_MUD);
-									m_map->addNodeWithEvent(p,n);
-								}else{
+								if (myrand()%chance != 0) {
 									// grow flower
 									n.setContent(CONTENT_FLOWER_STEM);
 									m_map->addNodeWithEvent(test_p,n);
@@ -1699,32 +1753,21 @@ void ServerEnvironment::step(float dtime)
 							}
 						}
 					}else{
-						n.setContent(CONTENT_DEADGRASS);
-						m_map->addNodeWithEvent(p, n);
+						m_map->removeNodeWithEvent(p);
 					}
 					break;
 				}
 
 				case CONTENT_WILDGRASS_LONG:
 				{
-					if (p.Y > -1) {
-						u32 chance = 50;
-						switch (season) {
-						case ENV_SEASON_SUMMER:
-							chance = 25;
-							break;
-						case ENV_SEASON_AUTUMN:
-							chance = 10;
-							break;
-						case ENV_SEASON_WINTER:
-							chance = 5;
-							break;
-						default:;
-						}
-						if (myrand_range(0,chance) == 0) {
-							n.setContent(CONTENT_DEADGRASS);
-							m_map->addNodeWithEvent(p, n);
-						}
+					MapNode n_btm = m_map->getNodeNoEx(p+v3s16(0,-1,0));
+					if (
+						n_btm.getContent() != CONTENT_GRASS
+						&& n_btm.getContent() != CONTENT_GRASS_AUTUMN
+						&& n_btm.getContent() != CONTENT_MUDSNOW
+						&& n_btm.getContent() != CONTENT_MUD
+					) {
+						m_map->removeNodeWithEvent(p);
 					}
 					break;
 				}
@@ -1764,8 +1807,7 @@ void ServerEnvironment::step(float dtime)
 							}
 						}
 					}else{
-						n.setContent(CONTENT_DEADGRASS);
-						m_map->addNodeWithEvent(p, n);
+						m_map->removeNodeWithEvent(p);
 					}
 					break;
 				}
@@ -1773,16 +1815,15 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_DEADGRASS:
 				{
 					MapNode n_btm = m_map->getNodeNoEx(p+v3s16(0,-1,0));
-					content_t c = n_btm.getContent();
 					if (
-						(
-							c != CONTENT_MUD
-							&& c != CONTENT_GRASS
-							&& c != CONTENT_GRASS_AUTUMN
-							&& c != CONTENT_MUDSNOW
-						)
-						|| n.envticks > 20
+						n_btm.getContent() == CONTENT_GRASS
+						|| n_btm.getContent() == CONTENT_GRASS_AUTUMN
+						|| n_btm.getContent() == CONTENT_MUDSNOW
+						|| n_btm.getContent() == CONTENT_MUD
 					) {
+						n.setContent(CONTENT_WILDGRASS_LONG);
+						m_map->addNodeWithEvent(p, n);
+					}else{
 						m_map->removeNodeWithEvent(p);
 					}
 					break;
@@ -1916,16 +1957,70 @@ void ServerEnvironment::step(float dtime)
 				// growing apples!
 				case CONTENT_APPLE_LEAVES:
 				{
-					if (n.envticks%30 == 0 && season == ENV_SEASON_SPRING) {
+					std::vector<content_t> search;
+					search.push_back(CONTENT_APPLE_TREE);
+					search.push_back(CONTENT_YOUNG_APPLE_TREE);
+					search.push_back(CONTENT_IGNORE);
+					if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
+						m_map->removeNodeWithEvent(p);
+						if (myrand()%10 == 0) {
+							InventoryItem *item = InventoryItem::create(CONTENT_APPLE_LEAVES,1,0,0);
+							/* actual drops/places grass or a sapling */
+							dropToParcel(p,item);
+						}
+					}else if (
+						n.envticks%30 == 0
+						&& (
+							season == ENV_SEASON_WINTER
+							|| season == ENV_SEASON_SPRING
+						) && (
+							biome == BIOME_UNKNOWN
+							|| biome == BIOME_LAKE
+							|| biome == BIOME_WOODLANDS
+							|| biome == BIOME_FOREST
+							|| biome == BIOME_PLAINS
+						)
+					) {
 						if (searchNear(p,v3s16(3,3,3),CONTENT_APPLE_TREE,NULL)) {
 							if (!searchNear(p,v3s16(1,1,1),CONTENT_APPLE_BLOSSOM,NULL)) {
 								n.setContent(CONTENT_APPLE_BLOSSOM);
 								m_map->addNodeWithEvent(p, n);
 							}
-							break;
 						}
 					}
-					// no break, let it fall through to leaf decay
+					break;
+				}
+				case CONTENT_JUNGLELEAVES:
+				{
+					std::vector<content_t> search;
+					search.push_back(CONTENT_JUNGLETREE);
+					search.push_back(CONTENT_YOUNG_JUNGLETREE);
+					search.push_back(CONTENT_IGNORE);
+					if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
+						m_map->removeNodeWithEvent(p);
+						if (myrand()%10 == 0) {
+							InventoryItem *item = InventoryItem::create(CONTENT_JUNGLELEAVES,1,0,0);
+							/* actual drops/places grass or a sapling */
+							dropToParcel(p,item);
+						}
+					}
+					break;
+				}
+				case CONTENT_CONIFER_LEAVES:
+				{
+					std::vector<content_t> search;
+					search.push_back(CONTENT_CONIFER_TREE);
+					search.push_back(CONTENT_YOUNG_CONIFER_TREE);
+					search.push_back(CONTENT_IGNORE);
+					if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
+						m_map->removeNodeWithEvent(p);
+						if (myrand()%10 == 0) {
+							InventoryItem *item = InventoryItem::create(CONTENT_CONIFER_LEAVES,1,0,0);
+							/* actual drops/places grass or a sapling */
+							dropToParcel(p,item);
+						}
+					}
+					break;
 				}
 
 				// leaf decay
@@ -1933,26 +2028,31 @@ void ServerEnvironment::step(float dtime)
 				case CONTENT_LEAVES_AUTUMN:
 				case CONTENT_LEAVES_WINTER:
 				case CONTENT_LEAVES_SNOWY:
-				case CONTENT_JUNGLELEAVES:
-				case CONTENT_CONIFER_LEAVES:
 				{
 					if (myrand()%4 == 0) {
 						v3s16 leaf_p = p;
 						std::vector<content_t> search;
 						search.push_back(CONTENT_TREE);
 						search.push_back(CONTENT_YOUNG_TREE);
-						search.push_back(CONTENT_APPLE_TREE);
-						search.push_back(CONTENT_YOUNG_APPLE_TREE);
-						search.push_back(CONTENT_JUNGLETREE);
-						search.push_back(CONTENT_YOUNG_JUNGLETREE);
-						search.push_back(CONTENT_CONIFER_TREE);
-						search.push_back(CONTENT_YOUNG_CONIFER_TREE);
 						search.push_back(CONTENT_IGNORE);
-						if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
+						if (biome == BIOME_WASTELANDS) {
+							m_map->removeNodeWithEvent(leaf_p);
+						}else if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
 							m_map->removeNodeWithEvent(leaf_p);
 							if (myrand()%10 == 0) {
-								InventoryItem *item = InventoryItem::create(n.getContent(),1,0,0);
+								InventoryItem *item = InventoryItem::create(CONTENT_LEAVES,1,0,0);
+								/* actual drops/places grass or a sapling */
 								dropToParcel(p,item);
+							}
+						}else if (biome == BIOME_DESERT || biome == BIOME_THEDEEP) {
+							if (n.getContent() != CONTENT_LEAVES_AUTUMN) {
+								n.setContent(CONTENT_LEAVES_AUTUMN);
+								m_map->addNodeWithEvent(p,n);
+							}
+						}else if (biome == BIOME_SPACE) {
+							if (n.getContent() != CONTENT_LEAVES) {
+								n.setContent(CONTENT_LEAVES);
+								m_map->addNodeWithEvent(p,n);
 							}
 						}else if (n.getContent() == CONTENT_LEAVES) {
 							if (season == ENV_SEASON_AUTUMN) {
@@ -2017,8 +2117,7 @@ void ServerEnvironment::step(float dtime)
 						}else{
 							m_map->removeNodeWithEvent(p);
 							if (myrand()%5 == 0) {
-								n.setContent(CONTENT_APPLE_LEAVES);
-								m_map->addNodeWithEvent(p, n);
+								m_map->removeNodeWithEvent(p);
 								InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_APPLE_BLOSSOM,1,0,0);
 								dropToParcel(p,item);
 							}
@@ -2662,11 +2761,6 @@ void ServerEnvironment::step(float dtime)
 						m_map->removeNodeWithEvent(apple_p);
 						InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_APPLE,1,0,0);
 						dropToParcel(p,item);
-					}else if (n.envticks > 600 || (n.envticks > 100 && season == ENV_SEASON_WINTER)) {
-						n.setContent(CONTENT_APPLE_LEAVES);
-						m_map->addNodeWithEvent(p,n);
-						InventoryItem *item = InventoryItem::create(CONTENT_CRAFTITEM_MUSH,1,0,0);
-						dropToParcel(p,item);
 					}
 					break;
 				}
@@ -2678,26 +2772,14 @@ void ServerEnvironment::step(float dtime)
 						MapNode n_top1 = m_map->getNodeNoEx(p+v3s16(0,1,0));
 						MapNode n_top2 = m_map->getNodeNoEx(p+v3s16(0,2,0));
 						if (
-							p.Y < -30
+							biome == BIOME_OCEAN
 							&& n_top1.getContent() == CONTENT_WATERSOURCE
 							&& n_top2.getContent() == CONTENT_WATERSOURCE
-							&& myrand()%200 == 0
 						) {
-							s16 max_d = 8;
-							v3s16 test_p;
-							MapNode testnode;
-							int found = 0;
-							for(s16 z=-max_d; found < 2 && z<=max_d; z++) {
-							for(s16 y=-max_d; found < 2 && y<=max_d; y++) {
-							for(s16 x=-max_d; found < 2 && x<=max_d; x++) {
-								test_p = p + v3s16(x,y,z);
-								testnode = m_map->getNodeNoEx(test_p);
-								if (testnode.getContent() == CONTENT_SPONGE_FULL)
-									found++;
-							}
-							}
-							}
-							if (found < 2) {
+							std::vector<content_t> search;
+							search.push_back(CONTENT_SPONGE_FULL);
+							search.push_back(CONTENT_IGNORE);
+							if (!searchNear(p,v3s16(3,2,3),search,NULL)) {
 								n_top1.setContent(CONTENT_SPONGE_FULL);
 								m_map->addNodeWithEvent(p+v3s16(0,1,0), n_top1);
 							}
@@ -2762,7 +2844,7 @@ void ServerEnvironment::step(float dtime)
 					search.push_back(CONTENT_WATER);
 					search.push_back(CONTENT_VACUUM);
 					search.push_back(CONTENT_WATERSOURCE);
-					if (p.Y > 60 && p.Y < 1024) {
+					if (coldzone) {
 						found = true;
 					}else if (searchNear(p,v3s16(1,1,1),search,&test_p)) {
 						testnode = m_map->getNodeNoEx(test_p);
@@ -2832,7 +2914,7 @@ void ServerEnvironment::step(float dtime)
 				}
 				case CONTENT_AIR:
 				{
-					if (p.Y >= 1024 && n.envticks > 1 && !searchNear(p,v3s16(5,5,5),CONTENT_LIFE_SUPPORT,NULL)) {
+					if (biome == BIOME_SPACE && !searchNear(p,v3s16(5,5,5),CONTENT_LIFE_SUPPORT,NULL)) {
 						n.setContent(CONTENT_VACUUM);
 						m_map->addNodeWithEvent(p,n);
 					}
@@ -2840,7 +2922,7 @@ void ServerEnvironment::step(float dtime)
 				}
 				case CONTENT_VACUUM:
 				{
-					if (p.Y < 1024) {
+					if (biome != BIOME_SPACE) {
 						n.setContent(CONTENT_AIR);
 						m_map->addNodeWithEvent(p,n);
 					}
@@ -2865,7 +2947,7 @@ void ServerEnvironment::step(float dtime)
 				}
 
 				if (
-					p.Y >(coldzone+5) && p.Y < 1024
+					coldzone
 					&& (
 						content_features(n).draw_type == CDT_CUBELIKE
 						|| content_features(n).draw_type == CDT_GLASSLIKE
