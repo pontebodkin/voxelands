@@ -1439,6 +1439,49 @@ void ServerEnvironment::step(float dtime)
 	 *		1-15 - growth stages
 	 */
 				case CONTENT_MUD:
+					if (season == ENV_SEASON_SPRING) {
+						MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
+						if (n_top.getContent() == CONTENT_AIR) {
+							uint32_t r_result = myrand_range(0,500);
+							content_t add_content = CONTENT_IGNORE;
+							switch (biome) {
+							case BIOME_PLAINS:
+								if (r_result == 1) {
+									add_content = CONTENT_FARM_WHEAT;
+								}else if (r_result == 2) {
+									add_content = CONTENT_FARM_PUMPKIN;
+								}
+								break;
+							case BIOME_FOREST:
+								if (r_result == 1) {
+									add_content = CONTENT_FARM_COTTON;
+								}else if (r_result == 2) {
+									add_content = CONTENT_FARM_MELON;
+								}
+								break;
+							case BIOME_UNKNOWN:
+							case BIOME_WOODLANDS:
+								if (r_result == 1) {
+									add_content = CONTENT_FARM_POTATO;
+								}else if (r_result == 2) {
+									add_content = CONTENT_FARM_CARROT;
+								}else if (r_result == 3) {
+									add_content = CONTENT_FARM_BEETROOT;
+								}
+							default:
+								break;
+							}
+							if (add_content != CONTENT_IGNORE) {
+								std::vector<content_t> search;
+								search.push_back(add_content);
+								search.push_back(CONTENT_IGNORE);
+								if (!searchNear(p,v3s16(3,3,3),search,NULL)) {
+									n_top.setContent(add_content);
+									m_map->updateNodeWithEvent(p+v3s16(0,1,0), n_top);
+								}
+							}
+						}
+					}
 				case CONTENT_CLAY:
 				{
 					MapNode n_top = m_map->getNodeNoEx(p+v3s16(0,1,0));
@@ -1535,6 +1578,68 @@ void ServerEnvironment::step(float dtime)
 							n.param2 = 0;
 							m_map->updateNodeWithEvent(p,n);
 						}
+					}
+					break;
+				}
+				case CONTENT_FARM_WHEAT:
+				case CONTENT_FARM_MELON:
+				case CONTENT_FARM_PUMPKIN:
+				case CONTENT_FARM_POTATO:
+				case CONTENT_FARM_CARROT:
+				case CONTENT_FARM_BEETROOT:
+				case CONTENT_FARM_COTTON:
+				{
+					MapNode n_btm = m_map->getNodeNoEx(p+v3s16(0,-1,0));
+					if (n_btm.getContent() == CONTENT_FARM_DIRT) {
+						/* requires a glass roof (greenhouse) */
+						if (coldzone) {
+							std::vector<content_t> search;
+							search.push_back(CONTENT_GLASS);
+							search.push_back(CONTENT_GLASS_SLAB);
+							search.push_back(CONTENT_GLASS_SLAB_UD);
+							search.push_back(CONTENT_GLASSLIGHT);
+							search.push_back(CONTENT_GLASS_BLACK);
+							search.push_back(CONTENT_GLASS_BLACK_SLAB);
+							search.push_back(CONTENT_GLASS_BLACK_SLAB_UD);
+							search.push_back(CONTENT_GLASS_BLUE);
+							search.push_back(CONTENT_GLASS_BLUE_SLAB);
+							search.push_back(CONTENT_GLASS_BLUE_SLAB_UD);
+							search.push_back(CONTENT_GLASS_GREEN);
+							search.push_back(CONTENT_GLASS_GREEN_SLAB);
+							search.push_back(CONTENT_GLASS_GREEN_SLAB_UD);
+							search.push_back(CONTENT_GLASS_ORANGE);
+							search.push_back(CONTENT_GLASS_ORANGE_SLAB);
+							search.push_back(CONTENT_GLASS_ORANGE_SLAB_UD);
+							search.push_back(CONTENT_GLASS_PURPLE);
+							search.push_back(CONTENT_GLASS_PURPLE_SLAB);
+							search.push_back(CONTENT_GLASS_PURPLE_SLAB_UD);
+							search.push_back(CONTENT_GLASS_RED);
+							search.push_back(CONTENT_GLASS_RED_SLAB);
+							search.push_back(CONTENT_GLASS_RED_SLAB_UD);
+							search.push_back(CONTENT_GLASS_YELLOW);
+							search.push_back(CONTENT_GLASS_YELLOW_SLAB);
+							search.push_back(CONTENT_GLASS_YELLOW_SLAB_UD);
+							search.push_back(CONTENT_ROOFTILE_GLASS);
+							search.push_back(CONTENT_ROOFTILE_GLASS_BLACK);
+							search.push_back(CONTENT_ROOFTILE_GLASS_BLUE);
+							search.push_back(CONTENT_ROOFTILE_GLASS_GREEN);
+							search.push_back(CONTENT_ROOFTILE_GLASS_ORANGE);
+							search.push_back(CONTENT_ROOFTILE_GLASS_PURPLE);
+							search.push_back(CONTENT_ROOFTILE_GLASS_RED);
+							search.push_back(CONTENT_ROOFTILE_GLASS_YELLOW);
+							search.push_back(CONTENT_IGNORE);
+							if (!searchNearInv(p,v3s16(0,0,0),v3s16(0,16,0),search,NULL)) {
+								m_map->removeNodeWithEvent(p);
+							}
+						}
+					}else if (
+						season == ENV_SEASON_WINTER
+						|| (
+							season == ENV_SEASON_AUTUMN
+							&& myrand_range(0,10) == 0
+						)
+					) {
+						m_map->removeNodeWithEvent(p);
 					}
 					break;
 				}
