@@ -900,15 +900,19 @@ bool ServerEnvironment::dropToParcel(v3s16 pos, InventoryItem *item)
 	// if underground, go up to first air_equivalent and buildable_to
 	if (!content_features(m_map->getNodeNoEx(pos).getContent()).air_equivalent) {
 		if (!getCollidedPosition(pos,v3s16(0,1,0),&ppos)) {
-			delete item;
-			return false;
+			if (!searchNear(pos,v3s16(2,0,2),CONTENT_AIR,&ppos)) {
+				delete item;
+				return false;
+			}
 		}
 		pos = ppos;
 	// otherwise go down to first non-air_equivalent and buildable_to
 	}else{
 		if (!getCollidedPosition(pos,v3s16(0,-1,0),&ppos)) {
-			delete item;
-			return false;
+			if (!searchNear(pos,v3s16(2,0,2),CONTENT_AIR,&ppos)) {
+				delete item;
+				return false;
+			}
 		}
 		pos = ppos;
 	}
