@@ -266,14 +266,14 @@ int path_init()
 	}
 	for (k=0; k<2; k++) {
 		for (i--; i>=0; i--) {
-			if (path[i] == '/')
+			if (buff[i] == '/')
 				break;
 		}
-		path[i] = 0;
+		buff[i] = 0;
 	}
 
 	path.cwd = strdup(buff);
-	path.data_global = strdup(cwd);
+	path.data_global = strdup(path.cwd);
 	path.home = strdup(path.cwd);
 	path.data_user = path_set(path.cwd,"data",NULL,0);
 	path.config = strdup(path.cwd);

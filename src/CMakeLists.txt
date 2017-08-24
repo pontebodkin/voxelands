@@ -423,7 +423,11 @@ else()
 	endif()
 
 	set(SAFETY_FLAGS "-fwrapv -fno-fast-math")
-	set(SAFETY_LDFLAGS "-Wl,-z,relro,-z,now")
+	if(MINGW)
+		set(SAFETY_LDFLAGS "")
+	else()
+		set(SAFETY_LDFLAGS "-Wl,-z,relro,-z,now")
+	endif()
 	set(OPT_FLAGS "-O3 -fomit-frame-pointer")
 	set(OPT_LDFLAGS "-Wl,-O1,--sort-common,-s")
 
