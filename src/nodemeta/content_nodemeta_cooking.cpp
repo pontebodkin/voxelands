@@ -44,13 +44,22 @@ FurnaceNodeMetadata::FurnaceNodeMetadata()
 	m_inventory = new Inventory();
 	m_inventory->addList("fuel", 1);
 	m_inventory->addList("src", 1);
-	m_inventory->addList("dst", 4);
+	m_inventory->addList("main", 4);
+	m_inventory->addList("upgrades", 3);
 
-	m_step_accumulator = 0;
-	m_fuel_totaltime = 0;
-	m_fuel_time = 0;
-	m_src_totaltime = 0;
-	m_src_time = 0;
+	m_active_timer = 0.0;
+	m_burn_counter = 0.0;
+	m_burn_timer = 0.0;
+	m_cook_timer = 0.0;
+	m_step_interval = 1.0;
+	m_is_locked = false;
+	m_is_expanded = false;
+	m_is_exo = false;
+	m_cook_upgrade = 1.0;
+	m_burn_upgrade = 1.0;
+	m_expanded_slot_id = 0;
+
+	inventoryModified();
 }
 FurnaceNodeMetadata::~FurnaceNodeMetadata()
 {
@@ -64,15 +73,529 @@ NodeMetadata* FurnaceNodeMetadata::clone()
 {
 	FurnaceNodeMetadata *d = new FurnaceNodeMetadata();
 	*d->m_inventory = *m_inventory;
+
+	d->m_active_timer = m_active_timer;
+	d->m_burn_counter = m_burn_counter;
+	d->m_burn_timer = m_burn_timer;
+	d->m_cook_timer = m_cook_timer;
+	d->m_step_interval = m_step_interval;
+	d->m_is_locked = m_is_locked;
+	d->m_is_expanded = m_is_expanded;
+	d->m_is_exo = m_is_exo;
+	d->m_cook_upgrade = m_cook_upgrade;
+	d->m_burn_upgrade = m_burn_upgrade;
+	d->m_expanded_slot_id = m_expanded_slot_id;
+
+	return d;
+}
+NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
+{
+	std::string s;
+	FurnaceNodeMetadata *d = new FurnaceNodeMetadata();
+
+	d->setOwner(deSerializeString(is));
+
+	s = deSerializeString(is);
+	d->m_active_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_burn_counter = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_burn_timer = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_cook_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_step_interval = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_is_locked = !!mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_is_expanded = !!mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_is_exo = !!mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_cook_upgrade = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_burn_upgrade = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_expanded_slot_id = mystoi(s);
+
+	if (d->m_is_expanded) {
+		delete d->m_inventory;
+		d->m_inventory = new Inventory();
+		d->m_inventory->addList("fuel", 1);
+		d->m_inventory->addList("src", 1);
+		d->m_inventory->addList("main", 16);
+		d->m_inventory->addList("upgrades", 3);
+	}
+	d->m_inventory->deSerialize(is);
+	d->inventoryModified();
+
+	return d;
+}
+void FurnaceNodeMetadata::serializeBody(std::ostream &os)
+{
+	os<<serializeString(m_owner);
+	os<<serializeString(ftos(m_active_timer));
+	os<<serializeString(itos(m_burn_counter));
+	os<<serializeString(itos(m_burn_timer));
+	os<<serializeString(ftos(m_cook_timer));
+	os<<serializeString(ftos(m_step_interval));
+	os<<serializeString(itos(m_is_locked ? 1 : 0));
+	os<<serializeString(itos(m_is_expanded ? 1 : 0));
+	os<<serializeString(itos(m_is_exo ? 1 : 0));
+	os<<serializeString(ftos(m_cook_upgrade));
+	os<<serializeString(ftos(m_burn_upgrade));
+	os<<serializeString(itos(m_expanded_slot_id));
+	m_inventory->serialize(os);
+}
+std::wstring FurnaceNodeMetadata::infoText()
+{
+	char buff[256];
+	if (m_is_locked) {
+		snprintf(buff, 256, gettext("Locked Furnace owned by '%s'"), m_owner.c_str());
+	}else if (m_is_exo) {
+		snprintf(buff, 256, gettext("Exo Furnace owned by '%s'"), m_owner.c_str());
+	}else{
+		snprintf(buff, 256, gettext("Furnace"));
+	}
+	return narrow_to_wide(buff);
+}
+bool FurnaceNodeMetadata::nodeRemovalDisabled()
+{
+	/*
+		Disable removal if crusher is not empty
+	*/
+	InventoryList *list[3] = {
+		m_inventory->getList("src"),
+		m_inventory->getList("main"),
+		m_inventory->getList("fuel")
+	};
+
+	for (int i = 0; i < 3; i++) {
+		if (list[i] == NULL)
+			continue;
+		if (list[i]->getUsedSlots() != 0)
+			continue;
+		return false;
+	}
+	return true;
+
+}
+void FurnaceNodeMetadata::inventoryModified()
+{
+	int i;
+	int k;
+	int a[3] = {1,1,1};
+	int b[3] = {0,0,0};
+	Inventory *inv;
+	InventoryList *il;
+	InventoryList *im;
+	InventoryItem *itm;
+	InventoryList *l = m_inventory->getList("upgrades");
+	InventoryList *m = m_inventory->getList("main");
+	if (!l || !m)
+		return;
+
+	for (i=0; i<2; i++) {
+		itm = l->getItem(i);
+		if (!itm)
+			continue;
+		if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_STORAGE) {
+			if (m_is_expanded) {
+				b[0] = 1;
+				continue;
+			}
+			if (m_is_exo)
+				continue;
+			inv = new Inventory();
+			inv->addList("upgrades", 3);
+			inv->addList("main", 16);
+			il = inv->getList("upgrades");
+			im = inv->getList("main");
+			if (!il || !im) {
+				delete inv;
+				continue;
+			}
+			vlprintf(CN_INFO,"inv size: '%u' '%u'",l->getSize(),m->getSize());
+			for (k=0; k<3; k++) {
+				itm = l->changeItem(k,NULL);
+				if (itm)
+					il->addItem(k,itm);
+			}
+			for (k=0; k<4; k++) {
+				itm = m->changeItem(k,NULL);
+				if (itm)
+					im->addItem(k,itm);
+			}
+			delete m_inventory;
+			m_inventory = inv;
+			l = il;
+			m = im;
+			a[2] = 0;
+			b[0] = 1;
+			m_is_expanded = true;
+			m_expanded_slot_id = i;
+		}else if (itm->getContent() == CONTENT_CRAFTITEM_PADLOCK) {
+			if (m_is_exo)
+				continue;
+			a[2] = 0;
+			b[1] = 1;
+			m_is_locked = true;
+		}else if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_EXO) {
+			if (m_is_exo) {
+				b[2] = 1;
+				continue;
+			}
+			if (m->getUsedSlots() != 0)
+				continue;
+			if (l->getUsedSlots() != 1)
+				continue;
+			if (m_is_locked)
+				continue;
+			if (m_is_expanded)
+				continue;
+			m_is_exo = true;
+			a[0] = 0;
+			a[1] = 0;
+			b[2] = 1;
+		}
+	}
+
+	if (m_is_expanded && !b[0]) {
+		inv = new Inventory();
+		inv->addList("upgrades", 3);
+		inv->addList("main", 4);
+		il = inv->getList("upgrades");
+		im = inv->getList("main");
+		if (!il || !im) {
+			delete inv;
+		}else{
+			for (k=0; k<3; k++) {
+				itm = l->changeItem(k,NULL);
+				if (itm)
+					il->addItem(k,itm);
+			}
+			for (k=0; k<16; k++) {
+				itm = m->changeItem(k,NULL);
+				if (itm) {
+					if (k > 3) {
+						im->addItem(itm);
+					}else{
+						im->addItem(k,itm);
+					}
+				}
+			}
+			delete m_inventory;
+			m_inventory = inv;
+			l = il;
+			m = im;
+			m_is_expanded = false;
+		}
+	}
+
+	if (m_is_locked && !b[1])
+		m_is_locked = false;
+
+	if (m_is_exo && !b[2])
+		m_is_exo = false;
+
+	if (m_is_expanded || m_is_locked || m->getUsedSlots() != 0)
+		a[2] = 0;
+
+	l->clearAllowed();
+	if (a[0])
+		l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+	if (a[1])
+		l->addAllowed(CONTENT_CRAFTITEM_PADLOCK);
+	if (a[2])
+		l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_EXO);
+}
+bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+{
+	float cook_time;
+	bool changed = false;
+	bool is_cooking;
+	bool cook_ongoing;
+	bool room_available;
+	InventoryList *dst_list;
+	InventoryList *src_list;
+	InventoryItem *src_item;
+	InventoryList *fuel_list;
+	InventoryItem *fuel_item;
+	Player *player = NULL;
+
+	/* requires air above it (because that's where the imput slot on the nodebox is) */
+	if (content_features(env->getMap().getNodeNoEx(pos+v3s16(0,1,0),NULL).getContent()).air_equivalent == false)
+		return false;
+
+	if (dtime > 60.0)
+		vlprintf(CN_INFO,"Furnace stepping a long time (%f)",dtime);
+
+	if (m_is_exo) {
+		player = env->getPlayer(m_owner.c_str());
+		if (!player)
+			return false;
+		dst_list = player->inventory.getList("exo");
+	}else{
+		dst_list = m_inventory->getList("main");
+	}
+	if (!dst_list)
+		return false;
+
+	src_list = m_inventory->getList("src");
+	if (!src_list)
+		return false;
+
+	m_active_timer += dtime;
+
+	if (m_cook_upgrade < 1.0)
+		m_cook_upgrade = 1.0;
+	if (m_burn_upgrade < 1.0)
+		m_burn_upgrade = 1.0;
+
+	/* cook_upgrade/m_cook_time determines time to cook one item */
+	/* burn_upgrade/m_burn_time determines number of items that fuel can cook */
+
+	cook_time = 4.0/m_cook_upgrade;
+	if (cook_time < 0.1)
+		cook_time = 0.1;
+
+	if (cook_time < m_step_interval)
+		m_step_interval = cook_time;
+
+	while (m_active_timer > m_step_interval) {
+		m_active_timer -= m_step_interval;
+
+		is_cooking = false;
+		cook_ongoing = false;
+		room_available = false;
+
+		src_item = src_list->getItem(0);
+		if (src_item && src_item->isCookable(COOK_FURNACE)) {
+			is_cooking = true;
+			room_available = dst_list->roomForCookedItem(src_item);
+			if (room_available && src_item->getCount() > 1)
+				cook_ongoing = true;
+		}else{
+			m_cook_timer = 0.0;
+		}
+
+		if (m_cook_timer > cook_time)
+			m_cook_timer = cook_time;
+
+		if (m_burn_counter < 1.0 && is_cooking) {
+			if (m_cook_timer+m_step_interval < cook_time || cook_ongoing) {
+				fuel_list = m_inventory->getList("fuel");
+				if (!fuel_list)
+					break;
+				fuel_item = fuel_list->getItem(0);
+				if (fuel_item && fuel_item->isFuel()) {
+					content_t c = fuel_item->getContent();
+					float v = 0.0;
+					if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+						v = ((CraftItem*)fuel_item)->getFuelTime();
+					}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+						v = ((ToolItem*)fuel_item)->getFuelTime();
+					}else{
+						v = ((MaterialItem*)fuel_item)->getFuelTime();
+					}
+					fuel_list->decrementMaterials(1);
+					if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
+						fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
+					}
+					m_burn_counter += v*m_burn_upgrade;
+					changed = true;
+				}
+			}
+		}
+
+		if (m_burn_counter <= 0.0) {
+			m_active_timer = 0.0;
+			m_burn_counter = 0.0;
+			m_burn_timer = 0.0;
+			break;
+		}
+
+		if (m_burn_counter < 1.0)
+			continue;
+
+		m_burn_timer += m_step_interval;
+		changed = true;
+		if (m_burn_timer >= cook_time) {
+			m_burn_counter -= 1.0;
+			m_burn_timer -= cook_time;
+		}
+
+		if (!is_cooking) {
+			m_cook_timer = 0.0;
+			continue;
+		}
+
+		m_cook_timer += m_step_interval;
+
+		if (m_cook_timer >= cook_time) {
+			m_cook_timer -= cook_time;
+			if (src_item && src_item->isCookable(COOK_FURNACE)) {
+				InventoryItem *cookresult = src_item->createCookResult();
+				dst_list->addItem(cookresult);
+				src_list->decrementMaterials(1);
+				if (m_is_exo && player)
+					player->inventory_modified = true;
+			}
+		}
+	}
+
+	return changed;
+}
+std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
+{
+	float cook_time;
+	float v = 0;
+
+	if (m_cook_upgrade < 1.0)
+		m_cook_upgrade = 1.0;
+	cook_time = 4.0/m_cook_upgrade;
+	if (cook_time < 0.1)
+		cook_time = 0.1;
+	if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+		v = ((100.0/cook_time)*m_burn_timer);
+
+	std::string spec("size[9,10]");
+
+	if (!m_is_exo) {
+		InventoryList *l = m_inventory->getList("main");
+		if (m_is_expanded && l && l->getUsedSlots() > 4) {
+			if (m_expanded_slot_id == 0) {
+				spec += "list[current_name;upgrades;1,0;2,1;1,2;]";
+			}else if (m_expanded_slot_id == 1) {
+				spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
+				spec += "list[current_name;upgrades;2,0;1,1;2,1;]";
+			}else{
+				spec += "list[current_name;upgrades;0,0;2,1;0,2;]";
+			}
+		}else{
+			spec += "list[current_name;upgrades;0,0;3,1;]";
+		}
+	}
+
+	spec += "list[current_name;fuel;1.5,3.5;1,1;]";
+	spec += "ring[1.5,3.5;1;#FF0000;";
+	spec += itos((int)v);
+	spec += "]";
+	spec += "list[current_name;src;1.5,1.5;1,1;]";
+
+	if (m_is_expanded) {
+		spec += "list[current_name;main;4,1;4,4;]";
+	}else if (m_is_exo) {
+		spec += "list[current_player;exo;3,1;6,3;]";
+	}else{
+		spec += "list[current_name;main;5,1.5;2,2;]";
+	}
+
+	spec += "list[current_player;main;0.5,5.8;8,1;0,8;]";
+	spec += "list[current_player;main;0.5,7;8,3;8,-1;]";
+
+	return spec;
+}
+std::vector<NodeBox> FurnaceNodeMetadata::getNodeBoxes(MapNode &n)
+{
+	std::vector<NodeBox> boxes;
+	int v = 0;
+
+	if (m_burn_counter > 0.0) {
+		float cook_time;
+		if (m_cook_upgrade < 1.0)
+			m_cook_upgrade = 1.0;
+		cook_time = 4.0/m_cook_upgrade;
+		if (cook_time < 0.1)
+			cook_time = 0.1;
+		if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+			v = ((2.0/cook_time)*m_burn_timer);
+	}
+
+	if (v) {
+		boxes.push_back(NodeBox(
+			-0.125*BS,-0.375*BS,-0.375*BS,-0.0625*BS,0.375*BS,0.375*BS
+		));
+		boxes.push_back(NodeBox(
+			0.0625*BS,-0.375*BS,-0.375*BS,0.125*BS,0.375*BS,0.375*BS
+		));
+	}else{
+		boxes.push_back(NodeBox(
+			-0.375*BS,-0.375*BS,-0.375*BS,-0.3125*BS,0.375*BS,0.375*BS
+		));
+		boxes.push_back(NodeBox(
+			0.3125*BS,-0.375*BS,-0.375*BS,0.375*BS,0.375*BS,0.375*BS
+		));
+	}
+
+	return boxes;
+}
+std::string FurnaceNodeMetadata::getOwner()
+{
+	if (m_is_locked || m_is_exo)
+		return m_owner;
+	return "";
+}
+std::string FurnaceNodeMetadata::getInventoryOwner()
+{
+	if (m_is_locked)
+		return m_owner;
+	return "";
+}
+
+/*
+	DeprecatedFurnaceNodeMetadata
+*/
+
+// Prototype
+DeprecatedFurnaceNodeMetadata proto_DeprecatedFurnaceNodeMetadata;
+
+DeprecatedFurnaceNodeMetadata::DeprecatedFurnaceNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_inventory = new Inventory();
+	m_inventory->addList("fuel", 1);
+	m_inventory->addList("src", 1);
+	m_inventory->addList("dst", 4);
+
+	m_step_accumulator = 0;
+	m_fuel_totaltime = 0;
+	m_fuel_time = 0;
+	m_src_totaltime = 0;
+	m_src_time = 0;
+}
+DeprecatedFurnaceNodeMetadata::~DeprecatedFurnaceNodeMetadata()
+{
+	delete m_inventory;
+}
+u16 DeprecatedFurnaceNodeMetadata::typeId() const
+{
+	return CONTENT_FURNACE_DEPRECATED;
+}
+NodeMetadata* DeprecatedFurnaceNodeMetadata::clone()
+{
+	DeprecatedFurnaceNodeMetadata *d = new DeprecatedFurnaceNodeMetadata();
+	*d->m_inventory = *m_inventory;
 	d->m_fuel_totaltime = m_fuel_totaltime;
 	d->m_fuel_time = m_fuel_time;
 	d->m_src_totaltime = m_src_totaltime;
 	d->m_src_time = m_src_time;
 	return d;
 }
-NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
+NodeMetadata* DeprecatedFurnaceNodeMetadata::create(std::istream &is)
 {
-	FurnaceNodeMetadata *d = new FurnaceNodeMetadata();
+	DeprecatedFurnaceNodeMetadata *d = new DeprecatedFurnaceNodeMetadata();
 
 	d->m_inventory->deSerialize(is);
 
@@ -84,15 +607,15 @@ NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
 
 	return d;
 }
-void FurnaceNodeMetadata::serializeBody(std::ostream &os)
+void DeprecatedFurnaceNodeMetadata::serializeBody(std::ostream &os)
 {
 	m_inventory->serialize(os);
 	os<<itos(m_fuel_totaltime*10)<<" ";
 	os<<itos(m_fuel_time*10)<<" ";
 }
-std::wstring FurnaceNodeMetadata::infoText()
+std::wstring DeprecatedFurnaceNodeMetadata::infoText()
 {
-	//return "Furnace";
+	//return "DeprecatedFurnace";
 	if (m_fuel_time >= m_fuel_totaltime) {
 		const InventoryList *src_list = m_inventory->getList("src");
 		assert(src_list);
@@ -117,7 +640,7 @@ std::wstring FurnaceNodeMetadata::infoText()
 		return s;
 	}
 }
-bool FurnaceNodeMetadata::nodeRemovalDisabled()
+bool DeprecatedFurnaceNodeMetadata::nodeRemovalDisabled()
 {
 	/*
 		Disable removal if furnace is not empty
@@ -135,21 +658,12 @@ bool FurnaceNodeMetadata::nodeRemovalDisabled()
 	return false;
 
 }
-void FurnaceNodeMetadata::inventoryModified()
+void DeprecatedFurnaceNodeMetadata::inventoryModified()
 {
 	vlprintf(CN_INFO,"Furnace inventory modification callback");
 }
-bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+bool DeprecatedFurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
-	{
-		MapNode n = env->getMap().getNodeNoEx(pos).getContent();
-		if (n.getContent() == CONTENT_FURNACE_ACTIVE) {
-			n.param1 = n.param2;
-			n.setContent(CONTENT_FURNACE);
-			env->setPostStepNodeSwap(pos,n);
-		}
-	}
-
 	if (dtime > 60.0)
 		vlprintf(CN_INFO,"Furnace stepping a long time (%f)",dtime);
 	// Update at a fixed frequency
@@ -247,7 +761,7 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	}
 	return changed;
 }
-std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
+std::string DeprecatedFurnaceNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,9]");
 	spec += "list[current_name;fuel;2,3;1,1;]";
@@ -262,7 +776,7 @@ std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
 	spec += "list[current_player;main;0,5;8,4;]";
 	return spec;
 }
-std::vector<NodeBox> FurnaceNodeMetadata::getNodeBoxes(MapNode &n)
+std::vector<NodeBox> DeprecatedFurnaceNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
 	boxes.clear();
@@ -275,23 +789,23 @@ std::vector<NodeBox> FurnaceNodeMetadata::getNodeBoxes(MapNode &n)
 
 	return transformNodeBox(n,boxes);
 }
-bool FurnaceNodeMetadata::import(NodeMetadata *meta)
+bool DeprecatedFurnaceNodeMetadata::import(NodeMetadata *meta)
 {
-	if (meta->typeId() != CONTENT_LOCKABLE_FURNACE)
+	if (meta->typeId() != CONTENT_LOCKABLE_FURNACE_DEPRECATED)
 		return false;
-	LockingFurnaceNodeMetadata *l = (LockingFurnaceNodeMetadata*)meta;
+	LockingDeprecatedFurnaceNodeMetadata *l = (LockingDeprecatedFurnaceNodeMetadata*)meta;
 	*m_inventory = *l->getInventory();
 	return true;
 }
 
 /*
-	LockingFurnaceNodeMetadata
+	LockingDeprecatedFurnaceNodeMetadata
 */
 
 // Prototype
-LockingFurnaceNodeMetadata proto_LockingFurnaceNodeMetadata;
+LockingDeprecatedFurnaceNodeMetadata proto_LockingDeprecatedFurnaceNodeMetadata;
 
-LockingFurnaceNodeMetadata::LockingFurnaceNodeMetadata()
+LockingDeprecatedFurnaceNodeMetadata::LockingDeprecatedFurnaceNodeMetadata()
 {
 	NodeMetadata::registerType(typeId(), create);
 
@@ -307,17 +821,17 @@ LockingFurnaceNodeMetadata::LockingFurnaceNodeMetadata()
 	m_src_time = 0;
 	m_lock = 0;
 }
-LockingFurnaceNodeMetadata::~LockingFurnaceNodeMetadata()
+LockingDeprecatedFurnaceNodeMetadata::~LockingDeprecatedFurnaceNodeMetadata()
 {
 	delete m_inventory;
 }
-u16 LockingFurnaceNodeMetadata::typeId() const
+u16 LockingDeprecatedFurnaceNodeMetadata::typeId() const
 {
-	return CONTENT_LOCKABLE_FURNACE;
+	return CONTENT_LOCKABLE_FURNACE_DEPRECATED;
 }
-NodeMetadata* LockingFurnaceNodeMetadata::clone()
+NodeMetadata* LockingDeprecatedFurnaceNodeMetadata::clone()
 {
-	LockingFurnaceNodeMetadata *d = new LockingFurnaceNodeMetadata();
+	LockingDeprecatedFurnaceNodeMetadata *d = new LockingDeprecatedFurnaceNodeMetadata();
 	*d->m_inventory = *m_inventory;
 	d->m_fuel_totaltime = m_fuel_totaltime;
 	d->m_fuel_time = m_fuel_time;
@@ -325,9 +839,9 @@ NodeMetadata* LockingFurnaceNodeMetadata::clone()
 	d->m_src_time = m_src_time;
 	return d;
 }
-NodeMetadata* LockingFurnaceNodeMetadata::create(std::istream &is)
+NodeMetadata* LockingDeprecatedFurnaceNodeMetadata::create(std::istream &is)
 {
-	LockingFurnaceNodeMetadata *d = new LockingFurnaceNodeMetadata();
+	LockingDeprecatedFurnaceNodeMetadata *d = new LockingDeprecatedFurnaceNodeMetadata();
 
 	d->m_inventory->deSerialize(is);
 	d->setOwner(deSerializeString(is));
@@ -343,7 +857,7 @@ NodeMetadata* LockingFurnaceNodeMetadata::create(std::istream &is)
 
 	return d;
 }
-void LockingFurnaceNodeMetadata::serializeBody(std::ostream &os)
+void LockingDeprecatedFurnaceNodeMetadata::serializeBody(std::ostream &os)
 {
 	m_inventory->serialize(os);
 	os<<serializeString(m_owner);
@@ -352,7 +866,7 @@ void LockingFurnaceNodeMetadata::serializeBody(std::ostream &os)
 	os<<itos(m_fuel_time*10)<<" ";
 	os<<itos(m_lock*10)<<" ";
 }
-std::wstring LockingFurnaceNodeMetadata::infoText()
+std::wstring LockingDeprecatedFurnaceNodeMetadata::infoText()
 {
 	char buff[256];
 	char* s;
@@ -391,7 +905,7 @@ std::wstring LockingFurnaceNodeMetadata::infoText()
 	snprintf(buff,256,"%s (%s)%s",s,ostr.c_str(),e);
 	return narrow_to_wide(buff);
 }
-bool LockingFurnaceNodeMetadata::nodeRemovalDisabled()
+bool LockingDeprecatedFurnaceNodeMetadata::nodeRemovalDisabled()
 {
 	/*
 		Disable removal if furnace is not empty
@@ -409,20 +923,12 @@ bool LockingFurnaceNodeMetadata::nodeRemovalDisabled()
 	return false;
 
 }
-void LockingFurnaceNodeMetadata::inventoryModified()
+void LockingDeprecatedFurnaceNodeMetadata::inventoryModified()
 {
 	vlprintf(CN_INFO,"LockingFurnace inventory modification callback");
 }
-bool LockingFurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+bool LockingDeprecatedFurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
-	{
-		MapNode n = env->getMap().getNodeNoEx(pos);
-		if (n.getContent() == CONTENT_LOCKABLE_FURNACE_ACTIVE) {
-			n.param1 = n.param2;
-			n.setContent(CONTENT_LOCKABLE_FURNACE);
-			env->setPostStepNodeSwap(pos,n);
-		}
-	}
 	if (dtime > 60.0)
 		vlprintf(CN_INFO,"LockingFurnace stepping a long time (%f)",dtime);
 	// Update at a fixed frequency
@@ -531,7 +1037,7 @@ bool LockingFurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment 
 	}
 	return changed;
 }
-std::string LockingFurnaceNodeMetadata::getDrawSpecString(Player *player)
+std::string LockingDeprecatedFurnaceNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,9]");
 	spec += "list[current_name;fuel;2,3;1,1;]";
@@ -546,7 +1052,7 @@ std::string LockingFurnaceNodeMetadata::getDrawSpecString(Player *player)
 	spec += "list[current_player;main;0,5;8,4;]";
 	return spec;
 }
-std::vector<NodeBox> LockingFurnaceNodeMetadata::getNodeBoxes(MapNode &n)
+std::vector<NodeBox> LockingDeprecatedFurnaceNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
 	boxes.clear();
@@ -559,11 +1065,11 @@ std::vector<NodeBox> LockingFurnaceNodeMetadata::getNodeBoxes(MapNode &n)
 
 	return transformNodeBox(n,boxes);
 }
-bool LockingFurnaceNodeMetadata::import(NodeMetadata *meta)
+bool LockingDeprecatedFurnaceNodeMetadata::import(NodeMetadata *meta)
 {
-	if (meta->typeId() != CONTENT_FURNACE)
+	if (meta->typeId() != CONTENT_FURNACE_DEPRECATED)
 		return false;
-	FurnaceNodeMetadata *l = (FurnaceNodeMetadata*)meta;
+	DeprecatedFurnaceNodeMetadata *l = (DeprecatedFurnaceNodeMetadata*)meta;
 	*m_inventory = *l->getInventory();
 	return true;
 }

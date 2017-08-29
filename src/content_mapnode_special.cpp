@@ -1462,6 +1462,26 @@ void content_mapnode_special(bool repeat)
 	f->description = gettext("Furnace");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("furnace.png");
+	f->setAllMetaTextures("fire.png");
+	content_nodebox_furnace(f);
+	f->setInventoryTextureNodeBox(i,"furnace.png", "furnace.png", "furnace.png");
+	f->rotate_tile_with_nodebox = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_FURNACE)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new FurnaceNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
+	crafting::setRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_FURNACE);
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_FURNACE_DEPRECATED;
+	f = &content_features(i);
+	f->description = gettext("Furnace");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_CUBELIKE;
 	f->setAllTextures("furnace_side.png");
 	f->setTexture(0, "furnace_top.png");
 	f->setTexture(1, "furnace_top.png^[transformFY");
@@ -1469,43 +1489,20 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(4, "furnace_back.png");
 	f->setTexture(5, "furnace_front.png"); // Z-
 	f->setAllMetaTextures("fire.png");
-	content_nodebox_furnace(f);
-	f->setInventoryTextureNodeBox(i,"furnace_top.png^[transformR90", "furnace_front.png", "furnace_side.png^[transformFX");
+	f->setInventoryTextureCube("furnace_top.png^[transformR90", "furnace_front.png", "furnace_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new FurnaceNodeMetadata();
-	f->type = CMT_STONE;
-	f->dig_time = 3.0;
-	f->pressure_type = CST_SOLID;
-	f->alternate_lockstate_node = CONTENT_LOCKABLE_FURNACE;
-	crafting::setRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_FURNACE);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_FURNACE_ACTIVE;
-	f = &content_features(i);
-	f->description = gettext("Furnace");
-	f->param_type = CPT_LIGHT;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_CUBELIKE;
-	f->light_source = 9;
-	f->setAllTextures("furnace_side.png");
-	f->setTexture(0, "furnace_top.png");
-	f->setTexture(1, "furnace_top.png");
-	f->setTexture(5, "furnace_front.png"); // Z-
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_FURNACE)+" 1";
 	if(f->initial_metadata == NULL)
-		f->initial_metadata = new FurnaceNodeMetadata();
+		f->initial_metadata = new DeprecatedFurnaceNodeMetadata();
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
 
-	i = CONTENT_LOCKABLE_FURNACE;
+	i = CONTENT_LOCKABLE_FURNACE_DEPRECATED;
 	f = &content_features(i);
 	f->description = gettext("Locking Furnace");
 	f->param_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_NODEBOX_META;
+	f->draw_type = CDT_CUBELIKE;
 	f->setAllTextures("furnace_side.png");
 	f->setTexture(0, "furnace_top.png");
 	f->setTexture(1, "furnace_top.png^[transformFY");
@@ -1513,35 +1510,11 @@ void content_mapnode_special(bool repeat)
 	f->setTexture(4, "furnace_back.png");
 	f->setTexture(5, "furnace_lock.png"); // Z-
 	f->setAllMetaTextures("fire.png");
-	content_nodebox_lockedfurnace(f);
-	f->setInventoryTextureNodeBox(i,"furnace_top.png^[transformR90", "furnace_lock.png", "furnace_side.png^[transformFX");
+	f->setInventoryTextureCube("furnace_top.png^[transformR90", "furnace_lock.png", "furnace_side.png^[transformFX");
 	f->rotate_tile_with_nodebox = true;
-	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_FURNACE)+" 1";
 	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingFurnaceNodeMetadata();
-	f->type = CMT_STONE;
-	f->dig_time = 3.0;
-	f->pressure_type = CST_SOLID;
-	f->alternate_lockstate_node = CONTENT_FURNACE;
-	crafting::setFilledRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_LOCKABLE_FURNACE);
-	crafting::set1Any2Recipe(CONTENT_FURNACE,CONTENT_CRAFTITEM_IRON_INGOT,CONTENT_LOCKABLE_FURNACE);
-	content_list_add("craftguide",i,1,0);
-	content_list_add("creative",i,1,0);
-
-	i = CONTENT_LOCKABLE_FURNACE_ACTIVE;
-	f = &content_features(i);
-	f->description = gettext("Locking Furnace");
-	f->param_type = CPT_LIGHT;
-	f->param2_type = CPT_FACEDIR_SIMPLE;
-	f->draw_type = CDT_CUBELIKE;
-	f->light_source = 9;
-	f->setAllTextures("furnace_side.png");
-	f->setTexture(0, "furnace_top.png");
-	f->setTexture(1, "furnace_top.png");
-	f->setTexture(5, "furnace_lock_active.png"); // Z-
-	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_LOCKABLE_FURNACE)+" 1";
-	if(f->initial_metadata == NULL)
-		f->initial_metadata = new LockingFurnaceNodeMetadata();
+		f->initial_metadata = new LockingDeprecatedFurnaceNodeMetadata();
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;

@@ -3269,7 +3269,7 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_WALL
 						|| meta->typeId() == CONTENT_LOCKABLE_SIGN_UD
-						|| meta->typeId() == CONTENT_LOCKABLE_FURNACE
+						|| meta->typeId() == CONTENT_LOCKABLE_FURNACE_DEPRECATED
 						|| meta->typeId() == CONTENT_FLAG
 						|| meta->typeId() == CONTENT_FLAG_BLUE
 						|| meta->typeId() == CONTENT_FLAG_GREEN
@@ -4592,6 +4592,10 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 								ChestNodeMetadata *lcm = (ChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != "" && lcm->getInventoryOwner() != player->getName())
 									return;
+							}else if (meta->typeId() == CONTENT_FURNACE) {
+								FurnaceNodeMetadata *lfm = (FurnaceNodeMetadata*)meta;
+								if (lfm->getInventoryOwner() != "" && lfm->getInventoryOwner() != player->getName())
+									return;
 							}else if (meta->typeId() == CONTENT_CRUSHER) {
 								CrusherNodeMetadata *lcm = (CrusherNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != "" && lcm->getInventoryOwner() != player->getName())
@@ -4600,8 +4604,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 								LockingDeprecatedChestNodeMetadata *lcm = (LockingDeprecatedChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != player->getName())
 									return;
-							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
-								LockingFurnaceNodeMetadata *lfm = (LockingFurnaceNodeMetadata*)meta;
+							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE_DEPRECATED) {
+								LockingDeprecatedFurnaceNodeMetadata *lfm = (LockingDeprecatedFurnaceNodeMetadata*)meta;
 								std::string name = lfm->getInventoryOwner();
 								if (name != "" && name != player->getName() && lfm->getOwner() != player->getName())
 									return;
@@ -4629,8 +4633,8 @@ void Server::ProcessData(u8 *data, u32 datasize, u16 peer_id)
 								LockingDeprecatedChestNodeMetadata *lcm = (LockingDeprecatedChestNodeMetadata*)meta;
 								if (lcm->getInventoryOwner() != player->getName())
 									return;
-							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE) {
-								LockingFurnaceNodeMetadata *lfm = (LockingFurnaceNodeMetadata*)meta;
+							}else if (meta->typeId() == CONTENT_LOCKABLE_FURNACE_DEPRECATED) {
+								LockingDeprecatedFurnaceNodeMetadata *lfm = (LockingDeprecatedFurnaceNodeMetadata*)meta;
 								std::string name = lfm->getInventoryOwner();
 								// no owner and inserting to src, claim ownership of the inventory
 								if ((name == "" || lfm->getOwner() == player->getName()) && ma->to_list == "src") {
