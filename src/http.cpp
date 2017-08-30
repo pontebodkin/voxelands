@@ -584,7 +584,7 @@ std::string http_request(char* host, char* url, char* post, int port)
 
 	addr.setPort(port);
 	if (!host || !host[0]) {
-		host = config_get("global.api.announce");
+		host = config_get("global.api.address");
 		if (!host || !host[0])
 			return "";
 	}
