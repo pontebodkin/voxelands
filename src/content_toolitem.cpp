@@ -212,7 +212,7 @@ int get_tool_use(tooluse_t *info, content_t target, uint16_t data, content_t too
 			case ENCHANTMENT_LONGLASTING:
 			{
 				r = myrand_range(0,100);
-				if (r < (100/(enchant.level+1)))
+				if (r < (100-(100/(enchant.level+1))))
 					info->wear = 0;
 				break;
 			}

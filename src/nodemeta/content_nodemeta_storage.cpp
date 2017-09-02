@@ -230,6 +230,7 @@ void ChestNodeMetadata::inventoryModified()
 	int k;
 	int a[3] = {1,1,1};
 	int b[3] = {0,0,0};
+	int f = -1;
 	Inventory *inv;
 	InventoryList *il;
 	InventoryList *im;
@@ -244,6 +245,7 @@ void ChestNodeMetadata::inventoryModified()
 		if (!itm)
 			continue;
 		if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_STORAGE) {
+			f = i;
 			if (m_is_expanded) {
 				b[0] = 1;
 				continue;
@@ -335,6 +337,9 @@ void ChestNodeMetadata::inventoryModified()
 		}
 	}
 
+	if (m_is_expanded && f > -1 && f != m_expanded_slot_id)
+		m_expanded_slot_id = f;
+
 	if (m_is_locked && !b[1])
 		m_is_locked = false;
 
@@ -371,10 +376,18 @@ std::string ChestNodeMetadata::getDrawSpecString(Player *player)
 	if (!m_is_exo) {
 		InventoryList *l = m_inventory->getList("main");
 		if (m_is_expanded && l && l->getUsedSlots() > 18) {
+			char buff[10];
+			snprintf(buff,10,"%u",CONTENT_CRAFTITEM_UPGRADE_STORAGE);
 			if (m_expanded_slot_id == 0) {
+				spec += "image[0,0;1,1;inventory:";
+				spec += buff;
+				spec +="]";
 				spec += "list[current_name;upgrades;1,0;1,1;1,1;]";
 			}else{
 				spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
+				spec += "image[1,0;1,1;inventory:";
+				spec += buff;
+				spec +="]";
 			}
 		}else{
 			spec += "list[current_name;upgrades;0,0;2,1;]";

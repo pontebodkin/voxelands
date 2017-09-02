@@ -1490,7 +1490,12 @@ void content_mapnode_special(bool repeat)
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX_META;
 	f->setAllTextures("iron_sheet_worn.png");
-	f->setAllMetaTextures("fire.png");
+	f->setMetaTexture(0,"iron_sheet.png"); // Y+
+	f->setMetaTexture(1,"iron_sheet.png"); // Y-
+	f->setMetaTexture(2,"iron_sheet.png"); // X+
+	f->setMetaTexture(3,"iron_sheet.png"); // X-
+	f->setMetaTexture(4,"smeltery_meta_exo.png"); // Z+
+	f->setMetaTexture(5,"smeltery_meta_fire.png"); // Z-
 	content_nodebox_smeltery(f);
 	f->setInventoryTextureNodeBox(i,"iron_sheet_worn.png", "iron_sheet_worn.png", "iron_sheet_worn.png");
 	f->rotate_tile_with_nodebox = true;

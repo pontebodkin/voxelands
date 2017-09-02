@@ -113,7 +113,7 @@ std::wstring FurnaceNodeMetadata::infoText()
 bool FurnaceNodeMetadata::nodeRemovalDisabled()
 {
 	/*
-		Disable removal if crusher is not empty
+		Disable removal if not empty
 	*/
 	InventoryList *list[3] = {
 		m_inventory->getList("src"),
@@ -124,12 +124,11 @@ bool FurnaceNodeMetadata::nodeRemovalDisabled()
 	for (int i = 0; i < 3; i++) {
 		if (list[i] == NULL)
 			continue;
-		if (list[i]->getUsedSlots() != 0)
+		if (list[i]->getUsedSlots() == 0)
 			continue;
-		return false;
+		return true;
 	}
-	return true;
-
+	return false;
 }
 void FurnaceNodeMetadata::inventoryModified()
 {
@@ -292,7 +291,7 @@ SmelteryNodeMetadata::SmelteryNodeMetadata()
 	m_inventory->addList("fuel", 1);
 	m_inventory->addList("src", 2);
 	m_inventory->addList("main", 4);
-	m_inventory->addList("upgrades", 3);
+	m_inventory->addList("upgrades", 4);
 
 	m_active_timer = 0.0;
 	m_burn_counter = 0.0;
@@ -381,7 +380,7 @@ NodeMetadata* SmelteryNodeMetadata::create(std::istream &is)
 		d->m_inventory->addList("fuel", 1);
 		d->m_inventory->addList("src", 2);
 		d->m_inventory->addList("main", 16);
-		d->m_inventory->addList("upgrades", 3);
+		d->m_inventory->addList("upgrades", 4);
 	}
 	d->m_inventory->deSerialize(is);
 	d->inventoryModified();
@@ -421,20 +420,21 @@ bool SmelteryNodeMetadata::nodeRemovalDisabled()
 	/*
 		Disable removal if crusher is not empty
 	*/
-	InventoryList *list[3] = {
+	InventoryList *list[4] = {
 		m_inventory->getList("src"),
+		m_inventory->getList("upgrades"),
 		m_inventory->getList("main"),
 		m_inventory->getList("fuel")
 	};
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (list[i] == NULL)
 			continue;
-		if (list[i]->getUsedSlots() != 0)
+		if (list[i]->getUsedSlots() == 0)
 			continue;
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 
 }
 void SmelteryNodeMetadata::inventoryModified()
@@ -443,6 +443,7 @@ void SmelteryNodeMetadata::inventoryModified()
 	int k;
 	int a[3] = {1,1,1};
 	int b[3] = {0,0,0};
+	int f = -1;
 	Inventory *inv;
 	InventoryList *il;
 	InventoryList *im;
@@ -452,11 +453,12 @@ void SmelteryNodeMetadata::inventoryModified()
 	if (!l || !m)
 		return;
 
-	for (i=0; i<2; i++) {
+	for (i=0; i<4; i++) {
 		itm = l->getItem(i);
 		if (!itm)
 			continue;
 		if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_STORAGE) {
+			f = i;
 			if (m_is_expanded) {
 				b[0] = 1;
 				continue;
@@ -464,7 +466,7 @@ void SmelteryNodeMetadata::inventoryModified()
 			if (m_is_exo)
 				continue;
 			inv = new Inventory();
-			inv->addList("upgrades", 3);
+			inv->addList("upgrades", 4);
 			inv->addList("main", 16);
 			il = inv->getList("upgrades");
 			im = inv->getList("main");
@@ -473,7 +475,7 @@ void SmelteryNodeMetadata::inventoryModified()
 				continue;
 			}
 			vlprintf(CN_INFO,"inv size: '%u' '%u'",l->getSize(),m->getSize());
-			for (k=0; k<3; k++) {
+			for (k=0; k<4; k++) {
 				itm = l->changeItem(k,NULL);
 				if (itm)
 					il->addItem(k,itm);
@@ -521,9 +523,12 @@ void SmelteryNodeMetadata::inventoryModified()
 		}
 	}
 
+	if (m_is_expanded && f > -1 && f != m_expanded_slot_id)
+		m_expanded_slot_id = f;
+
 	if (m_is_expanded && !b[0]) {
 		inv = new Inventory();
-		inv->addList("upgrades", 3);
+		inv->addList("upgrades", 4);
 		inv->addList("main", 4);
 		il = inv->getList("upgrades");
 		im = inv->getList("main");
@@ -559,7 +564,7 @@ void SmelteryNodeMetadata::inventoryModified()
 	if (m_is_exo && !b[2])
 		m_is_exo = false;
 
-	if (m_is_expanded || m_is_locked || m->getUsedSlots() != 0)
+	if (m_is_expanded || m_is_locked)
 		a[2] = 0;
 
 	l->clearAllowed();
@@ -720,27 +725,42 @@ std::string SmelteryNodeMetadata::getDrawSpecString(Player *player)
 
 	std::string spec("size[9,10]");
 
-	if (!m_is_exo) {
-		InventoryList *l = m_inventory->getList("main");
-		if (m_is_expanded && l && l->getUsedSlots() > 4) {
-			if (m_expanded_slot_id == 0) {
-				spec += "list[current_name;upgrades;1,0;2,1;1,2;]";
-			}else if (m_expanded_slot_id == 1) {
-				spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
-				spec += "list[current_name;upgrades;2,0;1,1;2,1;]";
-			}else{
-				spec += "list[current_name;upgrades;0,0;2,1;0,2;]";
-			}
+	InventoryList *l = m_inventory->getList("main");
+	if (m_is_expanded && l && l->getUsedSlots() > 4) {
+		char buff[10];
+		snprintf(buff,10,"%u",CONTENT_CRAFTITEM_UPGRADE_STORAGE);
+		if (m_expanded_slot_id == 0) {
+			spec += "image[0,0;1,1;inventory:";
+			spec += buff;
+			spec +="]";
+			spec += "list[current_name;upgrades;1,0;3,1;1,4;]";
+		}else if (m_expanded_slot_id == 1) {
+			spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
+			spec += "image[1,0;1,1;inventory:";
+			spec += buff;
+			spec +="]";
+			spec += "list[current_name;upgrades;2,0;2,1;2,4;]";
+		}else if (m_expanded_slot_id == 2) {
+			spec += "list[current_name;upgrades;0,0;2,1;0,2;]";
+			spec += "image[2,0;1,1;inventory:";
+			spec += buff;
+			spec +="]";
+			spec += "list[current_name;upgrades;3,0;1,1;3,4;]";
 		}else{
-			spec += "list[current_name;upgrades;0,0;3,1;]";
+			spec += "list[current_name;upgrades;0,0;3,1;0,3;]";
+			spec += "image[3,0;1,1;inventory:";
+			spec += buff;
+			spec +="]";
 		}
+	}else{
+		spec += "list[current_name;upgrades;0,0;4,1;]";
 	}
 
 	spec += "list[current_name;fuel;1.5,3.5;1,1;]";
 	spec += "ring[1.5,3.5;1;#FF0000;";
 	spec += itos((int)v);
 	spec += "]";
-	spec += "list[current_name;src;1.5,1.5;1,1;]";
+	spec += "list[current_name;src;1,1.5;2,1;]";
 
 	if (m_is_expanded) {
 		spec += "list[current_name;main;4,1;4,4;]";
@@ -761,7 +781,32 @@ std::vector<NodeBox> SmelteryNodeMetadata::getNodeBoxes(MapNode &n)
 
 	if (m_burn_counter > 0.0) {
 		boxes.push_back(NodeBox(
-			-0.3125*BS,-0.3125*BS,-0.3125*BS,0.3125*BS,-0.0625*BS,0.3125*BS
+			-0.375*BS,-0.375*BS,-0.375*BS,0.375*BS,0.375*BS,0.4375*BS
+		));
+	}
+	if (m_is_locked) {
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,-0.375*BS,-0.4375*BS,-0.4375*BS,0.375*BS,-0.375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,0.3125*BS,-0.375*BS,-0.4375*BS,0.375*BS,0.375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,-0.375*BS,-0.375*BS,-0.4375*BS,-0.3125*BS,0.375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,-0.375*BS,0.375*BS,-0.4375*BS,0.375*BS,0.4375*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,-0.3125*BS,0.125*BS,-0.4375*BS,0.3125*BS,0.1875*BS)
+		));
+		boxes.push_back(NodeBox(
+			v3s16(0,90,0),aabb3f(-0.5*BS,-0.3125*BS,-0.1875*BS,-0.4375*BS,0.3125*BS,-0.125*BS)
+		));
+	}
+	if (m_is_exo) {
+		boxes.push_back(NodeBox(
+			v3s16(0,180,0),aabb3f(-0.125*BS,-0.125*BS,0.4375*BS,0.125*BS,0.125*BS,0.5*BS)
 		));
 	}
 
@@ -1419,7 +1464,6 @@ bool CampFireNodeMetadata::nodeRemovalDisabled()
 			continue;
 		return true;
 	}
-
 	return false;
 }
 void CampFireNodeMetadata::inventoryModified()
@@ -1859,11 +1903,11 @@ bool CrusherNodeMetadata::nodeRemovalDisabled()
 	for (int i = 0; i < 3; i++) {
 		if (list[i] == NULL)
 			continue;
-		if (list[i]->getUsedSlots() != 0)
+		if (list[i]->getUsedSlots() == 0)
 			continue;
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 
 }
 void CrusherNodeMetadata::inventoryModified()
@@ -1872,6 +1916,7 @@ void CrusherNodeMetadata::inventoryModified()
 	int k;
 	int a[3] = {1,1,1};
 	int b[3] = {0,0,0};
+	int f = -1;
 	Inventory *inv;
 	InventoryList *il;
 	InventoryList *im;
@@ -1881,11 +1926,12 @@ void CrusherNodeMetadata::inventoryModified()
 	if (!l || !m)
 		return;
 
-	for (i=0; i<2; i++) {
+	for (i=0; i<3; i++) {
 		itm = l->getItem(i);
 		if (!itm)
 			continue;
 		if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_STORAGE) {
+			f = i;
 			if (m_is_expanded) {
 				b[0] = 1;
 				continue;
@@ -1945,6 +1991,9 @@ void CrusherNodeMetadata::inventoryModified()
 			b[2] = 1;
 		}
 	}
+
+	if (m_is_expanded && f > -1 && f != m_expanded_slot_id)
+		m_expanded_slot_id = f;
 
 	if (m_is_expanded && !b[0]) {
 		inv = new Inventory();
@@ -2150,13 +2199,24 @@ std::string CrusherNodeMetadata::getDrawSpecString(Player *player)
 	if (!m_is_exo) {
 		InventoryList *l = m_inventory->getList("main");
 		if (m_is_expanded && l && l->getUsedSlots() > 4) {
+			char buff[10];
+			snprintf(buff,10,"%u",CONTENT_CRAFTITEM_UPGRADE_STORAGE);
 			if (m_expanded_slot_id == 0) {
-				spec += "list[current_name;upgrades;1,0;2,1;1,2;]";
+				spec += "image[0,0;1,1;inventory:";
+				spec += buff;
+				spec +="]";
+				spec += "list[current_name;upgrades;1,0;2,1;1,3;]";
 			}else if (m_expanded_slot_id == 1) {
 				spec += "list[current_name;upgrades;0,0;1,1;0,1;]";
-				spec += "list[current_name;upgrades;2,0;1,1;2,1;]";
+				spec += "image[1,0;1,1;inventory:";
+				spec += buff;
+				spec +="]";
+				spec += "list[current_name;upgrades;2,0;2,1;2,3;]";
 			}else{
 				spec += "list[current_name;upgrades;0,0;2,1;0,2;]";
+				spec += "image[2,0;1,1;inventory:";
+				spec += buff;
+				spec +="]";
 			}
 		}else{
 			spec += "list[current_name;upgrades;0,0;3,1;]";
