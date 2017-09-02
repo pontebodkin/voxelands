@@ -500,6 +500,9 @@ void MapBlockMesh::animate(float time)
 
 		m_animation_data[it->first].frame = frame;
 
+		u16 mc = m_mesh->getMeshBufferCount();
+		if (mc <= it->first)
+			continue;
 		scene::IMeshBuffer *buf = m_mesh->getMeshBuffer(it->first);
 
 		// Create new texture name from original
@@ -536,7 +539,7 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 
 
 #if USE_AUDIO == 1
-		{
+		if (data->m_sounds != NULL) {
 			std::string snd = content_features(n).sound_ambient;
 			std::map<v3s16,MapBlockSound>::iterator i = data->m_sounds->find(p);
 			if (snd != "") {
@@ -730,9 +733,9 @@ void MapBlockMesh::generate(MeshMakeData *data, v3s16 camera_offset, JMutex *mut
 	if (mutex != NULL)
 		mutex->Lock();
 
-	if (m_mesh)
+	if (m_mesh != NULL)
 		m_mesh->drop();
-	if (m_farmesh)
+	if (m_farmesh != NULL)
 		m_farmesh->drop();
 	m_mesh = mesh;
 	m_farmesh = fmesh;

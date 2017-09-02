@@ -37,6 +37,8 @@
 	- etc.
 */
 
+#include "common.h"
+
 #include <list>
 #include <map>
 #include <set>
@@ -198,6 +200,17 @@ public:
 
 	u32 getSeason()
 	{
+		char* s = config_get("world.game.environment.season");
+		if (s) {
+			if (!strcmp(s,"summer"))
+				return ENV_SEASON_SUMMER;
+			if (!strcmp(s,"autumn") || !strcmp(s,"fall"))
+				return ENV_SEASON_AUTUMN;
+			if (!strcmp(s,"winter"))
+				return ENV_SEASON_WINTER;
+			if (!strcmp(s,"spring"))
+				return ENV_SEASON_SPRING;
+		}
 		return (m_time%240)/60;
 	}
 

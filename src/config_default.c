@@ -152,6 +152,7 @@ void config_default_init()
 	config_set_default("world.game.environment.footprints","true",NULL);
 	config_set_default("world.game.environment.fire.spread","false",NULL);
 	config_set_default("world.game.environment.time.speed","96",NULL);
+	config_set_default("world.game.environment.season","auto",NULL);
 	config_set_default("world.game.motd","",NULL);
 	config_set_default("world.map.type","default",NULL);
 

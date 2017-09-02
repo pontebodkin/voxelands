@@ -3057,6 +3057,7 @@ void ServerEnvironment::step(float dtime)
 
 				if (
 					coldzone
+					&& biome != BIOME_BEACH
 					&& (
 						content_features(n).draw_type == CDT_CUBELIKE
 						|| content_features(n).draw_type == CDT_GLASSLIKE
@@ -4538,7 +4539,6 @@ u16 ClientEnvironment::addActiveObject(ClientActiveObject *object)
 
 void ClientEnvironment::addActiveObject(u16 id, u8 type, const std::string &init_data)
 {
-	// TODO: convert old to new
 	ClientActiveObject* obj = ClientActiveObject::create(type);
 	if (obj == NULL) {
 		infostream<<"ClientEnvironment::addActiveObject(): "

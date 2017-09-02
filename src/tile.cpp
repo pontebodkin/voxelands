@@ -72,8 +72,7 @@ void TextureSource::processQueue()
 	/*
 		Fetch textures
 	*/
-	if(m_get_texture_queue.size() > 0)
-	{
+	if (m_get_texture_queue.size() > 0) {
 		GetRequest<std::string, u32, u8, u8>
 				request = m_get_texture_queue.pop();
 
@@ -82,12 +81,11 @@ void TextureSource::processQueue()
 				<<"name=\""<<request.key<<"\""
 				<<std::endl;
 
-		GetResult<std::string, u32, u8, u8>
-				result;
+		GetResult<std::string, u32, u8, u8> result;
 		result.key = request.key;
 		result.callers = request.callers;
 		result.item = getTextureIdDirect(request.key);
-
+		/* TODO: segv right about here */
 		request.dest->push_back(result);
 	}
 }
