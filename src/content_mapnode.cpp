@@ -236,7 +236,7 @@ void content_mapnode_init(bool repeat)
 	f->often_contains_mineral = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_MARBLE)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_STONE;
 	f->dig_time = 0.6;
 	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE)+" 1";
@@ -377,7 +377,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBRICK)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	crafting::setBrickRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBRICK);
@@ -395,7 +395,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONEBLOCK)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_STONE;
 	f->dig_time = 1.0;
 	crafting::setBlockRecipe(CONTENT_ROUGHSTONE,CONTENT_ROUGHSTONEBLOCK);
@@ -560,7 +560,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 30;
 	f->extra_dug_item_min_level = 3;
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
@@ -580,7 +580,7 @@ void content_mapnode_init(bool repeat)
 	f->extra_dug_item_rarity = 30;
 	f->extra_dug_item_min_level = 3;
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_GLASS)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_DIRT;
 	f->dig_time = 1.0;
 	content_list_add("creative",i,1,0);
@@ -2221,7 +2221,7 @@ void content_mapnode_init(bool repeat)
 	f->is_ground_content = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	f->cook_result = std::string("MaterialItem2 ")+itos(CONTENT_STONE)+" 1";
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	f->type = CMT_STONE;
 	f->dig_time = 0.9;
 	f->crush_result = std::string("MaterialItem2 ")+itos(CONTENT_COBBLE)+" 1";
