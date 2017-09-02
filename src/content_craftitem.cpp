@@ -118,9 +118,9 @@ void content_craftitem_init()
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_IRON;
 	f->texture = "lump_of_iron.png";
-	f->description = gettext("Iron Lump");
+	f->description = gettext("Iron Ore");
 	f->cook_result = CONTENT_CRAFTITEM_IRON_INGOT;
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -137,7 +137,7 @@ void content_craftitem_init()
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_TIN;
 	f->texture = "lump_of_tin.png";
-	f->description = gettext("Tin Lump");
+	f->description = gettext("Tin Ore");
 	f->cook_result = CONTENT_CRAFTITEM_TIN_INGOT;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
@@ -146,7 +146,7 @@ void content_craftitem_init()
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_COPPER;
 	f->texture = "lump_of_copper.png";
-	f->description = gettext("Copper Lump");
+	f->description = gettext("Copper Ore");
 	f->cook_result = CONTENT_CRAFTITEM_COPPER_INGOT;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
@@ -155,9 +155,9 @@ void content_craftitem_init()
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_SILVER;
 	f->texture = "lump_of_silver.png";
-	f->description = gettext("Silver Lump");
+	f->description = gettext("Silver Ore");
 	f->cook_result = CONTENT_CRAFTITEM_SILVER_INGOT;
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -165,9 +165,9 @@ void content_craftitem_init()
 	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
 	f->content = CONTENT_CRAFTITEM_GOLD;
 	f->texture = "lump_of_gold.png";
-	f->description = gettext("Gold Lump");
+	f->description = gettext("Gold Ore");
 	f->cook_result = CONTENT_CRAFTITEM_GOLD_INGOT;
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_FURNACE|COOK_SMELTERY;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -1436,7 +1436,7 @@ void content_craftitem_init()
 	f->texture = "mithril_raw.png";
 	f->description = gettext("Raw Mithril");
 	f->cook_result = CONTENT_CRAFTITEM_MITHRIL_UNBOUND;
-	f->cook_type = COOK_FURNACE;
+	f->cook_type = COOK_SMELTERY;
 	content_list_add("creative",i,1,0);
 	content_list_add("cooking",i,1,0);
 
@@ -1597,6 +1597,54 @@ void content_craftitem_init()
 			CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE
 		};
 		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_EXO,3);
+	}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CRAFTITEM_UPGRADE_COOKING;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_UPGRADE_COOKING;
+	f->texture = "upgrade_cook.png";
+	f->description = gettext("Cooking Upgrade");
+	{
+		u16 r[9] = {
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_COAL,	CONTENT_CRAFTITEM_PAPER,
+			CONTENT_COAL,			CONTENT_IGNORE,	CONTENT_COAL,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_COAL,	CONTENT_CRAFTITEM_PAPER
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_COOKING,1);
+	}
+	{
+		u16 r[9] = {
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHARCOAL,	CONTENT_CRAFTITEM_PAPER,
+			CONTENT_CHARCOAL,		CONTENT_IGNORE,		CONTENT_CHARCOAL,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_CHARCOAL,	CONTENT_CRAFTITEM_PAPER
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_COOKING,1);
+	}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_CRAFTITEM_UPGRADE_BURNING;
+	f = &g_content_craftitem_features[(i&~CONTENT_CRAFTITEM_MASK)];
+	f->content = CONTENT_CRAFTITEM_UPGRADE_BURNING;
+	f->texture = "upgrade_burn.png";
+	f->description = gettext("Fuel Upgrade");
+	{
+		u16 r[9] = {
+			CONTENT_COAL,			CONTENT_CRAFTITEM_PAPER,	CONTENT_COAL,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_COAL,			CONTENT_CRAFTITEM_PAPER,	CONTENT_COAL
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_BURNING,1);
+	}
+	{
+		u16 r[9] = {
+			CONTENT_CHARCOAL,		CONTENT_CRAFTITEM_PAPER,	CONTENT_CHARCOAL,
+			CONTENT_CRAFTITEM_PAPER,	CONTENT_IGNORE,			CONTENT_CRAFTITEM_PAPER,
+			CONTENT_CHARCOAL,		CONTENT_CRAFTITEM_PAPER,	CONTENT_CHARCOAL
+		};
+		crafting::setRecipe(r,CONTENT_CRAFTITEM_UPGRADE_BURNING,1);
 	}
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);

@@ -1462,10 +1462,10 @@ void content_mapnode_special(bool repeat)
 	f->description = gettext("Furnace");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX_META;
-	f->setAllTextures("furnace.png");
+	f->setAllTextures("terracotta.png");
 	f->setAllMetaTextures("fire.png");
 	content_nodebox_furnace(f);
-	f->setInventoryTextureNodeBox(i,"furnace.png", "furnace.png", "furnace.png");
+	f->setInventoryTextureNodeBox(i,"terracotta.png", "terracotta.png", "terracotta.png");
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(CONTENT_FURNACE)+" 1";
 	if(f->initial_metadata == NULL)
@@ -1473,7 +1473,41 @@ void content_mapnode_special(bool repeat)
 	f->type = CMT_STONE;
 	f->dig_time = 3.0;
 	f->pressure_type = CST_SOLID;
-	crafting::setRoundRecipe(CONTENT_ROUGHSTONE,CONTENT_FURNACE);
+	{
+		content_t recipe[9] = {
+			CONTENT_CRAFTITEM_CLAY,		CONTENT_CRAFTITEM_CLAY,		CONTENT_CRAFTITEM_CLAY,
+			CONTENT_CRAFTITEM_CLAY,		CONTENT_CRAFTITEM_BRONZE_INGOT,	CONTENT_CRAFTITEM_CLAY,
+			CONTENT_CRAFTITEM_CLAY,		CONTENT_CRAFTITEM_CLAY,		CONTENT_CRAFTITEM_CLAY
+		};
+		crafting::setRecipe(recipe,i,1,0);
+	}
+	content_list_add("craftguide",i,1,0);
+	content_list_add("creative",i,1,0);
+
+	i = CONTENT_SMELTERY;
+	f = &content_features(i);
+	f->description = gettext("Smeltery");
+	f->param_type = CPT_FACEDIR_SIMPLE;
+	f->draw_type = CDT_NODEBOX_META;
+	f->setAllTextures("iron_sheet_worn.png");
+	f->setAllMetaTextures("fire.png");
+	content_nodebox_smeltery(f);
+	f->setInventoryTextureNodeBox(i,"iron_sheet_worn.png", "iron_sheet_worn.png", "iron_sheet_worn.png");
+	f->rotate_tile_with_nodebox = true;
+	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
+	if(f->initial_metadata == NULL)
+		f->initial_metadata = new SmelteryNodeMetadata();
+	f->type = CMT_STONE;
+	f->dig_time = 3.0;
+	f->pressure_type = CST_SOLID;
+	{
+		content_t recipe[9] = {
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_STONE,			CONTENT_CRAFTITEM_IRON_INGOT,
+			CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_IRON_INGOT,	CONTENT_CRAFTITEM_IRON_INGOT
+		};
+		crafting::setRecipe(recipe,i,1,0);
+	}
 	content_list_add("craftguide",i,1,0);
 	content_list_add("creative",i,1,0);
 
@@ -1608,15 +1642,10 @@ void content_mapnode_special(bool repeat)
 	f->description = gettext("Crusher");
 	f->param_type = CPT_FACEDIR_SIMPLE;
 	f->draw_type = CDT_NODEBOX_META;
-	f->setAllTextures("crusher_side.png");
-	f->setTexture(0, "crusher_top.png");
-	f->setTexture(1, "crusher_top.png^[transformFY");
-	f->setTexture(2, "crusher_side.png^[transformFX");
-	f->setTexture(4, "crusher_back.png");
-	f->setTexture(5, "crusher_front.png"); // Z-
-	f->setAllMetaTextures("iron_sheet.png");
+	f->setAllTextures("iron_sheet_worn.png");
+	f->setAllMetaTextures("iron_sheet_worn.png");
 	content_nodebox_crusher(f);
-	f->setInventoryTextureNodeBox(i,"crusher_top.png^[transformR90", "crusher_front.png", "crusher_side.png^[transformFX");
+	f->setInventoryTextureNodeBox(i,"iron_sheet_worn.png", "iron_sheet_worn.png", "iron_sheet_worn.png");
 	f->rotate_tile_with_nodebox = true;
 	f->dug_item = std::string("MaterialItem2 ")+itos(i)+" 1";
 	if(f->initial_metadata == NULL)

@@ -273,7 +273,7 @@ bool MaterialItem::isCookable(uint16_t type) const
 	ContentFeatures *f = &content_features(m_content);
 	if (!f)
 		return false;
-	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) == 0)
 		return false;
 	if (f->cook_result == "")
 		return false;
@@ -458,7 +458,7 @@ bool CraftItem::isCookable(uint16_t type) const
 	CraftItemFeatures *f = content_craftitem_features(m_content);
 	if (!f)
 		return false;
-	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) == 0)
 		return false;
 	if (f->cook_result == CONTENT_IGNORE)
 		return false;
@@ -670,7 +670,7 @@ bool ToolItem::isCookable(uint16_t type) const
 	ToolItemFeatures *f = &content_toolitem_features(m_content);
 	if (!f)
 		return false;
-	if (f->cook_type != COOK_ANY && (type&f->cook_type) != f->cook_type)
+	if (f->cook_type != COOK_ANY && (type&f->cook_type) == 0)
 		return false;
 	if (f->cook_result == "")
 		return false;

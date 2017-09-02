@@ -78,7 +78,7 @@ MapNode mapnode_translate_to_internal(MapNode n_from, u8 version);
 #define CONTENT_LOCKABLE_SIGN_UD 0x018
 #define CONTENT_CREATIVE_CHEST 0x019
 #define CONTENT_FURNACE 0x01A
-// FREE 0x01B
+#define CONTENT_SMELTERY 0x01B
 #define CONTENT_IRON_FENCE 0x01C
 #define CONTENT_IRON_BARS 0x01D
 #define CONTENT_RAIL 0x01E

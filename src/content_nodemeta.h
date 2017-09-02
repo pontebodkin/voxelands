@@ -431,6 +431,33 @@ public:
 	virtual std::string getDrawSpecString(Player *player);
 	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
 
+private:
+	Inventory *m_inventory;
+	float m_active_timer;
+	float m_burn_counter;
+	float m_burn_timer;
+	float m_cook_timer;
+	float m_step_interval;
+};
+
+class SmelteryNodeMetadata : public NodeMetadata
+{
+public:
+	SmelteryNodeMetadata();
+	~SmelteryNodeMetadata();
+
+	virtual u16 typeId() const;
+	virtual NodeMetadata* clone();
+	static NodeMetadata* create(std::istream &is);
+	virtual void serializeBody(std::ostream &os);
+	virtual std::wstring infoText();
+	virtual Inventory* getInventory() {return m_inventory;}
+	virtual void inventoryModified();
+	virtual bool step(float dtime, v3s16 pos, ServerEnvironment *env);
+	virtual bool nodeRemovalDisabled();
+	virtual std::string getDrawSpecString(Player *player);
+	virtual std::vector<NodeBox> getNodeBoxes(MapNode &n);
+
 	virtual std::string getOwner();
 	virtual void setOwner(std::string t){ m_owner = t; }
 	virtual std::string getInventoryOwner();

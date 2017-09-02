@@ -45,21 +45,12 @@ FurnaceNodeMetadata::FurnaceNodeMetadata()
 	m_inventory->addList("fuel", 1);
 	m_inventory->addList("src", 1);
 	m_inventory->addList("main", 4);
-	m_inventory->addList("upgrades", 3);
 
 	m_active_timer = 0.0;
 	m_burn_counter = 0.0;
 	m_burn_timer = 0.0;
 	m_cook_timer = 0.0;
 	m_step_interval = 1.0;
-	m_is_locked = false;
-	m_is_expanded = false;
-	m_is_exo = false;
-	m_cook_upgrade = 1.0;
-	m_burn_upgrade = 1.0;
-	m_expanded_slot_id = 0;
-
-	inventoryModified();
 }
 FurnaceNodeMetadata::~FurnaceNodeMetadata()
 {
@@ -79,6 +70,262 @@ NodeMetadata* FurnaceNodeMetadata::clone()
 	d->m_burn_timer = m_burn_timer;
 	d->m_cook_timer = m_cook_timer;
 	d->m_step_interval = m_step_interval;
+
+	return d;
+}
+NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
+{
+	std::string s;
+	FurnaceNodeMetadata *d = new FurnaceNodeMetadata();
+
+	s = deSerializeString(is);
+	d->m_active_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_burn_counter = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_burn_timer = mystoi(s);
+
+	s = deSerializeString(is);
+	d->m_cook_timer = mystof(s);
+
+	s = deSerializeString(is);
+	d->m_step_interval = mystof(s);
+
+	d->m_inventory->deSerialize(is);
+
+	return d;
+}
+void FurnaceNodeMetadata::serializeBody(std::ostream &os)
+{
+	os<<serializeString(ftos(m_active_timer));
+	os<<serializeString(itos(m_burn_counter));
+	os<<serializeString(itos(m_burn_timer));
+	os<<serializeString(ftos(m_cook_timer));
+	os<<serializeString(ftos(m_step_interval));
+	m_inventory->serialize(os);
+}
+std::wstring FurnaceNodeMetadata::infoText()
+{
+	return narrow_to_wide(gettext("Furnace"));
+}
+bool FurnaceNodeMetadata::nodeRemovalDisabled()
+{
+	/*
+		Disable removal if crusher is not empty
+	*/
+	InventoryList *list[3] = {
+		m_inventory->getList("src"),
+		m_inventory->getList("main"),
+		m_inventory->getList("fuel")
+	};
+
+	for (int i = 0; i < 3; i++) {
+		if (list[i] == NULL)
+			continue;
+		if (list[i]->getUsedSlots() != 0)
+			continue;
+		return false;
+	}
+	return true;
+
+}
+void FurnaceNodeMetadata::inventoryModified()
+{
+	vlprintf(CN_INFO,"Furnace inventory modification callback");
+}
+bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+{
+	float cook_time = 10.0;
+	bool changed = false;
+	bool is_cooking;
+	bool cook_ongoing;
+	bool room_available;
+	InventoryList *dst_list;
+	InventoryList *src_list;
+	InventoryItem *src_item;
+	InventoryList *fuel_list;
+	InventoryItem *fuel_item;
+
+	if (dtime > 60.0)
+		vlprintf(CN_INFO,"Furnace stepping a long time (%f)",dtime);
+
+	dst_list = m_inventory->getList("main");
+	if (!dst_list)
+		return false;
+
+	src_list = m_inventory->getList("src");
+	if (!src_list)
+		return false;
+
+	m_active_timer += dtime;
+
+	while (m_active_timer > m_step_interval) {
+		m_active_timer -= m_step_interval;
+
+		is_cooking = false;
+		cook_ongoing = false;
+		room_available = false;
+
+		src_item = src_list->getItem(0);
+		if (src_item && src_item->isCookable(COOK_FURNACE)) {
+			is_cooking = true;
+			room_available = dst_list->roomForCookedItem(src_item);
+			if (room_available && src_item->getCount() > 1)
+				cook_ongoing = true;
+		}else{
+			m_cook_timer = 0.0;
+		}
+
+		if (m_cook_timer > cook_time)
+			m_cook_timer = cook_time;
+
+		if (m_burn_counter < 1.0 && is_cooking) {
+			if (m_cook_timer+m_step_interval < cook_time || cook_ongoing) {
+				fuel_list = m_inventory->getList("fuel");
+				if (!fuel_list)
+					break;
+				fuel_item = fuel_list->getItem(0);
+				if (fuel_item && fuel_item->isFuel()) {
+					content_t c = fuel_item->getContent();
+					float v = 0.0;
+					if ((c&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK) {
+						v = ((CraftItem*)fuel_item)->getFuelTime();
+					}else if ((c&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK) {
+						v = ((ToolItem*)fuel_item)->getFuelTime();
+					}else{
+						v = ((MaterialItem*)fuel_item)->getFuelTime();
+					}
+					fuel_list->decrementMaterials(1);
+					if (c == CONTENT_TOOLITEM_IRON_BUCKET_LAVA) {
+						fuel_list->addItem(0,new ToolItem(CONTENT_TOOLITEM_IRON_BUCKET,0,0));
+					}
+					m_burn_counter += v;
+					changed = true;
+				}
+			}
+		}
+
+		if (m_burn_counter <= 0.0) {
+			m_active_timer = 0.0;
+			m_burn_counter = 0.0;
+			m_burn_timer = 0.0;
+			break;
+		}
+
+		if (m_burn_counter < 1.0)
+			continue;
+
+		m_burn_timer += m_step_interval;
+		changed = true;
+		if (m_burn_timer >= cook_time) {
+			m_burn_counter -= 1.0;
+			m_burn_timer -= cook_time;
+		}
+
+		if (!is_cooking) {
+			m_cook_timer = 0.0;
+			continue;
+		}
+
+		m_cook_timer += m_step_interval;
+
+		if (m_cook_timer >= cook_time) {
+			m_cook_timer -= cook_time;
+			if (src_item && src_item->isCookable(COOK_FURNACE)) {
+				InventoryItem *cookresult = src_item->createCookResult();
+				dst_list->addItem(cookresult);
+				src_list->decrementMaterials(1);
+			}
+		}
+	}
+
+	return changed;
+}
+std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
+{
+	float v = 0;
+	if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+		v = (10.0*m_burn_timer);
+
+	std::string spec("size[9,10]");
+
+	spec += "list[current_name;fuel;1.5,3.5;1,1;]";
+	spec += "ring[1.5,3.5;1;#FF0000;";
+	spec += itos((int)v);
+	spec += "]";
+	spec += "list[current_name;src;1.5,1.5;1,1;]";
+
+	spec += "list[current_name;main;5,1.5;2,2;]";
+
+	spec += "list[current_player;main;0.5,5.8;8,1;0,8;]";
+	spec += "list[current_player;main;0.5,7;8,3;8,-1;]";
+
+	return spec;
+}
+std::vector<NodeBox> FurnaceNodeMetadata::getNodeBoxes(MapNode &n)
+{
+	std::vector<NodeBox> boxes;
+
+	if (m_burn_counter > 0.0) {
+		boxes.push_back(NodeBox(
+			-0.3125*BS,-0.3125*BS,-0.3125*BS,0.3125*BS,-0.0625*BS,0.3125*BS
+		));
+	}
+
+	return boxes;
+}
+
+/*
+	SmelteryNodeMetadata
+*/
+
+// Prototype
+SmelteryNodeMetadata proto_SmelteryNodeMetadata;
+
+SmelteryNodeMetadata::SmelteryNodeMetadata()
+{
+	NodeMetadata::registerType(typeId(), create);
+
+	m_inventory = new Inventory();
+	m_inventory->addList("fuel", 1);
+	m_inventory->addList("src", 2);
+	m_inventory->addList("main", 4);
+	m_inventory->addList("upgrades", 3);
+
+	m_active_timer = 0.0;
+	m_burn_counter = 0.0;
+	m_burn_timer = 0.0;
+	m_cook_timer = 0.0;
+	m_step_interval = 1.0;
+	m_is_locked = false;
+	m_is_expanded = false;
+	m_is_exo = false;
+	m_cook_upgrade = 1.0;
+	m_burn_upgrade = 1.0;
+	m_expanded_slot_id = 0;
+
+	inventoryModified();
+}
+SmelteryNodeMetadata::~SmelteryNodeMetadata()
+{
+	delete m_inventory;
+}
+u16 SmelteryNodeMetadata::typeId() const
+{
+	return CONTENT_SMELTERY;
+}
+NodeMetadata* SmelteryNodeMetadata::clone()
+{
+	SmelteryNodeMetadata *d = new SmelteryNodeMetadata();
+	*d->m_inventory = *m_inventory;
+
+	d->m_active_timer = m_active_timer;
+	d->m_burn_counter = m_burn_counter;
+	d->m_burn_timer = m_burn_timer;
+	d->m_cook_timer = m_cook_timer;
+	d->m_step_interval = m_step_interval;
 	d->m_is_locked = m_is_locked;
 	d->m_is_expanded = m_is_expanded;
 	d->m_is_exo = m_is_exo;
@@ -88,10 +335,10 @@ NodeMetadata* FurnaceNodeMetadata::clone()
 
 	return d;
 }
-NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
+NodeMetadata* SmelteryNodeMetadata::create(std::istream &is)
 {
 	std::string s;
-	FurnaceNodeMetadata *d = new FurnaceNodeMetadata();
+	SmelteryNodeMetadata *d = new SmelteryNodeMetadata();
 
 	d->setOwner(deSerializeString(is));
 
@@ -132,7 +379,7 @@ NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
 		delete d->m_inventory;
 		d->m_inventory = new Inventory();
 		d->m_inventory->addList("fuel", 1);
-		d->m_inventory->addList("src", 1);
+		d->m_inventory->addList("src", 2);
 		d->m_inventory->addList("main", 16);
 		d->m_inventory->addList("upgrades", 3);
 	}
@@ -141,7 +388,7 @@ NodeMetadata* FurnaceNodeMetadata::create(std::istream &is)
 
 	return d;
 }
-void FurnaceNodeMetadata::serializeBody(std::ostream &os)
+void SmelteryNodeMetadata::serializeBody(std::ostream &os)
 {
 	os<<serializeString(m_owner);
 	os<<serializeString(ftos(m_active_timer));
@@ -157,19 +404,19 @@ void FurnaceNodeMetadata::serializeBody(std::ostream &os)
 	os<<serializeString(itos(m_expanded_slot_id));
 	m_inventory->serialize(os);
 }
-std::wstring FurnaceNodeMetadata::infoText()
+std::wstring SmelteryNodeMetadata::infoText()
 {
 	char buff[256];
 	if (m_is_locked) {
-		snprintf(buff, 256, gettext("Locked Furnace owned by '%s'"), m_owner.c_str());
+		snprintf(buff, 256, gettext("Locked Smeltery owned by '%s'"), m_owner.c_str());
 	}else if (m_is_exo) {
-		snprintf(buff, 256, gettext("Exo Furnace owned by '%s'"), m_owner.c_str());
+		snprintf(buff, 256, gettext("Exo Smeltery owned by '%s'"), m_owner.c_str());
 	}else{
-		snprintf(buff, 256, gettext("Furnace"));
+		snprintf(buff, 256, gettext("Smeltery"));
 	}
 	return narrow_to_wide(buff);
 }
-bool FurnaceNodeMetadata::nodeRemovalDisabled()
+bool SmelteryNodeMetadata::nodeRemovalDisabled()
 {
 	/*
 		Disable removal if crusher is not empty
@@ -190,7 +437,7 @@ bool FurnaceNodeMetadata::nodeRemovalDisabled()
 	return true;
 
 }
-void FurnaceNodeMetadata::inventoryModified()
+void SmelteryNodeMetadata::inventoryModified()
 {
 	int i;
 	int k;
@@ -267,6 +514,10 @@ void FurnaceNodeMetadata::inventoryModified()
 			a[0] = 0;
 			a[1] = 0;
 			b[2] = 1;
+		}else if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_BURNING) {
+			m_burn_upgrade = 1+itm->getCount();
+		}else if (itm->getContent() == CONTENT_CRAFTITEM_UPGRADE_COOKING) {
+			m_cook_upgrade = 1+itm->getCount();
 		}
 	}
 
@@ -312,6 +563,8 @@ void FurnaceNodeMetadata::inventoryModified()
 		a[2] = 0;
 
 	l->clearAllowed();
+	l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_COOKING);
+	l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_BURNING);
 	if (a[0])
 		l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_STORAGE);
 	if (a[1])
@@ -319,7 +572,7 @@ void FurnaceNodeMetadata::inventoryModified()
 	if (a[2])
 		l->addAllowed(CONTENT_CRAFTITEM_UPGRADE_EXO);
 }
-bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
+bool SmelteryNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
 	float cook_time;
 	bool changed = false;
@@ -333,12 +586,8 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	InventoryItem *fuel_item;
 	Player *player = NULL;
 
-	/* requires air above it (because that's where the imput slot on the nodebox is) */
-	if (content_features(env->getMap().getNodeNoEx(pos+v3s16(0,1,0),NULL).getContent()).air_equivalent == false)
-		return false;
-
 	if (dtime > 60.0)
-		vlprintf(CN_INFO,"Furnace stepping a long time (%f)",dtime);
+		vlprintf(CN_INFO,"Smeltery stepping a long time (%f)",dtime);
 
 	if (m_is_exo) {
 		player = env->getPlayer(m_owner.c_str());
@@ -363,9 +612,9 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 		m_burn_upgrade = 1.0;
 
 	/* cook_upgrade/m_cook_time determines time to cook one item */
-	/* burn_upgrade/m_burn_time determines number of items that fuel can cook */
+	/* burn_upgrade*m_burn_counter determines number of items that fuel can cook */
 
-	cook_time = 4.0/m_cook_upgrade;
+	cook_time = 10.0/m_cook_upgrade;
 	if (cook_time < 0.1)
 		cook_time = 0.1;
 
@@ -380,7 +629,7 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 		room_available = false;
 
 		src_item = src_list->getItem(0);
-		if (src_item && src_item->isCookable(COOK_FURNACE)) {
+		if (src_item && src_item->isCookable(COOK_SMELTERY)) {
 			is_cooking = true;
 			room_available = dst_list->roomForCookedItem(src_item);
 			if (room_available && src_item->getCount() > 1)
@@ -444,7 +693,7 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 
 		if (m_cook_timer >= cook_time) {
 			m_cook_timer -= cook_time;
-			if (src_item && src_item->isCookable(COOK_FURNACE)) {
+			if (src_item && src_item->isCookable(COOK_SMELTERY)) {
 				InventoryItem *cookresult = src_item->createCookResult();
 				dst_list->addItem(cookresult);
 				src_list->decrementMaterials(1);
@@ -456,14 +705,14 @@ bool FurnaceNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 
 	return changed;
 }
-std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
+std::string SmelteryNodeMetadata::getDrawSpecString(Player *player)
 {
 	float cook_time;
 	float v = 0;
 
 	if (m_cook_upgrade < 1.0)
 		m_cook_upgrade = 1.0;
-	cook_time = 4.0/m_cook_upgrade;
+	cook_time = 10.0/m_cook_upgrade;
 	if (cook_time < 0.1)
 		cook_time = 0.1;
 	if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
@@ -506,47 +755,25 @@ std::string FurnaceNodeMetadata::getDrawSpecString(Player *player)
 
 	return spec;
 }
-std::vector<NodeBox> FurnaceNodeMetadata::getNodeBoxes(MapNode &n)
+std::vector<NodeBox> SmelteryNodeMetadata::getNodeBoxes(MapNode &n)
 {
 	std::vector<NodeBox> boxes;
-	int v = 0;
 
 	if (m_burn_counter > 0.0) {
-		float cook_time;
-		if (m_cook_upgrade < 1.0)
-			m_cook_upgrade = 1.0;
-		cook_time = 4.0/m_cook_upgrade;
-		if (cook_time < 0.1)
-			cook_time = 0.1;
-		if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
-			v = ((2.0/cook_time)*m_burn_timer);
-	}
-
-	if (v) {
 		boxes.push_back(NodeBox(
-			-0.125*BS,-0.375*BS,-0.375*BS,-0.0625*BS,0.375*BS,0.375*BS
-		));
-		boxes.push_back(NodeBox(
-			0.0625*BS,-0.375*BS,-0.375*BS,0.125*BS,0.375*BS,0.375*BS
-		));
-	}else{
-		boxes.push_back(NodeBox(
-			-0.375*BS,-0.375*BS,-0.375*BS,-0.3125*BS,0.375*BS,0.375*BS
-		));
-		boxes.push_back(NodeBox(
-			0.3125*BS,-0.375*BS,-0.375*BS,0.375*BS,0.375*BS,0.375*BS
+			-0.3125*BS,-0.3125*BS,-0.3125*BS,0.3125*BS,-0.0625*BS,0.3125*BS
 		));
 	}
 
 	return boxes;
 }
-std::string FurnaceNodeMetadata::getOwner()
+std::string SmelteryNodeMetadata::getOwner()
 {
 	if (m_is_locked || m_is_exo)
 		return m_owner;
 	return "";
 }
-std::string FurnaceNodeMetadata::getInventoryOwner()
+std::string SmelteryNodeMetadata::getInventoryOwner()
 {
 	if (m_is_locked)
 		return m_owner;
@@ -1219,7 +1446,7 @@ void CampFireNodeMetadata::inventoryModified()
 }
 bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
-	float cook_time = 4.0;
+	float cook_time = 15.0;
 	bool changed = false;
 	bool is_cooking;
 	bool cook_ongoing;
@@ -1322,11 +1549,11 @@ bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 			}
 		}
 
-		if (m_cook_timer > 4.0)
-			m_cook_timer = 4.0;
+		if (m_cook_timer > cook_time)
+			m_cook_timer = cook_time;
 
 		if (m_burn_counter < 1.0 && is_cooking) {
-			if (m_cook_timer+1.0 < 4.0 || cook_ongoing) {
+			if (m_cook_timer+1.0 < cook_time || cook_ongoing) {
 				fuel_list = m_inventory->getList("fuel");
 				if (!fuel_list)
 					break;
@@ -1363,7 +1590,7 @@ bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 
 		m_burn_timer += 1.0;
 		changed = true;
-		if (m_burn_timer >= 4.0) {
+		if (m_burn_timer >= cook_time) {
 			m_burn_counter -= 1.0;
 			m_burn_timer -= cook_time;
 		}
@@ -1375,8 +1602,8 @@ bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 
 		m_cook_timer += 1.0;
 
-		if (m_cook_timer >= 4.0) {
-			m_cook_timer -= 4.0;
+		if (m_cook_timer >= cook_time) {
+			m_cook_timer -= cook_time;
 			if (m_has_pots) {
 				if (pots_mode == 1) {
 					if (src_item && src_item->isCookable(mode)) {
@@ -1427,7 +1654,16 @@ bool CampFireNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 std::string CampFireNodeMetadata::getDrawSpecString(Player *player)
 {
 	std::string spec("size[8,9]");
+	float v = 0;
+	if (m_burn_counter > 0.0 && m_burn_timer > 0.0)
+		v = ((100.0/15)*m_burn_timer);
+
 	spec += "list[current_name;fuel;2,2;1,1;]";
+	spec += "ring[2,2;1;#FF0000;";
+	spec += itos((int)v);
+	spec += "]";
+
+
 	if (m_has_pots) {
 		InventoryList *src_list = m_inventory->getList("src");
 		if (src_list && (src_list->getItem(1) || src_list->getItem(2))) {
