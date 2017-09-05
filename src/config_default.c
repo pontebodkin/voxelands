@@ -82,7 +82,7 @@ void config_default_init()
 	config_set_default("client.graphics.water.opaque","false",NULL);
 	config_set_default("client.graphics.selection","highlight",NULL);
 
-	config_set_default("client.ui.mainmenu.tab","singleplayer",NULL);
+	config_set_default("client.ui.mainmenu.tab","credits",NULL);
 	config_set_default("client.ui.hud.old","false",NULL);
 	config_set_default("client.ui.hud.wieldindex","false",NULL);
 	config_set_default("client.ui.mouse.invert","false",NULL);
@@ -181,7 +181,7 @@ void config_default_init()
 #endif
 	config_set_default("server.net.chunk.max","20",NULL);
 	config_set_default("server.chunk.timeout","19",NULL);
-	config_set_default("server.save.interval","300",NULL);
+	config_set_default("server.save.interval","60",NULL);
 
 
 	config_set_default("global.api.address","servers.voxelands.com",NULL);

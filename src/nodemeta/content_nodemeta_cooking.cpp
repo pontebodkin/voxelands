@@ -466,6 +466,8 @@ void SmelteryNodeMetadata::inventoryModified()
 			if (m_is_exo)
 				continue;
 			inv = new Inventory();
+			inv->addList("fuel", 1);
+			inv->addList("src", 2);
 			inv->addList("upgrades", 4);
 			inv->addList("main", 16);
 			il = inv->getList("upgrades");
@@ -474,7 +476,22 @@ void SmelteryNodeMetadata::inventoryModified()
 				delete inv;
 				continue;
 			}
-			vlprintf(CN_INFO,"inv size: '%u' '%u'",l->getSize(),m->getSize());
+			InventoryList *ol1 = inv->getList("fuel");
+			InventoryList *ol2 = m_inventory->getList("fuel");
+			if (ol1 && ol2) {
+				itm = ol2->changeItem(0,NULL);
+				if (itm)
+					ol1->addItem(0,itm);
+			}
+			ol1 = inv->getList("src");
+			ol2 = m_inventory->getList("src");
+			if (ol1 && ol2) {
+				for (k=0; k<2; k++) {
+					itm = ol2->changeItem(k,NULL);
+					if (itm)
+						ol1->addItem(k,itm);
+				}
+			}
 			for (k=0; k<4; k++) {
 				itm = l->changeItem(k,NULL);
 				if (itm)
@@ -530,11 +547,29 @@ void SmelteryNodeMetadata::inventoryModified()
 		inv = new Inventory();
 		inv->addList("upgrades", 4);
 		inv->addList("main", 4);
+		inv->addList("fuel", 1);
+		inv->addList("src", 2);
 		il = inv->getList("upgrades");
 		im = inv->getList("main");
 		if (!il || !im) {
 			delete inv;
 		}else{
+			InventoryList *ol1 = inv->getList("fuel");
+			InventoryList *ol2 = m_inventory->getList("fuel");
+			if (ol1 && ol2) {
+				itm = ol2->changeItem(0,NULL);
+				if (itm)
+					ol1->addItem(0,itm);
+			}
+			ol1 = inv->getList("src");
+			ol2 = m_inventory->getList("src");
+			if (ol1 && ol2) {
+				for (k=0; k<2; k++) {
+					itm = ol2->changeItem(k,NULL);
+					if (itm)
+						ol1->addItem(k,itm);
+				}
+			}
 			for (k=0; k<3; k++) {
 				itm = l->changeItem(k,NULL);
 				if (itm)
@@ -584,9 +619,11 @@ bool SmelteryNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 	bool is_cooking;
 	bool cook_ongoing;
 	bool room_available;
+	uint8_t cook_mode = 0;
 	InventoryList *dst_list;
 	InventoryList *src_list;
 	InventoryItem *src_item;
+	InventoryItem *src_item1 = NULL;
 	InventoryList *fuel_list;
 	InventoryItem *fuel_item;
 	Player *player = NULL;
@@ -634,11 +671,51 @@ bool SmelteryNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 		room_available = false;
 
 		src_item = src_list->getItem(0);
-		if (src_item && src_item->isCookable(COOK_SMELTERY)) {
-			is_cooking = true;
-			room_available = dst_list->roomForCookedItem(src_item);
-			if (room_available && src_item->getCount() > 1)
-				cook_ongoing = true;
+		src_item1 = src_list->getItem(1);
+		if (src_item && src_item1) {
+			if (src_item->getContent() == src_item1->getContent()) {
+				if (src_item->isCookable(COOK_SMELTERY)) {
+					cook_mode = 1;
+					is_cooking = true;
+					room_available = dst_list->roomForCookedItem(src_item);
+					if (room_available)
+						cook_ongoing = true;
+				}else{
+					m_cook_timer = 0.0;
+				}
+			}else{
+				cook_mode = 0;
+				InventoryItem *alloy = crafting::getAlloy(src_item->getContent(),src_item1->getContent());
+				if (alloy) {
+					is_cooking = true;
+					room_available = dst_list->roomForItem(alloy);
+					if (room_available && src_item->getCount() > 1 && src_item1->getCount() > 1)
+						cook_ongoing = true;
+					delete alloy;
+				}else{
+					m_cook_timer = 0.0;
+				}
+			}
+		}else if (src_item) {
+			if (src_item->isCookable(COOK_SMELTERY)) {
+				cook_mode = 1;
+				is_cooking = true;
+				room_available = dst_list->roomForCookedItem(src_item);
+				if (room_available && src_item->getCount() > 1)
+					cook_ongoing = true;
+			}else{
+				m_cook_timer = 0.0;
+			}
+		}else if (src_item1) {
+			if (src_item1->isCookable(COOK_SMELTERY)) {
+				cook_mode = 2;
+				is_cooking = true;
+				room_available = dst_list->roomForCookedItem(src_item1);
+				if (room_available && src_item1->getCount() > 1)
+					cook_ongoing = true;
+			}else{
+				m_cook_timer = 0.0;
+			}
 		}else{
 			m_cook_timer = 0.0;
 		}
@@ -698,12 +775,39 @@ bool SmelteryNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 
 		if (m_cook_timer >= cook_time) {
 			m_cook_timer -= cook_time;
-			if (src_item && src_item->isCookable(COOK_SMELTERY)) {
-				InventoryItem *cookresult = src_item->createCookResult();
-				dst_list->addItem(cookresult);
-				src_list->decrementMaterials(1);
-				if (m_is_exo && player)
-					player->inventory_modified = true;
+			if (cook_mode == 1) {
+				if (src_item && src_item->isCookable(COOK_SMELTERY)) {
+					InventoryItem *result = src_item->createCookResult();
+					dst_list->addItem(result);
+					InventoryItem *itm = src_list->takeItem(0,1);
+					if (itm)
+						delete itm;
+					src_list->addDiff(0,src_item);
+				}
+			}else if (cook_mode == 2) {
+				if (src_item1 && src_item1->isCookable(COOK_SMELTERY)) {
+					InventoryItem *result = src_item1->createCookResult();
+					dst_list->addItem(result);
+					InventoryItem *itm = src_list->takeItem(1,1);
+					if (itm)
+						delete itm;
+					src_list->addDiff(1,src_item1);
+				}
+			}else if (src_item && src_item1) {
+				InventoryItem *alloy = crafting::getAlloy(src_item->getContent(),src_item1->getContent());
+				dst_list->addItem(alloy);
+				{
+					InventoryItem *itm = src_list->takeItem(0,1);
+					if (itm)
+						delete itm;
+					src_list->addDiff(0,src_item);
+				}
+				{
+					InventoryItem *itm = src_list->takeItem(1,1);
+					if (itm)
+						delete itm;
+					src_list->addDiff(1,src_item1);
+				}
 			}
 		}
 	}
