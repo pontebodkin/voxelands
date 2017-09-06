@@ -91,6 +91,11 @@ struct ChatLine
 		text(a_text)
 	{
 	}
+	ChatLine(const std::wstring &a_text, float a_age):
+		age(a_age),
+		text(a_text)
+	{
+	}
 	float age;
 	std::wstring text;
 };
@@ -656,6 +661,16 @@ void update_profiler_gui(gui::IGUIStaticText *guitext_profiler,
 	}
 }
 
+void chatline_add(ref_t **chat_lines, std::wstring txt, float time)
+{
+	ref_t *ref = (ref_t*)malloc(sizeof(ref_t));
+	if (!ref)
+		return;
+
+	ref->ref = new ChatLine(txt,time);
+	*chat_lines = (ref_t*)list_push(chat_lines,ref);
+}
+
 void the_game(
 	bool &kill,
 	InputHandler *input,
@@ -672,16 +687,11 @@ void the_game(
 	u32 text_height = font->getDimension(L"Random test string").Height;
 
 	v2u32 screensize(0,0);
-	v2u32 last_screensize(0,0);
 	screensize = driver->getScreenSize();
-
-	const s32 hotbar_itemcount = 8;
-	s32 hotbar_imagesize = 48;
 
 	/*
 		Draw "Loading" screen
 	*/
-	//draw_load_screen(L"Loading...", driver, font);
 	drawLoadingScreen(device,narrow_to_wide(gettext("Loading...")));
 
 	/*
@@ -704,7 +714,6 @@ void the_game(
 		Create client
 	*/
 
-	//draw_load_screen(L"Creating client...", driver, font);
 	drawLoadingScreen(device,narrow_to_wide(gettext("Creating client...")));
 	infostream<<"Creating client"<<std::endl;
 	MapDrawControl draw_control;
@@ -736,30 +745,21 @@ void the_game(
 	/*
 		Attempt to connect to the server
 	*/
-
-	infostream<<"Connecting to server at ";
-	connect_address.print(&infostream);
-	infostream<<std::endl;
 	client.connect(connect_address);
-
 	bool could_connect = false;
 
 	try{
 		float time_counter = 0.0;
-		for(;;)
-		{
-			if(client.connectedAndInitialized())
-			{
+		for (;;) {
+			if (client.connectedAndInitialized()) {
 				could_connect = true;
 				break;
 			}
-			if(client.accessDenied())
-			{
+			if (client.accessDenied()) {
 				break;
 			}
 			// Wait for 10 seconds
-			if(time_counter >= 10.0)
-			{
+			if (time_counter >= 10.0) {
 				break;
 			}
 
@@ -864,23 +864,13 @@ void the_game(
 			core::rect<s32>(0,0,500,text_height+5) + v2s32(100,200),
 			false, false);
 
-	// Status text (displays info when showing and hiding GUI stuff, etc.)
-	gui::IGUIStaticText *guitext_status = guienv->addStaticText(
-			L"<Status>",
-			core::rect<s32>(0,0,0,0),
-			false, false);
-	guitext_status->setVisible(false);
-
-	std::wstring statustext;
-	float statustext_time = 0;
-
 	// Chat text
 	gui::IGUIStaticText *guitext_chat = guienv->addStaticText(
 			L"",
 			core::rect<s32>(0,0,0,0),
 			//false, false); // Disable word wrap as of now
 			false, true);
-	core::list<ChatLine> chat_lines;
+	ref_t *chat_lines = NULL;
 
 	// Profiler text (size is updated when text is updated)
 	gui::IGUIStaticText *guitext_profiler = guienv->addStaticText(
@@ -985,18 +975,8 @@ void the_game(
 		/*
 			Random calculations
 		*/
-		last_screensize = screensize;
 		screensize = driver->getScreenSize();
 		v2s32 displaycenter(screensize.X/2,screensize.Y/2);
-
-		// Resize hotbar
-		if (screensize.Y <= 800) {
-			hotbar_imagesize = 32;
-		}else if (screensize.Y <= 1280) {
-			hotbar_imagesize = 48;
-		}else{
-			hotbar_imagesize = 64;
-		}
 
 		// Hilight boxes collected during the loop and displayed
 		core::list< core::aabbox3d<f32> > hilightboxes;
@@ -1191,12 +1171,10 @@ void the_game(
 		}else if(input->wasKeyDown(getKeySetting(VLKC_FREEMOVE))) {
 			if (free_move) {
 				free_move = false;
-				statustext = narrow_to_wide(gettext("free_move disabled"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("free_move disabled")),-103.00);
 			}else{
 				free_move = true;
-				statustext = narrow_to_wide(gettext("free_move enabled"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("free_move enabled")),-103.00);
 			}
 		}else if(input->wasKeyDown(getKeySetting(VLKC_SCREENSHOT))) {
 			irr::video::IImage* const image = driver->createScreenShot();
@@ -1211,8 +1189,7 @@ void the_game(
 							char buff[512];
 							snprintf(buff, 512, gettext("Saved screenshot to '%s'"), path);
 							infostream << "Saved screenshot to '" << fn << "'" << std::endl;
-							statustext = narrow_to_wide(buff);
-							statustext_time = 0;
+							chatline_add(&chat_lines,narrow_to_wide(buff),-103.00);
 						}else{
 							infostream << "Failed to save screenshot '" << fn << "'"<<std::endl;
 						}
@@ -1223,35 +1200,31 @@ void the_game(
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_HUD))) {
 			show_hud = !show_hud;
 			if (show_hud) {
-				statustext = narrow_to_wide(gettext("HUD shown"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("HUD shown")),-103.00);
 			}else{
-				statustext = narrow_to_wide(gettext("HUD hidden"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("HUD hidden")),-103.00);
 			}
-			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_CHAT))) {
 			show_chat = !show_chat;
 			if (show_chat) {
-				statustext = narrow_to_wide(gettext("Chat shown"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Chat shown")),-103.00);
 			}else{
-				statustext = narrow_to_wide(gettext("Chat hidden"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Chat hidden")),-103.00);
 			}
-			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_FOG))) {
 			force_fog_off = !force_fog_off;
 			if (force_fog_off) {
-				statustext = narrow_to_wide(gettext("Fog disabled"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Fog disabled")),-103.00);
 			}else{
-				statustext = narrow_to_wide(gettext("Fog enabled"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Fog enabled")),-103.00);
 			}
-			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_CAMERA))) {
 			disable_camera_update = !disable_camera_update;
 			if (disable_camera_update) {
-				statustext = narrow_to_wide(gettext("Camera update disabled"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Camera update disabled")),-103.00);
 			}else{
-				statustext = narrow_to_wide(gettext("Camera update enabled"));
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Camera update enabled")),-103.00);
 			}
-			statustext_time = 0;
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_DEBUG))) {
 			// Initial / 3x toggle: Chat only
 			// 1x toggle: Debug text with chat
@@ -1259,17 +1232,14 @@ void the_game(
 			if (!show_debug) {
 				show_debug = true;
 				show_debug_frametime = false;
-				statustext = narrow_to_wide(gettext("Debug info shown"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Debug info shown")),-103.00);
 			}else if (show_debug_frametime) {
 				show_debug = false;
 				show_debug_frametime = false;
-				statustext = narrow_to_wide(gettext("Debug info and frametime graph hidden"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Debug info and frametime graph hidden")),-103.00);
 			}else{
 				show_debug_frametime = true;
-				statustext = narrow_to_wide(gettext("Frametime graph shown"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Frametime graph shown")),-103.00);
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_TOGGLE_PROFILER))) {
 			show_profiler = (show_profiler + 1) % (show_profiler_max + 1);
@@ -1281,11 +1251,9 @@ void the_game(
 			if (show_profiler != 0) {
 				char buff[512];
 				snprintf(buff,512,gettext("Profiler shown (page %d of %d)"),show_profiler,show_profiler_max);
-				statustext = narrow_to_wide(buff);
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(buff),-103.00);
 			}else{
-				statustext = narrow_to_wide(gettext("Profiler hidden"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Profiler hidden")),-103.00);
 			}
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_PLUS))) {
 			char buff[512];
@@ -1293,8 +1261,7 @@ void the_game(
 			range += 10;
 			config_set_int("client.graphics.range.min",range);
 			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range);
-			statustext = narrow_to_wide(buff);
-			statustext_time = 0;
+			chatline_add(&chat_lines,narrow_to_wide(buff),-103.00);
 		}else if (input->wasKeyDown(getKeySetting(VLKC_RANGE_MINUS))) {
 			char buff[512];
 			int range = config_get_int("client.graphics.range.min");
@@ -1303,15 +1270,13 @@ void the_game(
 				range = 10;
 			config_set_int("client.graphics.range.min",range);
 			snprintf(buff,512,gettext("Minimum viewing range changed to %d"),range);
-			statustext = narrow_to_wide(buff);
-			statustext_time = 0;
+			chatline_add(&chat_lines,narrow_to_wide(buff),-103.00);
 		}
 
 		// Item selection with mouse wheel
 		{
 			s32 wheel = input->getMouseWheel();
-			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1,
-					hotbar_itemcount-1);
+			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1,7);
 
 			std::string wield_sound = "wield";
 
@@ -1336,7 +1301,7 @@ void the_game(
 		for (u16 i=0; i<10; i++) {
 			const KeyPress *kp = NumberKey + (i + 1) % 10;
 			if (input->wasKeyDown(*kp)) {
-				if (i < PLAYER_INVENTORY_SIZE && i < hotbar_itemcount) {
+				if (i < PLAYER_INVENTORY_SIZE && i < 8) {
 					g_selected_item = i;
 
 					infostream<<"Selected item: "<<g_selected_item<<std::endl;
@@ -1346,7 +1311,7 @@ void the_game(
 			}
 		}
 		if (input->wasKeyDown(getKeySetting(VLKC_SELECT_PREV))) {
-			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1, hotbar_itemcount-1);
+			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1, 7);
 			if (g_selected_item > 0) {
 				g_selected_item--;
 			}else{
@@ -1356,7 +1321,7 @@ void the_game(
 			client.playSound(wield_sound,false);
 		}
 		if (input->wasKeyDown(getKeySetting(VLKC_SELECT_NEXT))) {
-			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1, hotbar_itemcount-1);
+			u16 max_item = MYMIN(PLAYER_INVENTORY_SIZE-1, 7);
 			if (g_selected_item < max_item) {
 				g_selected_item++;
 			}else{
@@ -1371,12 +1336,10 @@ void the_game(
 			draw_control.range_all = !draw_control.range_all;
 			if (draw_control.range_all) {
 				infostream<<"Enabled full viewing range"<<std::endl;
-				statustext = narrow_to_wide(gettext("Enabled full viewing range"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Enabled full viewing range")),-103.00);
 			}else{
 				infostream<<"Disabled full viewing range"<<std::endl;
-				statustext = narrow_to_wide(gettext("Disabled full viewing range"));
-				statustext_time = 0;
+				chatline_add(&chat_lines,narrow_to_wide(gettext("Disabled full viewing range")),-103.00);
 			}
 		}
 
@@ -2047,81 +2010,63 @@ void the_game(
 			guitext_info->setVisible(false);
 		}
 
-		{
-			float statustext_time_max = 3.0;
-			if (!statustext.empty()) {
-				statustext_time += dtime;
-				if (statustext_time >= statustext_time_max) {
-					statustext = L"";
-					statustext_time = 0;
-				}
-			}
-			guitext_status->setText(statustext.c_str());
-			guitext_status->setVisible(!statustext.empty());
-
-			if (!statustext.empty()) {
-				s32 status_y = screensize.Y - 200;
-				core::rect<s32> rect(
-					10,
-					status_y - guitext_status->getTextHeight(),
-					screensize.X - 10,
-					status_y
-				);
-				guitext_status->setRelativePosition(rect);
-
-				// Fade out
-				video::SColor initial_color(255,0,0,0);
-				if (guienv->getSkin())
-					initial_color = guienv->getSkin()->getColor(gui::EGDC_BUTTON_TEXT);
-				video::SColor final_color = initial_color;
-				final_color.setAlpha(0);
-				video::SColor fade_color = initial_color.getInterpolated_quadratic(
-					initial_color,
-					final_color,
-					statustext_time / (float) statustext_time_max
-				);
-				guitext_status->setOverrideColor(fade_color);
-				guitext_status->enableOverrideColor(true);
-			}
-		}
-
 		/*
 			Get chat messages from client
 		*/
 		{
-			// Get new messages
 			std::wstring message;
+			/* get new messages */
 			while (client.getChatMessage(message)) {
-				chat_lines.push_back(ChatLine(message));
+				chatline_add(&chat_lines,message,0.0);
 			}
-			// Append them to form the whole static text and throw
-			// it to the gui element
+		}
+		if (chat_lines) {
+			ref_t *ref;
+			ref_t *refn;
+			ChatLine *line;
 			std::wstring whole;
-			// This will correspond to the line number counted from
-			// top to bottom, from size-1 to 0
-			s16 line_number = chat_lines.size();
-			// Count of messages to be removed from the top
-			u16 to_be_removed_count = 0;
-			for (core::list<ChatLine>::Iterator i = chat_lines.begin(); i != chat_lines.end(); i++) {
-				// After this, line number is valid for this loop
-				line_number--;
-				// Increment age
-				(*i).age += dtime;
-				/*
-					This results in a maximum age of 60*6 to the
-					lowermost line and a maximum of 6 lines
-				*/
-				float allowed_age = (6-line_number) * 60.0;
+			s16 line_number = 0;
 
-				if ((*i).age > allowed_age) {
-					to_be_removed_count++;
-					continue;
+			/* first, remove old status messages */
+			ref = chat_lines;
+			while (ref) {
+				line = (ChatLine*)ref->ref;
+				if (line->age < -50) {
+					line->age += dtime;
+					if (line->age > -100.0) {
+						refn = ref;
+						ref = ref->next;
+						chat_lines = (ref_t*)list_remove(&chat_lines,refn);
+						delete line;
+						free(refn);
+						continue;
+					}
+				}else{
+					line_number++;
 				}
-				whole += (*i).text + L'\n';
+				ref = ref->next;
 			}
-			for (u16 i=0; i<to_be_removed_count; i++) {
-				core::list<ChatLine>::Iterator it = chat_lines.begin();
-				chat_lines.erase(it);
+
+			/* second, remove old and excess chat messages */
+			ref = chat_lines;
+			while (ref) {
+				line = (ChatLine*)ref->ref;
+				if (line->age > -50) {
+					line_number--;
+					line->age += dtime;
+					float allowed_age = (6-line_number) * 60.0;
+
+					if (line->age > allowed_age) {
+						refn = ref;
+						ref = ref->next;
+						chat_lines = (ref_t*)list_remove(&chat_lines,refn);
+						delete line;
+						free(refn);
+						continue;
+					}
+				}
+				whole += line->text + L'\n';
+				ref = ref->next;
 			}
 			guitext_chat->setText(whole.c_str());
 
@@ -2138,8 +2083,9 @@ void the_game(
 			guitext_chat->setRelativePosition(rect);
 
 			// Don't show chat if empty or profiler or debug is enabled
-			guitext_chat->setVisible(chat_lines.size() != 0
-					&& show_chat && show_profiler == 0);
+			guitext_chat->setVisible(chat_lines != NULL && show_chat && show_profiler == 0);
+		}else{
+			guitext_chat->setVisible(false);
 		}
 
 		/*
@@ -2293,8 +2239,6 @@ void the_game(
 					driver,
 					font,
 					v2s32(screensize.X/2,screensize.Y),
-					hotbar_imagesize,
-					hotbar_itemcount,
 					&local_inventory,
 					client.getHP()/5,
 					client.getAir()/5,
@@ -2334,8 +2278,6 @@ void the_game(
 					driver,
 					font,
 					v2s32(screensize.X,screensize.Y),
-					hotbar_imagesize,
-					hotbar_itemcount,
 					show_index,
 					&local_inventory,
 					client.getServerDamage(),

@@ -261,8 +261,6 @@ void hud_draw_old(
 	video::IVideoDriver *driver,
 	gui::IGUIFont *font,
 	v2s32 centrelowerpos,
-	s32 imgsize,
-	s32 itemcount,
 	Inventory *inventory,
 	s32 halfheartcount,
 	s32 halfbubblecount,
@@ -275,20 +273,28 @@ void hud_draw_old(
 		return;
 	}
 
-	s32 padding = imgsize/12;
-	s32 width = itemcount*(imgsize+padding*2);
+	s32 imagesize = 64;
+
+	if (centrelowerpos.Y <= 400) {
+		imagesize = 32;
+	}else if (centrelowerpos.Y <= 640) {
+		imagesize = 48;
+	}
+
+	s32 padding = imagesize/12;
+	s32 width = 8*(imagesize+padding*2);
 
 	// Position of upper left corner of bar
-	v2s32 pos = centrelowerpos - v2s32(width/2, imgsize+padding*2);
+	v2s32 pos = centrelowerpos - v2s32(width/2, imagesize+padding*2);
 
-	core::rect<s32> imgrect(0,0,imgsize,imgsize);
+	core::rect<s32> imgrect(0,0,imagesize,imagesize);
 
 	std::wstring selected = L"";
 
-	for (s32 i=0; i<itemcount; i++) {
+	for (s32 i=0; i<8; i++) {
 		InventoryItem *item = mainlist->getItem(i);
 
-		core::rect<s32> rect = imgrect + pos + v2s32(padding+i*(imgsize+padding*2), padding);
+		core::rect<s32> rect = imgrect + pos + v2s32(padding+i*(imagesize+padding*2), padding);
 
 		if (g_selected_item == i) {
 			video::SColor c_outside(255,255,0,0);
@@ -373,8 +379,6 @@ void hud_draw(
 	video::IVideoDriver *driver,
 	gui::IGUIFont *font,
 	v2s32 screensize,
-	s32 imgsize,
-	s32 itemcount,
 	bool show_index,
 	Inventory *inventory,
 	bool have_health,
@@ -527,7 +531,7 @@ void hud_draw(
 
 		core::rect<s32> base_rect(screensize.X-104,screensize.Y-104,screensize.X-80,screensize.Y-80);
 		for (s32 i=g_selected_item+1, p=3; ; i++,p--) {
-			if (i >= itemcount)
+			if (i >= 8)
 				i = 0;
 			if (i == g_selected_item)
 				break;
