@@ -680,13 +680,64 @@ void the_game(
 	std::wstring &error_message
 )
 {
+	u32 text_height;
+	v2u32 screensize(0,0);
+	uint16_t port;
+	bool could_connect = false;
+	f32 camera_yaw = 0; // "right/left"
+	f32 camera_pitch = 0; // "up/down"
+	Clouds *clouds = NULL;
+	Sky *sky = NULL;
+	gui::IGUIStaticText *guitext;
+	gui::IGUIStaticText *guitext2;
+	gui::IGUIStaticText *guitext_info;
+	gui::IGUIStaticText *guitext_chat;
+	gui::IGUIStaticText *guitext_profiler;
+	ref_t *chat_lines = NULL;
+	u32 drawtime = 0;
+	core::list<float> frametime_log;
+	float action_delay_counter = 0.0;
+	float dig_time = 0.0;
+	v3s16 nodepos_old(-32768,-32768,-32768);
+	float damage_flash_timer = 0;
+	bool invert_mouse = false;
+	bool respawn_menu_active = false;
+	bool show_hud = true;
+	bool show_chat = true;
+	bool force_fog_off = false;
+	bool disable_camera_update = false;
+	bool show_debug = false;
+	bool show_debug_frametime = false;
+	u32 show_profiler = 0;
+	u32 show_profiler_max = 3;  // Number of pages
+	float fps_max = 60;
+	float profiler_print_interval = 0;
+	bool free_move = false;
+	f32 mouse_sensitivity = 1.0;
+	bool highlight_selected_node = true;
+	bool enable_particles = true;
+	bool enable_fog = true;
+	bool old_hotbar = false;
+	bool show_index = false;
+	bool has_selected_node = false;
+	v3s16 selected_node_pos = v3s16(0,0,0);
+	u32 selected_node_crack = 0;
+	bool first_loop_after_window_activation = true;
+	u32 lasttime = 0;
+	v3s16 lastpointed(0,0,0);
+	float recent_turn_speed = 0.0;
+	float time_of_day = 0;
+	float time_of_day_smooth = 0;
+	float busytime;
+	u32 busytime_u32;
+	f32 dtime;
+
 	video::IVideoDriver* driver = device->getVideoDriver();
 	scene::ISceneManager* smgr = device->getSceneManager();
 
 	// Calculate text height using the font
-	u32 text_height = font->getDimension(L"Random test string").Height;
+	text_height = font->getDimension(L"Random test string").Height;
 
-	v2u32 screensize(0,0);
 	screensize = driver->getScreenSize();
 
 	/*
@@ -722,7 +773,7 @@ void the_game(
 	bridge_register_client(&client);
 
 	drawLoadingScreen(device,narrow_to_wide(gettext("Resolving address...")));
-	uint16_t port = config_get_int("world.server.port");
+	port = config_get_int("world.server.port");
 	if (!port)
 		port = 30000;
 	Address connect_address(0,0,0,0, port);
@@ -745,8 +796,7 @@ void the_game(
 	/*
 		Attempt to connect to the server
 	*/
-	client.connect(connect_address);
-	bool could_connect = false;
+	client.connect(connect_address);;
 
 	try{
 		float time_counter = 0.0;
@@ -821,22 +871,11 @@ void the_game(
 		return;
 	}
 
-	f32 camera_yaw = 0; // "right/left"
-	f32 camera_pitch = 0; // "up/down"
-
-	/*
-		Clouds
-	*/
-
-	Clouds *clouds = NULL;
+	/* Clouds */
 	if (config_get_bool("client.graphics.clouds"))
 		clouds = new Clouds(smgr->getRootSceneNode(), smgr, -1, time(0));
 
-	/*
-		Skybox
-	*/
-
-	Sky *sky = NULL;
+	/* Skybox */
 	sky = new Sky(smgr->getRootSceneNode(), smgr, -1);
 
 	/*
@@ -848,32 +887,31 @@ void the_game(
 	*/
 
 	// First line of debug text
-	gui::IGUIStaticText *guitext = guienv->addStaticText(
+	guitext = guienv->addStaticText(
 			L"Voxelands",
 			core::rect<s32>(5, 5, 795, 5+text_height),
 			false, false);
 	// Second line of debug text
-	gui::IGUIStaticText *guitext2 = guienv->addStaticText(
+	guitext2 = guienv->addStaticText(
 			L"",
 			core::rect<s32>(5, 3+(text_height)*1, 795, (5+text_height)*2),
 			false, false);
 	// At the middle of the screen
 	// Object infos are shown in this
-	gui::IGUIStaticText *guitext_info = guienv->addStaticText(
+	guitext_info = guienv->addStaticText(
 			L"",
 			core::rect<s32>(0,0,500,text_height+5) + v2s32(100,200),
 			false, false);
 
 	// Chat text
-	gui::IGUIStaticText *guitext_chat = guienv->addStaticText(
+	guitext_chat = guienv->addStaticText(
 			L"",
 			core::rect<s32>(0,0,0,0),
 			//false, false); // Disable word wrap as of now
 			false, true);
-	ref_t *chat_lines = NULL;
 
 	// Profiler text (size is updated when text is updated)
-	gui::IGUIStaticText *guitext_profiler = guienv->addStaticText(
+	guitext_profiler = guienv->addStaticText(
 			L"<Profiler>",
 			core::rect<s32>(0,0,0,0),
 			false, false);
@@ -883,53 +921,24 @@ void the_game(
 	/*
 		Some statistics are collected in these
 	*/
-	u32 drawtime = 0;
-
-	core::list<float> frametime_log;
-
-	float action_delay_counter = 0.0;
-	float dig_time = 0.0;
-	v3s16 nodepos_old(-32768,-32768,-32768);
-
-	float damage_flash_timer = 0;
-
-	bool invert_mouse = config_get_bool("client.ui.mouse.invert");
-
-	bool respawn_menu_active = false;
-
-	bool show_hud = true;
-	bool show_chat = true;
-	bool force_fog_off = false;
-	bool disable_camera_update = false;
-	bool show_debug = config_get_bool("debug.show");
-	bool show_debug_frametime = false;
-	u32 show_profiler = 0;
-	u32 show_profiler_max = 3;  // Number of pages
-	float fps_max = config_get_float("client.graphics.fps.max");
-	float profiler_print_interval = config_get_float("debug.profiler.interval");
-
-	bool free_move = false;
-	f32 mouse_sensitivity = config_get_float("client.ui.mouse.sensitivity");
-	bool highlight_selected_node = true;
+	invert_mouse = config_get_bool("client.ui.mouse.invert");
+	show_debug = config_get_bool("debug.show");
+	fps_max = config_get_float("client.graphics.fps.max");
+	profiler_print_interval = config_get_float("debug.profiler.interval");
+	mouse_sensitivity = config_get_float("client.ui.mouse.sensitivity");
 	{
 		char* v = config_get("client.graphics.selection");
 		if (v && !strcmp(v,"outline"))
 			highlight_selected_node = false;
 	}
-	bool enable_particles = config_get_bool("client.graphics.particles");
-	bool enable_fog = config_get_bool("client.graphics.light.fog");
-	bool old_hotbar = config_get_bool("client.ui.hud.old");
-	bool show_index = config_get_bool("client.ui.hud.wieldindex");
-
-	bool has_selected_node = false;
-	v3s16 selected_node_pos = v3s16(0,0,0);
-	u32 selected_node_crack = 0;
+	enable_particles = config_get_bool("client.graphics.particles");
+	enable_fog = config_get_bool("client.graphics.light.fog");
+	old_hotbar = config_get_bool("client.ui.hud.old");
+	show_index = config_get_bool("client.ui.hud.wieldindex");
 
 	/*
 		Main loop
 	*/
-
-	bool first_loop_after_window_activation = true;
 
 	// TODO: Convert the static interval timers to these
 	// Interval limiter for profiler
@@ -938,12 +947,7 @@ void the_game(
 	// Time is in milliseconds
 	// NOTE: getRealTime() causes strange problems in wine (imprecision?)
 	// NOTE: So we have to use getTime() and call run()s between them
-	u32 lasttime = device->getTimer()->getTime();
-	v3s16 lastpointed(0,0,0);
-
-	float recent_turn_speed = 0.0;
-	float time_of_day = 0;
-	float time_of_day_smooth = 0;
+	lasttime = device->getTimer()->getTime();
 
 	while (device->run() && kill == false) {
 		//std::cerr<<"frame"<<std::endl;
@@ -985,8 +989,6 @@ void the_game(
 		std::wstring infotext;
 
 		// Time of frame without fps limit
-		float busytime;
-		u32 busytime_u32;
 		{
 			// not using getRealTime is necessary for wine
 			u32 time = device->getTimer()->getTime();
@@ -1020,8 +1022,6 @@ void the_game(
 		/*
 			Time difference calculation
 		*/
-		f32 dtime; // in seconds
-
 		u32 time = device->getTimer()->getTime();
 		if (time > lasttime) {
 			dtime = (time - lasttime) / 1000.0;
