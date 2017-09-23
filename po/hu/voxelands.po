@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
-# This file is distributed under the same license as the PACKAGE package.
-#
+# This file is distributed under the same license as the voxelands package.
+# 
 # Translators:
 # dav19, 2016
 # dav19, 2016
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-02 17:10+1000\n"
-"PO-Revision-Date: 2016-04-29 13:15+0000\n"
+"PO-Revision-Date: 2017-09-22 22:44+0000\n"
 "Last-Translator: Lisa 'darkrose' Milne <lisa@ltmnet.com>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/voxelands/"
-"voxelands/language/hu_HU/)\n"
-"Language: hu_HU\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/voxelands/voxelands/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
@@ -114,7 +113,7 @@ msgstr "hosszú haj"
 
 #: src/character_creator.cpp:81
 msgid "Styled Hair"
-msgstr ""
+msgstr "frizura"
 
 #: src/character_creator.cpp:83
 msgid "White Eyes"
@@ -230,17 +229,9 @@ msgstr "vászoncipő"
 
 #: src/character_creator.cpp:203
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Itt hozhatod létre az alapértelmezett kinézetedet, a többi játékos ilyennek "
-"lát majd a játékban. Amikor egy új szerverre csatlakozol, az itt "
-"kiválasztott ruhákban kezdel a szerveren. További ruházat és páncélzat "
-"készíthető a játékban.\n"
-"A főmenüből bármikor visszatérhetsz ide hogy megváltoztasd a karakteredet."
+msgstr "Itt hozhatod létre az alapértelmezett kinézetedet, a többi játékos ilyennek lát majd a játékban. Amikor egy új szerverre csatlakozol, az itt kiválasztott ruhákban kezdel a szerveren. További ruházat és páncélzat készíthető a játékban.\nA főmenüből bármikor visszatérhetsz ide hogy megváltoztasd a karakteredet."
 
 #: src/character_creator.cpp:224
 msgid "Create Your Character"
@@ -248,27 +239,27 @@ msgstr "Karaktered létrehozása"
 
 #: src/character_creator.cpp:231
 msgid "Male"
-msgstr "férfi"
+msgstr "Férfi"
 
 #: src/character_creator.cpp:236
 msgid "Female"
-msgstr "nő"
+msgstr "Nő"
 
 #: src/character_creator.cpp:243
 msgid "Taller"
-msgstr "magasabb"
+msgstr "Magasabb"
 
 #: src/character_creator.cpp:248
 msgid "Shorter"
-msgstr "alacsonyabb"
+msgstr "Alacsonyabb"
 
 #: src/character_creator.cpp:255
 msgid "Wider"
-msgstr "szélesebb"
+msgstr "Szélesebb"
 
 #: src/character_creator.cpp:260
 msgid "Thinner"
-msgstr "vékonyabb"
+msgstr "Vékonyabb"
 
 #: src/character_creator.cpp:419
 msgid "Done"
@@ -549,35 +540,35 @@ msgstr "fekete vászoncipő"
 
 #: src/content_clothesitem.cpp:1072
 msgid "Canvas Belt"
-msgstr "vászon öv"
+msgstr "vászonöv"
 
 #: src/content_clothesitem.cpp:1086
 msgid "Blue Canvas Belt"
-msgstr "kék vászon öv"
+msgstr "kék vászonöv"
 
 #: src/content_clothesitem.cpp:1100
 msgid "Green Canvas Belt"
-msgstr "zöld vászon öv"
+msgstr "zöld vászonöv"
 
 #: src/content_clothesitem.cpp:1114
 msgid "Orange Canvas Belt"
-msgstr "narancssárga vászon öv"
+msgstr "narancssárga vászonöv"
 
 #: src/content_clothesitem.cpp:1128
 msgid "Purple Canvas Belt"
-msgstr "lila vászon öv"
+msgstr "lila vászonöv"
 
 #: src/content_clothesitem.cpp:1142
 msgid "Red Canvas Belt"
-msgstr "piros vászon öv"
+msgstr "piros vászonöv"
 
 #: src/content_clothesitem.cpp:1156
 msgid "Yellow Canvas Belt"
-msgstr "sárga vászon öv"
+msgstr "sárga vászonöv"
 
 #: src/content_clothesitem.cpp:1170
 msgid "Black Canvas Belt"
-msgstr "fekete vászon öv"
+msgstr "fekete vászonöv"
 
 #: src/content_clothesitem.cpp:1185
 msgid "Leather Jacket"
@@ -1032,24 +1023,20 @@ msgid "Quartz Medallion"
 msgstr "kvarcmedalion"
 
 #: src/content_clothesitem.cpp:2919
-#, fuzzy
 msgid "Iron Helmet"
-msgstr "rézsisak"
+msgstr ""
 
 #: src/content_clothesitem.cpp:2934
-#, fuzzy
 msgid "Iron Chest Armour"
-msgstr "réz mellvért"
+msgstr ""
 
 #: src/content_clothesitem.cpp:2949
-#, fuzzy
 msgid "Iron Pants"
-msgstr "zöld nadrág"
+msgstr ""
 
 #: src/content_clothesitem.cpp:2964
-#, fuzzy
 msgid "Iron Boots"
-msgstr "szőrmecsizma"
+msgstr ""
 
 #: src/content_clothesitem.cpp:2979
 msgid "Copper Helmet"
@@ -1072,9 +1059,8 @@ msgid "Paper"
 msgstr "papír"
 
 #: src/content_craftitem.cpp:96
-#, fuzzy
 msgid "Padlock"
-msgstr "óra"
+msgstr ""
 
 #: src/content_craftitem.cpp:105
 msgid "Charcoal Lump"
@@ -1085,9 +1071,8 @@ msgid "Coal Lump"
 msgstr "széndarab"
 
 #: src/content_craftitem.cpp:121
-#, fuzzy
 msgid "Iron Ore"
-msgstr "vas alma"
+msgstr ""
 
 #: src/content_craftitem.cpp:131
 msgid "Clay Lump"
@@ -1098,14 +1083,12 @@ msgid "Tin Ore"
 msgstr ""
 
 #: src/content_craftitem.cpp:149
-#, fuzzy
 msgid "Copper Ore"
-msgstr "réz vezeték"
+msgstr ""
 
 #: src/content_craftitem.cpp:158
-#, fuzzy
 msgid "Silver Ore"
-msgstr "ezüst dudor"
+msgstr ""
 
 #: src/content_craftitem.cpp:168
 msgid "Gold Ore"
@@ -1136,14 +1119,12 @@ msgid "Flint"
 msgstr "kovakő"
 
 #: src/content_craftitem.cpp:220
-#, fuzzy
 msgid "Iron Ingot"
-msgstr "ónrúd"
+msgstr ""
 
 #: src/content_craftitem.cpp:227
-#, fuzzy
 msgid "Bronze Ingot"
-msgstr "ónrúd"
+msgstr ""
 
 #: src/content_craftitem.cpp:247 src/content_mapnode.cpp:835
 msgid "Brick"
@@ -1226,9 +1207,8 @@ msgid "Pine Plank"
 msgstr "fenyődeszka"
 
 #: src/content_craftitem.cpp:455
-#, fuzzy
 msgid "Apple Wood Plank"
-msgstr "dzsungel fa deszka"
+msgstr ""
 
 #: src/content_craftitem.cpp:466
 msgid "Wood Plank"
@@ -1260,7 +1240,7 @@ msgstr "pép"
 
 #: src/content_craftitem.cpp:546
 msgid "Sliced Pumpkin"
-msgstr ""
+msgstr "tökszelet"
 
 #: src/content_craftitem.cpp:559
 msgid "Pumpkin Pie Slice"
@@ -1324,7 +1304,7 @@ msgstr "szőlőfürt"
 
 #: src/content_craftitem.cpp:735
 msgid "String"
-msgstr "madzag"
+msgstr "fonal"
 
 #: src/content_craftitem.cpp:744
 msgid "Mithril Dust"
@@ -1559,9 +1539,8 @@ msgid "Coffee"
 msgstr "kávé"
 
 #: src/content_craftitem.cpp:1391
-#, fuzzy
 msgid "Iron Bottle"
-msgstr "vas alma"
+msgstr ""
 
 #: src/content_craftitem.cpp:1408
 msgid "Bottle of Water"
@@ -1577,7 +1556,7 @@ msgstr "nyers mithril"
 
 #: src/content_craftitem.cpp:1448
 msgid "Unbound Mithril"
-msgstr ""
+msgstr "kötetlen mithril"
 
 #: src/content_craftitem.cpp:1456 src/mineral.cpp:142
 msgid "Mithril"
@@ -1612,9 +1591,8 @@ msgid "Space Dust"
 msgstr "űrpor"
 
 #: src/content_craftitem.cpp:1524
-#, fuzzy
 msgid "Blueberries"
-msgstr "kék szemek"
+msgstr ""
 
 #: src/content_craftitem.cpp:1535
 msgid "Raspberries"
@@ -1629,9 +1607,8 @@ msgid "Exo Upgrade"
 msgstr ""
 
 #: src/content_craftitem.cpp:1608
-#, fuzzy
 msgid "Cooking Upgrade"
-msgstr "szakácskönyv"
+msgstr ""
 
 #: src/content_craftitem.cpp:1632
 msgid "Fuel Upgrade"
@@ -1723,34 +1700,28 @@ msgid "Gravel"
 msgstr "murva"
 
 #: src/content_mapnode.cpp:611
-#, fuzzy
 msgid "Sandstone"
-msgstr "homokkő"
+msgstr ""
 
 #: src/content_mapnode.cpp:625
-#, fuzzy
 msgid "Sandstone Bricks"
-msgstr "homokkőtégla"
+msgstr ""
 
 #: src/content_mapnode.cpp:639
-#, fuzzy
 msgid "Sandstone Blocks"
-msgstr "homokkőtömb"
+msgstr ""
 
 #: src/content_mapnode.cpp:653
-#, fuzzy
 msgid "Desert Sandstone"
-msgstr "sivatagi homok"
+msgstr ""
 
 #: src/content_mapnode.cpp:667
-#, fuzzy
 msgid "Desert Sandstone Bricks"
-msgstr "homokkőtégla"
+msgstr ""
 
 #: src/content_mapnode.cpp:681
-#, fuzzy
 msgid "Desert Sandstone Blocks"
-msgstr "homokkőtömb"
+msgstr ""
 
 #: src/content_mapnode.cpp:695
 msgid "Clay"
@@ -1873,9 +1844,8 @@ msgid "Wood"
 msgstr "fa"
 
 #: src/content_mapnode.cpp:1324
-#, fuzzy
 msgid "Apple Wood"
-msgstr "dzsungel fa"
+msgstr ""
 
 #: src/content_mapnode.cpp:1341
 msgid "Jungle Wood"
@@ -2014,9 +1984,8 @@ msgid "Mossy Cobble Stone"
 msgstr "mohás macskakő"
 
 #: src/content_mapnode.cpp:2269
-#, fuzzy
 msgid "Iron Block"
-msgstr "kőtömb"
+msgstr ""
 
 #: src/content_mapnode.cpp:2286
 msgid "Mithril Block"
@@ -2075,54 +2044,44 @@ msgid "Wood Tiles"
 msgstr "facsempe"
 
 #: src/content_mapnode.cpp:2438
-#, fuzzy
 msgid "Stone Column"
-msgstr "Kőásó"
+msgstr "kőoszlop"
 
 #: src/content_mapnode.cpp:2495
-#, fuzzy
 msgid "Limestone Column"
-msgstr "mészkő tábla"
+msgstr "mészkőoszlop"
 
 #: src/content_mapnode.cpp:2552
-#, fuzzy
 msgid "Marble Column"
-msgstr "márvány"
+msgstr "márványoszlop"
 
 #: src/content_mapnode.cpp:2609
-#, fuzzy
 msgid "Sandstone Column"
-msgstr "homokkőgomb"
+msgstr "homokkőoszlop"
 
 #: src/content_mapnode.cpp:2667
-#, fuzzy
 msgid "Brick Column"
-msgstr "tégla tábla"
+msgstr "téglaoszlop"
 
 #: src/content_mapnode.cpp:2722
-#, fuzzy
 msgid "Apple wood Column"
-msgstr "dzsungel fa deszka"
+msgstr ""
 
 #: src/content_mapnode.cpp:2783
-#, fuzzy
 msgid "Wood Column"
-msgstr "deszka"
+msgstr "faoszlop"
 
 #: src/content_mapnode.cpp:2844
-#, fuzzy
 msgid "Jungle Wood Column"
-msgstr "dzsungel fa deszka"
+msgstr "dzungelfaoszlop"
 
 #: src/content_mapnode.cpp:2905
-#, fuzzy
 msgid "Pine Wood Column"
-msgstr "dzsungel fa deszka"
+msgstr "fenyőfaoszlop"
 
 #: src/content_mapnode.cpp:2966
-#, fuzzy
 msgid "Rough Stone Column"
-msgstr "durvakőgomb"
+msgstr "durva kőoszlop"
 
 #: src/content_mapnode_circuit.cpp:36
 msgid "Mithril Wire"
@@ -2201,9 +2160,8 @@ msgstr "faajtó"
 
 #: src/content_mapnode_door.cpp:96 src/content_mapnode_door.cpp:123
 #: src/content_mapnode_door.cpp:738 src/content_mapnode_door.cpp:764
-#, fuzzy
 msgid "Iron Door"
-msgstr "faajtó"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:155 src/content_mapnode_door.cpp:183
 #: src/content_mapnode_door.cpp:683 src/content_mapnode_door.cpp:710
@@ -2217,9 +2175,8 @@ msgstr "ablakos faajtó"
 
 #: src/content_mapnode_door.cpp:276 src/content_mapnode_door.cpp:304
 #: src/content_mapnode_door.cpp:842 src/content_mapnode_door.cpp:868
-#, fuzzy
 msgid "Iron Windowed Door"
-msgstr "ablakos faajtó"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:339 src/content_mapnode_door.cpp:365
 #: src/content_mapnode_door.cpp:896 src/content_mapnode_door.cpp:923
@@ -2233,9 +2190,8 @@ msgstr "jobbos üvegajtó"
 
 #: src/content_mapnode_door.cpp:455 src/content_mapnode_door.cpp:482
 #: src/content_mapnode_door.cpp:1009 src/content_mapnode_door.cpp:1037
-#, fuzzy
 msgid "Right Hanging Iron Door"
-msgstr "jobbos faajtó"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:512 src/content_mapnode_door.cpp:539
 #: src/content_mapnode_door.cpp:1066 src/content_mapnode_door.cpp:1093
@@ -2244,24 +2200,22 @@ msgstr "jobbos ablakos faajtó"
 
 #: src/content_mapnode_door.cpp:569 src/content_mapnode_door.cpp:597
 #: src/content_mapnode_door.cpp:1121 src/content_mapnode_door.cpp:1149
-#, fuzzy
 msgid "Right Hanging Iron Windowed Door"
-msgstr "jobbos ablakos faajtó"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1179 src/content_mapnode_door.cpp:1350
 #: src/content_mapnode_door.cpp:1405
 msgid "Wood Hatch"
-msgstr ""
+msgstr "fa csapóajtó"
 
 #: src/content_mapnode_door.cpp:1205 src/content_mapnode_door.cpp:1377
 #: src/content_mapnode_door.cpp:1432
-#, fuzzy
 msgid "Iron Hatch"
-msgstr "pamutkalap"
+msgstr ""
 
 #: src/content_mapnode_door.cpp:1231
 msgid "Wood Windowed Hatch"
-msgstr ""
+msgstr "ablakos fa csapóajtó"
 
 #: src/content_mapnode_door.cpp:1259
 msgid "Iron Windowed Hatch"
@@ -2272,13 +2226,12 @@ msgid "Wood Gate"
 msgstr "fakapu"
 
 #: src/content_mapnode_door.cpp:1319 src/content_mapnode_door.cpp:1485
-#, fuzzy
 msgid "Iron Gate"
-msgstr "NOT kapu"
+msgstr ""
 
 #: src/content_mapnode_farm.cpp:38
 msgid "Farm Dirt"
-msgstr ""
+msgstr "szántás"
 
 #: src/content_mapnode_farm.cpp:68
 msgid "Trellis"
@@ -2334,7 +2287,7 @@ msgstr "szőlőlugas"
 
 #: src/content_mapnode_farm.cpp:480 src/content_mapnode_farm.cpp:498
 msgid "Dead Vine"
-msgstr ""
+msgstr "korhadt szőlőtőke"
 
 #: src/content_mapnode_furniture.cpp:37
 msgid "Book Shelf"
@@ -2349,9 +2302,8 @@ msgid "Pine Book Shelf"
 msgstr "fenyőfa könyvespolc"
 
 #: src/content_mapnode_furniture.cpp:136
-#, fuzzy
 msgid "Applewood Book Shelf"
-msgstr "dzsungelfa könyvespolc"
+msgstr ""
 
 #: src/content_mapnode_furniture.cpp:169 src/content_mapnode_furniture.cpp:188
 #: src/content_mapnode_furniture.cpp:207 src/content_mapnode_furniture.cpp:226
@@ -2504,19 +2456,19 @@ msgstr "fenyőfa"
 
 #: src/content_mapnode_plants.cpp:116
 msgid "Young Tree"
-msgstr ""
+msgstr "facsemete"
 
 #: src/content_mapnode_plants.cpp:136
 msgid "Young Jungle Tree"
-msgstr ""
+msgstr "dzsungelfa csemete"
 
 #: src/content_mapnode_plants.cpp:156
 msgid "Young Apple Tree"
-msgstr ""
+msgstr "almafacsemete"
 
 #: src/content_mapnode_plants.cpp:176
 msgid "Young Conifer Tree"
-msgstr ""
+msgstr "fenyőfacsemete"
 
 #: src/content_mapnode_plants.cpp:196
 msgid "Jungle Grass"
@@ -2546,31 +2498,31 @@ msgstr "fenyőlevelek"
 #: src/content_mapnode_plants.cpp:466 src/content_mapnode_plants.cpp:491
 #: src/content_mapnode_plants.cpp:516
 msgid "Trimmed Leaves"
-msgstr ""
+msgstr "nyírt levelek"
 
 #: src/content_mapnode_plants.cpp:541
 msgid "Trimmed Apple Tree Leaves"
-msgstr ""
+msgstr "nyírt almafalevelek"
 
 #: src/content_mapnode_plants.cpp:566
 msgid "Trimmed Jungle Leaves"
-msgstr ""
+msgstr "nyírt dzsungelfalevelek"
 
 #: src/content_mapnode_plants.cpp:591
 msgid "Trimmed Conifer Leaves"
-msgstr ""
+msgstr "nyírt fenyőlevelek"
 
 #: src/content_mapnode_plants.cpp:616
 msgid "Apple Tree Blossom"
-msgstr ""
+msgstr "almafavirág"
 
 #: src/content_mapnode_plants.cpp:641
 msgid "Trimmed Apple Tree Blossom"
-msgstr ""
+msgstr "nyírt almafavirág"
 
 #: src/content_mapnode_plants.cpp:663
 msgid "Cactus Blossom"
-msgstr ""
+msgstr "kaktuszvirág"
 
 #: src/content_mapnode_plants.cpp:683
 msgid "Cactus Flower"
@@ -2602,15 +2554,15 @@ msgstr "fenyőfa csemete"
 
 #: src/content_mapnode_plants.cpp:878 src/content_mapnode_plants.cpp:902
 msgid "Wild Grass"
-msgstr ""
+msgstr "vad fű"
 
 #: src/content_mapnode_plants.cpp:925
 msgid "Dead Grass"
-msgstr ""
+msgstr "elszáradt fű"
 
 #: src/content_mapnode_plants.cpp:947
 msgid "Flower Stem"
-msgstr ""
+msgstr "virágszár"
 
 #: src/content_mapnode_plants.cpp:969
 msgid "Rose"
@@ -2626,7 +2578,7 @@ msgstr "tulipán"
 
 #: src/content_mapnode_plants.cpp:1038
 msgid "Tea Seeds"
-msgstr ""
+msgstr "teamag"
 
 #: src/content_mapnode_plants.cpp:1057
 msgid "Tea Plant"
@@ -2641,9 +2593,8 @@ msgid "Coffee Plant"
 msgstr "kávécserje"
 
 #: src/content_mapnode_plants.cpp:1122
-#, fuzzy
 msgid "Blueberry Bush"
-msgstr "kék oerkki por"
+msgstr ""
 
 #: src/content_mapnode_plants.cpp:1152
 msgid "Raspberry Bush"
@@ -2663,7 +2614,7 @@ msgstr "tábla"
 #: src/content_mapnode_sign.cpp:428 src/content_mapnode_sign.cpp:456
 #: src/content_mapnode_sign.cpp:486
 msgid "Locking Sign"
-msgstr ""
+msgstr "zárható tábla"
 
 #: src/content_mapnode_slab.cpp:38
 msgid "Rough Stone Slab"
@@ -2682,9 +2633,8 @@ msgid "Stone Slab"
 msgstr "kőtábla"
 
 #: src/content_mapnode_slab.cpp:109
-#, fuzzy
 msgid "Apple Wood Slab"
-msgstr "dzungelfa tábla"
+msgstr ""
 
 #: src/content_mapnode_slab.cpp:128
 msgid "Wood Slab"
@@ -2743,9 +2693,8 @@ msgid "Fence"
 msgstr "kerítés"
 
 #: src/content_mapnode_special.cpp:64
-#, fuzzy
 msgid "Iron Fence"
-msgstr "fenyőkerítés"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:91
 msgid "Jungle Wood Fence"
@@ -2756,9 +2705,8 @@ msgid "Pine Fence"
 msgstr "fenyőkerítés"
 
 #: src/content_mapnode_special.cpp:143
-#, fuzzy
 msgid "Apple Wood Fence"
-msgstr "dzsungelfa kerítés"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:169
 msgid "Iron Bars"
@@ -2770,55 +2718,55 @@ msgstr "sín"
 
 #: src/content_mapnode_special.cpp:227
 msgid "Terracotta Roof Tile"
-msgstr ""
+msgstr "terrakotta tetőcserép"
 
 #: src/content_mapnode_special.cpp:243
 msgid "Wood Roof Tile"
-msgstr ""
+msgstr "fa tetőcserép"
 
 #: src/content_mapnode_special.cpp:260
 msgid "Asphalt Roof Tile"
-msgstr ""
+msgstr "aszfalt tetőcserép"
 
 #: src/content_mapnode_special.cpp:283
 msgid "Stone Roof Tile"
-msgstr ""
+msgstr "kő tetőcserép"
 
 #: src/content_mapnode_special.cpp:299
 msgid "Glass Roof Tile"
-msgstr ""
+msgstr "üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:321
 msgid "Blue Glass Roof Tile"
-msgstr ""
+msgstr "kék üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:344
 msgid "Green Glass Roof Tile"
-msgstr ""
+msgstr "zöld üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:367
 msgid "Orange Glass Roof Tile"
-msgstr ""
+msgstr "narancssárga üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:390
 msgid "Purple Glass Roof Tile"
-msgstr ""
+msgstr "lila üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:413
 msgid "Red Glass Roof Tile"
-msgstr ""
+msgstr "piros üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:436
 msgid "Yellow Glass Roof Tile"
-msgstr ""
+msgstr "sárga üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:459
 msgid "Black Glass Roof Tile"
-msgstr ""
+msgstr "fekete üveg tetőcserép"
 
 #: src/content_mapnode_special.cpp:482
 msgid "Thatch Roof Tile"
-msgstr ""
+msgstr "nád tetőcserép"
 
 #: src/content_mapnode_special.cpp:498 src/content_mapnode_special.cpp:546
 #: src/content_mapnode_special.cpp:569
@@ -2839,7 +2787,7 @@ msgstr "szakácskönyv"
 
 #: src/content_mapnode_special.cpp:681
 msgid "Decraft Book"
-msgstr ""
+msgstr "Szétszerelési útmutató"
 
 #: src/content_mapnode_special.cpp:711 src/content_mapnode_special.cpp:900
 msgid "Diary"
@@ -2851,19 +2799,19 @@ msgstr "barkácskönyv"
 
 #: src/content_mapnode_special.cpp:781
 msgid "Reverse Craft Book"
-msgstr ""
+msgstr "szétszerelő könyv"
 
 #: src/content_mapnode_special.cpp:818
 msgid "Guide"
-msgstr ""
+msgstr "Vezető"
 
 #: src/content_mapnode_special.cpp:846 src/content_nodemeta.h:694
 msgid "Cooking Guide"
-msgstr "szakácskönyv"
+msgstr "útmutató"
 
 #: src/content_mapnode_special.cpp:873 src/content_nodemeta.h:720
 msgid "Decrafting Guide"
-msgstr ""
+msgstr "Szétszerelési útmutató"
 
 #: src/content_mapnode_special.cpp:928 src/content_nodemeta.h:636
 msgid "Craft Guide"
@@ -2871,27 +2819,23 @@ msgstr "barkácskönyv"
 
 #: src/content_mapnode_special.cpp:955 src/content_nodemeta.h:663
 msgid "Reverse Craft Guide"
-msgstr ""
+msgstr "Felhasználási útmutató"
 
 #: src/content_mapnode_special.cpp:984 src/content_mapnode_special.cpp:1086
-#, fuzzy
 msgid "Wood Barrel"
-msgstr "fakapu"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1009 src/content_mapnode_special.cpp:1109
-#, fuzzy
 msgid "Applewood Barrel"
-msgstr "almafa"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1034 src/content_mapnode_special.cpp:1132
-#, fuzzy
 msgid "Junglewood Barrel"
-msgstr "dzsungelfa könyvespolc"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1059 src/content_mapnode_special.cpp:1155
-#, fuzzy
 msgid "Pine Barrel"
-msgstr "fenyőfa könyvespolc"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1178 src/content_mapnode_special.cpp:1198
 #: src/hud.cpp:671
@@ -2914,7 +2858,7 @@ msgstr "kreatív láda"
 
 #: src/content_mapnode_special.cpp:1420
 msgid "Locking Chest"
-msgstr "zárt láda"
+msgstr "záródó láda"
 
 #: src/content_mapnode_special.cpp:1440
 msgid "Safe"
@@ -2930,16 +2874,15 @@ msgstr ""
 
 #: src/content_mapnode_special.cpp:1537
 msgid "Locking Furnace"
-msgstr "zárt kemence"
+msgstr "záródó kemence"
 
 #: src/content_mapnode_special.cpp:1558 src/content_mapnode_special.cpp:1583
 msgid "Incinerator"
 msgstr "égető"
 
 #: src/content_mapnode_special.cpp:1603
-#, fuzzy
 msgid "Camp Fire"
-msgstr "kempingágy"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1642
 msgid "Crusher"
@@ -2954,9 +2897,8 @@ msgid "Rainbow"
 msgstr "szivárvány"
 
 #: src/content_mapnode_special.cpp:1683
-#, fuzzy
 msgid "Unfired Flower Pot"
-msgstr "virágcserép"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1705
 msgid "Flower Pot"
@@ -2987,9 +2929,8 @@ msgid "Limestone Wall"
 msgstr "mészkő fal"
 
 #: src/content_mapnode_special.cpp:1860
-#, fuzzy
 msgid "Marble Wall"
-msgstr "márvány"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:1883 src/hud.cpp:672
 msgid "TNT"
@@ -3005,35 +2946,35 @@ msgstr "gőz"
 
 #: src/content_mapnode_special.cpp:1942
 msgid "Home Flag"
-msgstr ""
+msgstr "zászló"
 
 #: src/content_mapnode_special.cpp:1987
 msgid "Blue Home Flag"
-msgstr ""
+msgstr "kék zászló"
 
 #: src/content_mapnode_special.cpp:2011
 msgid "Green Home Flag"
-msgstr ""
+msgstr "zöld zászló"
 
 #: src/content_mapnode_special.cpp:2035
 msgid "Orange Home Flag"
-msgstr ""
+msgstr "narancssárga zászló"
 
 #: src/content_mapnode_special.cpp:2059
 msgid "Purple Home Flag"
-msgstr ""
+msgstr "lila zászló"
 
 #: src/content_mapnode_special.cpp:2083
 msgid "Red Home Flag"
-msgstr ""
+msgstr "piros zászló"
 
 #: src/content_mapnode_special.cpp:2107
 msgid "Yellow Home Flag"
-msgstr ""
+msgstr "sárga zászló"
 
 #: src/content_mapnode_special.cpp:2131
 msgid "Black Home Flag"
-msgstr ""
+msgstr "fekete zászló"
 
 #: src/content_mapnode_special.cpp:2155
 msgid "Life Support System"
@@ -3053,12 +2994,11 @@ msgstr "kohó"
 
 #: src/content_mapnode_special.cpp:2251
 msgid "Forge Fire"
-msgstr ""
+msgstr "kohótűz"
 
 #: src/content_mapnode_special.cpp:2270
-#, fuzzy
 msgid "Scaffolding"
-msgstr "nárcisz"
+msgstr ""
 
 #: src/content_mapnode_special.cpp:2304
 msgid "Unfired Clay Vessel"
@@ -3085,9 +3025,8 @@ msgid "Stone Stair"
 msgstr "kőlépcső"
 
 #: src/content_mapnode_stair.cpp:111
-#, fuzzy
 msgid "Apple wood Stair"
-msgstr "dzsungelfa lépcső"
+msgstr ""
 
 #: src/content_mapnode_stair.cpp:131
 msgid "Wood Stair"
@@ -3115,7 +3054,7 @@ msgstr "oerkki"
 
 #: src/content_mob.cpp:422
 msgid "Dungeon Master"
-msgstr ""
+msgstr "kalandmester"
 
 #: src/content_mob.cpp:443
 msgid "Fireball"
@@ -3174,27 +3113,24 @@ msgid "Stone Pick"
 msgstr "Kőcsákány"
 
 #: src/content_toolitem.cpp:310
-#, fuzzy
 msgid "Copper Pick"
-msgstr "réztömb"
+msgstr ""
 
 #: src/content_toolitem.cpp:323
 msgid "Flint Pick"
 msgstr "Kovakő csákány"
 
 #: src/content_toolitem.cpp:336
-#, fuzzy
 msgid "Bronze Pick"
-msgstr "Kőcsákány"
+msgstr ""
 
 #: src/content_toolitem.cpp:349
-#, fuzzy
 msgid "Iron Pick"
-msgstr "Kőcsákány"
+msgstr ""
 
 #: src/content_toolitem.cpp:362
 msgid "Unbound Mithril Pick"
-msgstr ""
+msgstr "kötetlen mithril csákány"
 
 #: src/content_toolitem.cpp:375
 msgid "Mithril Pick"
@@ -3209,27 +3145,24 @@ msgid "Stone Shovel"
 msgstr "Kőásó"
 
 #: src/content_toolitem.cpp:417
-#, fuzzy
 msgid "Copper Shovel"
-msgstr "Kőásó"
+msgstr ""
 
 #: src/content_toolitem.cpp:430
 msgid "Flint Shovel"
 msgstr "Kovakőásó"
 
 #: src/content_toolitem.cpp:443
-#, fuzzy
 msgid "Iron Shovel"
-msgstr "Kőásó"
+msgstr ""
 
 #: src/content_toolitem.cpp:456
-#, fuzzy
 msgid "Bronze Shovel"
-msgstr "Kőásó"
+msgstr ""
 
 #: src/content_toolitem.cpp:469
 msgid "Unbound Mithril Shovel"
-msgstr ""
+msgstr "kötetlen mithril ásó"
 
 #: src/content_toolitem.cpp:482
 msgid "Mithril Shovel"
@@ -3240,27 +3173,24 @@ msgid "Stone Axe"
 msgstr "Kőfejsze"
 
 #: src/content_toolitem.cpp:520
-#, fuzzy
 msgid "Copper Axe"
-msgstr "réz vezeték"
+msgstr ""
 
 #: src/content_toolitem.cpp:533
 msgid "Flint Axe"
 msgstr "Kovakő fejsze"
 
 #: src/content_toolitem.cpp:546
-#, fuzzy
 msgid "Iron Axe"
-msgstr "vas alma"
+msgstr ""
 
 #: src/content_toolitem.cpp:559
-#, fuzzy
 msgid "Bronze Axe"
-msgstr "Kőfejsze"
+msgstr ""
 
 #: src/content_toolitem.cpp:572
 msgid "Unbound Mithril Axe"
-msgstr ""
+msgstr "kötetlen mithril fejsze"
 
 #: src/content_toolitem.cpp:585
 msgid "Mithril Axe"
@@ -3268,7 +3198,7 @@ msgstr "mithril fejsze"
 
 #: src/content_toolitem.cpp:600
 msgid "Wooden Club"
-msgstr ""
+msgstr "husáng"
 
 #: src/content_toolitem.cpp:614
 msgid "Bow"
@@ -3279,50 +3209,44 @@ msgid "Stone Spear"
 msgstr "kődárda"
 
 #: src/content_toolitem.cpp:650
-#, fuzzy
 msgid "Copper Spear"
-msgstr "réz dudor"
+msgstr ""
 
 #: src/content_toolitem.cpp:663
 msgid "Flint Spear"
 msgstr "kovakő dárda"
 
 #: src/content_toolitem.cpp:676
-#, fuzzy
 msgid "Iron Spear"
-msgstr "kődárda"
+msgstr ""
 
 #: src/content_toolitem.cpp:689
-#, fuzzy
 msgid "Bronze Spear"
-msgstr "kődárda"
+msgstr ""
 
 #: src/content_toolitem.cpp:702
 msgid "Unbound Mithril Spear"
-msgstr ""
+msgstr "kötetlen mithril dárda"
 
 #: src/content_toolitem.cpp:715
 msgid "Mithril Spear"
 msgstr "mithril dárda"
 
 #: src/content_toolitem.cpp:730
-#, fuzzy
 msgid "Copper Sword"
-msgstr "réz vezeték"
+msgstr ""
 
 #: src/content_toolitem.cpp:743
-#, fuzzy
 msgid "Bronze Sword"
-msgstr "Kőkard"
+msgstr ""
 
 #: src/content_toolitem.cpp:756
-#, fuzzy
 msgid "Iron Sword"
-msgstr "Kőkard"
+msgstr ""
 
 #: src/content_toolitem.cpp:769
 msgid "Unbound Mithril Sword"
-msgstr ""
+msgstr "kötetlen mithril kard"
 
 #: src/content_toolitem.cpp:782
 msgid "Mithril Sword"
@@ -3333,14 +3257,12 @@ msgid "Flint Shears"
 msgstr "Kovakő nyíróolló"
 
 #: src/content_toolitem.cpp:810
-#, fuzzy
 msgid "Copper Shears"
-msgstr "réz lábvért"
+msgstr ""
 
 #: src/content_toolitem.cpp:823
-#, fuzzy
 msgid "Iron Shears"
-msgstr "Kovakő nyíróolló"
+msgstr ""
 
 #: src/content_toolitem.cpp:838
 msgid "Wooden Bucket"
@@ -3351,43 +3273,36 @@ msgid "Tin Bucket"
 msgstr "Ónvödör"
 
 #: src/content_toolitem.cpp:873
-#, fuzzy
 msgid "Iron Bucket"
-msgstr "Ónvödör"
+msgstr ""
 
 #: src/content_toolitem.cpp:892
-#, fuzzy
 msgid "Stone Knife"
-msgstr "kőgomb"
+msgstr ""
 
 #: src/content_toolitem.cpp:905
-#, fuzzy
 msgid "Copper Knife"
-msgstr "réz vezeték"
+msgstr ""
 
 #: src/content_toolitem.cpp:918
-#, fuzzy
 msgid "Flint Knife"
-msgstr "Kovakő fejsze"
+msgstr ""
 
 #: src/content_toolitem.cpp:931
 msgid "Bronze Knife"
 msgstr ""
 
 #: src/content_toolitem.cpp:944
-#, fuzzy
 msgid "Iron Knife"
-msgstr "vas alma"
+msgstr ""
 
 #: src/content_toolitem.cpp:957
-#, fuzzy
 msgid "Unbound Mithril Knife"
-msgstr "mithril kulcs"
+msgstr ""
 
 #: src/content_toolitem.cpp:970
-#, fuzzy
 msgid "Mithril Knife"
-msgstr "mithril kulcs"
+msgstr ""
 
 #: src/content_toolitem.cpp:986
 msgid "Fire Starter"
@@ -3411,7 +3326,7 @@ msgstr "mithril kulcs"
 
 #: src/game.cpp:214
 msgid "Show Crafting"
-msgstr ""
+msgstr "Végtermék"
 
 #: src/game.cpp:215
 msgid "Clothes"
@@ -3485,9 +3400,9 @@ msgstr[0] "Csatlakozás a szerverhez... (időtúllépés %d másodperc múlva)"
 msgstr[1] "Csatlakozás a szerverhez... (időtúllépés %d másodperc múlva)"
 
 #: src/game.cpp:801
-#, fuzzy, c-format
+#, c-format
 msgid "Access denied. Reason: %s"
-msgstr "Engedély megtagadva. Oka: %ls"
+msgstr ""
 
 #: src/game.cpp:805
 msgid "Unable to Connect (port already in use?)."
@@ -3594,15 +3509,15 @@ msgstr "Meghaltál."
 
 #: src/guiDeathScreen.cpp:102
 msgid "Respawn"
-msgstr ""
+msgstr "Újjáéledés"
 
 #: src/guiFormSpecMenu.cpp:442
 msgid "Left click: Move all items, Right click: Move single item"
-msgstr ""
+msgstr "Bal kattintás: minden elem mozgatása, Jobb kattintás: egy elem mozgatása"
 
 #: src/guiFormSpecMenu.cpp:463
 msgid "Write It"
-msgstr ""
+msgstr "Írd!"
 
 #: src/guiMainMenu.cpp:118
 msgid "Character Creator"
@@ -3633,10 +3548,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Készítette: Lisa 'darkrose' Milne <lisa@ltmnet.com> és közreműdödők."
+msgstr "Voxelands\nhttp://www.voxelands.com/\nKészítette: Lisa 'darkrose' Milne <lisa@ltmnet.com> és közreműdödők."
 
 #: src/guiMainMenu.cpp:196
 msgid "Programmers"
@@ -3652,11 +3564,11 @@ msgstr "Fordítók"
 
 #: src/guiMainMenu.cpp:205
 msgid "Documentation Writers"
-msgstr ""
+msgstr "Dokumentálók"
 
 #: src/guiMainMenu.cpp:208
 msgid "Testers, Packagers, and Builders"
-msgstr ""
+msgstr "Tesztelők, Csomagolók és Szerkesztők"
 
 #: src/guiMainMenu.cpp:211
 msgid "Music and Sound Effects Composers"
@@ -3673,10 +3585,8 @@ msgstr ""
 #: src/guiMainMenu.cpp:221
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Perttu Ahola <celeron55@gmail.com>\nés közreműködők (PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... és még több tíz véletlen közreműködő) által készített Minetest-C55-re alapozva készült."
 
 #: src/guiMessageMenu.cpp:114 src/guiPauseMenu.cpp:146
 msgid "Continue"
@@ -3697,15 +3607,15 @@ msgstr "Kedvenc szerverek"
 
 #: src/guiMultiplayerMenu.cpp:154
 msgid "Custom Connect"
-msgstr ""
+msgstr "Egyéni Kapcsolódás"
 
 #: src/guiMultiplayerMenu.cpp:169
 msgid "Custom Connection"
-msgstr ""
+msgstr "Egyéni Kapcsolat"
 
 #: src/guiMultiplayerMenu.cpp:176
 msgid "Address/Port"
-msgstr ""
+msgstr "Cím/Kapu"
 
 #: src/guiMultiplayerMenu.cpp:201 src/guiMultiplayerMenu.cpp:313
 msgid "Add to Favourites"
@@ -3797,11 +3707,11 @@ msgstr "Lopakodás"
 
 #: src/guiSettingsMenu.cpp:80
 msgid "Inventory"
-msgstr ""
+msgstr "Készlet"
 
 #: src/guiSettingsMenu.cpp:81
 msgid "Use Item"
-msgstr ""
+msgstr "Cikk használata"
 
 #: src/guiSettingsMenu.cpp:82
 msgid "Chat"
@@ -3813,7 +3723,7 @@ msgstr "Parancs"
 
 #: src/guiSettingsMenu.cpp:84
 msgid "Range Select"
-msgstr ""
+msgstr "Látótávolság állítása"
 
 #: src/guiSettingsMenu.cpp:85
 msgid "Toggle Fly"
@@ -3837,15 +3747,15 @@ msgstr "Megvizsgál/Kinyit"
 
 #: src/guiSettingsMenu.cpp:90
 msgid "Take Screenshot"
-msgstr ""
+msgstr "Képernyőkép készítése"
 
 #: src/guiSettingsMenu.cpp:91
 msgid "Show/Hide HUD"
-msgstr ""
+msgstr "HUD megjelenítése/elrejtése"
 
 #: src/guiSettingsMenu.cpp:92
 msgid "Show/Hide Chat"
-msgstr ""
+msgstr "Chat megjelenítése/elrejtése"
 
 #: src/guiSettingsMenu.cpp:93
 msgid "Toggle Fog"
@@ -3861,11 +3771,11 @@ msgstr "Látótávolság csökkentése"
 
 #: src/guiSettingsMenu.cpp:100
 msgid "Previous Item"
-msgstr ""
+msgstr "Előző cikk"
 
 #: src/guiSettingsMenu.cpp:101
 msgid "Next Item"
-msgstr ""
+msgstr "Következő cikk"
 
 #: src/guiSettingsMenu.cpp:343 src/guiSettingsMenu.cpp:370
 msgid "Controls"
@@ -3885,7 +3795,7 @@ msgstr "Hang"
 
 #: src/guiSettingsMenu.cpp:407
 msgid "Terrain Mesh Detail"
-msgstr ""
+msgstr "Terepháló részletessége"
 
 #: src/guiSettingsMenu.cpp:414 src/guiSettingsMenu.cpp:439
 #: src/guiSettingsMenu.cpp:464
@@ -3916,11 +3826,11 @@ msgstr "Klasszikus HUD"
 
 #: src/guiSettingsMenu.cpp:487
 msgid "Wieldring Index"
-msgstr ""
+msgstr "Kezelőgyűrű indexelése"
 
 #: src/guiSettingsMenu.cpp:493 src/guiSettingsMenu.cpp:541
 msgid "Some settings cannot be changed in-game."
-msgstr ""
+msgstr "Néhány beállítás nem vátoztatható meg játék közben."
 
 #: src/guiSettingsMenu.cpp:506
 msgid "Fullscreen"
@@ -3932,7 +3842,7 @@ msgstr "Részecskék"
 
 #: src/guiSettingsMenu.cpp:516
 msgid "Mip-Mapping"
-msgstr ""
+msgstr "Mipmapping"
 
 #: src/guiSettingsMenu.cpp:521
 msgid "Bi-Linear Filtering"
@@ -3951,28 +3861,24 @@ msgid "Enable Texture Animation"
 msgstr ""
 
 #: src/guiSettingsMenu.cpp:554
-#, fuzzy
 msgid "Master Volume:"
-msgstr "Hangerő:"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:567
-#, fuzzy
 msgid "Effects Volume:"
-msgstr "Hangerő:"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:580
-#, fuzzy
 msgid "Music Volume:"
-msgstr "Hangerő:"
+msgstr ""
 
 #: src/guiSettingsMenu.cpp:803
 msgid "press Key"
 msgstr "nyomj meg egy gombot"
 
 #: src/guiSingleplayerMenu.cpp:142 src/guiSingleplayerMenu.cpp:229
-#, fuzzy
 msgid "Create New World"
-msgstr "Új pálya létrehozása"
+msgstr ""
 
 #: src/guiSingleplayerMenu.cpp:149 src/guiSingleplayerMenu.cpp:259
 msgid "Edit World"
@@ -4003,9 +3909,8 @@ msgid "Creative Mode"
 msgstr "Kreatív mód"
 
 #: src/guiSingleplayerMenu.cpp:312
-#, fuzzy
 msgid "Flat Mapgen"
-msgstr "Pálya tisztítása"
+msgstr ""
 
 #: src/guiSingleplayerMenu.cpp:323
 msgid "Use Random Seed"
@@ -4070,7 +3975,7 @@ msgstr "Tavasz"
 #: src/hud.cpp:930
 #, c-format
 msgid "Day %u of Year %u"
-msgstr ""
+msgstr "%u . nap a %u . évben"
 
 #: src/hud.cpp:954
 #, c-format
@@ -4152,859 +4057,576 @@ msgstr "-"
 
 #: src/keycode.cpp:236
 msgid "Left Button"
-msgstr ""
+msgstr "Bal gomb"
 
 #: src/keycode.cpp:237
 msgid "Right Button"
-msgstr ""
+msgstr "Jobb gomb"
 
 #: src/keycode.cpp:239
 msgid "Middle Button"
-msgstr ""
+msgstr "Középső gomb"
 
 #: src/keycode.cpp:240
 msgid "X Button 1"
-msgstr ""
+msgstr "X Gomb 1"
 
 #: src/keycode.cpp:241
 msgid "X Button 2"
-msgstr ""
+msgstr "X Gomb 2"
 
 #: src/keycode.cpp:242
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 #: src/keycode.cpp:243
 msgid "Tab"
-msgstr ""
+msgstr "Tab"
 
 #: src/keycode.cpp:244
 msgid "Clear"
-msgstr ""
+msgstr "Töröl"
 
 #: src/keycode.cpp:245
 msgid "Return"
-msgstr ""
+msgstr "Enter"
 
 #: src/keycode.cpp:246
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: src/keycode.cpp:247
 msgid "Control"
-msgstr ""
+msgstr "control"
 
 #: src/keycode.cpp:248
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #: src/keycode.cpp:249
 msgid "Pause"
-msgstr ""
+msgstr "Szünet"
 
 #: src/keycode.cpp:250
 msgid "Capital"
-msgstr ""
+msgstr "Nagy"
 
 #: src/keycode.cpp:251
 msgid "Kana"
-msgstr ""
+msgstr "Kana"
 
 #: src/keycode.cpp:252
 msgid "Junja"
-msgstr ""
+msgstr "Junja"
 
 #: src/keycode.cpp:253
 msgid "Final"
-msgstr ""
+msgstr "Végső"
 
 #: src/keycode.cpp:254
 msgid "Kanji"
-msgstr ""
+msgstr "Kandzsi"
 
 #: src/keycode.cpp:255
 msgid "Escape"
-msgstr ""
+msgstr "Escape"
 
 #: src/keycode.cpp:256
 msgid "Convert"
-msgstr ""
+msgstr "Convert"
 
 #: src/keycode.cpp:257
 msgid "Nonconvert"
-msgstr ""
+msgstr "Nonconvert"
 
 #: src/keycode.cpp:258
 msgid "Accept"
-msgstr ""
+msgstr "Elfogad"
 
 #: src/keycode.cpp:259
 msgid "Mode Change"
-msgstr ""
+msgstr "Módváltás"
 
 #: src/keycode.cpp:260
 msgid "Space"
-msgstr "Világűr"
+msgstr "Szóköz"
 
 #: src/keycode.cpp:261
 msgid "Prior"
-msgstr ""
+msgstr "Előző"
 
 #: src/keycode.cpp:262
 msgid "Next"
-msgstr ""
+msgstr "Következő"
 
 #: src/keycode.cpp:263
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: src/keycode.cpp:264
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: src/keycode.cpp:269
 msgid "Select"
-msgstr ""
+msgstr "Kiválaszt"
 
 #: src/keycode.cpp:270
 msgid "Print"
-msgstr ""
+msgstr "Nyomtat"
 
 #: src/keycode.cpp:271
 msgid "Execute"
-msgstr ""
+msgstr "Végrehajt"
 
 #: src/keycode.cpp:272
 msgid "Snapshot"
-msgstr ""
+msgstr "Pillanatkép"
 
 #: src/keycode.cpp:273
 msgid "Insert"
-msgstr ""
+msgstr "Insert"
 
 #: src/keycode.cpp:274
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: src/keycode.cpp:275
 msgid "Help"
-msgstr ""
+msgstr "Segítség"
 
 #: src/keycode.cpp:276
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/keycode.cpp:277
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: src/keycode.cpp:278
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: src/keycode.cpp:279
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: src/keycode.cpp:280
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: src/keycode.cpp:281
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: src/keycode.cpp:282
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: src/keycode.cpp:283
 msgid "7"
-msgstr ""
+msgstr "7"
 
 #: src/keycode.cpp:284
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: src/keycode.cpp:285
 msgid "9"
-msgstr ""
+msgstr "9"
 
 #: src/keycode.cpp:286
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: src/keycode.cpp:287
 msgid "B"
-msgstr ""
+msgstr "B"
 
 #: src/keycode.cpp:288
 msgid "C"
-msgstr ""
+msgstr "C"
 
 #: src/keycode.cpp:289
 msgid "D"
-msgstr ""
+msgstr "D"
 
 #: src/keycode.cpp:290
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #: src/keycode.cpp:291
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: src/keycode.cpp:292
 msgid "G"
-msgstr ""
+msgstr "G"
 
 #: src/keycode.cpp:293
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: src/keycode.cpp:294
 msgid "I"
-msgstr ""
+msgstr "I"
 
 #: src/keycode.cpp:295
 msgid "J"
-msgstr ""
+msgstr "J"
 
 #: src/keycode.cpp:296
 msgid "K"
-msgstr ""
+msgstr "K"
 
 #: src/keycode.cpp:297
 msgid "L"
-msgstr ""
+msgstr "L"
 
 #: src/keycode.cpp:298
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: src/keycode.cpp:299
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: src/keycode.cpp:300
 msgid "O"
-msgstr ""
+msgstr "O"
 
 #: src/keycode.cpp:301
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #: src/keycode.cpp:302
 msgid "Q"
-msgstr ""
+msgstr "Q"
 
 #: src/keycode.cpp:303
 msgid "R"
-msgstr ""
+msgstr "R"
 
 #: src/keycode.cpp:304
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: src/keycode.cpp:305
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: src/keycode.cpp:306
 msgid "U"
-msgstr ""
+msgstr "U"
 
 #: src/keycode.cpp:307
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: src/keycode.cpp:308
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: src/keycode.cpp:309
 msgid "X"
-msgstr ""
+msgstr "X"
 
 #: src/keycode.cpp:310
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: src/keycode.cpp:311
 msgid "Z"
-msgstr ""
+msgstr "Z"
 
 #: src/keycode.cpp:312
 msgid "Left Windows"
-msgstr ""
+msgstr "Bal Windows gomb"
 
 #: src/keycode.cpp:313
 msgid "Right Windows"
-msgstr ""
+msgstr "Jobb Windows gomb"
 
 #: src/keycode.cpp:314
 msgid "Apps"
-msgstr ""
+msgstr "Apps"
 
 #: src/keycode.cpp:315
 msgid "Sleep"
-msgstr ""
+msgstr "Sleep"
 
 #: src/keycode.cpp:316
 msgid "Numpad 0"
-msgstr ""
+msgstr "Numerikus 0"
 
 #: src/keycode.cpp:317
 msgid "Numpad 1"
-msgstr ""
+msgstr "Numerikus 1"
 
 #: src/keycode.cpp:318
 msgid "Numpad 2"
-msgstr ""
+msgstr "Numerikus 2"
 
 #: src/keycode.cpp:319
 msgid "Numpad 3"
-msgstr ""
+msgstr "Numerikus 3"
 
 #: src/keycode.cpp:320
 msgid "Numpad 4"
-msgstr ""
+msgstr "Numerikus 4"
 
 #: src/keycode.cpp:321
 msgid "Numpad 5"
-msgstr ""
+msgstr "Numerikus 5"
 
 #: src/keycode.cpp:322
 msgid "Numpad 6"
-msgstr ""
+msgstr "Numerikus 6"
 
 #: src/keycode.cpp:323
 msgid "Numpad 7"
-msgstr ""
+msgstr "Numerikus 7"
 
 #: src/keycode.cpp:324
 msgid "Numpad 8"
-msgstr ""
+msgstr "Numerikus 8"
 
 #: src/keycode.cpp:325
 msgid "Numpad 9"
-msgstr ""
+msgstr "Numerikus 9"
 
 #: src/keycode.cpp:326
 msgid "Numpad *"
-msgstr ""
+msgstr "Numerikus *"
 
 #: src/keycode.cpp:327
 msgid "Numpad +"
-msgstr ""
+msgstr "Numerikus +"
 
 #: src/keycode.cpp:328 src/keycode.cpp:331
 msgid "Numpad /"
-msgstr ""
+msgstr "Numerikus /"
 
 #: src/keycode.cpp:329
 msgid "Numpad -"
-msgstr ""
+msgstr "Numerikus -"
 
 #: src/keycode.cpp:330
 msgid "Numpad ."
-msgstr ""
+msgstr "Numerikus ,"
 
 #: src/keycode.cpp:332
 msgid "F10"
-msgstr ""
+msgstr "F10"
 
 #: src/keycode.cpp:333
 msgid "F11"
-msgstr ""
+msgstr "F11"
 
 #: src/keycode.cpp:334
 msgid "F12"
-msgstr ""
+msgstr "F12"
 
 #: src/keycode.cpp:335
 msgid "F13"
-msgstr ""
+msgstr "F13"
 
 #: src/keycode.cpp:336
 msgid "F14"
-msgstr ""
+msgstr "F14"
 
 #: src/keycode.cpp:337
 msgid "F15"
-msgstr ""
+msgstr "F15"
 
 #: src/keycode.cpp:338
 msgid "F16"
-msgstr ""
+msgstr "F16"
 
 #: src/keycode.cpp:339
 msgid "F17"
-msgstr ""
+msgstr "F17"
 
 #: src/keycode.cpp:340
 msgid "F18"
-msgstr ""
+msgstr "F18"
 
 #: src/keycode.cpp:341
 msgid "F19"
-msgstr ""
+msgstr "F19"
 
 #: src/keycode.cpp:342
 msgid "F20"
-msgstr ""
+msgstr "F20"
 
 #: src/keycode.cpp:343
 msgid "F21"
-msgstr ""
+msgstr "F21"
 
 #: src/keycode.cpp:344
 msgid "F22"
-msgstr ""
+msgstr "F22"
 
 #: src/keycode.cpp:345
 msgid "F23"
-msgstr ""
+msgstr "F23"
 
 #: src/keycode.cpp:346
 msgid "F24"
-msgstr ""
+msgstr "F24"
 
 #: src/keycode.cpp:347
 msgid "Num Lock"
-msgstr ""
+msgstr "Num Lock"
 
 #: src/keycode.cpp:348
 msgid "Scroll Lock"
-msgstr ""
+msgstr "Scroll Lock"
 
 #: src/keycode.cpp:349
 msgid "Left Shift"
-msgstr ""
+msgstr "Bal Shift"
 
 #: src/keycode.cpp:350
 msgid "Right Shift"
-msgstr ""
+msgstr "Jobb Shift"
 
 #: src/keycode.cpp:351
 msgid "Left Control"
-msgstr ""
+msgstr "Bal Control"
 
 #: src/keycode.cpp:352
 msgid "Right Control"
-msgstr ""
+msgstr "Jobb Control"
 
 #: src/keycode.cpp:353
 msgid "Left Menu"
-msgstr ""
+msgstr "Bal Menü"
 
 #: src/keycode.cpp:354
 msgid "Right Menu"
-msgstr ""
+msgstr "Jobb Menü"
 
 #: src/keycode.cpp:355
 msgid "Plus"
-msgstr ""
+msgstr "Plusz"
 
 #: src/keycode.cpp:356
 msgid "Comma"
-msgstr ""
+msgstr "Vessző"
 
 #: src/keycode.cpp:357
 msgid "Minus"
-msgstr ""
+msgstr "Mínusz"
 
 #: src/keycode.cpp:358
 msgid "Period"
-msgstr ""
+msgstr "Pont"
 
 #: src/keycode.cpp:359
 msgid "Attn"
-msgstr ""
+msgstr "Attn"
 
 #: src/keycode.cpp:360
 msgid "CrSel"
-msgstr ""
+msgstr "CrSel"
 
 #: src/keycode.cpp:361
 msgid "ExSel"
-msgstr ""
+msgstr "ExSel"
 
 #: src/keycode.cpp:362
 msgid "Erase OEF"
-msgstr ""
+msgstr "OEF törlése"
 
 #: src/keycode.cpp:363
 msgid "Play"
-msgstr ""
+msgstr "Lejátszás"
 
 #: src/keycode.cpp:364
 msgid "Zoom"
-msgstr ""
+msgstr "Közelítés"
 
 #: src/keycode.cpp:365
 msgid "PA1"
-msgstr ""
+msgstr "PA1"
 
 #: src/keycode.cpp:366
 msgid "OEM Clear"
-msgstr ""
+msgstr "OEM tisztítva"
 
 #: src/main.cpp:921
 msgid "Setting Up UI"
-msgstr ""
+msgstr "UI felépítése"
 
 #: src/main.cpp:944
 msgid "Loading MapNodes"
-msgstr ""
+msgstr "MapNode-ok betöltése"
 
 #: src/main.cpp:946
 msgid "Loading Creatures"
-msgstr ""
+msgstr "Lények betöltése"
 
 #: src/main.cpp:951
 msgid "Setting Up Sound"
-msgstr ""
+msgstr "Hang beállítása"
 
 #: src/mapnode.cpp:302
 msgid "Loading Base MapNodes"
-msgstr ""
+msgstr "Base MapNode-ok betöltése"
 
 #: src/mapnode.cpp:306
 msgid "Loading Circuit MapNodes"
-msgstr ""
+msgstr "Circuit Mapnode-ok betöltése"
 
 #: src/mapnode.cpp:310
 msgid "Loading Plant MapNodes"
-msgstr ""
+msgstr "Plant MapNode-ok betöltése"
 
 #: src/mapnode.cpp:314
 msgid "Loading Farming MapNodes"
-msgstr ""
+msgstr "Farming MapNode-ok betöltése"
 
 #: src/mapnode.cpp:318
 msgid "Loading Decorative MapNodes"
-msgstr ""
+msgstr "Dekoratív MapNode-ok betöltése"
 
 #: src/mapnode.cpp:322
 msgid "Loading Interactive MapNodes"
-msgstr ""
+msgstr "Interaktív MapNode-ok betöltése"
 
 #: src/mapnode.cpp:326
 msgid "Loading Special MapNodes"
-msgstr ""
+msgstr "Special MapNode-ok betöltése"
 
 #: src/mineral.cpp:93
 msgid "Coal"
-msgstr ""
+msgstr "Szén"
 
 #: src/mineral.cpp:99
 msgid "Iron"
-msgstr ""
+msgstr "Vas"
 
 #: src/mineral.cpp:106
 msgid "Tin"
-msgstr ""
+msgstr "Ón"
 
 #: src/mineral.cpp:113
 msgid "Copper"
-msgstr ""
+msgstr "Réz"
 
 #: src/mineral.cpp:121
 msgid "Silver"
-msgstr ""
+msgstr "Ezüst"
 
 #: src/mineral.cpp:128
 msgid "Gold"
-msgstr ""
+msgstr "Arany"
 
 #: src/mineral.cpp:135
 msgid "Quartz"
-msgstr ""
+msgstr "Kvarc"
 
 #: src/mineral.cpp:157
 msgid "Turquoise"
-msgstr ""
-
-#~ msgid "Strength: "
-#~ msgstr "Erő:"
-
-#~ msgid "Warning! This will delete all construction from your map!"
-#~ msgstr "Figyelem! Az összes változtatás törlődni fog a pályádról!"
-
-#~ msgid "Crazy Hills"
-#~ msgstr "Örült hegyes"
-
-#~ msgid "Crazy"
-#~ msgstr "Őrült"
-
-#~ msgid "Mountains"
-#~ msgstr "Hegyes"
-
-#~ msgid "Hilly"
-#~ msgstr "Dombos"
-
-#~ msgid "Default"
-#~ msgstr "Alapértelmezett"
-
-#~ msgid "Smoother"
-#~ msgstr "Sima"
-
-#~ msgid "Flatter"
-#~ msgstr "Még egyenesebb"
-
-#~ msgid "Flat"
-#~ msgstr "egyenes"
-
-#~ msgid "Map Type"
-#~ msgstr "Pálya típusa"
-
-#~ msgid "Warning! Your old map will be deleted!"
-#~ msgstr "Figyelem! A régi pályád törlődni fog!"
-
-#~ msgid "Hide Map Options"
-#~ msgstr "Pálya beállítások elrejtése"
-
-#~ msgid "Dangerous Fire"
-#~ msgstr "Veszélyes tűz"
-
-#~ msgid "Tool Wear"
-#~ msgstr "Eszközök kopnak"
-
-#~ msgid "Suffocation/Drowning"
-#~ msgstr "Fojtás/Fulladás"
-
-#~ msgid "Passive, Aggressive, & Destructive"
-#~ msgstr "Passzív, aggresszív és destruktív"
-
-#~ msgid "Passive & Aggressive"
-#~ msgstr "Passzív és aggresszív"
-
-#~ msgid "Passive"
-#~ msgstr "Passzív"
-
-#~ msgid "None"
-#~ msgstr "Egyik sem"
-
-#~ msgid "Creatures"
-#~ msgstr "Lények"
-
-#~ msgid "Hide Advanced Settings"
-#~ msgstr "Haladó beállítások elrejtése"
-
-#~ msgid "Map Options"
-#~ msgstr "Pálya beállítások"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Haladó beállítások"
-
-#~ msgid "Adventure Mode"
-#~ msgstr "Kaland mód"
-
-#~ msgid "Raw Mithril Spear"
-#~ msgstr "nyers mithril dárda"
-
-#~ msgid "Raw Mithril Sword"
-#~ msgstr "nyers mithril kard"
-
-#~ msgid "Raw Mithril Axe"
-#~ msgstr "nyers mithril fejsze"
-
-#~ msgid "Raw Mithril Shovel"
-#~ msgstr "nyers mithril ásó"
-
-#~ msgid "Raw Mithril Pick"
-#~ msgstr "nyers mithril csákány"
-
-#~ msgid "Steel Spear"
-#~ msgstr "Acéldárda"
-
-#~ msgid "Steel Bucket of Lava"
-#~ msgstr "Lávával teli acélvödör"
-
-#~ msgid "Steel Bucket of Water"
-#~ msgstr "Vízzel teli acélvödör"
-
-#~ msgid "Steel Bucket"
-#~ msgstr "Acélvödör"
-
-#~ msgid "Tin Bucket of Water"
-#~ msgstr "Vízzel teli ónvödör"
-
-#~ msgid "Wooden Bucket of Water"
-#~ msgstr "Vízzel teli favödör"
-
-#~ msgid "Steel Shears"
-#~ msgstr "Acél nyíróolló"
-
-#~ msgid "Steel Sword"
-#~ msgstr "Acélkard"
-
-#~ msgid "Steel Axe"
-#~ msgstr "Acélfejsze"
-
-#~ msgid "Small Stone Axe"
-#~ msgstr "Kőbalta"
-
-#~ msgid "Steel Shovel"
-#~ msgstr "Acélásó"
-
-#~ msgid "Steel Pick"
-#~ msgstr "Acélcsákány"
-
-#~ msgid "Small Stone Pick"
-#~ msgstr "Kis kőcsákány"
-
-#~ msgid "Cauldron is out of fuel"
-#~ msgstr "Az üst alól elfogyott a fűtőanyag"
-
-#~ msgid "Cauldron is inactive"
-#~ msgstr "Az üst inaktív"
-
-#~ msgid "Cauldron is empty"
-#~ msgstr "Az üst üres"
-
-#~ msgid "Cauldron is cool"
-#~ msgstr "Az üst hideg"
-
-#~ msgid "Cauldron is hot"
-#~ msgstr "Az üst forró"
-
-#~ msgid "Cauldron is active"
-#~ msgstr "Az üst aktív"
-
-#~ msgid "Content"
-#~ msgstr "Tartalom"
-
-#~ msgid "Title"
-#~ msgstr "Cím"
-
-#~ msgid "Gives"
-#~ msgstr "Ad"
-
-#~ msgid "Recipe %d of %d"
-#~ msgstr "%d . recept a %d -ből"
-
-#~ msgid "Fuel"
-#~ msgstr "fűtőanyag"
-
-#~ msgid "Add fuel, then punch to incinerate wielded item"
-#~ msgstr ""
-#~ "Rakj bele fűtőanyagot, majd üsd meg a kezedben levő dolog elégetéséhez"
-
-#~ msgid "Incinerator is inactive"
-#~ msgstr "Az égető inaktív"
-
-#~ msgid "Incinerator is active"
-#~ msgstr "Az égető aktív"
-
-#~ msgid "Armed Explosive: about to detonate"
-#~ msgstr "Élesített robbanószer: azonnal robban"
-
-#~ msgid "Locking Furnace is active"
-#~ msgstr "A zárt kemence aktív"
-
-#~ msgid "Locking Furnace is inactive"
-#~ msgstr "A zárt kemence inaktív"
-
-#~ msgid "Locking Furnace is out of fuel"
-#~ msgstr "A zárt kemencéből kifogyott a fűtőanyag"
-
-#~ msgid "Locking Furnace is overloaded"
-#~ msgstr "Teli van a zárt kemence"
-
-#~ msgid "Furnace is active"
-#~ msgstr "A kemence aktív"
-
-#~ msgid "Furnace is inactive"
-#~ msgstr "A kemence inaktív"
-
-#~ msgid "Furnace is out of fuel"
-#~ msgstr "A kemencéből kifogyott a fűtőanyag"
-
-#~ msgid "Furnace is overloaded"
-#~ msgstr "Teli van a kemence"
-
-#~ msgid "Border Stone owned by '%s'"
-#~ msgstr "'%s' határköve"
-
-#~ msgid "Next Page >>"
-#~ msgstr "Következő oldal >>"
-
-#~ msgid "<< Previous Page"
-#~ msgstr "<< Előző oldal"
-
-#~ msgid "Safe owned by '%s'"
-#~ msgstr "'%s' széfje"
-
-#~ msgid "Locking Chest owned by '%s'"
-#~ msgstr "'%s' zárt ládája"
-
-#~ msgid "This bed is too uncomfortable to sleep in."
-#~ msgstr "Ez az ágy túl kényelmetlen az alváshoz."
-
-#~ msgid "Get out of bed"
-#~ msgstr "Kelj ki az ágyból!"
-
-#~ msgid "Someone else is sleeping here."
-#~ msgstr "Valaki más már alszik itt!"
-
-#~ msgid "Go to sleep"
-#~ msgstr "Alvás"
-
-#~ msgid "You can't sleep yet."
-#~ msgstr "Még nem alhatsz!"
-
-#~ msgid "Steel Bars"
-#~ msgstr "acélrúd"
-
-#~ msgid "Steel Fence"
-#~ msgstr "acél kerítés"
-
-#~ msgid "Jack' O Lantern"
-#~ msgstr "töklámpás"
-
-#~ msgid "Steel Gate"
-#~ msgstr "acélkapu"
-
-#~ msgid "Right Hanging Steel Windowed Door"
-#~ msgstr "jobbos ablakos acélajtó"
-
-#~ msgid "Right Hanging Steel Door"
-#~ msgstr "jobbos acélajtó"
-
-#~ msgid "Steel Windowed Door"
-#~ msgstr "ablakos acélajtó"
-
-#~ msgid "Steel Door"
-#~ msgstr "acélajtó"
-
-#~ msgid "Steel Block"
-#~ msgstr "acéltömb"
-
-#~ msgid "Steel Bottle"
-#~ msgstr "acélpalack"
-
-#~ msgid "Steel Ingot"
-#~ msgstr "acélrúd"
-
-#~ msgid "Gold Lump"
-#~ msgstr "arany dudor"
-
-#~ msgid "Tin Lump"
-#~ msgstr "ón dudor"
-
-#~ msgid "Iron Lump"
-#~ msgstr "vas dudor"
-
-#~ msgid "Steel Boots"
-#~ msgstr "acél csizma"
-
-#~ msgid "Steel Pants"
-#~ msgstr "acél lábvért"
-
-#~ msgid "Steel Chest Armour"
-#~ msgstr "acél mellvért"
-
-#~ msgid "Steel Helmet"
-#~ msgstr "acélsisak"
+msgstr "Türkiz"

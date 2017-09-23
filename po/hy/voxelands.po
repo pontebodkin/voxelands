@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Lisa 'darkrose' Milne
 # This file is distributed under the same license as the voxelands package.
-#
+# 
 # Translators:
 # Վահե Գրիգորյան <vahe@keemail.me>, 2017
 # Վահե Գրիգորյան <vahe@keemail.me>, 2017
@@ -10,14 +10,13 @@ msgstr ""
 "Project-Id-Version: Voxelands\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-02 17:10+1000\n"
-"PO-Revision-Date: 2017-03-24 15:16+0000\n"
+"PO-Revision-Date: 2017-09-05 10:23+0000\n"
 "Last-Translator: Վահե Գրիգորյան <vahe@keemail.me>\n"
-"Language-Team: Armenian (http://www.transifex.com/voxelands/voxelands/"
-"language/hy/)\n"
-"Language: hy\n"
+"Language-Team: Armenian (http://www.transifex.com/voxelands/voxelands/language/hy/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hy\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/character_creator.cpp:55
@@ -230,18 +229,9 @@ msgstr "Կտորից Կոշիկ"
 
 #: src/character_creator.cpp:203
 msgid ""
-"Here you can create your default character, this is how other players will "
-"see you in-game. When you join a new server you will start with the clothing "
-"you select here. Additional clothing, both protective and decorative, can be "
-"crafted in-game.\n"
+"Here you can create your default character, this is how other players will see you in-game. When you join a new server you will start with the clothing you select here. Additional clothing, both protective and decorative, can be crafted in-game.\n"
 "You can return here from the main menu anytime to change your character."
-msgstr ""
-"Հեյ, Ողջույն ։Ճ \n"
-"Այստեղ դուք կարող եք ստեղծել ձեր կերպարը լռելյայն։  Նաև այլ խաղացողներ կարող "
-"են տեսնել ձեզ խաղում, երբ միանաք նոր սերվերի։ Դուք սկսում եք հագուստից՝  "
-"կարելի է ընտրել այստեղ։ Լրացուցիչ հագուստ, ինչպես պաշտպանական, այնպես էլ "
-"դեկորատիվ կարելի է Քրաֆթել խաղում։\n"
-"Կարելի է վերադառնալ հիմնական մենյու ցանկացած ժամանակ և փոխել  կերպարը։"
+msgstr "Հեյ, Ողջույն ։Ճ \nԱյստեղ դուք կարող եք ստեղծել ձեր կերպարը լռելյայն։  Նաև այլ խաղացողներ կարող են տեսնել ձեզ խաղում, երբ միանաք նոր սերվերի։ Դուք սկսում եք հագուստից՝  կարելի է ընտրել այստեղ։ Լրացուցիչ հագուստ, ինչպես պաշտպանական, այնպես էլ դեկորատիվ կարելի է Քրաֆթել խաղում։\nԿարելի է վերադառնալ հիմնական մենյու ցանկացած ժամանակ և փոխել  կերպարը։"
 
 #: src/character_creator.cpp:224
 msgid "Create Your Character"
@@ -1033,24 +1023,20 @@ msgid "Quartz Medallion"
 msgstr "Քվարցային Ժանյակ"
 
 #: src/content_clothesitem.cpp:2919
-#, fuzzy
 msgid "Iron Helmet"
-msgstr "Պղնձե Սաղավարտ"
+msgstr "Մետաղյա Սաղավարտ"
 
 #: src/content_clothesitem.cpp:2934
-#, fuzzy
 msgid "Iron Chest Armour"
-msgstr "Պղնձե  Զրահ"
+msgstr "Երկաթյա Զենք ու Զրահ"
 
 #: src/content_clothesitem.cpp:2949
-#, fuzzy
 msgid "Iron Pants"
-msgstr "Կանաչ Տաբատ"
+msgstr "Երկաթե Տաբատ"
 
 #: src/content_clothesitem.cpp:2964
-#, fuzzy
 msgid "Iron Boots"
-msgstr "Մորթուց Երկարաճիտ կոշիկներ"
+msgstr "Երկաթե Կոշիկներ"
 
 #: src/content_clothesitem.cpp:2979
 msgid "Copper Helmet"
@@ -1073,9 +1059,8 @@ msgid "Paper"
 msgstr "Թուղթ"
 
 #: src/content_craftitem.cpp:96
-#, fuzzy
 msgid "Padlock"
-msgstr "Ժամացույց"
+msgstr "Ամրոց"
 
 #: src/content_craftitem.cpp:105
 msgid "Charcoal Lump"
@@ -1086,9 +1071,8 @@ msgid "Coal Lump"
 msgstr "Ածխի Մասնիկ"
 
 #: src/content_craftitem.cpp:121
-#, fuzzy
 msgid "Iron Ore"
-msgstr "Երկաթե Խնձոր"
+msgstr "Մետաղյա Հանքաքար"
 
 #: src/content_craftitem.cpp:131
 msgid "Clay Lump"
@@ -1096,22 +1080,19 @@ msgstr "Կավե Գունդ"
 
 #: src/content_craftitem.cpp:140
 msgid "Tin Ore"
-msgstr ""
+msgstr "Անագ Հանքաքար"
 
 #: src/content_craftitem.cpp:149
-#, fuzzy
 msgid "Copper Ore"
-msgstr "Պղնձե Մետաղալարեր"
+msgstr "Պղնձյա Հանքաքար"
 
 #: src/content_craftitem.cpp:158
-#, fuzzy
 msgid "Silver Ore"
-msgstr "Արծաթ"
+msgstr "Արծաթե Հանքաքար"
 
 #: src/content_craftitem.cpp:168
-#, fuzzy
 msgid "Gold Ore"
-msgstr "Ոսկի"
+msgstr "Ոսկե Հանքաքար"
 
 #: src/content_craftitem.cpp:178
 msgid "Quartz Crystal"
@@ -1138,14 +1119,12 @@ msgid "Flint"
 msgstr "Ֆլինթ"
 
 #: src/content_craftitem.cpp:220
-#, fuzzy
 msgid "Iron Ingot"
-msgstr "Անագե Ձուլածո"
+msgstr "Երկաթե Ձուլածո"
 
 #: src/content_craftitem.cpp:227
-#, fuzzy
 msgid "Bronze Ingot"
-msgstr "Անագե Ձուլածո"
+msgstr "Բրոնզե Ձուլածո"
 
 #: src/content_craftitem.cpp:247 src/content_mapnode.cpp:835
 msgid "Brick"
@@ -1228,9 +1207,8 @@ msgid "Pine Plank"
 msgstr "Սոճուց Տախտակ"
 
 #: src/content_craftitem.cpp:455
-#, fuzzy
 msgid "Apple Wood Plank"
-msgstr "Անտառային Փայտե Տախտակ"
+msgstr "Խնձորենուց Տախտակ"
 
 #: src/content_craftitem.cpp:466
 msgid "Wood Plank"
@@ -1561,9 +1539,8 @@ msgid "Coffee"
 msgstr "Սուրճ"
 
 #: src/content_craftitem.cpp:1391
-#, fuzzy
 msgid "Iron Bottle"
-msgstr "Երկաթե Խնձոր"
+msgstr "Երկաթե Շիշ"
 
 #: src/content_craftitem.cpp:1408
 msgid "Bottle of Water"
@@ -1623,24 +1600,23 @@ msgstr "Ազնվամորի"
 
 #: src/content_craftitem.cpp:1546
 msgid "Storage Upgrade"
-msgstr ""
+msgstr "Շտեմարանի Թարմացում"
 
 #: src/content_craftitem.cpp:1591
 msgid "Exo Upgrade"
-msgstr ""
+msgstr "Էկզո Թարմացում"
 
 #: src/content_craftitem.cpp:1608
-#, fuzzy
 msgid "Cooking Upgrade"
-msgstr "Ղեկավարության Ուղեցույց"
+msgstr "Պատրաստման Թարմացում"
 
 #: src/content_craftitem.cpp:1632
 msgid "Fuel Upgrade"
-msgstr ""
+msgstr "Վառելիքի Թարմացում "
 
 #: src/content_craftitem.cpp:1656
 msgid "Straw"
-msgstr ""
+msgstr "Ծղոտ"
 
 #: src/content_mapnode.cpp:213
 msgid "Stone"
@@ -1724,34 +1700,28 @@ msgid "Gravel"
 msgstr "Մանրախիճ"
 
 #: src/content_mapnode.cpp:611
-#, fuzzy
 msgid "Sandstone"
-msgstr "Ավազե Քար"
+msgstr "Ավազաքար"
 
 #: src/content_mapnode.cpp:625
-#, fuzzy
 msgid "Sandstone Bricks"
-msgstr "Ավազից Քարե Աղյուսներ"
+msgstr "Ավազաքարի Աղյուսներ"
 
 #: src/content_mapnode.cpp:639
-#, fuzzy
 msgid "Sandstone Blocks"
-msgstr "Ավազից Քարե Բլոկներ"
+msgstr "Ավազաքարի Բլոկներ"
 
 #: src/content_mapnode.cpp:653
-#, fuzzy
 msgid "Desert Sandstone"
-msgstr "Անապատի Ավազի"
+msgstr "Անապատ Ավազաքար"
 
 #: src/content_mapnode.cpp:667
-#, fuzzy
 msgid "Desert Sandstone Bricks"
-msgstr "Ավազից Քարե Աղյուսներ"
+msgstr "Անապատ Աղյուսով Ավազաքար"
 
 #: src/content_mapnode.cpp:681
-#, fuzzy
 msgid "Desert Sandstone Blocks"
-msgstr "Ավազից Քարե Բլոկներ"
+msgstr "Անապատ Ավազաքարե Բլոկներ "
 
 #: src/content_mapnode.cpp:695
 msgid "Clay"
@@ -1874,9 +1844,8 @@ msgid "Wood"
 msgstr "Փայտ"
 
 #: src/content_mapnode.cpp:1324
-#, fuzzy
 msgid "Apple Wood"
-msgstr "Անտառային Փայտ"
+msgstr "Խնձորի Ծառ"
 
 #: src/content_mapnode.cpp:1341
 msgid "Jungle Wood"
@@ -2015,9 +1984,8 @@ msgid "Mossy Cobble Stone"
 msgstr "Թավշյա Սալաքար "
 
 #: src/content_mapnode.cpp:2269
-#, fuzzy
 msgid "Iron Block"
-msgstr "Քարի Կտոր"
+msgstr "Երկաթյա Բլոկ"
 
 #: src/content_mapnode.cpp:2286
 msgid "Mithril Block"
@@ -2096,9 +2064,8 @@ msgid "Brick Column"
 msgstr "Աղյուսե Շարասյուն"
 
 #: src/content_mapnode.cpp:2722
-#, fuzzy
 msgid "Apple wood Column"
-msgstr "Անտառային Փայտե Սյունակ"
+msgstr "խնձորի ծառի սյունակ"
 
 #: src/content_mapnode.cpp:2783
 msgid "Wood Column"
@@ -2193,9 +2160,8 @@ msgstr "Փայտե Դուռ"
 
 #: src/content_mapnode_door.cpp:96 src/content_mapnode_door.cpp:123
 #: src/content_mapnode_door.cpp:738 src/content_mapnode_door.cpp:764
-#, fuzzy
 msgid "Iron Door"
-msgstr "Փայտե Դուռ"
+msgstr "Երկաթե Դուռ"
 
 #: src/content_mapnode_door.cpp:155 src/content_mapnode_door.cpp:183
 #: src/content_mapnode_door.cpp:683 src/content_mapnode_door.cpp:710
@@ -2209,9 +2175,8 @@ msgstr "Պայտե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:276 src/content_mapnode_door.cpp:304
 #: src/content_mapnode_door.cpp:842 src/content_mapnode_door.cpp:868
-#, fuzzy
 msgid "Iron Windowed Door"
-msgstr "Պայտե Դուռ Պատուհանով"
+msgstr "Երկաթե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:339 src/content_mapnode_door.cpp:365
 #: src/content_mapnode_door.cpp:896 src/content_mapnode_door.cpp:923
@@ -2225,9 +2190,8 @@ msgstr "Աջ Կախված Ապակե Դուռ"
 
 #: src/content_mapnode_door.cpp:455 src/content_mapnode_door.cpp:482
 #: src/content_mapnode_door.cpp:1009 src/content_mapnode_door.cpp:1037
-#, fuzzy
 msgid "Right Hanging Iron Door"
-msgstr "Աջ Կախված Փայտե Դուռ"
+msgstr "Աջ Կախված Երկաթե Դուռ"
 
 #: src/content_mapnode_door.cpp:512 src/content_mapnode_door.cpp:539
 #: src/content_mapnode_door.cpp:1066 src/content_mapnode_door.cpp:1093
@@ -2236,9 +2200,8 @@ msgstr "Աջ Կախված Փայտե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:569 src/content_mapnode_door.cpp:597
 #: src/content_mapnode_door.cpp:1121 src/content_mapnode_door.cpp:1149
-#, fuzzy
 msgid "Right Hanging Iron Windowed Door"
-msgstr "Աջ Կախված Փայտե Դուռ Պատուհանով"
+msgstr "Աջ Կախված Երկաթե Դուռ Պատուհանով"
 
 #: src/content_mapnode_door.cpp:1179 src/content_mapnode_door.cpp:1350
 #: src/content_mapnode_door.cpp:1405
@@ -2247,27 +2210,24 @@ msgstr "Փայտե Դիտահոր"
 
 #: src/content_mapnode_door.cpp:1205 src/content_mapnode_door.cpp:1377
 #: src/content_mapnode_door.cpp:1432
-#, fuzzy
 msgid "Iron Hatch"
-msgstr "Փայտե Դիտահոր"
+msgstr "Մետաղյա Դիտահոր"
 
 #: src/content_mapnode_door.cpp:1231
 msgid "Wood Windowed Hatch"
 msgstr "Փայտե Դիտահոր Պատուհանով"
 
 #: src/content_mapnode_door.cpp:1259
-#, fuzzy
 msgid "Iron Windowed Hatch"
-msgstr "Փայտե Դիտահոր Պատուհանով"
+msgstr "Մետաղե Պատուհանով Դիտահոր "
 
 #: src/content_mapnode_door.cpp:1289 src/content_mapnode_door.cpp:1461
 msgid "Wood Gate"
 msgstr "Փայտե Դարպաս"
 
 #: src/content_mapnode_door.cpp:1319 src/content_mapnode_door.cpp:1485
-#, fuzzy
 msgid "Iron Gate"
-msgstr "Դարպաս Չկա"
+msgstr "Մետաղյա Դարպաս"
 
 #: src/content_mapnode_farm.cpp:38
 msgid "Farm Dirt"
@@ -2342,9 +2302,8 @@ msgid "Pine Book Shelf"
 msgstr "Սոճից Գրապահարան"
 
 #: src/content_mapnode_furniture.cpp:136
-#, fuzzy
 msgid "Applewood Book Shelf"
-msgstr "Անտառափայտե Գրապահարան"
+msgstr "Խնձորենուց  Գրապահարան"
 
 #: src/content_mapnode_furniture.cpp:169 src/content_mapnode_furniture.cpp:188
 #: src/content_mapnode_furniture.cpp:207 src/content_mapnode_furniture.cpp:226
@@ -2674,9 +2633,8 @@ msgid "Stone Slab"
 msgstr "Կոպիտ Վառարան"
 
 #: src/content_mapnode_slab.cpp:109
-#, fuzzy
 msgid "Apple Wood Slab"
-msgstr "Անտառային Փայտյա Վառարան"
+msgstr "Խնձորենուց  Վառարան"
 
 #: src/content_mapnode_slab.cpp:128
 msgid "Wood Slab"
@@ -2735,9 +2693,8 @@ msgid "Fence"
 msgstr "Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:64
-#, fuzzy
 msgid "Iron Fence"
-msgstr "Սոճե Ցանկապատ"
+msgstr "Երկաթե Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:91
 msgid "Jungle Wood Fence"
@@ -2748,14 +2705,12 @@ msgid "Pine Fence"
 msgstr "Սոճե Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:143
-#, fuzzy
 msgid "Apple Wood Fence"
-msgstr "Անտառային Փայտից Ցանկապատ"
+msgstr "Խնձորենուց Ցանկապատ"
 
 #: src/content_mapnode_special.cpp:169
-#, fuzzy
 msgid "Iron Bars"
-msgstr "Երկաթյա"
+msgstr "Երկաթե Դարպասներ"
 
 #: src/content_mapnode_special.cpp:197
 msgid "Rail"
@@ -2867,24 +2822,20 @@ msgid "Reverse Craft Guide"
 msgstr "Հակառակ Քրաֆթի Ղեկավարություն"
 
 #: src/content_mapnode_special.cpp:984 src/content_mapnode_special.cpp:1086
-#, fuzzy
 msgid "Wood Barrel"
-msgstr "Փայտե Դարպաս"
+msgstr "Փայտե Տակառ"
 
 #: src/content_mapnode_special.cpp:1009 src/content_mapnode_special.cpp:1109
-#, fuzzy
 msgid "Applewood Barrel"
-msgstr "Խնձորի Ծառ"
+msgstr "Խնձորենուց Տակառ"
 
 #: src/content_mapnode_special.cpp:1034 src/content_mapnode_special.cpp:1132
-#, fuzzy
 msgid "Junglewood Barrel"
-msgstr "Անտառափայտե Գրապահարան"
+msgstr "Անտառափայտե Տակառ"
 
 #: src/content_mapnode_special.cpp:1059 src/content_mapnode_special.cpp:1155
-#, fuzzy
 msgid "Pine Barrel"
-msgstr "Սոճից Գրապահարան"
+msgstr "Սոճե Տակառ"
 
 #: src/content_mapnode_special.cpp:1178 src/content_mapnode_special.cpp:1198
 #: src/hud.cpp:671
@@ -2919,7 +2870,7 @@ msgstr "Վառարան"
 
 #: src/content_mapnode_special.cpp:1489
 msgid "Smeltery"
-msgstr ""
+msgstr "Գործարան"
 
 #: src/content_mapnode_special.cpp:1537
 msgid "Locking Furnace"
@@ -2935,7 +2886,7 @@ msgstr "Խարույկ"
 
 #: src/content_mapnode_special.cpp:1642
 msgid "Crusher"
-msgstr ""
+msgstr "Հատիչ"
 
 #: src/content_mapnode_special.cpp:1662
 msgid "Nyan Cat"
@@ -2946,7 +2897,6 @@ msgid "Rainbow"
 msgstr "Ծիածան"
 
 #: src/content_mapnode_special.cpp:1683
-#, fuzzy
 msgid "Unfired Flower Pot"
 msgstr "Չայրվող Ծաղկաման"
 
@@ -3052,11 +3002,11 @@ msgstr "Լաստակներ"
 
 #: src/content_mapnode_special.cpp:2304
 msgid "Unfired Clay Vessel"
-msgstr ""
+msgstr "Չայրվող Կավաման"
 
 #: src/content_mapnode_special.cpp:2325
 msgid "Clay Vessel"
-msgstr ""
+msgstr "Կավե Անոթ"
 
 #: src/content_mapnode_stair.cpp:38
 msgid "Rough Stone Stair"
@@ -3075,9 +3025,8 @@ msgid "Stone Stair"
 msgstr "Քարե Աստիճան"
 
 #: src/content_mapnode_stair.cpp:111
-#, fuzzy
 msgid "Apple wood Stair"
-msgstr "Անտառային Փայտե Աստիճան"
+msgstr "Խնձորենուց Աստիճան"
 
 #: src/content_mapnode_stair.cpp:131
 msgid "Wood Stair"
@@ -3164,23 +3113,20 @@ msgid "Stone Pick"
 msgstr "Քար Սուր"
 
 #: src/content_toolitem.cpp:310
-#, fuzzy
 msgid "Copper Pick"
-msgstr "Պղնձե Կտոր"
+msgstr "Պղնձե Սուր"
 
 #: src/content_toolitem.cpp:323
 msgid "Flint Pick"
 msgstr "Ֆլինթե Սուր"
 
 #: src/content_toolitem.cpp:336
-#, fuzzy
 msgid "Bronze Pick"
-msgstr "Քար Սուր"
+msgstr "Բրոնզե Սուր"
 
 #: src/content_toolitem.cpp:349
-#, fuzzy
 msgid "Iron Pick"
-msgstr "Քար Սուր"
+msgstr "Մետաղյա Սուր"
 
 #: src/content_toolitem.cpp:362
 msgid "Unbound Mithril Pick"
@@ -3199,23 +3145,20 @@ msgid "Stone Shovel"
 msgstr "Քարե Թիակ"
 
 #: src/content_toolitem.cpp:417
-#, fuzzy
 msgid "Copper Shovel"
-msgstr "Քարե Թիակ"
+msgstr "Պղնձյա Բահ"
 
 #: src/content_toolitem.cpp:430
 msgid "Flint Shovel"
 msgstr "Ֆլինթ Թիակ"
 
 #: src/content_toolitem.cpp:443
-#, fuzzy
 msgid "Iron Shovel"
-msgstr "Քարե Թիակ"
+msgstr "Մետաղե Բահ"
 
 #: src/content_toolitem.cpp:456
-#, fuzzy
 msgid "Bronze Shovel"
-msgstr "Քարե Թիակ"
+msgstr "Բրոնզե Բահ"
 
 #: src/content_toolitem.cpp:469
 msgid "Unbound Mithril Shovel"
@@ -3230,23 +3173,20 @@ msgid "Stone Axe"
 msgstr "Քարե Կացին"
 
 #: src/content_toolitem.cpp:520
-#, fuzzy
 msgid "Copper Axe"
-msgstr "Պղնձե Մետաղալարեր"
+msgstr "Պղնձե Կացին"
 
 #: src/content_toolitem.cpp:533
 msgid "Flint Axe"
-msgstr "Թլինթ Կացին"
+msgstr "Ֆլինթ Կացին"
 
 #: src/content_toolitem.cpp:546
-#, fuzzy
 msgid "Iron Axe"
-msgstr "Երկաթե Խնձոր"
+msgstr "Երկաթյա Կացին"
 
 #: src/content_toolitem.cpp:559
-#, fuzzy
 msgid "Bronze Axe"
-msgstr "Քարե Կացին"
+msgstr "Բրոնզե Կացին"
 
 #: src/content_toolitem.cpp:572
 msgid "Unbound Mithril Axe"
@@ -3269,23 +3209,20 @@ msgid "Stone Spear"
 msgstr "Քարե Աղեղ"
 
 #: src/content_toolitem.cpp:650
-#, fuzzy
 msgid "Copper Spear"
-msgstr "Պղինձի Մասնիկ"
+msgstr "Պղնձե Աղեղ"
 
 #: src/content_toolitem.cpp:663
 msgid "Flint Spear"
 msgstr "Ֆլինթ Աղեղ"
 
 #: src/content_toolitem.cpp:676
-#, fuzzy
 msgid "Iron Spear"
-msgstr "Քարե Աղեղ"
+msgstr "Մեռաղյա Աղեղ"
 
 #: src/content_toolitem.cpp:689
-#, fuzzy
 msgid "Bronze Spear"
-msgstr "Քարե Աղեղ"
+msgstr "Բրոնզե Աղեղ"
 
 #: src/content_toolitem.cpp:702
 msgid "Unbound Mithril Spear"
@@ -3296,19 +3233,16 @@ msgid "Mithril Spear"
 msgstr "Միֆրայե Գեղարդ"
 
 #: src/content_toolitem.cpp:730
-#, fuzzy
 msgid "Copper Sword"
-msgstr "Պղնձե Մետաղալարեր"
+msgstr "Պղնձե Սուր"
 
 #: src/content_toolitem.cpp:743
-#, fuzzy
 msgid "Bronze Sword"
-msgstr "Քարե Սուր"
+msgstr "Բրոնզե Սուր"
 
 #: src/content_toolitem.cpp:756
-#, fuzzy
 msgid "Iron Sword"
-msgstr "Քարե Սուր"
+msgstr "Երկաթյա Սուր"
 
 #: src/content_toolitem.cpp:769
 msgid "Unbound Mithril Sword"
@@ -3323,14 +3257,12 @@ msgid "Flint Shears"
 msgstr "Ֆլինթ Սուր"
 
 #: src/content_toolitem.cpp:810
-#, fuzzy
 msgid "Copper Shears"
-msgstr "Պղնձե Տաբատ"
+msgstr "Պղնձե Մկրատ"
 
 #: src/content_toolitem.cpp:823
-#, fuzzy
 msgid "Iron Shears"
-msgstr "Ֆլինթ Սուր"
+msgstr "Երկաթե Մկրատ"
 
 #: src/content_toolitem.cpp:838
 msgid "Wooden Bucket"
@@ -3341,43 +3273,36 @@ msgid "Tin Bucket"
 msgstr "Անագե Դույլ"
 
 #: src/content_toolitem.cpp:873
-#, fuzzy
 msgid "Iron Bucket"
-msgstr "Անագե Դույլ"
+msgstr "Մետաղե Շերեփ"
 
 #: src/content_toolitem.cpp:892
-#, fuzzy
 msgid "Stone Knife"
-msgstr "Քարե Գրիչ"
+msgstr "Քարե Դանակ"
 
 #: src/content_toolitem.cpp:905
-#, fuzzy
 msgid "Copper Knife"
-msgstr "Պղնձե Մետաղալարեր"
+msgstr "Պղնձե Դանակ"
 
 #: src/content_toolitem.cpp:918
-#, fuzzy
 msgid "Flint Knife"
-msgstr "Թլինթ Կացին"
+msgstr "Ֆլինթ Դանակ"
 
 #: src/content_toolitem.cpp:931
 msgid "Bronze Knife"
-msgstr ""
+msgstr "Բրոնզե Դանակ"
 
 #: src/content_toolitem.cpp:944
-#, fuzzy
 msgid "Iron Knife"
-msgstr "Երկաթե Խնձոր"
+msgstr "Երկաթյա Դանակ"
 
 #: src/content_toolitem.cpp:957
-#, fuzzy
 msgid "Unbound Mithril Knife"
-msgstr "Չկպած Միֆրայե Կացին"
+msgstr "Չկպած Միֆրայե Դանակ"
 
 #: src/content_toolitem.cpp:970
-#, fuzzy
 msgid "Mithril Knife"
-msgstr "Միֆրայե Բանալի"
+msgstr "Միֆրայե Դանակ"
 
 #: src/content_toolitem.cpp:986
 msgid "Fire Starter"
@@ -3475,9 +3400,9 @@ msgstr[0] "Միացում սերվերին... (ավարտ %d վայրկյան)"
 msgstr[1] "Միացում սերվերին... (ավարտ %d վայրկյան)"
 
 #: src/game.cpp:801
-#, fuzzy, c-format
+#, c-format
 msgid "Access denied. Reason: %s"
-msgstr "Մերժել են մուտքը։ Պատճառը %ls"
+msgstr "Մուտքի Մերժում։ Պատճառը․ %s"
 
 #: src/game.cpp:805
 msgid "Unable to Connect (port already in use?)."
@@ -3623,10 +3548,7 @@ msgid ""
 "Voxelands\n"
 "http://www.voxelands.com/\n"
 "By Lisa 'darkrose' Milne <lisa@ltmnet.com> and contributors."
-msgstr ""
-"Voxelands\n"
-"http://www.voxelands.com/\n"
-"Lisa 'darkrose' Milne <lisa@ltmnet.com> Ներդումով։"
+msgstr "Voxelands\nhttp://www.voxelands.com/\nLisa 'darkrose' Milne <lisa@ltmnet.com> Ներդումով։"
 
 #: src/guiMainMenu.cpp:196
 msgid "Programmers"
@@ -3658,19 +3580,13 @@ msgstr "Այլ մասնակիցներին,  Հատուկ Շնորհակալու�
 
 #: src/guiMainMenu.cpp:217
 msgid "Patreon Supporters"
-msgstr ""
+msgstr "Patreon Կողմնակիցները"
 
 #: src/guiMainMenu.cpp:221
 msgid ""
 "Based on Minetest-C55 by Perttu Ahola <celeron55@gmail.com>\n"
-"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
-msgstr ""
-"Հիմնված է Minetest- \" C55  Perttu Ahola կողմից <celeron55@gmail.com>\n"
-"և հեղինակները:  PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, "
-"matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan "
-"Neuschafer, thexyz, VanessaE, sfan5... և ուրիշ տասնյակ պատահական մարդկանցով։"
+"and contributors: PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... and tens of more random people."
+msgstr "Հիմնված է Minetest- \" C55  Perttu Ahola կողմից <celeron55@gmail.com>\nև հեղինակները:  PilzAdam, Taoki, tango_, kahrl (kaaaaaahrl?), darkrose, matttpt, erlehmann, SpeedProg, JacobF, teddydestodes, marktraceur, Jonathan Neuschafer, thexyz, VanessaE, sfan5... և ուրիշ տասնյակ պատահական մարդկանցով։"
 
 #: src/guiMessageMenu.cpp:114 src/guiPauseMenu.cpp:146
 msgid "Continue"
@@ -3945,32 +3861,28 @@ msgid "Enable Texture Animation"
 msgstr "Միացնել Հյուսվածքը Անիմացիայի"
 
 #: src/guiSettingsMenu.cpp:554
-#, fuzzy
 msgid "Master Volume:"
-msgstr "Ծավալը․"
+msgstr "Վարպետ Ծավալ."
 
 #: src/guiSettingsMenu.cpp:567
-#, fuzzy
 msgid "Effects Volume:"
-msgstr "Ծավալը․"
+msgstr "Էֆեկտների Ծավալ."
 
 #: src/guiSettingsMenu.cpp:580
-#, fuzzy
 msgid "Music Volume:"
-msgstr "Ծավալը․"
+msgstr "Երաժշտության Ծավալ."
 
 #: src/guiSettingsMenu.cpp:803
 msgid "press Key"
 msgstr "սեղմել Ստեղնը"
 
 #: src/guiSingleplayerMenu.cpp:142 src/guiSingleplayerMenu.cpp:229
-#, fuzzy
 msgid "Create New World"
-msgstr "Ստեղծել Նոր Քարտեզ"
+msgstr "Ստեղծել Նոր Աշխարհ"
 
 #: src/guiSingleplayerMenu.cpp:149 src/guiSingleplayerMenu.cpp:259
 msgid "Edit World"
-msgstr ""
+msgstr "Փոփոխել Աշխարհը"
 
 #: src/guiSingleplayerMenu.cpp:154
 msgid "Start Game"
@@ -3978,7 +3890,7 @@ msgstr "Սկսել Խաղը"
 
 #: src/guiSingleplayerMenu.cpp:164
 msgid "No Worlds Found"
-msgstr ""
+msgstr "Աշխարհները Չգտնվեցին"
 
 #: src/guiSingleplayerMenu.cpp:215
 msgid "Save"
@@ -3986,7 +3898,7 @@ msgstr "Պահպանել"
 
 #: src/guiSingleplayerMenu.cpp:242
 msgid "World Name:"
-msgstr ""
+msgstr "Աշխարհի Անունը․"
 
 #: src/guiSingleplayerMenu.cpp:290
 msgid "Survival Mode"
@@ -3997,18 +3909,16 @@ msgid "Creative Mode"
 msgstr "Ստեղծագործ Ռեժիմ"
 
 #: src/guiSingleplayerMenu.cpp:312
-#, fuzzy
 msgid "Flat Mapgen"
-msgstr "Մաքրել Քարտեզը"
+msgstr "Բնակարան Քարտեզ"
 
 #: src/guiSingleplayerMenu.cpp:323
-#, fuzzy
 msgid "Use Random Seed"
-msgstr "Օգտագործել Հաստատուն Սերմեր"
+msgstr "Օգտագործել Պատահական Սերմ"
 
 #: src/guiSingleplayerMenu.cpp:331
 msgid "World Seed:"
-msgstr ""
+msgstr "Աշխարհի Սերմեր․"
 
 #: src/hud.cpp:661
 msgid "Unknown"
@@ -4044,7 +3954,7 @@ msgstr "Թույն"
 
 #: src/hud.cpp:675
 msgid "Shadows"
-msgstr ""
+msgstr "Ստվերում"
 
 #: src/hud.cpp:911
 msgid "Summer"
@@ -4107,7 +4017,7 @@ msgstr "Էներգիա:"
 
 #: src/inventory.cpp:609
 msgid "Uses: "
-msgstr ""
+msgstr "Օգտատերեր:"
 
 #: src/inventory.cpp:612
 msgid "Speed: "
@@ -4720,359 +4630,3 @@ msgstr "Քվարցային"
 #: src/mineral.cpp:157
 msgid "Turquoise"
 msgstr "Փիրուզագույն"
-
-#~ msgid "Strength: "
-#~ msgstr "Ուժ:"
-
-#~ msgid "Warning! This will delete all construction from your map!"
-#~ msgstr "Զգուշացու՛մ,  Դա կհանգեցնի հեռացմանը ձեր քարտեզի բոլոր աշխատանքները"
-
-#~ msgid "Map Seed"
-#~ msgstr "Սերմերի Քարտեզում"
-
-#~ msgid "Crazy Hills"
-#~ msgstr "Խենթ Հիլզ"
-
-#~ msgid "Crazy"
-#~ msgstr "Խենթ"
-
-#~ msgid "Mountains"
-#~ msgstr "Սարեր"
-
-#~ msgid "Hilly"
-#~ msgstr "Հիլլի"
-
-#~ msgid "Default"
-#~ msgstr "Լռելյայն"
-
-#~ msgid "Smoother"
-#~ msgstr "Ավելի Հարթ"
-
-#~ msgid "Flatter"
-#~ msgstr "Անտառային"
-
-#~ msgid "Flat"
-#~ msgstr "Բնակարան"
-
-#~ msgid "Map Type"
-#~ msgstr "Քարտի Տեսակ"
-
-#~ msgid "Warning! Your old map will be deleted!"
-#~ msgstr "Զգուշացու՛մ,  Ձեր հին քարտեզը կհեռացվի։"
-
-#~ msgid "Hide Map Options"
-#~ msgstr "Թաքցնել Քարտեզի Հատկությունները"
-
-#~ msgid "Death drops Inventory"
-#~ msgstr "Մահ Ընկնելուց Հաշվառում"
-
-#~ msgid "Droppable Inventory"
-#~ msgstr "Ապակենտրոնացված Հաշվառում"
-
-#~ msgid "Initial Inventory"
-#~ msgstr "Առաջնային Հաշվառում"
-
-#~ msgid "Infinite Inventory"
-#~ msgstr "Անսահման Հաշվառում"
-
-#~ msgid "Dangerous Fire"
-#~ msgstr "Վտանգավոր Հրդեհներ"
-
-#~ msgid "Tool Wear"
-#~ msgstr "Կրել Գործիք"
-
-#~ msgid "Suffocation/Drowning"
-#~ msgstr "Շնչահեղձ/Ջրահեղձում"
-
-#~ msgid "Player Damage"
-#~ msgstr "Վնասվող Խաղացող"
-
-#~ msgid "Passive, Aggressive, & Destructive"
-#~ msgstr "Պասիվ, Ագրեսիվ և Ապակառուցող"
-
-#~ msgid "Passive & Aggressive"
-#~ msgstr "Պասիվ Է և Ագրեսիվ"
-
-#~ msgid "Passive"
-#~ msgstr "Պասիվ"
-
-#~ msgid "None"
-#~ msgstr "Ոչինչ"
-
-#~ msgid "Creatures"
-#~ msgstr "Էակներ"
-
-#~ msgid "Hide Advanced Settings"
-#~ msgstr "Թաքցնել Լրացուցիչ Կարգավորումները"
-
-#~ msgid "Map Options"
-#~ msgstr "Քարտեզի Տարբերակներ"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Լրացուցիչ Կարգավորումներ"
-
-#~ msgid "Adventure Mode"
-#~ msgstr "Արկածային Ռեժիմ"
-
-#~ msgid "Raw Mithril Spear"
-#~ msgstr "Հում Միֆրայե Աղեղ"
-
-#~ msgid "Raw Mithril Sword"
-#~ msgstr "Հում Միֆրայե Սուր"
-
-#~ msgid "Raw Mithril Axe"
-#~ msgstr "Հում Միֆրայե Կացին"
-
-#~ msgid "Raw Mithril Shovel"
-#~ msgstr "Հում Միֆրայե Բահ"
-
-#~ msgid "Raw Mithril Pick"
-#~ msgstr "Անպատրաստ Միֆրայե Սուր"
-
-#~ msgid "Steel Spear"
-#~ msgstr "Պողպատե Աղեղ"
-
-#~ msgid "Steel Bucket of Lava"
-#~ msgstr "Պողպատե Լավայի Դույլ"
-
-#~ msgid "Steel Bucket of Water"
-#~ msgstr "Պողպատե Ջրի Դույլ"
-
-#~ msgid "Steel Bucket"
-#~ msgstr "Պողպատե Դույլ"
-
-#~ msgid "Tin Bucket of Water"
-#~ msgstr "Անագե Ջրի Դույլ"
-
-#~ msgid "Wooden Bucket of Water"
-#~ msgstr "Փայտյա ջրի դույլ"
-
-#~ msgid "Steel Shears"
-#~ msgstr "Պողպատե Մկրատ"
-
-#~ msgid "Steel Sword"
-#~ msgstr "Պողպատե Սուր"
-
-#~ msgid "Steel Axe"
-#~ msgstr "Պողպատե Կացին"
-
-#~ msgid "Small Stone Axe"
-#~ msgstr "Փոքր Քարե Կացին"
-
-#~ msgid "Steel Shovel"
-#~ msgstr "Պողպատե Թիակ"
-
-#~ msgid "Stone Trowel"
-#~ msgstr "Քարե Մալա"
-
-#~ msgid "Steel Pick"
-#~ msgstr "Պողպատե Սուր"
-
-#~ msgid "Small Stone Pick"
-#~ msgstr "Փոքր Քար Սուր"
-
-#~ msgid "Show Enchanting"
-#~ msgstr "Ցուցադրել Էնչայնթինգ"
-
-#~ msgid "Add fuel, then punch to add or remove water"
-#~ msgstr "Ավելացնել վառելիք, ապա դակիչ ավելացնել կամ հեռացնել ջուրը"
-
-#~ msgid "Cauldron is out of fuel"
-#~ msgstr "Կաթսան ծանրաբեռնված է"
-
-#~ msgid "Cauldron is inactive"
-#~ msgstr "Կաթսան ապակտիվ է"
-
-#~ msgid "Cauldron is empty"
-#~ msgstr "Կատսան դատարկ է"
-
-#~ msgid "Cauldron is cool"
-#~ msgstr "Կաթսան սառն է"
-
-#~ msgid "Cauldron is hot"
-#~ msgstr "Կաթսան տաք է"
-
-#~ msgid "Cauldron is active"
-#~ msgstr "Կաթսան ակտիվ է"
-
-#~ msgid "Content"
-#~ msgstr "Բովանդակություն"
-
-#~ msgid "Title"
-#~ msgstr "Անվանում"
-
-#~ msgid "Random Drop"
-#~ msgstr "Պատահական Անկումից"
-
-#~ msgid "Dig Result"
-#~ msgstr "Քանդել Արդյունքը"
-
-#~ msgid "Add item here to see dig result"
-#~ msgstr "Ավելացնել կետը տեսնել փորելու արդյունք"
-
-#~ msgid "Add item here to see cook result"
-#~ msgstr "Ավելացնել կետը տեսնել արդյունքը"
-
-#~ msgid "Gives"
-#~ msgstr "Տալիս է"
-
-#~ msgid "Recipe %d of %d"
-#~ msgstr "Բաղադրություն %d ից %d"
-
-#~ msgid "Add item here to see recipe"
-#~ msgstr "Ավելացնել կետը տեսնել բաղադրությունը"
-
-#~ msgid "Fuel"
-#~ msgstr "Վառելիք"
-
-#~ msgid "Add fuel, then punch to incinerate wielded item"
-#~ msgstr "Ավելացնել վառելիք, ապա հարվածել աղբայրման կետ"
-
-#~ msgid "Incinerator is inactive"
-#~ msgstr "Աղբայրումը ապակտիվ է"
-
-#~ msgid "Incinerator is active"
-#~ msgstr "Աղբայրումը ակտիվ է"
-
-#~ msgid "Armed Explosive: %d second till detonation"
-#~ msgid_plural "Armed Explosive: %d seconds till detonation"
-#~ msgstr[0] "Զինված Պայթուցիկ է: %d վայրկյան առաջ պայթեցում"
-#~ msgstr[1] "Զինված Պայթուցիկ է: %d վայրկյան առաջ պայթեցում"
-
-#~ msgid "Armed Explosive: about to detonate"
-#~ msgstr "Զինված Պայթուցիկ․ պայթեցնելու մասին։"
-
-#~ msgid "CampFire is active"
-#~ msgstr "Խարույկը ակտիվ է"
-
-#~ msgid "CampFire is inactive"
-#~ msgstr "Խարույկը ապակտիվ է"
-
-#~ msgid "CampFire is out of fuel"
-#~ msgstr "Խարույկի վառելիք"
-
-#~ msgid "CampFire is overloaded"
-#~ msgstr "Խարույկը Ծանրաբեռնված է"
-
-#~ msgid "Locking Furnace is active"
-#~ msgstr "Կողխած Վառարանը ակտիվ է"
-
-#~ msgid "Locking Furnace is inactive"
-#~ msgstr "Կողխած Վառարանը ապակտիվ է"
-
-#~ msgid "Locking Furnace is out of fuel"
-#~ msgstr "Կողպած Վառարան ծանրաբեռնված է"
-
-#~ msgid "Locking Furnace is overloaded"
-#~ msgstr "Կողպած Վառարան ծանրաբեռնված է"
-
-#~ msgid "Furnace is active"
-#~ msgstr "Վառարանը ակտիվ է"
-
-#~ msgid "Furnace is inactive"
-#~ msgstr "Վառարանը ապակտիվ է"
-
-#~ msgid "Furnace is out of fuel"
-#~ msgstr "Վառարանի վառելիք"
-
-#~ msgid "Furnace is overloaded"
-#~ msgstr "Վառարանը ծանրաբեռնված է"
-
-#~ msgid "Border Stone owned by '%s'"
-#~ msgstr "Ճամփեզրի Քարը պատկանում է '%s'"
-
-#~ msgid "Next Page >>"
-#~ msgstr "Հաջորդ Էջ >>"
-
-#~ msgid "<< Previous Page"
-#~ msgstr "<< Նախորդ Էջ"
-
-#~ msgid "Page %d of %d"
-#~ msgstr "Էջը %d ից %d"
-
-#~ msgid "Safe owned by '%s'"
-#~ msgstr "Անվտանգ պատկանում է '%s'"
-
-#~ msgid "Locking Chest owned by '%s'"
-#~ msgstr "Կողպած Պահոցը պատկանում է '%s'"
-
-#~ msgid "This bed is too uncomfortable to sleep in."
-#~ msgstr "Այս մահճակալը չափազանց անհարմար է քնելու համար։"
-
-#~ msgid "Get out of bed"
-#~ msgstr "Վերկանալ Քնից"
-
-#~ msgid "Someone else is sleeping here."
-#~ msgstr "Ինչ-որ մեկը դեռ քնած է այստեղ։"
-
-#~ msgid "Go to sleep"
-#~ msgstr "Գնալ քնելու"
-
-#~ msgid "You can't sleep yet."
-#~ msgstr "Դու դեռ չեք կարող քնել։"
-
-#~ msgid "%s's Home Flag"
-#~ msgstr "%s's Տան Դրոշ"
-
-#~ msgid "Steel Bars"
-#~ msgstr "Երկաթե Ցանկապատ"
-
-#~ msgid "Steel Fence"
-#~ msgstr "Պողպատե Ցանկապատ"
-
-#~ msgid "Jack' O Lantern"
-#~ msgstr "Jack' O Lantern"
-
-#~ msgid "Steel Gate"
-#~ msgstr "Պողպատե Դարպաս"
-
-#~ msgid "Steel Windowed Hatch"
-#~ msgstr "Պողպատե Դիտահոր Պատուհանով"
-
-#~ msgid "Steel Hatch"
-#~ msgstr "Պողպատե Դիտահոր"
-
-#~ msgid "Right Hanging Steel Windowed Door"
-#~ msgstr "Աջ Կախված Պողպատե Դուռ Պատուհանով"
-
-#~ msgid "Right Hanging Steel Door"
-#~ msgstr "Աջ Կախված Պողպատե Դուռ"
-
-#~ msgid "Steel Windowed Door"
-#~ msgstr "Երկաթե Դուռ Պատուհանով"
-
-#~ msgid "Steel Door"
-#~ msgstr "Պողպատե Դուռ"
-
-#~ msgid "Steel Block"
-#~ msgstr "Պողպատե Կտոր"
-
-#~ msgid "Steel Bottle"
-#~ msgstr "Պողպատե Շիշ"
-
-#~ msgid "Steel Ingot"
-#~ msgstr "Պողպատե Ձուլածո"
-
-#~ msgid "Gold Lump"
-#~ msgstr "Ոսկու Մասնիկ"
-
-#~ msgid "Silver Lump"
-#~ msgstr "Արծաթի Մասնիկ"
-
-#~ msgid "Tin Lump"
-#~ msgstr "Անագի Մասնիկ"
-
-#~ msgid "Iron Lump"
-#~ msgstr "Երկաթի Մասնիկ"
-
-#~ msgid "Steel Boots"
-#~ msgstr "Պողպատե Կոշիկներ"
-
-#~ msgid "Steel Pants"
-#~ msgstr "Պողպատե Տաբատ"
-
-#~ msgid "Steel Chest Armour"
-#~ msgstr "Պողպատե Զրահ"
-
-#~ msgid "Steel Helmet"
-#~ msgstr "Պողպատե Սաղավարտ"
