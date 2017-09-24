@@ -8,9 +8,9 @@ endif(${CMAKE_VERSION} STREQUAL "2.8.2")
 project(voxelands)
 
 # Also remember to set PROTOCOL_VERSION in clientserver.h when releasing
-set(VERSION_MAJOR 1704)
+set(VERSION_MAJOR 1709)
 set(VERSION_MINOR 00)
-set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}:next")
+set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}")
 MESSAGE(STATUS "*** Will build version ${VERSION_STRING} ***")
 
 # Configuration options

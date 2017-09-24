@@ -3,6 +3,61 @@ Voxelands changelog
 This should contain all the major changes.
 For minor stuff, refer to the commit log of the repository.
 
+1709.00: (release 2017-09-24)
+ - some the_game() cleanup
+ - rename example config file
+ - new smeltery
+ - get server list working again
+ - new furnace
+ - less likely to destroy dropped stuff
+ - add desert sandstone
+ - multiworld support
+ - dig leaves, get sticks
+ - tool texture updates
+ - campfire updates
+ - clay vessel
+ - proper upgrade items
+ - biome specific player damage
+ - ui prettying up
+ - fix #45 - opening inventory negates black screen in walls
+ - update some wear values
+ - improved bucket functionality
+ - addition - sticks from every season's leaves
+ - fiddle with loading screen a bit
+ - barrels
+ - make crop drops work again
+ - goodbye steel, hello iron
+ - farm improvements + croplike drawtype
+ - make the creative pick dig anything and quickly
+ - remove NULL deref
+ - fix header includes on BSD
+ - cooking redo
+ - change - human readable server uptime format
+ - change - fuel values
+ - addition - crusher
+ - fix - scaffolding shape
+ - fix bush insta-grow
+ - fix capricornus' segfault
+ - new mapgen
+ - slightly fancier trees
+ - transform metanodeboxes with facedir nodes
+ - get per-block-type dig time working
+ - set point size for stars
+ - remove some unused textures
+ - more wood things pt1
+ - new chests
+ - split up content_nodemeta.cpp
+ - get rid of old CraftItem drop strings
+ - mobs should be able to walk through open gates
+ - new sound system
+ - commands now work
+ - new config and command system
+ - new filesystem/path code
+ - new ban manager
+ - update build-w32.sh
+ - a whole lot of refactoring
+ - w32 cross compile fixes
+
 1704.00: (release 2017-04-08)
  - new dirt dig sound
  - switch to unifont
