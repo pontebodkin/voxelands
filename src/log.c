@@ -127,27 +127,29 @@ void vlprint(uint8_t type, char* str)
 		return;
 
 	switch (type) {
-	case 1:
+	case CN_ERROR:
 		strcpy(buff,"ERROR: ");
 		b += 7;
 		s -= 7;
 		break;
-	case 2:
+	case CN_WARN:
 		strcpy(buff,"WARNING: ");
 		b += 9;
 		s -= 9;
 		break;
-	case 3:
+	case CN_ACTION:
 		strcpy(buff,"ACTION: ");
 		b += 8;
 		s -= 8;
 		break;
-	case 4:
+	case CN_CHAT:
 		strcpy(buff,"CHAT: ");
 		b += 6;
 		s -= 6;
 		break;
-	case 6:
+	case CN_INFO:
+		break;
+	case CN_DEBUG:
 		strcpy(buff,"DEBUG: ");
 		b += 7;
 		s -= 7;
@@ -162,9 +164,10 @@ void vlprint(uint8_t type, char* str)
 	if (type >= logdata.system_min_level && type <= logdata.system_max_level)
 		printf("%s\n",buff);
 		/*sys_console_print(buff,1);*/
-	/* TODO: log to game console */
-	/*if (type >= logdata.console_min_level && type <= logdata.console_max_level)
-		console_put(buff);*/
+#ifndef SERVER
+	if (type >= logdata.console_min_level && type <= logdata.console_max_level)
+		ui_console_addline(type,str);
+#endif
 
 	if (type < logdata.min_level || type > logdata.max_level)
 		return;

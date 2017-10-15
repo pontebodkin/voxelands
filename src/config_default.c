@@ -31,7 +31,7 @@ void config_default_init()
 	config_set_default("log.max_level","info",log_maxlevel_setter);
 	config_set_default("log.system.min_level","chat",log_sminlevel_setter);
 	config_set_default("log.system.max_level","info",log_smaxlevel_setter);
-	config_set_default("log.console.min_level","chat",log_cminlevel_setter);
+	config_set_default("log.console.min_level","action",log_cminlevel_setter);
 	config_set_default("log.console.max_level","info",log_cmaxlevel_setter);
 
 	config_set_default("path.log",NULL,log_file_setter);

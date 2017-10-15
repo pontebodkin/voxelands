@@ -285,6 +285,7 @@ endif()
 set(voxelands_SRCS
 	${common_SRCS}
 	${audio_SRCS}
+	ui_console.c
 	sky.cpp
 	hud.cpp
 	content_mapblock.cpp

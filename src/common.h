@@ -207,6 +207,13 @@ void world_exit(void);
 worldlist_t *world_list_get(void);
 void world_list_free(worldlist_t *l);
 
+/* defined in ui_console.c */
+void ui_console_addline(uint8_t type, char* txt);
+void ui_console_addlinef(uint8_t type, char* fmt, ...);
+void ui_console_clear(void);
+int ui_console_step(float dtime);
+char* ui_console_get(void);
+
 #ifdef __cplusplus
 }
 #include <string>

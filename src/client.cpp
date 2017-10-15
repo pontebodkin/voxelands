@@ -1234,10 +1234,8 @@ void Client::ProcessData(u8 *data, u32 datasize, u16 sender_peer_id)
 			message += (wchar_t)readU16(buf);
 		}
 
-		/* because I can't remember which random stream prints to stdout */
+		/* this will print to game console, system console, and log file */
 		vlprint(CN_CHAT,(char*)wide_to_narrow(message).c_str());
-
-		m_chat_queue.push_back(message);
 	}
 	break;
 	case TOCLIENT_ACTIVE_OBJECT_REMOVE_ADD:
