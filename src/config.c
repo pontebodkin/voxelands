@@ -43,6 +43,13 @@ typedef struct config_s {
 	int (*setter)(char* v);
 } config_t;
 
+typedef struct sort_s {
+	struct sort_s *prev;
+	struct sort_s *next;
+	char *name;
+	char *value;
+} sort_t;
+
 /* get the value of a config setting */
 char* config_get(char* name)
 {
@@ -393,12 +400,111 @@ void config_save(char* section, char* type, char* file)
 			n = n->next;
 		}
 	}else{
+		sort_t *copyhead = 0;
+		sort_t *copytail = 0;
+		sort_t *copying = 0;
+		sort_t *copied = 0;
+		int copy_failed=0;
+		
+		// get config name/value pairs in new list
 		n = config.items;
-		while (n) {
+		while(n) {
+			if (!n->name) continue;
+			copying=malloc(sizeof(sort_t));
+			if (!copying) {
+				copy_failed=1;
+				break;
+			}
+			if (!copyhead)
+				// remember the first entry in the list for sorting
+				copyhead=copying;
+			if (copied) {
+				copied->next = copying;
+				copying->prev = copied;
+			}
+			else {
+				copying->prev = 0;
+			}
+		
+			copying->name = strdup(n->name);
 			if (n->value)
-				file_writef(f,"set %s %s\n",n->name,n->value);
+				copying->value = strdup(n->value);
+			else
+				copying->value = 0;
+			
+			copying->next = 0;
+			copied = copying;
 			n = n->next;
 		}
+		// remember the last entry in the list for cleaning up
+		copytail=copied;
+
+		// alpha sort name/value pairs by name
+		sort_t *sprev;
+		sort_t *scurr;
+		char *store;
+
+		if (!copy_failed && copyhead) {
+			scurr=copyhead;
+			while(scurr->next){
+				if (strcmp(scurr->name,scurr->next->name)>0){
+					store=scurr->name;
+					scurr->name = scurr->next->name;
+					scurr->next->name = store;
+					store=scurr->value;
+					scurr->value=scurr->next->value;
+					scurr->next->value=store;
+					sprev=scurr;
+					while(sprev->prev){
+						if (strcmp(sprev->prev->name,sprev->name) > 0) {
+							store=sprev->name;
+							sprev->name = sprev->prev->name;
+							sprev->prev->name = store;
+							store=sprev->value;
+							sprev->value = sprev->prev->value;
+							sprev->prev->value=store;
+							sprev=sprev->prev;
+						}
+						else break;
+					}
+				}
+				scurr=scurr->next;
+			}
+		}
+
+		// save one of the lists to file
+		if (copy_failed) {
+			while (n) {
+				if (n->value)
+					file_writef(f,"set %s %s\n",n->name,n->value);
+				n = n->next;
+			}
+		} else {
+			scurr=copyhead;
+			while (scurr) {
+				if (scurr->value)
+					file_writef(f,"set %s %s\n",scurr->name,scurr->value);
+				scurr=scurr->next;
+			}
+		}
+
+		// free list memory and clean up
+		while(copytail) {
+			if (!(copytail->prev)) break;
+			copytail=copytail->prev;
+			free(copytail->next);
+			copytail->next=0;
+		}
+		free(copytail);
+
+		copyhead=0;
+		copytail=0;
+		copying=0;
+		copied=0;
+		sprev=0;
+		scurr=0;
+		store=0;
+
 /*
 		events_save(f);
 */
