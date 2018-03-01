@@ -761,8 +761,9 @@ void content_mapnode_special(bool repeat)
 	f->dig_time = 1.0;
 	f->pressure_type = CST_CRUSHABLE;
 	f->suffocation_per_second = 0;
-	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_MITHRIL_RAW,i);
-	crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_MITHRIL_UNBOUND,i);
+	//not going to use mithril when you can use sticks
+	//crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_MITHRIL_RAW,i);
+	//crafting::set1Any2Recipe(CONTENT_BOOK,CONTENT_CRAFTITEM_MITHRIL_UNBOUND,i);
 	{
 		content_t r[9] = {
 			CONTENT_CRAFTITEM_STICK, CONTENT_CRAFTITEM_STICK, CONTENT_IGNORE,
