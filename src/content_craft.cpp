@@ -987,19 +987,20 @@ FoundReverseRecipe getReverseRecipe(InventoryItem *iitem, int index)
 }
 
 //how to update an ingredient list given a range of new craft items
-void addToIngredientList(std::vector<listdata_t> results, uint32_t begin, std::vector<content_t>& ingredient_list)
+void addToIngredientList(contentlist_t *list, uint32_t begin, std::vector<content_t>& ingredient_list)
 {
 	using namespace std;
 
 	//make a set to hold the items as the list is compiled
 	set<content_t> ingredients (ingredient_list.begin(), ingredient_list.end());
 
-	//go through the result list
-	for (std::vector<listdata_t>::iterator it = results.begin()+begin; it != results.end(); ++it) {
+	listdata_t *d  = list->data;
 
-		listdata_t d = *it;
+	//go through the result list
+	while (d) {
+
 		//make a temporary inventory item for the result
-		InventoryItem *result = InventoryItem::create(d.content, 1, 0, d.data);
+		InventoryItem *result = InventoryItem::create(d->content, 1, 0, d->data);
 
 		//go through every recipe for this item
 		for (int rec_ind = getRecipeCount(result); rec_ind--;) {
@@ -1020,6 +1021,8 @@ void addToIngredientList(std::vector<listdata_t> results, uint32_t begin, std::v
 
 		//clean up
 		delete result;
+
+		d = d->next;
 	}
 
 	//ignore CONTENT_IGNORE
@@ -1050,8 +1053,7 @@ std::vector<content_t>& getCraftGuideIngredientList()
 	if (list_size > last_craftguide_count) {
 
 		//if so, add the new stuff
-		/* TODO: basically everything for reverse lookup */
-		//addToIngredientList(craft_list, last_craftguide_count, ingredient_list);
+		addToIngredientList(cl, last_craftguide_count, ingredient_list);
 
 		//and update the craftguide count
 		last_craftguide_count = list_size;

@@ -136,8 +136,17 @@ bool CraftGuideNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env
 {
 	InventoryList *l = m_inventory->getList("result");
 	InventoryItem *t = l->getItem(0);
-	if (!t || t->getContent() == CONTENT_IGNORE)
+
+	if (!t || t->getContent() == CONTENT_IGNORE){
+		// nothing in result box so clear recipe list
+		InventoryList *rec_list = m_inventory->getList("recipe");
+		if (rec_list) {
+			//clear out the recipe grid if the item slot is empty
+			rec_list->clearItems();
+			return true;
+		}
 		return false;
+	}
 	content_t *r = crafting::getRecipe(t,m_recipe);
 	if (!r) {
 		if (m_recipe == 0)
@@ -468,12 +477,24 @@ void ReverseCraftGuideNodeMetadata::inventoryModified()
 }
 bool ReverseCraftGuideNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
+	//make sure there's a valid item list
+	InventoryList *item_list = m_inventory->getList("item");
+	if (!item_list) return false;
+
 	//get the item in the item box
-	InventoryItem *item = m_inventory->getList("item")->getItem(0);
+	InventoryItem *item = item_list->getItem(0);
 
 	//if there's no item in the item box, do nothing
-	if (!item || item->getContent() == CONTENT_IGNORE)
-		return false;
+	if (!item || item->getContent() == CONTENT_IGNORE) {
+		// nothing in item box so clear recipe and result lists
+		InventoryList *rec_list = m_inventory->getList("recipe");
+		if (rec_list)
+			rec_list->clearItems();
+		InventoryList *res_list = m_inventory->getList("result");
+		if (res_list)
+			res_list->clearItems();
+		return true;
+	}
 
 	//attempt to look up the recipe
 	crafting::FoundReverseRecipe recipe = crafting::getReverseRecipe(item, m_recipe);
@@ -731,8 +752,17 @@ bool CookBookNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
 	InventoryList *l = m_inventory->getList("result");
 	InventoryItem *t = l->getItem(0);
-	if (!t || t->getContent() == CONTENT_IGNORE)
+
+	if (!t || t->getContent() == CONTENT_IGNORE){
+		// nothing in result box so clear recipe list
+		InventoryList *rec_list = m_inventory->getList("recipe");
+		if (rec_list) {
+			//clear out the recipe grid if the item slot is empty
+			rec_list->clearItems();
+			return true;
+		}
 		return false;
+	}
 	InventoryItem *cookresult = t->createCookResult();
 	if (!cookresult || cookresult->getContent() == CONTENT_IGNORE)
 		return false;
@@ -992,16 +1022,29 @@ bool DeCraftNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {
 	InventoryList *l = m_inventory->getList("result");
 	InventoryItem *t = l->getItem(0);
+
+	int leave = 0;
+
 	if (!t || t->getContent() == CONTENT_IGNORE)
-		return false;
-	if ((t->getContent()&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
-		return false;
-	if ((t->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
-		return false;
-	if ((t->getContent()&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
-		return false;
-	if (content_features(t->getContent()).dug_item == "" && content_features(t->getContent()).extra_dug_item == "")
-		return false;
+		leave=1;
+	else if ((t->getContent()&CONTENT_CRAFTITEM_MASK) == CONTENT_CRAFTITEM_MASK)
+		leave=1;
+	else if ((t->getContent()&CONTENT_TOOLITEM_MASK) == CONTENT_TOOLITEM_MASK)
+		leave=1;
+	else if ((t->getContent()&CONTENT_CLOTHESITEM_MASK) == CONTENT_CLOTHESITEM_MASK)
+		leave=1;
+	else if (content_features(t->getContent()).dug_item == "" && content_features(t->getContent()).extra_dug_item == "")
+		leave=1;
+	if (leave) {
+		// nothing in item box so clear recipe and result lists
+		InventoryList *rec_list = m_inventory->getList("recipe");
+		if (rec_list)
+			rec_list->clearItems();
+		InventoryList *ran_list = m_inventory->getList("random");
+		if (ran_list) 
+			ran_list->clearItems();
+		return true;
+	}
 	l = m_inventory->getList("recipe");
 	l->clearItems();
 	if (content_features(t->getContent()).dug_item != "") {
