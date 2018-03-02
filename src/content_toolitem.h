@@ -177,4 +177,56 @@ ToolItemFeatures & content_toolitem_features(std::string subname);
 #define CONTENT_TOOLITEM_COPPER_SPEAR (CONTENT_TOOLITEM_MASK | 0x39)
 #define CONTENT_TOOLITEM_COPPER_SHEARS (CONTENT_TOOLITEM_MASK | 0x3A)
 
+// times are calculated as :
+// Stone   : 3.0 
+// Flint   : 3.0 - 1.0 = 2.0
+// Copper  : 2.0 - 0.5 = 1.5
+// Bronze  : 1.5 - 0.4 = 1.1
+// Iron    : 1.1 - 0.3 = 0.8
+// Mithril : 0.8 - 0.2 = 0.6    Unbound
+// Mithril : 0.6 - 0.2 = 0.4    Enchanted
+#define STONE_USES 32
+#define STONE_TIME 3.0
+#define STONE_LEVEL 1
+
+#define FLINT_USES 64
+#define FLINT_TIME 2.0
+#define FLINT_LEVEL 2
+
+#define COPPER_USES 128
+#define COPPER_TIME 1.5
+#define COPPER_LEVEL 2
+
+#define BRONZE_USES 256
+#define BRONZE_TIME 1.1
+#define BRONZE_LEVEL 3
+
+#define IRON_USES 512
+#define IRON_TIME 0.8
+#define IRON_LEVEL 4
+
+// Unbound Mithril
+#define U_MITHRIL_USES 1024
+#define U_MITHRIL_TIME 0.6
+#define U_MITHRIL_LEVEL 5
+
+// Enchanted Mithril
+#define E_MITHRIL_USES 2048
+#define E_MITHRIL_TIME 0.4
+#define E_MITHRIL_LEVEL 5
+
+#define BOW_USES 256
+#define BOW_TIME 1.0
+#define BOW_LEVEL 1
+
+#define WOOD_BUCKET_USES 64
+#define WOOD_BUCKET_TIME 1.5
+
+#define TIN_BUCKET_USES 128
+#define TIN_BUCKET_TIME 1.75
+
+#define IRON_BUCKET_USES 256
+#define IRON_BUCKET_TIME 1.0
+
+
 #endif
