@@ -127,7 +127,7 @@ std::vector<NodeBox> BookShelfNodeMetadata::getNodeBoxes(MapNode &n)
 		));
 	}
 
-	return transformNodeBox(n,boxes);
+	return boxes;
 }
 
 /*
