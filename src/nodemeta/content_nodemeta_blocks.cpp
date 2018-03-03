@@ -76,28 +76,39 @@ std::vector<NodeBox> ClockNodeMetadata::getNodeBoxes(MapNode &n) {
 	v[2] = m/10;
 	v[3] = m%10;
 
-	f32 x[4] = {-0.125,0.0625,0.3125,0.5};
+	f32 x[4] = {-0.180,0.0225,0.2925,0.5};
 
 	u8 b[10] = {0xFC,0x0C,0xB6,0x9E,0x4E,0xDA,0xFA,0x8C,0xFE,0xDE};
 
+	float z1 = -0.125;
+	float z2 = -0.0625;
+	 
 	for (int i=0; i<4; i++) {
+		// clock numbers are built from 7 segments
+		// top
 		if ((b[v[i]]&0x80))
-			boxes.push_back(NodeBox((-0.25+x[i])*BS,0.0625*BS,-0.125*BS,(-0.0625+x[i])*BS,0.125*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.25+x[i])*BS,0.0625*BS,z1*BS,(-0.0625+x[i])*BS,0.125*BS,z2*BS));
+		// top right
 		if ((b[v[i]]&0x04))
-			boxes.push_back(NodeBox((-0.125+x[i])*BS,-0.0625*BS,-0.125*BS,(-0.0625+x[i])*BS,0.0625*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.125+x[i])*BS,-0.125*BS,z1*BS,(-0.0625+x[i])*BS,0.125*BS,z2*BS));
+		// bottom right
 		if ((b[v[i]]&0x08))
-			boxes.push_back(NodeBox((-0.125+x[i])*BS,-0.25*BS,-0.125*BS,(-0.0625+x[i])*BS,-0.125*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.125+x[i])*BS,-0.3125*BS,z1*BS,(-0.0625+x[i])*BS,-0.0625*BS,z2*BS));
+		// bottom
 		if ((b[v[i]]&0x10))
-			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.3125*BS,-0.125*BS,(-0.0625+x[i])*BS,-0.25*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.3125*BS,z1*BS,(-0.0625+x[i])*BS,-0.25*BS,z2*BS));
+		// bottom left
 		if ((b[v[i]]&0x20))
-			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.25*BS,-0.125*BS,(-0.1875+x[i])*BS,-0.125*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.3125*BS,z1*BS,(-0.1875+x[i])*BS,-0.0625*BS,z2*BS));
+		// top left
 		if ((b[v[i]]&0x40))
-			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.0625*BS,-0.125*BS,(-0.1875+x[i])*BS,0.0625*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.125*BS,z1*BS,(-0.1875+x[i])*BS,0.125*BS,z2*BS));
+		// middle
 		if ((b[v[i]]&0x02))
-			boxes.push_back(NodeBox((-0.1875+x[i])*BS,-0.125*BS,-0.125*BS,(-0.125+x[i])*BS,-0.0625*BS,-0.0625*BS));
+			boxes.push_back(NodeBox((-0.25+x[i])*BS,-0.125*BS,z1*BS,(-0.0625+x[i])*BS,-0.0625*BS,z2*BS));
 	}
 
-	return transformNodeBox(n,boxes);
+	return boxes;
 }
 bool ClockNodeMetadata::step(float dtime, v3s16 pos, ServerEnvironment *env)
 {

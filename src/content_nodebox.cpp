@@ -1419,10 +1419,10 @@ void content_nodebox_clock(ContentFeatures *f)
 		-0.4375*BS,0.1875*BS,-0.125*BS,0.4375*BS,0.25*BS,-0.0625*BS
 	));
 	f->addNodeBox(NodeBox(
-		0.*BS,-0.0625*BS,-0.125*BS,0.0625*BS,0.*BS,-0.0625*BS
+		-0.02*BS,-0.0625*BS,-0.125*BS,0.0225*BS,0.*BS,-0.0625*BS
 	));
 	f->addNodeBox(NodeBox(
-		0.*BS,-0.1875*BS,-0.125*BS,0.0625*BS,-0.125*BS,-0.0625*BS
+		-0.02*BS,-0.1875*BS,-0.125*BS,0.0225*BS,-0.125*BS,-0.0625*BS
 	));
 }
 
