@@ -321,11 +321,11 @@ set(voxelandsserver_SRCS
 )
 
 include_directories(
+	${voxelands_SOURCE_DIR}
 	${CMAKE_BINARY_DIR}/src/jthread
 	${PROJECT_BINARY_DIR}
 	${IRRLICHT_INCLUDE_DIR}
 	${ZLIB_INCLUDE_DIR}
-	${CMAKE_BUILD_TYPE}
 	${PNG_INCLUDE_DIR}
 	${AUDIO_INCLUDE_DIRS}
 	${JTHREAD_INCLUDE_DIR}
